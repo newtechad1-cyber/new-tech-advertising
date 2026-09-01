@@ -1,317 +1,115 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, LogOut, Menu, X } from 'lucide-react';
+import { LogOut, ShieldCheck } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
-  {
-    label: 'Free AI Education',
-    href: '/knowledge/ai-foundations',
-    children: [
-      { label: 'AI Foundations', href: '/knowledge/ai-foundations', desc: 'Practical AI for real businesses' },
-      { label: 'Business Foundations', href: '/knowledge/business-foundations', desc: 'Clear principles for stronger growth' },
-      { label: 'Knowledge Library', href: '/knowledge', desc: 'Lessons organized around real business questions' },
-      { label: 'Free Business Books', href: '/books', desc: 'Practical guides for business owners' },
-      { label: 'Prompt Library', href: '/knowledge/prompts', desc: 'Ready-to-use prompts with practical context' },
-    ],
-  },
-  {
-    label: 'Digital Growth Office',
-    href: '/operating-system',
-    children: [
-      { label: 'Digital Growth Office', href: '/operating-system', desc: 'See how the connected system works' },
-      { label: 'Your Digital Growth Guide™', href: '/growth-guide', desc: 'Start with a guided business conversation' },
-      { label: 'Growth Roadmap', href: '/growth-roadmap-generator', desc: 'Turn discovery into a practical next step' },
-      { label: 'Relationship Builder', href: '/relationship-builder', desc: 'Keep conversations and follow-up connected' },
-      { label: 'Back-Office Capabilities', href: '/back-office-solutions', desc: 'Organize the work behind the public experience' },
-    ],
-  },
-  {
-    label: 'How NTA Helps',
-    href: '/services',
-    children: [
-      { label: 'How NTA Helps', href: '/services', desc: 'Start with the business need, not a package' },
-      { label: 'Work With NTA', href: '/work-with-nta', desc: 'See what happens when NTA becomes part of your growth work' },
-      { label: 'Websites', href: '/services/website-rebuilds', desc: 'Build a useful online business experience' },
-      { label: 'Social Media', href: '/services/social-media-management', desc: 'Create consistent content that earns trust' },
-      { label: 'Video', href: '/ai-video-marketing', desc: 'Turn knowledge and stories into useful video' },
-      { label: 'Local Visibility', href: '/local-visibility', desc: 'Help nearby customers find and understand you' },
-      { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Connected growth support for hospitality' },
-    ],
-  },
+  { label: 'Free AI Education', href: '/knowledge/ai-foundations' },
+  { label: 'Digital Growth Office', href: '/operating-system' },
+  { label: 'How NTA Helps', href: '/services' },
   { label: 'Case Studies', href: '/case-studies' },
-  {
-    label: 'The Journal',
-    href: '/journal',
-    children: [
-      { label: 'NTA Journal', href: '/journal', desc: 'Current lessons, stories, and practical guidance' },
-      { label: 'NTA Growth Show', href: '/growth-show', desc: 'Business, marketing, and AI conversations' },
-      { label: 'NTA Point of View', href: '/point-of-view', desc: 'What experience has taught us about growth' },
-    ],
-  },
-  {
-    label: 'About',
-    href: '/why-nta',
-    children: [
-      { label: 'Why NTA Exists', href: '/why-nta', desc: 'The purpose behind the Digital Growth Office' },
-      { label: 'Rick’s Story', href: '/i-was-early-again', desc: 'The experience behind NTA' },
-      { label: 'Community Partners', href: '/community-partner', desc: 'Working with people who help businesses grow' },
-      { label: 'NTA Account Manager Opportunity', href: '/account-manager', desc: 'Remote, relationship-driven, and built around your market' },
-      { label: 'Contact', href: '/contact', desc: 'Call, text, or send NTA a message' },
-    ],
-  },
+  { label: 'The Journal', href: '/journal' },
+  { label: 'Growth Show', href: '/growth-show' },
+  { label: 'About NTA', href: '/why-nta' },
+  { label: 'Account Manager Opportunity', href: '/account-manager' },
 ];
 
-function DropdownMenu({ items, onClose }) {
-  return (
-    <div className="absolute left-0 top-full z-50 mt-1 w-72 rounded-xl border border-slate-100 bg-white py-2 shadow-xl">
-      {items.map(item => (
-        <Link
-          key={item.label}
-          to={item.href}
-          onClick={onClose}
-          className="flex flex-col px-4 py-3 transition-colors hover:bg-slate-50"
-        >
-          <span className="text-sm font-semibold text-slate-900">{item.label}</span>
-          {item.desc && <span className="mt-0.5 text-xs text-slate-500">{item.desc}</span>}
-        </Link>
-      ))}
-    </div>
-  );
-}
-
 export default function MarketingNav() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
-  const [mobileExpanded, setMobileExpanded] = useState(null);
-  const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => setUser(null));
   }, []);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    const closeDropdown = () => setActiveDropdown(null);
-    document.addEventListener('click', closeDropdown);
-    return () => document.removeEventListener('click', closeDropdown);
-  }, []);
-
-  useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-      document.body.classList.add('mobile-nav-open');
-    } else {
-      document.body.style.overflow = '';
-      document.body.classList.remove('mobile-nav-open');
-    }
-    return () => {
-      document.body.style.overflow = '';
-      document.body.classList.remove('mobile-nav-open');
-    };
-  }, [mobileOpen]);
-
-  const isAdmin = user?.role === 'admin' || user?.email === 'info@newtechadvertising.com';
-  const dashboardHref = isAdmin ? '/admin-dashboard' : '/client-dashboard';
-  const closeMobile = () => {
-    setMobileOpen(false);
-    setMobileExpanded(null);
-  };
+  const normalizedEmail = user?.email?.toLowerCase();
+  const isAdmin = user?.role === 'admin' || ['info@newtechadvertising.com', 'newtechad1@gmail.com'].includes(normalizedEmail);
+  const hubHref = isAdmin
+    ? 'https://app.newtechadvertising.com/admin-dashboard'
+    : 'https://app.newtechadvertising.com/Login';
 
   return (
     <>
       <nav
         aria-label="Main website navigation"
-        className={`fixed inset-x-0 top-0 z-[100] isolate h-16 transition-all duration-200 ${
-          scrolled ? 'bg-slate-950/98 shadow-lg backdrop-blur' : 'bg-slate-950'
-        }`}
+        className="fixed inset-x-0 top-0 z-[100] isolate border-b border-slate-800 bg-slate-950/98 shadow-lg backdrop-blur"
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6">
-          <Link to="/" className="flex-shrink-0" aria-label="New Tech Advertising home">
-            <img src={LOGO_URL} alt="New Tech Advertising" className="h-10 w-auto" />
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-3 sm:px-6">
+          <Link to="/" className="inline-flex min-w-0 shrink-0" aria-label="New Tech Advertising home">
+            <img src={LOGO_URL} alt="New Tech Advertising" className="h-8 max-w-[155px] object-contain sm:h-10 sm:max-w-none" />
           </Link>
 
-          <div className="hidden flex-1 items-center justify-center gap-1 xl:flex">
-            {NAV_LINKS.map(link => (
-              <div key={link.label} className="relative">
-                {link.children ? (
-                  <button
-                    type="button"
-                    aria-expanded={activeDropdown === link.label}
-                    onClick={event => {
-                      event.stopPropagation();
-                      setActiveDropdown(activeDropdown === link.label ? null : link.label);
-                    }}
-                    className="flex items-center gap-1 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                    <ChevronDown className={`h-3.5 w-3.5 transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />
-                  </button>
-                ) : (
-                  <Link
-                    to={link.href}
-                    className="block whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                )}
-                {link.children && activeDropdown === link.label && (
-                  <DropdownMenu items={link.children} onClose={() => setActiveDropdown(null)} />
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="hidden flex-shrink-0 items-center gap-3 xl:flex">
-            <div className="flex items-center gap-4 border-r border-slate-800 pr-4">
-              <a href="tel:6414208816" className="text-xs font-medium text-slate-500 hover:text-slate-300 transition-colors">
-                641-420-8816
-              </a>
-              <Link to="/contact" className="text-xs font-medium text-slate-500 hover:text-slate-300 transition-colors">
-                Support
-              </Link>
-            </div>
-
-            {user ? (
-              <div className="flex items-center gap-3 px-1">
-                <Link to={dashboardHref} className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-800 hover:text-white">
-                  {isAdmin ? 'Admin Dashboard' : 'Dashboard'}
-                </Link>
-                <button type="button" onClick={() => base44.auth.logout()} className="text-slate-500 transition-colors hover:text-white" title="Logout">
-                  <LogOut className="h-4 w-4" />
-                </button>
-              </div>
-            ) : (
-              <Link to="/Login" className="whitespace-nowrap px-3 py-1.5 text-sm font-medium text-slate-400 transition-colors hover:text-white">
-                Client Login
-              </Link>
-            )}
-
-            <Link to="/free-audit" className="whitespace-nowrap rounded-lg border border-blue-500/50 px-3 py-2 text-sm font-semibold text-blue-200 transition-colors hover:border-blue-300 hover:bg-blue-500/10 hover:text-white">
+          <div className="flex min-w-0 items-center justify-end gap-2 sm:gap-3">
+            <a href="tel:6414208816" className="hidden text-xs font-medium text-slate-400 transition-colors hover:text-white lg:inline">
+              641-420-8816
+            </a>
+            <a
+              href={hubHref}
+              className="hidden items-center gap-1.5 whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 transition-colors hover:bg-slate-900 hover:text-white md:inline-flex"
+            >
+              {isAdmin && <ShieldCheck className="h-4 w-4" />}
+              {isAdmin ? 'Admin Dashboard' : 'Core Hub'}
+            </a>
+            <Link
+              to="/free-audit"
+              className="hidden whitespace-nowrap rounded-lg border border-blue-500/50 px-3 py-2 text-sm font-semibold text-blue-200 transition-colors hover:border-blue-300 hover:bg-blue-500/10 hover:text-white sm:inline-flex"
+            >
               Free Audit
             </Link>
             <button
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'main_navigation' } }))}
-              className="whitespace-nowrap rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-500"
+              className="whitespace-nowrap rounded-lg bg-blue-600 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-500 sm:px-4 sm:text-sm"
             >
               Talk to My Office™
             </button>
-          </div>
-
-          <button
-            type="button"
-            className="p-2 text-slate-300 hover:text-white xl:hidden"
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen(open => !open)}
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-
-        {mobileOpen && (
-          <div className="fixed inset-0 top-16 z-40 overflow-y-auto bg-slate-950 xl:hidden">
-            <div className="space-y-1 px-4 py-4">
-              {NAV_LINKS.map(link => (
-                <div key={link.label}>
-                  {link.children ? (
-                    <>
-                      <button
-                        type="button"
-                        aria-expanded={mobileExpanded === link.label}
-                        onClick={() => setMobileExpanded(mobileExpanded === link.label ? null : link.label)}
-                        className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-base font-semibold text-white hover:bg-slate-800"
-                      >
-                        {link.label}
-                        <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${mobileExpanded === link.label ? 'rotate-180' : ''}`} />
-                      </button>
-                      {mobileExpanded === link.label && (
-                        <div className="mb-1 ml-4 space-y-0.5 border-l border-slate-800 pl-3">
-                          {link.children.map(child => (
-                            <Link key={child.label} to={child.href} onClick={closeMobile} className="block rounded-lg px-3 py-2.5 hover:bg-slate-800">
-                              <div className="text-sm font-medium text-white">{child.label}</div>
-                              {child.desc && <div className="mt-0.5 text-xs text-slate-500">{child.desc}</div>}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <Link to={link.href} onClick={closeMobile} className="block rounded-lg px-4 py-3 text-base font-semibold text-white hover:bg-slate-800">
-                      {link.label}
-                    </Link>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="space-y-3 border-t border-slate-800 px-4 py-6">
+            {user && (
               <button
                 type="button"
-                onClick={() => {
-                  closeMobile();
-                  window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'mobile_navigation' } }));
-                }}
-                className="flex w-full items-center justify-center rounded-xl bg-blue-600 py-3 font-bold text-white transition-all hover:bg-blue-500"
+                onClick={() => base44.auth.logout()}
+                className="hidden rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-900 hover:text-white lg:inline-flex"
+                title="Logout"
+                aria-label="Log out"
               >
-                Talk to My Office™
+                <LogOut className="h-4 w-4" />
               </button>
-
-              <Link to="/free-audit" onClick={closeMobile} className="flex w-full items-center justify-center rounded-xl border border-blue-500/50 py-3 font-semibold text-blue-200 transition-colors hover:border-blue-300 hover:bg-blue-500/10 hover:text-white">
-                Start with the Free Business Gap Audit
-              </Link>
-
-              <div className="pt-2">
-                {user ? (
-                  <div className="space-y-3">
-                    {user.email ? (
-                      <a
-                        href={`mailto:${user.email}`}
-                        className="block text-center text-sm font-medium text-blue-400 underline-offset-2 hover:text-blue-300 hover:underline"
-                      >
-                        {user.name || user.email}
-                      </a>
-                    ) : (
-                      <div className="text-center text-sm font-medium text-slate-300">{user.name}</div>
-                    )}
-                    <div className="flex gap-3">
-                      <Link to={dashboardHref} onClick={closeMobile} className="flex flex-1 items-center justify-center rounded-lg bg-slate-800 py-2 text-sm text-white transition-colors hover:bg-slate-700">
-                        {isAdmin ? 'Admin Dashboard' : 'Dashboard'}
-                      </Link>
-                      <button type="button" onClick={() => { closeMobile(); base44.auth.logout(); }} className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-700 py-2 text-sm text-slate-400 transition-colors hover:text-white">
-                        <LogOut className="h-4 w-4" /> Logout
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <Link to="/Login" onClick={closeMobile} className="flex w-full items-center justify-center rounded-lg border border-slate-700 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-white">
-                    Client Login
-                  </Link>
-                )}
-              </div>
-              
-              <div className="flex justify-center gap-6 pt-4 text-sm text-slate-500 border-t border-slate-800 mt-4">
-                <a href="tel:6414208816" className="hover:text-slate-300 transition-colors">641-420-8816</a>
-                <Link to="/contact" className="hover:text-slate-300 transition-colors" onClick={closeMobile}>Support</Link>
-              </div>
-            </div>
+            )}
           </div>
-        )}
+        </div>
+
+        <div className="border-t border-slate-800/80 bg-slate-950">
+          <div
+            className="mx-auto flex h-11 max-w-7xl items-center gap-1 overflow-x-auto overscroll-x-contain px-3 [scrollbar-width:none] sm:px-6 [&::-webkit-scrollbar]:hidden"
+            aria-label="Website sections"
+          >
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.label}
+                to={link.href}
+                className="shrink-0 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-900 hover:text-white"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <a
+              href={hubHref}
+              className="shrink-0 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-cyan-300 transition-colors hover:bg-slate-900 hover:text-cyan-200 md:hidden"
+            >
+              {isAdmin ? 'Admin Dashboard' : 'Core Hub'}
+            </a>
+            <Link
+              to="/free-audit"
+              className="shrink-0 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-blue-300 transition-colors hover:bg-slate-900 hover:text-blue-200 sm:hidden"
+            >
+              Free Audit
+            </Link>
+          </div>
+        </div>
       </nav>
 
-      <div className="h-16" aria-hidden="true" />
+      <div className="h-[108px]" aria-hidden="true" />
     </>
   );
 }
-
