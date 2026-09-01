@@ -1104,5 +1104,18 @@
         }
       ]
     }
+  ],
+  "journalIssues": [
+    {
+      "issueNumber": 5,
+      "title": "NTA Journal #5: Build With the Budget You Have",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-5-build-with-the-budget-you-have",
+      "contentType": "Newsletter",
+      "description": "This week at NTA, Rick Hesse reflects on a practical lesson for small businesses: the first dollars you invest in marketing should strengthen a foundation that keeps working, not disappear into another one-time campaign.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-09-01"
+    }
   ]
 }
