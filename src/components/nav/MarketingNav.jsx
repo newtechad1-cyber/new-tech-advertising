@@ -132,7 +132,7 @@ export default function MarketingNav() {
     <>
       <nav
         aria-label="Main website navigation"
-        className={`fixed inset-x-0 top-0 z-50 h-16 transition-all duration-200 ${
+        className={`fixed inset-x-0 top-0 z-[100] isolate h-16 transition-all duration-200 ${
           scrolled ? 'bg-slate-950/98 shadow-lg backdrop-blur' : 'bg-slate-950'
         }`}
       >
