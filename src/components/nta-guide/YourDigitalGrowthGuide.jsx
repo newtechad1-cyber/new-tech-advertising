@@ -33,7 +33,6 @@ import {
 
 const RICK_WELCOME_VIDEO_URL = '/brand/rick-digital-growth-guide-welcome.webm';
 const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t need to have all the answers before you begin. Take a look around, ask Your Digital Growth Guide a question, or tell me what is going on in your business. We can start with a practical next step. Whenever you want to talk, call, text, or email me—whichever way works best for you.`;
-const WELCOME_SEEN_KEY = 'nta_rick_welcome_seen';
 const RICK_EMAIL = 'info@newtechadvertising.com';
 
 const FunctionDisplay = ({ toolCall }) => {
@@ -244,15 +243,6 @@ export default function YourDigitalGrowthGuide() {
     guideAudioRef.current?.pause();
     guideWelcomeVideoRef.current?.pause();
   }, []);
-
-  useEffect(() => {
-    if (location.pathname !== '/' || sessionStorage.getItem(WELCOME_SEEN_KEY)) return undefined;
-    const timer = window.setTimeout(() => {
-      sessionStorage.setItem(WELCOME_SEEN_KEY, 'true');
-      setIsOpen(true);
-    }, 700);
-    return () => window.clearTimeout(timer);
-  }, [location.pathname]);
 
   useEffect(() => {
     inputRef.current = input;
@@ -942,7 +932,7 @@ export default function YourDigitalGrowthGuide() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed inset-1 sm:inset-3 lg:inset-5 z-50 bg-slate-950 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-slate-700/50"
+            className="fixed inset-2 z-[110] flex flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-950 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:inset-auto sm:bottom-5 sm:right-5 sm:h-[min(760px,calc(100vh-2.5rem))] sm:w-[min(680px,calc(100vw-2.5rem))] sm:rounded-3xl"
           >
             {/* Header */}
             <div 
