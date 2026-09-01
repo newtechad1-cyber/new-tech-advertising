@@ -9,13 +9,17 @@ if (!rootElement) {
   throw new Error('NTA public app root element was not found.');
 }
 
-rootElement.querySelector('[data-prerendered="true"]')?.remove();
+const staticJournalPage = rootElement.querySelector('[data-static-journal="true"]');
 
-ReactDOM.createRoot(rootElement).render(
-  // <React.StrictMode>
-  <App />
-  // </React.StrictMode>,
-)
+if (!staticJournalPage) {
+  rootElement.querySelector('[data-prerendered="true"]')?.remove();
+
+  ReactDOM.createRoot(rootElement).render(
+    // <React.StrictMode>
+    <App />
+    // </React.StrictMode>,
+  );
+}
 
 if (import.meta.hot) {
   import.meta.hot.on('vite:beforeUpdate', () => {
