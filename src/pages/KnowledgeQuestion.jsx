@@ -71,7 +71,7 @@ export default function KnowledgeQuestion() {
             <div className="max-w-3xl mx-auto">
               <div className="rounded-3xl border border-blue-500/25 bg-gradient-to-br from-blue-950/45 to-slate-900 p-7 md:p-9">
                 <p className="text-xs font-bold uppercase tracking-widest text-blue-300 mb-4">Short answer</p>
-                <h2 className="text-2xl md:text-3xl font-black leading-tight text-white mb-4">Start with what is useful, then keep the people responsible.</h2>
+                <h2 className="text-2xl md:text-3xl font-black leading-tight text-white mb-4">The short answer</h2>
                 <p className="speakable text-lg md:text-xl leading-8 text-slate-200">{question.answer}</p>
               </div>
 
