@@ -1,3 +1,5 @@
+import { getKnowledgeQuestionBySlug } from "../data/knowledgeQuestions.js";
+
 const SITE_ORIGIN = "https://newtechadvertising.com";
 
 export { SITE_ORIGIN };
@@ -37,6 +39,10 @@ const STATIC_SEO = {
   "/knowledge": {
     title: "AI Lessons for Small Business Owners | NTA Knowledge Library",
     description: "A connected library of practical AI, small-business growth, customer trust, and business-system lessons from Rick Hesse.",
+  },
+  "/knowledge/questions": {
+    title: "Small Business Questions About AI and Marketing | NTA",
+    description: "Plainspoken answers to practical small-business questions about AI, marketing, customer trust, websites, and local visibility—plus the NTA teaching behind each answer.",
   },
   "/ai-visibility-basics": {
     title: "How to Get Found in AI Search | AI Visibility Basics",
@@ -166,6 +172,12 @@ const STATIC_SEO = {
   "/services/website-rebuilds": {
     title: "AI Website Rebuilds for Small Business | NTA",
     description: "Rebuild a small-business website around clear messaging, search visibility, trust, accessibility, and useful customer action.",
+  },
+  "/website-rebuilds": {
+    title: "AI Website Rebuilds for Small Business | NTA",
+    description: "Rebuild a small-business website around clear messaging, search visibility, trust, accessibility, and useful customer action.",
+    canonical: "https://newtechadvertising.com/services/website-rebuilds",
+    noIndex: true,
   },
   "/website-rebuilds/mason-city-ia": {
     title: "Website Rebuilds in Mason City, IA | NTA",
@@ -569,6 +581,30 @@ export function getSeoMetadata(pathname) {
   }
 
   const segments = canonicalPath.split("/").filter(Boolean);
+  if (segments[0] === "knowledge" && segments[1] === "questions") {
+    const question = segments.length === 3
+      ? getKnowledgeQuestionBySlug(segments[2])
+      : null;
+
+    if (question) {
+      return {
+        title: question.seoTitle,
+        description: clip(question.description, 158),
+        canonical: canonicalUrl(canonicalPath),
+        noIndex: false,
+        routeSpecific: true,
+      };
+    }
+
+    return {
+      title: "Page Not Found | New Tech Advertising",
+      description: "The requested question is not part of the public New Tech Advertising Knowledge Library.",
+      canonical: canonicalUrl(canonicalPath),
+      noIndex: true,
+      routeSpecific: true,
+    };
+  }
+
   if (segments[0] === "knowledge" && segments[1]) {
     if (segments.length === 2 && COLLECTION_SEARCH[segments[1]]) {
       const collection = COLLECTION_SEARCH[segments[1]];
