@@ -1018,7 +1018,7 @@ function getContentByCanonical() {
   return new Map(entries.filter(entry => entry.canonicalUrl).map(entry => [entry.canonicalUrl, entry]));
 }
 
-const contentByCanonical = getContentByCanonical();
+let contentByCanonical = new Map();
 function routeMetadata(pathname) {
   const journalMetadata = JOURNAL_METADATA_BY_PATH.get(pathname);
   if (journalMetadata) return journalMetadata;
@@ -1047,6 +1047,7 @@ function getPrerenderMetadata(pathname, publicPathSet) {
 
 syncKnowledgeIndexes();
 syncJournalIssueRoutes();
+contentByCanonical = getContentByCanonical();
 
 fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));
 fs.copyFileSync(sourceAiSitemap, path.join(distDir, "ai-sitemap.json"));
