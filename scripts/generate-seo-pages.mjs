@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getSeoMetadata } from "../src/config/seoMetadata.js";
 import { collectionsOrder } from "../src/data/masterCurriculum.js";
+import { knowledgeQuestions, getKnowledgeQuestionBySlug, getKnowledgeQuestionPath } from "../src/data/knowledgeQuestions.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
@@ -162,6 +163,42 @@ function buildKnowledgeCollections(existingAiSitemap) {
   return [...managedCollections, ...unmanagedCollections];
 }
 
+function buildKnowledgeQuestionPages(existingPublicPages = []) {
+  const existingByCanonical = new Map(
+    existingPublicPages.map(page => [page.canonicalUrl, page])
+  );
+
+  const hubCanonicalUrl = SITE_ORIGIN + "/knowledge/questions";
+  const hub = {
+    ...existingByCanonical.get(hubCanonicalUrl),
+    title: "Small Business Questions About AI and Marketing",
+    canonicalUrl: hubCanonicalUrl,
+    contentType: "CollectionPage",
+    description: "Plainspoken answers to practical small-business questions about AI, marketing, customer trust, websites, and local visibility—plus the NTA teaching behind each answer.",
+    author: KNOWLEDGE_AUTHOR,
+    publisher: KNOWLEDGE_PUBLISHER,
+    publicStatus: "published",
+    lastModified: TODAY,
+  };
+
+  const questions = knowledgeQuestions.map(question => {
+    const canonicalUrl = SITE_ORIGIN + getKnowledgeQuestionPath(question);
+    return {
+      ...existingByCanonical.get(canonicalUrl),
+      title: question.question,
+      canonicalUrl,
+      contentType: "Article",
+      description: question.description,
+      author: KNOWLEDGE_AUTHOR,
+      publisher: KNOWLEDGE_PUBLISHER,
+      publicStatus: "published",
+      lastModified: TODAY,
+    };
+  });
+
+  return [hub, ...questions];
+}
+
 function renderSitemapUrl(pathname, lastmod, changefreq = "monthly", priority = "0.7") {
   return [
     "  <url>",
@@ -182,13 +219,24 @@ function getPathFromSitemapBlock(block) {
 }
 
 
-function buildLlmsKnowledgeSection(knowledgeCollections) {
+function buildLlmsKnowledgeSection(knowledgeCollections, questions) {
   const lines = [
     "## Knowledge Library",
     "",
     "The NTA Knowledge Library is a connected set of practical lessons about small-business growth, trust, relationships, business knowledge, AI, and digital trust.",
+    "",
+    "### [Start with a business question](" + SITE_ORIGIN + "/knowledge/questions)",
+    "",
+    "Plainspoken answers to common questions about AI, marketing, customer trust, websites, and local visibility. Each answer points to the NTA teaching that explains the connected idea.",
     ""
   ];
+
+  for (const question of questions) {
+    lines.push(
+      "- [" + question.question + "](" + SITE_ORIGIN + getKnowledgeQuestionPath(question) + "): " + question.answer,
+      ""
+    );
+  }
 
   for (const collection of knowledgeCollections) {
     lines.push(
@@ -210,7 +258,7 @@ function buildLlmsKnowledgeSection(knowledgeCollections) {
   return lines.join("\n");
 }
 
-function syncLlmsKnowledgeIndex(knowledgeCollections) {
+function syncLlmsKnowledgeIndex(knowledgeCollections, questions) {
   if (!fs.existsSync(sourceLlms)) return;
 
   const current = fs.readFileSync(sourceLlms, "utf8");
@@ -223,7 +271,7 @@ function syncLlmsKnowledgeIndex(knowledgeCollections) {
 
   const updated = [
     current.slice(0, start),
-    "\n" + buildLlmsKnowledgeSection(knowledgeCollections),
+    "\n" + buildLlmsKnowledgeSection(knowledgeCollections, questions),
     current.slice(end)
   ].join("");
 
@@ -233,10 +281,16 @@ function syncLlmsKnowledgeIndex(knowledgeCollections) {
 function syncKnowledgeIndexes() {
   const aiSitemap = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
   const knowledgeCollections = buildKnowledgeCollections(aiSitemap);
+  const questionPages = buildKnowledgeQuestionPages(aiSitemap.publicPages || []);
+  const managedQuestionCanonicals = new Set(questionPages.map(page => page.canonicalUrl));
+  const publicPages = [
+    ...(aiSitemap.publicPages || []).filter(page => !managedQuestionCanonicals.has(page.canonicalUrl)),
+    ...questionPages,
+  ];
 
   fs.writeFileSync(
     sourceAiSitemap,
-    JSON.stringify({ ...aiSitemap, knowledgeCollections }, null, 2) + "\n"
+    JSON.stringify({ ...aiSitemap, publicPages, knowledgeCollections }, null, 2) + "\n"
   );
 
   const generatedRoutes = new Map();
@@ -244,6 +298,18 @@ function syncKnowledgeIndexes() {
     "/knowledge",
     renderSitemapUrl("/knowledge", TODAY, "weekly", "0.8")
   );
+  generatedRoutes.set(
+    "/knowledge/questions",
+    renderSitemapUrl("/knowledge/questions", TODAY, "weekly", "0.8")
+  );
+
+  for (const question of knowledgeQuestions) {
+    const questionPath = getKnowledgeQuestionPath(question);
+    generatedRoutes.set(
+      questionPath,
+      renderSitemapUrl(questionPath, TODAY, "monthly", "0.7")
+    );
+  }
 
   for (const collection of knowledgeCollections) {
     const collectionPath = new URL(collection.canonicalUrl).pathname.replace(/\/+$/, "");
@@ -287,7 +353,7 @@ function syncKnowledgeIndexes() {
   ].join("\n");
 
   fs.writeFileSync(sourceSitemap, updatedXml);
-  syncLlmsKnowledgeIndex(knowledgeCollections);
+  syncLlmsKnowledgeIndex(knowledgeCollections, knowledgeQuestions);
 }
 
 function syncJournalIssueRoutes() {
