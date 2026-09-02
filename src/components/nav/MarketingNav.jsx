@@ -7,6 +7,7 @@ const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/pub
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
+  { label: 'Knowledge Library', href: '/knowledge' },
   { label: 'Free AI Education', href: '/knowledge/ai-foundations' },
   { label: 'Digital Growth Office', href: '/operating-system' },
   { label: 'How NTA Helps', href: '/services' },
