@@ -982,7 +982,14 @@ function collectLegacyComponentPaths(directory) {
 }
 
 function getLegacyComponentPaths() {
-  return LEGACY_COMPONENT_DIRECTORIES.flatMap(collectLegacyComponentPaths);
+  // Search engines historically discovered both PascalCase component keys and
+  // lower-case versions of them. Render a deterministic cleanup file for both
+  // spellings so either form receives noindex metadata before JavaScript runs.
+  return [...new Set(
+    LEGACY_COMPONENT_DIRECTORIES
+      .flatMap(collectLegacyComponentPaths)
+      .flatMap(pathname => [pathname, pathname.toLowerCase()])
+  )];
 }
 
 // Static aliases are real URLs in the public router, but they are not all
