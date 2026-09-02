@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, ChevronRight, CircleCheck, User } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
