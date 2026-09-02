@@ -90,6 +90,19 @@ test('historical route variants can never inherit generic indexable metadata', (
     '/KnowledgeCaptureWorkspace',
     '/NTAAIWorkforceOrchestrator',
     '/AdminAILab',
+    '/admin',
+    '/nta',
+    '/client',
+    '/portal',
+    '/ops',
+    '/agency',
+    '/crm',
+  ]) {
+    const output = readOutputForRoute(route);
+    assert.match(output, /<meta name="robots" content="noindex, nofollow" \/>/, route);
+  }
+
+  for (const route of [
     '/admin/retired-page',
     '/nta/retired-page',
     '/client/retired-page',
@@ -98,8 +111,8 @@ test('historical route variants can never inherit generic indexable metadata', (
     '/agency/retired-page',
     '/crm/retired-page',
   ]) {
-    const output = readOutputForRoute(route);
-    assert.match(output, /<meta name="robots" content="noindex, nofollow" \/>/, route);
+    const directOutput = path.join(distDir, route.replace(/^\//, ''));
+    assert.equal(fs.existsSync(directOutput), false, route + ' must not inherit a public SPA file');
   }
 
   for (const output of listRenderedHtml()) {
