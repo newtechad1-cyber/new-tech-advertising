@@ -11,6 +11,7 @@
     "audit:security": "node scripts/security-audit.mjs",
     "test:growth-guide": "node --test src/lib/growth-guide/*.test.js",
     "test:route-governance": "node --test tests/route-governance.test.mjs",
+    "test:public-seo": "npm run build && node --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p ./jsconfig.json",
     "preview": "vite preview"
