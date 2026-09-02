@@ -69,6 +69,8 @@ import JournalLanding from '@/pages/JournalLanding';
 import KnowledgeCollection from '@/pages/KnowledgeCollection';
 import KnowledgeLesson from '@/pages/KnowledgeLesson';
 import KnowledgeLibrary from '@/pages/KnowledgeLibrary';
+import KnowledgeQuestion from '@/pages/KnowledgeQuestion';
+import KnowledgeQuestions from '@/pages/KnowledgeQuestions';
 import KnowledgePrompts from '@/pages/KnowledgePrompts';
 import LCCategory from '@/legacy-page-components/LCCategory';
 import LCVideoDetail from '@/legacy-page-components/LCVideoDetail';
@@ -160,6 +162,8 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/point-of-view', POVCollection),
   alias('/point-of-view/:slug', POVArticleView),
   alias('/knowledge', KnowledgeLibrary),
+  alias('/knowledge/questions', KnowledgeQuestions),
+  alias('/knowledge/questions/:questionSlug', KnowledgeQuestion),
   alias('/canon', CanonExplorer),
   alias('/canon/collection/:slug', CanonCollectionView),
   alias('/canon/:slug', CanonArticleView),
