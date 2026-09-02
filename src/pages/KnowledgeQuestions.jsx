@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, MessageCircleQuestion, Sparkles } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
