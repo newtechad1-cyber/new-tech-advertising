@@ -127,6 +127,8 @@ const LEGACY_PUBLIC_REDIRECTS = {
   '/CaseStudies': '/case-studies',
   '/ContractorMarketingNorthIowa': '/contractor-marketing-north-iowa',
   '/SmallBusinessMarketingNorthIowa': '/small-business-marketing-north-iowa',
+  // Consolidate the former public duplicate under the canonical service URL.
+  '/website-rebuilds': '/services/website-rebuilds',
 };
 
 function PublicRoutes() {
