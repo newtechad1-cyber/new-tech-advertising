@@ -105,7 +105,24 @@ test('SEO cleanup prerendering covers private SPA fallbacks and public legacy eq
   assert.match(generator, /pathsWithDescendants/);
   assert.match(generator, /pathname\.slice\(1\) \+ ".html"/);
   assert.match(generator, /fs\.rmSync\(outputFile/);
+  assert.match(generator, /function knowledgeQuestionStaticBody\(pathname\)/);
+  assert.match(generator, /function knowledgeQuestionSchemaMarkup\(pathname, metadata\)/);
+  assert.match(generator, /pathname\.toLowerCase\(\)/);
+  assert.match(seo, /getKnowledgeQuestionBySlug/);
 
   const vite = await read('vite.config.js');
   assert.match(vite, /appType: process\.env\.NODE_ENV === 'production' \? 'mpa' : 'spa'/);
+});
+
+test('question-first Knowledge Library routes are specific and fail closed', async () => {
+  const { getSeoMetadata } = await import('../src/config/seoMetadata.js');
+
+  const answer = getSeoMetadata('/knowledge/questions/how-can-a-small-business-use-ai');
+  assert.equal(answer.title, 'How Can a Small Business Use AI? | NTA');
+  assert.equal(answer.canonical, 'https://newtechadvertising.com/knowledge/questions/how-can-a-small-business-use-ai');
+  assert.equal(answer.noIndex, false);
+
+  const unknown = getSeoMetadata('/knowledge/questions/not-a-real-question');
+  assert.equal(unknown.noIndex, true);
+  assert.match(unknown.title, /Page Not Found/);
 });
