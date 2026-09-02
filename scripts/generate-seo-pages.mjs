@@ -672,6 +672,110 @@ function journalStaticBody(pathname) {
   </main>`;
 }
 
+function knowledgeQuestionStaticBody(pathname) {
+  const prefix = "/knowledge/questions/";
+  if (!pathname.startsWith(prefix)) return "";
+
+  const question = getKnowledgeQuestionBySlug(pathname.slice(prefix.length));
+  if (!question || pathname !== getKnowledgeQuestionPath(question)) return "";
+
+  const resourceLinks = (question.resources || [])
+    .map(resource => '<a href="' + escapeHtml(resource.path) + '">' + escapeHtml(resource.title) + '</a>')
+    .join("");
+  const relatedLinks = (question.relatedQuestionSlugs || [])
+    .map(slug => getKnowledgeQuestionBySlug(slug))
+    .filter(Boolean)
+    .slice(0, 3)
+    .map(related => '<a href="' + escapeHtml(getKnowledgeQuestionPath(related)) + '">' + escapeHtml(related.question) + '</a>')
+    .join("");
+
+  return `<main data-prerendered="true" data-static-question="true" class="seo-shell">
+    <article>
+      <nav aria-label="NTA Knowledge Library navigation">
+        <a href="/knowledge">Knowledge Library</a>
+        <a href="/knowledge/questions">Small-business questions</a>
+      </nav>
+      <p class="seo-kicker">Small-business question</p>
+      <h1>${escapeHtml(question.question)}</h1>
+      <p>By Rick Hesse &middot; <time datetime="${TODAY}">Updated ${TODAY}</time></p>
+      <h2>Short answer</h2>
+      <p class="speakable">${escapeHtml(question.answer)}</p>
+      <h2>Where this fits in a real small business</h2>
+      <p>${escapeHtml(question.context)}</p>
+      <h2>One useful next step</h2>
+      <p>${escapeHtml(question.nextStep)}</p>
+      <h2>Explore the teaching behind this answer</h2>
+      <nav aria-label="Related NTA resources">${resourceLinks}</nav>
+      <h2>Related questions</h2>
+      <nav aria-label="Related small-business questions">${relatedLinks}</nav>
+    </article>
+  </main>`;
+}
+
+function knowledgeQuestionSchemaMarkup(pathname, metadata) {
+  const prefix = "/knowledge/questions/";
+  if (!pathname.startsWith(prefix)) return "";
+
+  const question = getKnowledgeQuestionBySlug(pathname.slice(prefix.length));
+  if (!question || pathname !== getKnowledgeQuestionPath(question)) return "";
+
+  const canonical = metadata.canonical;
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "@id": canonical + "#article",
+      "headline": question.question,
+      "description": question.description,
+      "author": {
+        "@type": "Person",
+        "@id": SITE_ORIGIN + "/#rick-hesse",
+        "name": KNOWLEDGE_AUTHOR,
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": SITE_ORIGIN + "/#organization",
+        "name": KNOWLEDGE_PUBLISHER,
+      },
+      "datePublished": TODAY,
+      "dateModified": TODAY,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": canonical,
+      },
+      "url": canonical,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": question.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": question.answer,
+          },
+        },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_ORIGIN + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Knowledge Library", "item": SITE_ORIGIN + "/knowledge" },
+        { "@type": "ListItem", "position": 3, "name": "Small-business questions", "item": SITE_ORIGIN + "/knowledge/questions" },
+        { "@type": "ListItem", "position": 4, "name": question.question, "item": canonical },
+      ],
+    },
+  ];
+
+  return schemas
+    .map(schema => '<script type="application/ld+json">' + JSON.stringify(schema).replace(/</g, "\\u003c") + '</script>')
+    .join("\n");
+}
+
 function opportunitySchemaMarkup(pathname, metadata) {
   const opportunity = opportunityDataForPath(pathname);
   if (!opportunity) return "";
@@ -729,7 +833,8 @@ function shellMarkup(metadata, pathname) {
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = journalStaticBody(pathname)
+  const body = knowledgeQuestionStaticBody(pathname)
+    || journalStaticBody(pathname)
     || opportunityStaticBody(pathname)
     || `<main data-prerendered="true" class="seo-shell">
     <article>
@@ -795,7 +900,7 @@ function renderHtml(template, metadata, pathname) {
       .seo-shell article { border-radius: 1rem; }
     }
   </style>`;
-  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
+  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
   html = html.replace('<div id="root"></div>', '<div id="root">' + shell.body + '</div>');
   return html;
 }
