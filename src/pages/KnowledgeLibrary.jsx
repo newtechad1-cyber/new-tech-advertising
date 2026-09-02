@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, CheckCircle, PlayCircle, BookMarked, BrainCircuit, Lightbulb, Users, Target, Search } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle, PlayCircle, BookMarked, BrainCircuit, Lightbulb, Users, Target, Search } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -111,6 +111,22 @@ export default function KnowledgeLibrary() {
                 </div>
               </div>
             )}
+          </div>
+        </section>
+
+        <section className="border-b border-slate-800 bg-slate-900/35 px-6 py-10">
+          <div className="max-w-5xl mx-auto rounded-3xl border border-blue-500/20 bg-gradient-to-r from-blue-950/45 to-slate-900 px-7 py-8 md:flex md:items-center md:justify-between md:gap-10">
+            <div className="max-w-2xl">
+              <p className="text-xs font-bold uppercase tracking-widest text-blue-300 mb-3">Question-first starting point</p>
+              <h2 className="text-2xl font-black text-white mb-3">Start with the question in front of you.</h2>
+              <p className="leading-7 text-slate-300">Get a plainspoken answer to the business questions owners ask about AI, marketing, trust, websites, and local visibility—then follow the NTA teaching that explains the why behind it.</p>
+            </div>
+            <Link
+              to="/knowledge/questions"
+              className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500 md:mt-0"
+            >
+              Browse practical questions <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </section>
 
