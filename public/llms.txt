@@ -66,6 +66,44 @@ NTA helps owners understand practical AI, improve digital trust, turn business k
 
 The NTA Knowledge Library is a connected set of practical lessons about small-business growth, trust, relationships, business knowledge, AI, and digital trust.
 
+### [Start with a business question](https://newtechadvertising.com/knowledge/questions)
+
+Plainspoken answers to common questions about AI, marketing, customer trust, websites, and local visibility. Each answer points to the NTA teaching that explains the connected idea.
+
+- [How can a small business use AI?](https://newtechadvertising.com/knowledge/questions/how-can-a-small-business-use-ai): Start by giving AI one useful job that supports real work—organizing notes, drafting a first version, or preparing questions. Your people still provide the context, judgment, and final approval.
+
+- [Where should I start with AI?](https://newtechadvertising.com/knowledge/questions/where-should-i-start-with-ai): Start with a repeated or frustrating piece of work, not a product to buy. Define the outcome, give AI the right context, set boundaries, and keep a person responsible for the result.
+
+- [What can ChatGPT do for a small business?](https://newtechadvertising.com/knowledge/questions/what-can-chatgpt-do-for-a-small-business): ChatGPT can help turn scattered information into useful drafts, summaries, questions, and first-pass communication. It cannot truly know your company, make promises, or replace your judgment unless you provide context and review its work.
+
+- [Do I need a perfect prompt to use AI?](https://newtechadvertising.com/knowledge/questions/do-i-need-a-perfect-prompt): No. A prompt is the beginning of a conversation, not a test you either pass or fail. Start clearly, add context, ask follow-up questions, and correct the result as you go.
+
+- [Why does AI give bad answers?](https://newtechadvertising.com/knowledge/questions/why-does-ai-give-bad-answers): AI can sound confident while missing context, making assumptions, or simply being wrong. Treat a polished answer as a starting point: question it, add the facts it lacks, and verify anything important.
+
+- [What AI tools does a small business really need?](https://newtechadvertising.com/knowledge/questions/what-ai-tools-does-a-small-business-really-need): Most businesses do not need a long list of AI tools. Start with one dependable assistant, an approved way to handle company information, and one useful job; add tools only when the work truly requires them.
+
+- [How can employees use AI at work?](https://newtechadvertising.com/knowledge/questions/how-can-employees-use-ai-at-work): Let employees use AI to prepare, organize, and find information—not to make unreviewed promises or decisions. Give the team approved uses, examples, privacy boundaries, and a person accountable for the final answer.
+
+- [How much should a small business spend on marketing?](https://newtechadvertising.com/knowledge/questions/how-much-should-a-small-business-spend-on-marketing): There is no honest universal number. Start with an amount you can sustain long enough to learn, then use it to strengthen the foundation, measurement, and follow-up before scattering money across disconnected activity.
+
+- [What should I do with my first $500 marketing budget?](https://newtechadvertising.com/knowledge/questions/what-should-i-do-with-my-first-500-marketing-budget): Put the first dollars into something you own and can keep using: clearer customer information, local visibility, proof, a stronger website path, or follow-up. Do not spread it so thin that it disappears into a one-time campaign.
+
+- [Why does marketing require ongoing spending?](https://newtechadvertising.com/knowledge/questions/why-does-marketing-require-ongoing-spending): Marketing does not mean paying for ads forever, but visibility and trust require ongoing care. Some spending buys temporary attention; lasting progress comes from continually improving useful information, customer experience, follow-up, and proof.
+
+- [How do I know whether my marketing is working?](https://newtechadvertising.com/knowledge/questions/how-do-i-know-whether-my-marketing-is-working): Start with business outcomes: qualified calls, booked work, new customers, repeat business, referrals, and revenue—not likes alone. Track how people found you and what happened next, then improve the weak point in the path.
+
+- [Why isn’t my website generating leads?](https://newtechadvertising.com/knowledge/questions/why-isnt-my-website-generating-leads): A website can get visits without helping people understand why they should choose you or what to do next. Check visibility, clarity, proof, an easy next action, and follow-up before assuming you simply need a new design.
+
+- [How do I build customer trust?](https://newtechadvertising.com/knowledge/questions/how-do-i-build-customer-trust): Make your business easy to understand, show real evidence, make promises you can keep, and communicate when something changes. Trust grows from consistent experiences—not a clever claim.
+
+- [How do I market a local service business?](https://newtechadvertising.com/knowledge/questions/how-do-i-market-a-local-service-business): Help people nearby find and understand you before they call: accurate local information, useful service explanations, proof, reviews, easy contact, and dependable follow-up. You do not need to outspend bigger companies; you need to make the local choice clearer and easier.
+
+- [Is social media enough for a small business?](https://newtechadvertising.com/knowledge/questions/is-social-media-enough-for-a-small-business): No. Social media can build familiarity and earn attention, but it cannot carry the whole customer path by itself. Connect it to a useful website, local search visibility, proof, a clear next step, and follow-up.
+
+- [Should a small business still advertise on TV?](https://newtechadvertising.com/knowledge/questions/should-a-small-business-still-advertise-on-tv): Sometimes—but not just to look bigger. TV or streaming can make sense when it reaches the right local audience, supports a clear next step, can be measured, and fits the business’s capacity to respond.
+
+- [How can AI use knowledge already inside my company?](https://newtechadvertising.com/knowledge/questions/how-can-ai-use-knowledge-already-inside-my-company): Begin by capturing and approving the useful knowledge people already carry—customer questions, procedures, explanations, and hard-won lessons. Then give AI that trusted context so it can help people find, organize, and use it without inventing the business’s judgment.
+
 ### [Business Foundations](https://newtechadvertising.com/knowledge/business-foundations)
 
 Learn the core principles of building a business that grows through understanding rather than constant selling.
