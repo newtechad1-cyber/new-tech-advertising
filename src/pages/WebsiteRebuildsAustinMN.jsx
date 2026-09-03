@@ -252,7 +252,7 @@ export default function WebsiteRebuildsAustinMN() {
             <Link to="/website-rebuilds/rochester-mn" className="text-blue-600 hover:underline font-medium">→ Rochester, MN Website Rebuild Services</Link>
             <Link to="/ada-website-compliance" className="text-blue-600 hover:underline font-medium">→ ADA Compliance Services</Link>
             <Link to="/contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
-            <Link to="/insights" className="text-blue-600 hover:underline font-medium">→ Read Our Blog</Link>
+            <Link to="/knowledge" className="text-blue-600 hover:underline font-medium">→ Explore the Knowledge Library</Link>
           </div>
         </div>
       </section>
