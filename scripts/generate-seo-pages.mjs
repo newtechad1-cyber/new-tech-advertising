@@ -932,6 +932,8 @@ const LEGACY_SEARCH_CLEANUP_PATHS = [
   "/Home",
   "/HomePage",
   "/index.html",
+  "/insights",
+  "/Insights",
   "/ContractorMarketingNorthIowa",
   "/SmallBusinessMarketingNorthIowa",
   "/ContentQueue",
