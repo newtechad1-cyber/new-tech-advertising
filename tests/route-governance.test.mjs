@@ -7,6 +7,7 @@ import {
   matchesRoutePattern,
   shouldNoIndex,
 } from '../src/config/routeGovernance.js';
+import { knowledgeQuestions, getKnowledgeQuestionPath } from '../src/data/knowledgeQuestions.js';
 
 test('dynamic route overrides match real parameter values', () => {
   assert.equal(matchesRoutePattern('/approval/abc123', '/approval/:token'), true);
@@ -19,6 +20,14 @@ test('static public routes remain public and case-insensitive', () => {
   assert.equal(classifyRoute('/BOOKS/'), 'public');
   assert.equal(classifyRoute('/growth-guide?source=home'), 'public');
   assert.equal(classifyRoute('/nta-journal'), 'public');
+});
+
+test('approved knowledge questions are public while unknown question slugs fail closed', () => {
+  assert.equal(classifyRoute('/knowledge/questions'), 'public');
+  for (const question of knowledgeQuestions) {
+    assert.equal(classifyRoute(getKnowledgeQuestionPath(question)), 'public', question.slug);
+  }
+  assert.equal(classifyRoute('/knowledge/questions/not-an-approved-question'), 'noindex');
 });
 
 test('prefix rules use path boundaries and unknown routes fail closed', () => {
