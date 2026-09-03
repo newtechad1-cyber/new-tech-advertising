@@ -22,12 +22,12 @@ export default function Header({ onCTAClick }) {
       return (
         <nav className="flex flex-col space-y-4 text-sm font-medium text-slate-600">
           <div className="font-semibold text-slate-900 text-xs uppercase tracking-wide mb-2">What We Do For You</div>
-          <a href="https://newtechadvertising.com/socialmediamarketing" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Support</a>
+          <Link to="/services/social-media-management" className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Social Media Support</Link>
           <Link to={createPageUrl('Rebuild')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Support</Link>
           <Link to={createPageUrl('StreamingTV')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Video Creation & TV Ads</Link>
           <Link to={createPageUrl('AdaAccessibility')} className="hover:text-blue-600 transition-colors pl-4" onClick={() => setIsOpen(false)}>Website Accessibility & Rebuild</Link>
 
-          <Link to="/insights" className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Insights</Link>
+          <Link to="/knowledge/questions" className="hover:text-blue-600 transition-colors mt-4" onClick={() => setIsOpen(false)}>Questions &amp; Lessons</Link>
           <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>About Us</Link>
           <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
         </nav>
@@ -42,7 +42,7 @@ export default function Header({ onCTAClick }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
-              <a href="https://newtechadvertising.com/socialmediamarketing" target="_blank" rel="noopener noreferrer" className="cursor-pointer">Social Media</a>
+              <Link to="/services/social-media-management" className="cursor-pointer">Social Media</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to={createPageUrl('Rebuild')} className="cursor-pointer">Website Support</Link>
@@ -55,7 +55,7 @@ export default function Header({ onCTAClick }) {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Link to="/insights" className="hover:text-blue-600 transition-colors whitespace-nowrap">Insights</Link>
+        <Link to="/knowledge/questions" className="hover:text-blue-600 transition-colors whitespace-nowrap">Questions &amp; Lessons</Link>
         <Link to={createPageUrl('About')} className="hover:text-blue-600 transition-colors whitespace-nowrap">About Us</Link>
         <Link to={createPageUrl('Contact')} className="hover:text-blue-600 transition-colors whitespace-nowrap">Contact</Link>
       </nav>
@@ -68,7 +68,7 @@ export default function Header({ onCTAClick }) {
       <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
           {/* Logo in nav */}
-          <Link to={createPageUrl('Home')} className="flex-shrink-0 mr-6">
+          <Link to="/" className="flex-shrink-0 mr-6">
             <img
               src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
               alt="New Tech Advertising"
@@ -89,7 +89,7 @@ export default function Header({ onCTAClick }) {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                 <div className="flex flex-col gap-8 mt-8">
-                  <Link to={createPageUrl('Home')} onClick={() => setIsOpen(false)} className="flex items-center">
+                  <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center">
                     <img 
                       src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/6e3c5001c_builtforsmallbusinessespng2.png" 
                       alt="New Tech Advertising" 
@@ -150,7 +150,7 @@ export default function Header({ onCTAClick }) {
 
       {/* Logo banner - sits below fixed nav, above hero */}
       <div className="flex justify-center items-center" style={{ marginTop: '53px', background: 'linear-gradient(135deg, #1d4ed8, #2563eb)', padding: '0' }}>
-        <Link to={createPageUrl('Home')}>
+        <Link to="/">
           <img
             src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
             alt="New Tech Advertising"
