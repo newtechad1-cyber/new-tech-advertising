@@ -37,8 +37,8 @@ export default function Footer() {
               <ul className="space-y-2 text-sm text-slate-400">
                 <li><Link to="/case-studies" className="hover:text-blue-400 transition-colors">Case Studies</Link></li>
                 <li><Link to={createPageUrl('About')} className="hover:text-blue-400 transition-colors">About Us</Link></li>
-                <li><Link to={createPageUrl('Home')} className="hover:text-blue-400 transition-colors">Home</Link></li>
-                <li><Link to={createPageUrl('Blog')} className="hover:text-blue-400 transition-colors">Blog</Link></li>
+                <li><Link to="/" className="hover:text-blue-400 transition-colors">Home</Link></li>
+                <li><Link to="/knowledge/questions" className="hover:text-blue-400 transition-colors">Questions &amp; Lessons</Link></li>
                 <li><a href="https://app.newtechadvertising.com/Login" className="hover:text-blue-400 transition-colors">Client Login</a></li>
                 <li><a href="https://app.newtechadvertising.com/Login" className="hover:text-blue-400 transition-colors">Admin Login</a></li>
               </ul>
