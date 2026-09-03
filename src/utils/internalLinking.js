@@ -88,7 +88,7 @@ const LINK_RULES = [
       /\bsearch engine ranking\b/i,
       /\brank (higher|on Google)\b/i,
     ],
-    url: '/AiSeo',
+    url: '/ai-seo',
     group: 'seo',
   },
   // Social media management
