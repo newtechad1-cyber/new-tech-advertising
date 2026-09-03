@@ -14,8 +14,6 @@ import AiSocialMedia from './pages/AiSocialMedia';
 import AiWebsites from './pages/AiWebsites';
 import AiAdvertising from './pages/AiAdvertising';
 import AiVideos from './pages/AiVideos';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
 import bookCall from './pages/Book-Call';
 import BookCall from './pages/BookCall';
 import CaseStudies from './pages/CaseStudies';
@@ -56,8 +54,6 @@ const PAGES = {
   PrivacyPolicy,
   TermsOfService,
   'Free-Audit': FreeAudit,
-  Blog,
-  BlogPost,
   'Book-Call': bookCall,
   BookCall,
   AiSeo,
