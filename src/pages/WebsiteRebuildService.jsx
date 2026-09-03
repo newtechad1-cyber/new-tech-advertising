@@ -109,16 +109,16 @@ const RESOURCES = [
   {
     category: 'Website Performance',
     categoryColor: 'text-blue-600',
-    title: '5 Signs Your Website Is Losing Customers',
-    desc: 'Learn the warning signs your website is losing customers before they bounce to a competitor.',
-    href: '/Blog',
+    title: 'Why Isn’t My Website Generating Leads?',
+    desc: 'Check visibility, clarity, proof, an easy next action, and follow-up before assuming you need a new design.',
+    href: '/knowledge/questions/why-isnt-my-website-generating-leads',
   },
   {
     category: 'Technology',
     categoryColor: 'text-violet-600',
-    title: 'AI Websites vs Traditional Websites',
-    desc: 'Compare AI websites vs traditional websites and understand what performs better for local businesses.',
-    href: '/Blog',
+    title: 'How Can a Small Business Use AI?',
+    desc: 'Start with one useful job that supports real work while people remain responsible for context and approval.',
+    href: '/knowledge/questions/how-can-a-small-business-use-ai',
   },
   {
     category: 'Compliance',
