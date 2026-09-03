@@ -44,32 +44,38 @@ const EXPECTATIONS = [
 const JOURNEY = [
   {
     number: '01',
-    title: 'Discover',
-    text: 'Start with a free first-pass audit or a conversation about what is happening in the business.',
+    title: 'Understand',
+    text: 'Begin with the owner’s perspective: what is working, what feels harder than it should, and what the business needs next. With permission, we also learn from the people closest to the everyday work.',
     link: '/free-audit',
     linkLabel: 'Start with the Free Audit',
   },
   {
     number: '02',
-    title: 'Discuss',
-    text: 'Talk through the findings, your priorities, and whether NTA is the right fit for the next step.',
-    external: true,
-    link: BOOKING_URL,
-    linkLabel: 'Schedule a Discovery Meeting',
+    title: 'Involve',
+    text: 'Make room for the knowledge already inside the business. The owner and team help surface the questions, priorities, and practical opportunities that matter.',
+    link: '/knowledge',
+    linkLabel: 'Explore the Knowledge Library',
   },
   {
     number: '03',
     title: 'Plan',
-    text: 'Turn the conversation into a practical Growth Roadmap that respects the business, budget, and readiness.',
+    text: 'Decide what deserves attention now, what can wait, and what order makes sense for the business. A Growth Roadmap is useful when deeper evidence and planning would help.',
     link: '/growth-roadmap-generator',
     linkLabel: 'Explore the Growth Roadmap',
   },
   {
     number: '04',
-    title: 'Build and improve',
-    text: 'Strengthen the foundation, connect the useful pieces, and keep improving the system as the business grows.',
+    title: 'Build',
+    text: 'Strengthen the useful pieces in the right order—foundation, visibility, relationships, knowledge, systems, or practical AI support—without forcing the business into a package.',
     link: '/operating-system',
     linkLabel: 'See the Digital Growth Office',
+  },
+  {
+    number: '05',
+    title: 'Improve',
+    text: 'Keep learning from what is happening. Review, adjust, and add the next useful piece only when the business is ready.',
+    link: '/contact',
+    linkLabel: 'Talk through the next step',
   },
 ];
 
@@ -140,7 +146,7 @@ export default function WorkWithNTA() {
     <div className="min-h-screen bg-slate-950 text-white">
       <SEOHead
         title="Work With New Tech Advertising | Digital Growth Office"
-        description="See what happens when you work with New Tech Advertising: understand the business, identify the next priority, build the right growth system, and improve it over time."
+        description="Before NTA recommends tools or services, we learn how your business works. Understand the business, involve the people closest to the work, plan the next priority, build useful pieces, and improve over time."
         faqs={FAQS}
       />
       <MarketingNav />
@@ -157,13 +163,13 @@ export default function WorkWithNTA() {
                   What happens when you work with NTA
                 </p>
                 <h1 className="mb-7 text-4xl font-black leading-tight tracking-tight md:text-6xl">
-                  You did not build your business just to collect more tools.
+                  Before we build anything, we learn how your business works.
                 </h1>
                 <p className="mb-6 max-w-2xl text-xl leading-relaxed text-slate-200 md:text-2xl">
-                  You built it to help people, do good work, and grow. NTA helps you understand what is getting in the way and build the right growth system in the right order.
+                  You built your business to help people, do good work, and grow. NTA helps you see what is working, what is getting in the way, and what deserves attention next.
                 </p>
                 <p className="max-w-2xl text-lg leading-relaxed text-slate-400">
-                  Work with AI without changing how you work. You get a practical guide, a connected Digital Growth Office™, and a clearer path from where the business is now to where it needs to go next.
+                  Before we recommend a website, campaign, CRM, automation, or AI tool, we begin with the owner, the customers, the people closest to the work, and the real business question. Then we build the right growth system in the right order.
                 </p>
 
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -191,7 +197,7 @@ export default function WorkWithNTA() {
               </div>
 
               <div className="rounded-3xl border border-blue-400/20 bg-slate-900/80 p-7 shadow-2xl shadow-blue-950/30 backdrop-blur-sm md:p-9">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">The NTA promise</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">What you can expect</p>
                 <h2 className="mt-4 text-3xl font-bold text-white">Clarity before activity.</h2>
                 <p className="mt-5 text-base leading-relaxed text-slate-300">
                   Before we recommend a website, campaign, CRM, automation, or AI tool, we work to understand the owner, the customers, the business, and the actual obstacle to growth.
@@ -220,7 +226,7 @@ export default function WorkWithNTA() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">Study the approach</p>
               <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">The website is part of the working relationship.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                NTA is not asking you to trust a polished promise. The books, lessons, conversations, case studies, and tools let you study how we think, how we explain the work, and what we can build around a real business before you decide to work with us.
+                NTA is not asking you to trust a polished promise. The books, lessons, conversations, case studies, and tools let you study how we think, how we explain the work, and why we begin by learning how a real business works before we recommend what to build.
               </p>
             </div>
 
@@ -257,9 +263,9 @@ export default function WorkWithNTA() {
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto mb-12 max-w-4xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">What makes the approach different</p>
-              <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Prompting is a technique. Connected work is the point.</h2>
+              <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Tools matter. Understanding comes first.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                A prompt can help with one task. NTA looks at the larger system—the owner, employees, customers, website, knowledge, follow-up, and tools—and helps the business build AI into the way the whole team already works.
+                A prompt can help with one task. NTA first looks at the larger system—the owner, employees, customers, website, knowledge, follow-up, and tools—then helps the business use AI in a practical way that supports how the team already works.
               </p>
             </div>
 
@@ -343,10 +349,10 @@ export default function WorkWithNTA() {
         <section className="border-b border-slate-800/70 bg-slate-950 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-5xl">
             <div className="mx-auto mb-12 max-w-3xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">The path forward</p>
-              <h2 className="mt-3 text-3xl font-bold md:text-5xl">From first conversation to connected growth.</h2>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">How we work together</p>
+              <h2 className="mt-3 text-3xl font-bold md:text-5xl">Understand the business. Make the next right move.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-400">
-                The next step depends on what the business actually needs. The path is clear without pretending every business starts in the same place.
+                This is not a rigid process or a package. It is the way we work together to understand the business, decide what matters now, and keep moving forward without pretending every business starts in the same place.
               </p>
             </div>
 
