@@ -122,8 +122,8 @@ export const PAGE_KEY_PREFIX_RULES = [
 // Pages that should remain publicly accessible and indexed.
 
 export const PUBLIC_PAGE_KEYS = new Set([
-  'Home', 'HomePage', 'About', 'Services', 'Pricing', 'Contact', 'Blog',
-  'BlogPost', 'Start', 'Free-Audit', 'GettingStarted', 'Get-Started',
+  'Home', 'HomePage', 'About', 'Services', 'Pricing', 'Contact', 'Start',
+  'Free-Audit', 'GettingStarted', 'Get-Started',
   'PrivacyPolicy', 'TermsOfService',
   // Publications and primary public discovery
   'Books', 'BetterBusinessBook', 'PracticalAI', 'NtaJournal', 'JournalLanding',
@@ -231,8 +231,9 @@ export const ROUTE_OVERRIDES = {
   '/knowledge/questions':        'public',
   ...KNOWLEDGE_QUESTION_ROUTE_OVERRIDES,
   '/brand-book':                 'public',
-  '/insights':                   'public',
-  '/insights/:slug':             'public',
+  // Retired blog paths are never public discovery destinations.
+  '/insights':                   'noindex',
+  '/insights/:slug':             'noindex',
   '/case-studies/:slug':         'public',
   '/case-studies/johnson-heating': 'public',
   '/case-study/johnson-heating': 'public',
