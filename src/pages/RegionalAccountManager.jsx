@@ -276,8 +276,8 @@ export default function RegionalAccountManager() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="NTA Account Manager | Learn AI & Build Relationship-Based Income"
-        description="A remote opportunity for curious people who want to explore NTA's practical AI and digital-growth learning experience, then help business owners understand it and build relationship-based income over time under a written agreement."
+        title="NTA Account Manager | Business Builder Opportunity"
+        description="A remote, relationship-based opportunity for curious business builders who notice how businesses work, want to understand the problem, and help owners make practical progress with NTA's education and support."
         canonical="https://newtechadvertising.com/account-manager"
         faqs={REGIONAL_ACCOUNT_MANAGER_FAQS}
         learningData={{
@@ -306,17 +306,17 @@ export default function RegionalAccountManager() {
                 Remote • United States • Build your own market
               </p>
               <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Curious about AI? Learn it by helping business owners understand it.
+                We’re looking for business builders—people who notice things.
               </h1>
               <div className="mt-7 max-w-2xl space-y-5 text-lg leading-relaxed text-slate-300">
                 <p>
-                  New Tech Advertising is building a network of curious, people-oriented learners who can sit down with business owners, get to know the people throughout the company, and explore what AI and digital growth could mean for the whole business.
+                  You do not have to walk into a business knowing the answer. You need to walk in wanting to understand the problem.
                 </p>
                 <p>
-                  This is not a generic remote sales job or a link-and-leave affiliate program. You do not need to walk in as the expert or purchase a system to learn it. You start the relationship and the conversation; NTA helps you understand what comes next.
+                  New Tech Advertising is building a network of curious, people-oriented learners who can sit down with business owners, get to know the people throughout the company, and notice how the business actually works.
                 </p>
                 <p>
-                  The knowledge is free to explore. You do not need to memorize everything NTA does. You bring curiosity, the relationship, and the conversation. NTA gives you the knowledge, tools, and support behind it.
+                  This is not a generic remote sales job or a link-and-leave affiliate program. NTA provides the education, systems, knowledge, AI support, and Digital Growth Office structure. You bring curiosity, relationships, good judgment, and thoughtful follow-through.
                 </p>
               </div>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -325,7 +325,7 @@ export default function RegionalAccountManager() {
                   onClick={() => trackJourneyEvent('regional_account_manager_explore_first_clicked', { route: '/regional-account-manager', source: 'hero' })}
                   className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 text-lg font-bold text-white shadow-[0_0_24px_rgba(37,99,235,0.32)] transition-colors hover:bg-blue-500 sm:w-auto"
                 >
-                  Explore the Opportunity First <ArrowRight className="h-5 w-5" />
+                  Catch the Vision First <ArrowRight className="h-5 w-5" />
                 </a>
                 <Link
                   to="/work-with-nta"
@@ -361,7 +361,7 @@ export default function RegionalAccountManager() {
                 onClick={() => trackJourneyEvent('regional_account_manager_video_playlist_clicked', { route: '/regional-account-manager', source: 'hero_overview' })}
                 className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-colors hover:text-cyan-200"
               >
-                Watch the full eight-video series on YouTube <ArrowRight className="h-4 w-4" />
+                Watch the full seven-video series on YouTube <ArrowRight className="h-4 w-4" />
               </a>
             </aside>
           </div>
@@ -369,9 +369,12 @@ export default function RegionalAccountManager() {
 
         <section id="explore-first" className="scroll-mt-24 border-y border-cyan-100 bg-cyan-50/60 px-5 py-16 sm:px-6 md:py-20">
           <div className="mx-auto max-w-6xl">
-            <SectionHeading eyebrow="First: explore NTA" title="Spend some time with the vision before you decide whether to apply.">
+            <SectionHeading eyebrow="Catch the vision first" title="Spend time with the vision before you decide whether this is for you.">
               <p>
-                This is not a test, and you do not need to understand everything at once. Read a few pages, watch a few videos, or follow a question that interests you. The point is to see what NTA is building and whether the opportunity genuinely excites you.
+                This is not a test, and you do not need to understand everything at once. Read a few pages, watch a few videos, or follow a question that interests you. See how NTA helps a business owner understand the business before recommending tools or services.
+              </p>
+              <p className="mt-4">
+                We are not trying to convince everybody to join us. We want the right person to explore the work and think, “I get this. This is the kind of work I want to do.”
               </p>
             </SectionHeading>
 
@@ -400,12 +403,57 @@ export default function RegionalAccountManager() {
 
             <div className="mx-auto mt-9 max-w-3xl rounded-2xl border border-blue-200 bg-white px-6 py-5 text-center shadow-sm">
               <p className="leading-relaxed text-slate-700">
-                When something begins to make sense—or simply makes you more curious—come back and tell Rick what caught your attention. That is the right place to begin a real conversation.
+                When something begins to make sense—or simply makes you more curious—come back with one thing that caught your attention, one question it made you ask, or one part of the work that felt natural to you. That is the right place to begin a real conversation.
               </p>
               <button type="button" onClick={() => scrollToForm('explore_first')} className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 font-bold text-white transition hover:bg-slate-800">
-                Tell Us What Caught Your Attention <ArrowRight className="h-4 w-4" />
+                Start the Conversation <ArrowRight className="h-4 w-4" />
               </button>
             </div>
+          </div>
+        </section>
+
+        <section className="border-y border-slate-200 bg-white px-5 py-16 sm:px-6 md:py-20">
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading eyebrow="Who we are looking for" title="Business builders notice things.">
+              <p>
+                They get curious about how a business actually works. They notice where people are doing the same work twice, where important knowledge lives in one person’s head, what customers keep asking, what tools are not being used fully, and what the owner is carrying alone.
+              </p>
+            </SectionHeading>
+
+            <div className="mx-auto mt-10 grid max-w-5xl gap-5 md:grid-cols-2">
+              <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-blue-700">The questions that begin discovery</p>
+                <ul className="mt-5 space-y-3 text-slate-700">
+                  {[
+                    'Why are they doing it this way?',
+                    'Could this be simpler?',
+                    'What does the owner hate doing?',
+                    'What do the employees know?',
+                    'Where is the friction?',
+                    'What could we help make better?',
+                  ].map((question) => (
+                    <li key={question} className="flex gap-3 leading-relaxed">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+                      <span>{question}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+
+              <article className="rounded-2xl border border-blue-100 bg-blue-50/60 p-6 shadow-sm">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-blue-700">A picture of the work</p>
+                <p className="mt-4 leading-relaxed text-slate-700">
+                  You may walk into an established business and see paperwork everywhere, information being entered into more than one system, software that can do more than the team realizes, employees carrying important knowledge in their heads, repeated customer questions, or an owner exhausted from carrying too much alone.
+                </p>
+                <p className="mt-4 leading-relaxed text-slate-700">
+                  A traditional salesperson may immediately wonder what product to sell. The person NTA is looking for begins by wondering why the business works that way and what could make life better for the owner and team.
+                </p>
+              </article>
+            </div>
+
+            <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-slate-500">
+              This is discovery, not diagnosis. You do not claim to have the answer or promise a solution. You begin by understanding the problem and bringing the right NTA support into the relationship.
+            </p>
           </div>
         </section>
 
