@@ -3,7 +3,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getSeoMetadata } from "../src/config/seoMetadata.js";
 import { collectionsOrder } from "../src/data/masterCurriculum.js";
-import { knowledgeQuestions, getKnowledgeQuestionBySlug, getKnowledgeQuestionPath } from "../src/data/knowledgeQuestions.js";
+import {
+  KNOWLEDGE_QUESTION_LAST_UPDATED,
+  knowledgeQuestions,
+  getKnowledgeQuestionBySlug,
+  getKnowledgeQuestionPath,
+} from "../src/data/knowledgeQuestions.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
@@ -16,6 +21,7 @@ const SITE_ORIGIN = "https://newtechadvertising.com";
 const TODAY = new Date().toISOString().slice(0, 10);
 const KNOWLEDGE_AUTHOR = "Rick Hesse";
 const KNOWLEDGE_PUBLISHER = "New Tech Advertising";
+const AI_HUMANITY_LAST_UPDATED = "2026-09-02";
 
 function getPublishedJournalIssues() {
   if (!fs.existsSync(sourceAiSitemap)) return [];
@@ -53,7 +59,7 @@ const FEATURED_KNOWLEDGE_COLLECTION = {
   description: "Artificial intelligence is more than a new business tool. It reflects the knowledge, contradictions, hopes, fears, wisdom, and brokenness of the people who created it. This collection explores how we can understand AI without worshiping it, fearing it blindly, or surrendering our responsibility to think.",
   author: KNOWLEDGE_AUTHOR,
   publisher: KNOWLEDGE_PUBLISHER,
-  lastModified: TODAY,
+  lastModified: AI_HUMANITY_LAST_UPDATED,
   lessons: [
     {
       title: "AI Is a Mirror, Not a God",
@@ -63,7 +69,7 @@ const FEATURED_KNOWLEDGE_COLLECTION = {
       author: KNOWLEDGE_AUTHOR,
       publisher: KNOWLEDGE_PUBLISHER,
       publicStatus: "published",
-      lastModified: TODAY
+      lastModified: AI_HUMANITY_LAST_UPDATED
     }
   ]
 };
@@ -178,7 +184,7 @@ function buildKnowledgeQuestionPages(existingPublicPages = []) {
     author: KNOWLEDGE_AUTHOR,
     publisher: KNOWLEDGE_PUBLISHER,
     publicStatus: "published",
-    lastModified: TODAY,
+    lastModified: KNOWLEDGE_QUESTION_LAST_UPDATED,
   };
 
   const questions = knowledgeQuestions.map(question => {
@@ -192,7 +198,7 @@ function buildKnowledgeQuestionPages(existingPublicPages = []) {
       author: KNOWLEDGE_AUTHOR,
       publisher: KNOWLEDGE_PUBLISHER,
       publicStatus: "published",
-      lastModified: TODAY,
+      lastModified: KNOWLEDGE_QUESTION_LAST_UPDATED,
     };
   });
 
@@ -293,21 +299,25 @@ function syncKnowledgeIndexes() {
     JSON.stringify({ ...aiSitemap, publicPages, knowledgeCollections }, null, 2) + "\n"
   );
 
+  const knowledgeLibraryLastModified = latestDate([
+    ...knowledgeCollections.map(collection => collection.lastModified),
+    KNOWLEDGE_QUESTION_LAST_UPDATED,
+  ]);
   const generatedRoutes = new Map();
   generatedRoutes.set(
     "/knowledge",
-    renderSitemapUrl("/knowledge", TODAY, "weekly", "0.8")
+    renderSitemapUrl("/knowledge", knowledgeLibraryLastModified, "weekly", "0.8")
   );
   generatedRoutes.set(
     "/knowledge/questions",
-    renderSitemapUrl("/knowledge/questions", TODAY, "weekly", "0.8")
+    renderSitemapUrl("/knowledge/questions", KNOWLEDGE_QUESTION_LAST_UPDATED, "weekly", "0.8")
   );
 
   for (const question of knowledgeQuestions) {
     const questionPath = getKnowledgeQuestionPath(question);
     generatedRoutes.set(
       questionPath,
-      renderSitemapUrl(questionPath, TODAY, "monthly", "0.7")
+      renderSitemapUrl(questionPath, KNOWLEDGE_QUESTION_LAST_UPDATED, "monthly", "0.7")
     );
   }
 
@@ -697,7 +707,7 @@ function knowledgeQuestionStaticBody(pathname) {
       </nav>
       <p class="seo-kicker">Small-business question</p>
       <h1>${escapeHtml(question.question)}</h1>
-      <p>By Rick Hesse &middot; <time datetime="${TODAY}">Updated ${TODAY}</time></p>
+      <p>By Rick Hesse &middot; <time datetime="${KNOWLEDGE_QUESTION_LAST_UPDATED}">Updated ${KNOWLEDGE_QUESTION_LAST_UPDATED}</time></p>
       <h2>Short answer</h2>
       <p class="speakable">${escapeHtml(question.answer)}</p>
       <h2>Where this fits in a real small business</h2>
@@ -737,8 +747,8 @@ function knowledgeQuestionSchemaMarkup(pathname, metadata) {
         "@id": SITE_ORIGIN + "/#organization",
         "name": KNOWLEDGE_PUBLISHER,
       },
-      "datePublished": TODAY,
-      "dateModified": TODAY,
+      "datePublished": KNOWLEDGE_QUESTION_LAST_UPDATED,
+      "dateModified": KNOWLEDGE_QUESTION_LAST_UPDATED,
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": canonical,
@@ -772,7 +782,7 @@ function knowledgeQuestionSchemaMarkup(pathname, metadata) {
   ];
 
   return schemas
-    .map(schema => '<script type="application/ld+json">' + JSON.stringify(schema).replace(/</g, "\\u003c") + '</script>')
+    .map(schema => '<script type="application/ld+json" data-seo-static-question-schema="true">' + JSON.stringify(schema).replace(/</g, "\\u003c") + '</script>')
     .join("\n");
 }
 
