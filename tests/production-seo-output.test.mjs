@@ -59,6 +59,13 @@ test('question-first knowledge resources are in every intentional discovery surf
   const aiSitemap = JSON.parse(fs.readFileSync(path.join(root, 'public', 'ai-sitemap.json'), 'utf8'));
   const llms = fs.readFileSync(path.join(root, 'public', 'llms.txt'), 'utf8');
 
+  assert.doesNotMatch(sitemap, /<loc>https:\/\/newtechadvertising\.com\/insights<\/loc>/);
+  assert.equal(
+    aiSitemap.publicPages.some(page => page.canonicalUrl === 'https://newtechadvertising.com/insights'),
+    false
+  );
+  assert.doesNotMatch(llms, /https:\/\/newtechadvertising\.com\/insights/);
+
   for (const route of QUESTION_PATHS) {
     assert.match(sitemap, new RegExp('<loc>https://newtechadvertising\\.com' + route + '</loc>'));
     const aiSitemapPage = aiSitemap.publicPages.find(
@@ -88,6 +95,8 @@ test('question-first knowledge resources are in every intentional discovery surf
 test('historical route variants can never inherit generic indexable metadata', () => {
   for (const route of [
     '/contentqueue',
+    '/insights',
+    '/Insights',
     '/restaurantsocialmedia',
     '/blogpost',
     '/website-rebuilds',
