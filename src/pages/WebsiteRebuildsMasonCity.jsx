@@ -360,7 +360,7 @@ export default function WebsiteRebuildsMasonCity() {
             <Link to="/ada-website-compliance" className="text-blue-600 hover:underline font-medium">→ ADA Compliance Services</Link>
             <Link to="/ai-seo" className="text-blue-600 hover:underline font-medium">→ AI SEO & Marketing</Link>
             <Link to="/contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
-            <Link to="/insights" className="text-blue-600 hover:underline font-medium">→ Read Our Blog</Link>
+            <Link to="/knowledge" className="text-blue-600 hover:underline font-medium">→ Explore the Knowledge Library</Link>
           </div>
         </div>
       </section>
