@@ -42,30 +42,30 @@ test('public compatibility aliases cover legacy links without exposing private p
     '/local-visibility',
     '/onboard/thank-you',
     '/home',
-    '/insights',
-    '/insights/:slug',
     '/tools',
     '/services',
     '/communitypartnerprogram',
     '/ourwork',
     '/marketing-plan-generator',
-    '/blogpost',
   ]) {
     assert.match(routes, new RegExp(`alias\\(['"]${route.replace(/[.*+?^$\\{}()|[\\]\\\\]/g, '\\\\$&')}`));
   }
 
   assert.ok(!routes.includes("alias('/admin/") && !routes.includes("alias('/agency/") && !routes.includes("alias('/client/") && !routes.includes("alias('/portal/") && !routes.includes("alias('/ops/") && !routes.includes("alias('/crm/") && !routes.includes("alias('/billing/"));
+
+  for (const retiredRoute of ["'/insights'", "'/insights/:slug'", "'/blog'", "'/blogpost'"]) {
+    assert.ok(!routes.includes(`alias(${retiredRoute}`), retiredRoute);
+  }
 });
 
 test('canonical helpers and public demo/article links stay on public routes', async () => {
   const utils = await read('src/utils/index.ts');
-  const blogPost = await read('src/pages/BlogPost.jsx');
+  const registry = await read('src/pages.config.js');
   const demo = await read('src/pages/DemoOverview.jsx');
 
   for (const mapping of [
     "tools: '/free-audit'",
     "services: '/services'",
-    "blogPost: '/blogpost'",
     "communityPartnerProgram: '/community-partner'",
     "ourWork: '/our-work'",
     "marketingPlanGenerator: '/marketing-plan-generator'",
@@ -73,7 +73,7 @@ test('canonical helpers and public demo/article links stay on public routes', as
     assert.ok(utils.includes(mapping), mapping);
   }
 
-  assert.match(blogPost, /pathSlug/);
+  assert.doesNotMatch(registry, /import Blog(?:Post)? from/);
   assert.doesNotMatch(demo, /createPageUrl\('SalesRoom'\)/);
   assert.match(demo, /<Link to="\/">/);
 });
@@ -128,4 +128,9 @@ test('question-first Knowledge Library routes are specific and fail closed', asy
   const unknown = getSeoMetadata('/knowledge/questions/not-a-real-question');
   assert.equal(unknown.noIndex, true);
   assert.match(unknown.title, /Page Not Found/);
+
+  const retiredBlogHub = getSeoMetadata('/insights');
+  const retiredBlogArticle = getSeoMetadata('/insights/retired-article');
+  assert.equal(retiredBlogHub.noIndex, true);
+  assert.equal(retiredBlogArticle.noIndex, true);
 });
