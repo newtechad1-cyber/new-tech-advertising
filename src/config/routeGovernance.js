@@ -16,6 +16,8 @@
  * ROLES: admin, ops, client, student, reseller
  */
 
+import { knowledgeQuestions, getKnowledgeQuestionPath } from '../data/knowledgeQuestions.js';
+
 // ─── Prefix-based classification ─────────────────────────────────────────────
 // Routes are matched by prefix (case-insensitive). Most specific match wins.
 // Order matters: more specific prefixes MUST come before less specific ones.
@@ -196,6 +198,11 @@ export const PUBLIC_PAGE_KEYS = new Set([
 
 // ─── Explicit route overrides ────────────────────────────────────────────────
 // When a specific path needs a different classification than its prefix suggests.
+// Question routes are generated from the approved answer records so an invented
+// or retired slug remains fail-closed rather than becoming public by pattern.
+const KNOWLEDGE_QUESTION_ROUTE_OVERRIDES = Object.fromEntries(
+  knowledgeQuestions.map(question => [getKnowledgeQuestionPath(question), 'public'])
+);
 
 export const ROUTE_OVERRIDES = {
   '/':                           'public',
@@ -221,6 +228,8 @@ export const ROUTE_OVERRIDES = {
   '/our-work':                   'public',
   '/our-story':                  'public',
   '/knowledge':                  'public',
+  '/knowledge/questions':        'public',
+  ...KNOWLEDGE_QUESTION_ROUTE_OVERRIDES,
   '/brand-book':                 'public',
   '/insights':                   'public',
   '/insights/:slug':             'public',
