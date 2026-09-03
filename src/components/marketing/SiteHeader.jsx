@@ -8,7 +8,7 @@ import { base44 } from '@/api/base44Client';
 const TRIAL_URL = 'https://app.newtechadvertising.com/start-trial';
 
 const navLinks = [
-  { label: 'Platform', href: createPageUrl('Home') },
+  { label: 'Platform', href: '/' },
   { label: 'Social Media', href: createPageUrl('AiSocialMediaSmallBusiness') },
   { label: 'HVAC', href: createPageUrl('HvacMarketing') },
   { label: 'Restaurants', href: createPageUrl('RestaurantSocialMedia') },
@@ -39,7 +39,7 @@ export default function SiteHeader() {
 
         {/* Logo row */}
         <div className="max-w-6xl mx-auto px-6 pt-3 pb-1 flex items-center justify-between">
-          <Link to={createPageUrl('Home')}>
+          <Link to="/">
             <img
               src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png"
               alt="New Tech Advertising"
