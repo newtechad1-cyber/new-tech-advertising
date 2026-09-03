@@ -189,7 +189,7 @@ export default function Home() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">When you want NTA involved</p>
               <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Here is what working with NTA looks like.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                You do not need another disconnected package. You need someone who can understand the business, see what is getting in the way, and help build the right growth system in the right order.
+                Before NTA recommends tools or services, we learn how the business works. Then we help the owner see what is getting in the way and build the right growth system in the right order.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-slate-400">
                 You can study the approach before you contact us: <Link to="/better-business-book" className="text-blue-300 hover:text-blue-200">Better Business Book</Link>, <Link to="/practical-ai" className="text-blue-300 hover:text-blue-200">Practical AI Guide</Link>, <Link to="/knowledge" className="text-blue-300 hover:text-blue-200">Knowledge Library</Link>, and <Link to="/case-studies" className="text-blue-300 hover:text-blue-200">case studies</Link>.
@@ -198,7 +198,7 @@ export default function Home() {
 
             <div className="grid gap-4 md:grid-cols-5">
               {[
-                ['01', 'Discover', 'Learn from the owner and, with permission, the people doing the work.'],
+                ['01', 'Understand', 'Learn from the owner and, with permission, the people doing the work.'],
                 ['02', 'Involve', 'Help the owner bring the team into practical AI learning.'],
                 ['03', 'Plan', 'Create the next useful order of work.'],
                 ['04', 'Build', 'Connect the foundation and practical systems.'],
