@@ -61,10 +61,11 @@ test('question-first knowledge resources are in every intentional discovery surf
 
   for (const route of QUESTION_PATHS) {
     assert.match(sitemap, new RegExp('<loc>https://newtechadvertising\\.com' + route + '</loc>'));
-    assert.ok(
-      aiSitemap.publicPages.some(page => page.canonicalUrl === 'https://newtechadvertising.com' + route),
-      'Expected AI sitemap entry for ' + route
+    const aiSitemapPage = aiSitemap.publicPages.find(
+      page => page.canonicalUrl === 'https://newtechadvertising.com' + route
     );
+    assert.ok(aiSitemapPage, 'Expected AI sitemap entry for ' + route);
+    assert.equal(aiSitemapPage.lastModified, '2026-09-02', 'Expected an editorial update date for ' + route);
   }
 
   assert.match(llms, /Start with a business question/);
@@ -76,6 +77,9 @@ test('question-first knowledge resources are in every intentional discovery surf
   assert.match(answerPage, /<link rel="canonical" href="https:\/\/newtechadvertising\.com\/knowledge\/questions\/how-can-a-small-business-use-ai" \/>/);
   assert.match(answerPage, /<h1>How can a small business use AI\?<\/h1>/);
   assert.match(answerPage, /Start by giving AI one useful job that supports real work/);
+  assert.match(answerPage, /<time datetime="2026-09-02">Updated 2026-09-02<\/time>/);
+  assert.match(answerPage, /\"dateModified\":\"2026-09-02\"/);
+  assert.equal((answerPage.match(/data-seo-static-question-schema="true"/g) || []).length, 3);
   assert.match(answerPage, /\"@type\":\"Article\"/);
   assert.match(answerPage, /\"@type\":\"FAQPage\"/);
   assert.match(answerPage, /\"@type\":\"BreadcrumbList\"/);
