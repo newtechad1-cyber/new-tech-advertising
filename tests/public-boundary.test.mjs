@@ -87,6 +87,7 @@ test('the public Journal page does not advertise an unimplemented RSS endpoint',
 test('SEO cleanup prerendering covers private SPA fallbacks and public legacy equity', async () => {
   const generator = await read('scripts/generate-seo-pages.mjs');
   const seo = await read('src/config/seoMetadata.js');
+  const seoHead = await read('src/components/shared/SEOHead.jsx');
 
   for (const route of ['/portal', '/workspace', '/agency', '/admin', '/content-command']) {
     assert.match(generator, new RegExp(`"${route}"`));
@@ -101,6 +102,8 @@ test('SEO cleanup prerendering covers private SPA fallbacks and public legacy eq
   }
 
   assert.match(generator, /function getStaticPublicAliasPaths\(\)/);
+  assert.match(generator, /data-seo-static-question-schema/);
+  assert.match(seoHead, /data-seo-static-question-schema/);
   assert.match(generator, /\.\.\.getStaticPublicAliasPaths\(\)/);
   assert.match(generator, /pathsWithDescendants/);
   assert.match(generator, /pathname\.slice\(1\) \+ ".html"/);
