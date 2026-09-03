@@ -24,8 +24,6 @@ import CanonCollectionView from '@/pages/CanonCollectionView';
 import CanonExplorer from '@/pages/CanonExplorer';
 import BackOfficeSolutions from '@/pages/BackOfficeSolutions';
 import BetterBusinessBook from '@/pages/BetterBusinessBook';
-import Blog from '@/pages/Blog';
-import BlogPost from '@/pages/BlogPost';
 import Books from '@/pages/Books';
 import BookCall from '@/pages/BookCall';
 import BusinessFoundationsCollection from '@/pages/BusinessFoundationsCollection';
@@ -152,8 +150,6 @@ export const PUBLIC_ROUTE_ALIASES = [
   // Main navigation and footer destinations
   alias('/home', Home),
   alias('/about', About),
-  alias('/insights', Blog),
-  alias('/insights/:slug', BlogPost),
   alias('/contact', Contact),
   alias('/help-and-support', HelpAndSupport),
   alias('/operating-system', NTAOperatingSystem),
@@ -310,7 +306,4 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/case-study/johnson-heating', CaseStudyJohnsonHeating),
   alias('/case-study/monson-plumbing', CaseStudyMonsonPlumbing),
 
-  // Legacy / case-insensitive-friendly paths
-  alias('/blog', Blog),
-  alias('/blogpost', BlogPost),
 ];
