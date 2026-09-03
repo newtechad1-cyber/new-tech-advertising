@@ -345,7 +345,7 @@ export default function WebsiteRebuildsRochesterMN() {
             <Link to="/services/website-rebuilds" className="text-blue-600 hover:underline font-medium">→ Website Rebuild Services Overview</Link>
             <Link to="/website-rebuilds/mason-city-ia" className="text-blue-600 hover:underline font-medium">→ Mason City, IA Website Rebuilds</Link>
             <Link to="/contact" className="text-blue-600 hover:underline font-medium">→ Contact Us</Link>
-            <Link to="/insights" className="text-blue-600 hover:underline font-medium">→ Marketing Blog</Link>
+            <Link to="/knowledge" className="text-blue-600 hover:underline font-medium">→ Explore the Knowledge Library</Link>
           </div>
         </div>
       </section>
