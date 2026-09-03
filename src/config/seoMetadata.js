@@ -28,10 +28,6 @@ const STATIC_SEO = {
     title: "Practical AI and Small Business Growth Options | NTA",
     description: "Explore practical AI education and small-business growth options from New Tech Advertising. Start with free learning and choose help when it becomes useful.",
   },
-  "/insights": {
-    title: "Small Business Growth and Practical AI Insights | NTA",
-    description: "Practical AI, small-business marketing, local visibility, digital trust, and growth-system lessons from Rick Hesse and New Tech Advertising.",
-  },
   "/learning-center": {
     title: "AI Learning Center for Small Business Owners | NTA",
     description: "Free AI lessons and small-business education on AI search, digital trust, local visibility, and connected growth systems.",
@@ -333,7 +329,6 @@ const LEGACY_CANONICALS = {
   "/privacypolicy": "/privacy-policy",
   "/termsofservice": "/terms-of-service",
   "/free-audit": "/free-audit",
-  "/blog": "/insights",
   "/aivideos": "/ai-videos",
   "/aisocialmedia": "/ai-social-media",
   "/aiwebsites": "/ai-websites",
@@ -507,7 +502,7 @@ const PRIVATE_PREFIXES = [
 ];
 
 const PUBLIC_PREFIXES = [
-  "/knowledge", "/canon", "/insights", "/journal", "/growth-show", "/services",
+  "/knowledge", "/canon", "/journal", "/growth-show", "/services",
   "/website-rebuilds", "/social-media", "/case-studies", "/case-study",
   "/ai-", "/small-business", "/local-", "/community-", "/practical-ai",
   "/books", "/better-business-book", "/growth-", "/why-nta", "/about",
