@@ -306,7 +306,7 @@ export default function GettingStarted() {
         {/* Footer help */}
         <div className="text-center py-6 text-slate-500 text-sm">
           Need help? Reach out to your NTA strategist or visit{' '}
-          <Link to="/HelpAndSupport" className="text-blue-400 hover:underline">Help & Support</Link>.
+          <Link to="/help-and-support" className="text-blue-400 hover:underline">Help & Support</Link>.
         </div>
       </div>
     </div>
