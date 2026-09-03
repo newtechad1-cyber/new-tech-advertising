@@ -136,6 +136,13 @@ export default function SEOHead({
 
     const elements = [];
 
+    // Pre-rendered question pages provide crawler-readable schema. Once JavaScript
+    // runs, replace only that marked static set so the browser has one current
+    // Article, FAQ, and breadcrumb representation instead of duplicates.
+    document.head.querySelectorAll('script[data-seo-static-question-schema="true"]').forEach((script) => {
+      script.remove();
+    });
+
     // ── 1. META TAGS ──────────────────────────────────────────────────────
     document.title = resolvedTitle;
     let titleTag = document.head.querySelector('title');
