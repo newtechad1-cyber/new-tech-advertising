@@ -181,6 +181,8 @@ export default function RegionalAccountManager() {
     current_role: '',
     business_relationships: '',
     interest_reason: '',
+    business_observation: '',
+    nta_questions: '',
     website: '',
   });
   const [submitting, setSubmitting] = useState(false);
@@ -242,6 +244,8 @@ export default function RegionalAccountManager() {
         current_role: form.current_role,
         business_relationships: form.business_relationships,
         interest_reason: form.interest_reason,
+        business_observation: form.business_observation,
+        nta_questions: form.nta_questions,
         campaign_source: campaign.source,
         campaign_medium: campaign.medium,
         campaign_name: campaign.name,
@@ -756,9 +760,9 @@ export default function RegionalAccountManager() {
 
         <section id="start-conversation" ref={formRef} className="scroll-mt-24 bg-slate-950 px-5 py-16 text-white sm:px-6 md:py-24">
           <div className="mx-auto max-w-3xl">
-            <SectionHeading eyebrow="When the vision starts to make sense" title="Tell us what caught your attention." light>
+            <SectionHeading eyebrow="When the vision starts to make sense" title="Start the Conversation." light>
               <p>
-                After you have spent some time exploring NTA, tell us a little about yourself, the relationships or market you know, and what made you curious to continue. This is simply a private first conversation—not a commitment.
+                After you have spent some time exploring NTA, tell us a little about yourself, the relationships or market you know, what caught your attention, and how you naturally think about businesses. This is a private first conversation—not a job application and not a commitment.
               </p>
             </SectionHeading>
 
@@ -800,13 +804,23 @@ export default function RegionalAccountManager() {
                 </div>
 
                 <div className="mt-5">
-                  <label htmlFor="ram-relationships" className="mb-2 block text-sm font-semibold text-slate-100">Tell us about the business relationships, market, or industry you know</label>
+                  <label htmlFor="ram-relationships" className="mb-2 block text-sm font-semibold text-slate-100">Business relationships, market, or industry you know <span className="font-normal text-slate-400">(optional)</span></label>
                   <textarea id="ram-relationships" name="business_relationships" value={form.business_relationships} onChange={handleChange} rows={4} placeholder="Who do you already know, what business community do you understand, or what kind of conversations could you naturally begin?" className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
                 </div>
 
                 <div className="mt-5">
-                  <label htmlFor="ram-interest" className="mb-2 block text-sm font-semibold text-slate-100">What caught your attention as you explored NTA? *</label>
-                  <textarea id="ram-interest" name="interest_reason" value={form.interest_reason} onChange={handleChange} required rows={4} placeholder="What did you read or watch? What made sense, raised a question, or made you curious to continue?" className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
+                  <label htmlFor="ram-interest" className="mb-2 block text-sm font-semibold text-slate-100">What did you find on the New Tech Advertising website that made you want to know more? *</label>
+                  <textarea id="ram-interest" name="interest_reason" value={form.interest_reason} onChange={handleChange} required rows={4} placeholder="What did you read or watch? What caught your attention, made sense, or raised a question?" className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
+                </div>
+
+                <div className="mt-5">
+                  <label htmlFor="ram-observation" className="mb-2 block text-sm font-semibold text-slate-100">When you walk into a business, what kinds of things do you naturally notice? Tell us about a time you saw something that could work better. *</label>
+                  <textarea id="ram-observation" name="business_observation" value={form.business_observation} onChange={handleChange} required rows={5} placeholder="You do not need to have solved it. Tell us what you noticed, what made you curious, and why it seemed worth understanding." className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
+                </div>
+
+                <div className="mt-5">
+                  <label htmlFor="ram-questions" className="mb-2 block text-sm font-semibold text-slate-100">What questions do you have after exploring NTA? <span className="font-normal text-slate-400">(optional)</span></label>
+                  <textarea id="ram-questions" name="nta_questions" value={form.nta_questions} onChange={handleChange} rows={3} placeholder="What would you want to understand before deciding whether to continue the conversation?" className="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30" />
                 </div>
 
                 <div className="sr-only" aria-hidden="true">
@@ -817,7 +831,7 @@ export default function RegionalAccountManager() {
                 {error && <p className="mt-5 rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-100">{error}</p>}
 
                 <button type="submit" disabled={submitting} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 text-lg font-bold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60">
-                  {submitting ? 'Sending…' : <>Share Your Perspective <ArrowRight className="h-5 w-5" /></>}
+                  {submitting ? 'Sending…' : <>Start the Conversation <ArrowRight className="h-5 w-5" /></>}
                 </button>
                 <p className="mt-4 text-center text-sm leading-relaxed text-slate-400">
                   Your information is used to respond to this opportunity inquiry. Please do not share confidential information from a current or former employer.
