@@ -56,7 +56,7 @@ export default function SiteFooter() {
             <li><Link to="/growth-show" className="hover:text-white transition-colors">NTA Growth Show</Link></li>
             <li><Link to="/journal" className="hover:text-white transition-colors">NTA Journal</Link></li>
             <li><Link to="/books" className="hover:text-white transition-colors">Free Business Books</Link></li>
-            <li><a href="/Blog" className="hover:text-white transition-colors">All Articles</a></li>
+            <li><Link to="/knowledge/questions" className="hover:text-white transition-colors">Questions &amp; Lessons</Link></li>
             <li><Link to="/case-studies" className="hover:text-white transition-colors">Case Studies</Link></li>
             <li><Link to="/free-audit" className="hover:text-white transition-colors">Free Business Gap Audit</Link></li>
           </ul>
@@ -67,9 +67,9 @@ export default function SiteFooter() {
           <p className="text-white font-semibold mb-3 text-sm">Support</p>
           <ul className="space-y-2 text-sm">
             <li><a href="/why-nta" className="hover:text-white transition-colors">Why NTA</a></li>
-            <li><a href="/HelpAndSupport" className="hover:text-white transition-colors">Help &amp; Support</a></li>
-            <li><a href="/About" className="hover:text-white transition-colors">About NTA</a></li>
-            <li><a href="/Contact" className="hover:text-white transition-colors">Contact Us</a></li>
+            <li><Link to="/help-and-support" className="hover:text-white transition-colors">Help &amp; Support</Link></li>
+            <li><Link to="/about" className="hover:text-white transition-colors">About NTA</Link></li>
+            <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
             <li><a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Book a Call</a></li>
             <li><Link to="/find-your-plan" className="hover:text-white transition-colors">Pricing</Link></li>
             <li><Link to="/join-nta" className="hover:text-white transition-colors">Join the Team</Link></li>
