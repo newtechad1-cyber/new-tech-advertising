@@ -74,7 +74,7 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
   },
   {
     question: 'Do I have to buy training, a course, or a system to begin?',
-    answer: 'No. The Knowledge Library, videos, and Your Digital Growth Guide™ are free to explore. You bring curiosity and honest effort; NTA gives you a place to keep learning as you talk with business owners.',
+    answer: 'No. The Knowledge Library, videos, and Your Digital Growth Guide™ are free to explore. They are part of the learning system. You bring curiosity and honest effort; NTA gives you a place to learn, have real business conversations, bring back what you heard, and keep improving.',
   },
   {
     question: 'Where can I build this?',
@@ -152,7 +152,8 @@ const rightFor = [
   'You naturally talk with everyone in the business and treat the receptionist or gatekeeper as an important relationship—not an obstacle to get past.',
   'You have relationships in a community, industry, or professional network and want to build them the right way.',
   'You are comfortable starting a conversation and following up thoughtfully.',
-  'You want to keep learning without pretending to have every answer on day one.',
+  'You learn by exploring, trying, reflecting, and coming back better—not by pretending to have every answer on day one.',
+  'You care more about helping a business owner make a good decision than pushing a product or chasing a quick commission.',
   'You can represent NTA with good judgment, patience, and respect for the person across the table.',
 ];
 
@@ -317,7 +318,7 @@ export default function RegionalAccountManager() {
                   You do not have to walk into a business knowing the answer. You need to walk in wanting to understand the problem.
                 </p>
                 <p>
-                  New Tech Advertising is building a network of curious, people-oriented learners who can sit down with business owners, get to know the people throughout the company, and notice how the business actually works.
+                  New Tech Advertising is building a network of curious, people-oriented business builders who want to understand how a business actually works. You learn through the NTA website and resources, bring that learning into real business conversations, and come back better prepared for the next one.
                 </p>
                 <p>
                   This is not a generic remote sales job or a link-and-leave affiliate program. NTA provides the education, systems, knowledge, AI support, and Digital Growth Office structure. You bring curiosity, relationships, good judgment, and thoughtful follow-through.
@@ -375,7 +376,7 @@ export default function RegionalAccountManager() {
           <div className="mx-auto max-w-6xl">
             <SectionHeading eyebrow="Catch the vision first" title="Spend time with the vision before you decide whether this is for you.">
               <p>
-                This is not a test, and you do not need to understand everything at once. Read a few pages, watch a few videos, or follow a question that interests you. See how NTA helps a business owner understand the business before recommending tools or services.
+                The website is part of the learning system—not a test—and you do not need to understand everything at once. Read a few pages, watch a few videos, or follow a question that interests you. See how NTA helps a business owner understand the business before recommending tools or services.
               </p>
               <p className="mt-4">
                 We are not trying to convince everybody to join us. We want the right person to explore the work and think, “I get this. This is the kind of work I want to do.”
@@ -413,6 +414,38 @@ export default function RegionalAccountManager() {
                 Start the Conversation <ArrowRight className="h-4 w-4" />
               </button>
             </div>
+          </div>
+        </section>
+
+        <section className="border-y border-slate-800 bg-slate-950 px-5 py-16 text-white sm:px-6 md:py-20">
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading eyebrow="How the learning works" title="Learn by doing. Not alone." light>
+              <p>
+                NTA is a learning system built around real businesses. The website, videos, Knowledge Library, Your Digital Growth Guide™, and conversations with Rick give you a place to learn. Then you use what you are learning in a real conversation, bring back what you heard and noticed, and get better from there.
+              </p>
+            </SectionHeading>
+
+            <div className="mx-auto mt-10 grid max-w-5xl gap-5 md:grid-cols-3">
+              <article className="rounded-2xl border border-slate-700 bg-slate-900/70 p-6">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-cyan-300">1. Learn</p>
+                <h3 className="mt-3 text-xl font-bold">Follow what makes you curious.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">Read, watch, ask questions, and start to see how NTA looks at a business.</p>
+              </article>
+              <article className="rounded-2xl border border-slate-700 bg-slate-900/70 p-6">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-cyan-300">2. Try</p>
+                <h3 className="mt-3 text-xl font-bold">Have a real conversation.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">Listen for what the owner is trying to do, what employees deal with, and where friction may exist.</p>
+              </article>
+              <article className="rounded-2xl border border-slate-700 bg-slate-900/70 p-6">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-cyan-300">3. Come back better</p>
+                <h3 className="mt-3 text-xl font-bold">Bring back what happened.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">Rick and the NTA system help you think through what you heard before the next step.</p>
+              </article>
+            </div>
+
+            <p className="mx-auto mt-8 max-w-3xl text-center text-lg leading-relaxed text-slate-300">
+              You will not be handed a script and sent out to sell. You will learn to listen, notice, ask better questions, and help an owner understand what may be possible next.
+            </p>
           </div>
         </section>
 
@@ -762,7 +795,7 @@ export default function RegionalAccountManager() {
           <div className="mx-auto max-w-3xl">
             <SectionHeading eyebrow="When the vision starts to make sense" title="Start the Conversation." light>
               <p>
-                After you have spent some time exploring NTA, tell us a little about yourself, the relationships or market you know, what caught your attention, and how you naturally think about businesses. This is a private first conversation—not a job application and not a commitment.
+                After you have spent some time exploring NTA, tell us a little about yourself, the relationships or market you know, what caught your attention, what you want to learn, and how you naturally think about businesses. This is a private first conversation—not a job application and not a commitment.
               </p>
             </SectionHeading>
 
