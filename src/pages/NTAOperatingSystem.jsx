@@ -241,7 +241,7 @@ export default function NTAOperatingSystem() {
         </div>
       </section>
 
-      {/* Section: The business-owner journey */}
+      {/* Section: The client-facing process */}
       <section className="py-24 relative border-t border-slate-800/50">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div 
@@ -249,50 +249,32 @@ export default function NTAOperatingSystem() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeIn}
-            className="text-center mb-16"
+            className="text-center mb-10"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">The Business-Owner Journey</h2>
-            <p className="text-xl text-slate-400">A clear path from understanding your current position to scaling your operations.</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">The System Behind the Work</h2>
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+              This page explains how NTA can connect useful pieces. The client-facing process is explained on Work With NTA.
+            </p>
           </motion.div>
 
-          <div className="space-y-6">
-            {[
-              { num: 1, title: "Discover", desc: "Understand the current business, bottlenecks, opportunities, and goals.", link: "/growth-conversation", linkText: "Start Discovery" },
-              { num: 2, title: "Score", desc: "Measure the business across the most important areas of digital growth.", link: "/business-score", linkText: "View Score" },
-              { num: 3, title: "Plan", desc: "Create a practical Growth Roadmap based on priorities, budget, and readiness.", link: "/growth-roadmap-generator", linkText: "Build Roadmap" },
-              { num: 4, title: "Build", desc: "Connect the website, content, customer systems, automation, and back office.", link: "#", linkText: "Explore Tools" },
-              { num: 5, title: "Operate", desc: "Give the owner, team, and NTA one connected place to manage the work.", link: null, plainText: "Inside the Client Workspace" },
-              { num: 6, title: "Grow", desc: "Review results, improve the system, and add capabilities as the business is ready.", link: "/relationship-builder", linkText: "Build Relationships" }
-            ].map((stage, i) => (
-              <motion.div 
-                key={stage.num}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6"
-              >
-                <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center text-2xl font-bold text-blue-400 shrink-0">
-                  {stage.num}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-2">{stage.title}</h3>
-                  <p className="text-slate-400">{stage.desc}</p>
-                </div>
-                <div className="shrink-0 pt-4 md:pt-0">
-                  {stage.link ? (
-                    <Link to={stage.link} className="text-blue-400 font-medium hover:text-blue-300 flex items-center gap-1">
-                      {stage.linkText} <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  ) : (
-                    <span className="text-slate-500 font-medium flex items-center gap-1">
-                      {stage.plainText}
-                    </span>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-900/20 to-indigo-900/10 p-8 md:p-10 text-center"
+          >
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-400 mb-4">The client-facing process</p>
+            <p className="text-2xl md:text-4xl font-bold text-white leading-relaxed">
+              Understand <span className="text-slate-500">→</span> Involve <span className="text-slate-500">→</span> Plan <span className="text-slate-500">→</span> Build <span className="text-slate-500">→</span> Improve
+            </p>
+            <p className="mt-6 text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+              We begin by learning how the business actually works. Then we involve the people closest to the work, agree on the next useful priority, build it alongside you, and keep improving from there.
+            </p>
+            <Link to="/work-with-nta" className="mt-7 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-500">
+              See How NTA Works <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
