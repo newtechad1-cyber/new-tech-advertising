@@ -990,7 +990,7 @@
       "description": "A practical, hype-free introduction to using artificial intelligence in a local business.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-08-14",
+      "lastModified": "2026-09-04",
       "lessons": [
         {
           "title": "AI Isn't Magic Either",
@@ -1131,6 +1131,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-08-14"
+        },
+        {
+          "title": "AI Finally Taught Me How to Multitask",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask",
+          "contentType": "LearningResource",
+          "description": "AI did not make Rick’s brain multitask. It helped him carry less context while directing more ideas, projects, decisions, and work forward.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-09-04"
         }
       ]
     },

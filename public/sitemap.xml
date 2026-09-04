@@ -92,7 +92,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -644,7 +644,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge/ai-foundations</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -933,6 +933,12 @@
   <url>
     <loc>https://newtechadvertising.com/knowledge/questions/how-can-ai-use-knowledge-already-inside-my-company</loc>
     <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask</loc>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -227,6 +227,8 @@ A practical, hype-free introduction to using artificial intelligence in a local 
 
 - [Use the Model That Gets the Job Done](https://newtechadvertising.com/knowledge/ai-foundations/use-the-model-that-gets-the-job-done): The newest or most expensive AI model is not automatically the right choice. Match the capability and cost to the work you actually need done.
 
+- [AI Finally Taught Me How to Multitask](https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask): AI did not make Rick’s brain multitask. It helped him carry less context while directing more ideas, projects, decisions, and work forward.
+
 ### [AI, Humanity & Responsibility](https://newtechadvertising.com/knowledge/ai-humanity)
 
 Artificial intelligence is more than a new business tool. It reflects the knowledge, contradictions, hopes, fears, wisdom, and brokenness of the people who created it. This collection explores how we can understand AI without worshiping it, fearing it blindly, or surrendering our responsibility to think.
