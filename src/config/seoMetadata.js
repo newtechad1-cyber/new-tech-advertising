@@ -468,6 +468,7 @@ const LESSON_SEARCH_TITLES = {
   "ai-does-not-have-to-be-a-monster": "How to Use AI Without Fear or Hype in a Small Business",
   "you-can-do-what-i-do-but-you-dont-have-to": "How Small Business Owners Can Use AI Without Becoming Technicians",
   "use-the-model-that-gets-the-job-done": "How to Choose the Right AI Model for the Work",
+  "ai-finally-taught-me-how-to-multitask": "AI Finally Taught Me How to Multitask",
   "what-is-digital-trust": "What Is Digital Trust for a Small Business?",
   "your-website-is-no-longer-just-a-website": "Why a Small Business Website Is More Than a Brochure",
   "why-traditional-marketing-is-no-longer-enough": "Why Traditional Marketing Is No Longer Enough for Small Business",
