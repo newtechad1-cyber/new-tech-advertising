@@ -38,7 +38,7 @@ export default function NTAOperatingSystem() {
       title: "Customer Relationships",
       desc: "Reviews, referrals, communication, retention, and systems that help customers stay connected.",
       icon: MessageSquare,
-      label: "Client Workspace"
+      label: "Digital Growth Office"
     },
     {
       title: "AI and Automation",
@@ -50,7 +50,7 @@ export default function NTAOperatingSystem() {
       title: "Business Knowledge",
       desc: "Turn the owner’s experience, processes, answers, and expertise into an organized business asset.",
       icon: Brain,
-      label: "Client Workspace"
+      label: "Digital Growth Office"
     },
     {
       title: "Operations and Back Office",
@@ -60,9 +60,9 @@ export default function NTAOperatingSystem() {
     },
     {
       title: "Measurement and Direction",
-      desc: "Reports, Business Score progress, priorities, recommendations, and the next best action.",
+      desc: "Reports, priorities, recommendations, and the next useful action as the business learns and improves.",
       icon: BarChart,
-      label: "Client Workspace"
+      label: "Digital Growth Office"
     }
   ];
 
@@ -139,33 +139,28 @@ export default function NTAOperatingSystem() {
             <Link to="/growth-conversation" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-lg hover:shadow-blue-500/25">
               Start Your Growth Conversation
             </Link>
-            <Link to="/business-journey" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700 hover:border-slate-600">
-              See the Business Journey in Action
+            <Link to="/work-with-nta" className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700 hover:border-slate-600">
+              See How NTA Works
             </Link>
           </motion.div>
 
-          {/* Visual System Map */}
+          {/* The client-facing process lives on Work With NTA. */}
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 max-w-4xl mx-auto"
+            className="max-w-3xl mx-auto rounded-2xl border border-slate-700 bg-slate-900/70 px-6 py-7 shadow-xl"
           >
-            {['Discover', 'Plan', 'Build', 'Operate', 'Grow'].map((step, idx, arr) => (
-              <React.Fragment key={step}>
-                <div className="bg-slate-900 border border-slate-700 px-6 py-3 rounded-lg shadow-xl font-medium text-slate-200">
-                  {step}
-                </div>
-                {idx < arr.length - 1 && (
-                  <div className="hidden md:block text-slate-600">
-                    <ArrowRight className="w-5 h-5" />
-                  </div>
-                )}
-                {idx < arr.length - 1 && (
-                  <div className="block md:hidden h-4 w-px bg-slate-600 my-1"></div>
-                )}
-              </React.Fragment>
-            ))}
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-400 mb-3">How NTA works with a business</p>
+            <p className="text-lg text-slate-300 leading-relaxed">
+              The Digital Growth Office supports the work. The client-facing process begins by understanding the business:
+            </p>
+            <p className="mt-4 text-xl md:text-2xl font-semibold text-white">
+              Understand <span className="text-slate-500">→</span> Involve <span className="text-slate-500">→</span> Plan <span className="text-slate-500">→</span> Build <span className="text-slate-500">→</span> Improve
+            </p>
+            <Link to="/work-with-nta" className="mt-5 inline-flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-300">
+              See the client process <ArrowRight className="w-4 h-4" />
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -181,8 +176,8 @@ export default function NTAOperatingSystem() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              The NTA Operating System™ is the method.<br/>
-              <span className="text-blue-400">The NTA Digital Growth Office™ is where the method comes to life.</span>
+              The NTA Operating System™ helps keep the work connected.<br/>
+              <span className="text-blue-400">The NTA Digital Growth Office™ is where useful pieces can come together.</span>
             </h2>
           </motion.div>
 
@@ -195,16 +190,16 @@ export default function NTAOperatingSystem() {
               className="bg-slate-900/50 border border-slate-700 rounded-3xl p-10 relative overflow-hidden"
             >
               <h3 className="text-2xl font-bold text-white mb-6">NTA Operating System™</h3>
-              <p className="text-slate-400 mb-6">The repeatable growth methodology:</p>
+              <p className="text-slate-400 mb-6">A broader working framework for putting useful improvements in the right order:</p>
               <ul className="space-y-4">
                 {[
-                  "Discover where the business stands",
-                  "Build the right foundations",
-                  "Improve visibility",
-                  "Strengthen trust",
-                  "Connect customers and systems",
-                  "Automate repeatable work",
-                  "Measure progress"
+                  "Understand the business before recommending a tool",
+                  "Strengthen the foundation",
+                  "Make it easier to be found and trusted",
+                  "Connect customer and business information",
+                  "Reduce repeated work where it makes sense",
+                  "Use AI to support people, not replace judgment",
+                  "Review what is working and improve next"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-slate-300">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2.5 shrink-0"></div>
@@ -222,7 +217,7 @@ export default function NTAOperatingSystem() {
               className="bg-gradient-to-br from-blue-900/20 to-indigo-900/20 border border-blue-500/30 rounded-3xl p-10 relative overflow-hidden shadow-2xl"
             >
               <h3 className="text-2xl font-bold text-white mb-6">NTA Digital Growth Office™</h3>
-              <p className="text-blue-200/80 mb-6">The connected working environment containing:</p>
+              <p className="text-blue-200/80 mb-6">A connected working environment that can bring together:</p>
               <ul className="space-y-4">
                 {[
                   "Website and digital presence",
@@ -233,7 +228,7 @@ export default function NTAOperatingSystem() {
                   "AI and automation",
                   "Business knowledge",
                   "Reporting and priorities",
-                  "Client and team collaboration"
+                  "Client, team, and NTA collaboration when useful"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-blue-100">
                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2.5 shrink-0"></div>
@@ -311,8 +306,8 @@ export default function NTAOperatingSystem() {
             variants={fadeIn}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Digital Growth Office Capabilities</h2>
-            <p className="text-xl text-slate-400">Everything working together inside one connected environment.</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">What the Digital Growth Office Can Help Connect</h2>
+            <p className="text-xl text-slate-400">The useful pieces depend on the business, its people, and the work in front of you.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -393,7 +388,7 @@ export default function NTAOperatingSystem() {
               <h3 className="text-2xl font-bold text-white mb-6 pb-4 border-b border-slate-700">Start</h3>
               <ul className="space-y-4 text-slate-300">
                 <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> Growth Conversation</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> Business Score</li>
+                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> Free Business Gap Audit</li>
                 <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> Immediate fixes</li>
                 <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> One clear priority</li>
               </ul>
@@ -430,14 +425,14 @@ export default function NTAOperatingSystem() {
             variants={fadeIn}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Connected NTA Tools & Experiences</h2>
-            <p className="text-xl text-slate-400">Explore specific pieces of the ecosystem.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ways to Start Learning and Working Together</h2>
+            <p className="text-xl text-slate-400">Explore a useful first step. We will not force every business through the same path.</p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { name: "Growth Conversation", link: "/growth-conversation" },
-              { name: "NTA Business Score", link: "/business-score" },
+              { name: "Free Business Gap Audit", link: "/free-audit" },
               { name: "Growth Roadmap", link: "/growth-roadmap-generator" },
               { name: "Relationship Builder", link: "/relationship-builder" },
               { name: "Knowledge Library", link: "/knowledge" },
