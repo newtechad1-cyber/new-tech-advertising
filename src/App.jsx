@@ -141,6 +141,9 @@ const LEGACY_PUBLIC_REDIRECTS = {
   '/SmallBusinessMarketingNorthIowa': '/small-business-marketing-north-iowa',
   // Consolidate the former public duplicate under the canonical service URL.
   '/website-rebuilds': '/services/website-rebuilds',
+  // The former Business Journey is now part of the canonical client process.
+  '/business-journey': '/work-with-nta',
+  '/BusinessJourney': '/work-with-nta',
 };
 
 function PublicRoutes() {
