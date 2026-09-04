@@ -32,6 +32,7 @@ import {
 } from '@/lib/growth-guide/publicKnowledge';
 
 const RICK_WELCOME_VIDEO_URL = '/brand/rick-digital-growth-guide-welcome.webm';
+const HOME_WELCOME_STORAGE_KEY = 'nta_home_guide_welcome_seen';
 const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t need to have all the answers before you begin. Take a look around, ask Your Digital Growth Guide a question, or tell me what is going on in your business. We can start with a practical next step. Whenever you want to talk, call, text, or email me—whichever way works best for you.`;
 const RICK_EMAIL = 'info@newtechadvertising.com';
 
@@ -156,6 +157,7 @@ const MessageBubble = ({ message, onSpeak, isSpeaking }) => {
 
 export default function YourDigitalGrowthGuide() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showHomeWelcome, setShowHomeWelcome] = useState(false);
   const [isAvatarMinimized, setIsAvatarMinimized] = useState(false);
   const [authStep] = useState('chat');
   const [messages, setMessages] = useState([{
@@ -209,11 +211,53 @@ export default function YourDigitalGrowthGuide() {
     }
   };
 
+  const dismissHomeWelcome = () => {
+    if (window.location.pathname === '/') {
+      try {
+        window.sessionStorage.setItem(HOME_WELCOME_STORAGE_KEY, 'true');
+      } catch {
+        // The welcome still closes if browser storage is unavailable.
+      }
+    }
+    setShowHomeWelcome(false);
+  };
+
+  const openGuide = () => {
+    dismissHomeWelcome();
+    setIsOpen(true);
+  };
+
+  const chooseHomeWelcomePath = (path) => {
+    dismissHomeWelcome();
+    navigate(path);
+  };
+
   useEffect(() => {
-    const openGuide = () => setIsOpen(true);
     window.addEventListener('nta:open-growth-guide', openGuide);
     return () => window.removeEventListener('nta:open-growth-guide', openGuide);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname !== '/' || isOpen) {
+      setShowHomeWelcome(false);
+      return undefined;
+    }
+
+    try {
+      if (window.sessionStorage.getItem(HOME_WELCOME_STORAGE_KEY)) return undefined;
+    } catch {
+      // The greeting can still appear if browser storage is unavailable.
+    }
+
+    const timer = window.setTimeout(() => setShowHomeWelcome(true), 650);
+    return () => window.clearTimeout(timer);
+  }, [isOpen, location.pathname]);
+
+  useEffect(() => {
+    if (showHomeWelcome && !isOpen) {
+      playAvatarMotion('hello', 3600);
+    }
+  }, [showHomeWelcome, isOpen]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -854,11 +898,43 @@ export default function YourDigitalGrowthGuide() {
             className="fixed bottom-8 right-6 z-50 flex flex-col items-end"
           >
             <div className="relative flex flex-col items-end">
+              <AnimatePresence>
+                {showHomeWelcome && location.pathname === '/' && (
+                  <motion.section
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                    role="region"
+                    aria-label="Welcome from Rick Hesse"
+                    onPointerDown={(event) => event.stopPropagation()}
+                    className="mb-3 w-80 max-w-[calc(100vw-3rem)] rounded-2xl border border-cyan-300/25 bg-slate-950/95 p-4 shadow-xl shadow-cyan-950/40 backdrop-blur"
+                  >
+                    <button
+                      type="button"
+                      onClick={dismissHomeWelcome}
+                      aria-label="Close welcome"
+                      className="absolute right-3 top-3 rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-800 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                    <p className="pr-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-300">A welcome from Rick</p>
+                    <h2 className="mt-2 text-lg font-bold leading-snug text-white">Hello. What brought you here today?</h2>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-300">Tell me what you are trying to understand. We can start with a question, a useful first step, or you can simply look around.</p>
+                    <div className="mt-4 grid gap-2">
+                      <button type="button" onClick={openGuide} className="rounded-xl bg-blue-600 px-3 py-2.5 text-left text-sm font-semibold text-white transition hover:bg-blue-500">Talk through my business</button>
+                      <button type="button" onClick={() => chooseHomeWelcomePath('/free-audit')} className="rounded-xl border border-slate-700 bg-slate-900/80 px-3 py-2.5 text-left text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800">Find a useful first step</button>
+                      <button type="button" onClick={() => chooseHomeWelcomePath('/knowledge')} className="rounded-xl border border-slate-700 bg-slate-900/80 px-3 py-2.5 text-left text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800">Learn and explore</button>
+                      <a href={`tel:${RICK_PHONE_DIGITS}`} onClick={dismissHomeWelcome} className="rounded-xl border border-emerald-400/35 bg-emerald-500/10 px-3 py-2.5 text-left text-sm font-semibold text-emerald-100 transition hover:border-emerald-300 hover:bg-emerald-500/15">Call Rick</a>
+                    </div>
+                    <button type="button" onClick={dismissHomeWelcome} className="mt-3 text-xs font-semibold text-slate-400 transition hover:text-white">I’ll explore the website on my own</button>
+                  </motion.section>
+                )}
+              </AnimatePresence>
               {isAvatarMinimized ? (
                 <>
                   <button
                     type="button"
-                    onClick={() => setIsOpen(true)}
+                    onClick={openGuide}
                     aria-label="Open Talk to My Office"
                     className="h-16 w-14 rounded-2xl border border-slate-700/80 bg-slate-950/90 p-1 shadow-[0_12px_24px_rgba(0,0,0,0.38)] transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
                   >
