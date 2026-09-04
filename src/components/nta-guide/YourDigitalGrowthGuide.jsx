@@ -933,7 +933,7 @@ export default function YourDigitalGrowthGuide() {
                     <h2 className="mt-2 text-base font-bold leading-snug text-white sm:text-lg">Hello. What brought you here today?</h2>
                     <p className="mt-2 text-xs leading-relaxed text-slate-300 sm:text-sm">Tell me what you are trying to understand, or simply look around. We can begin with one useful next step.</p>
                     <div className="mt-3 grid gap-2">
-                      <button type="button" onClick={openGuide} className="rounded-xl bg-blue-600 px-3 py-2 text-left text-xs font-semibold text-white transition hover:bg-blue-500 sm:py-2.5 sm:text-sm">Start here: tell me what you need</button>
+                      <button type="button" onClick={openGuide} className="rounded-xl bg-blue-600 px-3 py-2 text-left text-xs font-semibold text-white transition hover:bg-blue-500 sm:py-2.5 sm:text-sm">Tell me what brought you here today</button>
                       <button type="button" onClick={() => chooseHomeWelcomePath('/free-audit')} className="rounded-xl border border-slate-700 bg-slate-900/80 px-3 py-2 text-left text-xs font-semibold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800 sm:py-2.5 sm:text-sm">Find a useful first step</button>
                       <button type="button" onClick={() => chooseHomeWelcomePath('/knowledge')} className="rounded-xl border border-slate-700 bg-slate-900/80 px-3 py-2 text-left text-xs font-semibold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800 sm:py-2.5 sm:text-sm">Learn and explore</button>
                     </div>
