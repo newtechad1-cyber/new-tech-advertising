@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, ClipboardCheck, FolderKanban, Globe, MessageCircle, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, ClipboardCheck, FolderKanban, Globe, MessageCircle, Phone, Users, X } from 'lucide-react';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '../components/shared/SEOHead';
@@ -23,7 +23,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'What is Free AI Education?',
-    answer: 'Free AI Education is NTA’s public teaching experience for business owners who want to understand AI without hype or technical language. The lessons are free to access; tools, implementation, and ongoing services are explained separately when they become useful.',
+    answer: 'Free AI Education is NTA’s public teaching experience for business owners who want to understand AI without hype or technical language. Its free courses and lessons are available to explore; tools, implementation, and ongoing services are explained separately when they become useful.',
   },
   {
     question: 'Who is the Free AI Guy?',
@@ -95,8 +95,21 @@ const TRUST_STEPS = [
 ];
 
 export default function Home() {
+  const [showWelcome, setShowWelcome] = useState(false);
+
   useEffect(() => {
     trackJourneyEvent('page_view', { route: '/', step: 'homepage' });
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (window.sessionStorage.getItem('nta_home_welcome_seen')) return undefined;
+      const timer = window.setTimeout(() => setShowWelcome(true), 350);
+      return () => window.clearTimeout(timer);
+    } catch {
+      setShowWelcome(true);
+      return undefined;
+    }
   }, []);
 
   const trackStep = (step) => {
@@ -108,6 +121,21 @@ export default function Home() {
     window.dispatchEvent(new CustomEvent('nta:open-growth-guide'));
   };
 
+  const dismissWelcome = (reason = 'continue_exploring') => {
+    try {
+      window.sessionStorage.setItem('nta_home_welcome_seen', 'true');
+    } catch {
+      // The welcome panel still closes when storage is unavailable.
+    }
+    setShowWelcome(false);
+    trackJourneyEvent('home_welcome_dismissed', { route: '/', reason });
+  };
+
+  const openWelcomeGuide = () => {
+    dismissWelcome('talk_to_my_office');
+    openGrowthGuide('home_welcome_talk_to_my_office');
+  };
+
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
@@ -116,6 +144,55 @@ export default function Home() {
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />
+
+      {showWelcome && (
+        <div
+          className="fixed inset-0 z-[100] flex items-end justify-center bg-slate-950/55 p-4 backdrop-blur-sm sm:items-center sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="nta-home-welcome-title"
+          aria-describedby="nta-home-welcome-description"
+          onClick={() => dismissWelcome('backdrop')}
+        >
+          <div className="relative w-full max-w-2xl rounded-3xl border border-cyan-300/25 bg-slate-950 p-6 shadow-2xl shadow-cyan-950/50 sm:p-8" onClick={(event) => event.stopPropagation()}>
+            <button type="button" onClick={() => dismissWelcome('close_button')} aria-label="Close welcome" className="absolute right-4 top-4 rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-white">
+              <X className="h-5 w-5" />
+            </button>
+            <p className="pr-10 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Welcome to New Tech Advertising</p>
+            <h2 id="nta-home-welcome-title" className="mt-3 max-w-xl text-3xl font-bold tracking-tight text-white sm:text-4xl">Hello. What brought you here today?</h2>
+            <p id="nta-home-welcome-description" className="mt-4 max-w-xl text-lg leading-relaxed text-slate-300">
+              You can ask a question, call Rick, use a lesson, or simply look around. There is no required path and no pressure to decide anything today.
+            </p>
+
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              <button type="button" onClick={openWelcomeGuide} className="flex min-h-24 flex-col items-start rounded-2xl border border-blue-400/40 bg-blue-500/15 p-5 text-left transition hover:border-cyan-300 hover:bg-blue-500/20">
+                <MessageCircle className="h-5 w-5 text-cyan-300" />
+                <span className="mt-3 font-bold text-white">Talk through my business</span>
+                <span className="mt-1 text-sm leading-relaxed text-slate-300">Start a natural conversation about a question or situation.</span>
+              </button>
+              <Link to="/free-audit" onClick={() => dismissWelcome('free_audit')} className="flex min-h-24 flex-col items-start rounded-2xl border border-slate-700 bg-slate-900/70 p-5 text-left transition hover:border-blue-400 hover:bg-slate-900">
+                <ClipboardCheck className="h-5 w-5 text-blue-300" />
+                <span className="mt-3 font-bold text-white">Find a useful first step</span>
+                <span className="mt-1 text-sm leading-relaxed text-slate-300">Use the free Business Gap Audit to get oriented.</span>
+              </Link>
+              <Link to="/knowledge" onClick={() => dismissWelcome('knowledge_library')} className="flex min-h-24 flex-col items-start rounded-2xl border border-slate-700 bg-slate-900/70 p-5 text-left transition hover:border-violet-400 hover:bg-slate-900">
+                <BookOpen className="h-5 w-5 text-violet-300" />
+                <span className="mt-3 font-bold text-white">Learn and explore</span>
+                <span className="mt-1 text-sm leading-relaxed text-slate-300">Browse free courses, lessons, videos, and practical ideas.</span>
+              </Link>
+              <a href="tel:641-420-8816" onClick={() => dismissWelcome('call_rick')} className="flex min-h-24 flex-col items-start rounded-2xl border border-slate-700 bg-slate-900/70 p-5 text-left transition hover:border-emerald-400 hover:bg-slate-900">
+                <Phone className="h-5 w-5 text-emerald-300" />
+                <span className="mt-3 font-bold text-white">Call Rick</span>
+                <span className="mt-1 text-sm leading-relaxed text-slate-300">Talk directly about what you are trying to understand.</span>
+              </a>
+            </div>
+
+            <button type="button" onClick={() => dismissWelcome()} className="mt-6 text-sm font-semibold text-slate-300 transition hover:text-white">
+              I’ll explore the website on my own <ArrowRight className="ml-1 inline h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
 
       <main>
         <HeroSection />
@@ -126,7 +203,7 @@ export default function Home() {
             <div className="max-w-3xl">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Free AI learning • United States</p>
               <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">Curious about AI? Learn it by helping business owners understand it.</h2>
-              <p className="mt-3 leading-relaxed text-slate-300">NTA is building a network of curious people, trusted community connectors, and organizations. Start with free learning—not a course to buy or a sales script to memorize—and build useful relationships in the community or market you know.</p>
+              <p className="mt-3 leading-relaxed text-slate-300">NTA is building a network of curious people, trusted community connectors, and organizations. Start with free courses, lessons, and real business learning—not a sales script to memorize—and build useful relationships in the community or market you know.</p>
               <p className="mt-3 text-sm leading-relaxed text-slate-400">Those relationships can create ongoing residual income under a clear written agreement while the clients involved remain active.</p>
             </div>
             <div className="flex w-full shrink-0 flex-col gap-3 sm:w-auto">
@@ -146,8 +223,8 @@ export default function Home() {
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-blue-400 text-sm font-medium tracking-wide uppercase mb-5">
                 From education to action
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">When you are ready to apply what you learn, NTA can help.</h2>
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">Free AI Education helps you understand the possibilities. The NTA Digital Growth Office™ helps the owner involve the team, capture what employees know, and connect the website, customer relationships, everyday work, and practical AI support in one direction.</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">Learn it one helpful step at a time.</h2>
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">NTA’s free courses and lessons help you understand the possibilities. Then the NTA Digital Growth Office™ helps the owner involve the team, capture what employees know, and connect the website, customer relationships, everyday work, and practical AI support in one direction.</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-10">
@@ -189,7 +266,7 @@ export default function Home() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">When you want NTA involved</p>
               <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Here is what working with NTA looks like.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                Before NTA recommends tools or services, we learn how the business works. Then we help the owner see what is getting in the way and build the right growth system in the right order.
+                Before NTA recommends tools or services, we learn how the business works. Then we help the owner see what is getting in the way, choose one useful next step, and build the right growth system in the right order.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-slate-400">
                 You can study the approach before you contact us: <Link to="/better-business-book" className="text-blue-300 hover:text-blue-200">Better Business Book</Link>, <Link to="/practical-ai" className="text-blue-300 hover:text-blue-200">Practical AI Guide</Link>, <Link to="/knowledge" className="text-blue-300 hover:text-blue-200">Knowledge Library</Link>, and <Link to="/case-studies" className="text-blue-300 hover:text-blue-200">case studies</Link>.
@@ -199,10 +276,10 @@ export default function Home() {
             <div className="grid gap-4 md:grid-cols-5">
               {[
                 ['01', 'Understand', 'Learn from the owner and, with permission, the people doing the work.'],
-                ['02', 'Involve', 'Help the owner bring the team into practical AI learning.'],
-                ['03', 'Plan', 'Create the next useful order of work.'],
-                ['04', 'Build', 'Connect the foundation and practical systems.'],
-                ['05', 'Improve', 'Review what is happening and keep moving forward.'],
+                ['02', 'Involve', 'Bring in the knowledge and teach what matters.'],
+                ['03', 'Plan', 'Choose one useful next step.'],
+                ['04', 'Build', 'Build together and learn from the real work.'],
+                ['05', 'Improve', 'Review what changed and keep moving forward.'],
               ].map(([number, title, text]) => (
                 <div key={number} className="rounded-2xl border border-blue-900/50 bg-slate-950/60 p-5">
                   <span className="text-xs font-black tracking-[0.2em] text-blue-300">{number}</span>
