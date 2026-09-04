@@ -306,7 +306,7 @@ You have now completed the seven core lessons in AI Foundations. They give you a
 
 You do not need to master every AI tool. Begin thoughtfully with one job, one measured pilot, and one improvement at a time.
 
-The next five lessons form **AI in Practice**. They move from instruction into Rick’s experience, perspective, and the larger human questions that appeared while he was building with AI.
+The next set of lessons forms **AI in Practice**. They move from instruction into Rick’s experience, perspective, and the larger human questions that appeared while he was building with AI.
 
 **Next step:** Complete the AI Teammate Builder, begin an NTA Growth Conversation, or continue to AI in Practice.
 `,
