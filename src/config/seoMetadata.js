@@ -68,10 +68,6 @@ const STATIC_SEO = {
     title: "Digital Growth Office for Small Business | NTA Operating System",
     description: "See how NTA connects website, visibility, customer relationships, business knowledge, and practical AI into one Digital Growth Office.",
   },
-  "/business-journey": {
-    title: "The Business Journey™ | NTA",
-    description: "Explore the complete customer experience from first visit to long-term client growth.",
-  },
   "/work-with-nta": {
     title: "Work With New Tech Advertising | Digital Growth Office",
     description: "See how NTA uses education, experience, and connected digital systems to help business owners understand the next useful step.",
@@ -370,7 +366,9 @@ const LEGACY_CANONICALS = {
   "/whatisdigitaltrustcollection": "/knowledge/what-is-digital-trust",
   "/growthguide": "/growth-guide",
   "/growthconversation": "/growth-conversation",
-  "/businessjourney": "/business-journey",
+  // The former Business Journey redirects to the current client process.
+  "/business-journey": "/work-with-nta",
+  "/businessjourney": "/work-with-nta",
   "/workwithnta": "/work-with-nta",
   "/pointofview": "/point-of-view",
   "/localbusinessmarketing": "/local-business-marketing",
