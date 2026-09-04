@@ -966,7 +966,7 @@ export default function YourDigitalGrowthGuide() {
                   <div className="relative">
                     <button
                       type="button"
-                      onClick={() => setIsOpen(true)}
+                      onClick={openGuide}
                       aria-label="Open Talk to My Office"
                       className="h-56 w-40 sm:h-72 sm:w-52 overflow-visible bg-transparent text-left transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 cursor-grab active:cursor-grabbing"
                     >
