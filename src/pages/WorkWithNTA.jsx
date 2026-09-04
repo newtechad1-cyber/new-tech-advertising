@@ -37,7 +37,7 @@ const EXPECTATIONS = [
   {
     icon: Users,
     title: 'You stay informed and in control',
-    text: 'Rick explains the reasoning, keeps the work understandable, and makes sure important decisions, scope, and costs are clear before paid work begins.',
+    text: 'Rick explains the reasoning, teaches as the work gets done, keeps the work understandable, and makes sure important decisions, scope, and costs are clear before paid work begins.',
   },
 ];
 
@@ -52,28 +52,28 @@ const JOURNEY = [
   {
     number: '02',
     title: 'Involve',
-    text: 'Make room for the knowledge already inside the business. The owner and team help surface the questions, priorities, and practical opportunities that matter.',
+    text: 'Make room for the knowledge already inside the business. The owner and team help surface the questions, priorities, and practical opportunities that matter, while NTA’s course and lessons make the useful ideas easier to understand.',
     link: '/knowledge',
     linkLabel: 'Explore the Knowledge Library',
   },
   {
     number: '03',
     title: 'Plan',
-    text: 'Decide what deserves attention now, what can wait, and what order makes sense for the business. A Growth Roadmap is useful when deeper evidence and planning would help.',
+    text: 'Decide what deserves attention now, what can wait, and what one useful next step makes sense for the business. A Growth Roadmap is useful when deeper evidence and planning would help.',
     link: '/growth-roadmap-generator',
     linkLabel: 'Explore the Growth Roadmap',
   },
   {
     number: '04',
     title: 'Build',
-    text: 'Strengthen the useful pieces in the right order—foundation, visibility, relationships, knowledge, systems, or practical AI support—without forcing the business into a package.',
+    text: 'Strengthen the useful pieces in the right order—foundation, visibility, relationships, knowledge, systems, or practical AI support—without forcing the business into a package. Rick teaches as the work takes shape so the owner and team can see how it works.',
     link: '/operating-system',
     linkLabel: 'See the Digital Growth Office',
   },
   {
     number: '05',
     title: 'Improve',
-    text: 'Keep learning from what is happening. Review, adjust, and add the next useful piece only when the business is ready.',
+    text: 'Keep learning from what is happening. Review what changed, adjust, and add the next useful piece only when the business is ready.',
     link: '/contact',
     linkLabel: 'Talk through the next step',
   },
@@ -169,7 +169,7 @@ export default function WorkWithNTA() {
                   You built your business to help people, do good work, and grow. NTA helps you see what is working, what is getting in the way, and what deserves attention next.
                 </p>
                 <p className="max-w-2xl text-lg leading-relaxed text-slate-400">
-                  Before we recommend a website, campaign, CRM, automation, or AI tool, we begin with the owner, the customers, the people closest to the work, and the real business question. Then we build the right growth system in the right order.
+                  Before we recommend a website, campaign, CRM, automation, or AI tool, we begin with the owner, the customers, the people closest to the work, and the real business question. Sometimes the next useful move is a lesson, a small improvement, or a piece we set up together so you can see how it works.
                 </p>
 
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -226,7 +226,7 @@ export default function WorkWithNTA() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">Study the approach</p>
               <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">The website is part of the working relationship.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                NTA is not asking you to trust a polished promise. The books, lessons, conversations, case studies, and tools let you study how we think, how we explain the work, and why we begin by learning how a real business works before we recommend what to build.
+                NTA is more than a brochure. It is a course and an educational platform built around real businesses. The books, lessons, conversations, case studies, and tools let you study how we think, how we explain the work, and why we begin by learning how a real business works before we recommend what to build.
               </p>
             </div>
 
@@ -276,14 +276,14 @@ export default function WorkWithNTA() {
                 <p className="mt-3 leading-relaxed text-slate-300">We begin with the owner and, with permission, talk with the people throughout the company. The receptionist, office staff, technicians, managers, and salespeople each know part of how the business works.</p>
               </div>
               <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-300">Connect the pieces</p>
-                <h3 className="mt-3 text-xl font-semibold text-white">Make the website part of the system.</h3>
-                <p className="mt-3 leading-relaxed text-slate-300">Website, education, customer relationships, business knowledge, operations, and practical AI can reinforce one another.</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-300">Take one useful step</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Improve what matters now.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">Sometimes it starts with a question, a simple process change, a page of information, or a tool people are not using fully. We help you choose the small next step that creates useful learning without trying to fix everything at once.</p>
               </div>
               <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Keep it usable</p>
-                <h3 className="mt-3 text-xl font-semibold text-white">Work with AI without becoming a technician.</h3>
-                <p className="mt-3 leading-relaxed text-slate-300">We help the owner teach the team to use AI in everyday work, contribute what they know, and keep improving the system together.</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Learn in the real work</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">Do it with us—or watch us do it with you.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">Rick teaches as the work is being done. You and your team can see how the useful pieces fit, ask questions, and gain confidence without having to become technology experts.</p>
               </div>
             </div>
           </div>
@@ -304,9 +304,9 @@ export default function WorkWithNTA() {
 
             <div className="grid gap-6 md:grid-cols-3">
               <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6">
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Learn before you buy</p>
-                <h3 className="mt-3 text-xl font-semibold text-white">See how NTA thinks.</h3>
-                <p className="mt-3 leading-relaxed text-slate-300">The books, guides, lessons, and case studies make the approach understandable before a paid engagement begins.</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Learn before—and while—you build</p>
+                <h3 className="mt-3 text-xl font-semibold text-white">See how NTA thinks and works.</h3>
+                <p className="mt-3 leading-relaxed text-slate-300">The books, guides, lessons, and case studies make the approach understandable before a paid engagement begins, then remain useful while the work takes shape.</p>
               </div>
               <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6">
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-300">Arrive with context</p>
@@ -352,7 +352,7 @@ export default function WorkWithNTA() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">How we work together</p>
               <h2 className="mt-3 text-3xl font-bold md:text-5xl">Understand the business. Make the next right move.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-400">
-                This is not a rigid process or a package. It is the way we work together to understand the business, decide what matters now, and keep moving forward without pretending every business starts in the same place.
+                This is not a rigid process or a package. It is the way we work together to understand the business, decide what matters now, and keep moving forward without pretending every business starts in the same place. Sometimes the next right move is a small improvement, a lesson, or watching us set up the next useful piece with you.
               </p>
             </div>
 
