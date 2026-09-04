@@ -27,7 +27,6 @@ import BetterBusinessBook from '@/pages/BetterBusinessBook';
 import Books from '@/pages/Books';
 import BookCall from '@/pages/BookCall';
 import BusinessFoundationsCollection from '@/pages/BusinessFoundationsCollection';
-import BusinessJourney from '@/pages/BusinessJourney';
 import CampaignsVsAuthority from '@/pages/CampaignsVsAuthority';
 import CaseStudies from '@/pages/CaseStudies';
 import CaseStudyDetail from '@/pages/CaseStudyDetail';
@@ -293,7 +292,6 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/growth-roadmap-generator', NTAGrowthRoadmapGenerator),
   alias('/growth-conversation', NTAGrowthConversation),
   alias('/business-score', NTABusinessScore),
-  alias('/business-journey', BusinessJourney),
   alias('/relationship-builder', NTARelationshipBuilder),
 
   // Existing public case-study routes
