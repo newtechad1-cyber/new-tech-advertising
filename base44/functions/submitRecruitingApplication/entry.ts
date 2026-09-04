@@ -126,6 +126,8 @@ Deno.serve(async (req) => {
     const current_role = cleanText(body.current_role, 300);
     const business_relationships = cleanText(body.business_relationships, 3000);
     const interest_reason = cleanText(body.interest_reason, 4000);
+    const business_observation = cleanText(body.business_observation, 6000);
+    const nta_questions = cleanText(body.nta_questions, 3000);
 
     if (!full_name || !validEmail(email)) {
       return Response.json({ error: 'A name and valid email are required.' }, { status: 400 });
@@ -148,6 +150,8 @@ Deno.serve(async (req) => {
       current_role,
       business_relationships,
       interest_reason,
+      business_observation,
+      nta_questions,
     });
     const data = response?.data ?? response;
 
