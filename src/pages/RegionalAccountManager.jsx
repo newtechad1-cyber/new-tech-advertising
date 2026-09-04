@@ -74,7 +74,7 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
   },
   {
     question: 'Do I have to buy training, a course, or a system to begin?',
-    answer: 'No. The Knowledge Library, videos, and Your Digital Growth Guide™ are free to explore. They are part of the learning system. You bring curiosity and honest effort; NTA gives you a place to learn, have real business conversations, bring back what you heard, and keep improving.',
+    answer: 'No. The Knowledge Library, NTA courses and lessons, videos, and Your Digital Growth Guide™ are free to explore. They are part of the learning system. You bring curiosity and honest effort; NTA gives you a place to learn, have real business conversations, bring back what you heard, and keep improving.',
   },
   {
     question: 'Where can I build this?',
