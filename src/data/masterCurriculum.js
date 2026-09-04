@@ -8,6 +8,7 @@ import { lesson11 as aiFoundationsLesson11 } from './aiFoundationsLesson11';
 import { lesson12 as aiFoundationsLesson12 } from './aiFoundationsLesson12';
 import { lesson13 as aiFoundationsLesson13 } from './aiFoundationsLesson13';
 import { lesson14 as aiFoundationsLesson14 } from './aiFoundationsLesson14';
+import { lesson15 as aiFoundationsLesson15 } from './aiFoundationsLesson15';
 import { whatIsDigitalTrustLessons } from './whatIsDigitalTrust';
 import { buildingSmallBusinessAiSeriesLessons } from './buildingSmallBusinessAiSeries';
 
@@ -23,7 +24,8 @@ const completeAiFoundationsLessons = [
   aiFoundationsLesson11,
   aiFoundationsLesson12,
   aiFoundationsLesson13,
-  aiFoundationsLesson14
+  aiFoundationsLesson14,
+  aiFoundationsLesson15
 ];
 
 
@@ -211,7 +213,8 @@ const contextualLessonLinks = Object.freeze({
   ],
   [lessonKey('ai-foundations', 'the-team-i-spent-my-life-trying-to-build')]: [
     lessonKey('business-foundations', 'what-building-my-own-digital-growth-office-taught-me'),
-    lessonKey('ai-foundations', 'you-can-do-what-i-do-but-you-dont-have-to')
+    lessonKey('ai-foundations', 'you-can-do-what-i-do-but-you-dont-have-to'),
+    lessonKey('ai-foundations', 'ai-finally-taught-me-how-to-multitask')
   ],
   [lessonKey('ai-foundations', 'ai-makes-complicated-work-easier')]: [
     lessonKey('turning-what-a-business-knows-into-an-asset', 'the-most-valuable-knowledge-usually-lives-in-the-owners-head'),
@@ -286,6 +289,14 @@ const supplementalLessonResources = Object.freeze({
       type: 'NTA Point of View',
       title: 'The Work You Don’t See: Why Setup Matters',
       description: 'Why experienced setup and system design matter when technology is supposed to feel simple to use.',
+      path: '/canon/the-work-you-dont-see-why-setup-matters'
+    }
+  ],
+  [lessonKey('ai-foundations', 'ai-finally-taught-me-how-to-multitask')]: [
+    {
+      type: 'NTA Point of View',
+      title: 'The Work You Don’t See: Why Setup Matters',
+      description: 'Why the right system lets people carry less complexity while directing more of the work that matters.',
       path: '/canon/the-work-you-dont-see-why-setup-matters'
     }
   ]
