@@ -36,7 +36,16 @@
       "type": "string"
     },
     "interest_reason": {
-      "type": "string"
+      "type": "string",
+      "description": "What the candidate found on NTA that made them want to know more"
+    },
+    "business_observation": {
+      "type": "string",
+      "description": "How the candidate naturally notices opportunities or friction in a business"
+    },
+    "nta_questions": {
+      "type": "string",
+      "description": "Questions the candidate has after exploring NTA"
     },
     "status": {
       "type": "string",
