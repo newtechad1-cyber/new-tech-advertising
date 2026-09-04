@@ -907,7 +907,7 @@ export default function YourDigitalGrowthGuide() {
                     role="region"
                     aria-label="Welcome from Rick Hesse"
                     onPointerDown={(event) => event.stopPropagation()}
-                    className="mb-3 w-80 max-w-[calc(100vw-3rem)] rounded-2xl border border-cyan-300/25 bg-slate-950/95 p-4 shadow-xl shadow-cyan-950/40 backdrop-blur"
+                    className="mb-3 max-h-[calc(100vh-19rem)] w-80 max-w-[calc(100vw-3rem)] overflow-y-auto rounded-2xl border border-cyan-300/25 bg-slate-950/95 p-3 shadow-xl shadow-cyan-950/40 backdrop-blur sm:max-h-none sm:p-4"
                   >
                     <button
                       type="button"
@@ -918,13 +918,13 @@ export default function YourDigitalGrowthGuide() {
                       <X className="h-4 w-4" />
                     </button>
                     <p className="pr-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-300">A welcome from Rick</p>
-                    <h2 className="mt-2 text-lg font-bold leading-snug text-white">Hello. What brought you here today?</h2>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-300">Tell me what you are trying to understand. We can start with a question, a useful first step, or you can simply look around.</p>
-                    <div className="mt-4 grid gap-2">
-                      <button type="button" onClick={openGuide} className="rounded-xl bg-blue-600 px-3 py-2.5 text-left text-sm font-semibold text-white transition hover:bg-blue-500">Talk through my business</button>
-                      <button type="button" onClick={() => chooseHomeWelcomePath('/free-audit')} className="rounded-xl border border-slate-700 bg-slate-900/80 px-3 py-2.5 text-left text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800">Find a useful first step</button>
-                      <button type="button" onClick={() => chooseHomeWelcomePath('/knowledge')} className="rounded-xl border border-slate-700 bg-slate-900/80 px-3 py-2.5 text-left text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800">Learn and explore</button>
-                      <a href={`tel:${RICK_PHONE_DIGITS}`} onClick={dismissHomeWelcome} className="rounded-xl border border-emerald-400/35 bg-emerald-500/10 px-3 py-2.5 text-left text-sm font-semibold text-emerald-100 transition hover:border-emerald-300 hover:bg-emerald-500/15">Call Rick</a>
+                    <h2 className="mt-2 text-base font-bold leading-snug text-white sm:text-lg">Hello. What brought you here today?</h2>
+                    <p className="mt-2 text-xs leading-relaxed text-slate-300 sm:text-sm">Tell me what you are trying to understand. We can start with a question, a useful first step, or you can simply look around.</p>
+                    <div className="mt-3 grid gap-2 sm:mt-4">
+                      <button type="button" onClick={openGuide} className="rounded-xl bg-blue-600 px-3 py-2 text-left text-xs font-semibold text-white transition hover:bg-blue-500 sm:py-2.5 sm:text-sm">Talk through my business</button>
+                      <button type="button" onClick={() => chooseHomeWelcomePath('/free-audit')} className="rounded-xl border border-slate-700 bg-slate-900/80 px-3 py-2 text-left text-xs font-semibold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800 sm:py-2.5 sm:text-sm">Find a useful first step</button>
+                      <button type="button" onClick={() => chooseHomeWelcomePath('/knowledge')} className="rounded-xl border border-slate-700 bg-slate-900/80 px-3 py-2 text-left text-xs font-semibold text-slate-100 transition hover:border-cyan-300 hover:bg-slate-800 sm:py-2.5 sm:text-sm">Learn and explore</button>
+                      <a href={`tel:${RICK_PHONE_DIGITS}`} onClick={dismissHomeWelcome} className="rounded-xl border border-emerald-400/35 bg-emerald-500/10 px-3 py-2 text-left text-xs font-semibold text-emerald-100 transition hover:border-emerald-300 hover:bg-emerald-500/15 sm:py-2.5 sm:text-sm">Call Rick</a>
                     </div>
                     <button type="button" onClick={dismissHomeWelcome} className="mt-3 text-xs font-semibold text-slate-400 transition hover:text-white">I’ll explore the website on my own</button>
                   </motion.section>
