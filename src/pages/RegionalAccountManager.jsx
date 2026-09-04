@@ -756,17 +756,17 @@ export default function RegionalAccountManager() {
 
         <section className="bg-slate-50 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">Why NTA is building this</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">Meet Rick</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">What Rick brings</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">Learn from experience—then bring your own.</h2>
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-slate-700">
               <p>
-                “I have spent years talking with business owners. Most of them do not need another person throwing a sales pitch at them. They need someone who will listen, help them understand their choices, and connect the right pieces when they are ready.”
+                “I have spent more than 40 years owning businesses, selling to businesses, working inside businesses, building relationships, adapting to technology, and learning from what worked and what did not. That is why NTA starts by helping an owner understand the business before trying to sell it anything.”
               </p>
               <p>
-                “That is why I am building NTA this way. The knowledge should be on the website, in the library, in the videos, in the books, and in the tools—not locked inside one salesperson’s head.”
+                “My job is not to turn you into a copy of me. I want to help develop more business builders who bring their own experience, curiosity, personality, and judgment.”
               </p>
               <p>
-                “An NTA Account Manager should be able to focus on the person across the table. The system behind them can help with the rest.”
+                “You will learn in real situations, bring back what you discover, and work through it with me and the NTA learning system before the next step.”
               </p>
               <p className="font-semibold text-slate-900">— Rick Hesse, New Tech Advertising</p>
             </div>
