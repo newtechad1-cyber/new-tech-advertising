@@ -160,7 +160,7 @@ export default function KnowledgeCollection() {
                         </h3>
                         <p className="text-sm text-slate-400 mt-2 max-w-2xl">
                           {isAiPracticeStart
-                            ? 'Five personal and practical lessons about discovery, support, systems, purpose, and moving beyond fear.'
+                            ? 'A growing set of personal and practical lessons about discovery, support, systems, purpose, and moving beyond fear.'
                             : 'Seven lessons that move from understanding AI to testing one dependable AI teammate.'}
                         </p>
                       </div>
