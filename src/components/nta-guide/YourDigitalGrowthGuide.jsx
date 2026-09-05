@@ -168,7 +168,8 @@ const MessageBubble = ({ message, onSpeak, isSpeaking }) => {
                                         ) : (
                                             <span>{children}</span>
                                         );
-                                    }
+                                    },
+                                    img: ({ alt }) => <span>{alt || ''}</span>
                                 }}
                             >
                                 {displayContent}
