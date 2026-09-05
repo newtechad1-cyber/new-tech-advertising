@@ -49,6 +49,10 @@ test('public Digital Growth Guide uses the resilient public chat function', asyn
   assert.match(chatFunction, /asServiceRole\.integrations\.Core\.InvokeLLM/);
   assert.match(chatFunction, /Relevant published NTA lessons/);
   assert.match(chatFunction, /Work with AI without changing how you work/);
+  assert.match(chatFunction, /sanitizeGuideReply/);
+  assert.match(chatFunction, /https:\/\/www\.newtechadvertising\.com\/free-audit/);
+  assert.match(guide, /getApprovedGuideHref/);
+  assert.match(guide, /https:\/\/www\.newtechadvertising\.com\/free-audit/);
   assert.match(publicKnowledge, /collectionsOrder/);
   assert.match(publicKnowledge, /relevantExcerpt/);
   assert.match(publicKnowledge, /buildPublicKnowledgeFallback/);
