@@ -36,15 +36,21 @@ function normalizeGuidePath(value) {
 }
 
 const MARKDOWN_LINK_PATTERN = /(^|[^!])\[([^\]\n]{1,240})\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/gm;
+const ABSOLUTE_URL_PATTERN = /\bhttps?:\/\/[^\s<>)\]]+/gi;
 
 function sanitizeGuideReply(value) {
   const text = String(value || '').trim();
 
-  return text.replace(MARKDOWN_LINK_PATTERN, (_match, prefix, label, target) => {
+  const withApprovedMarkdownLinks = text.replace(MARKDOWN_LINK_PATTERN, (_match, prefix, label, target) => {
     const pathname = normalizeGuidePath(target);
     return pathname
       ? prefix + '[' + label + '](' + GUIDE_PUBLIC_ORIGIN + pathname + ')'
       : prefix + label;
+  });
+
+  return withApprovedMarkdownLinks.replace(ABSOLUTE_URL_PATTERN, target => {
+    const pathname = normalizeGuidePath(target);
+    return pathname ? GUIDE_PUBLIC_ORIGIN + pathname : '';
   });
 }
 
