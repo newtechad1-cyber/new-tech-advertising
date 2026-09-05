@@ -50,9 +50,11 @@ test('public Digital Growth Guide uses the resilient public chat function', asyn
   assert.match(chatFunction, /Relevant published NTA lessons/);
   assert.match(chatFunction, /Work with AI without changing how you work/);
   assert.match(chatFunction, /sanitizeGuideReply/);
-  assert.match(chatFunction, /https:\/\/www\.newtechadvertising\.com\/free-audit/);
+  assert.match(chatFunction, /const GUIDE_PUBLIC_ORIGIN = 'https:\/\/www\.newtechadvertising\.com'/);
+  assert.match(chatFunction, /'\/free-audit'/);
   assert.match(guide, /getApprovedGuideHref/);
-  assert.match(guide, /https:\/\/www\.newtechadvertising\.com\/free-audit/);
+  assert.match(guide, /const GUIDE_PUBLIC_ORIGIN = 'https:\/\/www\.newtechadvertising\.com'/);
+  assert.match(guide, /'\/free-audit'/);
   assert.match(publicKnowledge, /collectionsOrder/);
   assert.match(publicKnowledge, /relevantExcerpt/);
   assert.match(publicKnowledge, /buildPublicKnowledgeFallback/);
