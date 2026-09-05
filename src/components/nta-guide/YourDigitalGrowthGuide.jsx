@@ -35,6 +35,39 @@ const RICK_WELCOME_VIDEO_URL = '/brand/rick-digital-growth-guide-welcome.webm';
 const HOME_WELCOME_STORAGE_KEY = 'nta_home_guide_welcome_seen';
 const RICK_WELCOME_TEXT = `Hi, I’m Rick Hesse, founder of New Tech Advertising. I built this place to help business owners make sense of technology, marketing, and AI without making it complicated. You don’t need to have all the answers before you begin. Take a look around, ask Your Digital Growth Guide a question, or tell me what is going on in your business. We can start with a practical next step. Whenever you want to talk, call, text, or email me—whichever way works best for you.`;
 const RICK_EMAIL = 'info@newtechadvertising.com';
+const GUIDE_PUBLIC_ORIGIN = 'https://www.newtechadvertising.com';
+const VERIFIED_GUIDE_LINK_PATHS = new Set([
+  '/operating-system',
+  '/knowledge',
+  '/growth-show',
+  '/journal',
+  '/free-audit',
+  '/growth-conversation',
+  '/book-call',
+]);
+
+const isVerifiedGuideLinkPath = (pathname) => (
+  VERIFIED_GUIDE_LINK_PATHS.has(pathname)
+  || /^\/knowledge(?:\/[a-z0-9-]+){1,3}$/.test(pathname)
+);
+
+const getApprovedGuideHref = (href) => {
+  try {
+    const url = new URL(String(href || ''), GUIDE_PUBLIC_ORIGIN);
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
+
+    const pathname = '/' + url.pathname
+      .replace(/^\/+/, '')
+      .replace(/\/+$/, '')
+      .toLowerCase();
+
+    return isVerifiedGuideLinkPath(pathname)
+      ? GUIDE_PUBLIC_ORIGIN + pathname
+      : null;
+  } catch {
+    return null;
+  }
+};
 
 const FunctionDisplay = ({ toolCall }) => {
     const [expanded, setExpanded] = useState(false);
@@ -127,9 +160,15 @@ const MessageBubble = ({ message, onSpeak, isSpeaking }) => {
                             <ReactMarkdown 
                                 className="prose prose-base max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 text-slate-200 prose-a:text-blue-400 hover:prose-a:text-blue-300 prose-strong:text-white"
                                 components={{
-                                    a: ({ children, ...props }) => (
-                                        <a {...props} className="font-medium underline decoration-blue-500/30 underline-offset-2" target="_blank" rel="noopener noreferrer">{children}</a>
-                                    )
+                                    a: ({ children, href, ...props }) => {
+                                        const approvedHref = getApprovedGuideHref(href);
+
+                                        return approvedHref ? (
+                                            <a {...props} href={approvedHref} className="font-medium underline decoration-blue-500/30 underline-offset-2" target="_blank" rel="noopener noreferrer">{children}</a>
+                                        ) : (
+                                            <span>{children}</span>
+                                        );
+                                    }
                                 }}
                             >
                                 {displayContent}
