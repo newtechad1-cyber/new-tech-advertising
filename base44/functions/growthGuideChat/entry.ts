@@ -1,11 +1,59 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.41';
 
+const GUIDE_PUBLIC_ORIGIN = 'https://www.newtechadvertising.com';
+const VERIFIED_GUIDE_PATHS = new Set([
+  '/operating-system',
+  '/knowledge',
+  '/growth-show',
+  '/journal',
+  '/free-audit',
+  '/growth-conversation',
+  '/book-call',
+]);
+
+function isVerifiedGuidePath(pathname) {
+  return VERIFIED_GUIDE_PATHS.has(pathname)
+    || /^\/knowledge(?:\/[a-z0-9-]+){1,3}$/.test(pathname);
+}
+
+function normalizeGuidePath(value) {
+  const target = String(value || '').trim();
+  if (!target) return null;
+
+  try {
+    const url = new URL(target, GUIDE_PUBLIC_ORIGIN);
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
+
+    const pathname = '/' + url.pathname
+      .replace(/^\/+/, '')
+      .replace(/\/+$/, '')
+      .toLowerCase();
+
+    return isVerifiedGuidePath(pathname) ? pathname : null;
+  } catch {
+    return null;
+  }
+}
+
+const MARKDOWN_LINK_PATTERN = /(^|[^!])\[([^\]\n]{1,240})\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/gm;
+
+function sanitizeGuideReply(value) {
+  const text = String(value || '').trim();
+
+  return text.replace(MARKDOWN_LINK_PATTERN, (_match, prefix, label, target) => {
+    const pathname = normalizeGuidePath(target);
+    return pathname
+      ? prefix + '[' + label + '](' + GUIDE_PUBLIC_ORIGIN + pathname + ')'
+      : prefix + label;
+  });
+}
+
 const SYSTEM_PROMPT = [
   "You are the public NTA Digital Growth Guide for New Tech Advertising.",
   "NTA's promise is: \"Work with AI without changing how you work.\"",
   "Help small-business owners think through real business situations in plain language. Be warm, practical, concise, and educational. Ask one useful follow-up question when important context is missing. Do not pretend to complete actions, contact Rick, schedule meetings, save records, or access private business information. Clearly say when the visitor needs Rick or a secure NTA workspace.",
   "Frame useful guidance around these connected needs when relevant: visibility, education, trust, customer relationships, follow-up, practical automation, and sustainable growth.",
-  "Use only these verified NTA links, formatted as Markdown links:\n- NTA Operating System: /operating-system\n- Knowledge Library: /knowledge\n- NTA Growth Show: /growth-show\n- NTA Journal: /journal\n- Free Business Gap Audit: /free-audit\n- Growth Conversation: /growth-conversation\n- Book a Conversation: /book-call",
+  "Use only these verified NTA links, formatted as Markdown links. Every NTA link must use the exact domain " + GUIDE_PUBLIC_ORIGIN + "; never abbreviate or invent an NTA domain:\n- NTA Operating System: " + GUIDE_PUBLIC_ORIGIN + "/operating-system\n- Knowledge Library: " + GUIDE_PUBLIC_ORIGIN + "/knowledge\n- NTA Growth Show: " + GUIDE_PUBLIC_ORIGIN + "/growth-show\n- NTA Journal: " + GUIDE_PUBLIC_ORIGIN + "/journal\n- Free Business Gap Audit: " + GUIDE_PUBLIC_ORIGIN + "/free-audit\n- Growth Conversation: " + GUIDE_PUBLIC_ORIGIN + "/growth-conversation\n- Book a Conversation: " + GUIDE_PUBLIC_ORIGIN + "/book-call",
   "Keep most answers under 160 words. Do not use technical AI jargon unless the visitor asks for it."
 ].join('\n\n');
 
@@ -197,7 +245,7 @@ Deno.serve(async (req) => {
       : String(reply?.response || reply?.text || '').trim();
     if (!text) throw new Error('The language model returned an empty response');
 
-    return Response.json({ reply: text.slice(0, 4000) });
+    return Response.json({ reply: sanitizeGuideReply(text).slice(0, 4000) });
   } catch (error) {
     console.error('growthGuideChat failed', error);
     return Response.json({
