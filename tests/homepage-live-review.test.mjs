@@ -59,3 +59,29 @@ test('public Digital Growth Guide uses the resilient public chat function', asyn
   assert.match(publicKnowledge, /relevantExcerpt/);
   assert.match(publicKnowledge, /buildPublicKnowledgeFallback/);
 });
+
+test('public Guide allows only verified NTA links in model replies', async () => {
+  const chatFunction = await read('base44/functions/growthGuideChat/entry.ts');
+  const guide = await read('src/components/nta-guide/YourDigitalGrowthGuide.jsx');
+  const linkSafety = chatFunction.slice(
+    chatFunction.indexOf('const GUIDE_PUBLIC_ORIGIN'),
+    chatFunction.indexOf('const SYSTEM_PROMPT'),
+  );
+  const sanitizeGuideReply = new Function(linkSafety + '\nreturn sanitizeGuideReply;')();
+  const origin = 'https://www.newtechadvertising.com';
+
+  assert.equal(
+    sanitizeGuideReply('[Free Gap Audit](https://www.n-t-a.com/free-audit)'),
+    '[Free Gap Audit](' + origin + '/free-audit)',
+  );
+  assert.equal(
+    sanitizeGuideReply('<https://www.n-t-a.com/free-audit>'),
+    '<' + origin + '/free-audit>',
+  );
+  assert.equal(
+    sanitizeGuideReply('[Outside](https://example.com/not-approved)'),
+    'Outside',
+  );
+  assert.match(guide, /getApprovedGuideHref/);
+  assert.match(guide, /img: \(\{ alt \}\)/);
+});
