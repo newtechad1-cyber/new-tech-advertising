@@ -1,0 +1,46 @@
+{
+  "name": "Monthly Executive Copilot Brief",
+  "description": "Generate a strategic monthly brief on the 1st of each month at 8am with business trends, client portfolio movement, and next-month priorities",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 13 1 * *",
+      "one_time_date": null,
+      "timezone": "UTC",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "monthly_executive_copilot_brief",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "generateExecutiveCopilotBrief",
+            "args": {
+              "brief_type": "monthly_brief"
+            }
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "generateExecutiveCopilotBrief"
+  }
+}

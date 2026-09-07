@@ -1,0 +1,37 @@
+{
+  "name": "QA: Auto-Retest on Issue Resolved",
+  "description": "Automation B+C: Create retest run when issue resolved, recalculate release readiness",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "update"
+      ],
+      "entity_name": "QAIssues"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "qa_auto_retest_on_issue_resolved",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "qaAutomations",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "qaAutomations"
+  }
+}

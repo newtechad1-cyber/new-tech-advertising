@@ -1,0 +1,38 @@
+{
+  "name": "QA: Auto-Create Issue on Test Failure",
+  "description": "Automation A+C+D: Clone steps on create, auto-create issue on Fail result, recalculate release readiness",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create",
+        "update"
+      ],
+      "entity_name": "QATestRuns"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "qa_auto_create_issue_on_test_failure",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "qaAutomations",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "qaAutomations"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "QA: Auto-create issue on test run failure",
+  "description": "When a QATestRun result is set to fail, auto-create a QAIssue if no open duplicate exists. Also updates QAReleaseStatus counters.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create",
+        "update"
+      ],
+      "entity_name": "QATestRuns"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "qa_auto_create_issue_on_test_run_failure",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "qaAutomations",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "qaAutomations"
+  }
+}

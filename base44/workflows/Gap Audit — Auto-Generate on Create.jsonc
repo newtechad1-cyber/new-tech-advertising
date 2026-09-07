@@ -1,0 +1,37 @@
+{
+  "name": "Gap Audit \u2014 Auto-Generate on Create",
+  "description": "When a GapAudit is created with a website URL, automatically trigger the AI generation",
+  "trigger": {
+    "condition": "${ (.trigger.data.website_url != null and .trigger.data.website_url != \"\" and .trigger.data.website_url != [] and .trigger.data.website_url != {}) }",
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create"
+      ],
+      "entity_name": "GapAudit"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "gap_audit_auto_generate_on_create",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "ntaGenerateGapAudit",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "ntaGenerateGapAudit"
+  }
+}

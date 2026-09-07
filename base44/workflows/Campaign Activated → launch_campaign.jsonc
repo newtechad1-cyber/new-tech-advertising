@@ -1,0 +1,37 @@
+{
+  "name": "Campaign Activated \u2192 launch_campaign",
+  "description": "When ContentCampaign status becomes active, trigger campaign_agent.launch_campaign",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "update"
+      ],
+      "entity_name": "ContentCampaign"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "campaign_activated_launch_campaign",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "onCampaignReachUpdated",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "onCampaignReachUpdated"
+  }
+}

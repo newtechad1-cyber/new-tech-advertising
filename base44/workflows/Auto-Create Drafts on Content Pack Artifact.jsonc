@@ -1,0 +1,37 @@
+{
+  "name": "Auto-Create Drafts on Content Pack Artifact",
+  "description": "When a new AiArtifact is created with type content_pack, automatically create ContentDrafts and kick off media generation for the first 10.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create"
+      ],
+      "entity_name": "AiArtifact"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "auto_create_drafts_on_content_pack_artifact",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "autoCreateDraftsOnArtifact",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "autoCreateDraftsOnArtifact"
+  }
+}
