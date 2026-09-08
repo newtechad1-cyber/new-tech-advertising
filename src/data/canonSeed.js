@@ -131,6 +131,107 @@ export const DUPLICATE_GROUPS = [
 // Keeping the launch edition here guarantees that the public archive remains
 // available even before Base44 contains its first JournalIssue record.
 export const SEED_JOURNAL_ENTRIES = [{
+  id: 'seed-journal-issue-6',
+  issue_number: 6,
+  volume: 1,
+  title: 'AI Finally Taught Me How to Multitask',
+  subtitle: 'AI did not teach me to do more things at once. It helped me carry less while directing more.',
+  slug: 'issue-6-ai-finally-taught-me-how-to-multitask',
+  summary: 'AI did not make Rick Hesse multitask. It gave him a way to capture, contextualize, and direct multiple streams of worthwhile work without having to carry every detail in his head. This Journal issue shares what that idea can mean for a small-business owner.',
+  date: '2026-09-08',
+  status: 'Review',
+  category: 'AI & Technology',
+  series: 'NTA Journal',
+  tags: ['practical AI', 'multitasking', 'business leadership', 'human judgment', 'NTA Point of View'],
+  author: 'Rick Hesse',
+  editor_signature: 'Rick Hesse',
+  featured: false,
+  featured_image_url: null,
+  views: 0,
+  newsletter_sent: false,
+  newsletter_subject: 'The NTA Journal #6: AI Finally Taught Me How to Multitask',
+  estimated_reading_time: '5 min read',
+  introduction_headline: 'A different way to think about getting more done',
+  introductory_message: `For years, multitasking sounded like doing several things at once. AI helped me see a more useful answer: a person can capture a worthwhile thought, give it context, get work moving, and return to it without trying to carry every detail alone.`,
+  from_ricks_desk: `For most of my life, I thought multitasking meant trying to keep several things going in my head at the same time.
+
+I was never especially good at that. A new idea would show up while I was working on something else, and I would either have to stop what I was doing or hope I could remember the thought later.
+
+AI did not teach my brain to do four things at once.
+
+It gave me somewhere to put the thought while it was still fresh.
+
+I can open a conversation, explain what I am seeing, give it enough context to understand what I am trying to accomplish, and get that work moving. Then I can come back when my judgment, experience, or approval is needed.
+
+From the outside, it may look like I am multitasking.
+
+But I do not think that is what is happening.
+
+**I am not doing four things at once. I am directing four things.**`,
+  what_we_built: `This week, we connected one idea across several places instead of leaving it as a passing thought.
+
+The latest NTA Growth Show takes up this question of multitasking. The Knowledge Library lesson, “AI Finally Taught Me How to Multitask,” explains the idea in more depth. This Journal edition carries the same lesson into a practical conversation for business owners.
+
+That is part of what I am trying to build with NTA: not a pile of disconnected content, but a system where one useful idea can become a video, a lesson, a Journal edition, a conversation, and eventually a better decision for someone else.
+
+The tools are not the point. The point is helping people understand what the tools can make possible when they are used with purpose.`,
+  what_we_learned: `The limitation was not always time. A large part of the limitation was how much a person could personally keep track of.
+
+An idea has to be remembered. Then it has to be thought through, organized, acted on, and returned to later. There are only so many of those chains a person can carry alone.
+
+AI can help carry context and keep a stream of work from disappearing while attention moves somewhere else.
+
+That does not mean AI should run the business or make the decisions. The human being still needs to recognize what matters, provide direction, correct misunderstandings, make the judgment calls, and approve the result.
+
+**AI increases how much a person can direct. It does not remove the person from the responsibility.**`,
+  what_it_means_for_your_business: `Most business owners already have more worthwhile work than they can comfortably hold in their heads: customer questions, follow-up, team needs, ideas for improvement, marketing decisions, and the daily work of serving people.
+
+The first useful use of AI may not be a complicated automation.
+
+It may be as simple as giving yourself a dependable place to capture an idea, explain the context, develop the next step, and return when you are ready.
+
+That can help a business owner spend less energy trying not to forget and more energy thinking, deciding, connecting the right pieces, and serving people well.
+
+Start with the work you are already carrying. Then ask where a little more context, organization, or follow-through would make the work easier.`,
+  this_weeks_challenge: `Think of one useful idea, question, or unfinished piece of work you keep carrying around because you do not want to lose it.
+
+1. Put it into a conversation or a simple written note while it is fresh.
+2. Explain why it matters and what you think the next step might be.
+3. Add enough context that you could return to it later without starting from zero.
+4. Decide whether anything can move forward now—or whether it simply needs a good place to wait.
+
+You do not have to solve every part of the business today. The goal is to stop making your mind be the only place where worthwhile work can live.`,
+  selected_articles: [{
+    source_type: 'Custom',
+    source_id: 'ai-finally-taught-me-how-to-multitask',
+    title: 'AI Finally Taught Me How to Multitask',
+    url: 'https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask',
+    excerpt: 'AI did not make Rick’s brain multitask. It helped him carry less context while directing more ideas, projects, decisions, and work forward.',
+    reading_time: '8–10 min read',
+    featured_image_url: '',
+    is_lead: true,
+    display_order: 1,
+  }],
+  featured_video: {
+    source_id: '6lhiYFHFsCQ',
+    source_type: 'YouTube',
+    title: 'This Week\'s NTA Video',
+    url: 'https://youtu.be/6lhiYFHFsCQ',
+    duration: '',
+    description: 'A Growth Show conversation about how AI can help one person capture and direct more work without carrying every detail mentally.',
+    cta_text: 'Watch this week\'s NTA Growth Show',
+  },
+  related_video_ids: ['6lhiYFHFsCQ'],
+  related_video_url: 'https://youtu.be/6lhiYFHFsCQ',
+  related_video_title: 'This Week\'s NTA Video',
+  cta_text: 'Read “AI Finally Taught Me How to Multitask”',
+  cta_url: 'https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask',
+  closing_message: `AI did not teach my brain to do more things at once. It allowed my brain to carry less while directing more.
+
+That is the NTA Point of View: start with the real work, keep human judgment in the center, and use AI where it can make the work more understandable and more manageable.
+
+Read [“AI Finally Taught Me How to Multitask”](https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask) and watch [this week's NTA Growth Show](https://youtu.be/6lhiYFHFsCQ).`,
+}, {
   id: 'seed-journal-issue-5',
   issue_number: 5,
   volume: 1,
