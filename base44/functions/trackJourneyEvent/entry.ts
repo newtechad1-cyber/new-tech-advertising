@@ -12,6 +12,9 @@ const ALLOWED_EVENTS = new Set([
   'regional_account_manager_video_clicked',
   'regional_account_manager_video_playlist_clicked',
   'community_partner_home_click',
+  'question_path_opened',
+  'question_growth_guide_opened',
+  'question_growth_conversation_started',
 ]);
 const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://newtechadvertising.com',
@@ -116,6 +119,7 @@ Deno.serve(async (req) => {
     const step = String(payload?.step || '').slice(0, 120);
     const source = String(payload?.source || '').slice(0, 120);
     const sessionId = String(payload?.session_id || '').slice(0, 120);
+    const siteSurface = String(payload?.site_surface || '').slice(0, 40);
 
     await base44.asServiceRole.entities.SystemLog.create({
       event_type: `journey_${eventName}`,
@@ -126,7 +130,7 @@ Deno.serve(async (req) => {
       workflow_stage: step || eventName,
       status: 'success',
       message: `${eventName}${step ? `: ${step}` : ''}`,
-      payload_snapshot: JSON.stringify({ route, step, source, session_id: sessionId }),
+      payload_snapshot: JSON.stringify({ route, step, source, session_id: sessionId, site_surface: siteSurface }),
       log_level: 'info',
     });
 
