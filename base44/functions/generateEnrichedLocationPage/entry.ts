@@ -199,7 +199,7 @@ Use industry-specific language and pain points.`;
 
   try {
     const base44 = await getBase44();
-    const response = await base44.integrations.Core.InvokeLLM({
+    const response = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt,
       response_json_schema: {
         type: 'object',

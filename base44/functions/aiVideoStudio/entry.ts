@@ -190,7 +190,7 @@ Deno.serve(async (req) => {
       const wordCount = duration === "15s" ? 40 : duration === "30s" ? 75 : 150;
       const orientation = format === "9:16" ? "vertical short-form (TikTok/Reels style)" : "horizontal promotional";
       const userPrompt = prompt || `Write a promotional video script about: ${topic || content || "our business"}`;
-      const result = await base44.integrations.Core.InvokeLLM({
+      const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: `You are an expert short-form video scriptwriter for promotional business videos.
 Write a compelling, conversational script that works for AI avatar presenters.
 Keep it under ${wordCount} words. No stage directions. Just the spoken words.
@@ -203,7 +203,7 @@ ${userPrompt}`
 
     if (action === "generate_slide_ideas") {
       const { script, slideCount = 5 } = params;
-      const result = await base44.integrations.Core.InvokeLLM({
+      const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: `You are a visual designer creating slide concepts for a promotional video.
 Given this script, return exactly ${slideCount} slide objects as a JSON array.
 Each slide must have:
@@ -238,7 +238,7 @@ Return ONLY a valid JSON array, no markdown, no explanation.`,
 
     if (action === "generate_slide_image") {
       const { prompt } = params;
-      const result = await base44.integrations.Core.GenerateImage({
+      const result = await base44.asServiceRole.integrations.Core.GenerateImage({
         prompt: `Professional promotional photo for business video: ${prompt}. High quality, vibrant, suitable for marketing.`
       });
       return Response.json({ url: result.url });
@@ -246,7 +246,7 @@ Return ONLY a valid JSON array, no markdown, no explanation.`,
 
     if (action === "generate_caption") {
       const { slideTitle, slideContent, videoScript } = params;
-      const result = await base44.integrations.Core.InvokeLLM({
+      const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: `You are a video caption writer creating engaging, concise captions for promotional video slides.
 Slide Title: ${slideTitle}
 Slide Content: ${slideContent}
@@ -260,7 +260,7 @@ Return ONLY the caption text, no quotes or markdown.`
 
     if (action === "generate_overlay_image") {
       const { slideTitle, slideContent, videoScript } = params;
-      const descriptionResult = await base44.integrations.Core.InvokeLLM({
+      const descriptionResult = await base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: `You are a visual design expert. Based on this slide:
 Title: ${slideTitle}
 Content: ${slideContent}
@@ -270,7 +270,7 @@ Generate a detailed description for a professional overlay graphic/image that co
 The image should be suitable as a branded overlay or accent image.
 Return ONLY the image description (1-2 sentences), no markdown.`
       });
-      const imageResult = await base44.integrations.Core.GenerateImage({
+      const imageResult = await base44.asServiceRole.integrations.Core.GenerateImage({
         prompt: `Professional branded overlay graphic for promotional video: ${descriptionResult}. Clean, modern design suitable for business marketing.`
       });
       return Response.json({ image_url: imageResult.url });

@@ -33,7 +33,7 @@ Deno.serve(async (req) => {
     }
 
     // Use OpenAI Whisper for transcription
-    const transcriptionResult = await base44.integrations.Core.InvokeLLM({
+    const transcriptionResult = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: `Extract and transcribe all speech from this video. Include speaker identification and timestamps.`,
       file_urls: [videoAsset.url],
       response_json_schema: {

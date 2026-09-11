@@ -230,23 +230,23 @@ Deno.serve(async (req) => {
 
     // Generate all content types in parallel
     const results = await Promise.all([
-      base44.integrations.Core.InvokeLLM({
+      base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: interpolatePrompt(storyTpl.user, data),
         ...(storyTpl.system ? { system_prompt: storyTpl.system } : {}),
       }),
-      base44.integrations.Core.InvokeLLM({
+      base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: interpolatePrompt(captionTpl.user, data),
         ...(captionTpl.system ? { system_prompt: captionTpl.system } : {}),
       }),
-      base44.integrations.Core.InvokeLLM({
+      base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: interpolatePrompt(scriptTpl.user, data),
         ...(scriptTpl.system ? { system_prompt: scriptTpl.system } : {}),
       }),
-      base44.integrations.Core.InvokeLLM({
+      base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: interpolatePrompt(headlineTpl.user, data),
         ...(headlineTpl.system ? { system_prompt: headlineTpl.system } : {}),
       }),
-      base44.integrations.Core.InvokeLLM({
+      base44.asServiceRole.integrations.Core.InvokeLLM({
         prompt: interpolatePrompt(questionsTpl.user, data),
         ...(questionsTpl.system ? { system_prompt: questionsTpl.system } : {}),
       }),

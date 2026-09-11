@@ -30,7 +30,7 @@ Deno.serve(async (req) => {
       ? 'Analyze this video frame for: 1) Quality score (0-10), 2) Energy level (0-10), 3) Emotional tone, 4) Scene description, 5) Detected activity, 6) Detected location, 7) Recommended tags'
       : 'Analyze this photo for: 1) Quality score (0-10), 2) Energy level (0-10), 3) Emotional tone, 4) Scene description, 5) Detected subjects, 6) Recommended tags';
 
-    const analysis = await base44.integrations.Core.InvokeLLM({
+    const analysis = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: analysisPrompt,
       file_urls: [media_url],
       response_json_schema: {

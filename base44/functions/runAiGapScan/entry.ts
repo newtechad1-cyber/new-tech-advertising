@@ -323,7 +323,7 @@ Guidelines:
 - The website_structure score should factor in: mobile responsiveness, page speed, SEO structure, accessibility basics, conversion flow, CTA clarity, content organization, local SEO signals, AI discoverability, and trust indicators
 - Accessibility score: 70+ = generally good, 50-69 = some improvements recommended, below 50 = notable usability gaps worth addressing`;
 
-    const result = await base44.integrations.Core.InvokeLLM({
+    const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt,
       add_context_from_internet: false,
     });

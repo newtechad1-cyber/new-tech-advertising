@@ -174,7 +174,7 @@ Make it specific to ${city}, ${state}. Include local market insights if availabl
 ${localMarketIntel ? `Market context: ${JSON.stringify(localMarketIntel).slice(0, 500)}` : ''}`;
 
   try {
-    const response = await base44.integrations.Core.InvokeLLM({
+    const response = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt,
       response_json_schema: {
         type: 'object',

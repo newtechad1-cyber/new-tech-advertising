@@ -34,7 +34,7 @@ Deno.serve(async (req) => {
     }
 
     // Use OpenAI Vision for analysis
-    const analysis = await base44.integrations.Core.InvokeLLM({
+    const analysis = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: `Analyze this video and provide:
 1. Scene descriptions at key moments
 2. Detected activities and emotions

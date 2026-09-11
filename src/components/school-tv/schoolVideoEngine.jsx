@@ -265,7 +265,7 @@ function calculateProgress(project, clips, scripts, renders, publishing) {
   if (clips.length > 0) {
     const analyzedPercent = clips.filter(c => c.quality_score > 0).length / clips.length;
     progress += analyzedPercent * 20;
-    totalSteps += 20;
+    _totalSteps += 20;
   }
 
   // Script generation (20%)

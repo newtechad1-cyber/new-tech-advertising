@@ -53,7 +53,7 @@ ${musicProfiles.map(m => `- ${m.name}: ${m.style_description} (Mood: ${m.mood}, 
 
 Select the best matching music style and explain why it's appropriate for this video.`;
 
-    const musicRecommendation = await base44.integrations.Core.InvokeLLM({
+    const musicRecommendation = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: musicPrompt,
       response_json_schema: {
         type: 'object',

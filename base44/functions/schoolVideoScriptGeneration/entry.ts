@@ -119,7 +119,7 @@ Deno.serve(async (req) => {
       finalPrompt = FALLBACK_PROMPT(project, clipContext, branding, settings);
     }
 
-    const script = await base44.integrations.Core.InvokeLLM({
+    const script = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: finalPrompt,
       ...(template?.system_prompt ? { system_prompt: template.system_prompt } : {}),
       response_json_schema: {

@@ -29,7 +29,7 @@ Deno.serve(async (req) => {
     const topClips = inputManifest.ranked_by_highlight?.slice(0, 5) || [];
     const transcript = inputManifest.transcript || '';
 
-    const storyResponse = await base44.integrations.Core.InvokeLLM({
+    const storyResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: `Create a three-act story structure for a ${project.project_type} video about:
 Event: ${project.event_name || 'School event'}
 Activity: ${project.activity_type}

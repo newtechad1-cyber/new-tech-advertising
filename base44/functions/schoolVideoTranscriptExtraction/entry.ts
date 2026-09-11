@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     // For now, we'll use OpenAI's integration with a prompt for demonstration
     const transcriptPrompt = `Listen to this video and provide a detailed transcript of all spoken content. Include speaker names if identifiable.`;
 
-    const transcript = await base44.integrations.Core.InvokeLLM({
+    const transcript = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: transcriptPrompt,
       file_urls: [media_url]
     });

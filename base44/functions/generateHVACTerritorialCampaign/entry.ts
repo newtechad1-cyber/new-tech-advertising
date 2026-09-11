@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
     }
 
     // Generate HVAC industry-specific territorial campaigns
-    const hvacResponse = await base44.integrations.Core.InvokeLLM({
+    const hvacResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
       model: 'gpt_5',
       prompt: `Create 4 localized HVAC territorial domination campaigns including Albert Lea, Minnesota. Generate HVAC-specific content, seasonal messaging, video scripts, and posting schedules.
 

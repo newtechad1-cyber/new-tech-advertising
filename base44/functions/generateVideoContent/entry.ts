@@ -46,7 +46,7 @@ Tone guidelines:
 - No buzzword overload
 - No fake urgency or pushy sales language`;
 
-    const result = await base44.integrations.Core.InvokeLLM({
+    const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt,
       response_json_schema: {
         type: 'object',

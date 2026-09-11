@@ -40,7 +40,7 @@ ${script.scene_structure}
 
 Generate SRT file format (timecode --> timecode followed by caption text).`;
 
-    const captions = await base44.integrations.Core.InvokeLLM({
+    const captions = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: captionPrompt
     });
 

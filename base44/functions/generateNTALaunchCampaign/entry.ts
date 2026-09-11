@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
     }
 
     // Generate all campaign content via OpenAI
-    const campaignContent = await base44.integrations.Core.InvokeLLM({
+    const campaignContent = await base44.asServiceRole.integrations.Core.InvokeLLM({
       model: 'gpt_5',
       prompt: `You are a social media strategist creating a 14-day launch campaign for "NTA DIY Growth System" - an AI marketing platform for small businesses at $99/month.
 

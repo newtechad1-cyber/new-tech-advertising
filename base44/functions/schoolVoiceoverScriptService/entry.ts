@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     const project = await base44.entities.SchoolVideoProjects.get(renderJob.project_id);
 
     // Generate voiceover for each scene
-    const scriptResponse = await base44.integrations.Core.InvokeLLM({
+    const scriptResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: `Write a professional voiceover script for a school ${project.project_type} video.
 Project: ${project.title}
 Description: ${project.description}

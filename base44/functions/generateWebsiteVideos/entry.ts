@@ -130,7 +130,7 @@ Deno.serve(async (req) => {
       const slot = WEBSITE_VIDEO_SLOTS.find(s => s.slot_key === slot_key);
       if (!slot) return Response.json({ error: "Unknown slot" }, { status: 400 });
 
-      const script = await base44.integrations.Core.InvokeLLM({ prompt: slot.script_prompt });
+      const script = await base44.asServiceRole.integrations.Core.InvokeLLM({ prompt: slot.script_prompt });
       return Response.json({ script: script.trim() });
     }
 

@@ -27,7 +27,7 @@ Deno.serve(async (req) => {
     ).catch(() => null);
 
     // Generate music plan
-    const musicResponse = await base44.integrations.Core.InvokeLLM({
+    const musicResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: `Create a music plan for a school ${project.project_type} video.
 Tone: ${project.tone || 'warm'}
 Preferred style: ${profile?.music_style_preference || 'uplifting orchestral'}

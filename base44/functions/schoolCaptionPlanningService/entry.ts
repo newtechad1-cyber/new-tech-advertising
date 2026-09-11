@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
     }
 
     // Generate captions from voiceover script
-    const captionResponse = await base44.integrations.Core.InvokeLLM({
+    const captionResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: `Create SRT captions for this voiceover script:
 ${voiceover_config?.full_script || ''}
 

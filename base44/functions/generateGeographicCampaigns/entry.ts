@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
     }
 
     // Generate localized campaigns for 3 geographic markets
-    const geoResponse = await base44.integrations.Core.InvokeLLM({
+    const geoResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
       model: 'gpt_5',
       prompt: `Create 3 localized geographic dominance campaigns for the NTA DIY Growth System. Generate localized content variations, messaging themes, and posting schedules for each market.
 

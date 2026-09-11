@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
     }
 
     // Generate Albert Lea restaurant-specific visibility campaign
-    const restaurantResponse = await base44.integrations.Core.InvokeLLM({
+    const restaurantResponse = await base44.asServiceRole.integrations.Core.InvokeLLM({
       model: 'gpt_5',
       prompt: `Create a localized Albert Lea Minnesota restaurant visibility campaign focused on weekly specials, community loyalty, and event night visibility. Generate restaurant-specific content, promotional messaging, video scripts, and posting schedules.
 
