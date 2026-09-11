@@ -167,6 +167,12 @@ Just not the way I thought multitasking worked.
 
 And for me, that has changed almost everything about what one person can accomplish.
 `,
+  readerResponse: {
+    label: "A reader's response",
+    quote: "I like this one. Very useful, and I will put it into practice.",
+    attribution: "Pete Gardner",
+    context: "Pete shared this after receiving the NTA Journal issue built around this lesson and the related Growth Show conversation."
+  },
   relatedLessons: [
     { label: "The Team I Spent My Life Trying to Build", link: "/knowledge/ai-foundations/the-team-i-spent-my-life-trying-to-build" },
     { label: "From Conversation to a Working Business System", link: "/knowledge/ai-foundations/ai-makes-complicated-work-easier" },
