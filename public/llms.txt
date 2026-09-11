@@ -105,6 +105,24 @@ Plainspoken answers to common questions about AI, marketing, customer trust, web
 
 - [How can AI help with customer follow-up?](https://newtechadvertising.com/knowledge/questions/how-can-ai-help-with-customer-follow-up): AI can help a small business prepare, organize, summarize, and remember follow-up work. It should support a clear customer process with a person responsible for the relationship, the promise, and the final response.
 
+- [How can AI help me market my small business?](https://newtechadvertising.com/knowledge/questions/how-can-ai-help-market-my-small-business): AI can help you organize customer questions, prepare first drafts, reuse useful teaching, and keep marketing work moving. It cannot decide what your business should promise, create real proof, or replace a clear customer path.
+
+- [How can AI help me get more customers?](https://newtechadvertising.com/knowledge/questions/how-can-ai-help-me-get-more-customers): AI can help a business make useful information clearer, turn repeated questions into helpful content, and support timely follow-up. More customers still come from being found, understood, trusted, and served well.
+
+- [How can AI save me time in my business?](https://newtechadvertising.com/knowledge/questions/how-can-ai-save-me-time-in-my-business): AI can save time by helping people prepare, organize, summarize, and start repeated work. The best use is usually one frustrating task with a clear result—not automating everything at once.
+
+- [How can AI help with social media for my business?](https://newtechadvertising.com/knowledge/questions/how-can-ai-help-with-social-media-for-my-business): AI can help turn real customer questions, service knowledge, and local moments into draft posts, captions, ideas, and a steadier plan. A person still needs to make the content true, useful, and connected to a clear next step.
+
+- [How can AI help my small-business website?](https://newtechadvertising.com/knowledge/questions/how-can-ai-help-my-small-business-website): AI can help you turn repeated customer questions into clearer website content, organize a first draft, and identify information that needs attention. It cannot make a weak offer trustworthy or replace the human follow-up after someone reaches out.
+
+- [How can my business show up in ChatGPT and AI search?](https://newtechadvertising.com/knowledge/questions/how-can-my-business-show-up-in-chatgpt-and-ai-search): There is no button that makes a business appear in ChatGPT or AI search. The practical work is to make the business easy to understand through accurate, specific, useful, and consistent information on the website and across the places customers find it.
+
+- [What should I automate in my small business?](https://newtechadvertising.com/knowledge/questions/what-should-i-automate-in-my-small-business): Automate work that is repeated, clearly understood, and low risk when reviewed: reminders, status updates, organized notes, routine preparation, and handoffs. Keep people responsible for decisions, exceptions, promises, and sensitive customer situations.
+
+- [Is AI safe for my small business and customer data?](https://newtechadvertising.com/knowledge/questions/is-ai-safe-for-my-small-business-and-customer-data): AI can be used more safely when a business knows which tool it is using, sets clear data boundaries, uses approved information, and keeps people accountable for customer-facing work. Do not put sensitive or confidential information into a tool until you understand and approve how it will be handled.
+
+- [Is AI worth it for a small business?](https://newtechadvertising.com/knowledge/questions/is-ai-worth-it-for-a-small-business): AI is worth it when it helps a real person do useful work better, faster, or more consistently without creating new risk or confusion. It is not worth it just because another tool promises to do everything.
+
 ### [Business Foundations](https://newtechadvertising.com/knowledge/business-foundations)
 
 Learn the core principles of building a business that grows through understanding rather than constant selling.
