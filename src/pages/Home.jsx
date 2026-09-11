@@ -15,7 +15,7 @@ import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 const HOMEPAGE_FAQS = [
   {
     question: 'What is New Tech Advertising now?',
-    answer: 'New Tech Advertising is a practical AI education and business growth platform for small-business owners. Free AI Education is the public front door, the Free AI Guy is the friendly guide inside it, and Talk to My Office connects learning to practical business help when you want NTA involved.',
+    answer: 'New Tech Advertising is a practical business-growth guide for small-business owners. Begin with a question, use free teaching or Your Digital Growth Guide™ when it helps, and talk to NTA when a human conversation would be useful.',
   },
   {
     question: 'What happens when I work with NTA?',
@@ -27,7 +27,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'Who is the Free AI Guy?',
-    answer: 'The Free AI Guy is the friendly teaching identity inside NTA’s free education experience. He helps you ask questions, talk through a business problem, and find a useful next step. NTA and Rick remain the real people and company behind the experience.',
+    answer: 'The Free AI Guy remains part of NTA’s free education experience. The public experience now begins with your business question, so you do not have to understand the branded teaching system before you get a useful answer.',
   },
   {
     question: 'What is the NTA Growth Conversation?',
@@ -35,7 +35,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'What is Talk to My Office™?',
-    answer: 'Talk to My Office is NTA’s voice-first approach to working with AI. Instead of learning complicated software, a business owner can speak naturally, type, or share a photo or file. The system helps understand the request, confirms what it heard, and organizes the next step before anything important happens.',
+    answer: 'Talk to My Office™ is the human conversation path when you want NTA’s help with a business question. We begin by understanding the business, clarify the next useful step, and explain any implementation, scope, or price before paid work begins.',
   },
   {
     question: 'What is the free Business Gap Audit?',
