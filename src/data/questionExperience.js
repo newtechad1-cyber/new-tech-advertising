@@ -217,6 +217,195 @@ export const questionExperienceBySlug = {
       path: '/back-office-solutions',
       label: 'Explore connected back-office support'
     }
+  },
+  'how-can-ai-help-market-my-small-business': {
+    examples: [
+      {
+        title: 'Turn one real question into useful teaching',
+        text: 'Start with a customer question your team has answered before. Use AI to prepare a first draft for a page, post, email, or video outline, then have the business check it for truth and usefulness.'
+      },
+      {
+        title: 'Reuse work that already helped someone',
+        text: 'A useful explanation does not have to disappear after one conversation. AI can help adapt approved teaching for different places while the business keeps the message consistent.'
+      },
+      {
+        title: 'Prepare before choosing a campaign',
+        text: 'Use AI to organize the audience, questions, proof, and next step behind an idea before spending money to put it in front of more people.'
+      }
+    ],
+    aiCanHelp: 'AI can help prepare, organize, and reuse useful marketing work that begins with real customer questions and approved business knowledge.',
+    aiCannotHelp: 'It cannot decide the business promise, create genuine proof, or make disconnected activity turn into a reliable customer path.'
+  },
+  'how-can-ai-help-me-get-more-customers': {
+    examples: [
+      {
+        title: 'Make the first explanation clearer',
+        text: 'Use the language customers already use to make service pages, answers, and calls to action easier to understand.'
+      },
+      {
+        title: 'Turn repeated questions into assets',
+        text: 'A question from one customer can become an approved answer that helps the next person learn, trust, and take a useful next step.'
+      },
+      {
+        title: 'Support a timely response',
+        text: 'AI can help organize the inquiry and prepare a first response so the right person can follow up with the facts and judgment the situation needs.'
+      }
+    ],
+    aiCanHelp: 'AI can help make the business easier to understand and support the work around a dependable customer path.',
+    aiCannotHelp: 'It cannot guarantee customers, replace real evidence, or take the place of good service and responsible follow-through.',
+    caseStudy: {
+      title: 'Johnson Heating & Air Conditioning',
+      description: 'See how website, visibility, content, and follow-up work can become a clearer path for customers.',
+      path: '/case-studies/johnson-heating'
+    }
+  },
+  'how-can-ai-save-me-time-in-my-business': {
+    examples: [
+      {
+        title: 'Organize the starting information',
+        text: 'Turn notes, voice memos, or a rough outline into a first checklist, summary, or draft that the responsible person can review.'
+      },
+      {
+        title: 'Prepare repeated communication',
+        text: 'Use approved facts to prepare the first version of recurring explanations, status updates, or internal handoffs instead of beginning from a blank page.'
+      },
+      {
+        title: 'Make a process easier to begin',
+        text: 'Ask AI to list the questions, missing information, or next steps behind a familiar task. The team still decides what is right for this situation.'
+      }
+    ],
+    aiCanHelp: 'AI can reduce repeated setup and help people prepare work faster when the task has a clear purpose and a person reviews the result.',
+    aiCannotHelp: 'It cannot make an unclear process clear by itself or remove the judgment required when a task affects a customer, a promise, or a meaningful decision.',
+    video: {
+      title: 'AI Finally Taught Me How to Multitask',
+      description: 'A practical NTA Growth Show conversation about using AI as support for real work without giving away judgment.',
+      href: 'https://youtu.be/6lhiYFHFsCQ'
+    }
+  },
+  'how-can-ai-help-with-social-media-for-my-business': {
+    examples: [
+      {
+        title: 'Draft from a real customer question',
+        text: 'Use an approved answer to a customer question as the raw material for a short post, then check that it still sounds like the business and points somewhere useful.'
+      },
+      {
+        title: 'Plan a steady rhythm',
+        text: 'AI can help organize ideas around seasons, services, events, and recurring questions so the team does not start from zero every time.'
+      },
+      {
+        title: 'Connect the post to the next answer',
+        text: 'Let a post lead to the fuller explanation, proof, service details, or contact path a person needs when they are ready to learn more.'
+      }
+    ],
+    aiCanHelp: 'AI can help prepare and organize social content from real questions and approved information.',
+    aiCannotHelp: 'It cannot make generic content trustworthy, replace the business voice, or make social media carry the entire customer path.'
+  },
+  'how-can-ai-help-my-small-business-website': {
+    examples: [
+      {
+        title: 'Answer a repeated question clearly',
+        text: 'Use AI to organize an approved answer into a useful page structure. The people who know the business should still check facts, tone, and promises.'
+      },
+      {
+        title: 'Find gaps a visitor may feel',
+        text: 'Compare a customer question with the page they would land on. AI can help identify where the explanation, proof, or next step is missing.'
+      },
+      {
+        title: 'Keep useful information easier to maintain',
+        text: 'When something important changes, AI can help prepare a draft update so the site stays accurate after human review.'
+      }
+    ],
+    aiCanHelp: 'AI can help the website answer real questions, organize clear first drafts, and maintain useful information more consistently.',
+    aiCannotHelp: 'It cannot replace a clear offer, real evidence, accessibility, technical quality, or the person who follows up after an inquiry.',
+    caseStudy: {
+      title: 'Johnson Heating & Air Conditioning',
+      description: 'See a connected customer path that brings website, visibility, campaign work, and follow-up together.',
+      path: '/case-studies/johnson-heating'
+    },
+    service: {
+      title: 'When the whole customer path needs attention',
+      description: 'If the problem goes beyond one page, NTA can help examine the connected path from discovery through inquiry and follow-up.',
+      path: '/services/website-rebuilds',
+      label: 'Explore website support'
+    }
+  },
+  'how-can-my-business-show-up-in-chatgpt-and-ai-search': {
+    examples: [
+      {
+        title: 'Be specific about the work',
+        text: 'Explain each important service in the words customers use, including the useful details that help someone understand whether the business is a fit.'
+      },
+      {
+        title: 'Keep public information consistent',
+        text: 'Check that website details, business listings, hours, service area, and customer-facing facts agree where people and search systems may find them.'
+      },
+      {
+        title: 'Publish answers that deserve to be reused',
+        text: 'Turn honest answers to customer questions into accessible website content that people can understand and systems can discover.'
+      }
+    ],
+    aiCanHelp: 'AI can help organize questions, find inconsistencies, and prepare clear first drafts from approved business information.',
+    aiCannotHelp: 'It cannot guarantee a recommendation, control what any AI system says, or substitute thin claims for accurate, useful evidence.'
+  },
+  'what-should-i-automate-in-my-small-business': {
+    examples: [
+      {
+        title: 'Routine reminder or handoff',
+        text: 'A clear reminder, status update, or task handoff can be a good early automation when the business knows exactly what should happen and who owns exceptions.'
+      },
+      {
+        title: 'Organize a repeatable intake',
+        text: 'A simple intake can gather the same needed details each time and present them to the person who should decide what comes next.'
+      },
+      {
+        title: 'Prepare, rather than decide',
+        text: 'Automate the preparation of a draft, checklist, or summary while a person remains responsible for approval, exceptions, and customer commitments.'
+      }
+    ],
+    aiCanHelp: 'AI can help automate repeated preparation, organization, reminders, and handoffs after the business has made the process clear.',
+    aiCannotHelp: 'It should not be left to make unreviewed decisions, resolve unusual customer situations, set promises, or handle sensitive information without approved safeguards.',
+    service: {
+      title: 'When a repeated process needs a connected system',
+      description: 'NTA can help a business clarify and connect the information, tasks, and people behind a process before adding technology to it.',
+      path: '/back-office-solutions',
+      label: 'Explore connected back-office support'
+    }
+  },
+  'is-ai-safe-for-my-small-business-and-customer-data': {
+    examples: [
+      {
+        title: 'Set an approved-use boundary',
+        text: 'Give the team a short, clear rule about what types of information may be used with an AI tool and what information must not be entered.'
+      },
+      {
+        title: 'Check the tool before using it',
+        text: 'Use the business account and settings you have approved. Understand who can access it, what its privacy controls are, and how it handles information.'
+      },
+      {
+        title: 'Keep customer-facing work accountable',
+        text: 'Have a person check any customer-facing draft, especially when it involves a promise, a personal situation, a price, or sensitive information.'
+      }
+    ],
+    aiCanHelp: 'AI can support work more safely when the business chooses approved tools, sets clear boundaries, and keeps human review around meaningful outcomes.',
+    aiCannotHelp: 'It cannot make a business compliant by itself or remove the need for privacy, security, legal, or industry-specific judgment when those are relevant.'
+  },
+  'is-ai-worth-it-for-a-small-business': {
+    examples: [
+      {
+        title: 'Measure a real task',
+        text: 'Test AI against one repeated job and compare the time, quality, and amount of rework before deciding whether it is worth continuing.'
+      },
+      {
+        title: 'Keep the first experiment small',
+        text: 'Use a low-risk task with a clear owner and a clear result instead of buying a large bundle of tools or changing every process at once.'
+      },
+      {
+        title: 'Look for work that leaves an asset behind',
+        text: 'The best early use often creates an approved answer, a repeatable checklist, or clearer business knowledge that keeps helping after the first test.'
+      }
+    ],
+    aiCanHelp: 'AI can be worth the effort when it improves a clear piece of work and leaves the business with more useful knowledge, time, or consistency.',
+    aiCannotHelp: 'It cannot create value from a vague goal, compensate for a weak process, or justify a tool nobody has a responsible plan to use.'
   }
 };
 
