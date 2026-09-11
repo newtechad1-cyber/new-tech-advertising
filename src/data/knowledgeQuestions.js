@@ -306,6 +306,150 @@ export const knowledgeQuestions = [
       { title: 'Local Lead Systems', path: '/local-lead-systems' }
     ],
     relatedQuestionSlugs: ['why-isnt-my-website-generating-leads', 'how-do-i-market-a-local-service-business', 'how-can-ai-use-knowledge-already-inside-my-company']
+  },
+  {
+    group: 'marketing-decisions',
+    slug: 'how-can-ai-help-market-my-small-business',
+    question: 'How can AI help me market my small business?',
+    seoTitle: 'How Can AI Help Me Market My Small Business? | NTA',
+    description: 'Use AI to help a small business turn real customer questions and approved knowledge into clearer marketing—without replacing strategy, proof, or judgment.',
+    answer: 'AI can help you organize customer questions, prepare first drafts, reuse useful teaching, and keep marketing work moving. It cannot decide what your business should promise, create real proof, or replace a clear customer path.',
+    context: 'Marketing becomes more useful when it starts with what customers are trying to understand. AI can make that useful work easier to prepare and repeat, but the business still has to decide what is true, helpful, and worth saying.',
+    nextStep: 'Choose one question customers ask before they buy. Write the honest answer your best person would give, then use AI to prepare a first version for a page, post, email, or video outline.',
+    resources: [
+      { title: 'The Role of AI in Local Marketing', path: '/role-of-ai-in-local-marketing' },
+      { title: 'Start With the Work, Not the Tool', path: '/knowledge/ai-foundations/start-with-the-work-not-the-tool' },
+      { title: 'Growth Systems vs. Marketing Campaigns', path: '/growth-systems-vs-campaigns' }
+    ],
+    relatedQuestionSlugs: ['how-can-ai-help-me-get-more-customers', 'how-can-ai-help-with-social-media-for-my-business', 'how-can-a-small-business-use-ai']
+  },
+  {
+    group: 'trust-and-visibility',
+    slug: 'how-can-ai-help-me-get-more-customers',
+    question: 'How can AI help me get more customers?',
+    seoTitle: 'How Can AI Help Me Get More Customers? | NTA',
+    description: 'AI can help make a small business easier to find, understand, and follow up with; it cannot guarantee customers or replace trust.',
+    answer: 'AI can help a business make useful information clearer, turn repeated questions into helpful content, and support timely follow-up. More customers still come from being found, understood, trusted, and served well.',
+    context: 'Getting more customers is not one AI task. It is a connected path: the right people need to find the business, understand why it fits, see evidence, take a next step, and receive a good response.',
+    nextStep: 'Look at the last five new inquiries. Find the point where people were most confused, hesitant, or delayed, then improve that one part of the customer path.',
+    resources: [
+      { title: 'Why a Small Business Website Is More Than a Brochure', path: '/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website' },
+      { title: 'Why Customer Evidence Matters More Than Marketing Claims', path: '/knowledge/how-customers-decide-who-to-trust/customers-trust-evidence-more-than-claims' },
+      { title: 'Local Business Marketing', path: '/local-business-marketing' }
+    ],
+    relatedQuestionSlugs: ['how-can-ai-help-market-my-small-business', 'why-isnt-my-website-generating-leads', 'how-can-ai-help-with-customer-follow-up']
+  },
+  {
+    group: 'practical-ai',
+    slug: 'how-can-ai-save-me-time-in-my-business',
+    question: 'How can AI save me time in my business?',
+    seoTitle: 'How Can AI Save Me Time in My Business? | NTA',
+    description: 'Use AI to reduce repeated setup, organize work, and prepare first versions in a small business while keeping people responsible for the result.',
+    answer: 'AI can save time by helping people prepare, organize, summarize, and start repeated work. The best use is usually one frustrating task with a clear result—not automating everything at once.',
+    context: 'Time savings are real when the business removes repeated setup without losing the information and judgment that make the work good. The right test is whether a person can review the result faster and with more confidence.',
+    nextStep: 'Track one repeated task for a week. Identify the part that is mostly gathering, organizing, or drafting, then test AI on that step while a person reviews the output.',
+    resources: [
+      { title: 'Automation Comes After Understanding', path: '/knowledge/ai-foundations/automation-comes-after-understanding' },
+      { title: 'How to Document a Small Business Process So It Can Be Repeated', path: '/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable' },
+      { title: 'How to Build Your First AI Teammate', path: '/knowledge/ai-foundations/building-your-first-ai-teammate' }
+    ],
+    relatedQuestionSlugs: ['where-should-i-start-with-ai', 'what-should-i-automate-in-my-small-business', 'is-ai-worth-it-for-a-small-business']
+  },
+  {
+    group: 'marketing-decisions',
+    slug: 'how-can-ai-help-with-social-media-for-my-business',
+    question: 'How can AI help with social media for my business?',
+    seoTitle: 'How Can AI Help With Social Media for My Business? | NTA',
+    description: 'Use AI to prepare and organize more useful social content from real customer questions while keeping the business voice, judgment, and customer path clear.',
+    answer: 'AI can help turn real customer questions, service knowledge, and local moments into draft posts, captions, ideas, and a steadier plan. A person still needs to make the content true, useful, and connected to a clear next step.',
+    context: 'Social media works best as one doorway in a larger customer path. It should help people understand the business and find useful information, not become a stream of generic activity.',
+    nextStep: 'Choose one question a customer asked this month. Turn the honest answer into a short post, then link interested people to the fuller explanation, proof, or next step on your website.',
+    resources: [
+      { title: 'Why a Small Business Website Is More Than a Brochure', path: '/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website' },
+      { title: 'Start With the Work, Not the Tool', path: '/knowledge/ai-foundations/start-with-the-work-not-the-tool' },
+      { title: 'Social Media Marketing', path: '/services/social-media-management' }
+    ],
+    relatedQuestionSlugs: ['how-can-ai-help-market-my-small-business', 'is-social-media-enough-for-a-small-business', 'how-can-ai-help-me-get-more-customers']
+  },
+  {
+    group: 'trust-and-visibility',
+    slug: 'how-can-ai-help-my-small-business-website',
+    question: 'How can AI help my small-business website?',
+    seoTitle: 'How Can AI Help My Small-Business Website? | NTA',
+    description: 'AI can help a small-business website answer more real questions and keep information organized, but it cannot replace clarity, proof, or follow-up.',
+    answer: 'AI can help you turn repeated customer questions into clearer website content, organize a first draft, and identify information that needs attention. It cannot make a weak offer trustworthy or replace the human follow-up after someone reaches out.',
+    context: 'A website helps when it acts like a useful front office: clear about who the business helps, specific about what it does, grounded in real evidence, and easy to contact. AI should support that work, not cover up a missing customer path.',
+    nextStep: 'Read one important page with a customer question in mind. Improve the first answer, the proof, and the next step before adding more pages or features.',
+    resources: [
+      { title: 'Why a Small Business Website Is More Than a Brochure', path: '/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website' },
+      { title: 'Why Customers Trust What They Can Understand', path: '/knowledge/how-customers-decide-who-to-trust/people-trust-what-they-can-understand' },
+      { title: 'Why Isn’t My Website Generating Leads?', path: '/knowledge/questions/why-isnt-my-website-generating-leads' }
+    ],
+    relatedQuestionSlugs: ['why-isnt-my-website-generating-leads', 'how-can-my-business-show-up-in-chatgpt-and-ai-search', 'how-can-ai-help-me-get-more-customers']
+  },
+  {
+    group: 'trust-and-visibility',
+    slug: 'how-can-my-business-show-up-in-chatgpt-and-ai-search',
+    question: 'How can my business show up in ChatGPT and AI search?',
+    seoTitle: 'How Can My Business Show Up in ChatGPT and AI Search? | NTA',
+    description: 'Help AI search systems understand a business with accurate, specific, consistent, and useful information across the website and public web—without chasing guarantees.',
+    answer: 'There is no button that makes a business appear in ChatGPT or AI search. The practical work is to make the business easy to understand through accurate, specific, useful, and consistent information on the website and across the places customers find it.',
+    context: 'AI search systems depend on available information and can change their answers. A business improves its chances by clearly explaining services, location or service area, evidence, and customer answers—then keeping those details consistent and current.',
+    nextStep: 'Choose one important service. Check whether your website, Google Business Profile, reviews, and other public listings give the same clear, specific answer about it.',
+    resources: [
+      { title: 'AI Visibility Basics', path: '/ai-visibility-basics' },
+      { title: 'What Changed Online', path: '/what-changed-online' },
+      { title: 'How Owned Digital Assets Support Small Business Growth', path: '/knowledge/what-is-digital-trust/digital-assets-keep-working' }
+    ],
+    relatedQuestionSlugs: ['how-can-ai-help-my-small-business-website', 'how-can-ai-help-me-get-more-customers', 'how-can-ai-help-market-my-small-business']
+  },
+  {
+    group: 'practical-ai',
+    slug: 'what-should-i-automate-in-my-small-business',
+    question: 'What should I automate in my small business?',
+    seoTitle: 'What Should I Automate in My Small Business? | NTA',
+    description: 'Start small-business automation with a clear, repeated, low-risk task and a person accountable for what goes out to customers.',
+    answer: 'Automate work that is repeated, clearly understood, and low risk when reviewed: reminders, status updates, organized notes, routine preparation, and handoffs. Keep people responsible for decisions, exceptions, promises, and sensitive customer situations.',
+    context: 'Automation works after the business understands the work well enough to explain it. If the process is unclear or the outcome affects a customer in a meaningful way, fix the process and keep human review before automating more.',
+    nextStep: 'Make a two-column list: tasks that repeat the same way and tasks that require judgment. Start with one repeated task, write down its rules, and choose who checks the result.',
+    resources: [
+      { title: 'Automation Comes After Understanding', path: '/knowledge/ai-foundations/automation-comes-after-understanding' },
+      { title: 'How to Document a Small Business Process So It Can Be Repeated', path: '/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable' },
+      { title: 'Using AI for Business Decisions Without Giving Up Human Judgment', path: '/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it' }
+    ],
+    relatedQuestionSlugs: ['how-can-ai-save-me-time-in-my-business', 'how-can-ai-help-with-customer-follow-up', 'how-can-employees-use-ai-at-work']
+  },
+  {
+    group: 'practical-ai',
+    slug: 'is-ai-safe-for-my-small-business-and-customer-data',
+    question: 'Is AI safe for my small business and customer data?',
+    seoTitle: 'Is AI Safe for My Small Business and Customer Data? | NTA',
+    description: 'A calm small-business guide to using AI more safely: know the tool, set data boundaries, use approved information, and keep human accountability.',
+    answer: 'AI can be used more safely when a business knows which tool it is using, sets clear data boundaries, uses approved information, and keeps people accountable for customer-facing work. Do not put sensitive or confidential information into a tool until you understand and approve how it will be handled.',
+    context: 'Safety is not a simple yes-or-no setting. It depends on the tool, its account and privacy controls, the type of information, who can use it, and the rules the business gives its team. Some situations also require legal, privacy, or industry-specific guidance.',
+    nextStep: 'Make a short approved-use list for the team: what information may be used, what information must stay out, who can approve exceptions, and what must be checked before a customer receives anything.',
+    resources: [
+      { title: 'NTA AI Policy', path: '/ai-policy' },
+      { title: 'Why AI Needs Business Context to Be Useful', path: '/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful' },
+      { title: 'Using AI for Business Decisions Without Giving Up Human Judgment', path: '/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it' }
+    ],
+    relatedQuestionSlugs: ['how-can-employees-use-ai-at-work', 'what-can-chatgpt-do-for-a-small-business', 'what-should-i-automate-in-my-small-business']
+  },
+  {
+    group: 'practical-ai',
+    slug: 'is-ai-worth-it-for-a-small-business',
+    question: 'Is AI worth it for a small business?',
+    seoTitle: 'Is AI Worth It for a Small Business? | NTA',
+    description: 'Decide whether AI is worth it for a small business by testing one useful task, the time and quality it changes, and the responsibility it requires.',
+    answer: 'AI is worth it when it helps a real person do useful work better, faster, or more consistently without creating new risk or confusion. It is not worth it just because another tool promises to do everything.',
+    context: 'The value of AI is not the tool itself. It is the difference it makes in a real task: less repeated setup, clearer information, better preparation, or a more dependable customer path—while people remain responsible for the result.',
+    nextStep: 'Choose one task, define the time or quality you hope to improve, test one approved approach for a short period, and decide based on the result rather than the promise.',
+    resources: [
+      { title: 'How Can AI Help My Small Business?', path: '/knowledge/questions/how-can-a-small-business-use-ai' },
+      { title: 'What Are the Best AI Tools for Small Business?', path: '/knowledge/questions/what-ai-tools-does-a-small-business-really-need' },
+      { title: 'Start With the Work, Not the Tool', path: '/knowledge/ai-foundations/start-with-the-work-not-the-tool' }
+    ],
+    relatedQuestionSlugs: ['how-can-ai-save-me-time-in-my-business', 'what-ai-tools-does-a-small-business-really-need', 'where-should-i-start-with-ai']
   }
 ];
 
