@@ -453,6 +453,24 @@ export const knowledgeQuestions = [
   }
 ];
 
+export const firstQuestionDoorwaySlugs = [
+  'how-can-a-small-business-use-ai',
+  'where-should-i-start-with-ai',
+  'what-ai-tools-does-a-small-business-really-need',
+  'how-can-ai-help-market-my-small-business',
+  'how-can-ai-help-me-get-more-customers',
+  'how-can-ai-save-me-time-in-my-business',
+  'what-can-chatgpt-do-for-a-small-business',
+  'how-can-ai-help-with-social-media-for-my-business',
+  'how-can-ai-help-my-small-business-website',
+  'how-can-my-business-show-up-in-chatgpt-and-ai-search',
+  'how-can-ai-help-with-customer-follow-up',
+  'what-should-i-automate-in-my-small-business',
+  'is-ai-safe-for-my-small-business-and-customer-data',
+  'how-can-employees-use-ai-at-work',
+  'is-ai-worth-it-for-a-small-business'
+];
+
 export function getKnowledgeQuestionBySlug(slug) {
   return knowledgeQuestions.find((question) => question.slug === String(slug || '').toLowerCase()) || null;
 }
