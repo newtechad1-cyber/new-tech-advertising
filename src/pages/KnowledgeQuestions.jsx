@@ -18,8 +18,8 @@ export default function KnowledgeQuestions() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
-        title="Small Business Questions About AI and Marketing | NTA"
-        description="Plainspoken answers to practical small-business questions about AI, marketing budgets, customer trust, websites, local visibility, and growth."
+        title="Small Business Questions About AI, Marketing, and Growth | NTA"
+        description="Plainspoken answers to practical small-business questions about AI, customers, websites, follow-up, marketing, trust, and growth."
         canonical="https://newtechadvertising.com/knowledge/questions"
         collectionData={{
           name: 'NTA Small Business Question Library',
@@ -42,7 +42,7 @@ export default function KnowledgeQuestions() {
               Start with your question
             </div>
             <h1 className="text-4xl md:text-6xl font-black leading-tight text-white mb-6">
-              Small-business questions about AI and marketing
+              Small-business questions about AI, marketing, and growth
             </h1>
             <p className="text-lg leading-relaxed text-slate-300 max-w-3xl mx-auto mb-5">
               You do not need to learn everything at once. Begin with the question that is in front of you, get a clear answer, then follow the connected teaching only as far as it is useful.
