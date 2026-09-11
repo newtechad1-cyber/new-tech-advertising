@@ -41,8 +41,8 @@ const STATIC_SEO = {
     description: "A connected library of practical AI, small-business growth, customer trust, and business-system lessons from Rick Hesse.",
   },
   "/knowledge/questions": {
-    title: "Small Business Questions About AI and Marketing | NTA",
-    description: "Plainspoken answers to practical small-business questions about AI, marketing, customer trust, websites, and local visibility—plus the NTA teaching behind each answer.",
+    title: "Small Business Questions About AI, Marketing, and Growth | NTA",
+    description: "Plainspoken answers to practical small-business questions about AI, customers, websites, follow-up, marketing, trust, and growth—plus the NTA teaching behind each answer.",
   },
   "/ai-visibility-basics": {
     title: "How to Get Found in AI Search | AI Visibility Basics",
