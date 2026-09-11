@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, BookOpen, ChevronRight, CircleCheck, User } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, ChevronRight, CircleCheck, MessageCircle, User } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -9,8 +9,31 @@ import {
   getKnowledgeQuestionPath,
   getRelatedKnowledgeQuestions
 } from '@/data/knowledgeQuestions';
+import { getQuestionExperience } from '@/data/questionExperience';
+import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 
-const UPDATED_LABEL = 'September 2, 2026';
+const UPDATED_LABEL = 'September 11, 2026';
+
+function ExperienceCard({ eyebrow, title, description, to, href, label }) {
+  const content = (
+    <>
+      <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">{eyebrow}</p>
+      <h3 className="font-bold leading-snug text-white group-hover:text-blue-300 transition-colors">{title}</h3>
+      {description && <p className="mt-3 text-sm leading-6 text-slate-400">{description}</p>}
+      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-blue-400">
+        {label || 'Explore it'} <ArrowRight className="w-4 h-4" />
+      </span>
+    </>
+  );
+
+  const className = "group rounded-2xl border border-slate-800 bg-slate-950/70 p-5 hover:border-blue-500/60 hover:bg-slate-950 transition-colors";
+
+  if (href) {
+    return <a href={href} target="_blank" rel="noopener noreferrer" className={className}>{content}</a>;
+  }
+
+  return <Link to={to} className={className}>{content}</Link>;
+}
 
 export default function KnowledgeQuestion() {
   const { questionSlug } = useParams();
@@ -21,7 +44,28 @@ export default function KnowledgeQuestion() {
   }
 
   const relatedQuestions = getRelatedKnowledgeQuestions(question);
-  const canonical = 'https://newtechadvertising.com' + getKnowledgeQuestionPath(question);
+  const experience = getQuestionExperience(question.slug);
+  const questionPath = getKnowledgeQuestionPath(question);
+  const canonical = 'https://newtechadvertising.com' + questionPath;
+
+  const openGrowthGuide = () => {
+    trackJourneyEvent('question_growth_guide_opened', {
+      route: questionPath,
+      step: question.slug,
+      source: 'question_answer'
+    });
+    window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
+      detail: { source: 'question_answer', question: question.question }
+    }));
+  };
+
+  const beginHumanConversation = () => {
+    trackJourneyEvent('question_growth_conversation_started', {
+      route: questionPath,
+      step: question.slug,
+      source: 'question_answer'
+    });
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
@@ -36,7 +80,7 @@ export default function KnowledgeQuestion() {
           author: 'Rick Hesse',
           datePublished: KNOWLEDGE_QUESTION_LAST_UPDATED,
           dateModified: KNOWLEDGE_QUESTION_LAST_UPDATED,
-          slug: getKnowledgeQuestionPath(question)
+          slug: questionPath
         }}
       />
       <MarketingNav />
@@ -91,25 +135,115 @@ export default function KnowledgeQuestion() {
             </div>
           </section>
 
+          {experience?.examples?.length > 0 && (
+            <section className="border-y border-slate-800 bg-slate-900/30 px-6 py-12">
+              <div className="max-w-3xl mx-auto">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Practical examples</p>
+                <h2 className="text-2xl font-black text-white mb-7">What this can look like in the real work</h2>
+                <div className="grid gap-4">
+                  {experience.examples.map((example) => (
+                    <div key={example.title} className="rounded-2xl border border-slate-800 bg-slate-950/70 p-6">
+                      <h3 className="font-bold text-white mb-2">{example.title}</h3>
+                      <p className="leading-7 text-slate-400">{example.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {(experience?.aiCanHelp || experience?.aiCannotHelp) && (
+            <section className="px-6 py-12">
+              <div className="max-w-4xl mx-auto">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Keep the role clear</p>
+                <h2 className="text-2xl font-black text-white mb-7">What AI can and cannot help with</h2>
+                <div className="grid gap-5 md:grid-cols-2">
+                  {experience.aiCanHelp && (
+                    <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6">
+                      <h3 className="font-bold text-white mb-3">AI can help with</h3>
+                      <p className="leading-7 text-slate-300">{experience.aiCanHelp}</p>
+                    </div>
+                  )}
+                  {experience.aiCannotHelp && (
+                    <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-6">
+                      <h3 className="font-bold text-white mb-3">AI cannot replace</h3>
+                      <p className="leading-7 text-slate-300">{experience.aiCannotHelp}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </section>
+          )}
+
           <section className="border-t border-slate-800 bg-slate-900/40 px-6 py-12">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Go deeper</p>
               <h2 className="text-2xl font-black text-white mb-3">Explore the teaching behind this answer</h2>
               <p className="leading-7 text-slate-400 mb-7">These NTA resources explain the connected ideas without asking you to start over from the beginning.</p>
               <div className="grid gap-4 md:grid-cols-3">
                 {question.resources.map((resource) => (
-                  <Link key={resource.path} to={resource.path} className="group rounded-2xl border border-slate-800 bg-slate-950/70 p-5 hover:border-blue-500/60 hover:bg-slate-950 transition-colors">
-                    <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">NTA resource</p>
-                    <h3 className="font-bold leading-snug text-white group-hover:text-blue-300 transition-colors">{resource.title}</h3>
-                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-blue-400">Explore it <ArrowRight className="w-4 h-4" /></span>
-                  </Link>
+                  <ExperienceCard key={resource.path} eyebrow="NTA lesson" title={resource.title} to={resource.path} />
                 ))}
               </div>
             </div>
           </section>
 
+          {(experience?.video || experience?.caseStudy || experience?.service) && (
+            <section className="px-6 py-12">
+              <div className="max-w-4xl mx-auto">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">See the connected work</p>
+                <h2 className="text-2xl font-black text-white mb-7">Related video, proof, and help when it fits</h2>
+                <div className="grid gap-4 md:grid-cols-3">
+                  {experience.video && (
+                    <ExperienceCard
+                      eyebrow="Related NTA video"
+                      title={experience.video.title}
+                      description={experience.video.description}
+                      href={experience.video.href}
+                      label="Watch the video"
+                    />
+                  )}
+                  {experience.caseStudy && (
+                    <ExperienceCard
+                      eyebrow="Related case study"
+                      title={experience.caseStudy.title}
+                      description={experience.caseStudy.description}
+                      to={experience.caseStudy.path}
+                      label="Read the case study"
+                    />
+                  )}
+                  {experience.service && (
+                    <ExperienceCard
+                      eyebrow="When human help fits"
+                      title={experience.service.title}
+                      description={experience.service.description}
+                      to={experience.service.path}
+                      label={experience.service.label}
+                    />
+                  )}
+                </div>
+              </div>
+            </section>
+          )}
+
+          <section className="border-y border-blue-500/15 bg-blue-950/20 px-6 py-14">
+            <div className="max-w-3xl mx-auto rounded-3xl border border-blue-500/25 bg-slate-950/70 p-8 md:p-10">
+              <p className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-3">Keep the conversation useful</p>
+              <h2 className="text-2xl md:text-3xl font-black text-white mb-4">Still thinking it through?</h2>
+              <p className="leading-7 text-slate-300">Ask Your Digital Growth Guide™ the question that is still on your mind. If a human conversation would be useful, Talk to My Office™ and we can help you sort out the next step.</p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <button type="button" onClick={openGrowthGuide} className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white hover:bg-blue-500 transition-colors">
+                  <MessageCircle className="w-5 h-5" /> Ask Your Digital Growth Guide™
+                </button>
+                <Link onClick={beginHumanConversation} to="/growth-conversation" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900 px-6 py-3.5 font-bold text-white hover:border-slate-400 hover:bg-slate-800 transition-colors">
+                  Talk to My Office™ <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </section>
+
           <section className="px-6 py-12">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Keep exploring</p>
               <h2 className="text-2xl font-black text-white mb-6">Related questions</h2>
               <div className="grid gap-4 md:grid-cols-3">
