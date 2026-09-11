@@ -20,6 +20,7 @@ export function trackJourneyEvent(eventName, details = {}) {
     step: details.step || '',
     source: details.source || '',
     session_id: getJourneySessionId(),
+    site_surface: 'public',
   };
 
   // Measurement must never interrupt the customer journey.
@@ -32,6 +33,7 @@ export function trackJourneyEvent(eventName, details = {}) {
       page_path: payload.route,
       journey_step: payload.step,
       journey_source: payload.source,
+      site_surface: payload.site_surface,
     });
   }
 }
