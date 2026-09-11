@@ -6,14 +6,14 @@ const BUSINESS_PATHS = [
   {
     title: 'I need more customers',
     description: 'Start with the path from being found to being understood, trusted, contacted, and followed up with.',
-    to: '/knowledge/questions/how-do-i-market-a-local-service-business',
+    to: '/knowledge/questions/how-can-ai-help-me-get-more-customers',
     icon: Users,
     step: 'more_customers'
   },
   {
     title: 'I want to save time',
     description: 'See where AI can help prepare, organize, and reduce repeated setup without taking over the work.',
-    to: '/knowledge/questions/how-can-a-small-business-use-ai',
+    to: '/knowledge/questions/how-can-ai-save-me-time-in-my-business',
     icon: Clock,
     step: 'save_time'
   },
