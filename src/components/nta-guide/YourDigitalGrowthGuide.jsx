@@ -278,20 +278,9 @@ export default function YourDigitalGrowthGuide() {
   }, []);
 
   useEffect(() => {
-    if (location.pathname !== '/' || isOpen) {
-      setShowHomeWelcome(false);
-      return undefined;
-    }
-
-    try {
-      if (window.sessionStorage.getItem(HOME_WELCOME_STORAGE_KEY)) return undefined;
-    } catch {
-      // The greeting can still appear if browser storage is unavailable.
-    }
-
-    const timer = window.setTimeout(() => setShowHomeWelcome(true), 650);
-    return () => window.clearTimeout(timer);
-  }, [isOpen, location.pathname]);
+    // Keep Rick available in the corner. Open the Guide only when a visitor chooses it.
+    setShowHomeWelcome(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (showHomeWelcome && !isOpen) {
