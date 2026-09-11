@@ -108,6 +108,8 @@ test('SEO cleanup prerendering covers private SPA fallbacks and public legacy eq
   assert.match(generator, /pathsWithDescendants/);
   assert.match(generator, /pathname\.slice\(1\) \+ ".html"/);
   assert.match(generator, /fs\.rmSync\(outputFile/);
+  assert.match(generator, /function homeStaticBody\(pathname\)/);
+  assert.match(generator, /function knowledgeQuestionHubStaticBody\(pathname\)/);
   assert.match(generator, /function knowledgeQuestionStaticBody\(pathname\)/);
   assert.match(generator, /function knowledgeQuestionSchemaMarkup\(pathname, metadata\)/);
   assert.match(generator, /pathname\.toLowerCase\(\)/);
@@ -121,7 +123,7 @@ test('question-first Knowledge Library routes are specific and fail closed', asy
   const { getSeoMetadata } = await import('../src/config/seoMetadata.js');
 
   const answer = getSeoMetadata('/knowledge/questions/how-can-a-small-business-use-ai');
-  assert.equal(answer.title, 'How Can a Small Business Use AI? | NTA');
+  assert.equal(answer.title, 'How Can AI Help My Small Business? | NTA');
   assert.equal(answer.canonical, 'https://newtechadvertising.com/knowledge/questions/how-can-a-small-business-use-ai');
   assert.equal(answer.noIndex, false);
 
