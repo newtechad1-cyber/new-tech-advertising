@@ -683,6 +683,91 @@ function journalStaticBody(pathname) {
   </main>`;
 }
 
+function homeStaticBody(pathname) {
+  if (pathname !== "/") return "";
+
+  const paths = [
+    {
+      label: "I need more customers",
+      description: "Start with the path from being found to being understood, trusted, contacted, and followed up with.",
+      href: "/knowledge/questions/how-do-i-market-a-local-service-business",
+    },
+    {
+      label: "I want to save time",
+      description: "See where AI can help prepare, organize, and reduce repeated setup without taking over the work.",
+      href: "/knowledge/questions/how-can-a-small-business-use-ai",
+    },
+    {
+      label: "My website isn't working",
+      description: "Look beyond design and find gaps in clarity, proof, next steps, and follow-up.",
+      href: "/knowledge/questions/why-isnt-my-website-generating-leads",
+    },
+    {
+      label: "I'm trying to understand AI",
+      description: "Get a plainspoken explanation of where AI fits in a real small business and where it does not.",
+      href: "/knowledge/questions/how-can-a-small-business-use-ai",
+    },
+    {
+      label: "I need better customer follow-up",
+      description: "Build a clearer way to prepare, remember, and carry the customer conversation forward.",
+      href: "/knowledge/questions/how-can-ai-help-with-customer-follow-up",
+    },
+  ];
+
+  return `<main data-prerendered="true" class="seo-shell">
+    <article>
+      <p class="seo-kicker">New Tech Advertising</p>
+      <h1>What are you trying to make better in your business?</h1>
+      <p>AI and digital change are making business more complicated. You do not need to become an AI expert to make a good next decision.</p>
+      <p>Start with the problem in front of you. NTA helps you understand where technology can help, where it cannot, and what makes sense to do next.</p>
+      <h2>Start with the question that fits</h2>
+      <ul>${paths.map(item => '<li><a href="' + escapeHtml(item.href) + '"><strong>' + escapeHtml(item.label) + '</strong></a>: ' + escapeHtml(item.description) + '</li>').join("")}</ul>
+      <h2>Not sure how to name the problem?</h2>
+      <p>Ask Your Digital Growth Guide™ the question that is on your mind. If a human conversation would be useful, Talk to My Office™ and NTA can help sort out the next step.</p>
+      <nav aria-label="Homepage next steps">
+        <a href="/growth-guide">Ask Your Digital Growth Guide™</a>
+        <a href="/knowledge/questions">Browse small-business questions</a>
+        <a href="/growth-conversation">Talk to My Office™</a>
+      </nav>
+      <h2>Continue learning</h2>
+      <nav aria-label="NTA learning">
+        <a href="/knowledge">Knowledge Library</a>
+        <a href="/growth-show">NTA Growth Show</a>
+        <a href="/journal">NTA Journal</a>
+        <a href="/case-studies">Case studies</a>
+      </nav>
+    </article>
+  </main>`;
+}
+
+function knowledgeQuestionHubStaticBody(pathname) {
+  if (pathname !== "/knowledge/questions") return "";
+
+  const questionLinks = knowledgeQuestions
+    .map(question => '<li><a href="' + escapeHtml(getKnowledgeQuestionPath(question)) + '"><strong>' + escapeHtml(question.question) + '</strong></a>: ' + escapeHtml(question.answer) + '</li>')
+    .join("");
+
+  return `<main data-prerendered="true" class="seo-shell">
+    <article>
+      <nav aria-label="NTA Knowledge Library navigation">
+        <a href="/">New Tech Advertising</a>
+        <a href="/knowledge">Knowledge Library</a>
+      </nav>
+      <p class="seo-kicker">Start with your question</p>
+      <h1>Small-business questions about AI and growth</h1>
+      <p>You do not need to learn everything at once. Begin with the question in front of you, get a clear answer, then follow the connected teaching only as far as it is useful.</p>
+      <h2>Browse the answers</h2>
+      <ul>${questionLinks}</ul>
+      <h2>Keep the conversation useful</h2>
+      <p>Ask Your Digital Growth Guide™ a question, or Talk to My Office™ when a human conversation would help.</p>
+      <nav aria-label="Question hub next steps">
+        <a href="/growth-guide">Ask Your Digital Growth Guide™</a>
+        <a href="/growth-conversation">Talk to My Office™</a>
+      </nav>
+    </article>
+  </main>`;
+}
+
 function knowledgeQuestionStaticBody(pathname) {
   const prefix = "/knowledge/questions/";
   if (!pathname.startsWith(prefix)) return "";
@@ -875,7 +960,9 @@ function shellMarkup(metadata, pathname) {
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = knowledgeQuestionStaticBody(pathname)
+  const body = homeStaticBody(pathname)
+    || knowledgeQuestionHubStaticBody(pathname)
+    || knowledgeQuestionStaticBody(pathname)
     || journalStaticBody(pathname)
     || opportunityStaticBody(pathname)
     || `<main data-prerendered="true" class="seo-shell">
