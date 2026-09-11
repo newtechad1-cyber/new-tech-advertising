@@ -3,28 +3,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
+import {
+  KNOWLEDGE_QUESTION_LAST_UPDATED,
+  knowledgeQuestions,
+  getKnowledgeQuestionPath,
+} from '../src/data/knowledgeQuestions.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(root, 'dist');
 const QUESTION_PATHS = [
   '/knowledge/questions',
-  '/knowledge/questions/how-can-a-small-business-use-ai',
-  '/knowledge/questions/where-should-i-start-with-ai',
-  '/knowledge/questions/what-can-chatgpt-do-for-a-small-business',
-  '/knowledge/questions/do-i-need-a-perfect-prompt',
-  '/knowledge/questions/why-does-ai-give-bad-answers',
-  '/knowledge/questions/what-ai-tools-does-a-small-business-really-need',
-  '/knowledge/questions/how-can-employees-use-ai-at-work',
-  '/knowledge/questions/how-much-should-a-small-business-spend-on-marketing',
-  '/knowledge/questions/what-should-i-do-with-my-first-500-marketing-budget',
-  '/knowledge/questions/why-does-marketing-require-ongoing-spending',
-  '/knowledge/questions/how-do-i-know-whether-my-marketing-is-working',
-  '/knowledge/questions/why-isnt-my-website-generating-leads',
-  '/knowledge/questions/how-do-i-build-customer-trust',
-  '/knowledge/questions/how-do-i-market-a-local-service-business',
-  '/knowledge/questions/is-social-media-enough-for-a-small-business',
-  '/knowledge/questions/should-a-small-business-still-advertise-on-tv',
-  '/knowledge/questions/how-can-ai-use-knowledge-already-inside-my-company',
+  ...knowledgeQuestions.map(getKnowledgeQuestionPath),
 ];
 
 function readOutputForRoute(route) {
@@ -72,20 +61,26 @@ test('question-first knowledge resources are in every intentional discovery surf
       page => page.canonicalUrl === 'https://newtechadvertising.com' + route
     );
     assert.ok(aiSitemapPage, 'Expected AI sitemap entry for ' + route);
-    assert.equal(aiSitemapPage.lastModified, '2026-09-02', 'Expected an editorial update date for ' + route);
+    assert.equal(aiSitemapPage.lastModified, KNOWLEDGE_QUESTION_LAST_UPDATED, 'Expected an editorial update date for ' + route);
   }
 
   assert.match(llms, /Start with a business question/);
-  assert.match(llms, /How can a small business use AI\?/);
+  assert.match(llms, /How can AI help my small business\?/);
+
+  const homepage = readOutputForRoute('/');
+  assert.match(homepage, /<h1>What are you trying to make better in your business\?<\/h1>/);
+  assert.match(homepage, /Ask Your Digital Growth Guide™/);
 
   const answerPage = readOutputForRoute('/knowledge/questions/how-can-a-small-business-use-ai');
-  assert.match(answerPage, /<title>How Can a Small Business Use AI\? \| NTA<\/title>/);
+  assert.match(answerPage, /<title>How Can AI Help My Small Business\? \| NTA<\/title>/);
   assert.match(answerPage, /<meta name="robots" content="index, follow/);
   assert.match(answerPage, /<link rel="canonical" href="https:\/\/newtechadvertising\.com\/knowledge\/questions\/how-can-a-small-business-use-ai" \/>/);
-  assert.match(answerPage, /<h1>How can a small business use AI\?<\/h1>/);
+  assert.match(answerPage, /<h1>How can AI help my small business\?<\/h1>/);
   assert.match(answerPage, /Start by giving AI one useful job that supports real work/);
-  assert.match(answerPage, /<time datetime="2026-09-02">Updated 2026-09-02<\/time>/);
-  assert.match(answerPage, /\"dateModified\":\"2026-09-02\"/);
+  assert.match(answerPage, /What AI can and cannot help with/);
+  assert.match(answerPage, /Ask Your Digital Growth Guide™/);
+  assert.match(answerPage, new RegExp('<time datetime="' + KNOWLEDGE_QUESTION_LAST_UPDATED + '">Updated ' + KNOWLEDGE_QUESTION_LAST_UPDATED + '<\\/time>'));
+  assert.match(answerPage, new RegExp('\\\"dateModified\\\":\\\"' + KNOWLEDGE_QUESTION_LAST_UPDATED + '\\\"'));
   assert.equal((answerPage.match(/data-seo-static-question-schema="true"/g) || []).length, 3);
   assert.match(answerPage, /\"@type\":\"Article\"/);
   assert.match(answerPage, /\"@type\":\"FAQPage\"/);
