@@ -178,10 +178,10 @@ function buildKnowledgeQuestionPages(existingPublicPages = []) {
   const hubCanonicalUrl = SITE_ORIGIN + "/knowledge/questions";
   const hub = {
     ...existingByCanonical.get(hubCanonicalUrl),
-    title: "Small Business Questions About AI and Marketing",
+    title: "Small Business Questions About AI, Marketing, and Growth",
     canonicalUrl: hubCanonicalUrl,
     contentType: "CollectionPage",
-    description: "Plainspoken answers to practical small-business questions about AI, marketing, customer trust, websites, and local visibility—plus the NTA teaching behind each answer.",
+    description: "Plainspoken answers to practical small-business questions about AI, customers, websites, follow-up, marketing, trust, and growth—plus the NTA teaching behind each answer.",
     author: KNOWLEDGE_AUTHOR,
     publisher: KNOWLEDGE_PUBLISHER,
     publicStatus: "published",
