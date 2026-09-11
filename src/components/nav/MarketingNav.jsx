@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { LogOut, ShieldCheck } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -18,18 +15,9 @@ const NAV_LINKS = [
   { label: 'Account Manager Opportunity', href: '/account-manager' },
 ];
 
+const OPPORTUNITY_HREF = 'https://app.newtechadvertising.com';
+
 export default function MarketingNav() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => setUser(null));
-  }, []);
-
-  const normalizedEmail = user?.email?.toLowerCase();
-  const isAdmin = user?.role === 'admin' || ['info@newtechadvertising.com', 'newtechad1@gmail.com'].includes(normalizedEmail);
-  const hubHref = isAdmin
-    ? 'https://app.newtechadvertising.com/admin-dashboard'
-    : 'https://app.newtechadvertising.com/Login';
 
   return (
     <>
@@ -47,11 +35,10 @@ export default function MarketingNav() {
               641-420-8816
             </a>
             <a
-              href={hubHref}
+              href={OPPORTUNITY_HREF}
               className="hidden items-center gap-1.5 whitespace-nowrap rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 transition-colors hover:bg-slate-900 hover:text-white md:inline-flex"
             >
-              {isAdmin && <ShieldCheck className="h-4 w-4" />}
-              {isAdmin ? 'Admin Dashboard' : 'Core Hub'}
+              NTA Opportunity
             </a>
             <Link
               to="/free-audit"
@@ -66,17 +53,7 @@ export default function MarketingNav() {
             >
               Talk to My Office™
             </button>
-            {user && (
-              <button
-                type="button"
-                onClick={() => base44.auth.logout()}
-                className="hidden rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-900 hover:text-white lg:inline-flex"
-                title="Logout"
-                aria-label="Log out"
-              >
-                <LogOut className="h-4 w-4" />
-              </button>
-            )}
+
           </div>
         </div>
 
@@ -95,10 +72,10 @@ export default function MarketingNav() {
               </Link>
             ))}
             <a
-              href={hubHref}
+              href={OPPORTUNITY_HREF}
               className="shrink-0 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-cyan-300 transition-colors hover:bg-slate-900 hover:text-cyan-200 md:hidden"
             >
-              {isAdmin ? 'Admin Dashboard' : 'Core Hub'}
+              NTA Opportunity
             </a>
             <Link
               to="/free-audit"
