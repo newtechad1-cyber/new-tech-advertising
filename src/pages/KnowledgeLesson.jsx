@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import LessonArticle from '@/components/knowledge/LessonArticle';
-import { ChevronRight, Clock, CheckCircle, ArrowLeft, ArrowRight, User, BookOpen, List } from 'lucide-react';
+import { ChevronRight, Clock, CheckCircle, ArrowLeft, ArrowRight, User, BookOpen, List, Quote } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -131,6 +131,31 @@ export default function KnowledgeLesson() {
         <article className="py-12 px-6">
           <div className="max-w-3xl mx-auto">
             <LessonArticle content={lesson.content} />
+
+            {lesson.readerResponse && (
+              <section
+                className="mt-12 rounded-2xl border border-blue-400/25 bg-blue-500/5 p-6 md:p-8"
+                aria-labelledby="reader-response-heading"
+              >
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-300">
+                  {lesson.readerResponse.label || 'A reader’s response'}
+                </p>
+                <Quote className="mt-5 h-8 w-8 text-blue-400/70" aria-hidden="true" />
+                <blockquote className="mt-3">
+                  <p id="reader-response-heading" className="text-2xl font-medium leading-relaxed text-white md:text-3xl">
+                    “{lesson.readerResponse.quote}”
+                  </p>
+                  <footer className="mt-5 text-sm font-bold text-slate-200">
+                    — {lesson.readerResponse.attribution}
+                  </footer>
+                </blockquote>
+                {lesson.readerResponse.context && (
+                  <p className="mt-5 text-sm leading-6 text-slate-400">
+                    {lesson.readerResponse.context}
+                  </p>
+                )}
+              </section>
+            )}
 
             {connectedResources.length > 0 && (
               <aside className="mt-16 border-t border-slate-800 pt-10" aria-labelledby="keep-exploring-heading">
