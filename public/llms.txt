@@ -69,19 +69,19 @@ The NTA Knowledge Library is a connected set of practical lessons about small-bu
 
 Plainspoken answers to common questions about AI, marketing, customer trust, websites, and local visibility. Each answer points to the NTA teaching that explains the connected idea.
 
-- [How can a small business use AI?](https://newtechadvertising.com/knowledge/questions/how-can-a-small-business-use-ai): Start by giving AI one useful job that supports real work—organizing notes, drafting a first version, or preparing questions. Your people still provide the context, judgment, and final approval.
+- [How can AI help my small business?](https://newtechadvertising.com/knowledge/questions/how-can-a-small-business-use-ai): Start by giving AI one useful job that supports real work—organizing notes, drafting a first version, or preparing questions. Your people still provide the context, judgment, and final approval.
 
-- [Where should I start with AI?](https://newtechadvertising.com/knowledge/questions/where-should-i-start-with-ai): Start with a repeated or frustrating piece of work, not a product to buy. Define the outcome, give AI the right context, set boundaries, and keep a person responsible for the result.
+- [How do I use AI in my small business?](https://newtechadvertising.com/knowledge/questions/where-should-i-start-with-ai): Start with a repeated or frustrating piece of work, not a product to buy. Define the outcome, give AI the right context, set boundaries, and keep a person responsible for the result.
 
-- [What can ChatGPT do for a small business?](https://newtechadvertising.com/knowledge/questions/what-can-chatgpt-do-for-a-small-business): ChatGPT can help turn scattered information into useful drafts, summaries, questions, and first-pass communication. It cannot truly know your company, make promises, or replace your judgment unless you provide context and review its work.
+- [How can I use ChatGPT for my small business?](https://newtechadvertising.com/knowledge/questions/what-can-chatgpt-do-for-a-small-business): ChatGPT can help turn scattered information into useful drafts, summaries, questions, and first-pass communication. It cannot truly know your company, make promises, or replace your judgment unless you provide context and review its work.
 
 - [Do I need a perfect prompt to use AI?](https://newtechadvertising.com/knowledge/questions/do-i-need-a-perfect-prompt): No. A prompt is the beginning of a conversation, not a test you either pass or fail. Start clearly, add context, ask follow-up questions, and correct the result as you go.
 
 - [Why does AI give bad answers?](https://newtechadvertising.com/knowledge/questions/why-does-ai-give-bad-answers): AI can sound confident while missing context, making assumptions, or simply being wrong. Treat a polished answer as a starting point: question it, add the facts it lacks, and verify anything important.
 
-- [What AI tools does a small business really need?](https://newtechadvertising.com/knowledge/questions/what-ai-tools-does-a-small-business-really-need): Most businesses do not need a long list of AI tools. Start with one dependable assistant, an approved way to handle company information, and one useful job; add tools only when the work truly requires them.
+- [What are the best AI tools for small business?](https://newtechadvertising.com/knowledge/questions/what-ai-tools-does-a-small-business-really-need): Most businesses do not need a long list of AI tools. Start with one dependable assistant, an approved way to handle company information, and one useful job; add tools only when the work truly requires them.
 
-- [How can employees use AI at work?](https://newtechadvertising.com/knowledge/questions/how-can-employees-use-ai-at-work): Let employees use AI to prepare, organize, and find information—not to make unreviewed promises or decisions. Give the team approved uses, examples, privacy boundaries, and a person accountable for the final answer.
+- [Will AI replace employees in a small business?](https://newtechadvertising.com/knowledge/questions/how-can-employees-use-ai-at-work): AI can support employees, but it should not replace the judgment, relationships, and accountability people bring to a small business. Give the team approved uses, examples, privacy boundaries, and a person responsible for the final answer.
 
 - [How much should a small business spend on marketing?](https://newtechadvertising.com/knowledge/questions/how-much-should-a-small-business-spend-on-marketing): There is no honest universal number. Start with an amount you can sustain long enough to learn, then use it to strengthen the foundation, measurement, and follow-up before scattering money across disconnected activity.
 
@@ -102,6 +102,8 @@ Plainspoken answers to common questions about AI, marketing, customer trust, web
 - [Should a small business still advertise on TV?](https://newtechadvertising.com/knowledge/questions/should-a-small-business-still-advertise-on-tv): Sometimes—but not just to look bigger. TV or streaming can make sense when it reaches the right local audience, supports a clear next step, can be measured, and fits the business’s capacity to respond.
 
 - [How can AI use knowledge already inside my company?](https://newtechadvertising.com/knowledge/questions/how-can-ai-use-knowledge-already-inside-my-company): Begin by capturing and approving the useful knowledge people already carry—customer questions, procedures, explanations, and hard-won lessons. Then give AI that trusted context so it can help people find, organize, and use it without inventing the business’s judgment.
+
+- [How can AI help with customer follow-up?](https://newtechadvertising.com/knowledge/questions/how-can-ai-help-with-customer-follow-up): AI can help a small business prepare, organize, summarize, and remember follow-up work. It should support a clear customer process with a person responsible for the relationship, the promise, and the final response.
 
 ### [Business Foundations](https://newtechadvertising.com/knowledge/business-foundations)
 
