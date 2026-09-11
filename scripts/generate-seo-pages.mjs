@@ -690,12 +690,12 @@ function homeStaticBody(pathname) {
     {
       label: "I need more customers",
       description: "Start with the path from being found to being understood, trusted, contacted, and followed up with.",
-      href: "/knowledge/questions/how-do-i-market-a-local-service-business",
+      href: "/knowledge/questions/how-can-ai-help-me-get-more-customers",
     },
     {
       label: "I want to save time",
       description: "See where AI can help prepare, organize, and reduce repeated setup without taking over the work.",
-      href: "/knowledge/questions/how-can-a-small-business-use-ai",
+      href: "/knowledge/questions/how-can-ai-save-me-time-in-my-business",
     },
     {
       label: "My website isn't working",
