@@ -9,6 +9,7 @@ import {
   getKnowledgeQuestionBySlug,
   getKnowledgeQuestionPath,
 } from "../src/data/knowledgeQuestions.js";
+import { getQuestionExperience } from "../src/data/questionExperience.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
@@ -689,6 +690,7 @@ function knowledgeQuestionStaticBody(pathname) {
   const question = getKnowledgeQuestionBySlug(pathname.slice(prefix.length));
   if (!question || pathname !== getKnowledgeQuestionPath(question)) return "";
 
+  const experience = getQuestionExperience(question.slug);
   const resourceLinks = (question.resources || [])
     .map(resource => '<a href="' + escapeHtml(resource.path) + '">' + escapeHtml(resource.title) + '</a>')
     .join("");
@@ -698,6 +700,25 @@ function knowledgeQuestionStaticBody(pathname) {
     .slice(0, 3)
     .map(related => '<a href="' + escapeHtml(getKnowledgeQuestionPath(related)) + '">' + escapeHtml(related.question) + '</a>')
     .join("");
+  const exampleMarkup = experience?.examples?.length
+    ? '<h2>Practical examples</h2><ul>' + experience.examples
+      .map(example => '<li><strong>' + escapeHtml(example.title) + '</strong>: ' + escapeHtml(example.text) + '</li>')
+      .join("") + '</ul>'
+    : "";
+  const aiRoleMarkup = experience?.aiCanHelp || experience?.aiCannotHelp
+    ? '<h2>What AI can and cannot help with</h2>'
+      + (experience.aiCanHelp ? '<p><strong>AI can help with:</strong> ' + escapeHtml(experience.aiCanHelp) + '</p>' : "")
+      + (experience.aiCannotHelp ? '<p><strong>AI cannot replace:</strong> ' + escapeHtml(experience.aiCannotHelp) + '</p>' : "")
+    : "";
+  const videoMarkup = experience?.video
+    ? '<section class="journal-static-card"><p class="seo-kicker">Related NTA video</p><h2>' + escapeHtml(experience.video.title) + '</h2><p>' + escapeHtml(experience.video.description || "") + '</p><p><a href="' + escapeHtml(experience.video.href) + '" target="_blank" rel="noopener noreferrer">Watch the video</a></p></section>'
+    : "";
+  const caseStudyMarkup = experience?.caseStudy
+    ? '<section class="journal-static-card"><p class="seo-kicker">Related case study</p><h2>' + escapeHtml(experience.caseStudy.title) + '</h2><p>' + escapeHtml(experience.caseStudy.description || "") + '</p><p><a href="' + escapeHtml(experience.caseStudy.path) + '">Read the case study</a></p></section>'
+    : "";
+  const serviceMarkup = experience?.service
+    ? '<section class="journal-static-card"><p class="seo-kicker">When human help fits</p><h2>' + escapeHtml(experience.service.title) + '</h2><p>' + escapeHtml(experience.service.description || "") + '</p><p><a href="' + escapeHtml(experience.service.path) + '">' + escapeHtml(experience.service.label || "Explore support") + '</a></p></section>'
+    : "";
 
   return `<main data-prerendered="true" data-static-question="true" class="seo-shell">
     <article>
@@ -714,8 +735,19 @@ function knowledgeQuestionStaticBody(pathname) {
       <p>${escapeHtml(question.context)}</p>
       <h2>One useful next step</h2>
       <p>${escapeHtml(question.nextStep)}</p>
+      ${exampleMarkup}
+      ${aiRoleMarkup}
       <h2>Explore the teaching behind this answer</h2>
       <nav aria-label="Related NTA resources">${resourceLinks}</nav>
+      ${videoMarkup}
+      ${caseStudyMarkup}
+      ${serviceMarkup}
+      <h2>Still thinking it through?</h2>
+      <p>Ask Your Digital Growth Guide™ the question still on your mind. When a human conversation would be useful, Talk to My Office™ and NTA can help sort out the next step.</p>
+      <nav aria-label="Question next steps">
+        <a href="/growth-guide">Ask Your Digital Growth Guide™</a>
+        <a href="/growth-conversation">Talk to My Office™</a>
+      </nav>
       <h2>Related questions</h2>
       <nav aria-label="Related small-business questions">${relatedLinks}</nav>
     </article>
