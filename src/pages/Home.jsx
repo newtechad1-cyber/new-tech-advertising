@@ -111,8 +111,8 @@ export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
-        title="Practical AI Education and Digital Growth Systems | New Tech Advertising"
-        description="Practical AI education and connected digital growth systems for small-business owners. Learn how NTA helps improve visibility, trust, customer relationships, follow-up, and everyday work."
+        title="Small-Business Questions About AI, Marketing, Websites & Growth | NTA"
+        description="Plain-English answers for small-business owners who want to improve customers, time, websites, follow-up, AI understanding, or the next business decision."
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />
@@ -122,19 +122,35 @@ export default function Home() {
         <ProblemSection />
 
         <section className="border-y border-slate-800 bg-slate-950 px-6 py-14">
-          <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-7 rounded-3xl border border-slate-800 bg-slate-900/60 p-7 md:flex-row md:items-center md:p-9">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Free AI learning • United States</p>
-              <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">Curious about AI? Learn it by helping business owners understand it.</h2>
-              <p className="mt-3 leading-relaxed text-slate-300">NTA is building a network of curious people, trusted community connectors, and organizations. Start with free courses, lessons, and real business learning—not a sales script to memorize—and build useful relationships in the community or market you know.</p>
-              <p className="mt-3 text-sm leading-relaxed text-slate-400">Those relationships can create ongoing residual income under a clear written agreement while the clients involved remain active.</p>
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto mb-9 max-w-3xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Start with the question in front of you</p>
+              <h2 className="mt-3 text-2xl font-bold text-white md:text-3xl">You do not have to learn the whole NTA system to get a useful answer.</h2>
+              <p className="mt-3 leading-relaxed text-slate-300">Each question page gives you a plain-English answer, practical examples, clear limits for AI, and a way to continue only if it helps.</p>
             </div>
-            <div className="flex w-full shrink-0 flex-col gap-3 sm:w-auto">
-              <Link onClick={() => trackJourneyEvent('regional_account_manager_home_click', { route: '/', source: 'homepage_upper_third' })} to="/account-manager" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500">
-                Explore Account Manager <ArrowRight className="h-5 w-5" />
+            <div className="grid gap-5 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+                <BookOpen className="mb-4 h-5 w-5 text-blue-400" />
+                <h3 className="text-lg font-bold text-white">Get the short answer first</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-400">Understand the practical point before you decide whether to spend more time on the topic.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+                <MessageCircle className="mb-4 h-5 w-5 text-blue-400" />
+                <h3 className="text-lg font-bold text-white">See where AI fits—and where it does not</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-400">Use technology to support people and real work, not to replace judgment or a customer relationship.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+                <Globe className="mb-4 h-5 w-5 text-blue-400" />
+                <h3 className="text-lg font-bold text-white">Follow the connected teaching</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-400">Move from one answer into the related Knowledge Library lesson, video, case study, or next useful conversation.</p>
+              </div>
+            </div>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link to="/knowledge/questions" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500">
+                Browse small-business questions <ArrowRight className="h-5 w-5" />
               </Link>
-              <Link onClick={() => trackJourneyEvent('community_partner_home_click', { route: '/', source: 'homepage_upper_third' })} to="/community-partner" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 px-6 py-3.5 font-bold text-slate-100 transition-colors hover:border-cyan-300 hover:bg-slate-800">
-                Explore Community Partners <ArrowRight className="h-5 w-5" />
+              <Link to="/growth-show" className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-6 py-3.5 font-bold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">
+                Watch the NTA Growth Show <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
           </div>
