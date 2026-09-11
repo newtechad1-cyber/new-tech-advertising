@@ -1,4 +1,4 @@
-export const KNOWLEDGE_QUESTION_LAST_UPDATED = '2026-09-02';
+export const KNOWLEDGE_QUESTION_LAST_UPDATED = '2026-09-11';
 
 export const knowledgeQuestionGroups = [
   {
@@ -22,9 +22,9 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'how-can-a-small-business-use-ai',
-    question: 'How can a small business use AI?',
-    seoTitle: 'How Can a Small Business Use AI? | NTA',
-    description: 'A plainspoken answer for small-business owners who want to use AI for real work while keeping human judgment in control.',
+    question: 'How can AI help my small business?',
+    seoTitle: 'How Can AI Help My Small Business? | NTA',
+    description: 'A plainspoken answer for small-business owners who want AI to support real work while keeping human judgment in control.',
     answer: 'Start by giving AI one useful job that supports real work—organizing notes, drafting a first version, or preparing questions. Your people still provide the context, judgment, and final approval.',
     context: 'AI is most helpful when it is connected to a real piece of work instead of treated as a magic answer. Let it help the business prepare, organize, and think through work that a person remains responsible for.',
     nextStep: 'Choose one repeated task this week. Describe the outcome you want, give AI a little background, and review the result together before using it.',
@@ -38,9 +38,9 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'where-should-i-start-with-ai',
-    question: 'Where should I start with AI?',
-    seoTitle: 'Where Should I Start With AI? | NTA',
-    description: 'Start using AI in a small business by beginning with a useful piece of work, not another product to buy.',
+    question: 'How do I use AI in my small business?',
+    seoTitle: 'How Do I Use AI in My Small Business? | NTA',
+    description: 'Start using AI in a small business with one useful piece of work, not another product to buy.',
     answer: 'Start with a repeated or frustrating piece of work, not a product to buy. Define the outcome, give AI the right context, set boundaries, and keep a person responsible for the result.',
     context: 'A small business does not need to redesign itself around an AI tool. It needs one useful place to begin so the team can learn what works without creating more confusion.',
     nextStep: 'Write down one task that takes more time than it should. Start there, then decide whether the result is useful enough to repeat.',
@@ -54,8 +54,8 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'what-can-chatgpt-do-for-a-small-business',
-    question: 'What can ChatGPT do for a small business?',
-    seoTitle: 'What Can ChatGPT Do for a Small Business? | NTA',
+    question: 'How can I use ChatGPT for my small business?',
+    seoTitle: 'How Can I Use ChatGPT for My Small Business? | NTA',
     description: 'Understand the practical ways ChatGPT can help a small business prepare, organize, explain, and communicate without replacing judgment.',
     answer: 'ChatGPT can help turn scattered information into useful drafts, summaries, questions, and first-pass communication. It cannot truly know your company, make promises, or replace your judgment unless you provide context and review its work.',
     context: 'Think of ChatGPT as a helpful first pass, not the final voice of the business. It can make the blank page less intimidating and help people organize what they already know.',
@@ -102,8 +102,8 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'what-ai-tools-does-a-small-business-really-need',
-    question: 'What AI tools does a small business really need?',
-    seoTitle: 'What AI Tools Does a Small Business Really Need? | NTA',
+    question: 'What are the best AI tools for small business?',
+    seoTitle: 'What Are the Best AI Tools for Small Business? | NTA',
     description: 'Most small businesses need a useful AI assistant, trusted company context, and one practical job before they need more tools.',
     answer: 'Most businesses do not need a long list of AI tools. Start with one dependable assistant, an approved way to handle company information, and one useful job; add tools only when the work truly requires them.',
     context: 'A crowded tool list can become another project to manage. The right tool is the one that helps a real person do a real job better without making the business more complicated.',
@@ -118,10 +118,10 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'how-can-employees-use-ai-at-work',
-    question: 'How can employees use AI at work?',
-    seoTitle: 'How Can Employees Use AI at Work? | NTA',
-    description: 'Give employees practical approved uses, privacy boundaries, and human accountability when using AI at work.',
-    answer: 'Let employees use AI to prepare, organize, and find information—not to make unreviewed promises or decisions. Give the team approved uses, examples, privacy boundaries, and a person accountable for the final answer.',
+    question: 'Will AI replace employees in a small business?',
+    seoTitle: 'Will AI Replace Employees in a Small Business? | NTA',
+    description: 'Use AI to support employees with practical approved uses, privacy boundaries, and human accountability—not to replace their judgment or relationships.',
+    answer: 'AI can support employees, but it should not replace the judgment, relationships, and accountability people bring to a small business. Give the team approved uses, examples, privacy boundaries, and a person responsible for the final answer.',
     context: 'Good use at work is not about turning people loose with a new tool and hoping for the best. It is about helping people use it in ways that support customers, protect information, and keep responsibility clear.',
     nextStep: 'Choose two or three approved uses your team can try. Pair each one with a simple rule about what must be checked before anything goes to a customer.',
     resources: [
@@ -290,6 +290,22 @@ export const knowledgeQuestions = [
       { title: 'How to Document a Small Business Process So It Can Be Repeated', path: '/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable' }
     ],
     relatedQuestionSlugs: ['what-can-chatgpt-do-for-a-small-business', 'what-ai-tools-does-a-small-business-really-need', 'how-can-employees-use-ai-at-work']
+  },
+  {
+    group: 'trust-and-visibility',
+    slug: 'how-can-ai-help-with-customer-follow-up',
+    question: 'How can AI help with customer follow-up?',
+    seoTitle: 'How Can AI Help With Customer Follow-Up? | NTA',
+    description: 'Use AI to help organize and prepare better small-business customer follow-up while people remain responsible for the relationship and final response.',
+    answer: 'AI can help a small business prepare, organize, summarize, and remember follow-up work. It should support a clear customer process with a person responsible for the relationship, the promise, and the final response.',
+    context: 'Follow-up works when the business knows what happened, what the customer needs next, and who is responsible for moving the conversation forward. AI can make that work easier to prepare and organize, but it should never become a reason for a customer to feel ignored or handled carelessly.',
+    nextStep: 'Choose one kind of inquiry that often sits too long. Write down the first response, the next useful check-in, who owns each step, and what information that person needs before reaching out.',
+    resources: [
+      { title: 'A Business Should Remember Its Customers', path: '/knowledge/how-businesses-turn-trust-into-lasting-relationships/a-business-should-remember-its-customers' },
+      { title: 'Automation Comes After Understanding', path: '/knowledge/ai-foundations/automation-comes-after-understanding' },
+      { title: 'Local Lead Systems', path: '/local-lead-systems' }
+    ],
+    relatedQuestionSlugs: ['why-isnt-my-website-generating-leads', 'how-do-i-market-a-local-service-business', 'how-can-ai-use-knowledge-already-inside-my-company']
   }
 ];
 
