@@ -4,15 +4,19 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import {
+  firstQuestionDoorwaySlugs,
   knowledgeQuestionGroups,
   knowledgeQuestions,
   getKnowledgeQuestionPath
 } from '@/data/knowledgeQuestions';
 
 export default function KnowledgeQuestions() {
+  const doorwayPriority = new Map(firstQuestionDoorwaySlugs.map((slug, index) => [slug, index]));
   const questionsByGroup = knowledgeQuestionGroups.map((group) => ({
     ...group,
-    questions: knowledgeQuestions.filter((question) => question.group === group.id)
+    questions: knowledgeQuestions
+      .filter((question) => question.group === group.id)
+      .sort((a, b) => (doorwayPriority.get(a.slug) ?? Number.MAX_SAFE_INTEGER) - (doorwayPriority.get(b.slug) ?? Number.MAX_SAFE_INTEGER))
   }));
 
   return (
@@ -48,7 +52,7 @@ export default function KnowledgeQuestions() {
               You do not need to learn everything at once. Begin with the question that is in front of you, get a clear answer, then follow the connected teaching only as far as it is useful.
             </p>
             <p className="text-sm leading-relaxed text-slate-500 max-w-2xl mx-auto">
-              These are plainspoken starting points from Rick Hesse and New Tech Advertising. They are meant to help an owner think clearly—not replace the judgment of the people closest to the business.
+              The first answers below address the most common AI-and-growth questions we hear from owners. Every page is a doorway into existing NTA teaching, not a substitute for the judgment of the people closest to the business.
             </p>
           </div>
         </header>
