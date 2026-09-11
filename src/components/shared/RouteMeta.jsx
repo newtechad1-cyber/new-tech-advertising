@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getSeoMetadata } from "@/config/seoMetadata";
 
@@ -35,6 +35,21 @@ export default function RouteMeta() {
     }
     canonical.setAttribute("href", metadata.canonical);
   }, [location.pathname, metadata.title, metadata.description, metadata.noIndex, metadata.canonical]);
+
+  useEffect(() => {
+    // GA4 automatic page views are disabled in index.html. Record page views
+    // only after this client-side route has been identified as a genuine
+    // public, indexable page. This keeps redirect-only and internal legacy
+    // URLs from contaminating public-site reporting.
+    if (metadata.noIndex || typeof globalThis.gtag !== "function") return;
+
+    globalThis.gtag("event", "page_view", {
+      page_title: metadata.title,
+      page_location: globalThis.location?.href || "",
+      page_path: location.pathname,
+      site_surface: "public",
+    });
+  }, [location.pathname, metadata.title, metadata.noIndex]);
 
   return null;
 }
