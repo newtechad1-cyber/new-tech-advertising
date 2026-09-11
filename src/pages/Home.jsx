@@ -160,10 +160,10 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center max-w-4xl mx-auto mb-12">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-blue-400 text-sm font-medium tracking-wide uppercase mb-5">
-                From education to action
+                When you are ready for a useful next step
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">Learn it one helpful step at a time.</h2>
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">NTA’s free courses and lessons help you understand the possibilities. Then the NTA Digital Growth Office™ helps the owner involve the team, capture what employees know, and connect the website, customer relationships, everyday work, and practical AI support in one direction.</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">A business usually needs clearer priorities before it needs more tools.</h2>
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed">A useful answer can lead to clearer information, a stronger customer path, and less repeated work. Technology only belongs in the picture when it helps the people and the business do something real.</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 mb-10">
@@ -185,16 +185,16 @@ export default function Home() {
             </div>
 
             <div className="text-center">
-              <p className="text-lg text-slate-300 font-medium mb-6">We build the right pieces in the right order—not another disconnected package.</p>
+              <p className="text-lg text-slate-300 font-medium mb-6">Keep learning if that is useful. If the question needs a closer look, start a conversation with the Guide or a person at NTA.</p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button type="button" onClick={openGrowthGuide} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]">
-                  Talk to My Office™ <ArrowRight className="w-5 h-5" />
+                  Ask Your Digital Growth Guide™ <ArrowRight className="w-5 h-5" />
                 </button>
-                <Link onClick={() => trackStep('gap_audit_primary')} to="/free-audit" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700">
-                  Take the Free Business Gap Audit <ArrowRight className="w-5 h-5" />
+                <Link onClick={() => trackStep('talk_to_my_office_primary')} to="/growth-conversation" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700">
+                  Talk to My Office™ <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
-              <p className="text-sm text-slate-500 mt-4 max-w-2xl mx-auto">The free audit provides a useful first-pass assessment. A deeper paid diagnostic is available only when more evidence and a detailed roadmap would help.</p>
+              <p className="text-sm text-slate-500 mt-4 max-w-2xl mx-auto">The Digital Growth Office™ becomes relevant only when connected human help and implementation would genuinely improve the next step.</p>
             </div>
           </div>
         </section>
@@ -205,7 +205,7 @@ export default function Home() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">When you want NTA involved</p>
               <h2 className="mt-3 text-3xl font-bold text-white md:text-5xl">Here is what working with NTA looks like.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                Before NTA recommends tools or services, we learn how the business works. Then we help the owner see what is getting in the way, choose one useful next step, and build the right growth system in the right order.
+                Before NTA recommends tools or services, we learn how the business works. Then we help the owner see what is getting in the way, choose one useful next step, and build the right growth system in the right order. The Digital Growth Office™ is the connected way NTA can help once the business has a clear priority—not a system you have to understand before you get help.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-slate-400">
                 You can study the approach before you contact us: <Link to="/better-business-book" className="text-blue-300 hover:text-blue-200">Better Business Book</Link>, <Link to="/practical-ai" className="text-blue-300 hover:text-blue-200">Practical AI Guide</Link>, <Link to="/knowledge" className="text-blue-300 hover:text-blue-200">Knowledge Library</Link>, and <Link to="/case-studies" className="text-blue-300 hover:text-blue-200">case studies</Link>.
@@ -229,12 +229,12 @@ export default function Home() {
             </div>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link to="/work-with-nta" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500">
-                See What Working With NTA Looks Like <ArrowRight className="h-5 w-5" />
+              <button type="button" onClick={() => openGrowthGuide('homepage_human_help')} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500">
+                Ask Your Digital Growth Guide™ <ArrowRight className="h-5 w-5" />
+              </button>
+              <Link onClick={() => trackStep('talk_to_my_office_human_help')} to="/growth-conversation" className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 font-semibold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">
+                Talk to My Office™ <ArrowRight className="h-5 w-5" />
               </Link>
-              <a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 font-semibold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">
-                Schedule a Discovery Meeting <ArrowRight className="h-5 w-5" />
-              </a>
             </div>
           </div>
         </section>
