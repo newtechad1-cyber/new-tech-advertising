@@ -1002,10 +1002,12 @@ export default function YourDigitalGrowthGuide() {
                     <Maximize2 className="h-3.5 w-3.5" />
                   </button>
                   <span className="mt-1 pr-1 text-[10px] font-semibold tracking-wide text-slate-100 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Talk to My Office™</span>
+                  <span className="max-w-[8rem] pr-1 text-right text-[9px] leading-tight text-slate-300 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Call, text, email, or start a conversation</span>
                 </div>
               ) : (
                 <div className="flex flex-col items-end">
                   <span className="mb-1 pr-2 text-xs font-semibold tracking-wide text-slate-100 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Talk to My Office™</span>
+                  <span className="mb-1 max-w-[11rem] pr-2 text-right text-[10px] leading-tight text-slate-300 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Call, text, email, or start a conversation</span>
                   <div className="relative">
                     <button
                       type="button"
@@ -1168,7 +1170,7 @@ export default function YourDigitalGrowthGuide() {
               <div className="flex items-center gap-1.5">
                 <div className="hidden min-w-0 flex-1 sm:block">
                   <p className="text-xs font-semibold text-slate-200">Want to talk with Rick directly?</p>
-                  <p className="text-[11px] text-slate-400">Call or text New Tech Advertising at {RICK_PHONE_DISPLAY}.</p>
+                  <p className="text-[11px] text-slate-400">Call, text, email, or keep the conversation here—whichever is easiest for you.</p>
                 </div>
                 <div className="flex gap-2 shrink-0">
                   <a
