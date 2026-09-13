@@ -6,28 +6,28 @@ export default function BCFAQ() {
 
   const faqs = [
     {
-      q: 'How long is the call?',
-      a: '30 minutes. We keep it focused and actionable. No fluff, no generic pitch.'
+      q: 'How long is the conversation?',
+      a: 'The calendar shows the available time. We keep the conversation focused on the question in front of your business rather than trying to cover everything at once.'
     },
     {
       q: 'Is there any cost?',
-      a: 'Absolutely not. This is a free strategy consultation. No credit card required, no follow-up charges.'
+      a: 'The Growth Conversation is free. A paid diagnostic, Growth Roadmap, or implementation begins only after the scope, price, and next step are clearly agreed.'
     },
     {
-      q: 'What if I\'m not sure if we\'re a good fit?',
-      a: 'Perfect. That\'s exactly what this call is for. We\'ll be honest about whether NTA is right for your business. No pressure either way.'
+      q: 'What if I am not sure a conversation is the right step?',
+      a: 'Keep learning first. Use the Knowledge Library or ask Your Digital Growth Guide™. You can decide later whether a human conversation would help.'
     },
     {
-      q: 'Can I get a recording of the call?',
-      a: 'Yes. We\'ll send you notes and a recording afterward so you can review everything on your schedule.'
+      q: 'Do I have to schedule through the calendar?',
+      a: 'No. Talk to My Office™ can be a call, text, email, or a conversation on the site—whichever is easiest for you.'
     },
     {
-      q: 'What if I have questions before the call?',
-      a: 'Email us at info@newtechadvertising.com or call 641-420-8816. We\'re here to help.'
+      q: 'What if I have questions before choosing a time?',
+      a: 'Call or text 641-420-8816, email info@newtechadvertising.com, or start with Your Digital Growth Guide™. Opening the Guide does not create a lead.'
     },
     {
-      q: 'Do you work with businesses like mine?',
-      a: 'We work with HVAC, plumbing, roofing, restaurants, fitness, real estate, dental, legal, and many other local services. If you\'re a small-to-mid-sized business trying to grow, we likely can help.'
+      q: 'Does NTA only work in North Iowa?',
+      a: 'North Iowa is part of NTA’s history, proof, and local presence. NTA can work with businesses anywhere when the fit and the work are right.'
     },
   ];
 
