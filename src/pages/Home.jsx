@@ -35,7 +35,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'What is Talk to My Office™?',
-    answer: 'Talk to My Office™ is the human conversation path when you want NTA’s help with a business question. We begin by understanding the business, clarify the next useful step, and explain any implementation, scope, or price before paid work begins.',
+    answer: 'Talk to My Office™ is the flexible human conversation path when you want NTA’s help with a business question. Call, text, email, or start a conversation—whichever is easiest for you. We begin by understanding the business, clarify the next useful step, and explain any implementation, scope, or price before paid work begins.',
   },
   {
     question: 'What is the free Business Gap Audit?',
@@ -86,9 +86,9 @@ const TRUST_STEPS = [
   {
     number: '4',
     title: 'Talk to My Office™',
-    text: 'When a human conversation would help, talk with NTA about the business and the next useful step.',
+    text: 'Call, text, email, or start a conversation—whichever is easiest for you. NTA will help sort out the next useful step.',
     label: 'Talk to My Office™',
-    to: '/growth-conversation',
+    action: 'office',
     step: 'talk_to_my_office',
     icon: Users,
   },
@@ -190,11 +190,12 @@ export default function Home() {
                 <button type="button" onClick={openGrowthGuide} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]">
                   Ask Your Digital Growth Guide™ <ArrowRight className="w-5 h-5" />
                 </button>
-                <Link onClick={() => trackStep('talk_to_my_office_primary')} to="/growth-conversation" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700">
+                <button type="button" onClick={() => openGrowthGuide('talk_to_my_office_primary')} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all border border-slate-700">
                   Talk to My Office™ <ArrowRight className="w-5 h-5" />
-                </Link>
+                </button>
               </div>
-              <p className="text-sm text-slate-500 mt-4 max-w-2xl mx-auto">The Digital Growth Office™ becomes relevant only when connected human help and implementation would genuinely improve the next step.</p>
+              <p className="text-sm text-slate-400 mt-4 max-w-2xl mx-auto">Talk to My Office™ can be a call, text, email, or a conversation here—whichever is easiest for you.</p>
+              <p className="text-sm text-slate-500 mt-2 max-w-2xl mx-auto">The Digital Growth Office™ becomes relevant only when connected human help and implementation would genuinely improve the next step.</p>
             </div>
           </div>
         </section>
@@ -232,9 +233,9 @@ export default function Home() {
               <button type="button" onClick={() => openGrowthGuide('homepage_human_help')} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500">
                 Ask Your Digital Growth Guide™ <ArrowRight className="h-5 w-5" />
               </button>
-              <Link onClick={() => trackStep('talk_to_my_office_human_help')} to="/growth-conversation" className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 font-semibold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">
+              <button type="button" onClick={() => openGrowthGuide('talk_to_my_office_human_help')} className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 font-semibold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">
                 Talk to My Office™ <ArrowRight className="h-5 w-5" />
-              </Link>
+              </button>
             </div>
           </div>
         </section>
@@ -255,7 +256,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
                   <p className="text-slate-400 leading-relaxed mb-6 flex-1">{text}</p>
-                  {action === 'guide' ? (
+                  {action === 'guide' || action === 'office' ? (
                     <button type="button" onClick={() => openGrowthGuide(step)} className="inline-flex items-center gap-2 text-left text-blue-400 hover:text-blue-300 font-semibold">
                       {label} <ArrowRight className="w-4 h-4" />
                     </button>
