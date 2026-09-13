@@ -1,22 +1,22 @@
-import { BarChart3, Video, Share2, Globe, Zap } from 'lucide-react';
+import { BarChart3, Globe, Share2, Video, Zap } from 'lucide-react';
 
 export default function BCWhatWeCover() {
   const topics = [
-    { icon: BarChart3, label: 'Visibility audit', desc: 'Where you rank, who your competitors are, what you\'re missing' },
-    { icon: Video, label: 'Video strategy', desc: 'How streaming TV and video content drives leads in your market' },
-    { icon: Globe, label: 'Authority website', desc: 'Why your site is your most important marketing asset' },
-    { icon: Share2, label: 'Social automation', desc: 'Publishing content consistently without the manual work' },
-    { icon: Zap, label: 'AI implementation', desc: 'Exactly how AI saves you time and money' },
-    { icon: BarChart3, label: 'Growth plan', desc: 'Your customized 90-day strategy to dominate your market' },
+    { icon: BarChart3, label: 'What is happening now', desc: 'The situation, question, or opportunity that brought you here.' },
+    { icon: Globe, label: 'Your website and digital experience', desc: 'What a visitor can understand, trust, and do next today.' },
+    { icon: Share2, label: 'Visibility and customer trust', desc: 'Where people may be finding you, hesitating, or losing the thread.' },
+    { icon: Zap, label: 'Practical AI and systems', desc: 'Where tools might save time or improve the experience without adding needless complexity.' },
+    { icon: Video, label: 'What you have already tried', desc: 'Your audit, existing efforts, and evidence that can make the conversation more useful.' },
+    { icon: BarChart3, label: 'A clear next step', desc: 'More learning, a follow-up conversation, or a scoped deeper diagnostic only if it would help.' },
   ];
 
   return (
     <section className="py-20 px-6 bg-white">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-blue-600 text-sm font-semibold uppercase tracking-widest">What We'll Discuss</span>
+          <span className="text-blue-600 text-sm font-semibold uppercase tracking-widest">What We Can Explore</span>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">
-            Your personalized strategy call covers
+            Start with your question—not a predetermined package
           </h2>
         </div>
 
