@@ -238,8 +238,8 @@ export default function FreeAudit() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-slate-700 text-sm font-semibold">Business Website (Optional)</Label>
-                  <Input type="url" value={form.website} onChange={e => set('website', e.target.value)} placeholder="https://yourbusiness.com" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                  <Label className="text-slate-700 text-sm font-semibold">Business Website <span className="text-red-500">*</span></Label>
+                  <Input required type="url" value={form.website} onChange={e => set('website', e.target.value)} placeholder="https://yourbusiness.com" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
                 </div>
 
                 <div className="space-y-1.5">
