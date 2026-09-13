@@ -49,6 +49,8 @@ export default function MarketingNav() {
             <button
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'main_navigation' } }))}
+              aria-label="Talk to My Office: call, text, email, or start a conversation"
+              title="Call, text, email, or start a conversation"
               className="whitespace-nowrap rounded-lg bg-blue-600 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-500 sm:px-4 sm:text-sm"
             >
               Talk to My Office™
