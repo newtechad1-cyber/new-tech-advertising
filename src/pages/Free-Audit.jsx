@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-import { CheckCircle2, Phone, MessageSquare, ArrowRight } from 'lucide-react';
+import { CheckCircle2, Phone, MessageSquare, ArrowRight, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -40,6 +41,7 @@ export default function FreeAudit() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
   const [confirmationStatus, setConfirmationStatus] = useState('submitted');
+  const [submittedBusinessName, setSubmittedBusinessName] = useState('');
   const [form, setForm] = useState({
     name: '', email: '', phone: '', business_name: '',
     website: '', industry: '',
@@ -74,6 +76,7 @@ export default function FreeAudit() {
       // The unified intake owns CRM storage and reports the provider-level email state.
       const result = response?.data || response;
       setConfirmationStatus(result?.audit_delivery_status || 'submitted');
+      setSubmittedBusinessName(form.business_name.trim());
 
       setStep(2);
       setForm({ name: '', email: '', phone: '', business_name: '', website: '', industry: '' });
@@ -85,6 +88,12 @@ export default function FreeAudit() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const openGrowthGuide = () => {
+    window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
+      detail: { source: 'free_audit_success' },
+    }));
   };
 
   return (
@@ -118,7 +127,7 @@ export default function FreeAudit() {
               href={`tel:+1${PHONE}`}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors hover:bg-slate-700 border border-slate-700"
             >
-              <Phone className="w-5 h-5" /> Call or Text: {PHONE_DISPLAY}
+              <Phone className="w-5 h-5" /> Call Rick: {PHONE_DISPLAY}
             </a>
           </div>
         </div>
@@ -143,7 +152,7 @@ export default function FreeAudit() {
 
             <div className="mt-12 pt-8 border-t border-slate-200">
               <h3 className="text-xl font-bold text-slate-900 mb-4">Prefer to talk?</h3>
-              <p className="text-slate-600 mb-6">Call or text: {PHONE_DISPLAY}</p>
+              <p className="text-slate-600 mb-6">Call <a href={`tel:+1${PHONE}`} className="font-semibold text-blue-700 hover:underline">{PHONE_DISPLAY}</a> or send Rick a text—whichever is easier.</p>
               <TextMeButton />
             </div>
           </div>
@@ -154,47 +163,80 @@ export default function FreeAudit() {
                 <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                 </div>
-                <h2 className="text-3xl font-black text-slate-900 mb-4">Thank You. Your Audit Request Was Received.</h2>
+                <h2 className="text-3xl font-black text-slate-900 mb-4">Thank You. Your Audit for {submittedBusinessName || 'Your Business'} Was Received.</h2>
                 <p className="text-slate-600 text-lg mb-8 max-w-lg mx-auto">
                   {confirmationStatus === 'email_accepted'
-                    ? 'Your first-pass report was generated and the email service accepted the send request. Delivery to your mailbox is still being confirmed. If it does not appear within a few minutes, check Spam or contact Rick directly.'
-                    : 'We have your starting information. When a website was included, the AI-assisted first-pass report is generated automatically. We will send it when the email delivery step is confirmed. While you wait, choose how you would like to continue:'}
+                    ? 'Your first-pass report was generated and the email service accepted the send request. Delivery to your mailbox is still being confirmed. If it does not appear within a few minutes, check Spam or choose one of the paths below.'
+                    : 'We have your starting information and will prepare the first-pass review from the website you provided. While you wait, choose the next step that feels useful to you:'}
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
-                    <div className="text-3xl mb-4">📅</div>
-                    <h3 className="text-xl font-bold mb-3">Talk to Rick — 15 Minutes</h3>
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-8">
+                  <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors flex flex-col h-full">
+                    <BookOpen className="w-7 h-7 text-cyan-300 mb-4" />
+                    <h3 className="text-xl font-bold mb-3">I Want to Understand This Better</h3>
                     <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                      Talk through what is happening, confirm the starting information, and decide together what should be reviewed first. No pitch, no pressure.
+                      Keep learning through the questions and Knowledge Library material that connect to what you saw in the audit.
                     </p>
-                    <div className="mt-auto">
+                    <div className="mt-auto space-y-3">
+                      <Link
+                        to="/knowledge/questions"
+                        className="block w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-colors"
+                      >
+                        Continue Learning →
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={openGrowthGuide}
+                        className="block w-full text-center border border-slate-700 hover:border-slate-500 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition-colors"
+                      >
+                        Ask Your Digital Growth Guide™
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors flex flex-col h-full">
+                    <MessageSquare className="w-7 h-7 text-cyan-300 mb-4" />
+                    <h3 className="text-xl font-bold mb-3">I Want to Talk About My Results</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                      Call, text, email, or start a conversation—whichever is easiest for you.
+                    </p>
+                    <div className="mt-auto space-y-3">
+                      <button
+                        type="button"
+                        onClick={openGrowthGuide}
+                        className="block w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition-colors"
+                      >
+                        Talk to My Office™
+                      </button>
+                      <div className="flex flex-wrap gap-2 text-xs font-semibold">
+                        <a href={`tel:+1${PHONE}`} className="rounded-lg border border-slate-700 px-3 py-2 hover:border-slate-500 hover:bg-slate-800">Call</a>
+                        <a href={`sms:+1${PHONE}?body=${SMS_BODY}`} className="rounded-lg border border-slate-700 px-3 py-2 hover:border-slate-500 hover:bg-slate-800">Text</a>
+                        <a href="mailto:info@newtechadvertising.com?subject=My%20Free%20Business%20Gap%20Audit" className="rounded-lg border border-slate-700 px-3 py-2 hover:border-slate-500 hover:bg-slate-800">Email</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors flex flex-col h-full">
+                    <ArrowRight className="w-7 h-7 text-cyan-300 mb-4" />
+                    <h3 className="text-xl font-bold mb-3">I’m Ready to Figure Out What to Do Next</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                      Start a Growth Conversation so Rick can understand the situation, or choose a time when a direct conversation is the best next step.
+                    </p>
+                    <div className="mt-auto space-y-3">
+                      <Link
+                        to="/growth-conversation"
+                        className="block w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-colors"
+                      >
+                        Start the Growth Conversation →
+                      </Link>
                       <a
                         href="https://calendar.app.google/p6ieYanvwhixXxZ67"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
+                        className="block w-full text-center border border-slate-700 hover:border-slate-500 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition-colors"
                       >
-                        Pick a Time →
+                        Choose a Time with Rick
                       </a>
-                      <p className="text-center text-slate-500 text-xs font-medium">Available Mon–Fri</p>
-                    </div>
-                  </div>
-
-                  <div className="bg-slate-950 text-white rounded-2xl p-6 text-left border border-slate-800 hover:border-slate-700 transition-colors group flex flex-col h-full">
-                    <div className="text-3xl mb-4">🎯</div>
-                    <h3 className="text-xl font-bold mb-3">Continue by Email</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                      Send Rick anything else that would help explain what is happening, what you need, or what you want to accomplish.
-                    </p>
-                    <div className="mt-auto">
-                      <a
-                        href="mailto:info@newtechadvertising.com?subject=My%20Free%20Business%20Gap%20Audit"
-                        className="block w-full text-center bg-transparent hover:bg-slate-800 border border-slate-700 text-white font-semibold py-3 rounded-xl transition-colors mb-3"
-                      >
-                        Continue by Email →
-                      </a>
-                      <p className="text-center text-slate-500 text-xs font-medium">Write in your own words</p>
                     </div>
                   </div>
                 </div>
@@ -265,10 +307,10 @@ export default function FreeAudit() {
                     Free · No credit card · No pressure
                   </p>
                   <p className="text-center text-slate-500 text-xs mt-2 leading-relaxed">
-                    By sharing your name and email, you're giving us an opportunity to begin a working relationship—not just request an audit. Our intent is to help local small businesses learn through free, practical AI and business education.
+                    We use these details to prepare your audit and respond to your request. You can keep learning on the site without opening an account, and paid work only begins after scope and price are clearly agreed.
                   </p>
                   <p className="text-center text-slate-500 text-xs mt-2 leading-relaxed">
-                    If you choose to receive our weekly free information, we'll keep it coming until you say stop. We won't be pushy, and we never sell your information or business details.
+                    If you choose to receive NTA’s free weekly information, you can stop anytime. We do not sell your information or business details.
                   </p>
                 </div>
               </form>
