@@ -59,12 +59,15 @@ export default function KnowledgeQuestion() {
     }));
   };
 
-  const beginHumanConversation = () => {
-    trackJourneyEvent('question_growth_conversation_started', {
+  const openTalkToOffice = () => {
+    trackJourneyEvent('question_talk_to_my_office_opened', {
       route: questionPath,
       step: question.slug,
       source: 'question_answer'
     });
+    window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
+      detail: { source: 'question_talk_to_my_office', question: question.question }
+    }));
   };
 
   return (
@@ -230,14 +233,14 @@ export default function KnowledgeQuestion() {
             <div className="max-w-3xl mx-auto rounded-3xl border border-blue-500/25 bg-slate-950/70 p-8 md:p-10">
               <p className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-3">Keep the conversation useful</p>
               <h2 className="text-2xl md:text-3xl font-black text-white mb-4">Still thinking it through?</h2>
-              <p className="leading-7 text-slate-300">Ask Your Digital Growth Guide™ the question that is still on your mind. If a human conversation would be useful, Talk to My Office™ and we can help you sort out the next step.</p>
+              <p className="leading-7 text-slate-300">Ask Your Digital Growth Guide™ the question that is still on your mind. If a human conversation would be useful, Talk to My Office™ by call, text, email, or a conversation here—whichever is easiest for you.</p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <button type="button" onClick={openGrowthGuide} className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white hover:bg-blue-500 transition-colors">
                   <MessageCircle className="w-5 h-5" /> Ask Your Digital Growth Guide™
                 </button>
-                <Link onClick={beginHumanConversation} to="/growth-conversation" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900 px-6 py-3.5 font-bold text-white hover:border-slate-400 hover:bg-slate-800 transition-colors">
+                <button type="button" onClick={openTalkToOffice} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900 px-6 py-3.5 font-bold text-white hover:border-slate-400 hover:bg-slate-800 transition-colors">
                   Talk to My Office™ <ArrowRight className="w-5 h-5" />
-                </Link>
+                </button>
               </div>
             </div>
           </section>
