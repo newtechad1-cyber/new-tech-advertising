@@ -6,6 +6,11 @@ import SEOHead from '@/components/shared/SEOHead';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 
+const RICK_PHONE_DISPLAY = '641-420-8816';
+const RICK_PHONE_HREF = 'tel:+16414208816';
+const RICK_SMS_HREF = 'sms:+16414208816?body=Hey%2C%20I%20would%20like%20to%20talk%20about%20my%20business.';
+const RICK_EMAIL_HREF = 'mailto:info@newtechadvertising.com?subject=Growth%20Conversation';
+
 const QUESTIONS = [
   {
     label: 'What is your primary focus right now?',
@@ -48,6 +53,12 @@ export default function NTAGrowthConversation() {
 
   const scrollToWizard = () => {
     wizardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  const openTalkToOffice = () => {
+    window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
+      detail: { source: 'growth_conversation', question: 'I would like to talk about my business.' },
+    }));
   };
 
   const chooseAnswer = (answer) => {
@@ -163,6 +174,13 @@ export default function NTAGrowthConversation() {
                 Take the Free Gap Audit
               </Link>
             </div>
+            <p className="mt-6 text-sm leading-6 text-slate-400">
+              Prefer a different kind of conversation?{' '}
+              <button type="button" onClick={openTalkToOffice} className="font-semibold text-cyan-300 hover:text-cyan-200 hover:underline">
+                Talk to My Office™
+              </button>
+              : call, text, email, or start a conversation—whichever is easiest for you.
+            </p>
           </div>
         </section>
 
@@ -247,6 +265,26 @@ export default function NTAGrowthConversation() {
                 <div className="mt-6 flex items-start gap-3 text-sm text-slate-500">
                   <ShieldCheck className="w-5 h-5 shrink-0 text-emerald-400" />
                   <p>Your information is used to prepare and follow up. Completing this form does not enroll you in a service or start paid work.</p>
+                </div>
+
+                <div className="mt-6 rounded-2xl border border-slate-700 bg-slate-950/40 p-5 text-center">
+                  <p className="text-sm leading-6 text-slate-300">
+                    Prefer to connect directly? Talk to My Office™: call, text, email, or start a conversation—whichever is easiest for you.
+                  </p>
+                  <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold">
+                    <button type="button" onClick={openTalkToOffice} className="rounded-lg border border-cyan-400/40 px-4 py-2 text-cyan-200 hover:border-cyan-300 hover:bg-cyan-400/10">
+                      Talk to My Office™
+                    </button>
+                    <a href={RICK_PHONE_HREF} className="rounded-lg border border-slate-600 px-4 py-2 text-white hover:border-slate-400 hover:bg-slate-800">
+                      Call {RICK_PHONE_DISPLAY}
+                    </a>
+                    <a href={RICK_SMS_HREF} className="rounded-lg border border-slate-600 px-4 py-2 text-white hover:border-slate-400 hover:bg-slate-800">
+                      Text
+                    </a>
+                    <a href={RICK_EMAIL_HREF} className="rounded-lg border border-slate-600 px-4 py-2 text-white hover:border-slate-400 hover:bg-slate-800">
+                      Email
+                    </a>
+                  </div>
                 </div>
               </div>
             )}
