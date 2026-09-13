@@ -49,7 +49,7 @@ export default function BookCall() {
               <div>
                 <p className="font-bold text-emerald-950">Your Growth Conversation has been saved.</p>
                 <p className="text-emerald-800 text-sm mt-1">
-                  NTA has your contact information, answers, and recommended starting stage: <strong>{handoff.recommendation}</strong>. Choose a time below and you will not need to start over.
+                  NTA has your contact information, answers, and recommended starting stage: <strong>{handoff.recommendation}</strong>. Choose a time below, or continue through Talk to My Office™ by call, text, email, or a conversation on the site.
                 </p>
               </div>
             </div>
