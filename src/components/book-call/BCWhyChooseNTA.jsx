@@ -1,26 +1,26 @@
-import { Users, Target, Clock, Lightbulb } from 'lucide-react';
+import { Clock, Lightbulb, Target, Users } from 'lucide-react';
 
 export default function BCWhyChooseNTA() {
   const reasons = [
     {
       icon: Users,
-      title: 'Real strategists, not robots',
-      desc: 'Talk to someone who understands your business, not a sales bot reading a script.'
-    },
-    {
-      icon: Target,
-      title: 'Focused on YOUR market',
-      desc: 'We analyze your specific competitors and local landscape to create a real plan.'
-    },
-    {
-      icon: Clock,
-      title: 'No pressure, just clarity',
-      desc: 'This call is about answering YOUR questions and mapping your growth path.'
+      title: 'A Digital Growth Office',
+      desc: 'NTA connects the website, visibility, content, trust, systems, and the human relationship instead of treating them as separate campaigns.'
     },
     {
       icon: Lightbulb,
-      title: 'Proven AI methodology',
-      desc: 'We\'ve built this system for 300+ businesses. You get years of playbooks in one call.'
+      title: 'Teach before selling',
+      desc: 'You can use the Knowledge Library and Your Digital Growth Guide™ before deciding whether a human conversation is useful.'
+    },
+    {
+      icon: Clock,
+      title: 'Continue in the way that fits',
+      desc: 'Call, text, email, Talk to My Office™, or choose a time with Rick. You are not required to follow one path.'
+    },
+    {
+      icon: Target,
+      title: 'Clear scope before paid work',
+      desc: 'A deeper diagnostic or implementation begins only when the work, price, and next step are clearly agreed.'
     },
   ];
 
@@ -28,9 +28,9 @@ export default function BCWhyChooseNTA() {
     <section className="bg-gradient-to-br from-slate-50 to-slate-100 py-20 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-blue-600 text-sm font-semibold uppercase tracking-widest">Why Choose NTA</span>
+          <span className="text-blue-600 text-sm font-semibold uppercase tracking-widest">Why NTA</span>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-3">
-            Why small businesses choose NTA
+            A conversation should make the next step clearer
           </h2>
         </div>
 
