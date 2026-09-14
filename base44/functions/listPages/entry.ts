@@ -760,7 +760,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const isAdmin = user.role === 'admin' || user.email === 'info@newtechadvertising.com';
+    const isAdmin = user.role === 'admin';
     if (!isAdmin) {
       return Response.json({ error: 'Forbidden' }, { status: 403 });
     }
