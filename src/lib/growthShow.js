@@ -37,7 +37,14 @@ function resolveJournalLinks(overlay, journals, video) {
   ));
 }
 
-export function buildGrowthShowEpisodes({ videos = [], articles = [], journals = [], episodeRecords = [], websiteStories = [] }) {
+export function buildGrowthShowEpisodes({
+  videos = [],
+  articles = [],
+  journals = [],
+  episodeRecords = [],
+  websiteStories = [],
+  testimonials = {},
+}) {
   const byCanonId = new Map();
   const bySlug = new Map();
   const videosById = new Map();
@@ -125,6 +132,7 @@ export function buildGrowthShowEpisodes({ videos = [], articles = [], journals =
         title: overlay.title || video.video_title || article?.title,
         slug: episodeSlug(video, article, overlay),
         summary: overlay.summary || article?.summary || video.description || 'A practical NTA Growth Show conversation for small business owners.',
+        testimonial: testimonials[video.youtube_video_id || overlay.youtube_video_id] || null,
         status: overlay.status,
         publishedDate: overlay.published_date || video.published_date || article?.published_date || '',
         featured: Boolean(overlay.featured),
