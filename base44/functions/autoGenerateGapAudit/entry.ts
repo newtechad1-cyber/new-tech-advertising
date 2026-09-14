@@ -1,5 +1,6 @@
 // Production runtime refresh: schema-free AI JSON parsing
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { fetchPublicUrl } from '../shared/security.ts';
 
 const MAX_WEBSITE_TEXT = 5000;
 const AUDIT_NOTE_PREFIX = '[AUTO GAP AUDIT]';
@@ -107,10 +108,10 @@ function extractWebsiteText(rawHtml) {
 
 async function inspectWebsite(websiteUrl) {
   try {
-    const response = await fetch(websiteUrl, {
+    const { response } = await fetchPublicUrl(websiteUrl, {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NTA-AuditBot/1.0)' },
       signal: AbortSignal.timeout(8000),
-    });
+    }, 3);
 
     if (!response.ok) {
       return { content: '', accessible: false, signals: [`The website returned HTTP ${response.status}.`] };

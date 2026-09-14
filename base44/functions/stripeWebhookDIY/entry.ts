@@ -2,6 +2,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
 const STRIPE_WEBHOOK_SECRET = Deno.env.get('STRIPE_WEBHOOK_SECRET');
 const STRIPE_SECRET_KEY = Deno.env.get('STRIPE_SECRET_KEY');
+const STRIPE_WEBHOOK_TOLERANCE_SECONDS = 5 * 60;
 
 async function verifyStripeSignature(req) {
   const signature = req.headers.get('stripe-signature');
@@ -22,8 +23,13 @@ async function verifyStripeSignature(req) {
     );
 
     const signatureParts = signature.split(',');
-    const timestamp = signatureParts[0].split('=')[1];
+    const timestamp = Number(signatureParts[0].split('=')[1]);
     const receivedSignature = signatureParts[1].split('=')[1];
+
+    if (!Number.isFinite(timestamp) || Math.abs(Math.floor(Date.now() / 1000) - timestamp) > STRIPE_WEBHOOK_TOLERANCE_SECONDS) {
+      console.error('Stripe webhook rejected: timestamp outside tolerance');
+      return null;
+    }
 
     const signedContent = `${timestamp}.${body}`;
     const computedSignature = await crypto.subtle.sign(

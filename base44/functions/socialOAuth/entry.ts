@@ -10,6 +10,15 @@ function isAdminOrService(user) {
   return Boolean(user && (user.role === 'admin' || user.is_service === true));
 }
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
+    .replace(/'/g, '&#39;');
+}
+
 function stateSigningSecret() {
   return Deno.env.get('OAUTH_STATE_SECRET')
     || Deno.env.get('GOOGLE_CLIENT_SECRET')
@@ -438,9 +447,9 @@ Deno.serve(async (req) => {
       return new Response(`
         <html><body style="font-family:sans-serif;padding:2rem;">
           <h2>OAuth Connection Error</h2>
-          <p><strong>Provider:</strong> ${provider}</p>
-          <p><strong>Error:</strong> ${err.message}</p>
-          <p><strong>Request ID:</strong> ${requestId}</p>
+          <p><strong>Provider:</strong> ${escapeHtml(provider)}</p>
+          <p><strong>Error:</strong> ${escapeHtml(err.message)}</p>
+          <p><strong>Request ID:</strong> ${escapeHtml(requestId)}</p>
           <p><a href="/admindashboard">← Back to Dashboard</a></p>
         </body></html>
       `, { status: 500, headers: { 'Content-Type': 'text/html' } });
