@@ -6,7 +6,7 @@ Deno.serve(async (req) => {
         const user = await base44.auth.me();
         if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
         
-        const isAdmin = user.role === 'admin' || user.email === 'info@newtechadvertising.com';
+        const isAdmin = user.role === 'admin';
         
         // Admins see all deals; clients see only deals linked to their client_id
         if (isAdmin) {
@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
             const deals = await base44.asServiceRole.entities.SalesDeal.filter({ company_id: user.client_id });
             return Response.json({ deals });
         }
-    } catch (error) {
-        return Response.json({ error: error.message }, { status: 500 });
+    } catch {
+        return Response.json({ error: 'Unable to load deals' }, { status: 500 });
     }
 });
