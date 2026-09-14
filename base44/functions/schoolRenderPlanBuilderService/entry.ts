@@ -1,5 +1,9 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
+// Stable callback for a configured render worker. The target still requires an
+// authenticated service-to-service request before it accepts a status update.
+const RENDER_MONITOR_WEBHOOK_URL = 'https://new-tech-advertising.base44.app/functions/schoolVideoRenderMonitor';
+
 /**
  * RenderPlanBuilderService
  * Assembles all planning data into machine-readable render plan JSON
@@ -82,7 +86,7 @@ Deno.serve(async (req) => {
       monitoring: {
         retry_count: 0,
         max_retries: 3,
-        webhook_url: `${Deno.env.get('BASE_URL')}/functions/schoolRenderMonitor`,
+        webhook_url: RENDER_MONITOR_WEBHOOK_URL,
         status_update_interval_seconds: 60
       }
     };
