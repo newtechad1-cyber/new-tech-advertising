@@ -8,6 +8,7 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
 ]);
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 24;
+const MAX_BODY_BYTES = 65_536;
 const requestBuckets = new Map<string, { count: number; resetAt: number }>();
 
 function isTrustedPublicOrigin(req: Request) {
@@ -71,12 +72,41 @@ Deno.serve(async (req) => {
         );
       }
     }
-    const body = await req.json();
-    const { session_id, public_session_key, action, summary_data, summary_id } = body;
+    const declaredLength = Number(req.headers.get('content-length') || 0);
+    if (declaredLength > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
+    }
+
+    const rawBody = await req.text();
+    if (rawBody.length > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
+    }
+
+    let body: any;
+    try {
+      body = JSON.parse(rawBody || '{}');
+    } catch {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+    if (!body || Array.isArray(body) || typeof body !== 'object') {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const session_id = typeof body.session_id === 'string' ? body.session_id.trim() : '';
+    const public_session_key = typeof body.public_session_key === 'string' ? body.public_session_key.trim() : '';
+    const action = typeof body.action === 'string' ? body.action.trim() : '';
+    const summary_data = body.summary_data;
+    const summary_id = typeof body.summary_id === 'string' ? body.summary_id.trim() : '';
 
     // 1. Inline Session Authentication
-    if (!session_id || !public_session_key) {
+    if (
+      !/^[A-Za-z0-9_-]{1,128}$/.test(session_id) ||
+      !/^[a-f0-9]{64}$/i.test(public_session_key)
+    ) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!['create_draft', 'confirm_draft'].includes(action)) {
+      return Response.json({ error: 'Invalid action' }, { status: 400 });
     }
 
     let session;
@@ -122,7 +152,9 @@ Deno.serve(async (req) => {
         desired_improvement: summary_data.desired_improvement ? String(summary_data.desired_improvement).substring(0, 5000) : '',
         readiness: summary_data.readiness ? String(summary_data.readiness).substring(0, 5000) : '',
         information_still_needed: summary_data.information_still_needed ? String(summary_data.information_still_needed).substring(0, 5000) : '',
-        owner_corrections: Array.isArray(summary_data.owner_corrections) ? summary_data.owner_corrections.map((c: any) => String(c).substring(0, 1000)) : []
+        owner_corrections: Array.isArray(summary_data.owner_corrections)
+          ? summary_data.owner_corrections.slice(0, 50).map((c: any) => String(c).substring(0, 1000))
+          : []
       };
 
       const existing = await base44.asServiceRole.entities.DiscoveryConfirmedSummary.filter({ session_id });
@@ -167,8 +199,8 @@ Deno.serve(async (req) => {
         return Response.json({ error: 'Session is not ready for summary confirmation' }, { status: 409 });
       }
 
-      if (!summary_id) {
-        return Response.json({ error: 'Missing summary id' }, { status: 400 });
+      if (!/^[A-Za-z0-9_-]{1,128}$/.test(summary_id)) {
+        return Response.json({ error: 'Missing or invalid summary id' }, { status: 400 });
       }
 
       let existingSummary;
