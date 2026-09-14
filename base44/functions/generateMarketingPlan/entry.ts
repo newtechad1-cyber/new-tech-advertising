@@ -1,8 +1,18 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.48';
+import { isTrustedAppOrigin } from '../shared/origin-guard.ts';
 
 Deno.serve(async (req) => {
   try {
+    if (!isTrustedAppOrigin(req)) {
+      return Response.json({ error: 'Unauthorized' }, { status: 403 });
+    }
+
     const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me().catch(() => null);
+    if (!user) {
+      return Response.json({ error: 'Authentication required' }, { status: 401 });
+    }
+
     const { businessName, industry, city, goal, budget, channels, notes } = await req.json();
     if (!businessName || !industry || !city) {
       return Response.json({ error: 'businessName, industry, and city are required' }, { status: 400 });
