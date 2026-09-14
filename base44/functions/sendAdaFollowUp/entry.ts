@@ -1,5 +1,4 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
-import { secrets } from 'base44:runtime';
 
 const TRUSTED_APP_ORIGINS = new Set([
   'https://newtechadvertising.com',
@@ -90,9 +89,9 @@ rick@newtechadvertising.com`
     });
 
     // SMS
-    const twilioSid = secrets.get('TWILIO_ACCOUNT_SID');
-    const twilioToken = secrets.get('TWILIO_AUTH_TOKEN');
-    const twilioFrom = secrets.get('TWILIO_PHONE_NUMBER');
+    const twilioSid = Deno.env.get('TWILIO_ACCOUNT_SID');
+    const twilioToken = Deno.env.get('TWILIO_AUTH_TOKEN');
+    const twilioFrom = Deno.env.get('TWILIO_PHONE_NUMBER');
 
     if (twilioSid && twilioToken && twilioFrom && lead.phone) {
       const smsBody = `Quick follow-up — want to proceed with ADA fixes? Start here: ${safeLink} (or reply "later")`;
