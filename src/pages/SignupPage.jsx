@@ -18,7 +18,7 @@ export default function SignupPage() {
 
   // If already logged in, route them appropriately
   if (user) {
-    const isAdmin = user.role === 'admin' || user.email === 'info@newtechadvertising.com';
+    const isAdmin = user.role === 'admin';
     return <Navigate to={isAdmin ? "/admin-dashboard" : "/client-dashboard"} replace />;
   }
 
