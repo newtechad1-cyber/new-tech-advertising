@@ -527,8 +527,7 @@ export function shouldNoIndex(access) {
 export function userHasAccess(access, user) {
   if (!user) return false;
 
-  const ADMIN_EMAILS = ['info@newtechadvertising.com', 'newtechad1@gmail.com'];
-  const isAdmin = user.role === 'admin' || ADMIN_EMAILS.includes(user.email?.toLowerCase());
+  const isAdmin = user.role === 'admin';
   const isOps = user.role === 'ops' || isAdmin;
   const isClient = user.role === 'client' || isAdmin;
 
