@@ -1,5 +1,4 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
-import { secrets } from 'base44:runtime';
 
 const TRUSTED_APP_ORIGINS = new Set([
   'https://newtechadvertising.com',
@@ -41,7 +40,7 @@ function isAdminUser(user) {
   );
 }
 
-export default async function sendAdaFollowUp(req: Request): Promise<Response> {
+Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
@@ -90,9 +89,9 @@ rick@newtechadvertising.com`
     });
 
     // SMS
-    const twilioSid = secrets.get('TWILIO_ACCOUNT_SID');
-    const twilioToken = secrets.get('TWILIO_AUTH_TOKEN');
-    const twilioFrom = secrets.get('TWILIO_PHONE_NUMBER');
+    const twilioSid = Deno.env.get('TWILIO_ACCOUNT_SID');
+    const twilioToken = Deno.env.get('TWILIO_AUTH_TOKEN');
+    const twilioFrom = Deno.env.get('TWILIO_PHONE_NUMBER');
 
     if (twilioSid && twilioToken && twilioFrom && lead.phone) {
       const smsBody = `Quick follow-up — want to proceed with ADA fixes? Start here: ${safeLink} (or reply "later")`;
@@ -122,4 +121,4 @@ rick@newtechadvertising.com`
     console.error('Send follow-up error:', error);
     return Response.json({ error: error.message }, { status: 500 });
   }
-}
+});
