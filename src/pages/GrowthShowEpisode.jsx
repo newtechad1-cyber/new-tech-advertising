@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, BookOpen, Download, ExternalLink, Headphones, Loader2, Newspaper, Play, Share2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, Download, ExternalLink, Headphones, Loader2, Newspaper, Play, Quote, Share2 } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -100,6 +100,30 @@ export default function GrowthShowEpisode() {
             </div>
           )}
         </section>
+
+        {episode.testimonial && (
+          <section className="mx-auto max-w-5xl px-6 pb-4">
+            <div className="rounded-2xl border border-blue-400/25 bg-blue-500/5 p-6 md:p-8">
+              <p className="text-xs font-bold uppercase tracking-widest text-blue-300">
+                {episode.testimonial.label || 'A viewer’s response'}
+              </p>
+              <Quote className="mt-5 h-8 w-8 text-blue-400/70" aria-hidden="true" />
+              <blockquote className="mt-3">
+                <p className="text-2xl font-medium leading-relaxed text-white md:text-3xl">
+                  “{episode.testimonial.quote}”
+                </p>
+                <footer className="mt-5 text-sm font-bold text-slate-200">
+                  — {episode.testimonial.attribution}
+                  {episode.testimonial.business && `, ${episode.testimonial.business}`}
+                  {episode.testimonial.location && ` · ${episode.testimonial.location}`}
+                </footer>
+              </blockquote>
+              {episode.testimonial.context && (
+                <p className="mt-5 text-sm leading-6 text-slate-400">{episode.testimonial.context}</p>
+              )}
+            </div>
+          </section>
+        )}
 
         <section className="mx-auto max-w-5xl px-6 pb-16">
           <div className="mb-8">
