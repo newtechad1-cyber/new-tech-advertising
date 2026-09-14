@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Calendar, Loader2, Newspaper, Play, Search, Share2 } from 'lucide-react';
+import { ArrowRight, BookOpen, Calendar, Loader2, Newspaper, Play, Quote, Search, Share2 } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -121,6 +121,18 @@ export default function GrowthShow() {
                   <p className="text-xs font-bold uppercase tracking-widest text-blue-400">Featured episode</p>
                   <h2 className="mt-3 text-3xl font-black leading-tight text-white">{featured.title}</h2>
                   <p className="mt-4 leading-7 text-slate-400">{featured.summary}</p>
+                  {featured.testimonial && (
+                    <blockquote className="mt-6 border-l-2 border-blue-400/60 pl-4">
+                      <p className="text-xs font-bold uppercase tracking-widest text-blue-300">A viewer’s response</p>
+                      <Quote className="mt-3 h-5 w-5 text-blue-400/70" aria-hidden="true" />
+                      <p className="mt-2 text-lg font-medium leading-7 text-white">“{featured.testimonial.quote}”</p>
+                      <footer className="mt-3 text-sm font-bold text-slate-300">
+                        — {featured.testimonial.attribution}
+                        {featured.testimonial.business && `, ${featured.testimonial.business}`}
+                        {featured.testimonial.location && ` · ${featured.testimonial.location}`}
+                      </footer>
+                    </blockquote>
+                  )}
                   {featured.publishedDate && (
                     <p className="mt-5 inline-flex items-center gap-2 text-sm text-slate-500">
                       <Calendar className="h-4 w-4" /> {featured.publishedDate}
