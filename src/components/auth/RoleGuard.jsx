@@ -2,10 +2,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/lib/AuthContext';
 import NoIndexMeta from './NoIndexMeta';
 
-const ADMIN_EMAILS = ['info@newtechadvertising.com', 'newtechad1@gmail.com'];
-
 function isAdminUser(user) {
-  return user?.role === 'admin' || ADMIN_EMAILS.includes(user?.email?.toLowerCase());
+  return user?.role === 'admin';
 }
 
 function isOpsUser(user) {
