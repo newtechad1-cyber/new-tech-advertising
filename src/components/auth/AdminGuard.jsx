@@ -18,11 +18,7 @@ export default function AdminGuard({ children }) {
         return;
       }
       try {
-        const ADMIN_EMAILS = ["info@newtechadvertising.com", "newtechad1@gmail.com"];
-        const adminByRole = user.role === "admin";
-        const adminByEmail = ADMIN_EMAILS.includes(user.email?.toLowerCase());
-        setIsAdmin(adminByRole || adminByEmail);
-        console.log("[AdminGuard] email:", user.email, "role:", user.role, "isAdmin:", adminByRole || adminByEmail);
+        setIsAdmin(user.role === "admin");
       } catch (error) {
         console.error("Failed to verify admin status:", error);
         setIsAdmin(false);
