@@ -8,6 +8,7 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
 ]);
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 24;
+const MAX_BODY_BYTES = 8_192;
 const requestBuckets = new Map<string, { count: number; resetAt: number }>();
 
 function isTrustedPublicOrigin(req: Request) {
@@ -71,11 +72,42 @@ Deno.serve(async (req) => {
         );
       }
     }
-    const body = await req.json();
-    const { session_id, public_session_key, consent_type, state, notice_version, source, affirmative_action } = body;
+    const declaredLength = Number(req.headers.get('content-length') || 0);
+    if (declaredLength > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
+    }
+
+    const rawBody = await req.text();
+    if (rawBody.length > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
+    }
+
+    let body: any;
+    try {
+      body = JSON.parse(rawBody || '{}');
+    } catch {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+    if (!body || Array.isArray(body) || typeof body !== 'object') {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const session_id = typeof body.session_id === 'string' ? body.session_id.trim() : '';
+    const public_session_key = typeof body.public_session_key === 'string' ? body.public_session_key.trim() : '';
+    const consent_type = typeof body.consent_type === 'string' ? body.consent_type.trim() : '';
+    const state = typeof body.state === 'string' ? body.state.trim() : '';
+    const notice_version = typeof body.notice_version === 'string' ? body.notice_version.trim().slice(0, 64) : '';
+    const source = typeof body.source === 'string' ? body.source.trim() : '';
+    const affirmative_action = body.affirmative_action === true;
 
     // 1. Inline Session Authentication
-    if (!session_id || !public_session_key || !consent_type || !state || !source) {
+    if (
+      !/^[A-Za-z0-9_-]{1,128}$/.test(session_id) ||
+      !/^[a-f0-9]{64}$/i.test(public_session_key) ||
+      !consent_type ||
+      !state ||
+      !source
+    ) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -146,7 +178,7 @@ Deno.serve(async (req) => {
       withdrawn_at = now;
     }
 
-    const finalNoticeVersion = notice_version || existing?.notice_version || '1.0';
+    const finalNoticeVersion = String(notice_version || existing?.notice_version || '1.0').slice(0, 64);
 
     const consentData = {
       session_id,
