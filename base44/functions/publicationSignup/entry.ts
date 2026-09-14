@@ -11,6 +11,27 @@ const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 12;
 const requestBuckets = new Map();
 
+// Public callers may request only publications that NTA has explicitly configured.
+// This prevents a visitor from using the signup endpoint to attach arbitrary tags
+// or store a delivery link that could later be emailed to somebody else.
+const PUBLICATIONS = Object.freeze({
+  'nta-journal': {
+    title: 'The NTA Journal',
+    tags: [],
+    delivery_url: '',
+  },
+  'better-business-book': {
+    title: 'The Better Business Book',
+    tags: ['free-book-download'],
+    delivery_url: 'https://drive.usercontent.google.com/download?id=1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9&export=download',
+  },
+  'practical-ai-for-small-business': {
+    title: 'Practical AI for Small Business',
+    tags: ['free-book-download'],
+    delivery_url: 'https://drive.usercontent.google.com/download?id=11nq430-bcstci_fuOP8Fm9g2xTk2n0yl&export=download',
+  },
+});
+
 function isTrustedPublicOrigin(req) {
   const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
   if (!rawOrigin) return false;
@@ -118,10 +139,18 @@ Deno.serve(async (req) => {
     const businessName = value(payload.business_name, 300);
     const publicationTitle = value(payload.publication_title, 300);
     const publicationTag = value(payload.publication_tag, 100);
-    const deliveryUrl = value(payload.delivery_url, 1500);
-    if (!validEmail(email) || !publicationTitle || !publicationTag) {
-      return Response.json({ error: 'A valid email address and publication details are required.' }, { status: 400 });
+    const requestedDeliveryUrl = value(payload.delivery_url, 1500);
+    const publication = PUBLICATIONS[publicationTag];
+    if (!validEmail(email) || !publication || publication.title !== publicationTitle) {
+      return Response.json({ error: 'A valid email address and recognized publication are required.' }, { status: 400 });
     }
+    if (requestedDeliveryUrl && requestedDeliveryUrl !== publication.delivery_url) {
+      return Response.json({ error: 'Invalid publication delivery link.' }, { status: 400 });
+    }
+    if (payload.create_delivery_request === true && !publication.delivery_url) {
+      return Response.json({ error: 'This publication is delivered by email, not by download link.' }, { status: 400 });
+    }
+    const createDeliveryRequest = publication.delivery_url && payload.create_delivery_request !== false;
 
     const [firstName, ...remaining] = name.split(/\s+/).filter(Boolean);
     const existing = await base44.asServiceRole.entities.Subscriber.filter({ email });
@@ -177,7 +206,7 @@ Deno.serve(async (req) => {
     const subscriberData = {
       email, first_name: firstName || current?.first_name || '', last_name: remaining.join(' ') || current?.last_name || '',
       business_name: businessName || current?.business_name || '',
-      tags: uniqueTags([...(current?.tags || []), 'nta-publications', publicationTag, ...(payload.tags || [])]),
+      tags: uniqueTags([...(current?.tags || []), 'nta-publications', publicationTag, ...(publication.tags || [])]),
       source: value(payload.source, 200) || current?.source || 'nta_publication_signup',
       status: 'active', consent_status: 'confirmed', consent_date: new Date().toISOString().slice(0, 10),
       consent_method: 'website_form',
@@ -187,10 +216,10 @@ Deno.serve(async (req) => {
       ? await base44.asServiceRole.entities.Subscriber.update(current.id, subscriberData)
       : await base44.asServiceRole.entities.Subscriber.create(subscriberData);
 
-    const deliveryRequest = payload.create_delivery_request !== false && deliveryUrl
+    const deliveryRequest = createDeliveryRequest
       ? await base44.asServiceRole.entities.PublicationDeliveryRequest.create({
           subscriber_id: subscriber.id, publication_title: publicationTitle, status: 'pending',
-          delivery_url: deliveryUrl, attempt_count: 0,
+          delivery_url: publication.delivery_url, attempt_count: 0,
         })
       : null;
 
