@@ -41,7 +41,7 @@ function isAdminUser(user) {
   );
 }
 
-Deno.serve(async (req) => {
+export default async function sendAdaFollowUp(req: Request): Promise<Response> {
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
@@ -122,4 +122,4 @@ rick@newtechadvertising.com`
     console.error('Send follow-up error:', error);
     return Response.json({ error: error.message }, { status: 500 });
   }
-});
+}
