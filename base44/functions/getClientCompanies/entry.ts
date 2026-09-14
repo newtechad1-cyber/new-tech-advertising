@@ -11,7 +11,7 @@ Deno.serve(async (req) => {
         
         if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
         
-        const isAdmin = user.role === 'admin' || user.email === 'info@newtechadvertising.com';
+        const isAdmin = user.role === 'admin';
         
         // Admins see all companies; clients see only their own
         if (isAdmin) {
@@ -24,7 +24,7 @@ Deno.serve(async (req) => {
             const company = await base44.asServiceRole.entities.Company.get(user.client_id);
             return Response.json({ companies: company ? [company] : [] });
         }
-    } catch (error) {
-        return Response.json({ error: error.message }, { status: 500 });
+    } catch {
+        return Response.json({ error: 'Unable to load companies' }, { status: 500 });
     }
 });
