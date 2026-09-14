@@ -18,7 +18,7 @@ export default function Login() {
 
   // If already logged in, route them appropriately
   if (user) {
-    const isAdmin = user.role === 'admin' || user.email === 'info@newtechadvertising.com';
+    const isAdmin = user.role === 'admin';
     return <Navigate to={isAdmin ? "/agency" : "/portal"} replace />;
   }
 
