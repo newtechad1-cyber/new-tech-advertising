@@ -8,6 +8,7 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
 ]);
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 24;
+const MAX_BODY_BYTES = 8_192;
 const requestBuckets = new Map<string, { count: number; resetAt: number }>();
 
 function isTrustedPublicOrigin(req: Request) {
@@ -71,10 +72,32 @@ Deno.serve(async (req) => {
         );
       }
     }
-    const body = await req.json();
-    const { session_id, public_session_key } = body;
+    const declaredLength = Number(req.headers.get('content-length') || 0);
+    if (declaredLength > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
+    }
 
-    if (!session_id || !public_session_key || typeof session_id !== 'string' || typeof public_session_key !== 'string') {
+    const rawBody = await req.text();
+    if (rawBody.length > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
+    }
+
+    let body: any;
+    try {
+      body = JSON.parse(rawBody || '{}');
+    } catch {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+    if (!body || Array.isArray(body) || typeof body !== 'object') {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const session_id = typeof body.session_id === 'string' ? body.session_id.trim() : '';
+    const public_session_key = typeof body.public_session_key === 'string' ? body.public_session_key.trim() : '';
+    if (
+      !/^[A-Za-z0-9_-]{1,128}$/.test(session_id) ||
+      !/^[a-f0-9]{64}$/i.test(public_session_key)
+    ) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
