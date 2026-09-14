@@ -4,6 +4,7 @@ import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import { buildGrowthShowEpisodes } from '@/lib/growthShow';
 import {
   GROWTH_SHOW_SOURCE_ARTICLES,
+  GROWTH_SHOW_TESTIMONIALS,
   SEED_GROWTH_SHOW_EPISODES,
 } from '@/data/growthShowEpisodes';
 
@@ -64,6 +65,7 @@ export function useGrowthShow() {
     journals: knowledge.journals,
     episodeRecords: mergeEpisodeRecords(SEED_GROWTH_SHOW_EPISODES, episodeRecords),
     websiteStories,
+    testimonials: GROWTH_SHOW_TESTIMONIALS,
   }), [knowledge.videos, knowledge.articles, knowledge.journals, episodeRecords, websiteStories]);
 
   return {
