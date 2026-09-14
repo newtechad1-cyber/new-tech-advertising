@@ -78,9 +78,31 @@ Deno.serve(async (req) => {
       );
     }
 
-    const payload = await req.json();
-    const event = payload?.event || {};
-    const lead = payload?.lead || event?.lead || event?.contact || {};
+    const rawBody = await req.text();
+    if (rawBody.length > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
+    }
+
+    let payload;
+    try {
+      payload = JSON.parse(rawBody || '{}');
+    } catch {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+    if (!payload || Array.isArray(payload) || typeof payload !== 'object') {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const event = payload.event && typeof payload.event === 'object' && !Array.isArray(payload.event)
+      ? payload.event
+      : {};
+    const lead = payload.lead && typeof payload.lead === 'object' && !Array.isArray(payload.lead)
+      ? payload.lead
+      : event.lead && typeof event.lead === 'object' && !Array.isArray(event.lead)
+        ? event.lead
+        : event.contact && typeof event.contact === 'object' && !Array.isArray(event.contact)
+          ? event.contact
+          : {};
 
     if (payload?.website || event?.website || lead?.website) {
       return Response.json({ success: true, accepted: false, reason: 'spam_rejected' });
