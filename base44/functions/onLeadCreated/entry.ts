@@ -64,9 +64,11 @@ Deno.serve(async (req) => {
   });
   // ─────────────────────────────────────────────────────────────────────
 
-  // AI scoring is optional. Basic capture, CRM preservation, follow-up tasks,
+  // AI scoring is intentionally disabled until it has an explicit
+  // admin-controlled setting. Basic capture, CRM preservation, follow-up tasks,
   // and notification must never depend on AI or Victor credits.
-  if (Deno.env.get('AI_LEAD_SCORING_ENABLED') !== 'true') {
+  const aiLeadScoringEnabled = false;
+  if (!aiLeadScoringEnabled) {
     return Response.json({
       success: true,
       intake_submission_id: intakeResult?.data?.submission_id || intakeResult?.submission_id || null,
