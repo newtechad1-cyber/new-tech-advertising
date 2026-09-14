@@ -35,3 +35,12 @@ export const GROWTH_SHOW_SOURCE_ARTICLES = [{
   status: 'Published',
   related_lesson_ids: [],
 }];
+
+export const GROWTH_SHOW_TESTIMONIALS = {
+  '6lhiYFHFsCQ': {
+    label: 'A viewer’s response',
+    quote: 'I like this one. Very useful, and I will put it into practice.',
+    attribution: 'Pete Gardner',
+    context: 'Pete shared this after watching the Growth Show conversation about how AI can help a person direct more work without carrying every detail alone.',
+  },
+};
