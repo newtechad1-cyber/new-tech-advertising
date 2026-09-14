@@ -50,16 +50,13 @@ export default function EbookWriter() {
   const generateWithAI = async () => {
     if (!form.chapter_title) return;
     setAiGenerating(true);
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Write a detailed, well-structured chapter for an ebook.
-Ebook title: "${form.ebook_title || 'Untitled Ebook'}"
-Chapter number: ${form.chapter_number}
-Chapter title: "${form.chapter_title}"
-${form.notes ? `Additional notes/context: ${form.notes}` : ''}
-
-Write a comprehensive chapter with an introduction, several sections with subheadings, practical tips or examples, and a conclusion. Format it in HTML using <h2>, <h3>, <p>, <ul>, <li> tags. Make it engaging and informative.`,
+    const res = await base44.functions.invoke('generateEbookChapter', {
+      ebook_title: form.ebook_title,
+      chapter_number: form.chapter_number,
+      chapter_title: form.chapter_title,
+      notes: form.notes,
     });
-    setForm(f => ({ ...f, content: result }));
+    setForm(f => ({ ...f, content: res.data.content }));
     setAiGenerating(false);
   };
 

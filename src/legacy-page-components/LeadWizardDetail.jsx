@@ -218,8 +218,8 @@ Cover:
 6. Overall grade (A-F)
 
 Be specific and actionable. Format as clear sections.`;
-      const res = await base44.integrations.Core.InvokeLLM({ prompt });
-      const summary = typeof res === 'string' ? res : (res?.text || JSON.stringify(res));
+      const res = await base44.functions.invoke('generateLeadAuditSummary', { company: co });
+      const summary = res?.data?.summary || '';
       setAuditSummary(summary);
       await save({ audit_summary: summary, audit_status: 'completed', current_stage: 'audit_ready' });
       log('audit_generated', `Audit generated for ${wf?.company_name || wf?.title}`);
@@ -294,8 +294,8 @@ Email must:
 - Subject line included at top as "Subject: ..."
 
 Return only the email text.`;
-      const res = await base44.integrations.Core.InvokeLLM({ prompt });
-      const email = typeof res === 'string' ? res : (res?.text || '');
+      const res = await base44.functions.invoke('generateLeadOutreachEmail', { company: co, auditSummary });
+      const email = res?.data?.email || '';
       setOutreachEmail(email);
       await save({ outreach_email: email, outreach_status: 'draft' });
       log('outreach_generated', `Outreach email generated for ${wf?.company_name || wf?.title}`);

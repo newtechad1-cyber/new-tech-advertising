@@ -211,11 +211,11 @@ Return a JSON object with these fields:
 - hook: opening 5 seconds only
 - cta: closing call to action only`;
 
-      const res = await base44.integrations.Core.InvokeLLM({ prompt, response_json_schema: { type: 'object', properties: { script_long: { type: 'string' }, script_short: { type: 'string' }, hook: { type: 'string' }, cta: { type: 'string' } } } });
-      const sl = res?.script_long || '';
-      const ss = res?.script_short || '';
-      const h = res?.hook || '';
-      const c = res?.cta || '';
+      const res = await base44.functions.invoke('generateContentWizardScript', { title: wf.title, client: wf.client, topic });
+      const sl = res?.data?.script_long || '';
+      const ss = res?.data?.script_short || '';
+      const h = res?.data?.hook || '';
+      const c = res?.data?.cta || '';
       setScriptLong(sl); setScriptShort(ss); setHook(h); setCta(c);
       setHeygenScript(sl);
       await save({ script_long: sl, script_short: ss, hook: h, cta: c, script_text: sl, heygen_script: sl, script_status: 'generated', current_stage: 'script_ready' });
@@ -241,8 +241,8 @@ Return a JSON object with these fields:
   const generateImagePrompt = async () => {
     setSaving(true);
     try {
-      const res = await base44.integrations.Core.InvokeLLM({ prompt: `Write a detailed image generation prompt for a thumbnail/visual for this video: "${wf.title}". Client: ${wf.client}. Make it vivid, professional, and local-business appropriate. Return just the prompt text, no extra commentary.` });
-      const p = typeof res === 'string' ? res : res?.text || '';
+      const res = await base44.functions.invoke('generateContentWizardImagePrompt', { title: wf.title, client: wf.client });
+      const p = res?.data?.prompt || '';
       setImagePrompt(p);
       await save({ image_prompt: p });
       showNotice('success', 'Image prompt generated!');
@@ -281,10 +281,10 @@ Return JSON with:
 - caption_short: under 100 chars version
 - hashtags: 5-8 relevant hashtags as a single string`;
 
-      const res = await base44.integrations.Core.InvokeLLM({ prompt, response_json_schema: { type: 'object', properties: { caption_primary: { type: 'string' }, caption_short: { type: 'string' }, hashtags: { type: 'string' } } } });
-      const cp = res?.caption_primary || '';
-      const cs = res?.caption_short || '';
-      const ht = res?.hashtags || '';
+      const res = await base44.functions.invoke('generateContentWizardCaption', { title: wf.title, client: wf.client, topic });
+      const cp = res?.data?.caption_primary || '';
+      const cs = res?.data?.caption_short || '';
+      const ht = res?.data?.hashtags || '';
       setCaptionPrimary(cp); setCaptionShort(cs); setHashtags(ht);
       await save({ caption_primary: cp, caption_short: cs, hashtags: ht, caption_text: cp, caption_status: 'generated', current_stage: 'caption_ready' });
       showNotice('success', 'Caption generated!');

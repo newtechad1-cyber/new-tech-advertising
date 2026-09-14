@@ -70,28 +70,11 @@ export default function KnowledgeBasePanel({ chatbot }) {
     if (!file) return;
     setSaving(true);
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    const result = await base44.integrations.Core.ExtractDataFromUploadedFile({
-      file_url,
-      json_schema: {
-        type: 'object',
-        properties: {
-          entries: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                title: { type: 'string' },
-                content: { type: 'string' },
-                category: { type: 'string' }
-              }
-            }
-          }
-        }
-      }
-    });
+    const result = await base44.functions.invoke('extractKnowledgeBase', { file_url });
+    const extracted = result.data || result;
 
-    if (result.status === 'success' && result.output?.entries) {
-      for (const item of result.output.entries) {
+    if (extracted.status === 'success' && extracted.output?.entries) {
+      for (const item of extracted.output.entries) {
         const entry = await base44.entities.ChatbotKnowledge.create({
           title: item.title || 'Imported Entry',
           content: item.content,

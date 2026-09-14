@@ -27,22 +27,15 @@ export default function TvCommercialScriptGenerator() {
     if (!form.businessName || !form.industry || !form.serviceArea) return;
     setLoading(true);
     setScript('');
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Write a ${form.duration} streaming TV commercial script for a local ${form.industry} business.
-
-Business name: ${form.businessName}
-Service area: ${form.serviceArea}
-Special offer or key message: ${form.offer || 'quality service and free estimates'}
-Tone: ${form.tone}
-
-Format the script with:
-- OPENING (hook — first 3 seconds)
-- BODY (main message with benefits)
-- CALL TO ACTION (clear next step)
-
-Keep it tight to the ${form.duration} duration. Write conversational, spoken-word language — not marketing copy. Include a suggested voiceover note.`,
+    const res = await base44.functions.invoke('generateTvCommercialScript', {
+      businessName: form.businessName,
+      industry: form.industry,
+      serviceArea: form.serviceArea,
+      offer: form.offer,
+      duration: form.duration,
+      tone: form.tone,
     });
-    setScript(result);
+    setScript(res.data.script);
     setLoading(false);
   };
 

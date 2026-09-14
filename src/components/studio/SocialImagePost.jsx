@@ -29,10 +29,8 @@ export default function SocialImagePost({ initialImageUrl = null, onClose: _onCl
   const generateCaption = async () => {
     if (!selectedImage) return;
     setGeneratingCaption(true);
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Write an engaging social media caption for a business image. Keep it concise, conversational, and include 3-5 relevant hashtags at the end. No quotation marks, just the caption text.`,
-    });
-    setCaption(result);
+    const res = await base44.functions.invoke('generateSocialCaption', {});
+    setCaption(res.data.caption);
     setGeneratingCaption(false);
   };
 

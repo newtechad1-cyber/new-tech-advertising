@@ -72,8 +72,8 @@ export default function MediaImages() {
     if (!aiPrompt.trim()) return;
     setGenerating(true);
     setGeneratedUrl(null);
-    const result = await base44.integrations.Core.GenerateImage({ prompt: aiPrompt });
-    setGeneratedUrl(result.url);
+    const res = await base44.functions.invoke('generateStudioImage', { prompt: aiPrompt });
+    setGeneratedUrl(res.data.url);
     setAiName('AI Image - ' + aiPrompt.slice(0, 30));
     setGenerating(false);
   };

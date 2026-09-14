@@ -33,47 +33,8 @@ export default function AIRecommendations({ video, onChange }) {
   const handleGetRecs = async () => {
     setLoading(true);
     setExpanded(true);
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `You are an expert video marketing strategist. Analyze this video and give specific production recommendations.
-
-Video details:
-- Title: "${video.title || "Marketing Video"}"
-- Type: ${video.request_type || "promotional"}
-- Goal: ${video.goal || "promote the business"}
-- Industry: ${video.industry || "general business"}
-- Target audience: ${video.audience || "local consumers"}
-- Current caption style: ${video.caption_style || "not set"}
-- Has logo: ${!!(video.primary_logo_url || video.watermark_logo_url)}
-- CTA text: ${video.cta_text || "not set"}
-
-Respond in JSON with exactly these fields:
-{
-  "caption_style": one of: clean_minimal | bold_social | news_broadcast | promo_highlight,
-  "caption_style_reason": "1 short sentence why",
-  "aspect_ratio": one of: "Landscape 16:9" | "Square 1:1" | "Vertical 9:16",
-  "aspect_ratio_reason": "1 short sentence why",
-  "include_logo": true or false,
-  "logo_reason": "1 short sentence why",
-  "include_cta": true or false,
-  "cta_reason": "1 short sentence why",
-  "overall_tip": "One actionable production tip for this specific video type and industry"
-}`,
-      response_json_schema: {
-        type: "object",
-        properties: {
-          caption_style: { type: "string" },
-          caption_style_reason: { type: "string" },
-          aspect_ratio: { type: "string" },
-          aspect_ratio_reason: { type: "string" },
-          include_logo: { type: "boolean" },
-          logo_reason: { type: "string" },
-          include_cta: { type: "boolean" },
-          cta_reason: { type: "string" },
-          overall_tip: { type: "string" }
-        }
-      }
-    });
-    setRecs(result);
+    const res = await base44.functions.invoke('generateVideoRecommendations', { video });
+    setRecs(res.data);
     setLoading(false);
   };
 

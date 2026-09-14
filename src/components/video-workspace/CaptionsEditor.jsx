@@ -53,46 +53,17 @@ export default function CaptionsEditor({ video, onChange, onImmediateSave }) {
   const handleGenerateTranscript = async () => {
     setGenTranscript(true);
     onChange({ transcript_status: "running" });
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Write a professional 60-90 second video script / voiceover transcript for a marketing video with these details:
-Title: "${video.title || "Marketing Video"}"
-Type: ${video.request_type || "promotional"}
-Goal: ${video.goal || "promote the business"}
-Industry: ${video.industry || "general business"}
-Target audience: ${video.audience || "local consumers"}
-Offer: ${video.offer || ""}
-CTA: ${video.cta || "Contact us today"}
-
-Write a natural, energetic, human-sounding voiceover transcript. Include natural pauses indicated with [pause] and emphasis with CAPS. Format it as running paragraphs. Do not add timestamps. Do not add headers.`,
-    });
+    const res = await base44.functions.invoke('generateVideoTranscript', { video });
     setGenTranscript(false);
-    await onImmediateSave({ transcript_text: result, transcript_status: "completed" });
+    await onImmediateSave({ transcript_text: res.data.transcript, transcript_status: "completed" });
   };
 
   const handleGenerateCaptions = async () => {
     setGenCaptions(true);
     onChange({ captions_status: "running" });
-    const source = video.transcript_text || video.title || "Marketing video content";
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Convert this video transcript into formatted caption blocks for a branded marketing video.
-
-Transcript:
-"${source}"
-
-Caption requirements:
-- Style: ${video.caption_style || "clean_minimal"} (clean_minimal = lowercase subtle; bold_social = ALL CAPS punchy; news_broadcast = title case formal; promo_highlight = highlight key words)
-- Position: ${video.caption_position || "bottom"}
-- Size: ${video.caption_size || "medium"}
-- Animation: ${video.caption_animation || "none"}
-
-Output format: one caption block per line, with approximate timestamp in [HH:MM:SS] format at the start of each line. Keep each caption to 6-8 words max. Be punchy and readable. Return only the caption lines, no headers or extra text.
-
-Example output:
-[00:00:00] Ready to grow your business?
-[00:00:03] We help local companies win online.`,
-    });
+    const res = await base44.functions.invoke('generateVideoCaptions', { video });
     setGenCaptions(false);
-    await onImmediateSave({ captions_json: result, captions_status: "completed" });
+    await onImmediateSave({ captions_json: res.data.captions, captions_status: "completed" });
   };
 
   return (

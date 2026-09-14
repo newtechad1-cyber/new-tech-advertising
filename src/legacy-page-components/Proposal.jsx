@@ -99,11 +99,10 @@ export default function Proposal() {
       });
 
       // Notify team
-      await base44.integrations.Core.SendEmail({
-        from_name: 'NTA — Proposal Accepted',
-        to: 'info@newtechadvertising.com',
-        subject: `Proposal Accepted: ${proposal.title}`,
-        body: `Proposal "${proposal.title}" has been accepted.\nSigned by: ${signerName}\nCompany: ${company?.business_name || proposal.company_id}\nDate: ${new Date().toLocaleDateString()}`,
+      await base44.functions.invoke('sendProposalAcceptedNotification', {
+        proposal_title: proposal.title,
+        signer_name: signerName,
+        company_name: company?.business_name || proposal.company_id,
       });
 
       setAccepted(true);

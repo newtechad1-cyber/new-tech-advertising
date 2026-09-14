@@ -33,28 +33,16 @@ export default function MarketingPlanGenerator() {
     if (!form.businessName || !form.industry || !form.city) return;
     setLoading(true);
     setPlan('');
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Create a practical 90-day marketing plan for a local small business.
-
-Business name: ${form.businessName}
-Industry: ${form.industry}
-City / Service area: ${form.city}
-Primary goal: ${form.goal}
-Monthly marketing budget: ${form.budget}
-Preferred channels: ${form.channels.length ? form.channels.join(', ') : 'Open to all channels'}
-Additional context: ${form.notes || 'None provided'}
-
-Format the plan with these sections:
-1. SITUATION SUMMARY — a brief honest assessment of this type of business's marketing position
-2. PRIMARY STRATEGY — the one core approach that will drive the most results given the goal and budget
-3. CHANNEL BREAKDOWN — for each relevant channel, what to do and how much budget to allocate
-4. 90-DAY CALENDAR — what to do in Month 1, Month 2, and Month 3
-5. QUICK WINS — 3 things to do in the first 7 days
-6. SUCCESS METRICS — how to know if the plan is working
-
-Be specific, practical, and oriented toward a local service business owner who is not a marketing expert.`,
+    const res = await base44.functions.invoke('generateMarketingPlan', {
+      businessName: form.businessName,
+      industry: form.industry,
+      city: form.city,
+      goal: form.goal,
+      budget: form.budget,
+      channels: form.channels,
+      notes: form.notes,
     });
-    setPlan(result);
+    setPlan(res.data.plan);
     setLoading(false);
   };
 

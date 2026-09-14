@@ -38,14 +38,8 @@ export default function EmailMarketing() {
 
   const sendBroadcast = async (email) => {
     setSending(email.id);
-    const subscribers = await base44.entities.Subscriber.filter({ status: 'active' });
-    let sent = 0;
-    for (const sub of subscribers) {
-      await base44.integrations.Core.SendEmail({ to: sub.email, subject: email.subject, body: email.body });
-      sent++;
-    }
-    await base44.entities.EmailTemplate.update(email.id, { status: 'sent' });
-    setSendResult(`Sent to ${sent} subscribers!`);
+    const res = await base44.functions.invoke('sendEmailBroadcast', { email_id: email.id });
+    setSendResult(`Sent to ${res.data.sent} subscribers!`);
     setSending(null);
     load();
   };

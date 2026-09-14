@@ -55,42 +55,8 @@ Transcript excerpt: ${video.transcript_text ? video.transcript_text.slice(0, 400
 
     const selectedKeys = enabledDestinations.map(d => d.key);
 
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Generate publishing copy for a branded marketing video. Write platform-native copy that sounds human, not AI.
-
-Video details:
-${context}
-
-Generate copy for these platforms: ${selectedKeys.join(", ")}
-
-Rules:
-- website_title: SEO-friendly, 55-60 chars max, no clickbait
-- website_summary: 1-2 sentence meta description, 150 chars max
-- website_body: 2-3 sentence intro paragraph for the page
-- facebook_caption: 1-3 sentences, conversational, 1-2 emojis max, include soft CTA
-- instagram_caption: punchy opener, 2-4 sentences, 5-8 relevant hashtags on separate lines
-- youtube_title: SEO optimized, include main keyword, 60 chars max
-- youtube_description: 3-4 paragraphs, include timestamps placeholder, relevant keywords naturally, include CTA with contact info
-- tiktok_caption: 1-2 sentences max, very casual tone, 3-5 trending hashtags
-- gbp_post_text: 2-3 sentences, local business tone, clear action
-
-Return JSON only, no explanation.`,
-      response_json_schema: {
-        type: "object",
-        properties: {
-          website_title: { type: "string" },
-          website_summary: { type: "string" },
-          website_body: { type: "string" },
-          facebook_caption: { type: "string" },
-          instagram_caption: { type: "string" },
-          youtube_title: { type: "string" },
-          youtube_description: { type: "string" },
-          tiktok_caption: { type: "string" },
-          gbp_post_text: { type: "string" },
-        }
-      }
-    });
-
+    const res = await base44.functions.invoke('generatePublishingCopy', { video, destinations: selectedKeys });
+    const result = res.data;
     const updates = {};
     Object.keys(result).forEach(k => { if (result[k]) updates[k] = result[k]; });
     await onImmediateSave(updates);

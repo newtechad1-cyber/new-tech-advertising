@@ -30,19 +30,9 @@ export default function DemoAIPanel({ context = '' }) {
     track('question_asked', { value: q });
 
     try {
-      const history = messages.map(m => `${m.role === 'user' ? 'Prospect' : 'NTA Guide'}: ${m.content}`).join('\n');
-      const res = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are the NTA demo guide — a helpful, confident sales assistant for New Tech Advertising, an AI marketing platform for small businesses.
-Context about where the prospect is in the demo: ${context || 'browsing the demo'}
-
-Previous conversation:
-${history}
-
-Prospect question: ${q}
-
-Answer in 2-4 short paragraphs. Be direct, friendly, and specific. If they ask about pricing, mention plans start at an affordable monthly rate and suggest booking a call for a custom quote. Always end with a relevant CTA like "Want to see this in action?" or "Ready to start your free trial?"`,
-      });
-      setMessages(m => [...m, { role: 'assistant', content: typeof res === 'string' ? res : res?.text || 'Great question! Let me connect you with our team for a personalized answer.' }]);
+      const history = messages.map(m => ({ role: m.role, content: m.content }));
+      const res = await base44.functions.invoke('demoAiChat', { question: q, history, context });
+      setMessages(m => [...m, { role: 'assistant', content: res.data?.answer || 'Great question! Let me connect you with our team for a personalized answer.' }]);
     } catch {
       setMessages(m => [...m, { role: 'assistant', content: "I'm having trouble connecting right now. Please try again or book a call with our team!" }]);
     }

@@ -66,32 +66,18 @@ export default function ProposalManager() {
     if (!form.service_type || !form.business_name) { toast.error('Service type and business name required'); return; }
     setGenerating(true);
     const lead = leads.find(l => l.id === form.lead_id);
-    const serviceLabel = SERVICE_OPTIONS.find(s => s.value === form.service_type)?.label;
 
-    const prompt = `You are a professional marketing agency proposal writer for New Tech Advertising.
-
-Write a compelling, professional proposal for a ${serviceLabel} service.
-
-Business: ${form.business_name}
-Contact: ${form.contact_name}
-Industry: ${lead?.industry || 'local business'}
-Location: ${lead?.city ? `${lead.city}, ${lead.state}` : 'Midwest'}
-Website: ${lead?.website || 'N/A'}
-Special Notes: ${form.notes || 'None'}
-
-Write a proposal that includes:
-1. **Executive Summary** - Brief overview of the opportunity
-2. **Our Understanding of Your Needs** - Tailored to their business
-3. **Proposed Solution** - Detailed description of the ${serviceLabel} service
-4. **What's Included** - Bullet list of deliverables
-5. **Timeline** - Realistic project timeline
-6. **Investment** - Professional pricing narrative (do not use specific numbers, say "See pricing summary below")
-7. **Why New Tech Advertising** - 3-4 compelling differentiators
-8. **Next Steps** - Clear call to action
-
-Write in a professional but friendly tone. Use markdown formatting. Keep it to 600-800 words.`;
-
-    const result = await base44.integrations.Core.InvokeLLM({ prompt });
+    const res = await base44.functions.invoke('generateProposalContent', {
+      service_type: form.service_type,
+      business_name: form.business_name,
+      contact_name: form.contact_name,
+      industry: lead?.industry,
+      city: lead?.city,
+      state: lead?.state,
+      website: lead?.website,
+      notes: form.notes,
+    });
+    const result = res.data?.content || '';
 
     const payload = {
       ...form,

@@ -29,11 +29,7 @@ export default function TrialSignupsPanel() {
 
   const sendEmail = async (trial) => {
     try {
-      await base44.integrations.Core.SendEmail({
-        to: trial.email,
-        subject: `Welcome to NTA — Let's Get Your Dashboard Ready`,
-        body: `Hi ${trial.full_name || trial.name},\n\nWe noticed you recently signed up for a trial. Let's make sure your dashboard is fully set up!\n\nPlease reply to this email or book a call so we can get you started.\n\nBest,\nThe NTA Team`
-      });
+      await base44.functions.invoke('sendTrialWelcomeEmail', { email: trial.email, full_name: trial.full_name || trial.name });
       toast.success(`Email sent to ${trial.email}`);
     } catch {
       toast.error('Failed to send email');

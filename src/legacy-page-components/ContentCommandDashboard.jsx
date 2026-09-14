@@ -69,20 +69,8 @@ Generate the following as a JSON object:
   "image_prompts": "3 AI image generation prompts separated by newlines, each starting with 'Prompt:'"
 }
 `;
-    const result = await base44.integrations.Core.InvokeLLM({
-      prompt,
-      response_json_schema: {
-        type: 'object',
-        properties: {
-          blog_article: { type: 'string' },
-          video_script: { type: 'string' },
-          social_facebook: { type: 'string' },
-          social_linkedin: { type: 'string' },
-          social_gbp: { type: 'string' },
-          image_prompts: { type: 'string' },
-        },
-      },
-    });
+    const res = await base44.functions.invoke('generateContentPack', { client: activeClient, topic });
+    const result = res.data;
     const job = await base44.entities.ContentJob.create({
       client_id: activeClient.id,
       client_name: activeClient.name,
