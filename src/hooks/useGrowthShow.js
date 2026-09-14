@@ -30,22 +30,32 @@ export function useGrowthShow() {
   const [episodeRecordsLoading, setEpisodeRecordsLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      base44.entities.GrowthShowEpisode.list('-published_date', 200),
-      base44.entities.WebsiteVideoStory.filter({
-        publish_status: 'published',
-        category: 'NTA Growth Show',
-      }),
-    ])
-      .then(([episodes, stories]) => {
-        setEpisodeRecords(episodes || []);
-        setWebsiteStories(stories || []);
-      })
-      .catch(() => {
-        setEpisodeRecords([]);
-        setWebsiteStories([]);
-      })
-      .finally(() => setEpisodeRecordsLoading(false));
+    let cancelled = false;
+
+    const loadEpisodeData = async () => {
+      const [episodes, stories] = await Promise.all([
+        Promise.resolve()
+          .then(() => base44.entities.GrowthShowEpisode.list('-published_date', 200))
+          .catch(() => []),
+        Promise.resolve()
+          .then(() => base44.entities.WebsiteVideoStory.filter({
+            publish_status: 'published',
+            category: 'NTA Growth Show',
+          }))
+          .catch(() => []),
+      ]);
+
+      if (cancelled) return;
+      setEpisodeRecords(episodes || []);
+      setWebsiteStories(stories || []);
+      setEpisodeRecordsLoading(false);
+    };
+
+    loadEpisodeData();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const episodes = useMemo(() => buildGrowthShowEpisodes({
