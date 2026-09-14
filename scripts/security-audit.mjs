@@ -287,7 +287,16 @@ for (const name of functionNames) {
     continue;
   }
 
-  if (!externallyCalled && profile.hasServiceRole && !profile.hasAuth && !profile.hasProviderGuard && !profile.hasCustomBoundary) {
+  // Static browser-reference discovery can miss an indirectly imported public component.
+  // A verified public boundary is therefore a valid alternative to caller authentication.
+  if (
+    !externallyCalled
+    && profile.hasServiceRole
+    && !profile.hasAuth
+    && !profile.hasProviderGuard
+    && !profile.hasCustomBoundary
+    && !profile.hasPublicBoundary
+  ) {
     findings.push(finding(
       'critical',
       'SERVICE_ROLE_ENDPOINT_WITHOUT_AUTH',
@@ -298,7 +307,15 @@ for (const name of functionNames) {
     continue;
   }
 
-  if (!externallyCalled && profile.hasServiceRole && profile.hasAuth && !profile.hasAdminOrServiceGuard && !profile.hasProviderGuard && !profile.hasCustomBoundary) {
+  if (
+    !externallyCalled
+    && profile.hasServiceRole
+    && profile.hasAuth
+    && !profile.hasAdminOrServiceGuard
+    && !profile.hasProviderGuard
+    && !profile.hasCustomBoundary
+    && !profile.hasPublicBoundary
+  ) {
     findings.push(finding(
       'high',
       'AUTHENTICATED_SERVICE_ROLE_ENDPOINT_WITHOUT_PRIVILEGED_BOUNDARY',
