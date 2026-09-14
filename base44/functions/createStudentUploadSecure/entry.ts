@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
+import { validatePublicHttpUrl } from '../shared/security.ts';
 
 /**
  * Creates StudentUpload record with BACKEND-ENFORCED student identity.
@@ -12,6 +13,10 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
 ]);
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 24;
+const MAX_BODY_BYTES = 16_384;
+const MAX_SIZE_MB = 500;
+const VALID_CATEGORIES = new Set(['sports', 'classroom', 'arts', 'music', 'clubs', 'student_life', 'event', 'other']);
+const VALID_UPLOAD_TYPES = new Set(['video', 'photo', 'audio']);
 const requestBuckets = new Map<string, { count: number; resetAt: number }>();
 
 function isTrustedPublicOrigin(req: Request) {
@@ -76,35 +81,64 @@ Deno.serve(async (req) => {
     }
 
   try {
-    const {
-      student_user_id,
-      school_slug,
-      session_token,
-      title,
-      description,
-      category,
-      file_url,
-      file_size_mb,
-      upload_type,
-    } = await req.json();
-
-    if (!student_user_id || !school_slug || !session_token || !title || !file_url) {
-      return Response.json({ error: 'Missing required fields' }, { status: 400 });
+    const declaredLength = Number(req.headers.get('content-length') || 0);
+    if (declaredLength > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
     }
 
-    if (String(session_token).length > 512) {
+    const rawBody = await req.text();
+    if (rawBody.length > MAX_BODY_BYTES) {
+      return Response.json({ error: 'Request too large' }, { status: 413 });
+    }
+
+    let payload;
+    try {
+      payload = JSON.parse(rawBody || '{}');
+    } catch {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+    if (!payload || Array.isArray(payload) || typeof payload !== 'object') {
+      return Response.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
+    const studentUserId = String(payload.student_user_id || '').trim();
+    const schoolSlug = String(payload.school_slug || '').trim().toLowerCase();
+    const sessionToken = String(payload.session_token || '').trim();
+    const title = String(payload.title || '').trim().slice(0, 100);
+    const description = String(payload.description || '').trim().slice(0, 500);
+    const category = String(payload.category || 'other').trim();
+    const uploadType = String(payload.upload_type || '').trim();
+    const fileSizeMb = Number(payload.file_size_mb);
+
+    if (!/^[A-Za-z0-9_-]{1,128}$/.test(studentUserId) || !/^[a-z0-9-]{1,100}$/.test(schoolSlug) || !sessionToken || !title || !payload.file_url) {
+      return Response.json({ error: 'Missing or invalid required fields' }, { status: 400 });
+    }
+    if (sessionToken.length > 512) {
       return Response.json({ error: 'Invalid session' }, { status: 401 });
     }
+    if (!VALID_CATEGORIES.has(category) || !VALID_UPLOAD_TYPES.has(uploadType)) {
+      return Response.json({ error: 'Invalid upload details' }, { status: 400 });
+    }
+    if (!Number.isFinite(fileSizeMb) || fileSizeMb < 0 || fileSizeMb > MAX_SIZE_MB) {
+      return Response.json({ error: `File too large. Max ${MAX_SIZE_MB}MB` }, { status: 400 });
+    }
 
-    const tokenBuffer = new TextEncoder().encode(String(session_token));
+    let fileUrl;
+    try {
+      fileUrl = validatePublicHttpUrl(String(payload.file_url)).toString();
+    } catch {
+      return Response.json({ error: 'Invalid file URL' }, { status: 400 });
+    }
+
+    const tokenBuffer = new TextEncoder().encode(sessionToken);
     const hashBuffer = await crypto.subtle.digest('SHA-256', tokenBuffer);
     const sessionTokenHash = Array.from(new Uint8Array(hashBuffer))
       .map(b => b.toString(16).padStart(2, '0'))
       .join('');
 
     const sessions = await base44.asServiceRole.entities.StudentSessions.filter({
-      student_user_id,
-      school_slug,
+      student_user_id: studentUserId,
+      school_slug: schoolSlug,
       session_token_hash: sessionTokenHash,
       is_active: true,
     });
@@ -116,8 +150,8 @@ Deno.serve(async (req) => {
 
     // CRITICAL: Validate student exists and is active
     const students = await base44.asServiceRole.entities.StudentUsers.filter({
-      id: student_user_id,
-      school_slug: school_slug,
+      id: studentUserId,
+      school_slug: schoolSlug,
       is_active: true,
       can_upload: true,
     });
@@ -136,27 +170,18 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Enforce max file size
-    const MAX_SIZE_MB = 500;
-    if (file_size_mb > MAX_SIZE_MB) {
-      return Response.json(
-        { error: `File too large. Max ${MAX_SIZE_MB}MB` },
-        { status: 400 }
-      );
-    }
-
     // Create upload record with BACKEND-ENFORCED identity
     // Browser cannot override student_user_id
     const upload = await base44.asServiceRole.entities.StudentUploads.create({
       student_user_id: student.id, // Use validated student ID, not browser value
       student_name: student.full_name, // Use student name from record, not browser
-      school_slug: school_slug,
-      title: title.trim(),
-      description: description?.trim() || '',
-      category: category || 'other',
-      file_urls: JSON.stringify([file_url]),
-      upload_type: upload_type || 'video',
-      file_size_total_mb: file_size_mb,
+      school_slug: schoolSlug,
+      title,
+      description,
+      category,
+      file_urls: JSON.stringify([fileUrl]),
+      upload_type: uploadType,
+      file_size_total_mb: fileSizeMb,
       status: 'submitted',
       moderation_status: 'pending',
       consent_confirmed: true,
@@ -168,9 +193,9 @@ Deno.serve(async (req) => {
     try {
       await base44.asServiceRole.functions.invoke('moderateStudentUploadContent', {
         upload_id: upload.id,
-        file_url: file_url,
-        upload_type: upload_type,
-        school_slug: school_slug,
+        file_url: fileUrl,
+        upload_type: uploadType,
+        school_slug: schoolSlug,
       });
     } catch (err) {
       // Log error but don't fail upload creation
