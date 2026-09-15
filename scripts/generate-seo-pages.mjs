@@ -609,7 +609,27 @@ function opportunityStaticBody(pathname) {
 }
 
 function journalInline(value) {
-  return escapeHtml(value).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  const text = String(value || '');
+  const tokens = /\[([^\]]+)\]\((https:\/\/[^\s)]+)\)|\*\*([^*]+)\*\*/g;
+  let result = '';
+  let cursor = 0;
+  for (const match of text.matchAll(tokens)) {
+    result += escapeHtml(text.slice(cursor, match.index));
+    if (match[3] !== undefined) {
+      result += '<strong>' + escapeHtml(match[3]) + '</strong>';
+    } else {
+      let allowed = false;
+      try {
+        const target = new URL(match[2]);
+        allowed = target.protocol === 'https:' && ['newtechadvertising.com', 'www.newtechadvertising.com', 'youtube.com', 'www.youtube.com', 'youtu.be'].includes(target.hostname.toLowerCase());
+      } catch {}
+      result += allowed
+        ? '<a href="' + escapeHtml(match[2]) + '" style="color:#2563eb;text-decoration:underline;">' + escapeHtml(match[1]) + '</a>'
+        : escapeHtml(match[1]);
+    }
+    cursor = match.index + match[0].length;
+  }
+  return result + escapeHtml(text.slice(cursor));
 }
 
 function journalContentHtml(value) {
