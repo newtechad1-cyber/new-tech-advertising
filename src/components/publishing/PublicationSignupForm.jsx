@@ -33,6 +33,7 @@ export default function PublicationSignupForm({
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [existingAccess, setExistingAccess] = useState(false);
+  const [bookTrackingToken, setBookTrackingToken] = useState('');
   const [error, setError] = useState('');
   const startedAt = useRef(Date.now());
 
@@ -42,11 +43,15 @@ export default function PublicationSignupForm({
     try {
       base44.analytics.track({
         eventName: `book_${eventType}`,
-        properties: {
-        book_key: publicationTag,
-        event_type: eventType,
-        },
+        properties: { book_key: publicationTag, event_type: eventType },
       });
+      if (bookTrackingToken) {
+        await base44.functions.invoke('trackBookEvent', {
+          book_key: publicationTag,
+          event_type: eventType,
+          tracking_token: bookTrackingToken,
+        });
+      }
     } catch (trackingError) {
       console.warn('[book tracking] Event could not be recorded.', trackingError);
     }
@@ -88,6 +93,7 @@ export default function PublicationSignupForm({
 
       if (registration?.data?.success === false) throw new Error(registration.data.error || 'We could not complete your request.');
 
+      setBookTrackingToken(registration?.data?.book_tracking_token || '');
       setSuccess(true);
     } catch (submissionError) {
       const detail = submissionError?.response?.data || submissionError?.data;
