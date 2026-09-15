@@ -1,0 +1,70 @@
+[
+  {
+    "path": "src/components/nta-guide/YourDigitalGrowthGuide.jsx",
+    "edits": [
+      {
+        "old": "import { base44 } from '@/api/base44Client';",
+        "new": "import { base44 } from '@/api/base44Client';\nimport { invokeVerifiedPublicFunction } from '@/lib/publicVerification';"
+      },
+      {
+        "old": "base44.functions.invoke('growthGuideChat',",
+        "new": "invokeVerifiedPublicFunction('growthGuideChat',"
+      }
+    ],
+    "before_sha256": "caba5b62c0e55dab81a307b863980844cb8ecbd21bbd62ca9af018f4be5cfd2a"
+  },
+  {
+    "path": "src/components/publishing/PublicationSignupForm.jsx",
+    "edits": [
+      {
+        "old": "import { base44 } from '@/api/base44Client';",
+        "new": "import { base44 } from '@/api/base44Client';\nimport { invokeVerifiedPublicFunction } from '@/lib/publicVerification';"
+      },
+      {
+        "old": "base44.functions.invoke('publicationSignup',",
+        "new": "invokeVerifiedPublicFunction('publicationSignup',"
+      },
+      {
+        "old": "        consent_context: consentContext,",
+        "new": "        consent_context: consentContext,\n        consent: form.consent,"
+      }
+    ],
+    "before_sha256": "9d14d63d251561f6d6ead150ac034208b233d07dbc1859f850c7d2bcdd3f7f9f"
+  },
+  {
+    "path": "src/components/newsletter/NewsletterFooterSection.jsx",
+    "edits": [
+      {
+        "old": "import { base44 } from '@/api/base44Client';",
+        "new": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';"
+      },
+      {
+        "old": "base44.functions.invoke('publicationSignup',",
+        "new": "invokeVerifiedPublicFunction('publicationSignup',"
+      },
+      {
+        "old": "        publication_tag: 'nta-journal',",
+        "new": "        publication_tag: 'nta-journal',\n        consent,"
+      }
+    ],
+    "before_sha256": "fe1e251a054b6be92e5f91eb991e153e8ea931bda2d55eb1be32093592057a9b"
+  },
+  {
+    "path": "src/components/newsletter/NewsletterPopup.jsx",
+    "edits": [
+      {
+        "old": "import { base44 } from '@/api/base44Client';",
+        "new": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';"
+      },
+      {
+        "old": "base44.functions.invoke('publicationSignup',",
+        "new": "invokeVerifiedPublicFunction('publicationSignup',"
+      },
+      {
+        "old": "        publication_tag: 'nta-journal',",
+        "new": "        publication_tag: 'nta-journal',\n        consent,"
+      }
+    ],
+    "before_sha256": "ab66b4f0b42cc9b58ac55b685ecfc1b65a3615d8e42d4bf18c0d190019ca8417"
+  }
+]
