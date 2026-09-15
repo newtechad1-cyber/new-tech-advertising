@@ -1,6 +1,6 @@
 {
   "app_id": "691f41a18de4a7f498c8f884",
-  "status": "staged_not_active",
+  "status": "browser_ready_backend_enforcement_staged",
   "created": "2026-09-15",
   "files": [
     {
@@ -38,5 +38,6 @@
       "before_sha256": null,
       "after_sha256": "73f2257b500ff44b6f6fa770aa05e2bd98a0802312948da3fca23750ec8c8685"
     }
-  ]
+  ],
+  "rollout_state": "docs/security/visitor-verification/rollout-state.json"
 }

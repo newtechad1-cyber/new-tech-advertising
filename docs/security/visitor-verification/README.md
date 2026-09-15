@@ -5,7 +5,7 @@ Production site: https://newtechadvertising.com
 
 ## Current status
 
-Five authentication fixes are saved in the active app source. Two public replacements are staged in this directory and are **not active**. Production endpoint probes still returned the earlier behavior; saving the code is not evidence that production is protected. Final release and live verification remain required.
+Five authentication fixes are saved in the active app source. The two public handlers now include read-only Turnstile configuration responses, and the browser helper plus four caller updates are saved and ready to publish. The enforcing backend replacements remain staged and **are not active**. Rick confirmed that both Turnstile keys were saved in Base44 Secrets. Narrow live configuration checks still returned the previously published validation errors, so hosted configuration and real visitor verification remain unconfirmed. See `rollout-state.json` for current hashes and the next release steps.
 
 | Function | Saved change / remaining action |
 | --- | --- |
@@ -14,8 +14,8 @@ Five authentication fixes are saved in the active app source. Two public replace
 | chatbotChat | Same authentication gate before reading chat configuration or constructing the AI client. |
 | chatbotLeadCapture | Same authentication gate; preserve verified workflow/service calls. |
 | demoAiChat | Same authentication gate before any AI work. |
-| growthGuideChat | Staged server-side Turnstile verification; needs real configuration and coordinated frontend rollout. |
-| publicationSignup | Staged server-side Turnstile verification and explicit consent; needs real configuration and coordinated frontend rollout. |
+| growthGuideChat | Configuration response and browser integration saved; server-side verification remains staged until the browser release is verified. |
+| publicationSignup | Configuration response, browser integration and consent payload saved; server verification and consent enforcement remain staged. |
 
 Only growthGuideChat and publicationSignup have callers in the current public import graph. The five restricted functions belong to older UI components or internal workflows. The legacy lead-capture agent/workflow still needs a live authenticated service invocation checked after release. No emails, real signups, or paid AI calls were sent during this work.
 
@@ -25,7 +25,8 @@ Only growthGuideChat and publicationSignup have callers in the current public im
 - `npm run build` passes and produces SEO HTML for 167 public URLs plus 963 legacy cleanup/alias URLs.
 - The staged browser changes also pass an isolated Vite production build.
 - `git diff --check` passes.
-- Current public browser callers remain unchanged until the staged rollout.
+- The active browser helper and four updated public callers pass the production build; the six client behavior tests now execute the active helper.
+- Ten additional isolated checks of the active metadata handlers passed: configured response shape/no secret disclosure, missing settings, public test keys, untrusted origins, and extra-field rejection; all produced zero provider, entity, AI or downstream calls.
 
 The provider and Base44 identity/data operations are mocked in the behavioral tests. Real Turnstile, live administrator/service calls, live visitor submissions, and the hosted Base44 Security Scan are not yet verified.
 
@@ -41,18 +42,18 @@ Save these values directly in this Base44 app's Secrets settings:
 - `NTA_TURNSTILE_SITE_KEY` — the public widget site key.
 - `NTA_TURNSTILE_SECRET_KEY` — the server-only verification secret.
 
-No usable Turnstile configuration was found in the app source or visible sandbox process. The connected tools do not expose app-secret management or a connected Cloudflare account. Hosted secret storage itself was not readable, so it has not been declared empty.
+Rick confirmed both keys are saved in this app’s Secrets settings. Hosted secret storage is not exposed through the connected tools, and the sandbox shell does not inherit those settings. The live configuration requests still return the earlier published handlers’ 400 validation errors, so neither saved-key availability nor provider validity has been verified yet. Do not request or copy the private key into source, logs or chat.
 
 The staged implementation checks the provider's success result, hostname, action and issue time. It rejects missing configuration, known public test keys, invalid/expired/replayed proof and provider failures. The browser receives only the public site key and uses a fresh single-use token per request. It does not store tokens or retry mutations automatically.
 
 Coordinate rollout to keep public features working:
 
-1. Recheck the baseline hashes in `manifest.json` and `frontend-edits.json` against current source.
-2. Configure the real widget and keys.
-3. Add only the harmless verification-config response to the existing two public handlers first, preserving their existing behavior during preparation.
-4. Publish the browser helper and four caller edits, then verify real token acquisition from the published site.
-5. Activate the enforcing backend candidates only after the published browser sends tokens. Do not add an origin-only fallback or a configuration switch that bypasses verification.
-6. Confirm anonymous/forged requests are rejected and a real verified visitor succeeds; check signed-in administrator and service workflows. Older browser tabs may need a refresh.
+1. Completed: checked original baseline hashes, added the metadata responses, applied the exact tested browser edits, and verified the build plus 66 behavior tests and 10 metadata checks.
+2. Rick must publish this prepared browser/configuration release in Base44; the current connection has no Publish action.
+3. Check both live metadata responses and the published browser bundle. Have Rick refresh the public site and send a short Guide question to confirm real visitor verification succeeds.
+4. After the published browser supplies tokens, compare current source against the hashes in `rollout-state.json` and apply the two enforcing backend candidates. Preserve any newer unrelated edits. Do not reapply the original full patch over the already updated browser.
+5. Confirm those enforcing backend revisions are live; another Publish step may be needed if production still serves the preparation version.
+6. Confirm anonymous/forged requests are rejected and real verified visitors and authenticated administrator/service workflows succeed. Use narrowly scoped non-mutating live checks; do not send bulk probes that might invoke privileged work. Older browser tabs may need a refresh.
 7. Rerun the hosted Base44 Security Scan. Its interpretation of intentionally public but provider-verified endpoints has not been tested.
 
 The staged `public-verification.patch` is review material for the final state; applying it blindly before keys and the browser rollout are ready would interrupt the Guide and publication signups.

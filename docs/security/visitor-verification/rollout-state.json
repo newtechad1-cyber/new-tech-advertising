@@ -1,7 +1,7 @@
 {
   "app_id": "691f41a18de4a7f498c8f884",
   "stage": "browser_ready_awaiting_publication",
-  "updated_at": "2026-09-15T01:11:54.142Z",
+  "updated_at": "2026-09-15T01:15:11.251Z",
   "keys": "User confirmed both Turnstile keys saved in Base44 Secrets. Hosted availability is not yet verified.",
   "live_config_checks": {
     "growthGuideChat": {
@@ -56,5 +56,15 @@
     "Check both live metadata responses and a real visitor verification.",
     "Apply the two enforcing backend candidates only after the published browser supplies tokens.",
     "Verify live request rejection and rerun the hosted Security Scan."
+  ],
+  "validation": {
+    "build": "passed",
+    "behavior_tests_passed": 66,
+    "active_metadata_safety_checks_passed": 10,
+    "real_provider_verified": false
+  },
+  "previously_published_browser_asset": "/assets/index-YZnJPN7O.js",
+  "prepared_browser_verification_assets": [
+    "index-ktYDXSSE.js"
   ]
 }
