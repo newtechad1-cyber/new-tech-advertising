@@ -405,7 +405,8 @@ Deno.serve(async (req) => {
       console.warn('[publicationSignup] Book access event could not be recorded:', trackingError?.response?.status || 'request_failed');
     }
 
-    return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null, journal_sync_status: journalSyncStatus, intake_status: intakeStatus });
+    const book_tracking_token = publicationTag === 'nta-journal' ? null : await createBookTrackingToken(publicationTag);
+    return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null, journal_sync_status: journalSyncStatus, intake_status: intakeStatus, book_tracking_token });
   } catch (error) {
     console.error('[publicationSignup]', error);
     return Response.json({ error: 'Unable to save the publication request.' }, { status: 500 });
