@@ -31,21 +31,50 @@
     },
     "consent_status": {
       "type": "string",
-      "enum": ["confirmed", "withdrawn"],
+      "enum": [
+        "confirmed",
+        "withdrawn"
+      ],
       "default": "confirmed"
     },
     "consent_date": {
       "type": "string",
       "format": "date",
-      "description": "Date the subscriber gave permission to receive the NTA Journal"
+      "description": "Date the subscriber gave permission for the recorded consent scope"
     },
     "consent_method": {
       "type": "string",
-      "enum": ["website_form", "email_reply", "verbal", "written", "event_signup", "other"]
+      "enum": [
+        "website_form",
+        "email_reply",
+        "verbal",
+        "written",
+        "event_signup",
+        "other"
+      ]
     },
     "consent_context": {
       "type": "string",
       "description": "Where the permission came from and any useful human context"
+    },
+    "consent_scope": {
+      "type": "string",
+      "enum": [
+        "journal",
+        "publication",
+        "mixed"
+      ],
+      "description": "What the visitor actually consented to; book access must not imply Journal consent"
+    },
+    "journal_consent_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "confirmed",
+        "withdrawn"
+      ],
+      "default": "none",
+      "description": "Separate Journal permission state"
     },
     "sales_lead_id": {
       "type": "string",
@@ -58,15 +87,75 @@
       "type": "string",
       "maxLength": 1000,
       "description": "Optional notes or description"
+    },
+    "quality_classification": {
+      "type": "string",
+      "enum": [
+        "legitimate",
+        "suspicious",
+        "bot_spam",
+        "test",
+        "unknown"
+      ],
+      "default": "unknown",
+      "description": "Data-quality classification used to keep bots/tests out of business growth totals"
+    },
+    "risk_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "risk_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "first_source": {
+      "type": "string"
+    },
+    "most_recent_source": {
+      "type": "string"
+    },
+    "first_source_url": {
+      "type": "string"
+    },
+    "most_recent_source_url": {
+      "type": "string"
+    },
+    "first_activity_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_activity_at": {
+      "type": "string",
+      "format": "date-time"
     }
   },
   "required": [
     "email"
   ],
   "rls": {
-    "create": { "user_condition": { "role": "admin" } },
-    "read": { "user_condition": { "role": "admin" } },
-    "update": { "user_condition": { "role": "admin" } },
-    "delete": { "user_condition": { "role": "admin" } }
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
   }
 }
