@@ -237,3 +237,24 @@ test('publicationSignup: a failed CRM follow-up preserves the saved publication 
   assert.equal(body.subscriber_id, 'test-subscriber');
   assert.equal(body.intake_status, 'needs_attention');
 });
+
+test('ntaUnifiedIntake: authenticated service forwarding does not share a visitor quota', async () => {
+  const fixture = setup('ntaUnifiedIntake', { user: { id: 'verified-service', is_service: true } });
+  for (let index = 0; index < 20; index++) {
+    assert.equal((await fixture.request()).status, 200);
+  }
+  assert.equal(fixture.stats.provider, 0);
+  assert.equal(fixture.stats.crossAppCalls.length, 20);
+});
+
+test('ntaUnifiedIntake: visitor quota still stops excess verified submissions', async () => {
+  const fixture = setup('ntaUnifiedIntake');
+  for (let index = 0; index < 12; index++) {
+    const response = await fixture.request({ ...validPayloads.ntaUnifiedIntake, verification_token: 'quota-proof-' + index });
+    assert.equal(response.status, 200);
+  }
+  const limited = await fixture.request({ ...validPayloads.ntaUnifiedIntake, verification_token: 'quota-proof-excess' });
+  assert.equal(limited.status, 429);
+  assert.equal(fixture.stats.provider, 12);
+  assert.equal(fixture.stats.crossAppCalls.length, 12);
+});

@@ -279,12 +279,14 @@ Deno.serve(async (req) => {
       return publicVerificationConfig('nta_unified_intake');
     }
 
-    const retryAfterSeconds = isRateLimited(req);
-    if (retryAfterSeconds) {
-      return Response.json(
-        { error: 'Too many requests. Please try again shortly.' },
-        { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
-      );
+    if (!trustedService) {
+      const retryAfterSeconds = isRateLimited(req);
+      if (retryAfterSeconds) {
+        return Response.json(
+          { error: 'Too many requests. Please try again shortly.' },
+          { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+        );
+      }
     }
 
     if (!trustedService) {
