@@ -6,7 +6,7 @@ import { flagshipArticleToolsVsSystem } from '@/data/flagshipArticles';
  */
 export const SEED_GROWTH_SHOW_EPISODES = [{
   "id": "seed-growth-show-PmXSEkj03ak",
-  "title": "Before You Add AI, Understand Your Business",
+  "title": "Your Business Comes First. Technology Comes Second.",
   "slug": "before-you-add-ai-understand-your-business",
   "summary": "Rick Hesse and Free AI Guy explore why discovery comes before technology, why people remain central to business systems, and how collaboration with AI supports human judgment.",
   "status": "Review",
@@ -23,9 +23,11 @@ export const SEED_GROWTH_SHOW_EPISODES = [{
     "better-business-book",
     "practical-ai-for-small-business"
   ],
-  "cta_text": "Start a Growth Conversation",
-  "cta_url": "/growth-conversation",
-  "notes": "September 15, 2026 release prepared from the three segments Rick confirmed in this session: Why Discovery Comes Before Technology; The Human Element in Business Systems; Collaboration Over Automation. YouTube upload URL supplied by Rick. Title is prepared copy. Public playback, visibility, final duration, and public episode number remain unverified; keep in Review until release."
+  "cta_text": "Read the related lesson",
+  "cta_url": "/websites-as-salespeople",
+  "notes": "Prepared September 15, 2026. Rick confirmed the completed video and requested its website connection. YouTube oEmbed verified the final title and accessible embed metadata. Episode number 7 supplied by Rick. Themes: discovery before technology, people in business systems, and collaboration with AI. Automated playback verification is limited by YouTube's bot protection. Ready for publication review; no email has been sent.",
+  "episode_number": 7,
+  "thumbnail_url": "https://i.ytimg.com/vi/PmXSEkj03ak/maxresdefault.jpg"
 }, {
   id: 'growth-show-episode-001',
   episode_number: 1,
