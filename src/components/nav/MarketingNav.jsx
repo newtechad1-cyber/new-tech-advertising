@@ -117,9 +117,6 @@ export default function MarketingNav() {
                   {link.label}
                 </Link>
               ))}
-              <a href={OPPORTUNITY_HREF} onClick={closeMobileMenu} className="block rounded-lg px-3 py-3 text-base font-medium text-cyan-300 hover:bg-slate-900">
-                NTA Opportunity
-              </a>
               <Link to="/free-audit" onClick={closeMobileMenu} className="block rounded-lg px-3 py-3 text-base font-medium text-blue-300 hover:bg-slate-900">
                 Free Audit
               </Link>
