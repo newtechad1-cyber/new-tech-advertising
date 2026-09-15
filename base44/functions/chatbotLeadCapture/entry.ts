@@ -3,23 +3,8 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 const MAX_BODY_BYTES = 16_384;
 const REQUEST_WINDOW_MS = 10 * 60 * 1000;
 const REQUEST_LIMIT = 10;
-const TRUSTED_PUBLIC_ORIGINS = new Set([
-  'https://newtechadvertising.com',
-  'https://www.newtechadvertising.com',
-  'https://new-tech-advertising.base44.app',
-]);
 
 const requestBuckets = new Map();
-
-function trustedOrigin(req) {
-  const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
-  if (!rawOrigin) return false;
-  try {
-    return TRUSTED_PUBLIC_ORIGINS.has(new URL(rawOrigin).origin);
-  } catch {
-    return false;
-  }
-}
 
 function clientKey(req) {
   return String(
@@ -61,13 +46,13 @@ Deno.serve(async (req) => {
 
   try {
     const base44 = createClientFromRequest(req);
-    const authUser = await base44.auth.me().catch(() => null);
-    const trustedService = authUser?.role === 'admin' || authUser?.is_service === true;
-
-    // Growth Guide visitors may submit without an account. Direct anonymous
-    // requests are accepted only from the public NTA site.
-    if (!trustedService && !trustedOrigin(req)) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    // Internal/legacy endpoint. Origin and Referer headers are not authentication.
+    const user = await base44.auth.me().catch(() => null);
+    if (!user) {
+      return Response.json({ error: 'Authentication required' }, { status: 401 });
+    }
+    if (user.role !== 'admin' && user.is_service !== true) {
+      return Response.json({ error: 'Administrator or service access required' }, { status: 403 });
     }
 
     const wait = retryAfter(req);

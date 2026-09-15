@@ -1,13 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 import OpenAI from 'npm:openai';
 
-const openai = new OpenAI({ apiKey: Deno.env.get('OPENAI_API_KEY') || Deno.env.get('OpenAI') });
-const TRUSTED_ORIGINS = new Set([
-  'https://newtechadvertising.com',
-  'https://www.newtechadvertising.com',
-  'https://app.newtechadvertising.com',
-  'https://new-tech-advertising.base44.app',
-]);
 const WINDOW_MS = 15 * 60 * 1000;
 const LIMIT = 16;
 const buckets = new Map();
@@ -45,26 +38,6 @@ function rateLimited(req) {
   return 0;
 }
 
-function configuredOrigin(value) {
-  try {
-    const url = new URL(String(value || ''));
-    return url.protocol === 'http:' || url.protocol === 'https:' ? url.origin : null;
-  } catch {
-    return null;
-  }
-}
-
-function trustedOrigin(req, chatbot) {
-  const raw = req.headers.get('origin') || req.headers.get('referer');
-  if (!raw) return false;
-  try {
-    const origin = new URL(raw).origin;
-    return TRUSTED_ORIGINS.has(origin) || origin === configuredOrigin(chatbot.website_url);
-  } catch {
-    return false;
-  }
-}
-
 function cleanMessages(value) {
   if (!Array.isArray(value)) return [];
   return value
@@ -91,8 +64,14 @@ Deno.serve(async (req) => {
 
   try {
     const base44 = createClientFromRequest(req);
+    // Internal/legacy endpoint. Origin and Referer headers are not authentication.
     const user = await base44.auth.me().catch(() => null);
-    const trustedService = user?.role === 'admin' || user?.is_service === true;
+    if (!user) {
+      return Response.json({ error: 'Authentication required' }, { status: 401 });
+    }
+    if (user.role !== 'admin' && user.is_service !== true) {
+      return Response.json({ error: 'Administrator or service access required' }, { status: 403 });
+    }
     const declaredLength = Number(req.headers.get('content-length') || 0);
     if (declaredLength > 32000) return Response.json({ error: 'Request is too large' }, { status: 413 });
 
@@ -116,17 +95,12 @@ Deno.serve(async (req) => {
 
     const chatbot = (await base44.asServiceRole.entities.Chatbot.filter({ id: chatbotId }))[0];
     if (!chatbot) return Response.json({ error: 'Chatbot not found' }, { status: 404 });
-    if (!trustedService && (chatbot.status !== 'active' || !trustedOrigin(req, chatbot))) {
-      return Response.json({ error: 'Untrusted chat request' }, { status: 403 });
-    }
-    if (!trustedService) {
-      const retryAfter = rateLimited(req);
-      if (retryAfter) {
-        return Response.json(
-          { error: 'Too many requests. Please try again shortly.' },
-          { status: 429, headers: { 'Retry-After': String(retryAfter) } },
-        );
-      }
+    const retryAfter = rateLimited(req);
+    if (retryAfter) {
+      return Response.json(
+        { error: 'Too many requests. Please try again shortly.' },
+        { status: 429, headers: { 'Retry-After': String(retryAfter) } },
+      );
     }
 
     const messages = cleanMessages(body.messages);
@@ -141,6 +115,7 @@ Deno.serve(async (req) => {
       .map(item => '[' + cleanText(item.category || 'General', 120) + ' - ' + cleanText(item.title, 240) + ']\n' + cleanText(item.content, 5000))
       .join('\n\n---\n\n');
 
+    const openai = new OpenAI({ apiKey: Deno.env.get('OPENAI_API_KEY') || Deno.env.get('OpenAI') });
     const systemPrompt = [
       String(chatbot.system_prompt || 'You are a helpful assistant.').slice(0, 8000),
       knowledgeText ? 'KNOWLEDGE BASE:\n' + knowledgeText : '',

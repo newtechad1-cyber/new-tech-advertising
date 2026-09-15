@@ -1,27 +1,9 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.48';
 
-const TRUSTED_APP_ORIGINS = new Set([
-  'https://newtechadvertising.com',
-  'https://www.newtechadvertising.com',
-  'https://app.newtechadvertising.com',
-  'https://new-tech-advertising.base44.app',
-]);
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 12;
 const MAX_BODY_BYTES = 16_384;
 const requestBuckets = new Map<string, { count: number; resetAt: number }>();
-
-function isTrustedAppOrigin(req: Request) {
-  try {
-    const origin = req.headers.get('origin');
-    if (origin && TRUSTED_APP_ORIGINS.has(origin)) return true;
-
-    const referer = req.headers.get('referer');
-    return Boolean(referer && TRUSTED_APP_ORIGINS.has(new URL(referer).origin));
-  } catch {
-    return false;
-  }
-}
 
 function isRateLimited(req: Request) {
   const now = Date.now();
@@ -55,8 +37,14 @@ Deno.serve(async (req) => {
   }
 
   try {
-    if (!isTrustedAppOrigin(req)) {
-      return Response.json({ error: 'Unauthorized' }, { status: 403 });
+    const base44 = createClientFromRequest(req);
+    // Internal/legacy endpoint. Origin and Referer headers are not authentication.
+    const user = await base44.auth.me().catch(() => null);
+    if (!user) {
+      return Response.json({ error: 'Authentication required' }, { status: 401 });
+    }
+    if (user.role !== 'admin' && user.is_service !== true) {
+      return Response.json({ error: 'Administrator or service access required' }, { status: 403 });
     }
 
     const retryAfterSeconds = isRateLimited(req);
@@ -112,7 +100,6 @@ Deno.serve(async (req) => {
       .map((message: any) => `${message.role === 'user' ? 'Prospect' : 'NTA Guide'}: ${message.content}`)
       .join('\n');
 
-    const base44 = createClientFromRequest(req);
     const prompt = `You are the NTA demo guide — a helpful, confident sales assistant for New Tech Advertising, an AI marketing platform for small businesses.
 Context about where the prospect is in the demo: ${context || 'browsing the demo'}
 
