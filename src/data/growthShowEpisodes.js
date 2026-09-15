@@ -5,6 +5,28 @@ import { flagshipArticleToolsVsSystem } from '@/data/flagshipArticles';
  * A Base44 record with the same YouTube ID replaces the seed record.
  */
 export const SEED_GROWTH_SHOW_EPISODES = [{
+  "id": "seed-growth-show-PmXSEkj03ak",
+  "title": "Before You Add AI, Understand Your Business",
+  "slug": "before-you-add-ai-understand-your-business",
+  "summary": "Rick Hesse and Free AI Guy explore why discovery comes before technology, why people remain central to business systems, and how collaboration with AI supports human judgment.",
+  "status": "Review",
+  "featured": false,
+  "youtube_video_id": "PmXSEkj03ak",
+  "source_article_slug": "websites-as-salespeople",
+  "publishing_article_id": "6a4bddd0f29cfc0dcba4d1ad",
+  "playlist_slug": "nta-growth-show",
+  "related_journal_issue_ids": [
+    "issue-7-are-you-building-a-business-or-just-a-website",
+    "6aa9466a35dc8d8f40d934ba"
+  ],
+  "related_book_slugs": [
+    "better-business-book",
+    "practical-ai-for-small-business"
+  ],
+  "cta_text": "Start a Growth Conversation",
+  "cta_url": "/growth-conversation",
+  "notes": "September 15, 2026 release prepared from the three segments Rick confirmed in this session: Why Discovery Comes Before Technology; The Human Element in Business Systems; Collaboration Over Automation. YouTube upload URL supplied by Rick. Title is prepared copy. Public playback, visibility, final duration, and public episode number remain unverified; keep in Review until release."
+}, {
   id: 'growth-show-episode-001',
   episode_number: 1,
   title: "They Sold Me the Tools. They Didn't Give Me a System.",
