@@ -35,7 +35,7 @@ function setup(mode = 'success') {
     },
     remove(id) { widgets.delete(id); },
   };
-  const source = readFileSync('docs/security/visitor-verification/src/lib/publicVerification.js', 'utf8')
+  const source = readFileSync('src/lib/publicVerification.js', 'utf8')
     .replace(/^import[^\n]*\n/gm, '');
   const exports = {};
   vm.runInNewContext(ts.transpileModule(source, {

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { BookOpen, CheckCircle2, Download, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 
 function getFunctionError(error, fallback) {
   return error?.response?.data?.error || error?.data?.error || error?.message || fallback;
@@ -69,10 +70,11 @@ export default function PublicationSignupForm({
         publication_title: publicationTitle,
         publication_tag: publicationTag,
         consent_context: consentContext,
+        consent: form.consent,
         anti_spam: { honeypot: form.website, form_started_at: startedAt.current },
       };
 
-      const registration = await base44.functions.invoke('publicationSignup', {
+      const registration = await invokeVerifiedPublicFunction('publicationSignup', {
         ...sharedPayload,
         tags: ['nta-publications', publicationTag, ...extraTags],
         create_delivery_request: createDeliveryRequest,

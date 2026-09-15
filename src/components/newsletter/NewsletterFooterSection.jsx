@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 
 function getFunctionError(error, fallback) {
   return error?.response?.data?.error || error?.data?.error || error?.message || fallback;
@@ -38,7 +38,7 @@ export default function NewsletterFooterSection() {
 
     setStatus('loading');
     try {
-      const registration = await base44.functions.invoke('publicationSignup', {
+      const registration = await invokeVerifiedPublicFunction('publicationSignup', {
         name: '',
         email: email.trim().toLowerCase(),
         business_name: '',
@@ -47,6 +47,7 @@ export default function NewsletterFooterSection() {
         source_url: window.location.href,
         publication_title: 'The NTA Journal',
         publication_tag: 'nta-journal',
+        consent,
         consent_context: 'Subscribed to The NTA Journal from the website footer.',
         tags: ['nta-newsletter', 'website-footer'],
         create_delivery_request: false,

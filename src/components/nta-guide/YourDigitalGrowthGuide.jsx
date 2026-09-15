@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { appParams } from '@/lib/app-params';
 import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare, Mail, Volume2, VolumeX, Minimize2, Maximize2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -730,7 +731,7 @@ export default function YourDigitalGrowthGuide() {
     setIsLoading(true);
 
     try {
-      const response = await base44.functions.invoke('growthGuideChat', {
+      const response = await invokeVerifiedPublicFunction('growthGuideChat', {
         messages: nextMessages.map(({ role, content }) => ({ role, content })),
         page_path: location.pathname,
         knowledge_context: buildPublicKnowledgeContext(text)
