@@ -1,7 +1,7 @@
 const DEFAULT_BOOKS = [
   {
     slug: 'better-business-book',
-    title: 'The Better Business Book',
+    title: 'The Better Business Building Book',
     description: 'A practical foundation for building a stronger local business.',
   },
   {
