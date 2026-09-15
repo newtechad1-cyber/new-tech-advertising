@@ -26,7 +26,7 @@ const validPayloads = {
   },
   ntaUnifiedIntake: { email: 'unit-test@example.invalid', name: 'Test Visitor', submission_type: 'contact' },
 };
-function setup(name, { env = settings, user = null, result = {}, networkError = false, authError = false, intakeError = false } = {}) {
+function setup(name, { env = settings, user = null, result = {}, networkError = false, authError = false, intakeError = false, crossAppError = null } = {}) {
   const source = readFileSync(path.join(root, 'base44/functions', name, 'entry.ts'), 'utf8')
     .replace(/^import[^\n]*\n/gm, '');
   const output = ts.transpileModule(source, {
@@ -74,6 +74,7 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
       return { functions: { async invoke(name, payload) {
       stats.effects++;
       stats.crossAppCalls.push({ appId: options.appId, name, payload });
+      if (crossAppError) throw Object.assign(new Error('Unauthorized'), { response: { status: crossAppError, data: { error: 'Unauthorized.' } } });
       return { data: { success: true } };
     } } }; },
     async fetch(url, options) {
@@ -303,3 +304,19 @@ test('guided setup: a failed CRM handoff retains the saved request and exposes i
   assert.equal(body.intake_status, 'needs_attention');
   assert.equal(body.provisioning_status, 'pending');
 });
+
+for (const name of ['ntaUnifiedIntake', 'submitRecruitingApplication']) {
+  for (const status of [401, 403]) {
+    test(name + ': Core ' + status + ' becomes a clear unavailable-connection message', async () => {
+      const fixture = setup(name, { crossAppError: status });
+      const response = await fixture.request({ ...validPayloads[name], verification_token: 'one-time-proof' });
+      assert.equal(response.status, 503);
+      const body = await response.json();
+      assert.equal(body.code, 'NTA_CONNECTION_UNAVAILABLE');
+      assert.match(body.error, /could not save your request/);
+      assert.match(body.error, /641-420-8816/);
+      assert.doesNotMatch(body.error, /Unauthorized/);
+      assert.equal(fixture.stats.crossAppCalls.length, 1);
+    });
+  }
+}

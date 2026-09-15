@@ -90,6 +90,55 @@ function createCoreClient() {
   });
 }
 
+
+// Public readiness metadata is deliberately non-mutating: only these fixed
+// authenticated Core connection_check responses are requested. Caller data,
+// contact details and verification tokens can never enter these probes.
+const CORE_CONNECTION_RECEIVERS = ['ntaUnifiedIntake', 'submitRecruitingApplication', 'trackBookEvent'];
+let coreConnectionCache = null;
+let coreConnectionPending = null;
+
+async function readCoreConnectionStatus() {
+  const office = createCoreClient();
+  const checks = await Promise.all(CORE_CONNECTION_RECEIVERS.map(async (name) => {
+    let timer;
+    try {
+      const response = await Promise.race([
+        office.functions.invoke(name, { connection_check: true }),
+        new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('timeout')), 10000); }),
+      ]);
+      const data = response?.data;
+      return [name, data?.connection_ready === true && data?.function === name];
+    } catch {
+      return [name, false];
+    } finally { clearTimeout(timer); }
+  }));
+  return {
+    connection_ready: checks.every(([, ready]) => ready),
+    connections: Object.fromEntries(checks),
+  };
+}
+
+async function publicCoreConnectionStatus() {
+  if (!coreConnectionCache || Date.now() >= coreConnectionCache.until) {
+    if (!coreConnectionPending) {
+      coreConnectionPending = readCoreConnectionStatus()
+        .catch(() => ({ connection_ready: false }))
+        .then(result => {
+          coreConnectionCache = {
+            result, until: Date.now() + (result.connection_ready ? 30000 : 5000),
+          };
+        }).finally(() => { coreConnectionPending = null; });
+    }
+    await coreConnectionPending;
+  }
+  const result = coreConnectionCache.result;
+  return Response.json(result, {
+    status: result.connection_ready ? 200 : 503,
+    headers: { 'Cache-Control': 'no-store' },
+  });
+}
+
 const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://newtechadvertising.com',
   'https://www.newtechadvertising.com',
@@ -287,6 +336,11 @@ Deno.serve(async (req) => {
     // Only the public site key is returned; the provider secret stays server-side.
     if (incoming.verification_config === true && Object.keys(incoming).length === 1) {
       return publicVerificationConfig('nta_unified_intake');
+    }
+
+    // Exact no-data metadata only; any added field still requires visitor proof.
+    if (incoming.connection_check === true && Object.keys(incoming).length === 1) {
+      return publicCoreConnectionStatus();
     }
 
     if (!trustedService) {
