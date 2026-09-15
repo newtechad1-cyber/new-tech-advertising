@@ -147,6 +147,16 @@ function functionProfile(name) {
   const hasOriginGuard = /(?:isTrustedPublicOrigin|isAllowedOrigin|trusted.*origin|allowed.*origin|origin.*(?:allow|trust))/i.test(source);
   const hasRateLimit = /(?:isRateLimited|rateLimit|REQUEST_LIMIT|rate.?limit)/i.test(source);
   const hasSpamCheck = /(?:honeypot|turnstile|captcha|anti[_-]?spam)/i.test(source);
+  // Origins and throttles are abuse controls, not caller verification.
+  // Recognize the reviewed provider gate only when its result is awaited and returned.
+  const hasVerifiedPublicGuard = (
+    /const\s+verificationError\s*=\s*await\s+verifyPublicRequest\(/.test(source)
+    && /if\s*\(verificationError\)\s*return\s+verificationError/.test(source)
+  );
+  const hasAnonymousOriginAdmission = hasOriginGuard && (
+    /if\s*\(\s*!trustedService\s*&&/.test(source)
+    || (!hasAuth && (hasRateLimit || hasSpamCheck))
+  );
   const usesExpensiveOrExternal = /(?:InvokeLLM|GenerateImage|SendEmail|connectors\.getConnection|await\s+fetch\s*\(|\.fetch\s*\()/i.test(source);
   const providerNamed = /(?:oauthcallback|stripewebhook|webhookhandler|drivewatch|drivesync)/i.test(name);
   const automation = /"automations"\s*:\s*\[/.test(config);
@@ -193,6 +203,8 @@ function functionProfile(name) {
     hasOriginGuard,
     hasRateLimit,
     hasSpamCheck,
+    hasVerifiedPublicGuard,
+    hasAnonymousOriginAdmission,
     hasPublicBoundary: (hasOriginGuard && hasRateLimit) || (hasRateLimit && hasSpamCheck),
     hasCustomBoundary,
     usesExpensiveOrExternal,
@@ -264,6 +276,17 @@ for (const name of functionNames) {
   const publicCallers = browserReferences.functionFiles.get(name);
   const publicCallerFiles = publicCallers ? displayFiles(publicCallers) : '';
   const externallyCalled = Boolean(publicCallers);
+
+  if (profile.hasServiceRole && profile.hasAnonymousOriginAdmission && !profile.hasVerifiedPublicGuard) {
+    findings.push(finding(
+      'high',
+      'ANONYMOUS_PRIVILEGED_WORK_WITHOUT_CALLER_VERIFICATION',
+      name,
+      'Origin/Referer checks, honeypots, and request limits do not verify an anonymous caller. Require authenticated access or a server-verified visitor token.',
+      publicCallerFiles,
+    ));
+    continue;
+  }
 
   if (profile.providerNamed && !profile.hasAuth && !profile.hasProviderGuard && !profile.hasCustomBoundary) {
     findings.push(finding(
