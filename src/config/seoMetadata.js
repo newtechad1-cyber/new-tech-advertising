@@ -97,7 +97,7 @@ const STATIC_SEO = {
     description: "Free practical business books from Rick Hesse on AI, trust, growth, and building stronger systems around the work you already do.",
   },
   "/better-business-book": {
-    title: "The Better Business Book: Practical Growth Guidance | NTA",
+    title: "The Better Business Building Book: Practical Growth Guidance | NTA",
     description: "A practical business book for owners who want clearer decisions, stronger relationships, and growth that is built on more than constant advertising.",
   },
   "/practical-ai-for-small-business": {
