@@ -1,0 +1,425 @@
+{
+  "version": 1,
+  "stage": "prepared_awaiting_shared_secret",
+  "secret_name": "NTA_CORE_BRIDGE_SECRET",
+  "header": "x-nta-core-bridge-secret",
+  "minimum_secret_length": 32,
+  "apps": [
+    "691f41a18de4a7f498c8f884",
+    "6a7215451eb90dc843a94546"
+  ],
+  "activation_order": [
+    "Save the same random secret in both Base44 apps.",
+    "Apply exact staged source edits to both apps; abort if an old_text no longer matches.",
+    "Run both builds and boundary tests.",
+    "Publish the Core app, then the public app.",
+    "Verify no-data rejection and one approved real visitor submission."
+  ],
+  "changes": [
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "base44/functions/ntaUnifiedIntake/entry.ts",
+      "edits": [
+        {
+          "old_text": "import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';",
+          "new_text": "import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';\n\n// Shared credentials stay between the NTA website server and Core.\n// Origin, public site keys, and browser-supplied roles do not grant access.\nasync function hasTrustedCoreBridge(req) {\n  const expected = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();\n  const supplied = req.headers.get('x-nta-core-bridge-secret') || '';\n  if (expected.length < 32 || supplied.length !== expected.length) return false;\n  const encoder = new TextEncoder();\n  const left = new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(expected)));\n  const right = new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(supplied)));\n  let difference = 0;\n  for (let i = 0; i < left.length; i++) difference |= left[i] ^ right[i];\n  return difference === 0;\n}\n\nasync function readBoundedCorePayload(req) {\n  if (Number(req.headers.get('content-length') || 0) > 48000) return null;\n  const text = await req.text();\n  if (text.length > 48000) return null;\n  try {\n    const payload = JSON.parse(text || '{}');\n    return payload && typeof payload === 'object' && !Array.isArray(payload) ? payload : null;\n  } catch { return null; }\n}\n",
+          "replace_all": false
+        },
+        {
+          "old_text": "    const base44 = createClientFromRequest(req);\n    const payload = await req.json();",
+          "new_text": "    const base44 = createClientFromRequest(req);\n    const user = await base44.auth.me().catch(() => null);\n    if (user?.role !== 'admin' && user?.is_service !== true && !await hasTrustedCoreBridge(req)) {\n      return Response.json({ error: 'Unauthorized.' }, { status: 401 });\n    }\n    const payload = await readBoundedCorePayload(req);\n    if (!payload) return Response.json({ error: 'Invalid or oversized request body.' }, { status: 400 });\n    if (payload.connection_check === true && Object.keys(payload).length === 1) {\n      return Response.json({ connection_ready: true, function: 'ntaUnifiedIntake' });\n    }",
+          "replace_all": false
+        },
+        {
+          "old_text": "Deno.serve(async (req) => {\n  try {",
+          "new_text": "Deno.serve(async (req) => {\n  if (req.method !== 'POST') return Response.json({ error: 'Method not allowed.' }, { status: 405 });\n  try {",
+          "replace_all": false
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "base44/functions/submitRecruitingApplication/entry.ts",
+      "edits": [
+        {
+          "old_text": "import { createClientFromRequest } from 'npm:@base44/sdk@0.8.21';",
+          "new_text": "import { createClientFromRequest } from 'npm:@base44/sdk@0.8.21';\n\n// Shared credentials stay between the NTA website server and Core.\n// Origin, public site keys, and browser-supplied roles do not grant access.\nasync function hasTrustedCoreBridge(req) {\n  const expected = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();\n  const supplied = req.headers.get('x-nta-core-bridge-secret') || '';\n  if (expected.length < 32 || supplied.length !== expected.length) return false;\n  const encoder = new TextEncoder();\n  const left = new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(expected)));\n  const right = new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(supplied)));\n  let difference = 0;\n  for (let i = 0; i < left.length; i++) difference |= left[i] ^ right[i];\n  return difference === 0;\n}\n\nasync function readBoundedCorePayload(req) {\n  if (Number(req.headers.get('content-length') || 0) > 48000) return null;\n  const text = await req.text();\n  if (text.length > 48000) return null;\n  try {\n    const payload = JSON.parse(text || '{}');\n    return payload && typeof payload === 'object' && !Array.isArray(payload) ? payload : null;\n  } catch { return null; }\n}\n",
+          "replace_all": false
+        },
+        {
+          "old_text": "    const trustedService = user?.role === 'admin' || user?.is_service === true;\n    const trustedPublicOrigin = isTrustedPublicOrigin(req);\n\n    if (!trustedService && !trustedPublicOrigin) {\n      return reply(req, { error: 'Unauthorized.' }, 403);\n    }",
+          "new_text": "    const trustedService = user?.role === 'admin' || user?.is_service === true || await hasTrustedCoreBridge(req);\n    if (!trustedService) return reply(req, { error: 'Unauthorized.' }, 401);",
+          "replace_all": false
+        },
+        {
+          "old_text": "      body = await req.json();",
+          "new_text": "      body = await readBoundedCorePayload(req);\n      if (!body) return reply(req, { error: 'Invalid or oversized request body.' }, 400);",
+          "replace_all": false
+        },
+        {
+          "old_text": "    const honeypot = cleanText",
+          "new_text": "    if (body.connection_check === true && Object.keys(body).length === 1) {\n      return reply(req, { connection_ready: true, function: 'submitRecruitingApplication' });\n    }\n\n    const honeypot = cleanText",
+          "replace_all": false
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "base44/functions/trackBookEvent/entry.ts",
+      "edits": [
+        {
+          "old_text": "import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';",
+          "new_text": "import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';\n\n// Shared credentials stay between the NTA website server and Core.\n// Origin, public site keys, and browser-supplied roles do not grant access.\nasync function hasTrustedCoreBridge(req) {\n  const expected = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();\n  const supplied = req.headers.get('x-nta-core-bridge-secret') || '';\n  if (expected.length < 32 || supplied.length !== expected.length) return false;\n  const encoder = new TextEncoder();\n  const left = new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(expected)));\n  const right = new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(supplied)));\n  let difference = 0;\n  for (let i = 0; i < left.length; i++) difference |= left[i] ^ right[i];\n  return difference === 0;\n}\n\nasync function readBoundedCorePayload(req) {\n  if (Number(req.headers.get('content-length') || 0) > 48000) return null;\n  const text = await req.text();\n  if (text.length > 48000) return null;\n  try {\n    const payload = JSON.parse(text || '{}');\n    return payload && typeof payload === 'object' && !Array.isArray(payload) ? payload : null;\n  } catch { return null; }\n}\n",
+          "replace_all": false
+        },
+        {
+          "old_text": "    const base44 = createClientFromRequest(req);\n    const payload = await req.json();",
+          "new_text": "    const base44 = createClientFromRequest(req);\n    const user = await base44.auth.me().catch(() => null);\n    if (user?.role !== 'admin' && user?.is_service !== true && !await hasTrustedCoreBridge(req)) {\n      return Response.json({ error: 'Unauthorized.' }, { status: 401 });\n    }\n    const payload = await readBoundedCorePayload(req);\n    if (!payload) return Response.json({ error: 'Invalid or oversized request body.' }, { status: 400 });\n    if (payload.connection_check === true && Object.keys(payload).length === 1) {\n      return Response.json({ connection_ready: true, function: 'trackBookEvent' });\n    }",
+          "replace_all": false
+        }
+      ]
+    },
+    {
+      "appId": "691f41a18de4a7f498c8f884",
+      "path": "base44/functions/ntaUnifiedIntake/entry.ts",
+      "edits": [
+        {
+          "old_text": "import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.31';",
+          "new_text": "import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.48';",
+          "replace_all": false
+        },
+        {
+          "old_text": "const OFFICE_APP_ID = '6a7215451eb90dc843a94546';",
+          "new_text": "const OFFICE_APP_ID = '6a7215451eb90dc843a94546';\n\nfunction createCoreClient() {\n  const secret = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();\n  if (secret.length < 32) throw new Error('The NTA connection is not configured. Please call or text 641-420-8816.');\n  return createClient({\n    appId: OFFICE_APP_ID,\n    headers: { 'x-nta-core-bridge-secret': secret },\n  });\n}\n",
+          "replace_all": false
+        },
+        {
+          "old_text": "createClient({ appId: OFFICE_APP_ID })",
+          "new_text": "createCoreClient()",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "691f41a18de4a7f498c8f884",
+      "path": "base44/functions/submitRecruitingApplication/entry.ts",
+      "edits": [
+        {
+          "old_text": "import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.21';",
+          "new_text": "import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.48';",
+          "replace_all": false
+        },
+        {
+          "old_text": "const OFFICE_APP_ID = '6a7215451eb90dc843a94546';",
+          "new_text": "const OFFICE_APP_ID = '6a7215451eb90dc843a94546';\n\nfunction createCoreClient() {\n  const secret = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();\n  if (secret.length < 32) throw new Error('The NTA connection is not configured. Please call or text 641-420-8816.');\n  return createClient({\n    appId: OFFICE_APP_ID,\n    headers: { 'x-nta-core-bridge-secret': secret },\n  });\n}\n",
+          "replace_all": false
+        },
+        {
+          "old_text": "createClient({ appId: OFFICE_APP_ID })",
+          "new_text": "createCoreClient()",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "691f41a18de4a7f498c8f884",
+      "path": "base44/functions/publicationSignup/entry.ts",
+      "edits": [
+        {
+          "old_text": "import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.40';",
+          "new_text": "import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.48';",
+          "replace_all": false
+        },
+        {
+          "old_text": "const OFFICE_APP_ID = '6a7215451eb90dc843a94546';",
+          "new_text": "const OFFICE_APP_ID = '6a7215451eb90dc843a94546';\n\nfunction createCoreClient() {\n  const secret = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();\n  if (secret.length < 32) throw new Error('The NTA connection is not configured. Please call or text 641-420-8816.');\n  return createClient({\n    appId: OFFICE_APP_ID,\n    headers: { 'x-nta-core-bridge-secret': secret },\n  });\n}\n",
+          "replace_all": false
+        },
+        {
+          "old_text": "createClient({ appId: OFFICE_APP_ID })",
+          "new_text": "createCoreClient()",
+          "replace_all": true
+        },
+        {
+          "old_text": "console.warn('[publicationSignup] Book access event could not be recorded:', trackingError);",
+          "new_text": "console.warn('[publicationSignup] Book access event could not be recorded:', trackingError?.response?.status || 'request_failed');",
+          "replace_all": false
+        }
+      ]
+    },
+    {
+      "appId": "691f41a18de4a7f498c8f884",
+      "path": "base44/functions/trackBookEvent/entry.ts",
+      "edits": [
+        {
+          "old_text": "import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.31';",
+          "new_text": "import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.48';",
+          "replace_all": false
+        },
+        {
+          "old_text": "const OFFICE_APP_ID = '6a7215451eb90dc843a94546';",
+          "new_text": "const OFFICE_APP_ID = '6a7215451eb90dc843a94546';\n\nfunction createCoreClient() {\n  const secret = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();\n  if (secret.length < 32) throw new Error('The NTA connection is not configured. Please call or text 641-420-8816.');\n  return createClient({\n    appId: OFFICE_APP_ID,\n    headers: { 'x-nta-core-bridge-secret': secret },\n  });\n}\n",
+          "replace_all": false
+        },
+        {
+          "old_text": "createClient({ appId: OFFICE_APP_ID })",
+          "new_text": "createCoreClient()",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "691f41a18de4a7f498c8f884",
+      "path": "src/pages/RegionalAccountManager.jsx",
+      "edits": [
+        {
+          "old_text": "import { createClient } from '@base44/sdk';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';",
+          "replace_all": false
+        },
+        {
+          "old_text": "const NTA_CORE_APP_ID = '6a7215451eb90dc843a94546';\nconst recruitingIntake = createClient({ appId: NTA_CORE_APP_ID });\n",
+          "new_text": "",
+          "replace_all": false
+        },
+        {
+          "old_text": "recruitingIntake.functions.invoke('submitRecruitingApplication',",
+          "new_text": "invokeVerifiedPublicFunction('submitRecruitingApplication',",
+          "replace_all": false
+        },
+        {
+          "old_text": "if (data?.error) {",
+          "new_text": "if (data?.error || data?.accepted === false || data?.success !== true) {",
+          "replace_all": false
+        },
+        {
+          "old_text": "throw new Error(data.error);",
+          "new_text": "throw new Error(data?.error || 'Your inquiry was not accepted. Please try again or call or text 641-420-8816.');",
+          "replace_all": false
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/pages/ServiceLocation.jsx",
+      "edits": [
+        {
+          "old_text": "import { useEffect, useState } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useEffect, useState } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/pages/NTAGrowthConversation.jsx",
+      "edits": [
+        {
+          "old_text": "import { useMemo, useRef, useState } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useMemo, useRef, useState } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/pages/Get-Started.jsx",
+      "edits": [
+        {
+          "old_text": "import { useState } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useState } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/pages/Free-Audit.jsx",
+      "edits": [
+        {
+          "old_text": "import { useState } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useState } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/pages/Contact.jsx",
+      "edits": [
+        {
+          "old_text": "import { useRef, useState } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useRef, useState } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/pages/CaseStudyDetail.jsx",
+      "edits": [
+        {
+          "old_text": "import { useState } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useState } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/pages/AdaIntake.jsx",
+      "edits": [
+        {
+          "old_text": "import { useState, useEffect } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useState, useEffect } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/components/start/StartForm.jsx",
+      "edits": [
+        {
+          "old_text": "import React, { useState } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport React, { useState } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/components/landing/SignupModal.jsx",
+      "edits": [
+        {
+          "old_text": "import { useState } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useState } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('ntaUnifiedIntake',",
+          "new_text": "invokeVerifiedPublicFunction('ntaUnifiedIntake',",
+          "replace_all": true
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/pages/JoinNTA.jsx",
+      "edits": [
+        {
+          "old_text": "import { useRef, useState, useEffect } from 'react';",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useRef, useState, useEffect } from 'react';",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke('submitRecruitingApplication',",
+          "new_text": "invokeVerifiedPublicFunction('submitRecruitingApplication',",
+          "replace_all": true
+        },
+        {
+          "old_text": "current_role: '', business_relationships: '', interest_reason: '',",
+          "new_text": "current_role: '', business_relationships: '', interest_reason: '', business_observation: '',",
+          "replace_all": false
+        },
+        {
+          "old_text": "name=\"interest_reason\" value=",
+          "new_text": "name=\"interest_reason\" required value=",
+          "replace_all": false
+        },
+        {
+          "old_text": "<textarea name=\"interest_reason\" required value={form.interest_reason} onChange={handleChange} rows={3} placeholder=\"What excites you about this opportunity? What are you looking for?\" className=\"w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none\" />\n              </div>",
+          "new_text": "<textarea name=\"interest_reason\" required value={form.interest_reason} onChange={handleChange} rows={3} placeholder=\"What excites you about this opportunity? What are you looking for?\" className=\"w-full border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none\" />\n              </div>\n              <label className=\"block text-sm font-semibold text-slate-700\">\n                What do you naturally notice when you look at a business? *\n                <textarea name=\"business_observation\" required value={form.business_observation} onChange={handleChange} rows={3} className=\"mt-2 w-full rounded-lg border border-slate-300 px-4 py-3 font-normal\" />\n              </label>",
+          "replace_all": false
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/components/OpportunityConversationForm.jsx",
+      "edits": [
+        {
+          "old_text": "import { useState } from \"react\";",
+          "new_text": "import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';\nimport { useState } from \"react\";",
+          "replace_all": false
+        },
+        {
+          "old_text": "base44.functions.invoke(\"submitRecruitingApplication\",",
+          "new_text": "invokeVerifiedPublicFunction(\"submitRecruitingApplication\",",
+          "replace_all": true
+        },
+        {
+          "old_text": "  interest_reason: \"\",",
+          "new_text": "  interest_reason: \"\",\n  business_observation: \"\",",
+          "replace_all": false
+        },
+        {
+          "old_text": "        interest_reason: form.interest_reason,",
+          "new_text": "        interest_reason: form.interest_reason,\n        business_observation: form.business_observation,",
+          "replace_all": false
+        },
+        {
+          "old_text": "name=\"interest_reason\" value=",
+          "new_text": "name=\"interest_reason\" required value=",
+          "replace_all": false
+        },
+        {
+          "old_text": "            <div className=\"sr-only\" aria-hidden=\"true\">",
+          "new_text": "            <label className=\"mt-5 block text-sm font-semibold text-slate-100\">\n              What do you naturally notice when you look at a business? *\n              <textarea name=\"business_observation\" required value={form.business_observation} onChange={handleChange} rows={4} placeholder=\"For example: how customers find it, what builds trust, or where follow-up could improve.\" className=\"mt-2 w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 font-normal text-white focus:border-cyan-400\" />\n            </label>\n\n            <div className=\"sr-only\" aria-hidden=\"true\">",
+          "replace_all": false
+        },
+        {
+          "old_text": "{error && <p className=",
+          "new_text": "{error && <p role=\"alert\" className=",
+          "replace_all": false
+        }
+      ]
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "path": "src/lib/publicVerification.js",
+      "create": true,
+      "content": "import { createClient } from '@base44/sdk';\n// Public Core forms enter through the website's verified visitor gateway.\nconst base44 = createClient({ appId: '691f41a18de4a7f498c8f884' });\n\nconst ACTIONS = {\n  growthGuideChat: 'growth_guide_chat',\n  publicationSignup: 'publication_signup',\n  ntaUnifiedIntake: 'nta_unified_intake',\n  startDiscoverySession: 'start_discovery_session',\n  submitPublicTrialSignup: 'trial_signup',\n  submitRecruitingApplication: 'recruiting_application',\n};\nlet scriptPromise;\nlet verificationQueue = Promise.resolve();\nconst configCache = new Map();\n\nfunction loadVerificationScript() {\n  if (window.turnstile) return Promise.resolve(window.turnstile);\n  if (!scriptPromise) {\n    scriptPromise = new Promise((resolve, reject) => {\n      const script = document.createElement('script');\n      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';\n      script.async = true;\n      script.defer = true;\n      const timeout = window.setTimeout(() => {\n        script.remove();\n        reject(new Error('Verification could not load. Please try again.'));\n      }, 15_000);\n      script.onload = () => {\n        window.clearTimeout(timeout);\n        if (window.turnstile) resolve(window.turnstile);\n        else reject(new Error('Verification could not load. Please try again.'));\n      };\n      script.onerror = () => {\n        window.clearTimeout(timeout);\n        script.remove();\n        reject(new Error('Verification could not load. Please try again.'));\n      };\n      document.head.appendChild(script);\n    }).catch(error => { scriptPromise = null; throw error; });\n  }\n  return scriptPromise;\n}\n\nasync function getVerificationConfig(name) {\n  const cached = configCache.get(name);\n  if (cached && Date.now() < cached.expiresAt) return cached;\n  const response = await base44.functions.invoke(name, { verification_config: true });\n  const { site_key: siteKey, action } = response.data || {};\n  if (typeof siteKey !== 'string' || siteKey.length < 20 || action !== ACTIONS[name]) {\n    throw new Error('Verification is temporarily unavailable. Please call or text 641-420-8816.');\n  }\n  const value = { siteKey, action, expiresAt: Date.now() + 300_000 };\n  configCache.set(name, value);\n  return value;\n}\n\nasync function requestVisitorToken(config) {\n  const turnstile = await loadVerificationScript();\n  return new Promise((resolve, reject) => {\n    const dialog = document.createElement('dialog');\n    const previousFocus = document.activeElement;\n    dialog.setAttribute('aria-label', 'Verify your request');\n    Object.assign(dialog.style, {\n      padding: '24px', border: '1px solid #cbd5e1', borderRadius: '16px',\n      maxWidth: 'calc(100vw - 32px)', width: '350px', color: '#0f172a',\n      background: '#fff', boxShadow: '0 20px 60px #0004', zIndex: '2147483647',\n    });\n    const message = document.createElement('p');\n    message.textContent = 'Checking your request…';\n    message.setAttribute('role', 'status');\n    Object.assign(message.style, { margin: '0 0 16px', fontSize: '16px' });\n    const holder = document.createElement('div');\n    const cancel = document.createElement('button');\n    cancel.type = 'button';\n    cancel.textContent = 'Cancel';\n    Object.assign(cancel.style, {\n      display: 'block', margin: '16px 0 0 auto', padding: '8px 16px',\n      border: '1px solid #94a3b8', borderRadius: '8px', cursor: 'pointer',\n    });\n    dialog.append(message, holder, cancel);\n    document.body.appendChild(dialog);\n    let widgetId;\n    let settled = false;\n    const timeout = window.setTimeout(() => finish(new Error('Verification timed out. Please try again.')), 120_000);\n\n    function finish(error, token) {\n      if (settled) return;\n      settled = true;\n      window.clearTimeout(timeout);\n      if (widgetId !== undefined) {\n        try { turnstile.remove(widgetId); } catch { /* already removed */ }\n      }\n      if (dialog.open) dialog.close();\n      dialog.remove();\n      if (previousFocus?.isConnected && typeof previousFocus.focus === 'function') previousFocus.focus();\n      if (error) reject(error);\n      else resolve(token);\n    }\n\n    cancel.addEventListener('click', () => finish(new Error('Verification cancelled. Your request was not submitted.')));\n    dialog.addEventListener('cancel', event => {\n      event.preventDefault();\n      finish(new Error('Verification cancelled. Your request was not submitted.'));\n    });\n\n    try {\n      dialog.showModal();\n      widgetId = turnstile.render(holder, {\n        sitekey: config.siteKey,\n        action: config.action,\n        theme: 'light',\n        execution: 'execute',\n        appearance: 'interaction-only',\n        callback: token => finish(null, token),\n        'error-callback': () => finish(new Error('Verification failed. Please try again.')),\n        'expired-callback': () => finish(new Error('Verification expired. Please try again.')),\n        'timeout-callback': () => finish(new Error('Verification timed out. Please try again.')),\n      });\n      turnstile.execute(widgetId);\n    } catch {\n      finish(new Error('Verification could not start. Please try again.'));\n    }\n  });\n}\n\n// Get a fresh, single-use provider token for every submission. Never store it\n// in localStorage or retry a mutation automatically after an uncertain result.\nexport async function invokeVerifiedPublicFunction(name, payload) {\n  if (!ACTIONS[name]) throw new Error('Unsupported public function');\n  const config = await getVerificationConfig(name);\n  const pending = verificationQueue.then(() => requestVisitorToken(config));\n  verificationQueue = pending.catch(() => {});\n  const token = await pending;\n  const response = await base44.functions.invoke(name, { ...payload, verification_token: token });\n  const result = response?.data ?? response;\n  if (result?.success === false || result?.accepted === false) {\n    throw new Error(result.error || 'Your request was not accepted. Please try again or call or text 641-420-8816.');\n  }\n  return response;\n}"
+    }
+  ]
+}
