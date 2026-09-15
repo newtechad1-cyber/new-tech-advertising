@@ -8,7 +8,9 @@ import ts from 'typescript';
 
 // Exercise the active handlers that will be published, not the old staged snapshots.
 const root = path.resolve('.');
+const bridgeSettings = { NTA_CORE_BRIDGE_SECRET: 'unit-test-core-bridge-secret-not-for-production' };
 const settings = {
+  ...bridgeSettings,
   NTA_TURNSTILE_SITE_KEY: '0x-stub-site-key-for-isolated-unit-tests',
   NTA_TURNSTILE_SECRET_KEY: 'stub-secret-for-isolated-unit-tests-only',
 };
@@ -67,7 +69,9 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
     console: { log() {}, warn() {}, error() {} },
     Deno: { serve(fn) { handler = fn; }, env: { get(key) { return env[key]; } } },
     createClientFromRequest() { return { auth: { async me() { if (authError) throw new Error('Invalid caller session'); return user; } }, asServiceRole: service }; },
-    createClient(options) { return { functions: { async invoke(name, payload) {
+    createClient(options) {
+      assert.equal(options.headers?.['x-nta-core-bridge-secret'], env.NTA_CORE_BRIDGE_SECRET);
+      return { functions: { async invoke(name, payload) {
       stats.effects++;
       stats.crossAppCalls.push({ appId: options.appId, name, payload });
       return { data: { success: true } };
@@ -149,7 +153,7 @@ for (const name of Object.keys(actions)) {
   });
 
   test(name + ': privileged identity retains internal access without visitor proof', async () => {
-    const fixture = setup(name, { env: {}, user: { role: 'admin', id: 'verified-admin' } });
+    const fixture = setup(name, { env: bridgeSettings, user: { role: 'admin', id: 'verified-admin' } });
     const response = await fixture.request();
     assert.equal(response.status, 200);
     assert.equal(fixture.stats.provider, 0);
@@ -164,7 +168,7 @@ for (const name of Object.keys(actions)) {
   });
 
   test(name + ': verified service identity retains internal access without visitor proof', async () => {
-    const fixture = setup(name, { env: {}, user: { id: 'verified-service', is_service: true } });
+    const fixture = setup(name, { env: bridgeSettings, user: { id: 'verified-service', is_service: true } });
     assert.equal((await fixture.request()).status, 200);
     assert.equal(fixture.stats.provider, 0);
   });
