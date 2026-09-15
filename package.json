@@ -14,7 +14,8 @@
     "test:public-seo": "npm run build && node --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p ./jsconfig.json",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:backend-auth": "node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.48",

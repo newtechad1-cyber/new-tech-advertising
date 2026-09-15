@@ -144,6 +144,7 @@ function functionProfile(name) {
   const hasServiceRole = /\.asServiceRole\b/.test(source);
   const hasAdminOrServiceGuard = /(?:role\s*(?:={2,3}|!={2,3})\s*["']admin["']|is_service\s*(?:={2,3}|!={2,3})\s*true|isTrusted(?:Internal)?(?:User|Service)|isAdmin(?:User)?|requireAdmin(?:OrService)?)/i.test(source);
   const hasProviderGuard = /(?:stripe-signature|x-goog-channel-token|verify(?:Webhook|Signature)|verify.*state|signed.*state|hmac|WEBHOOK_(?:SECRET|TOKEN)|isValid(?:Webhook|Signature))/i.test(source);
+  const hasPrivilegedMutation = /\.asServiceRole\.(?:entities\.\w+\.(?:create|update|delete|bulkCreate)|functions\.invoke|integrations\.)/.test(source);
   const hasOriginGuard = /(?:isTrustedPublicOrigin|isAllowedOrigin|trusted.*origin|allowed.*origin|origin.*(?:allow|trust))/i.test(source);
   const hasRateLimit = /(?:isRateLimited|rateLimit|REQUEST_LIMIT|rate.?limit)/i.test(source);
   const hasSpamCheck = /(?:honeypot|turnstile|captcha|anti[_-]?spam)/i.test(source);
@@ -198,6 +199,7 @@ function functionProfile(name) {
     isHttpEndpoint,
     hasAuth,
     hasServiceRole,
+    hasPrivilegedMutation,
     hasAdminOrServiceGuard,
     hasProviderGuard,
     hasOriginGuard,
@@ -277,7 +279,7 @@ for (const name of functionNames) {
   const publicCallerFiles = publicCallers ? displayFiles(publicCallers) : '';
   const externallyCalled = Boolean(publicCallers);
 
-  if (profile.hasServiceRole && profile.hasAnonymousOriginAdmission && !profile.hasVerifiedPublicGuard) {
+  if (profile.hasPrivilegedMutation && profile.hasAnonymousOriginAdmission && !profile.hasVerifiedPublicGuard && !profile.hasCustomBoundary) {
     findings.push(finding(
       'high',
       'ANONYMOUS_PRIVILEGED_WORK_WITHOUT_CALLER_VERIFICATION',
