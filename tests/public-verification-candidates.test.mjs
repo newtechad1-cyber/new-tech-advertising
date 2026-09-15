@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 import path from 'node:path';
 import test from 'node:test';
+import { webcrypto } from 'node:crypto';
 import ts from 'typescript';
 
 // Exercise the active handlers that will be published, not the old staged snapshots.
@@ -11,8 +12,10 @@ const settings = {
   NTA_TURNSTILE_SITE_KEY: '0x-stub-site-key-for-isolated-unit-tests',
   NTA_TURNSTILE_SECRET_KEY: 'stub-secret-for-isolated-unit-tests-only',
 };
-const actions = { growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake' };
+const actions = { growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake', startDiscoverySession: 'start_discovery_session', submitPublicTrialSignup: 'trial_signup' };
 const validPayloads = {
+  startDiscoverySession: { mode: 'mixed' },
+  submitPublicTrialSignup: { business_name: 'Test Business', full_name: 'Test Visitor', email: 'unit-test@example.invalid', industry: 'HVAC', city: 'Test', state: 'IA', primary_goal: 'leads' },
   growthGuideChat: { messages: [{ role: 'user', content: 'How can I grow my business?' }] },
   publicationSignup: {
     email: 'unit-test@example.invalid', publication_title: 'The NTA Journal',
@@ -31,6 +34,8 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
   let handler;
   const stats = { effects: 0, provider: 0, serviceCalls: [], crossAppCalls: [] };
   const used = new Set();
+  let discovery = {};
+  let categories = [];
   const counted = value => async () => { stats.effects++; return value; };
   const service = {
     integrations: { Core: { InvokeLLM: counted('Choose one useful task and review the result.') } },
@@ -41,12 +46,23 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
       return { data: { status: 'synced', success: true } };
     } },
     entities: {
+      DiscoverySession: {
+        async create(value) { stats.effects++; discovery = { id: 'test-session', ...value }; return discovery; },
+        async update(id, value) { stats.effects++; discovery = { ...discovery, ...value }; return discovery; },
+      },
+      DiscoveryCategory: {
+        async bulkCreate(values) { stats.effects++; categories = values; return values; },
+        async filter() { stats.effects++; return categories; },
+      },
+      DiscoveryAuditEvent: { create: counted({ id: 'test-event' }) },
+      TrialAccount: { create: counted({ id: 'test-trial' }), update: counted({ id: 'test-trial' }) },
+      BusinessProfile: { create: counted({ id: 'test-profile' }) },
       Subscriber: { filter: counted([]), create: counted({ id: 'test-subscriber' }) },
       PublicationDeliveryRequest: { create: counted({ id: 'test-delivery' }) },
     },
   };
   vm.runInNewContext(output.outputText, {
-    exports: {}, Request, Response, Headers, URL, AbortSignal, TextEncoder,
+    exports: {}, Request, Response, Headers, URL, AbortSignal, TextEncoder, TextDecoder, crypto: webcrypto,
     console: { log() {}, warn() {}, error() {} },
     Deno: { serve(fn) { handler = fn; }, env: { get(key) { return env[key]; } } },
     createClientFromRequest() { return { auth: { async me() { if (authError) throw new Error('Invalid caller session'); return user; } }, asServiceRole: service }; },
@@ -257,4 +273,28 @@ test('ntaUnifiedIntake: visitor quota still stops excess verified submissions', 
   assert.equal(limited.status, 429);
   assert.equal(fixture.stats.provider, 12);
   assert.equal(fixture.stats.crossAppCalls.length, 12);
+});
+
+
+test('guided setup: one proof covers the fixed CRM handoff without sharing visitor credentials', async () => {
+  const fixture = setup('submitPublicTrialSignup');
+  const response = await fixture.request({ ...validPayloads.submitPublicTrialSignup, verification_token: 'one-setup-proof', submission_type: 'crm_manual' });
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).intake_status, 'saved');
+  assert.equal(fixture.stats.provider, 1);
+  const calls = fixture.stats.serviceCalls.filter(call => call.name === 'ntaUnifiedIntake');
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].payload.submission_type, 'trial_signup');
+  assert.equal('verification_token' in calls[0].payload, false);
+});
+
+test('guided setup: a failed CRM handoff retains the saved request and exposes its review status', async () => {
+  const fixture = setup('submitPublicTrialSignup', { intakeError: true });
+  const response = await fixture.request({ ...validPayloads.submitPublicTrialSignup, verification_token: 'one-setup-proof' });
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.success, true);
+  assert.equal(body.trial_id, 'test-trial');
+  assert.equal(body.intake_status, 'needs_attention');
+  assert.equal(body.provisioning_status, 'pending');
 });

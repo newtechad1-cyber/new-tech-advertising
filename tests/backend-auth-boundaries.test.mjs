@@ -5,7 +5,7 @@ import vm from 'node:vm';
 import test from 'node:test';
 import ts from 'typescript';
 
-const functionNames = ['adaIntake', 'auditWebsiteAccessibility', 'chatbotChat', 'chatbotLeadCapture', 'demoAiChat'];
+const functionNames = ['adaIntake', 'auditWebsiteAccessibility', 'chatbotChat', 'chatbotLeadCapture', 'demoAiChat', 'trackJourneyEvent', 'trackBookEvent'];
 const candidateRoot = process.env.NTA_AUTH_CANDIDATE_ROOT || process.cwd();
 
 function loadHandler(name, authMode) {

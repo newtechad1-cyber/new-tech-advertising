@@ -68,6 +68,10 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Invalid tracking request.' }, { status: 400 });
     }
 
+    if (!['better-business-book', 'practical-ai-for-small-business'].includes(payload.book_key)
+      || !['access_request', 'download_click', 'read_online_click'].includes(payload.event_type)) {
+      return Response.json({ error: 'Invalid book event.' }, { status: 400 });
+    }
     const office = createClient({ appId: OFFICE_APP_ID });
     const response = await office.functions.invoke('trackBookEvent', payload);
     return Response.json(response?.data ?? response);

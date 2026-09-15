@@ -48,7 +48,7 @@ function setup(mode = 'success') {
         return { data: {
           site_key: '0x-unit-test-public-site-key',
           action: mode === 'wrong_action' ? 'unexpected_action' :
-            ({ growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake' })[name],
+            ({ growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake', startDiscoverySession: 'start_discovery_session', submitPublicTrialSignup: 'trial_signup' })[name],
         } };
       }
       return { data: { success: true } };
@@ -122,3 +122,14 @@ test('public client: intake and publication never reuse the same provider token'
   assert.notEqual(submissions[0].payload.verification_token, submissions[1].payload.verification_token);
   assert.equal(fixture.widgets.size, 0);
 });
+
+for (const name of ['startDiscoverySession', 'submitPublicTrialSignup']) {
+  test('public client verifies ' + name + ' and cancels without a write', async () => {
+    const fixture = setup();
+    await fixture.invoke(name, { mode: 'mixed' });
+    assert.equal(fixture.requests.filter(r => !r.payload.verification_config).length, 1);
+    const cancelled = setup('cancel');
+    await assert.rejects(cancelled.invoke(name, { mode: 'mixed' }));
+    assert.equal(cancelled.requests.filter(r => !r.payload.verification_config).length, 0);
+  });
+}
