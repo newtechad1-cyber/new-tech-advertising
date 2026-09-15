@@ -24,7 +24,7 @@ Only growthGuideChat and publicationSignup have callers in the current public im
 - 66 isolated behavioral tests pass: anonymous/invalid/member rejection, administrator/service admission, forged header/body claims, private URL/redirect rejection, scan form-label handling, provider rejection/outage/missing configuration, wrong action/hostname, expiry, replay, consent, cancellation, and fresh browser tokens.
 - `npm run build` passes and produces SEO HTML for 167 public URLs plus 963 legacy cleanup/alias URLs.
 - The staged browser changes also pass an isolated Vite production build.
-- `git diff --check` passes.
+- Source and documentation whitespace checks pass. The historical generated patch is excluded because its unified-diff context lines intentionally contain a space.
 - The active browser helper and four updated public callers pass the production build; the six client behavior tests now execute the active helper.
 - Ten additional isolated checks of the active metadata handlers passed: configured response shape/no secret disclosure, missing settings, public test keys, untrusted origins, and extra-field rejection; all produced zero provider, entity, AI or downstream calls.
 
