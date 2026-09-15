@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -34,7 +35,7 @@ export default function GetStarted() {
     setSubmitting(true);
     try {
       // STEP 1 — Save the complete submission and CRM records atomically
-      await base44.functions.invoke('ntaUnifiedIntake', {
+      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'get_started',
         mapping_confidence: 'hardcoded',
         mapping_notes: 'Get-Started.jsx /get-started; offer_type derived from service_interest',

@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
@@ -34,7 +35,7 @@ function LeadForm({ city, service }) {
     setLoading(true);
     try {
       // Save the complete submission through NTA Unified Intake
-      await base44.functions.invoke('ntaUnifiedIntake', {
+      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'case_study_inquiry',
         mapping_confidence: 'hardcoded',
         mapping_notes: `CaseStudyDetail.jsx; service_used=${service}`,

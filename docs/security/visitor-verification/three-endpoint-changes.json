@@ -1,0 +1,144 @@
+{
+  "app_id": "691f41a18de4a7f498c8f884",
+  "created_at": "2026-09-15T12:34:12.018Z",
+  "baseline_checkpoint": "6081a194656d54ed287b23fca52efc46721fe6fc",
+  "files": [
+    {
+      "path": "base44/functions/growthGuideChat/entry.ts",
+      "before_sha256": "7354689e2b8f696c03fc864e2184afcf971de004246a36c937c3b19141507ca8",
+      "after_sha256": "a159bab1ed29e0021b0c5711e06b8ae140d77da4bf70fbe8720ab7a8782de666"
+    },
+    {
+      "path": "base44/functions/publicationSignup/entry.ts",
+      "before_sha256": "c34101a0b578839d6a72ede9be29b9c0104aad012415c7e99446b167a08ad636",
+      "after_sha256": "433f67fa46c5900e2a0422e8a3997fac27f39a895c55986a3e65dc0c8d85d4bb"
+    },
+    {
+      "path": "base44/functions/ntaUnifiedIntake/entry.ts",
+      "before_sha256": "178252caa70edf38bc4a23f48ef406b8051779a7072ed9c93068c5ed147f8f81",
+      "after_sha256": "35651b4035f88971e04edd52d2cd83df3e12a1216340879c920811ec030fc21f"
+    },
+    {
+      "path": "src/lib/publicVerification.js",
+      "before_sha256": "73f2257b500ff44b6f6fa770aa05e2bd98a0802312948da3fca23750ec8c8685",
+      "after_sha256": "095ac1641cca55eb13b2567be784555eb3730216ddd4c0eabef0f755e465da84"
+    },
+    {
+      "path": "src/legacy-page-components/StreamingIntake.jsx",
+      "before_sha256": "36663c531ed8572cff743774896e07be1813c888f6f04050894c76beb365f8c1",
+      "after_sha256": "0532d904f33856ea0c7004855c4570c21685a5c30ba52d1ed074af982e8913f6"
+    },
+    {
+      "path": "src/components/start/StartForm.jsx",
+      "before_sha256": "052453173b4c76e13a1d3a3559ad52a0f1a103adf1dcdc21fbffbf1f50eab585",
+      "after_sha256": "b4f478967fe228ccde2a43b32e0493c3bebfd9601c1302536526383a84b9f8fa"
+    },
+    {
+      "path": "src/components/restaurant-demo/RestaurantNTASection.jsx",
+      "before_sha256": "750531f90bf353d22a89802f501c309c1d84411e920e2128a43f29b99fb56967",
+      "after_sha256": "4e0fff93a04ca6a7e953cca4a50ba1c3b5ce50cbd1ff5b9e352d9c8bbc288ede"
+    },
+    {
+      "path": "src/components/hvac-funnel/HVACLeadForm.jsx",
+      "before_sha256": "e7dc592c4223ad6aee225e31f8e7d04acc9d20813d4802c2eddb53919956bedd",
+      "after_sha256": "abb9b889d4112abdb283eb161df633008af6d9dd87e1adf300cc61f7eac0b5c7"
+    },
+    {
+      "path": "src/components/service-pages/ServicePageLayout.jsx",
+      "before_sha256": "6e69f69741a51451165cd8445319ed92b89c359b032b91e51d32b04040bb416a",
+      "after_sha256": "1187ad5f2c6e07e093baaf580654cc55fac4e670cad0fd5b5654cccd7074d16a"
+    },
+    {
+      "path": "src/components/publishing/PublicationSignupForm.jsx",
+      "before_sha256": "7856d7187079016f7e68e1b55506b7e1c6030251be42248a447eb93c21288739",
+      "after_sha256": "be8ec9dabd185da7cef473a8d45ef47246921126dcdb2a27451ba461e3bf04f0"
+    },
+    {
+      "path": "src/components/landing/SignupModal.jsx",
+      "before_sha256": "d915100d68bdb5276bf9a2a9f78556506bc39dad5d77f72b9792f548f1449071",
+      "after_sha256": "638ba4c87b8695444575640e9244158e5bb298ef12e7303f79260d2665005706"
+    },
+    {
+      "path": "src/components/funnel/LeadCaptureForm.jsx",
+      "before_sha256": "3f84060e6b6461c4aec70c5b954c2562dcab7dae2550236ececa7939bff947eb",
+      "after_sha256": "47bc124d49bc92bd5e263328fb611b0e4db0e21b01c276c7c3ae720889ec4bb1"
+    },
+    {
+      "path": "src/pages/Rebuild-Intake.jsx",
+      "before_sha256": "b27730a867533146d965031288ce09b36e776674eca01cdbb3ee318e340c9b9a",
+      "after_sha256": "229771275daaf7070305b5aba4e5fa98fc1dba5404f05414cec6bb836f77338a"
+    },
+    {
+      "path": "src/pages/Book-Call.jsx",
+      "before_sha256": "2c9cdf0fc89c8c9a52d0b1c860bde521d868d79f6708ce4c5d21735264a1e048",
+      "after_sha256": "85bb0e4b907227d712f4cd08dea600d839714adfa02ef424df0abf7c56380c34"
+    },
+    {
+      "path": "src/pages/CaseStudyDetail.jsx",
+      "before_sha256": "0a37193c2c8e987ea7997cd6ca2ec666800226d8d23b11560c8150fd938b9b44",
+      "after_sha256": "f4df944c3a0250d20321f04d0429085030e233b2aa8c89eaaad9b9dc0fd6b1ae"
+    },
+    {
+      "path": "src/pages/StartTrial.jsx",
+      "before_sha256": "84254d02c3c4a258b443b04abbd3de12e82ed691904657b66bf7d0aa6c1e0641",
+      "after_sha256": "c9214c66424134a2075a255b5b425229b443b9f30eb830d99543e38f02265aeb"
+    },
+    {
+      "path": "src/pages/Contact.jsx",
+      "before_sha256": "8900683939a2f95f9c28fb5d64ecaa351a4de0426e1efc5aaaa29ca0bbc8f563",
+      "after_sha256": "a1cdc44f01e0e92ebd044bce3c27471ef78d94e89fccdf7168ca67156404d13c"
+    },
+    {
+      "path": "src/pages/ServiceLocation.jsx",
+      "before_sha256": "12595f43b36b94b619debcb4ac14f3e00f5ec8dd52cef9b5697d9171f6b3fd52",
+      "after_sha256": "5803ba876a2d97f5331ce940f5fbeb3f58dcdefa9d00362b1b9772ed0118f8fe"
+    },
+    {
+      "path": "src/pages/NTAGrowthConversation.jsx",
+      "before_sha256": "8542173357b0c231e8f95bec04dd5c17c9d2f685bddf4be79b709191372f58f0",
+      "after_sha256": "104519db66b4ab61adbf66bd3b3eade71fc2a1d17503b11de9a59eca7a8410b3"
+    },
+    {
+      "path": "src/pages/CommunityPartnerProgram.jsx",
+      "before_sha256": "296f1ea496d88e636be946f80937909b84756ae26f34ff3d42d395b0d1dca0f1",
+      "after_sha256": "b01ab052cb86d5886b26ad767275212a9965cbcc35b97e2d1ed3a789ecdbc109"
+    },
+    {
+      "path": "src/pages/Get-Started.jsx",
+      "before_sha256": "22a72546b7e2956b741509c4dfea9b696da8adf41413692548e92369c4716205",
+      "after_sha256": "cb3ecc83fcb7655ef58cccc39d1f17d93a0fddb2aa01b8148a37db74196aa281"
+    },
+    {
+      "path": "src/pages/Free-Audit.jsx",
+      "before_sha256": "7089d688543a885bca6ad926fbcd58ac16fc9d3c51cbba2987f642aa9611e155",
+      "after_sha256": "c16c46b3799862722cb2b00ffe4fd8efc2b28e81422aaf4e21e9cf3e56ff46a9"
+    }
+  ],
+  "public_intake_callers": [
+    "src/legacy-page-components/StreamingIntake.jsx",
+    "src/components/start/StartForm.jsx",
+    "src/components/restaurant-demo/RestaurantNTASection.jsx",
+    "src/components/hvac-funnel/HVACLeadForm.jsx",
+    "src/components/service-pages/ServicePageLayout.jsx",
+    "src/components/publishing/PublicationSignupForm.jsx",
+    "src/components/landing/SignupModal.jsx",
+    "src/components/funnel/LeadCaptureForm.jsx",
+    "src/pages/Rebuild-Intake.jsx",
+    "src/pages/Book-Call.jsx",
+    "src/pages/CaseStudyDetail.jsx",
+    "src/pages/StartTrial.jsx",
+    "src/pages/Contact.jsx",
+    "src/pages/ServiceLocation.jsx",
+    "src/pages/NTAGrowthConversation.jsx",
+    "src/pages/CommunityPartnerProgram.jsx",
+    "src/pages/Get-Started.jsx",
+    "src/pages/Free-Audit.jsx"
+  ],
+  "authenticated_only_caller": "src/components/command/CRMPipelinePanel.jsx",
+  "published_setup_verified": {
+    "growthGuideChat": 200,
+    "publicationSignup": 200,
+    "browser_asset": "/assets/index-ktYDXSSE.js"
+  },
+  "production_enforcement_verified": false
+}

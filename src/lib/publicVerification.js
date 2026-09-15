@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 const ACTIONS = {
   growthGuideChat: 'growth_guide_chat',
   publicationSignup: 'publication_signup',
+  ntaUnifiedIntake: 'nta_unified_intake',
 };
 let scriptPromise;
 let verificationQueue = Promise.resolve();

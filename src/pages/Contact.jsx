@@ -1,5 +1,5 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useRef, useState } from 'react';
-import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -33,7 +33,7 @@ export default function Contact() {
       // Single authoritative path: Submission → CRM contact/opportunity/deal/task.
       // The server also creates the compatibility Lead record that powers the
       // existing direct email alert, with complete source details.
-      await base44.functions.invoke('ntaUnifiedIntake', {
+      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'contact',
         offer_type: 'consultation',
         mapping_confidence: 'hardcoded',

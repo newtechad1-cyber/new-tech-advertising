@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -12,7 +13,6 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react";
-import { base44 } from "@/api/base44Client";
 import MarketingNav from "@/components/nav/MarketingNav";
 import SiteFooter from "@/components/marketing/SiteFooter";
 import SEOHead from "@/components/shared/SEOHead";
@@ -119,7 +119,7 @@ export default function CommunityPartnerProgram() {
     };
 
     try {
-      const response = await base44.functions.invoke("ntaUnifiedIntake", {
+      const response = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: "community_partner_inquiry",
         offer_type: "community_partnership",
         mapping_confidence: "hardcoded",

@@ -1,7 +1,7 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, CheckCircle2, Loader2 } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
 
 const SERVICES = [
   { icon: '🌐', label: 'Website Optimization' },
@@ -30,7 +30,7 @@ export default function RestaurantNTASection({ config, demoLabel }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+      const response = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'free_audit_request',
         offer_type: 'marketing_audit',
         mapping_confidence: 'hardcoded',

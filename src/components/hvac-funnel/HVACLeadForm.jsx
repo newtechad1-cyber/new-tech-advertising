@@ -1,5 +1,5 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
-import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Shield, Star } from 'lucide-react';
 
@@ -17,7 +17,7 @@ export default function HVACLeadForm({ ctaLabel = 'Request Your Free HVAC Demo S
     setLoading(true);
 
     try {
-      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+      const response = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'hvac_funnel_lead',
         offer_type: 'hvac_marketing',
         mapping_confidence: 'hardcoded',

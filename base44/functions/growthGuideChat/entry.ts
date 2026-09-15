@@ -1,6 +1,13 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.41';
 
-// Public configuration only; visitor enforcement follows the browser rollout.
+// Turnstile verification is public visitor proof, not account authentication.
+// Never use Origin, the public site key, or a client-supplied role as proof.
+const NTA_VERIFIED_HOSTS = new Set([
+  'newtechadvertising.com', 'www.newtechadvertising.com',
+  'app.newtechadvertising.com', 'new-tech-advertising.base44.app',
+]);
+const SITEVERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+
 function verificationSettings() {
   const siteKey = String(Deno.env.get('NTA_TURNSTILE_SITE_KEY') || '').trim();
   const secret = String(Deno.env.get('NTA_TURNSTILE_SECRET_KEY') || '').trim();
@@ -18,6 +25,50 @@ function publicVerificationConfig(action) {
   return Response.json({ site_key: settings.siteKey, action }, {
     headers: { 'Cache-Control': 'no-store' },
   });
+}
+
+async function verifyPublicRequest(req, token, action) {
+  if (typeof token !== 'string' || !token.trim() || token.length > 2048) {
+    return Response.json({ error: 'Please complete the verification and try again.', code: 'VERIFICATION_REQUIRED' }, { status: 403 });
+  }
+  const settings = verificationSettings();
+  if (!settings) {
+    return Response.json({ error: 'Verification is temporarily unavailable. Please call or text 641-420-8816.' }, { status: 503 });
+  }
+
+  let expectedHostname;
+  try {
+    const origin = new URL(req.headers.get('origin') || req.headers.get('referer') || '');
+    if (origin.protocol !== 'https:' || !NTA_VERIFIED_HOSTS.has(origin.hostname)) throw new Error('Untrusted host');
+    expectedHostname = origin.hostname;
+  } catch {
+    return Response.json({ error: 'Request verification failed.' }, { status: 403 });
+  }
+
+  try {
+    // The server, not the browser, consumes each provider token exactly once.
+    const response = await fetch(SITEVERIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret: settings.secret, response: token }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok) throw new Error('Verification provider unavailable');
+    const result = await response.json();
+    const issuedAt = Date.parse(result.challenge_ts);
+    const age = Date.now() - issuedAt;
+    if (
+      result.success !== true || result.action !== action ||
+      result.hostname !== expectedHostname ||
+      !Number.isFinite(issuedAt) || age < -30_000 || age > 300_000
+    ) {
+      return Response.json({ error: 'Verification expired or could not be confirmed. Please try again.', code: 'VERIFICATION_FAILED' }, { status: 403 });
+    }
+    return null;
+  } catch {
+    // Provider errors and missing configuration never permit privileged work.
+    return Response.json({ error: 'Verification could not be completed. Please try again shortly.' }, { status: 503 });
+  }
 }
 
 const GUIDE_PUBLIC_ORIGIN = 'https://www.newtechadvertising.com';
@@ -238,6 +289,11 @@ Deno.serve(async (req) => {
           { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
         );
       }
+    }
+
+    if (!trustedService) {
+      const verificationError = await verifyPublicRequest(req, parsed.body.verification_token, 'growth_guide_chat');
+      if (verificationError) return verificationError;
     }
 
     const messages = cleanMessages(parsed.body.messages);

@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -53,7 +54,7 @@ export default function RebuildIntake() {
 
     try {
       // Save one canonical CRM submission and let the backend send the Gmail notification.
-      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+      const response = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'website_rebuild_intake',
         offer_type: form.service_type === 'ada_rebuild' ? 'ada_compliance' : 'website_rebuild',
         mapping_confidence: 'hardcoded',

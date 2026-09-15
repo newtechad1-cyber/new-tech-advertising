@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,7 @@ export default function StreamingIntake() {
     setLoading(true);
 
     try {
-      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+      const response = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'streaming_tv_intake',
         offer_type: 'streaming_tv',
         mapping_confidence: 'hardcoded',

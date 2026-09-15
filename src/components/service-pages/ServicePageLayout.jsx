@@ -1,9 +1,9 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, ChevronDown, Phone } from 'lucide-react';
 import MarketingNav from '../nav/MarketingNav';
 import SiteFooter from '../marketing/SiteFooter';
-import { base44 } from '@/api/base44Client';
 
 function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
@@ -32,7 +32,7 @@ function LeadForm({ source }) {
     try {
       const contactValue = form.phone.trim();
       const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue);
-      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+      const response = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'free_audit_request',
         offer_type: 'marketing_audit',
         mapping_confidence: 'hardcoded',

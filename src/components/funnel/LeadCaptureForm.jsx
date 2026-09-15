@@ -1,5 +1,5 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
-import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2, CheckCircle2 } from 'lucide-react';
@@ -24,7 +24,7 @@ export default function LeadCaptureForm({
     }
     setLoading(true);
     try {
-      const response = await base44.functions.invoke('ntaUnifiedIntake', {
+      const response = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'lead_magnet_download',
         source_system: 'website',
         source_page: sourcePage || '/lead-magnet',

@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
@@ -38,7 +39,7 @@ function LeadForm({ city, service }) {
     setSubmitting(true);
     try {
       // Save the complete submission through NTA Unified Intake
-      await base44.functions.invoke('ntaUnifiedIntake', {
+      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'service_location_inquiry',
         mapping_confidence: 'hardcoded',
         mapping_notes: `ServiceLocation.jsx; service_slug=${service}`,

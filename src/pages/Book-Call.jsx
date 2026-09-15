@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -39,7 +40,7 @@ export default function BookCall() {
     setSubmitting(true);
     try {
       // STEP 1 — Save the complete submission through the canonical intake path
-      const intakeResponse = await base44.functions.invoke('ntaUnifiedIntake', {
+      const intakeResponse = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'contact',
         offer_type: 'consultation',
         mapping_confidence: 'hardcoded',

@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -28,7 +29,7 @@ export default function StartTrial() {
       const sessionKey = localStorage.getItem('nta_session') || crypto.randomUUID();
 
       // Send the canonical CRM record and Gmail notification first.
-      await base44.functions.invoke('ntaUnifiedIntake', {
+      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'trial_signup',
         offer_type: 'trial_onboarding',
         mapping_confidence: 'hardcoded',

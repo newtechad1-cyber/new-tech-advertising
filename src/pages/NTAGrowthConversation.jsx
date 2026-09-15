@@ -1,7 +1,7 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, ChevronRight, ShieldCheck } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
 import SEOHead from '@/components/shared/SEOHead';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -86,7 +86,7 @@ export default function NTAGrowthConversation() {
     ].join(' | ');
 
     try {
-      const result = await base44.functions.invoke('ntaUnifiedIntake', {
+      const result = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'growth_conversation',
         offer_type: 'growth_conversation',
         mapping_confidence: 'hardcoded',

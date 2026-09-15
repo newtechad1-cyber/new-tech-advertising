@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import React, { useState } from 'react';
 import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { Label } from '@/components/ui/label';
@@ -97,7 +98,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
       const { base44 } = await import('@/api/base44Client');
 
       // STEP 1 — Save the complete submission and CRM records atomically
-      await base44.functions.invoke('ntaUnifiedIntake', {
+      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'trial_signup',
         offer_type: 'trial_onboarding',
         mapping_confidence: 'hardcoded',

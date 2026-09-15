@@ -83,7 +83,7 @@ export default function PublicationSignupForm({
 
       if (registration?.data?.success === false) throw new Error(registration.data.error || 'We could not complete your request.');
 
-      const intake = await base44.functions.invoke('ntaUnifiedIntake', {
+      const intake = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         ...sharedPayload,
         submission_type: 'publication_request',
         offer_type: 'business_education',

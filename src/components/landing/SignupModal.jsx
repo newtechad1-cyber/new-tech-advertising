@@ -1,3 +1,4 @@
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight, Loader2, CheckCircle } from 'lucide-react';
@@ -6,7 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { base44 } from '@/api/base44Client';
 import { trackLeadSubmit } from '../analytics/trackingUtils';
 
 // Route → offer_type inference for SignupModal
@@ -51,7 +51,7 @@ export default function SignupModal({ isOpen, onClose, submissionType, offerType
       const routeMatched = offerType ? 'prop_override' : inferOfferTypeFromRoute(currentRoute) ? 'route_inferred' : 'fallback';
 
       // Save the complete submission through NTA Unified Intake
-      await base44.functions.invoke('ntaUnifiedIntake', {
+      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: resolvedSubType,
         offer_type: resolvedOfferType,
         mapping_confidence: routeMatched === 'fallback' ? 'fallback' : 'hardcoded',
