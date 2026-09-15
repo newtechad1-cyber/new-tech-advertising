@@ -82,6 +82,25 @@ function createCoreClient() {
   });
 }
 
+function base64Url(bytes) {
+  let binary = '';
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/g, '');
+}
+
+async function createBookTrackingToken(bookKey) {
+  if (!bookKey || bookKey === 'nta-journal') return '';
+  const secret = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();
+  if (secret.length < 32) return '';
+  const payload = JSON.stringify({ book_key: bookKey, exp: Date.now() + (60 * 60 * 1000) });
+  const encodedPayload = base64Url(new TextEncoder().encode(payload));
+  const key = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'],
+  );
+  const signature = new Uint8Array(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(encodedPayload)));
+  return `${encodedPayload}.${base64Url(signature)}`;
+}
+
 const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://newtechadvertising.com',
   'https://www.newtechadvertising.com',
