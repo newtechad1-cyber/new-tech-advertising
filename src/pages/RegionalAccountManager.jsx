@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   UsersRound,
 } from 'lucide-react';
-import { createClient } from '@base44/sdk';
+import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -22,8 +22,6 @@ const TERRITORY = 'United States — build your own market';
 const RECRUITING_PLAYLIST_ID = 'PLbPNsoazKwmw';
 const RECRUITING_PLAYLIST_URL = `https://www.youtube.com/playlist?list=${RECRUITING_PLAYLIST_ID}`;
 const RECRUITING_OVERVIEW_ID = 'Ka4nUG4wiGI';
-const NTA_CORE_APP_ID = '6a7215451eb90dc843a94546';
-const recruitingIntake = createClient({ appId: NTA_CORE_APP_ID });
 
 const RECRUITING_VIDEOS = [
   {
@@ -236,7 +234,7 @@ export default function RegionalAccountManager() {
     setError('');
 
     try {
-      const response = await recruitingIntake.functions.invoke('submitRecruitingApplication', {
+      const response = await invokeVerifiedPublicFunction('submitRecruitingApplication', {
         full_name: form.full_name,
         email: form.email,
         phone: form.phone,
@@ -258,8 +256,8 @@ export default function RegionalAccountManager() {
       });
       const data = response?.data ?? response;
 
-      if (data?.error) {
-        throw new Error(data.error);
+      if (data?.error || data?.accepted === false || data?.success !== true) {
+        throw new Error(data?.error || 'Your inquiry was not accepted. Please try again or call or text 641-420-8816.');
       }
 
       setEmailDelivery(data?.email_delivery || null);

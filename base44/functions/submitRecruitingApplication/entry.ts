@@ -1,4 +1,4 @@
-import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.21';
+import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.48';
 
 // Turnstile verification is public visitor proof, not account authentication.
 // Never use Origin, the public site key, or a client-supplied role as proof.
@@ -72,6 +72,16 @@ async function verifyPublicRequest(req, token, action) {
 }
 
 const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
+
+function createCoreClient() {
+  const secret = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();
+  if (secret.length < 32) throw new Error('The NTA connection is not configured. Please call or text 641-420-8816.');
+  return createClient({
+    appId: OFFICE_APP_ID,
+    headers: { 'x-nta-core-bridge-secret': secret },
+  });
+}
+
 
 const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://newtechadvertising.com',
@@ -216,7 +226,7 @@ Deno.serve(async (req) => {
     // Route this opportunity form into the dedicated recruiting workflow in
     // NTA Core so the candidate record, Rick notification, and applicant
     // acknowledgement stay together.
-    const office = createClient({ appId: OFFICE_APP_ID });
+    const office = createCoreClient();
     const response = await office.functions.invoke('submitRecruitingApplication', {
       full_name,
       email,

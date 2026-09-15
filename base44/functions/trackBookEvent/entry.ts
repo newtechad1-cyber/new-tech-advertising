@@ -1,6 +1,16 @@
-import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.48';
 
 const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
+
+function createCoreClient() {
+  const secret = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();
+  if (secret.length < 32) throw new Error('The NTA connection is not configured. Please call or text 641-420-8816.');
+  return createClient({
+    appId: OFFICE_APP_ID,
+    headers: { 'x-nta-core-bridge-secret': secret },
+  });
+}
+
 const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://newtechadvertising.com',
   'https://www.newtechadvertising.com',
@@ -72,7 +82,7 @@ Deno.serve(async (req) => {
       || !['access_request', 'download_click', 'read_online_click'].includes(payload.event_type)) {
       return Response.json({ error: 'Invalid book event.' }, { status: 400 });
     }
-    const office = createClient({ appId: OFFICE_APP_ID });
+    const office = createCoreClient();
     const response = await office.functions.invoke('trackBookEvent', payload);
     return Response.json(response?.data ?? response);
   } catch (error) {
