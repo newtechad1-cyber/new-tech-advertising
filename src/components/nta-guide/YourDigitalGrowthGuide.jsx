@@ -1185,7 +1185,11 @@ export default function YourDigitalGrowthGuide() {
             {readingContext && !discoveryMode && (
               <div className="shrink-0 border-b border-slate-700 bg-blue-950/40 px-4 py-3">
                 <p className="text-xs leading-5 text-slate-300"><strong className="text-blue-200">About:</strong> {readingContext.title}</p>
-                <button type="button" onClick={() => { setIsOpen(false); navigate(followUpPath(readingContext)); }} className="mt-1 text-xs font-semibold text-blue-300 hover:text-blue-200">Ask Rick to follow up on this topic →</button>
+                <button type="button" onClick={() => {
+                  const question = input.trim() || [...messages].reverse().find(message => message.role === 'user')?.content || '';
+                  setIsOpen(false);
+                  navigate(followUpPath(readingContext), { state: { nta_follow_up_question: question.slice(0, 2500) } });
+                }} className="mt-1 text-xs font-semibold text-blue-300 hover:text-blue-200">Ask Rick to follow up on this topic →</button>
               </div>
             )}
 

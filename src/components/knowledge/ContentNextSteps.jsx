@@ -44,6 +44,7 @@ export function ContentNextSteps({ title, path, resources = [] }) {
       </div>
       <p className="mt-4 text-sm leading-6 text-slate-400">For a personal reply, choose email, call or text on the request form. This topic goes with your message so Rick has the starting point.</p>
       <div className="mt-5 flex flex-col gap-3 border-t border-slate-700 pt-5 text-sm sm:flex-row sm:flex-wrap sm:gap-x-6">
+        <Link to="/free-audit" className="font-semibold text-blue-300 hover:text-blue-200">Request a Free Business Gap Audit</Link>
         <Link to="/services#first-project" className="font-semibold text-blue-300 hover:text-blue-200">See how a first project works</Link>
         <Link to="/nta-journal#subscribe" className="font-semibold text-blue-300 hover:text-blue-200">Keep learning with the Tuesday Journal</Link>
       </div>

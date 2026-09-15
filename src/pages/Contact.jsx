@@ -22,7 +22,7 @@ export default function Contact() {
     business_name: '',
     email: '',
     phone: '',
-    message: '',
+    message: typeof location.state?.nta_follow_up_question === 'string' ? location.state.nta_follow_up_question.slice(0, 2500) : '',
     company_fax: '',
   });
   const formStartedAt = useRef(Date.now());
@@ -188,6 +188,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <h2 className="text-2xl font-bold text-slate-900 mb-3">Ask Rick to follow up</h2>
                 <p className="text-slate-600">Share the question you want help with. Rick will use the information you provide to reply to this request.</p>
+                {location.state?.nta_follow_up_question && <p className="text-sm leading-6 text-slate-600">Your question from the Guide is filled in below. Review or edit it before sending.</p>}
                 {context && (
                   <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
                     <p className="text-sm font-semibold text-slate-700">You were reading or watching:</p>

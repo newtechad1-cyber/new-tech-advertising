@@ -35,7 +35,7 @@ export function guideQuestion(value) {
   return context ? 'How could I apply "' + context.title + '" in my business?' : '';
 }
 
-// Only existing NTA pages and a specific YouTube video can be learning links.
+// Learning links stay on NTA or point to a specific YouTube video.
 export function learningHref(value) {
   const path = contentPath(value);
   if (path) return path;
