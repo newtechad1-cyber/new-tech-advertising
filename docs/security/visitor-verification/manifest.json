@@ -1,0 +1,42 @@
+{
+  "app_id": "691f41a18de4a7f498c8f884",
+  "status": "staged_not_active",
+  "created": "2026-09-15",
+  "files": [
+    {
+      "path": "base44/functions/growthGuideChat/entry.ts",
+      "before_sha256": "e7960bf4da6e757e53bfa59128ea9d06b81d1ed4d64e0242c16a7863a9c2a8ca",
+      "after_sha256": "a159bab1ed29e0021b0c5711e06b8ae140d77da4bf70fbe8720ab7a8782de666"
+    },
+    {
+      "path": "base44/functions/publicationSignup/entry.ts",
+      "before_sha256": "037c2e5bb536049d213e205b6f08d7642812e7c77b320af888201d339906b990",
+      "after_sha256": "433f67fa46c5900e2a0422e8a3997fac27f39a895c55986a3e65dc0c8d85d4bb"
+    },
+    {
+      "path": "src/components/nta-guide/YourDigitalGrowthGuide.jsx",
+      "before_sha256": "caba5b62c0e55dab81a307b863980844cb8ecbd21bbd62ca9af018f4be5cfd2a",
+      "after_sha256": "5c0c04349373e8597f5ea6d33f96256f3e495bbb4b8e7d187f2224eb5d0b0bcc"
+    },
+    {
+      "path": "src/components/publishing/PublicationSignupForm.jsx",
+      "before_sha256": "9d14d63d251561f6d6ead150ac034208b233d07dbc1859f850c7d2bcdd3f7f9f",
+      "after_sha256": "7856d7187079016f7e68e1b55506b7e1c6030251be42248a447eb93c21288739"
+    },
+    {
+      "path": "src/components/newsletter/NewsletterFooterSection.jsx",
+      "before_sha256": "fe1e251a054b6be92e5f91eb991e153e8ea931bda2d55eb1be32093592057a9b",
+      "after_sha256": "08d09e458b297f35ba1350b843a0b9ece1998bb1253211a8de9be953dc89a3c0"
+    },
+    {
+      "path": "src/components/newsletter/NewsletterPopup.jsx",
+      "before_sha256": "ab66b4f0b42cc9b58ac55b685ecfc1b65a3615d8e42d4bf18c0d190019ca8417",
+      "after_sha256": "6fef166f859efe4bebff856e31127a7a1a4b4b8e826f54d863968fbd428332fb"
+    },
+    {
+      "path": "src/lib/publicVerification.js",
+      "before_sha256": null,
+      "after_sha256": "73f2257b500ff44b6f6fa770aa05e2bd98a0802312948da3fca23750ec8c8685"
+    }
+  ]
+}
