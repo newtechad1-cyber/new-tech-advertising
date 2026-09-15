@@ -146,7 +146,7 @@ export const SEED_JOURNAL_ENTRIES = [{
   author: 'Rick Hesse',
   editor_signature: 'Rick Hesse',
   featured: false,
-  featured_image_url: null,
+  featured_image_url: 'https://i.ytimg.com/vi/PmXSEkj03ak/maxresdefault.jpg',
   views: 0,
   newsletter_sent: false,
   newsletter_subject: 'The NTA Journal #7: Are You Building a Business—or Just a Website?',
@@ -230,7 +230,7 @@ Write down the first point where the experience becomes unclear. That is probabl
   featured_video: {
     source_id: 'PmXSEkj03ak',
     source_type: 'YouTube',
-    title: "Before You Add AI, Understand Your Business",
+    title: "Your Business Comes First. Technology Comes Second.",
     url: 'https://youtu.be/PmXSEkj03ak',
     duration: '',
     description: "Rick Hesse and Free AI Guy explore why discovery comes before technology, why people remain central to business systems, and how collaboration with AI supports human judgment.",
@@ -239,7 +239,7 @@ Write down the first point where the experience becomes unclear. That is probabl
   related_article_ids: ['6a4bddd0f29cfc0dcba4d1ad'],
   related_video_ids: ['PmXSEkj03ak'],
   related_video_url: 'https://youtu.be/PmXSEkj03ak',
-  related_video_title: "Before You Add AI, Understand Your Business",
+  related_video_title: "Your Business Comes First. Technology Comes Second.",
   publishing_article_id: '6a4bddd0f29cfc0dcba4d1ad',
   cta_text: 'Read Websites as Salespeople',
   cta_url: 'https://newtechadvertising.com/websites-as-salespeople',
@@ -247,7 +247,7 @@ Write down the first point where the experience becomes unclear. That is probabl
 
 That is why NTA is building from the visitor's question forward and connecting each answer to a useful next step.
 
-Read [“Websites as Salespeople”](https://newtechadvertising.com/websites-as-salespeople) and watch [“Before You Add AI, Understand Your Business”](https://youtu.be/PmXSEkj03ak).`,
+Read [“Websites as Salespeople”](https://newtechadvertising.com/websites-as-salespeople) and watch [“Your Business Comes First. Technology Comes Second.”](https://youtu.be/PmXSEkj03ak).`,
 }, {
   id: 'seed-journal-issue-6',
   issue_number: 6,
