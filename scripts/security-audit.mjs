@@ -124,7 +124,7 @@ function collectBrowserReferences(files) {
       entityFiles.get(entity).add(file);
     }
 
-    for (const match of source.matchAll(/(?:base44|api)\.functions\.invoke\(\s*["']([A-Za-z0-9_]+)["']/g)) {
+    for (const match of source.matchAll(/(?:(?:base44|api)\.functions\.invoke|invokeVerifiedPublicFunction)\(\s*["']([A-Za-z0-9_]+)["']/g)) {
       const fn = match[1];
       if (!functionFiles.has(fn)) functionFiles.set(fn, new Set());
       functionFiles.get(fn).add(file);

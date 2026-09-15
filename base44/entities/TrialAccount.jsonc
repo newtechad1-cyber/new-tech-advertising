@@ -147,6 +147,12 @@
       "default": "pending",
       "description": "Dashboard access provisioning status"
     },
+    "intake_status": {
+      "type": "string",
+      "enum": ["pending", "saved", "needs_attention"],
+      "default": "pending",
+      "description": "Whether the verified setup request reached Core CRM"
+    },
     "crm_lead_id": {
       "type": "string",
       "description": "Linked Lead record ID"

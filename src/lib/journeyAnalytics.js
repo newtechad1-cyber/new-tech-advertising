@@ -24,9 +24,11 @@ export function trackJourneyEvent(eventName, details = {}) {
   };
 
   // Measurement must never interrupt the customer journey.
-  base44.functions.invoke('trackJourneyEvent', payload).catch((error) => {
+  try {
+    base44.analytics.track({ eventName, properties: payload });
+  } catch (error) {
     console.warn('[journeyAnalytics] Event not recorded:', error?.message || error);
-  });
+  }
 
   if (typeof globalThis.gtag === 'function') {
     globalThis.gtag('event', eventName, {

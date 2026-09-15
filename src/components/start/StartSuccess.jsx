@@ -13,9 +13,9 @@ export default function StartSuccess({ trialId: _trialId }) {
         <CheckCircle2 className="w-10 h-10 text-emerald-500" />
       </motion.div>
       
-      <h2 className="text-3xl font-black text-white mb-4">Welcome to NTA! 🎉</h2>
+      <h2 className="text-3xl font-black text-white mb-4">Your Setup Request Is Saved</h2>
       <p className="text-slate-400 text-lg mb-10 max-w-lg mx-auto">
-        Your account is being set up. Here's what happens next:
+        NTA will review your business and help you choose the next step. Here's what happens next:
       </p>
 
       {/* Timeline Stepper */}
@@ -29,7 +29,7 @@ export default function StartSuccess({ trialId: _trialId }) {
             </div>
             <div>
               <p className="font-bold text-white mb-1">You signed up</p>
-              <p className="text-sm text-slate-400">We got your info and we're building your profile</p>
+              <p className="text-sm text-slate-400">Your business information has been saved for review</p>
             </div>
           </div>
 
@@ -39,15 +39,15 @@ export default function StartSuccess({ trialId: _trialId }) {
             </div>
             <div>
               <p className="font-bold text-white mb-1">We review your business</p>
-              <p className="text-sm text-slate-400">We'll customize your dashboard based on your industry and goals</p>
+              <p className="text-sm text-slate-400">We'll discuss your goals and decide what a useful first step looks like</p>
             </div>
           </div>
 
           <div className="relative flex gap-4">
             <div className="w-6 h-6 rounded-full bg-slate-800 border-2 border-slate-700 relative z-10 shrink-0 outline outline-4 outline-slate-900"></div>
             <div>
-              <p className="font-bold text-slate-500 mb-1">You're live</p>
-              <p className="text-sm text-slate-600">Your marketing system is ready to use</p>
+              <p className="font-bold text-slate-500 mb-1">Agree on the next step</p>
+              <p className="text-sm text-slate-600">Any paid work begins after we agree on scope and price</p>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default function StartSuccess({ trialId: _trialId }) {
           <div className="text-3xl mb-4">📅</div>
           <h3 className="text-xl font-bold text-white mb-2">Get Set Up With Rick</h3>
           <p className="text-slate-400 text-sm mb-6 flex-grow">
-            15-minute call to walk through your new system, answer questions, and make sure everything fits your business.
+            Choose a time to talk through your business, answer questions, and decide what fits. The calendar shows the appointment length.
           </p>
           <div className="mt-auto">
             <a 
@@ -70,25 +70,25 @@ export default function StartSuccess({ trialId: _trialId }) {
             >
               Book Kickoff Call →
             </a>
-            <p className="text-center text-slate-500 text-xs">Recommended — gets you live faster</p>
+            <p className="text-center text-slate-500 text-xs">Optional — choose the way you prefer to continue</p>
           </div>
         </div>
 
         {/* Right Card */}
         <div className="bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors rounded-2xl p-6 text-left flex flex-col h-full">
           <div className="text-3xl mb-4">💻</div>
-          <h3 className="text-xl font-bold text-white mb-2">Jump Into the Platform</h3>
+          <h3 className="text-xl font-bold text-white mb-2">Keep Learning While You Wait</h3>
           <p className="text-slate-400 text-sm mb-6 flex-grow">
-            Log in and start exploring. Your dashboard, content tools, and campaign builder are ready.
+            Explore answers to common business questions. NTA will explain any account access once your setup is ready.
           </p>
           <div className="mt-auto">
             <Link 
-              to="/Login" 
+              to="/knowledge/questions" 
               className="block w-full text-center bg-transparent border border-slate-700 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition-colors mb-2"
             >
-              Go to Dashboard →
+              Browse Business Questions →
             </Link>
-            <p className="text-center text-slate-500 text-xs">We'll email your login details shortly</p>
+            <p className="text-center text-slate-500 text-xs">No account is needed to keep learning</p>
           </div>
         </div>
       </div>

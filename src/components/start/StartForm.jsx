@@ -30,12 +30,12 @@ const SOURCES = [
 ];
 
 const FIELD = ({ label, children, required }) => (
-  <div>
-    <Label className="text-slate-300 text-sm mb-1.5 block">
+  <Label className="block">
+    <span className="text-slate-300 text-sm mb-1.5 block">
       {label}{required && <span className="text-violet-400 ml-0.5">*</span>}
-    </Label>
+    </span>
     {children}
-  </div>
+  </Label>
 );
 
 const inputCls = "bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-violet-500 focus:ring-violet-500/20";
@@ -46,6 +46,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
   const [showExtra, setShowExtra] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState('');
   // Anti-spam: honeypot + page-load timestamp
   const [_hp, setHp] = useState('');
   const [pageLoadTs] = useState(() => Date.now());
@@ -93,42 +94,14 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return;
+    const validationErrors = validateStep1();
+    if (Object.keys(validationErrors).length) { setErrors(validationErrors); setStep(1); return; }
+    setSubmitError('');
     setSubmitting(true);
     try {
-      const { base44 } = await import('@/api/base44Client');
-
-      // STEP 1 — Save the complete submission and CRM records atomically
-      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
-        submission_type: 'trial_signup',
-        offer_type: 'trial_onboarding',
-        mapping_confidence: 'hardcoded',
-        mapping_notes: 'StartForm.jsx /start hardcoded',
-        detected_route: sourceData.source_page || '/start',
-        detected_component: 'StartForm',
-        source_system: 'website',
-        source_page: sourceData.source_page || '/start',
-        source_campaign: sourceData.source_campaign || '',
-        name: form.full_name,
-        business_name: form.business_name,
-        email: form.email,
-        phone: form.phone,
-        website: form.website_url,
-        city: form.city,
-        state: form.state,
-        notes: `Industry: ${form.industry} | Goal: ${form.primary_goal}${form.notes ? ' | ' + form.notes : ''}`,
-        priority: 'high',
-        is_high_intent: true,
-        skip_webhook: true,
-        anti_spam: {
-          honeypot: _hp,
-          form_started_at: pageLoadTs,
-        },
-      });
-
-      // Trial and business-profile records are intentionally created only by
-      // the protected server bridge. The public browser never receives direct
-      // entity write access to contact or onboarding data.
-      const trialResponse = await base44.functions.invoke('submitPublicTrialSignup', {
+      // One verified request saves the trial and forwards its CRM handoff on the server.
+      const trialResponse = await invokeVerifiedPublicFunction('submitPublicTrialSignup', {
         business_name: form.business_name,
         full_name: form.full_name,
         email: form.email,
@@ -160,6 +133,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
       });
     } catch (err) {
       console.error('Trial submission error:', err);
+      setSubmitError(err?.response?.data?.error || err?.message || 'We could not save your request. Please try again or call or text 641-420-8816.');
       setSubmitting(false);
     }
   };
@@ -188,6 +162,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
       </div>
 
       <form onSubmit={handleSubmit}>
+        {submitError && <p role="alert" className="mb-5 rounded-xl border border-red-500/40 bg-red-950/40 p-4 text-sm text-red-200">{submitError}</p>}
         {/* Anti-spam honeypot — hidden from real users */}
         <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
           <label htmlFor="company_url">Company URL</label>
@@ -277,6 +252,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
 
             {showExtra && (
               <textarea
+                aria-label="Notes about your business"
                 value={form.notes}
                 onChange={e => set('notes', e.target.value)}
                 rows={3}
@@ -298,7 +274,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
                 disabled={submitting}
                 className="flex-1 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 h-auto text-base rounded-xl shadow-lg shadow-violet-600/30"
               >
-                {submitting ? 'Building your system…' : 'Build My Marketing System'}
+                {submitting ? 'Saving your request…' : 'Request My Guided Setup'}
                 {!submitting && <ArrowRight className="w-5 h-5 ml-2" />}
               </Button>
             </div>

@@ -270,6 +270,7 @@ Deno.serve(async (req) => {
       intelligence_status: 'pending',
       weekly_plan_status: 'pending',
       provisioning_status: 'pending',
+      intake_status: 'pending',
       trial_start_at: new Date().toISOString(),
       trial_end_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
     });
@@ -290,6 +291,33 @@ Deno.serve(async (req) => {
       onboarding_status: 'business_profile_linked',
     });
 
+    // Save the CRM handoff from this verified server request; never require a
+    // second browser submission or reuse the visitor's single-use token.
+    let intakeStatus = 'saved';
+    try {
+      const intake = await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+        submission_type: 'trial_signup', offer_type: 'trial_onboarding',
+        source_system: 'website', source_page: sourcePage,
+        source_campaign: sourceCampaign, detected_component: 'StartForm',
+        mapping_confidence: 'hardcoded', mapping_notes: 'Verified guided setup request',
+        name: fullName, business_name: businessName, email, phone,
+        website: websiteUrl, city, state,
+        notes: `Industry: ${industry} | Goal: ${primaryGoal}${notes ? ' | ' + notes : ''}`,
+        priority: 'high', is_high_intent: true, skip_webhook: true,
+      });
+      const result = intake?.data ?? intake;
+      if (result?.success !== true || result?.accepted === false) throw new Error('Intake not saved');
+      await base44.asServiceRole.entities.TrialAccount.update(trial.id, {
+        intake_status: 'saved', crm_lead_id: result.lead_id || '',
+      });
+    } catch {
+      intakeStatus = 'needs_attention';
+      await base44.asServiceRole.entities.TrialAccount.update(trial.id, {
+        intake_status: 'needs_attention',
+      });
+      console.error('[submitPublicTrialSignup] Trial saved; CRM handoff needs review:', trial.id);
+    }
+
     // Queue the existing protected provisioning pipeline. Its own admin/service
     // guard accepts this service invocation, while failures remain visible to
     // the NTA team without exposing implementation details to the visitor.
@@ -301,7 +329,8 @@ Deno.serve(async (req) => {
       accepted: true,
       trial_id: trial.id,
       business_profile_id: businessProfile.id,
-      provisioning_status: 'queued',
+      provisioning_status: 'pending',
+      intake_status: intakeStatus,
     });
   } catch (error) {
     console.error('[submitPublicTrialSignup] failed:', error?.message || error);

@@ -4,6 +4,8 @@ const ACTIONS = {
   growthGuideChat: 'growth_guide_chat',
   publicationSignup: 'publication_signup',
   ntaUnifiedIntake: 'nta_unified_intake',
+  startDiscoverySession: 'start_discovery_session',
+  submitPublicTrialSignup: 'trial_signup',
 };
 let scriptPromise;
 let verificationQueue = Promise.resolve();
