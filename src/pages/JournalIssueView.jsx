@@ -8,6 +8,7 @@ import { Link, useParams, Navigate } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import ContentNextSteps from '@/components/knowledge/ContentNextSteps';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import {
   Newspaper, ArrowLeft, ArrowRight, BookOpen, Clock, Calendar,
@@ -50,14 +51,7 @@ function JournalSection({ sectionKey, content }) {
         <h2 className="text-lg font-black text-white">{label}</h2>
       </div>
       <div className="prose prose-invert prose-sm max-w-none text-slate-300 leading-relaxed">
-        {content.split('\n').map((line, i) => {
-          if (!line.trim()) return <br key={i} />;
-          if (line.startsWith('# ')) return <h3 key={i} className="text-lg font-bold text-white mt-4 mb-2">{line.slice(2)}</h3>;
-          if (line.startsWith('## ')) return <h4 key={i} className="text-base font-bold text-white mt-3 mb-1">{line.slice(3)}</h4>;
-          if (line.startsWith('- ')) return <li key={i} className="ml-4 list-disc">{line.slice(2)}</li>;
-          if (line.startsWith('**') && line.endsWith('**')) return <p key={i} className="font-bold text-white">{line.slice(2, -2)}</p>;
-          return <p key={i} className="mb-2">{line}</p>;
-        })}
+        <ReactMarkdown>{content}</ReactMarkdown>
       </div>
     </section>
   );
@@ -260,18 +254,14 @@ export default function JournalIssueView() {
                 </div>
               )}
 
-              {/* CTA */}
-              {issue.cta_text && issue.cta_url && !issue.cta_url.startsWith('/canon/') && (
-                <Link
-                  to={issue.cta_url}
-                  className="block p-6 rounded-2xl bg-gradient-to-r from-indigo-600/10 to-blue-600/10 border border-indigo-500/20 hover:border-indigo-500/40 transition-all text-center group"
-                >
-                  <p className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
-                    {issue.cta_text}
-                  </p>
-                  <p className="text-sm text-slate-500 mt-1">→ {issue.cta_url}</p>
-                </Link>
-              )}
+              <ContentNextSteps
+                title={issue.title}
+                path={'/journal/' + (issue.slug || 'issue-' + issue.issue_number)}
+                resources={[
+                  ...(/^\/(?:canon|knowledge)\//.test(issue.cta_url || '') ? [{ title: issue.cta_text, path: issue.cta_url }] : []),
+                  ...(issue.related_video_url ? [{ title: issue.related_video_title || 'The video for this issue', href: issue.related_video_url, kind: 'video' }] : []),
+                ]}
+              />
 
               {/* ── Issue Navigation ─────────────────────────────────────── */}
               <nav className="flex flex-col sm:flex-row gap-4 pt-8 mt-8 border-t border-slate-800">

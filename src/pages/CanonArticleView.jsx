@@ -13,9 +13,11 @@ import {
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import SEOHead from '@/components/shared/SEOHead';
+import ContentNextSteps from '@/components/knowledge/ContentNextSteps';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
+import { contentPath } from '@/lib/contentJourney';
 
 /**
  * CanonArticleView
@@ -92,6 +94,16 @@ export default function CanonArticleView() {
   const collectionTitle = collectionSlug === 'nta-principles'
     ? 'The NTA Principles'
     : 'Knowledge Library Collection';
+
+  const related = kg.getRelatedContent(article.canon_id);
+  const relatedReading = [
+    ...[...related.reading, ...related.learning]
+      .filter(item => item.status === 'Published')
+      .map(item => ({ title: item.title, path: item.canonical_url || '/canon/' + item.slug })),
+    ...journalIssues
+      .filter(issue => contentPath(issue.cta_url) === contentPath(canonicalPath))
+      .map(issue => ({ title: issue.title, path: '/journal/' + (issue.slug || 'issue-' + issue.issue_number) })),
+  ].slice(0, 2);
 
   const action = article.cta_text && article.cta_url
     ? { text: article.cta_text, url: article.cta_url }
@@ -185,28 +197,11 @@ export default function CanonArticleView() {
           </div>
         </section>
 
-        {isLesson && journalIssues.length > 0 && (
-          <section className="border-t border-slate-800 bg-slate-900/30 py-12 px-6" aria-labelledby="lesson-journal-heading">
-            <div className="max-w-3xl mx-auto">
-              <p className="text-xs font-bold uppercase tracking-widest text-indigo-400">The NTA Journal</p>
-              <h2 id="lesson-journal-heading" className="mt-2 text-2xl font-black text-white">Continue with the published Journal issues</h2>
-              <p className="mt-3 text-slate-400 leading-relaxed">This lesson is connected to the ideas Rick is building in public. Read the Journal from Issue 1 through the current issue.</p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                {journalIssues.map(issue => (
-                  <Link
-                    key={issue.id || issue.issue_number}
-                    to={`/journal/${issue.slug || `issue-${issue.issue_number}`}`}
-                    className="rounded-xl border border-slate-800 bg-slate-950/50 p-4 transition-colors hover:border-indigo-500/50 hover:bg-slate-950"
-                  >
-                    <span className="text-xs font-bold text-indigo-400">Issue #{issue.issue_number}</span>
-                    <span className="mt-2 block text-sm font-semibold leading-snug text-white">{issue.title}</span>
-                    <span className="mt-3 block text-xs font-bold text-indigo-400">Read issue <ArrowRight className="ml-1 inline h-3 w-3" /></span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+        <section className="px-6 pb-12">
+          <div className="mx-auto max-w-3xl">
+            <ContentNextSteps title={article.title} path={canonicalPath} resources={relatedReading} />
+          </div>
+        </section>
 
         {(action || collectionSlug) && (
           <section className="border-t border-slate-800 bg-slate-900/30 py-12 px-6">

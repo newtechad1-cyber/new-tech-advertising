@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, BookOpen, Download, ExternalLink, Headphones, Lo
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import { ContentNextSteps } from '@/components/knowledge/ContentNextSteps';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
 import { findGrowthShowEpisode } from '@/lib/growthShow';
 
@@ -128,7 +129,7 @@ export default function GrowthShowEpisode() {
         <section className="mx-auto max-w-5xl px-6 pb-16">
           <div className="mb-8">
             <p className="text-sm font-bold uppercase tracking-widest text-blue-400">Continue the idea</p>
-            <h2 className="mt-2 text-3xl font-black text-white">This episode is connected to the full NTA publishing system.</h2>
+            <h2 className="mt-2 text-3xl font-black text-white">Read more, try the idea, or ask a question.</h2>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2">
@@ -208,12 +209,8 @@ export default function GrowthShowEpisode() {
             )}
           </div>
 
-          <div className="mt-12 rounded-3xl border border-blue-500/20 bg-blue-950/30 p-8 text-center md:p-10">
-            <h2 className="text-3xl font-black text-white">What does this mean for your business?</h2>
-            <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-400">Use the NTA Growth Conversation to think through where you are now, what may be getting in the way, and which practical next step makes sense.</p>
-            <Link to={episode.ctaUrl} className="mt-7 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-3 font-bold text-white hover:bg-blue-500">
-              {episode.ctaText} <ArrowRight className="h-4 w-4" />
-            </Link>
+          <div className="mt-12">
+            <ContentNextSteps title={episode.title} path={'/growth-show/' + episode.slug} />
           </div>
         </section>
       </main>

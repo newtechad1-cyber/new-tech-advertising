@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
+import { contentContext, followUpPath, guideQuestion } from '@/lib/contentJourney';
 import { appParams } from '@/lib/app-params';
 import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare, Mail, Volume2, VolumeX, Minimize2, Maximize2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -207,6 +208,7 @@ export default function YourDigitalGrowthGuide() {
     content: "Hi, I’m the NTA Digital Growth Guide. Tell me what is happening in your business, and we’ll find a practical next step together."
   }]);
   const [input, setInput] = useState('');
+  const [readingContext, setReadingContext] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [avatarMotion, setAvatarMotion] = useState('idle');
   const [discoveryMode, setDiscoveryMode] = useState(false);
@@ -263,7 +265,16 @@ export default function YourDigitalGrowthGuide() {
     setShowHomeWelcome(false);
   };
 
-  const openGuide = () => {
+  const openGuide = (event) => {
+    const detail = event?.detail;
+    const context = contentContext({
+      title: detail?.title || detail?.question,
+      path: detail?.path || window.location.pathname,
+    });
+    if (context && !discoveryMode) {
+      setReadingContext(context);
+      setInput(current => current.trim() ? current : guideQuestion(context));
+    }
     dismissHomeWelcome();
     setIsOpen(true);
   };
@@ -276,7 +287,11 @@ export default function YourDigitalGrowthGuide() {
   useEffect(() => {
     window.addEventListener('nta:open-growth-guide', openGuide);
     return () => window.removeEventListener('nta:open-growth-guide', openGuide);
-  }, []);
+  }, [discoveryMode]);
+
+  useEffect(() => {
+    setReadingContext(null);
+  }, [location.pathname]);
 
   useEffect(() => {
     // Keep Rick available in the corner. Open the Guide only when a visitor chooses it.
@@ -674,6 +689,7 @@ export default function YourDigitalGrowthGuide() {
     setShowContactOptions(false);
     setContactName('');
     setContactTopic('websites');
+    setReadingContext(null);
     setVoiceStatus('idle');
     setVoiceError('');
     setRecordingSeconds(0);
@@ -733,7 +749,7 @@ export default function YourDigitalGrowthGuide() {
     try {
       const response = await invokeVerifiedPublicFunction('growthGuideChat', {
         messages: nextMessages.map(({ role, content }) => ({ role, content })),
-        page_path: location.pathname,
+        page_path: readingContext?.path || location.pathname,
         knowledge_context: buildPublicKnowledgeContext(text)
       });
       const result = response?.data ?? response;
@@ -1163,6 +1179,13 @@ export default function YourDigitalGrowthGuide() {
                     )}
                   </button>
                 </div>
+              </div>
+            )}
+
+            {readingContext && !discoveryMode && (
+              <div className="shrink-0 border-b border-slate-700 bg-blue-950/40 px-4 py-3">
+                <p className="text-xs leading-5 text-slate-300"><strong className="text-blue-200">About:</strong> {readingContext.title}</p>
+                <button type="button" onClick={() => { setIsOpen(false); navigate(followUpPath(readingContext)); }} className="mt-1 text-xs font-semibold text-blue-300 hover:text-blue-200">Ask Rick to follow up on this topic →</button>
               </div>
             )}
 

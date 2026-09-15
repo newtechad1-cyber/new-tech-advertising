@@ -217,9 +217,9 @@ export default function Home() {
               {[
                 ['01', 'Understand', 'Learn from the owner and, with permission, the people doing the work.'],
                 ['02', 'Involve', 'Bring in the knowledge and teach what matters.'],
-                ['03', 'Plan', 'Choose one useful next step.'],
-                ['04', 'Build', 'Build together and learn from the real work.'],
-                ['05', 'Improve', 'Review what changed and keep moving forward.'],
+                ['03', 'Growth Roadmap', 'Agree on the priorities and a practical path forward.'],
+                ['04', 'First project', 'Choose the scope, cost, and responsibilities before work begins.'],
+                ['05', 'Build and improve', 'Put the agreed work in place, review it together, and decide what comes next.'],
               ].map(([number, title, text]) => (
                 <div key={number} className="rounded-2xl border border-blue-900/50 bg-slate-950/60 p-5">
                   <span className="text-xs font-black tracking-[0.2em] text-blue-300">{number}</span>
@@ -229,6 +229,9 @@ export default function Home() {
               ))}
             </div>
 
+            <p className="mt-7 text-center">
+              <Link to="/services#first-project" className="font-semibold text-blue-300 hover:text-blue-200">See what your first project with NTA looks like →</Link>
+            </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <button type="button" onClick={() => openGrowthGuide('homepage_human_help')} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500">
                 Ask Your Digital Growth Guide™ <ArrowRight className="h-5 w-5" />

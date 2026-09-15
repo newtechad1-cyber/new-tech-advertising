@@ -2,6 +2,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, BookOpen, Brain, PlayCircle, Library, Activity } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import SEOHead from '@/components/shared/SEOHead';
+import ContentNextSteps from '@/components/knowledge/ContentNextSteps';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { pointOfViewArticles } from '@/data/povArticles';
@@ -97,6 +98,12 @@ export default function POVArticleView() {
           </div>
         </section>
       )}
+
+      <section className="px-6 py-12">
+        <div className="mx-auto max-w-3xl">
+          <ContentNextSteps title={article.title} path={'/point-of-view/' + article.slug} />
+        </div>
+      </section>
 
       {/* Navigation & Next Steps (if end of journey) */}
       <section className="py-16 px-6 border-t border-slate-800">

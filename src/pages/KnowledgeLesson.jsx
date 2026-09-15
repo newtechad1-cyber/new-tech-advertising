@@ -5,6 +5,7 @@ import { ChevronRight, Clock, CheckCircle, ArrowLeft, ArrowRight, User, BookOpen
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import ContentNextSteps from '@/components/knowledge/ContentNextSteps';
 import { getLessonBySlug, getCollectionBySlug, getConnectedLessonResources } from '@/data/masterCurriculum';
 import { getLessonSearchMetadata } from '@/config/seoMetadata';
 import { getJourneyMemory, updateJourneyMemory, addCompletedModule } from '@/lib/journeyMemory';
@@ -225,27 +226,10 @@ export default function KnowledgeLesson() {
 
         <section className="py-12 px-6">
           <div className="max-w-3xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {collection.id < 4 ? (
-                <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/50">
-                  <h4 className="font-bold text-white mb-2">Have a specific question?</h4>
-                  <p className="text-sm text-slate-400 mb-4">You don't have to figure it all out alone. Ask Rick directly.</p>
-                  <Link to="/contact" className="text-sm font-bold text-blue-400 hover:text-blue-300">Ask Rick a Question →</Link>
-                </div>
-              ) : (
-                <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/50">
-                  <h4 className="font-bold text-white mb-2">Ready to apply this?</h4>
-                  <p className="text-sm text-slate-400 mb-4">Begin a Growth Conversation to see how this fits your business.</p>
-                  <Link to="/book-call" className="text-sm font-bold text-blue-400 hover:text-blue-300">Start a Growth Conversation →</Link>
-                </div>
-              )}
-
-              <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/50">
-                <h4 className="font-bold text-white mb-2">Never miss a lesson</h4>
-                <p className="text-sm text-slate-400 mb-4">Get the NTA Journal delivered to your inbox every Tuesday morning.</p>
-                <Link to="/nta-journal" className="text-sm font-bold text-indigo-400 hover:text-indigo-300">Subscribe to the Journal →</Link>
-              </div>
-            </div>
+            <ContentNextSteps
+              title={lesson.title}
+              path={`/knowledge/${collection.slug}/${lesson.slug}`}
+            />
           </div>
         </section>
 

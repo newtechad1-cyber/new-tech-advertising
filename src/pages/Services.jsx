@@ -230,12 +230,12 @@ export default function Services() {
                 </Link>
                 <Link to="/accessible-websites" className="block bg-slate-900 border border-slate-800 p-5 rounded-xl hover:border-slate-700 transition-colors group">
                   <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Website Accessibility (ADA)</h4>
-                  <p className="text-slate-400 text-sm mb-3">Protect your business from ADA lawsuits and serve all customers.</p>
+                  <p className="text-slate-400 text-sm mb-3">Make your website easier for people with different access needs to use.</p>
                   <span className="text-blue-400 text-sm font-medium flex items-center gap-1">Learn More <ArrowRight className="w-4 h-4" /></span>
                 </Link>
                 <Link to="/free-audit" className="block bg-slate-900 border border-slate-800 p-5 rounded-xl hover:border-slate-700 transition-colors group">
-                  <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Free Visibility Audit</h4>
-                  <p className="text-slate-400 text-sm mb-3">Identify exactly where your business stands in search and what to fix first.</p>
+                  <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Free Business Gap Audit</h4>
+                  <p className="text-slate-400 text-sm mb-3">Get a first-pass review of your public website and practical suggestions to discuss.</p>
                   <span className="text-blue-400 text-sm font-medium flex items-center gap-1">See How It Works <ArrowRight className="w-4 h-4" /></span>
                 </Link>
               </div>
@@ -317,48 +317,27 @@ export default function Services() {
         </div>
       </section>
 
-      {/* 5. Not every business starts in the same place */}
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">
-            You Do Not Have to Build Everything at Once
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl text-left">
-              <h3 className="text-xl font-bold text-white mb-4">Start With Clarity</h3>
-              <ul className="space-y-3 text-slate-400 text-sm">
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> Growth Conversation</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> Business Score</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> Gap identification</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div> One immediate priority</li>
-              </ul>
-            </div>
-
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl text-left">
-              <h3 className="text-xl font-bold text-white mb-4">Build the Essentials</h3>
-              <ul className="space-y-3 text-slate-400 text-sm">
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div> Foundation</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div> Visibility</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div> Trust</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div> Lead and relationship systems</li>
-              </ul>
-            </div>
-
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl text-left">
-              <h3 className="text-xl font-bold text-white mb-4">Connect and Expand</h3>
-              <ul className="space-y-3 text-slate-400 text-sm">
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div> Automation</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div> AI support</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div> Business knowledge</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div> Back-office workflows</li>
-                <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div> Reporting and continuous improvement</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="inline-block bg-blue-900/20 border border-blue-500/30 text-blue-300 px-6 py-4 rounded-xl text-lg font-medium">
-            We build the right system in the right order, based on the needs and readiness of the business.
+      <section id="first-project" className="scroll-mt-32 px-6 py-20">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">Working with NTA</p>
+          <h2 className="mt-3 text-3xl font-bold md:text-4xl">Your first project starts with understanding your business.</h2>
+          <p className="mt-5 text-lg leading-8 text-slate-300">You can begin with a question, a free Growth Conversation, or a Free Business Gap Audit. Together, we work out what needs attention and whether NTA can help.</p>
+          <ol className="mt-8 space-y-4">
+            {[
+              ['Understand the situation', 'Tell us what you want to improve and what is getting in the way. We listen to the owner and, with permission, the people who do the work.'],
+              ['Agree on a Growth Roadmap', 'Turn what we learn into clear priorities and practical options. If a deeper paid review is useful, we explain its scope and cost before you decide.'],
+              ['Choose one focused first project', 'Agree on the work, cost, responsibilities and what progress will look like. We build and review that work together. Continued support can grow from what your business needs.'],
+            ].map(([title, description], index) => (
+              <li key={title} className="flex items-start gap-4 rounded-2xl border border-slate-800 bg-slate-900 p-6">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600 font-bold" aria-hidden="true">{index + 1}</span>
+                <div><h3 className="text-xl font-bold text-white">{title}</h3><p className="mt-2 leading-7 text-slate-400">{description}</p></div>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-6 leading-7 text-slate-400">Your plan is built around your priorities, capacity and budget. The first project might improve a website journey, organize customer follow-up, or help your team use AI in the work they already do.</p>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <Link to="/growth-conversation" className="rounded-xl bg-blue-600 px-6 py-3 text-center font-bold hover:bg-blue-500">Start a free Growth Conversation</Link>
+            <Link to="/contact" className="rounded-xl border border-slate-600 px-6 py-3 text-center font-bold hover:border-blue-400">Talk to My Office™</Link>
           </div>
         </div>
       </section>

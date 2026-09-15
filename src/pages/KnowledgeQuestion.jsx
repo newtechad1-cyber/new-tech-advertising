@@ -1,8 +1,9 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, BookOpen, ChevronRight, CircleCheck, MessageCircle, User } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, ChevronRight, CircleCheck, User } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import { ContentNextSteps } from '@/components/knowledge/ContentNextSteps';
 import {
   KNOWLEDGE_QUESTION_LAST_UPDATED,
   getKnowledgeQuestionBySlug,
@@ -10,7 +11,6 @@ import {
   getRelatedKnowledgeQuestions
 } from '@/data/knowledgeQuestions';
 import { getQuestionExperience } from '@/data/questionExperience';
-import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 
 const UPDATED_LABEL = 'September 11, 2026';
 
@@ -47,28 +47,6 @@ export default function KnowledgeQuestion() {
   const experience = getQuestionExperience(question.slug);
   const questionPath = getKnowledgeQuestionPath(question);
   const canonical = 'https://newtechadvertising.com' + questionPath;
-
-  const openGrowthGuide = () => {
-    trackJourneyEvent('question_growth_guide_opened', {
-      route: questionPath,
-      step: question.slug,
-      source: 'question_answer'
-    });
-    window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
-      detail: { source: 'question_answer', question: question.question }
-    }));
-  };
-
-  const openTalkToOffice = () => {
-    trackJourneyEvent('question_talk_to_my_office_opened', {
-      route: questionPath,
-      step: question.slug,
-      source: 'question_answer'
-    });
-    window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
-      detail: { source: 'question_talk_to_my_office', question: question.question }
-    }));
-  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
@@ -230,18 +208,8 @@ export default function KnowledgeQuestion() {
           )}
 
           <section className="border-y border-blue-500/15 bg-blue-950/20 px-6 py-14">
-            <div className="max-w-3xl mx-auto rounded-3xl border border-blue-500/25 bg-slate-950/70 p-8 md:p-10">
-              <p className="text-xs font-bold uppercase tracking-widest text-cyan-300 mb-3">Keep the conversation useful</p>
-              <h2 className="text-2xl md:text-3xl font-black text-white mb-4">Still thinking it through?</h2>
-              <p className="leading-7 text-slate-300">Ask Your Digital Growth Guide™ the question that is still on your mind. If a human conversation would be useful, Talk to My Office™ by call, text, email, or a conversation here—whichever is easiest for you.</p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <button type="button" onClick={openGrowthGuide} className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white hover:bg-blue-500 transition-colors">
-                  <MessageCircle className="w-5 h-5" /> Ask Your Digital Growth Guide™
-                </button>
-                <button type="button" onClick={openTalkToOffice} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900 px-6 py-3.5 font-bold text-white hover:border-slate-400 hover:bg-slate-800 transition-colors">
-                  Talk to My Office™ <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
+            <div className="max-w-3xl mx-auto">
+              <ContentNextSteps title={question.question} path={questionPath} />
             </div>
           </section>
 
