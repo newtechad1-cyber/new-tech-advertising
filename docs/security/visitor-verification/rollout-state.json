@@ -1,7 +1,7 @@
 {
   "app_id": "691f41a18de4a7f498c8f884",
   "stage": "three_public_guards_saved_awaiting_publication",
-  "updated_at": "2026-09-15T12:45:22.049Z",
+  "updated_at": "2026-09-15T12:47:37.267Z",
   "keys": "User confirmed both secrets saved. The published metadata responses returned public Site Key/action; actual provider validity is not yet verified.",
   "live_config_checks": {
     "growthGuideChat": {
@@ -48,7 +48,7 @@
     },
     {
       "path": "base44/functions/ntaUnifiedIntake/entry.ts",
-      "current_sha256": "35651b4035f88971e04edd52d2cd83df3e12a1216340879c920811ec030fc21f"
+      "current_sha256": "dc159fea4e67599d5d7761fb0a418c43ecf8733b97d530c2ed12fd2d146a7172"
     },
     {
       "path": "src/legacy-page-components/StreamingIntake.jsx",
@@ -127,7 +127,7 @@
   ],
   "validation": {
     "build": "passed",
-    "behavior_tests_passed": 99,
+    "behavior_tests_passed": 101,
     "real_provider_verified": false,
     "live_negative_check": "blocked_by_automatic_approval_review"
   },

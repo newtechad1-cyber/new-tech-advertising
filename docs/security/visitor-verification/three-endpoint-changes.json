@@ -16,7 +16,7 @@
     {
       "path": "base44/functions/ntaUnifiedIntake/entry.ts",
       "before_sha256": "178252caa70edf38bc4a23f48ef406b8051779a7072ed9c93068c5ed147f8f81",
-      "after_sha256": "35651b4035f88971e04edd52d2cd83df3e12a1216340879c920811ec030fc21f"
+      "after_sha256": "dc159fea4e67599d5d7761fb0a418c43ecf8733b97d530c2ed12fd2d146a7172"
     },
     {
       "path": "src/lib/publicVerification.js",
@@ -142,7 +142,7 @@
   "production_enforcement_verified": false,
   "server_routed_publication_form": "src/components/publishing/PublicationSignupForm.jsx",
   "validation": {
-    "behavior_tests": 99,
+    "behavior_tests": 101,
     "build": "passed",
     "diff_check": "passed",
     "live_negative_check": "blocked_by_automatic_approval_review"
