@@ -19,6 +19,31 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
 ]);
 const requestBuckets = new Map();
 
+function decodeBase64Url(value) {
+  const normalized = String(value || '').replaceAll('-', '+').replaceAll('_', '/');
+  const padded = normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
+  const binary = atob(padded);
+  return Uint8Array.from(binary, char => char.charCodeAt(0));
+}
+
+async function verifyTrackingToken(token, bookKey) {
+  const secret = String(Deno.env.get('NTA_CORE_BRIDGE_SECRET') || '').trim();
+  if (secret.length < 32 || typeof token !== 'string') return false;
+  const [encodedPayload, encodedSignature, ...extra] = token.split('.');
+  if (!encodedPayload || !encodedSignature || extra.length) return false;
+  try {
+    const key = await crypto.subtle.importKey(
+      'raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify'],
+    );
+    const valid = await crypto.subtle.verify(
+      'HMAC', key, decodeBase64Url(encodedSignature), new TextEncoder().encode(encodedPayload),
+    );
+    if (!valid) return false;
+    const payload = JSON.parse(new TextDecoder().decode(decodeBase64Url(encodedPayload)));
+    return payload?.book_key === bookKey && Number(payload?.exp) > Date.now();
+  } catch { return false; }
+}
+
 function isTrustedPublicOrigin(req) {
   const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
   if (!rawOrigin) return false;
@@ -54,10 +79,6 @@ Deno.serve(async (req) => {
   }
   const base44 = createClientFromRequest(req);
   const user = await base44.auth.me().catch(() => null);
-  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
-  if (user.role !== 'admin' && user.is_service !== true) {
-    return Response.json({ error: 'Admin access required' }, { status: 403 });
-  }
 
   const retryAfter = getRetryAfter(req);
   if (retryAfter) {
@@ -81,6 +102,14 @@ Deno.serve(async (req) => {
     if (!['better-business-book', 'practical-ai-for-small-business'].includes(payload.book_key)
       || !['access_request', 'download_click', 'read_online_click'].includes(payload.event_type)) {
       return Response.json({ error: 'Invalid book event.' }, { status: 400 });
+    }
+    const privileged = user?.role === 'admin' || user?.is_service === true;
+    if (!privileged) {
+      if (!isTrustedPublicOrigin(req)) return Response.json({ error: 'Untrusted request origin.' }, { status: 403 });
+      if (payload.event_type === 'access_request') return Response.json({ error: 'Access requests are recorded by the verified signup flow.' }, { status: 403 });
+      if (!await verifyTrackingToken(payload.tracking_token, payload.book_key)) {
+        return Response.json({ error: 'Book tracking authorization expired. Please request access again.' }, { status: 403 });
+      }
     }
     const office = createCoreClient();
     const response = await office.functions.invoke('trackBookEvent', payload);
