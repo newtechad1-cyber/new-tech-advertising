@@ -1,5 +1,6 @@
 /**
  * Public-site intake bridge.
+ * Runtime refresh: authenticated no-data connection readiness, 2026-09-15.
  *
  * Public forms remain login-free. This endpoint requires server-verified
  * Turnstile visitor proof or a verified administrator/service identity before
