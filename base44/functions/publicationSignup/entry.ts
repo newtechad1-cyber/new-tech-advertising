@@ -1,5 +1,25 @@
 import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
 
+// Public configuration only; visitor enforcement follows the browser rollout.
+function verificationSettings() {
+  const siteKey = String(Deno.env.get('NTA_TURNSTILE_SITE_KEY') || '').trim();
+  const secret = String(Deno.env.get('NTA_TURNSTILE_SECRET_KEY') || '').trim();
+  const isTestKey = (value) => /^[123]x0{8,}/.test(value);
+  return siteKey.length >= 20 && secret.length >= 20 && !isTestKey(siteKey) && !isTestKey(secret)
+    ? { siteKey, secret }
+    : null;
+}
+
+function publicVerificationConfig(action) {
+  const settings = verificationSettings();
+  if (!settings) {
+    return Response.json({ error: 'Verification is temporarily unavailable. Please call or text 641-420-8816.' }, { status: 503 });
+  }
+  return Response.json({ site_key: settings.siteKey, action }, {
+    headers: { 'Cache-Control': 'no-store' },
+  });
+}
+
 const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
 const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://newtechadvertising.com',
@@ -93,16 +113,6 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Untrusted request origin.' }, { status: 403 });
     }
 
-    if (!trustedService) {
-      const retryAfterSeconds = isRateLimited(req);
-      if (retryAfterSeconds) {
-        return Response.json(
-          { error: 'Too many requests. Please try again shortly.' },
-          { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
-        );
-      }
-    }
-
     const contentLength = Number(req.headers.get('content-length') || 0);
     if (contentLength > 16000) {
       return Response.json({ error: 'Request is too large.' }, { status: 413 });
@@ -122,6 +132,21 @@ Deno.serve(async (req) => {
 
     if (!payload || Array.isArray(payload) || typeof payload !== 'object') {
       return Response.json({ error: 'Invalid request body.' }, { status: 400 });
+    }
+
+    // This metadata response exposes only the public site key, never the secret.
+    if (payload.verification_config === true && Object.keys(payload).length === 1) {
+      return publicVerificationConfig('publication_signup');
+    }
+
+    if (!trustedService) {
+      const retryAfterSeconds = isRateLimited(req);
+      if (retryAfterSeconds) {
+        return Response.json(
+          { error: 'Too many requests. Please try again shortly.' },
+          { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+        );
+      }
     }
 
     const antiSpam = payload.anti_spam && typeof payload.anti_spam === 'object' ? payload.anti_spam : {};
