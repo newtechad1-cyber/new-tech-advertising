@@ -5,9 +5,11 @@ import test from 'node:test';
 import { webcrypto } from 'node:crypto';
 import ts from 'typescript';
 
-const candidates = JSON.parse(readFileSync('docs/security/core-bridge/candidates.json', 'utf8'));
 const CORE = '6a7215451eb90dc843a94546';
 const PUBLIC = '691f41a18de4a7f498c8f884';
+// Test active public senders. Core also runs these boundary cases against its own active files.
+const candidates = JSON.parse(readFileSync('docs/security/core-bridge/candidates.json', 'utf8'))
+  .map(file => file.appId === PUBLIC ? { ...file, content: readFileSync(file.path, 'utf8') } : file);
 const KEY = 'unit-test-core-bridge-secret-not-for-production';
 const HEADER = 'x-nta-core-bridge-secret';
 function setup(file, { user = null, secret = KEY, authError = false } = {}) {
@@ -102,7 +104,7 @@ test('staged Core forms use the verified public gateway and meet the recruiting 
   }
 });
 
-test('all staged files parse without changing active Core code', () => {
+test('active public and reviewed Core connection files parse', () => {
   for (const file of candidates) {
     const result = ts.transpileModule(file.content, { fileName: file.path,
       compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX }, reportDiagnostics: true });

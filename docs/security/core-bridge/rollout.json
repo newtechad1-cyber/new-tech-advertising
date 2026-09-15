@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "stage": "prepared_awaiting_shared_secret",
+  "stage": "active_source_verified",
   "secret_name": "NTA_CORE_BRIDGE_SECRET",
   "header": "x-nta-core-bridge-secret",
   "minimum_secret_length": 32,
@@ -419,7 +419,86 @@
       "appId": "6a7215451eb90dc843a94546",
       "path": "src/lib/publicVerification.js",
       "create": true,
-      "content": "import { createClient } from '@base44/sdk';\n// Public Core forms enter through the website's verified visitor gateway.\nconst base44 = createClient({ appId: '691f41a18de4a7f498c8f884' });\n\nconst ACTIONS = {\n  growthGuideChat: 'growth_guide_chat',\n  publicationSignup: 'publication_signup',\n  ntaUnifiedIntake: 'nta_unified_intake',\n  startDiscoverySession: 'start_discovery_session',\n  submitPublicTrialSignup: 'trial_signup',\n  submitRecruitingApplication: 'recruiting_application',\n};\nlet scriptPromise;\nlet verificationQueue = Promise.resolve();\nconst configCache = new Map();\n\nfunction loadVerificationScript() {\n  if (window.turnstile) return Promise.resolve(window.turnstile);\n  if (!scriptPromise) {\n    scriptPromise = new Promise((resolve, reject) => {\n      const script = document.createElement('script');\n      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';\n      script.async = true;\n      script.defer = true;\n      const timeout = window.setTimeout(() => {\n        script.remove();\n        reject(new Error('Verification could not load. Please try again.'));\n      }, 15_000);\n      script.onload = () => {\n        window.clearTimeout(timeout);\n        if (window.turnstile) resolve(window.turnstile);\n        else reject(new Error('Verification could not load. Please try again.'));\n      };\n      script.onerror = () => {\n        window.clearTimeout(timeout);\n        script.remove();\n        reject(new Error('Verification could not load. Please try again.'));\n      };\n      document.head.appendChild(script);\n    }).catch(error => { scriptPromise = null; throw error; });\n  }\n  return scriptPromise;\n}\n\nasync function getVerificationConfig(name) {\n  const cached = configCache.get(name);\n  if (cached && Date.now() < cached.expiresAt) return cached;\n  const response = await base44.functions.invoke(name, { verification_config: true });\n  const { site_key: siteKey, action } = response.data || {};\n  if (typeof siteKey !== 'string' || siteKey.length < 20 || action !== ACTIONS[name]) {\n    throw new Error('Verification is temporarily unavailable. Please call or text 641-420-8816.');\n  }\n  const value = { siteKey, action, expiresAt: Date.now() + 300_000 };\n  configCache.set(name, value);\n  return value;\n}\n\nasync function requestVisitorToken(config) {\n  const turnstile = await loadVerificationScript();\n  return new Promise((resolve, reject) => {\n    const dialog = document.createElement('dialog');\n    const previousFocus = document.activeElement;\n    dialog.setAttribute('aria-label', 'Verify your request');\n    Object.assign(dialog.style, {\n      padding: '24px', border: '1px solid #cbd5e1', borderRadius: '16px',\n      maxWidth: 'calc(100vw - 32px)', width: '350px', color: '#0f172a',\n      background: '#fff', boxShadow: '0 20px 60px #0004', zIndex: '2147483647',\n    });\n    const message = document.createElement('p');\n    message.textContent = 'Checking your request…';\n    message.setAttribute('role', 'status');\n    Object.assign(message.style, { margin: '0 0 16px', fontSize: '16px' });\n    const holder = document.createElement('div');\n    const cancel = document.createElement('button');\n    cancel.type = 'button';\n    cancel.textContent = 'Cancel';\n    Object.assign(cancel.style, {\n      display: 'block', margin: '16px 0 0 auto', padding: '8px 16px',\n      border: '1px solid #94a3b8', borderRadius: '8px', cursor: 'pointer',\n    });\n    dialog.append(message, holder, cancel);\n    document.body.appendChild(dialog);\n    let widgetId;\n    let settled = false;\n    const timeout = window.setTimeout(() => finish(new Error('Verification timed out. Please try again.')), 120_000);\n\n    function finish(error, token) {\n      if (settled) return;\n      settled = true;\n      window.clearTimeout(timeout);\n      if (widgetId !== undefined) {\n        try { turnstile.remove(widgetId); } catch { /* already removed */ }\n      }\n      if (dialog.open) dialog.close();\n      dialog.remove();\n      if (previousFocus?.isConnected && typeof previousFocus.focus === 'function') previousFocus.focus();\n      if (error) reject(error);\n      else resolve(token);\n    }\n\n    cancel.addEventListener('click', () => finish(new Error('Verification cancelled. Your request was not submitted.')));\n    dialog.addEventListener('cancel', event => {\n      event.preventDefault();\n      finish(new Error('Verification cancelled. Your request was not submitted.'));\n    });\n\n    try {\n      dialog.showModal();\n      widgetId = turnstile.render(holder, {\n        sitekey: config.siteKey,\n        action: config.action,\n        theme: 'light',\n        execution: 'execute',\n        appearance: 'interaction-only',\n        callback: token => finish(null, token),\n        'error-callback': () => finish(new Error('Verification failed. Please try again.')),\n        'expired-callback': () => finish(new Error('Verification expired. Please try again.')),\n        'timeout-callback': () => finish(new Error('Verification timed out. Please try again.')),\n      });\n      turnstile.execute(widgetId);\n    } catch {\n      finish(new Error('Verification could not start. Please try again.'));\n    }\n  });\n}\n\n// Get a fresh, single-use provider token for every submission. Never store it\n// in localStorage or retry a mutation automatically after an uncertain result.\nexport async function invokeVerifiedPublicFunction(name, payload) {\n  if (!ACTIONS[name]) throw new Error('Unsupported public function');\n  const config = await getVerificationConfig(name);\n  const pending = verificationQueue.then(() => requestVisitorToken(config));\n  verificationQueue = pending.catch(() => {});\n  const token = await pending;\n  const response = await base44.functions.invoke(name, { ...payload, verification_token: token });\n  const result = response?.data ?? response;\n  if (result?.success === false || result?.accepted === false) {\n    throw new Error(result.error || 'Your request was not accepted. Please try again or call or text 641-420-8816.');\n  }\n  return response;\n}"
+      "content": "import { createClient } from '@base44/sdk';\n// Public Core forms enter through the website's verified visitor gateway.\nconst base44 = createClient({ appId: '691f41a18de4a7f498c8f884' });\n\nconst ACTIONS = {\n  growthGuideChat: 'growth_guide_chat',\n  publicationSignup: 'publication_signup',\n  ntaUnifiedIntake: 'nta_unified_intake',\n  startDiscoverySession: 'start_discovery_session',\n  submitPublicTrialSignup: 'trial_signup',\n  submitRecruitingApplication: 'recruiting_application',\n};\nlet scriptPromise;\nlet verificationQueue = Promise.resolve();\nconst configCache = new Map();\n\nfunction loadVerificationScript() {\n  if (window.turnstile) return Promise.resolve(window.turnstile);\n  if (!scriptPromise) {\n    scriptPromise = new Promise((resolve, reject) => {\n      const script = document.createElement('script');\n      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';\n      script.async = true;\n      script.defer = true;\n      const timeout = window.setTimeout(() => {\n        script.remove();\n        reject(new Error('Verification could not load. Please try again.'));\n      }, 15_000);\n      script.onload = () => {\n        window.clearTimeout(timeout);\n        if (window.turnstile) resolve(window.turnstile);\n        else reject(new Error('Verification could not load. Please try again.'));\n      };\n      script.onerror = () => {\n        window.clearTimeout(timeout);\n        script.remove();\n        reject(new Error('Verification could not load. Please try again.'));\n      };\n      document.head.appendChild(script);\n    }).catch(error => { scriptPromise = null; throw error; });\n  }\n  return scriptPromise;\n}\n\nasync function getVerificationConfig(name) {\n  const cached = configCache.get(name);\n  if (cached && Date.now() < cached.expiresAt) return cached;\n  const response = await base44.functions.invoke(name, { verification_config: true });\n  const { site_key: siteKey, action } = response.data || {};\n  if (typeof siteKey !== 'string' || siteKey.length < 20 || action !== ACTIONS[name]) {\n    throw new Error('Verification is temporarily unavailable. Please call or text 641-420-8816.');\n  }\n  const value = { siteKey, action, expiresAt: Date.now() + 300_000 };\n  configCache.set(name, value);\n  return value;\n}\n\nasync function requestVisitorToken(config) {\n  const turnstile = await loadVerificationScript();\n  return new Promise((resolve, reject) => {\n    const dialog = document.createElement('dialog');\n    const previousFocus = document.activeElement;\n    dialog.setAttribute('aria-label', 'Verify your request');\n    Object.assign(dialog.style, {\n      padding: '24px', border: '1px solid #cbd5e1', borderRadius: '16px',\n      maxWidth: 'calc(100vw - 32px)', width: '350px', color: '#0f172a',\n      background: '#fff', boxShadow: '0 20px 60px #0004', zIndex: '2147483647',\n    });\n    const message = document.createElement('p');\n    message.textContent = 'Checking your request\u2026';\n    message.setAttribute('role', 'status');\n    Object.assign(message.style, { margin: '0 0 16px', fontSize: '16px' });\n    const holder = document.createElement('div');\n    const cancel = document.createElement('button');\n    cancel.type = 'button';\n    cancel.textContent = 'Cancel';\n    Object.assign(cancel.style, {\n      display: 'block', margin: '16px 0 0 auto', padding: '8px 16px',\n      border: '1px solid #94a3b8', borderRadius: '8px', cursor: 'pointer',\n    });\n    dialog.append(message, holder, cancel);\n    document.body.appendChild(dialog);\n    let widgetId;\n    let settled = false;\n    const timeout = window.setTimeout(() => finish(new Error('Verification timed out. Please try again.')), 120_000);\n\n    function finish(error, token) {\n      if (settled) return;\n      settled = true;\n      window.clearTimeout(timeout);\n      if (widgetId !== undefined) {\n        try { turnstile.remove(widgetId); } catch { /* already removed */ }\n      }\n      if (dialog.open) dialog.close();\n      dialog.remove();\n      if (previousFocus?.isConnected && typeof previousFocus.focus === 'function') previousFocus.focus();\n      if (error) reject(error);\n      else resolve(token);\n    }\n\n    cancel.addEventListener('click', () => finish(new Error('Verification cancelled. Your request was not submitted.')));\n    dialog.addEventListener('cancel', event => {\n      event.preventDefault();\n      finish(new Error('Verification cancelled. Your request was not submitted.'));\n    });\n\n    try {\n      dialog.showModal();\n      widgetId = turnstile.render(holder, {\n        sitekey: config.siteKey,\n        action: config.action,\n        theme: 'light',\n        execution: 'execute',\n        appearance: 'interaction-only',\n        callback: token => finish(null, token),\n        'error-callback': () => finish(new Error('Verification failed. Please try again.')),\n        'expired-callback': () => finish(new Error('Verification expired. Please try again.')),\n        'timeout-callback': () => finish(new Error('Verification timed out. Please try again.')),\n      });\n      turnstile.execute(widgetId);\n    } catch {\n      finish(new Error('Verification could not start. Please try again.'));\n    }\n  });\n}\n\n// Get a fresh, single-use provider token for every submission. Never store it\n// in localStorage or retry a mutation automatically after an uncertain result.\nexport async function invokeVerifiedPublicFunction(name, payload) {\n  if (!ACTIONS[name]) throw new Error('Unsupported public function');\n  const config = await getVerificationConfig(name);\n  const pending = verificationQueue.then(() => requestVisitorToken(config));\n  verificationQueue = pending.catch(() => {});\n  const token = await pending;\n  const response = await base44.functions.invoke(name, { ...payload, verification_token: token });\n  const result = response?.data ?? response;\n  if (result?.success === false || result?.accepted === false) {\n    throw new Error(result.error || 'Your request was not accepted. Please try again or call or text 641-420-8816.');\n  }\n  return response;\n}"
     }
-  ]
+  ],
+  "activated_at": "2026-09-15T16:35:06.455348+00:00",
+  "secret_settings": "Owner confirmed the same new secret is saved in both apps; values were not read.",
+  "active_core_source_verification": [
+    {
+      "path": "base44/functions/ntaUnifiedIntake/entry.ts",
+      "sha256_normalized": "b91fe837864471d872ea3f5d3cae058c5c43854a7bdcfdd2e6187a988710a153"
+    },
+    {
+      "path": "base44/functions/submitRecruitingApplication/entry.ts",
+      "sha256_normalized": "cdde4fab943943c6b6e35465ac5278c971024841d0ef597f986b9f7c130512b0"
+    },
+    {
+      "path": "base44/functions/trackBookEvent/entry.ts",
+      "sha256_normalized": "d2c360cb1fed0cca4cd4ab6767dec9524c4188acef3263f70248810c0918f925"
+    },
+    {
+      "path": "src/pages/ServiceLocation.jsx",
+      "sha256_normalized": "c6c9b0ea24b56d3febe8f0e1283a54c440889c7530428005f49b0ada7dcea5dc"
+    },
+    {
+      "path": "src/pages/NTAGrowthConversation.jsx",
+      "sha256_normalized": "63b8131dc7cf0456b1eaf711293c8c8e711ecd4a29ad7d62e93db0f3d69f9331"
+    },
+    {
+      "path": "src/pages/Get-Started.jsx",
+      "sha256_normalized": "79328d2f6d156f00965ff9050533ac78cd6f95b4d34986e7696abd640659f31e"
+    },
+    {
+      "path": "src/pages/Free-Audit.jsx",
+      "sha256_normalized": "547133f8e0729a5548b22bac8b786f2e182158a15a8230c1c9529a98bd51554f"
+    },
+    {
+      "path": "src/pages/Contact.jsx",
+      "sha256_normalized": "3e518eb98c3d850d3d8feeb50151355e8bfd47ffd3d7c85cb1a803060093db53"
+    },
+    {
+      "path": "src/pages/CaseStudyDetail.jsx",
+      "sha256_normalized": "f1be26f8facc32dd80c6a31daecd95b0227d2e1fd80e9054dde859a72bb3d369"
+    },
+    {
+      "path": "src/pages/AdaIntake.jsx",
+      "sha256_normalized": "487a3d3860873f63ce5de4c649546e9a23def0502de3cb623d9e05dfd1c21858"
+    },
+    {
+      "path": "src/components/start/StartForm.jsx",
+      "sha256_normalized": "9009ee9e6bbe11e41a3819585e9dae73fc70339b14ee8b61dd7b94c455ca0d94"
+    },
+    {
+      "path": "src/components/landing/SignupModal.jsx",
+      "sha256_normalized": "0917e85d2830086901b620ab57d8c5cde583037ffc88128fc5e2e262a6ef9f08"
+    },
+    {
+      "path": "src/pages/JoinNTA.jsx",
+      "sha256_normalized": "1bb754d5241ba2fa0223cff3002e61c373b59806a395f089e69db6666acf097c"
+    },
+    {
+      "path": "src/components/OpportunityConversationForm.jsx",
+      "sha256_normalized": "e8326252987ccbca01b700fa8fa1f70d432ac7eeadf1f6e915ad7945ec669678"
+    },
+    {
+      "path": "src/lib/publicVerification.js",
+      "sha256_normalized": "1c02c68193aaf9d1897f48430a80b62ddc182da6d901c46c2d0f4374902312f5"
+    }
+  ],
+  "recovery_checkpoints": [
+    {
+      "appId": "691f41a18de4a7f498c8f884",
+      "checkpoint_id": "6aa9729667c9e5c873a6584c",
+      "git_commit_hash": "8ed679e19ea6bfc61b79281525baa67df3ea6e10",
+      "name": "Before Core bridge activation \u2014 public app \u2014 2026-09-15"
+    },
+    {
+      "appId": "6a7215451eb90dc843a94546",
+      "checkpoint_id": "6aa9729a3fec5e2b24bda87a",
+      "git_commit_hash": "98a3d8c690b8ae245b52b59004a0420f391ea506",
+      "name": "Before Core bridge activation \u2014 Core app \u2014 2026-09-15"
+    }
+  ],
+  "next_step": "Run both release checks, then coordinate Publish in Core and public app. Runtime credential handshake and visitor delivery still need live verification."
 }
