@@ -1,6 +1,6 @@
 {
   "review_date": "2026-09-15",
-  "status": "source_activated_release_checks_passed_awaiting_publish_and_live_verification",
+  "status": "published_security_rejection_checks_passed_fresh_submission_pending",
   "public_app_id": "691f41a18de4a7f498c8f884",
   "core_app_id": "6a7215451eb90dc843a94546",
   "required_user_setting": {
@@ -46,14 +46,18 @@
     "core_submissions": "Recent /free-audit submissions present through September 14",
     "newest_audit_email": "Brevo acceptance recorded; delivered status not confirmed",
     "historical_delivery": "One August 15 record has delivered/opened evidence",
-    "fresh_emails_sent_in_review": false
+    "fresh_emails_sent_in_review": false,
+    "historical_mailbox_receipt": {
+      "date": "2026-09-13",
+      "mailbox": "info@newtechadvertising.com",
+      "location": "INBOX",
+      "confirmed": true
+    }
   },
   "remaining": [
-    "Publish NTA Core Admin Hub, then New Tech Advertising",
-    "Verify published runtime authentication and matched shared credential without creating records",
-    "Complete one agreed real visitor submission and recipient mailbox confirmation",
-    "Run Base44 hosted Security Scan",
-    "Check the final visitor journey on a phone"
+    "One agreed fresh visitor Gap Audit submission using NTA business details, followed through Core records and the connected mailbox.",
+    "Cloudflare interaction and the full visitor path on a phone.",
+    "Run Base44 hosted Security Scan after the published changes."
   ],
   "automation_scope": "GitHub workflow is configured for pushes and pull requests; its execution and branch protection were not verified. Base44 Publish does not automatically enforce the repository command.",
   "cadence": {
@@ -63,6 +67,10 @@
   },
   "activated_at": "2026-09-15T16:41:07.968342+00:00",
   "runtime_credential_handshake_verified": false,
-  "public_frontend_publication_verified": false,
-  "core_frontend_publication_verified": false
+  "public_frontend_publication_verified": true,
+  "core_frontend_publication_verified": false,
+  "user_reported_both_apps_published": true,
+  "core_frontend_publication_owner_reported": true,
+  "live_unauthorized_rejection_checks_passed": 16,
+  "live_verification_report": "docs/security/core-bridge/live-verification.json"
 }

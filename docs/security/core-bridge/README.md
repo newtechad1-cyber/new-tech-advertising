@@ -1,3 +1,5 @@
+> Publication update: Rick has published both apps. The checked public build and all 16 live unauthorized rejection checks are verified. Follow [LIVE-VERIFICATION.md](LIVE-VERIFICATION.md) for current evidence and the remaining fresh visitor/email test. The original publication handoff below is historical.
+
 # NTA security and visitor journey review — September 15, 2026
 
 The Core connection changes are **active in the saved source of both apps**. Rick confirmed that `NTA_CORE_BRIDGE_SECRET` is saved in both app secret stores. Both release commands and builds passed. The final UI publication and live submission/delivery checks remain; do not report the whole system fully verified.

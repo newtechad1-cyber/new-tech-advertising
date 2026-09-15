@@ -1,0 +1,281 @@
+{
+  "reviewed_at": "2026-09-15T17:03:05.014Z",
+  "status": "published_security_rejection_checks_passed_fresh_submission_pending",
+  "user_reported_both_apps_published": true,
+  "public_build": {
+    "status": 200,
+    "published_asset": "index-CDW1Htcj.js",
+    "published_sha256": "1dd652f863c79a6426c5cdd6cd2ba3acb17bc3fbadc3121a564dc73103dd2c7f",
+    "matches_checked_build": true,
+    "matching_build_files": [
+      "index-CDW1Htcj.js"
+    ]
+  },
+  "live_security": {
+    "visitor_metadata": [
+      {
+        "app": "public",
+        "function": "growthGuideChat",
+        "check": "read-only verification metadata",
+        "status": 200,
+        "action": "growth_guide_chat",
+        "site_key_present": true,
+        "expected_action": "growth_guide_chat"
+      },
+      {
+        "app": "public",
+        "function": "publicationSignup",
+        "check": "read-only verification metadata",
+        "status": 200,
+        "action": "publication_signup",
+        "site_key_present": true,
+        "expected_action": "publication_signup"
+      },
+      {
+        "app": "public",
+        "function": "ntaUnifiedIntake",
+        "check": "read-only verification metadata",
+        "status": 200,
+        "action": "nta_unified_intake",
+        "site_key_present": true,
+        "expected_action": "nta_unified_intake"
+      },
+      {
+        "app": "public",
+        "function": "startDiscoverySession",
+        "check": "read-only verification metadata",
+        "status": 200,
+        "action": "start_discovery_session",
+        "site_key_present": true,
+        "expected_action": "start_discovery_session"
+      },
+      {
+        "app": "public",
+        "function": "submitPublicTrialSignup",
+        "check": "read-only verification metadata",
+        "status": 200,
+        "action": "trial_signup",
+        "site_key_present": true,
+        "expected_action": "trial_signup"
+      },
+      {
+        "app": "public",
+        "function": "submitRecruitingApplication",
+        "check": "read-only verification metadata",
+        "status": 200,
+        "action": "recruiting_application",
+        "site_key_present": true,
+        "expected_action": "recruiting_application"
+      }
+    ],
+    "core_get_rejection": [
+      {
+        "app": "core",
+        "function": "ntaUnifiedIntake",
+        "check": "GET cannot trigger work",
+        "status": 405,
+        "error": "Method not allowed."
+      },
+      {
+        "app": "core",
+        "function": "submitRecruitingApplication",
+        "check": "GET cannot trigger work",
+        "status": 405,
+        "error": "Method not allowed."
+      },
+      {
+        "app": "core",
+        "function": "trackBookEvent",
+        "check": "GET cannot trigger work",
+        "status": 405,
+        "error": "Method not allowed."
+      }
+    ],
+    "unauthorized_rejection_results": [
+      {
+        "app": "public",
+        "function": "growthGuideChat",
+        "status": 403,
+        "expected": 403,
+        "pass": true,
+        "error": "Please complete the verification and try again.",
+        "code": "VERIFICATION_REQUIRED"
+      },
+      {
+        "app": "public",
+        "function": "publicationSignup",
+        "status": 403,
+        "expected": 403,
+        "pass": true,
+        "error": "Please complete the verification and try again.",
+        "code": "VERIFICATION_REQUIRED"
+      },
+      {
+        "app": "public",
+        "function": "ntaUnifiedIntake",
+        "status": 403,
+        "expected": 403,
+        "pass": true,
+        "error": "Please complete the verification and try again.",
+        "code": "VERIFICATION_REQUIRED"
+      },
+      {
+        "app": "public",
+        "function": "startDiscoverySession",
+        "status": 403,
+        "expected": 403,
+        "pass": true,
+        "error": "Please complete the verification and try again.",
+        "code": "VERIFICATION_REQUIRED"
+      },
+      {
+        "app": "public",
+        "function": "submitPublicTrialSignup",
+        "status": 403,
+        "expected": 403,
+        "pass": true,
+        "error": "Please complete the verification and try again.",
+        "code": "VERIFICATION_REQUIRED"
+      },
+      {
+        "app": "public",
+        "function": "submitRecruitingApplication",
+        "status": 403,
+        "expected": 403,
+        "pass": true,
+        "error": "Please complete the verification and try again.",
+        "code": "VERIFICATION_REQUIRED"
+      },
+      {
+        "app": "core",
+        "function": "ntaUnifiedIntake",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Unauthorized."
+      },
+      {
+        "app": "core",
+        "function": "submitRecruitingApplication",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Unauthorized."
+      },
+      {
+        "app": "core",
+        "function": "trackBookEvent",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Unauthorized."
+      },
+      {
+        "app": "public_internal",
+        "function": "auditWebsiteAccessibility",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Authentication required"
+      },
+      {
+        "app": "public_internal",
+        "function": "trackJourneyEvent",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Unauthorized"
+      },
+      {
+        "app": "public_internal",
+        "function": "demoAiChat",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Authentication required"
+      },
+      {
+        "app": "public_internal",
+        "function": "chatbotChat",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Authentication required"
+      },
+      {
+        "app": "public_internal",
+        "function": "chatbotLeadCapture",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Authentication required"
+      },
+      {
+        "app": "public_internal",
+        "function": "trackBookEvent",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Unauthorized"
+      },
+      {
+        "app": "public_internal",
+        "function": "adaIntake",
+        "status": 401,
+        "expected": 401,
+        "pass": true,
+        "error": "Authentication required"
+      }
+    ],
+    "unauthorized_rejection_checks_passed": 16,
+    "scope": "Direct backend URLs, no authenticated session; a trusted public Origin header did not grant access.",
+    "no_data_probe_note": "Payloads contained only verification_token:'' or connection_check:true or an empty object. No contact information, visitor proofs, valid server credentials, business data, or AI prompts were submitted.",
+    "initial_internal_probe_transport_timeout": "The first seven-endpoint inspection returned an MCP 504 with no results. One bounded repeat completed and all seven returned 401.",
+    "hosted_base44_security_scan": "Not available through the connected tool surface; not claimed complete."
+  },
+  "visitor_review": {
+    "opportunity_url": "https://newtechadvertising.com/account-manager",
+    "public_opportunity_link_correct": true,
+    "opportunity_required_fields": [
+      "full_name",
+      "email",
+      "city",
+      "interest_reason",
+      "business_observation"
+    ],
+    "audit_url": "https://newtechadvertising.com/free-audit",
+    "audit_required_fields": [
+      "name",
+      "business_name",
+      "email",
+      "phone",
+      "website"
+    ],
+    "audit_labels_verified": true,
+    "guide": "Remains closed initially; opens on request; exposes call/text/email; minimizes after its animation.",
+    "growth_conversation": "All three selections advance to Visibility & Growth and the contact form, with call/text/email alternatives. No contact details submitted.",
+    "core_sign_in_url": "https://app.newtechadvertising.com/login",
+    "core_frontend_build": "Owner reports published; protected Core frontend was not authenticated or inspected.",
+    "phone_walkthrough": "Pending; browser reviewed at desktop size.",
+    "previous_review_today": "All 167 sitemap URLs, book PDF targets, and Google booking availability were checked earlier in this session."
+  },
+  "delivery": {
+    "latest_submission_seen": "2026-09-14T14:05:30.120000",
+    "postpublication_submission_found": false,
+    "historical_mailbox_receipt": {
+      "date": "2026-09-13",
+      "mailbox": "info@newtechadvertising.com",
+      "location": "INBOX",
+      "confirmed": true
+    },
+    "provider_record_note": "Recent GapAudit records still show accepted; the older message's mailbox receipt was verified separately. Provider status fields were not changed.",
+    "current_template": "autoGenerateGapAudit offers learning, reply/call/text/Talk to My Office, Growth Conversation, and the verified booking calendar. It has no fixed 20-minute promise and uses the audit record as business-name source.",
+    "new_messages_sent_in_this_review": false,
+    "runtime_shared_credential_match": "Not yet proven by a successful live authenticated handoff."
+  },
+  "remaining": [
+    "One agreed fresh visitor Gap Audit submission using NTA business details, followed through Core records and the connected mailbox.",
+    "Cloudflare interaction and the full visitor path on a phone.",
+    "Run Base44 hosted Security Scan after the published changes."
+  ]
+}
