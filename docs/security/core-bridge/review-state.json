@@ -1,6 +1,6 @@
 {
   "review_date": "2026-09-15",
-  "status": "published_security_rejection_checks_passed_fresh_submission_pending",
+  "status": "runtime_secret_mismatch_confirmed_publish_and_positive_handshake_pending",
   "public_app_id": "691f41a18de4a7f498c8f884",
   "core_app_id": "6a7215451eb90dc843a94546",
   "required_user_setting": {
@@ -12,20 +12,14 @@
     "runtime_values_compared": false
   },
   "validation": {
-    "public_security_preflight": {
-      "functions": 365,
-      "entities": 737,
-      "critical": 0,
-      "high": 0,
-      "medium": 0,
-      "scope": "source heuristic; not a hosted scan or complete Core audit"
-    },
-    "public_build": "passed",
-    "release_readiness": "both source release commands passed",
-    "public_release_test_cases_passed": 249,
-    "core_active_test_cases_passed": 35,
-    "core_active_build": "passed",
-    "note": "Some Core cases repeat in the public review suite; counts are test executions, not unique workflows."
+    "backend_tests_passed": 177,
+    "bridge_tests_passed": 47,
+    "source_security_critical": 0,
+    "source_security_high": 0,
+    "source_security_medium": 0,
+    "live_handshake_passed": false,
+    "fresh_audit_verified": false,
+    "temporary_diagnostics_retired": true
   },
   "live_review": {
     "sitemap_urls_checked": 167,
@@ -72,5 +66,13 @@
   "user_reported_both_apps_published": true,
   "core_frontend_publication_owner_reported": true,
   "live_unauthorized_rejection_checks_passed": 16,
-  "live_verification_report": "docs/security/core-bridge/live-verification.json"
+  "live_verification_report": "docs/security/core-bridge/live-verification.json",
+  "latest_diagnosis": "UNAUTHORIZED-DIAGNOSIS.md",
+  "runtime_secret_comparison": {
+    "public_configured": true,
+    "core_configured": true,
+    "header_received": true,
+    "header_matches": false,
+    "independent_hmac_matches": false
+  }
 }

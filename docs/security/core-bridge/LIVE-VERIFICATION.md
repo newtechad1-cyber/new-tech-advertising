@@ -1,3 +1,5 @@
+> Latest status (September 15): the real Gap Audit attempt was rejected. Read UNAUTHORIZED-DIAGNOSIS.md: the apps use different runtime key values; matching secrets, publishing and a successful authenticated handshake are still required. Earlier rejection checks did not prove the successful user flow.
+
 # Live publication verification — September 15, 2026
 
 Rick reported publishing both NTA apps. The public site's JavaScript asset matches the checked production build byte for byte.

@@ -1,3 +1,5 @@
+> Latest status (September 15): the real Gap Audit attempt was rejected. Read UNAUTHORIZED-DIAGNOSIS.md: the apps use different runtime key values; matching secrets, publishing and a successful authenticated handshake are still required. Earlier rejection checks did not prove the successful user flow.
+
 > Publication update: Rick has published both apps. The checked public build and all 16 live unauthorized rejection checks are verified. Follow [LIVE-VERIFICATION.md](LIVE-VERIFICATION.md) for current evidence and the remaining fresh visitor/email test. The original publication handoff below is historical.
 
 # NTA security and visitor journey review — September 15, 2026

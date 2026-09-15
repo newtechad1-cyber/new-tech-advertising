@@ -10,7 +10,10 @@ try {
     signal: AbortSignal.timeout(25000),
   });
   const body = await response.json();
-  if (response.status !== 200 || body.connection_ready !== true ||
+  if (response.status === 403 && body.code === 'VERIFICATION_REQUIRED') {
+    console.error('The published intake has not activated the reviewed readiness check. Publish the reviewed app changes, then run this check again before testing the audit.');
+    process.exitCode = 1;
+  } else if (response.status !== 200 || body.connection_ready !== true ||
       !receivers.every(name => body.connections?.[name] === true)) {
     console.error('Live Core connection is not ready. Confirm the identical NTA_CORE_BRIDGE_SECRET value is saved in both apps, then run this check again.');
     process.exitCode = 1;
