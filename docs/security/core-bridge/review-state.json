@@ -1,0 +1,64 @@
+{
+  "review_date": "2026-09-15",
+  "status": "prepared_awaiting_shared_secret_and_coordinated_publish",
+  "public_app_id": "691f41a18de4a7f498c8f884",
+  "core_app_id": "6a7215451eb90dc843a94546",
+  "required_user_setting": {
+    "name": "NTA_CORE_BRIDGE_SECRET",
+    "same_random_value_in_both_apps": true,
+    "minimum_characters": 32,
+    "secret_value_recorded": false
+  },
+  "validation": {
+    "public_security_preflight": {
+      "functions": 365,
+      "entities": 737,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "scope": "source heuristic; not a hosted scan or complete Core audit"
+    },
+    "active_source_tests_passed": 210,
+    "staged_core_tests_passed": 39,
+    "total_tests_passed": 249,
+    "public_build": "passed",
+    "isolated_core_candidate_build": "passed; 15 candidate files; active Core unchanged",
+    "release_readiness": "intentionally blocked until shared-secret source changes are activated"
+  },
+  "live_review": {
+    "sitemap_urls_checked": 167,
+    "sitemap_http_failures": 0,
+    "book_downloads": {
+      "better_business_book": "206 response with PDF bytes",
+      "practical_ai": "206 response with PDF bytes"
+    },
+    "google_booking": "Rick Hesse calendar opens with available appointment times",
+    "growth_conversation": "All three questions advance to starting recommendation and contact form; no contact details submitted",
+    "growth_guide": "Opens on request; call/text/email choices visible; no AI message submitted",
+    "gap_audit": "Form renders; website required; form submission not repeated",
+    "opportunity_core_url": "Redirects anonymous visitor to /login",
+    "public_opportunity_url": "https://newtechadvertising.com/account-manager renders without login",
+    "mobile": "not interactively verified"
+  },
+  "delivery_evidence": {
+    "core_submissions": "Recent /free-audit submissions present through September 14",
+    "newest_audit_email": "Brevo acceptance recorded; delivered status not confirmed",
+    "historical_delivery": "One August 15 record has delivered/opened evidence",
+    "fresh_emails_sent_in_review": false
+  },
+  "remaining": [
+    "Save the same new random NTA_CORE_BRIDGE_SECRET in both apps",
+    "Activate exact staged changes in rollout.json; abort/rebase if existing text changed",
+    "Run release checks and verify active Core source against tested candidates",
+    "Publish the two apps as a coordinated release",
+    "Run approved no-data rejection checks and one agreed real visitor/email-delivery test",
+    "Run Base44 hosted security scan after publishing",
+    "Check the final visitor journey on a phone"
+  ],
+  "automation_scope": "GitHub workflow is configured for pushes and pull requests; its execution and branch protection were not verified. Base44 Publish does not automatically enforce the repository command.",
+  "cadence": {
+    "before_publish": "Run npm run check:release and Base44 Security Scan after form, route, backend, permission, or integration changes",
+    "weekly": "Brief visitor journey and delivery-status review while the site is being actively maintained",
+    "after_connection_changes": "One agreed end-to-end submission and mailbox confirmation"
+  }
+}

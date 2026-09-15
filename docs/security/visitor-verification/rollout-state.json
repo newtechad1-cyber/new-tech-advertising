@@ -1,6 +1,6 @@
 {
   "app_id": "691f41a18de4a7f498c8f884",
-  "stage": "three_public_guards_saved_awaiting_publication",
+  "stage": "visitor_gateway_hardened_core_bridge_pending_secret",
   "updated_at": "2026-09-15T12:47:37.267Z",
   "keys": "User confirmed both secrets saved. The published metadata responses returned public Site Key/action; actual provider validity is not yet verified.",
   "live_config_checks": {
@@ -126,15 +126,18 @@
     "Rerun the hosted Security Scan."
   ],
   "validation": {
-    "build": "passed",
-    "behavior_tests_passed": 101,
-    "real_provider_verified": false,
-    "live_negative_check": "blocked_by_automatic_approval_review"
+    "active_source_tests_passed": 210,
+    "staged_core_tests_passed": 39,
+    "public_build": "passed",
+    "isolated_core_candidate_build": "passed",
+    "release_readiness": "blocked_pending_core_bridge_activation"
   },
   "previously_published_browser_asset": "/assets/index-YZnJPN7O.js",
   "prepared_browser_verification_assets": [
     "index-CBf-0wAu.js"
   ],
   "verification_enforcement_active_in_source": true,
-  "production_enforcement_verified": false
+  "production_enforcement_verified": false,
+  "latest_review": "docs/security/core-bridge/review-state.json",
+  "core_bridge_rollout": "docs/security/core-bridge/rollout.json"
 }

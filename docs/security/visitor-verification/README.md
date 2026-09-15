@@ -1,3 +1,5 @@
+> **Current status — September 15, 2026:** Public-source visitor guards now cover six endpoints. The latest review and exact Core connection rollout are in `../core-bridge/README.md` and `../core-bridge/rollout.json`. The Core shared secret is still required before activation and coordinated publishing. The notes below describe the preceding three-endpoint release; old staged snapshots are historical.
+
 # NTA backend caller verification — release status
 
 Public Base44 app: New Tech Advertising, 691f41a18de4a7f498c8f884.
