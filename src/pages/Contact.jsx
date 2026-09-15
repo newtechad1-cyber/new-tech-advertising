@@ -171,25 +171,23 @@ export default function Contact() {
                 <h2 className="text-2xl font-bold text-slate-900 mb-6">Send Us a Message</h2>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Name <span className="text-red-600">*</span>
+                  <label htmlFor="contact-name" className="block text-sm font-medium text-slate-700 mb-2">Name <span className="text-red-600">*</span>
                   </label>
                   <Input
                     type="text"
                     required
-                    value={formData.name}
+                    id="contact-name" value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Your name"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Business or Organization <span className="text-slate-400">(optional)</span>
+                  <label htmlFor="contact-business_name" className="block text-sm font-medium text-slate-700 mb-2">Business or Organization <span className="text-slate-400">(optional)</span>
                   </label>
                   <Input
                     type="text"
-                    value={formData.business_name}
+                    id="contact-business_name" value={formData.business_name}
                     onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
                     placeholder="Your business name"
                     autoComplete="organization"
@@ -198,26 +196,24 @@ export default function Contact() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">
-                      Email <span className="text-red-600">*</span>
+                    <label htmlFor="contact-email" className="block text-sm font-medium text-slate-700 mb-2">Email <span className="text-red-600">*</span>
                     </label>
                     <Input
                       type="email"
                       required
-                      value={formData.email}
+                      id="contact-email" value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="your@email.com"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">
-                      Phone <span className="text-red-600">*</span>
+                    <label htmlFor="contact-phone" className="block text-sm font-medium text-slate-700 mb-2">Phone <span className="text-red-600">*</span>
                     </label>
                     <Input
                       type="tel"
                       required
-                      value={formData.phone}
+                      id="contact-phone" value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="(555) 123-4567"
                     />
@@ -225,12 +221,11 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Message <span className="text-red-600">*</span>
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-slate-700 mb-2">Message <span className="text-red-600">*</span>
                   </label>
                   <Textarea
                     required
-                    value={formData.message}
+                    id="contact-message" value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     rows={6}
                     placeholder="Tell us how we can help you..."

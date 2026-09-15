@@ -269,34 +269,34 @@ export default function FreeAudit() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-slate-700 text-sm font-semibold">Full Name <span className="text-red-500">*</span></Label>
-                  <Input required value={form.name} onChange={e => set('name', e.target.value)} placeholder="Jane Smith" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                  <Label htmlFor="audit-name" className="text-slate-700 text-sm font-semibold">Full Name <span className="text-red-500">*</span></Label>
+                  <Input required id="audit-name" value={form.name} onChange={e => set('name', e.target.value)} placeholder="Jane Smith" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-slate-700 text-sm font-semibold">Business Name <span className="text-red-500">*</span></Label>
-                  <Input required value={form.business_name} onChange={e => set('business_name', e.target.value)} placeholder="Smith Plumbing" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                  <Label htmlFor="audit-business_name" className="text-slate-700 text-sm font-semibold">Business Name <span className="text-red-500">*</span></Label>
+                  <Input required id="audit-business_name" value={form.business_name} onChange={e => set('business_name', e.target.value)} placeholder="Smith Plumbing" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-1.5">
-                    <Label className="text-slate-700 text-sm font-semibold">Email <span className="text-red-500">*</span></Label>
-                    <Input required type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="jane@business.com" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                    <Label htmlFor="audit-email" className="text-slate-700 text-sm font-semibold">Email <span className="text-red-500">*</span></Label>
+                    <Input required type="email" id="audit-email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="jane@business.com" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-slate-700 text-sm font-semibold">Phone <span className="text-red-500">*</span></Label>
-                    <Input required type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="(555) 123-4567" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                    <Label htmlFor="audit-phone" className="text-slate-700 text-sm font-semibold">Phone <span className="text-red-500">*</span></Label>
+                    <Input required type="tel" id="audit-phone" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="(555) 123-4567" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-slate-700 text-sm font-semibold">Business Website <span className="text-red-500">*</span></Label>
-                  <Input required type="url" value={form.website} onChange={e => set('website', e.target.value)} placeholder="https://yourbusiness.com" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                  <Label htmlFor="audit-website" className="text-slate-700 text-sm font-semibold">Business Website <span className="text-red-500">*</span></Label>
+                  <Input required type="url" id="audit-website" value={form.website} onChange={e => set('website', e.target.value)} placeholder="https://yourbusiness.com" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
                 </div>
 
                 <div className="space-y-1.5">
-                  <Label className="text-slate-700 text-sm font-semibold">Industry (Optional)</Label>
-                  <Input value={form.industry} onChange={e => set('industry', e.target.value)} placeholder="e.g. HVAC, Restaurant, Law Firm" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
+                  <Label htmlFor="audit-industry" className="text-slate-700 text-sm font-semibold">Industry (Optional)</Label>
+                  <Input id="audit-industry" value={form.industry} onChange={e => set('industry', e.target.value)} placeholder="e.g. HVAC, Restaurant, Law Firm" className="bg-slate-50 border-slate-200 px-4 py-3 h-auto" />
                 </div>
 
                 <div className="pt-4">

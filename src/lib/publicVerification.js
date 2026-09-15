@@ -6,6 +6,7 @@ const ACTIONS = {
   ntaUnifiedIntake: 'nta_unified_intake',
   startDiscoverySession: 'start_discovery_session',
   submitPublicTrialSignup: 'trial_signup',
+  submitRecruitingApplication: 'recruiting_application',
 };
 let scriptPromise;
 let verificationQueue = Promise.resolve();

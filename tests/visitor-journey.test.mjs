@@ -5,7 +5,7 @@ import test from 'node:test';
 import ts from 'typescript';
 
 const read = name => readFileSync(name, 'utf8');
-const endpoints = ['growthGuideChat', 'publicationSignup', 'ntaUnifiedIntake', 'startDiscoverySession', 'submitPublicTrialSignup'];
+const endpoints = ['growthGuideChat', 'publicationSignup', 'ntaUnifiedIntake', 'startDiscoverySession', 'submitPublicTrialSignup', 'submitRecruitingApplication'];
 
 test('every public write entry uses the same reviewed visitor verification implementation', () => {
   function implementation(name) {

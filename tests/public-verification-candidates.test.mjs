@@ -12,8 +12,9 @@ const settings = {
   NTA_TURNSTILE_SITE_KEY: '0x-stub-site-key-for-isolated-unit-tests',
   NTA_TURNSTILE_SECRET_KEY: 'stub-secret-for-isolated-unit-tests-only',
 };
-const actions = { growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake', startDiscoverySession: 'start_discovery_session', submitPublicTrialSignup: 'trial_signup' };
+const actions = { growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake', startDiscoverySession: 'start_discovery_session', submitPublicTrialSignup: 'trial_signup', submitRecruitingApplication: 'recruiting_application' };
 const validPayloads = {
+  submitRecruitingApplication: { full_name: 'Test Visitor', email: 'unit-test@example.invalid', interest_reason: 'Test interest', business_observation: 'Test observation' },
   startDiscoverySession: { mode: 'mixed' },
   submitPublicTrialSignup: { business_name: 'Test Business', full_name: 'Test Visitor', email: 'unit-test@example.invalid', industry: 'HVAC', city: 'Test', state: 'IA', primary_goal: 'leads' },
   growthGuideChat: { messages: [{ role: 'user', content: 'How can I grow my business?' }] },
