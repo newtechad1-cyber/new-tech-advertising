@@ -317,14 +317,29 @@ Deno.serve(async (req) => {
       }, { status: 409 });
     }
 
+    const nowIso = new Date().toISOString();
+    const source = value(payload.source, 200) || current?.source || 'nta_publication_signup';
+    const sourceUrl = value(payload.source_url, 1500);
+    const isJournalSignup = publicationTag === 'nta-journal';
     const subscriberData = {
       email, first_name: firstName || current?.first_name || '', last_name: remaining.join(' ') || current?.last_name || '',
       business_name: businessName || current?.business_name || '',
       tags: uniqueTags([...(current?.tags || []), 'nta-publications', publicationTag, ...(publication.tags || [])]),
-      source: value(payload.source, 200) || current?.source || 'nta_publication_signup',
+      source,
       status: 'active', consent_status: 'confirmed', consent_date: new Date().toISOString().slice(0, 10),
       consent_method: 'website_form',
       consent_context: value(payload.consent_context, 1000) || current?.consent_context || `Requested ${publicationTitle} from the NTA website.`,
+      consent_scope: isJournalSignup ? 'journal' : (current?.journal_consent_status === 'confirmed' ? 'mixed' : 'publication'),
+      journal_consent_status: isJournalSignup ? 'confirmed' : (current?.journal_consent_status || 'none'),
+      quality_classification: 'legitimate',
+      risk_score: 0,
+      risk_reasons: [],
+      first_source: current?.first_source || source,
+      most_recent_source: source,
+      first_source_url: current?.first_source_url || sourceUrl,
+      most_recent_source_url: sourceUrl || current?.most_recent_source_url || '',
+      first_activity_at: current?.first_activity_at || nowIso,
+      last_activity_at: nowIso,
     };
     const subscriber = current
       ? await base44.asServiceRole.entities.Subscriber.update(current.id, subscriberData)
