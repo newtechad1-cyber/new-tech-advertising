@@ -11,7 +11,7 @@ const code = ts.transpileModule(readFileSync('src/pages/Contact.jsx', 'utf8'), {
   compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
 }).outputText;
 
-function harness(invoke) {
+function harness(invoke, draftQuestion = '') {
   const slots = [];
   let cursor = 0;
   const state = initial => {
@@ -37,7 +37,7 @@ function harness(invoke) {
     require(name) {
       if (name === 'react') return react;
       if (name === 'react/jsx-runtime') return require(name);
-      if (name === 'react-router-dom') return { Link: 'a', useLocation: () => ({ search, pathname: '/contact' }) };
+      if (name === 'react-router-dom') return { Link: 'a', useLocation: () => ({ search, pathname: '/contact', state: { nta_follow_up_question: draftQuestion } }) };
       if (name === '@/lib/contentJourney') return journey;
       if (name === '@/lib/publicVerification') return { invokeVerifiedPublicFunction: invoke };
       return new Proxy({}, { get: (_, key) => String(key) });
@@ -111,4 +111,16 @@ test('an unconfirmed response or failed request preserves the message and displa
     assert.equal(find(tree, node => node.props?.id === 'contact-message').props.value, 'Keep my question.');
     assert.doesNotMatch(text(tree), /Your request is saved/);
   }
+});
+
+test('a question from the Guide is an editable draft, never an automatic submission', () => {
+  let submissions = 0;
+  const h = harness(() => { submissions++; }, 'How would this work for my office?');
+  let tree = h.render();
+  assert.equal(submissions, 0);
+  assert.equal(find(tree, node => node.props?.id === 'contact-message').props.value, 'How would this work for my office?');
+  find(tree, node => node.props?.id === 'contact-message').props.onChange({ target: { value: 'Here is my revised question.' } });
+  tree = h.render();
+  assert.equal(find(tree, node => node.props?.id === 'contact-message').props.value, 'Here is my revised question.');
+  assert.equal(submissions, 0);
 });
