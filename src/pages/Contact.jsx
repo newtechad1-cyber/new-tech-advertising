@@ -1,5 +1,7 @@
 import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { contextFromSearch, followUpDetails } from '@/lib/contentJourney';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,6 +12,11 @@ import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 
 export default function Contact() {
+  const location = useLocation();
+  const context = contextFromSearch(location.search);
+  const [preference, setPreference] = useState('email');
+  const [errorMessage, setErrorMessage] = useState('');
+  const submissionLock = useRef(false);
   const [formData, setFormData] = useState({
     name: '',
     business_name: '',
@@ -24,16 +31,20 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submissionLock.current) return;
+    submissionLock.current = true;
     setLoading(true);
+    setErrorMessage('');
 
     try {
       const params = new URLSearchParams(window.location.search);
       const sourceCampaign = params.get('utm_campaign') || params.get('campaign') || '';
+      const followUp = followUpDetails({ message: formData.message, context, preference });
 
       // Single authoritative path: Submission → CRM contact/opportunity/deal/task.
       // The server also creates the compatibility Lead record that powers the
       // existing direct email alert, with complete source details.
-      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
+      const response = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
         submission_type: 'contact',
         offer_type: 'consultation',
         mapping_confidence: 'hardcoded',
@@ -48,7 +59,7 @@ export default function Contact() {
         business_name: formData.business_name,
         email: formData.email,
         phone: formData.phone,
-        notes: formData.message,
+        notes: followUp.notes,
         priority: 'high',
         is_high_intent: true,
         skip_webhook: true,
@@ -57,6 +68,7 @@ export default function Contact() {
           form_started_at: formStartedAt.current,
         },
         raw_payload: {
+          ...followUp.metadata,
           referrer: document.referrer || '',
           utm_source: params.get('utm_source') || '',
           utm_medium: params.get('utm_medium') || '',
@@ -66,13 +78,18 @@ export default function Contact() {
         },
       });
 
+      const result = response?.data ?? response;
+      if (result?.success !== true || result?.accepted === false || !result?.submission_id) {
+        throw new Error(result?.error || 'We could not confirm that your request was saved. Please call or text Rick at 641-420-8816.');
+      }
       setSubmitted(true);
       setFormData({ name: '', business_name: '', email: '', phone: '', message: '', company_fax: '' });
       formStartedAt.current = Date.now();
     } catch (error) {
       console.error('Error submitting contact form:', error);
-      alert('There was an error submitting your message. Please try again or call us directly.');
+      setErrorMessage(error?.response?.data?.error || error?.message || 'We could not save your request. Please call or text Rick at 641-420-8816.');
     } finally {
+      submissionLock.current = false;
       setLoading(false);
     }
   };
@@ -89,10 +106,10 @@ export default function Contact() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Contact New Tech Advertising
+              Talk to My Office™
             </h1>
             <p className="text-xl text-slate-600">
-              Practical AI Education and Business Growth | Mason City, Iowa
+              Tell Rick what you are trying to improve. Choose the easiest way to continue the conversation.
             </p>
           </div>
 
@@ -103,12 +120,12 @@ export default function Contact() {
                   <Phone className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-slate-900 mb-2">Phone</h3>
+                  <h3 className="font-semibold text-lg text-slate-900 mb-2">Call or text Rick</h3>
                   <a href="tel:641-420-8816" className="text-blue-600 hover:text-blue-700 text-lg">
                     641-420-8816
                   </a>
                   <p className="text-sm text-slate-600 mt-2">
-                    Monday – Friday, 8:00 AM – 5:00 PM CST
+<a href="sms:16414208816" className="font-semibold text-blue-600 hover:text-blue-700">Open a text to this number</a>
                   </p>
                 </div>
               </div>
@@ -125,7 +142,7 @@ export default function Contact() {
                     info@newtechadvertising.com
                   </a>
                   <p className="text-sm text-slate-600 mt-2">
-                    We'll respond within 24 hours
+                    Ask a question or tell us where you need help.
                   </p>
                 </div>
               </div>
@@ -143,7 +160,7 @@ export default function Contact() {
                   Based in Mason City, Iowa
                 </p>
                 <p className="text-sm text-slate-600 mt-1">
-                  Serving: Mason City - Rochester, MN - Austin, MN - Albert Lea, MN - Waterloo - Cedar Rapids - Des Moines - Ames — and all of Iowa & Southern Minnesota
+                  Working with businesses across the country, with roots in North Iowa and Southern Minnesota.
                 </p>
               </div>
             </div>
@@ -155,10 +172,11 @@ export default function Contact() {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
                   <CheckCircle2 className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Message Sent!</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Your request is saved</h3>
                 <p className="text-slate-600 mb-6">
-                  Thank you for contacting us. We'll get back to you soon.
+                  Rick will review your message and your preferred reply method: {preference === 'call' ? 'a phone call' : preference === 'text' ? 'a text message' : 'email'}. {context ? 'The article or video topic is included with your request.' : 'You can keep exploring while you wait.'}
                 </p>
+                <p className="mb-6"><Link to={context?.path || '/knowledge'} className="font-semibold text-blue-600 hover:text-blue-700">{context ? 'Return to the article or video' : 'Keep exploring the Knowledge Library'} →</Link></p>
                 <Button
                   onClick={() => setSubmitted(false)}
                   variant="outline"
@@ -168,7 +186,27 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6">Send Us a Message</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-3">Ask Rick to follow up</h2>
+                <p className="text-slate-600">Share the question you want help with. Rick will use the information you provide to reply to this request.</p>
+                {context && (
+                  <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+                    <p className="text-sm font-semibold text-slate-700">You were reading or watching:</p>
+                    <Link to={context.path} className="mt-1 block font-semibold text-blue-700 hover:underline">{context.title}</Link>
+                    <p className="mt-2 text-sm text-slate-600">This topic will be included with your message.</p>
+                  </div>
+                )}
+                <fieldset>
+                  <legend className="mb-3 font-medium text-slate-700">How would you like Rick to reply?</legend>
+                  <div className="flex flex-wrap gap-4">
+                    {[['email', 'Email'], ['call', 'Phone call'], ['text', 'Text message']].map(([value, label]) => (
+                      <label key={value} className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 px-4 py-3 text-slate-800">
+                        <input type="radio" name="preferred_contact" value={value} checked={preference === value} onChange={() => setPreference(value)} className="accent-blue-600" />
+                        {label}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+                {errorMessage && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">{errorMessage}</p>}
 
                 <div>
                   <label htmlFor="contact-name" className="block text-sm font-medium text-slate-700 mb-2">Name <span className="text-red-600">*</span>
@@ -196,11 +234,11 @@ export default function Contact() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="contact-email" className="block text-sm font-medium text-slate-700 mb-2">Email <span className="text-red-600">*</span>
+                    <label htmlFor="contact-email" className="block text-sm font-medium text-slate-700 mb-2">Email {preference === 'email' ? <span className="text-red-600">*</span> : <span className="text-slate-400">(optional)</span>}
                     </label>
                     <Input
                       type="email"
-                      required
+                      required={preference === 'email'}
                       id="contact-email" value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="your@email.com"
@@ -208,11 +246,11 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="contact-phone" className="block text-sm font-medium text-slate-700 mb-2">Phone <span className="text-red-600">*</span>
+                    <label htmlFor="contact-phone" className="block text-sm font-medium text-slate-700 mb-2">Phone {preference !== 'email' ? <span className="text-red-600">*</span> : <span className="text-slate-400">(optional)</span>}
                     </label>
                     <Input
                       type="tel"
-                      required
+                      required={preference !== 'email'}
                       id="contact-phone" value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="(555) 123-4567"
@@ -221,14 +259,15 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-message" className="block text-sm font-medium text-slate-700 mb-2">Message <span className="text-red-600">*</span>
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-slate-700 mb-2">What would you like help with? <span className="text-red-600">*</span>
                   </label>
                   <Textarea
                     required
                     id="contact-message" value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     rows={6}
-                    placeholder="Tell us how we can help you..."
+                    maxLength={2500}
+                    placeholder="What would you like to improve, and what question is on your mind?"
                   />
                 </div>
 
@@ -248,6 +287,7 @@ export default function Contact() {
                   />
                 </div>
 
+                <p className="text-sm leading-6 text-slate-600">By sending, you ask Rick to follow up about this request. To receive the weekly NTA Journal, you can <Link to="/nta-journal#subscribe" className="font-semibold text-blue-700 hover:underline">subscribe separately</Link>.</p>
                 <Button
                   type="submit"
                   disabled={loading}
@@ -259,7 +299,7 @@ export default function Contact() {
                       Sending...
                     </>
                   ) : (
-                    'Send Message'
+                    'Send my follow-up request'
                   )}
                 </Button>
               </form>
