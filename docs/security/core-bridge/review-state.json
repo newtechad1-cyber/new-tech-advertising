@@ -1,6 +1,6 @@
 {
   "review_date": "2026-09-15",
-  "status": "runtime_secret_mismatch_confirmed_publish_and_positive_handshake_pending",
+  "status": "live_authenticated_connection_verified_fresh_audit_pending",
   "public_app_id": "691f41a18de4a7f498c8f884",
   "core_app_id": "6a7215451eb90dc843a94546",
   "required_user_setting": {
@@ -9,7 +9,8 @@
     "minimum_characters": 32,
     "secret_value_recorded": false,
     "owner_confirmed_saved_in_both_apps": true,
-    "runtime_values_compared": false
+    "runtime_values_compared": false,
+    "runtime_authentication_verified": true
   },
   "validation": {
     "backend_tests_passed": 177,
@@ -17,9 +18,10 @@
     "source_security_critical": 0,
     "source_security_high": 0,
     "source_security_medium": 0,
-    "live_handshake_passed": false,
+    "live_handshake_passed": true,
     "fresh_audit_verified": false,
-    "temporary_diagnostics_retired": true
+    "temporary_diagnostics_retired": true,
+    "postpublish_guard_checks_passed": 5
   },
   "live_review": {
     "sitemap_urls_checked": 167,
@@ -60,19 +62,27 @@
     "after_connection_changes": "One agreed end-to-end submission and mailbox confirmation"
   },
   "activated_at": "2026-09-15T16:41:07.968342+00:00",
-  "runtime_credential_handshake_verified": false,
+  "runtime_credential_handshake_verified": true,
   "public_frontend_publication_verified": true,
   "core_frontend_publication_verified": false,
   "user_reported_both_apps_published": true,
   "core_frontend_publication_owner_reported": true,
   "live_unauthorized_rejection_checks_passed": 16,
   "live_verification_report": "docs/security/core-bridge/live-verification.json",
-  "latest_diagnosis": "UNAUTHORIZED-DIAGNOSIS.md",
+  "latest_diagnosis": "AUTHENTICATION-VERIFIED.md",
   "runtime_secret_comparison": {
+    "method": "Authenticated no-data Core handshake",
+    "matching_connection_verified": true,
+    "secret_values_recorded": false,
+    "verified_at_utc": "2026-09-15T18:52:02.444931+00:00"
+  },
+  "previous_runtime_secret_mismatch": {
     "public_configured": true,
     "core_configured": true,
     "header_received": true,
     "header_matches": false,
     "independent_hmac_matches": false
-  }
+  },
+  "public_backend_readiness_publication_verified": true,
+  "live_authentication_report": "docs/security/core-bridge/postpublish-authentication-verification.json"
 }

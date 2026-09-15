@@ -1,3 +1,5 @@
+> Resolved at 18:52 UTC on September 15: matching credentials and published readiness verified; all three authenticated Core checks passed and unverified requests remain blocked. See AUTHENTICATION-VERIFIED.md. One real Gap Audit and email-delivery check remains.
+
 # Gap Audit Unauthorized diagnosis — 2026-09-15
 
 Status: code repair is saved and locally verified; matching secret values and a fresh publish are still required. A successful production audit has not yet been verified.

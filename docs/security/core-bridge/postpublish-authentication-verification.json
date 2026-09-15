@@ -1,0 +1,68 @@
+{
+  "handshake": {
+    "checked_at_utc": "2026-09-15T18:51:13.626461+00:00",
+    "checks": [
+      {
+        "case": "default",
+        "status": 200,
+        "body": "{\"connection_ready\":true,\"connections\":{\"ntaUnifiedIntake\":true,\"submitRecruitingApplication\":true,\"trackBookEvent\":true}}",
+        "version_headers": {}
+      },
+      {
+        "case": "published_version",
+        "status": 200,
+        "body": "{\"connection_ready\":true,\"connections\":{\"ntaUnifiedIntake\":true,\"submitRecruitingApplication\":true,\"trackBookEvent\":true}}",
+        "version_headers": {}
+      },
+      {
+        "case": "preview_version",
+        "status": 200,
+        "body": "{\"connection_ready\":true,\"connections\":{\"ntaUnifiedIntake\":true,\"submitRecruitingApplication\":true,\"trackBookEvent\":true}}",
+        "version_headers": {}
+      }
+    ]
+  },
+  "guard_checks_and_gate": {
+    "checked_at_utc": "2026-09-15T18:52:02.444931+00:00",
+    "negative_checks": [
+      {
+        "case": "public_missing_proof",
+        "status": 403,
+        "expected": 403,
+        "passed": true,
+        "body": "{\"error\":\"Please complete the verification and try again.\",\"code\":\"VERIFICATION_REQUIRED\"}"
+      },
+      {
+        "case": "metadata_cannot_forward_submission",
+        "status": 403,
+        "expected": 403,
+        "passed": true,
+        "body": "{\"error\":\"Please complete the verification and try again.\",\"code\":\"VERIFICATION_REQUIRED\"}"
+      },
+      {
+        "case": "core_missing_auth_ntaUnifiedIntake",
+        "status": 401,
+        "expected": 401,
+        "passed": true,
+        "body": "{\"error\":\"Unauthorized.\"}"
+      },
+      {
+        "case": "core_missing_auth_submitRecruitingApplication",
+        "status": 401,
+        "expected": 401,
+        "passed": true,
+        "body": "{\"error\":\"Unauthorized.\"}"
+      },
+      {
+        "case": "core_missing_auth_trackBookEvent",
+        "status": 401,
+        "expected": 401,
+        "passed": true,
+        "body": "{\"error\":\"Unauthorized.\"}"
+      }
+    ],
+    "live_gate_exit_code": 0,
+    "live_gate_output": "> base44-app@0.0.0 check:core-bridge-live\n> node scripts/check-core-bridge-live.mjs\n\nLive public-to-Core authentication passed for all three receivers. No leads, audits or emails were created.",
+    "all_passed": true
+  }
+}

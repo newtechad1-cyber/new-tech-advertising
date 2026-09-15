@@ -1,3 +1,5 @@
+> Resolved at 18:52 UTC on September 15: matching credentials and published readiness verified; all three authenticated Core checks passed and unverified requests remain blocked. See AUTHENTICATION-VERIFIED.md. One real Gap Audit and email-delivery check remains.
+
 > Latest status (September 15): the real Gap Audit attempt was rejected. Read UNAUTHORIZED-DIAGNOSIS.md: the apps use different runtime key values; matching secrets, publishing and a successful authenticated handshake are still required. Earlier rejection checks did not prove the successful user flow.
 
 # Live publication verification — September 15, 2026
