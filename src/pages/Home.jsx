@@ -209,7 +209,7 @@ export default function Home() {
                 Before NTA recommends tools or services, we learn how the business works. Then we help the owner see what is getting in the way, choose one useful next step, and build the right growth system in the right order. The Digital Growth Office™ is the connected way NTA can help once the business has a clear priority—not a system you have to understand before you get help.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-slate-400">
-                You can study the approach before you contact us: <Link to="/better-business-book" className="text-blue-300 hover:text-blue-200">Better Business Book</Link>, <Link to="/practical-ai" className="text-blue-300 hover:text-blue-200">Practical AI Guide</Link>, <Link to="/knowledge" className="text-blue-300 hover:text-blue-200">Knowledge Library</Link>, and <Link to="/case-studies" className="text-blue-300 hover:text-blue-200">case studies</Link>.
+                You can study the approach before you contact us: <Link to="/better-business-book" className="text-blue-300 hover:text-blue-200">Better Business Building Book</Link>, <Link to="/practical-ai" className="text-blue-300 hover:text-blue-200">Practical AI Guide</Link>, <Link to="/knowledge" className="text-blue-300 hover:text-blue-200">Knowledge Library</Link>, and <Link to="/case-studies" className="text-blue-300 hover:text-blue-200">case studies</Link>.
               </p>
             </div>
 

@@ -476,7 +476,7 @@ This first edition of The NTA Journal is part of that system. It is where I will
 I do not have a large subscriber list waiting for this first issue. That is all right. Every useful business asset has to begin somewhere. The important thing is to build it correctly, publish it, learn from it, and keep going.`,
   what_we_built: `This week we worked on the foundation behind NTA's publishing and follow-up systems.
 
-The NTA Knowledge Library has grown into a substantial collection of practical business and AI education. We have also been preparing two books—The Better Business Book and Practical AI for Small Business—so the lessons can be used as complete resources instead of remaining scattered across individual pages.
+The NTA Knowledge Library has grown into a substantial collection of practical business and AI education. We have also been preparing two books—The Better Business Building Book and Practical AI for Small Business—so the lessons can be used as complete resources instead of remaining scattered across individual pages.
 
 We built the public Books and Journal sections so those resources have a permanent home. The Journal now has a real first edition and an archive, rather than a page that only says an issue is coming someday.
 

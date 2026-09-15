@@ -7,6 +7,7 @@ import PublicationSignupForm from '@/components/publishing/PublicationSignupForm
 
 const themes = [
   'Build the foundation before chasing growth tactics',
+  'Explain what makes your business different and why customers choose you',
   'Understand how customers decide who to trust',
   'Turn trust into stronger, longer relationships',
   'Create systems that preserve what the business knows',
@@ -18,7 +19,7 @@ export default function BetterBusinessBook() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
-        title="The Better Business Book | New Tech Advertising"
+        title="The Better Business Building Book | New Tech Advertising"
         description="A practical, plainspoken business guide from Rick Hesse about foundations, trust, customer relationships, systems, and sustainable growth."
       />
       <MarketingNav />
@@ -31,10 +32,10 @@ export default function BetterBusinessBook() {
               
               <div className="w-full lg:w-1/2 xl:w-[55%]">
                 <p className="mb-5 text-sm font-bold uppercase tracking-[0.22em] text-blue-400">An NTA Business Guide</p>
-                <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">The Better Business Book</h1>
-                <p className="mt-5 text-2xl font-medium leading-relaxed text-blue-100">What decades of business experience taught me about building something that works.</p>
+                <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">The Better Business Building Book</h1>
+                <p className="mt-5 text-2xl font-medium leading-relaxed text-blue-100">Practical Lessons from a Lifetime in Retail, Wholesale, B2B, and Online Business</p>
                 <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
-                  This is not a book about shortcuts, hype, or the newest marketing trick. It is a practical guide to the principles beneath a healthy business: a strong foundation, customer trust, lasting relationships, useful systems, and steady improvement.
+                  Rick Hesse draws on a lifetime in business to explain how customer understanding, trust, relationships, and useful systems fit together. This revised edition also explores what makes each business different, why building its website takes collaboration, and how AI expands what an owner's work can accomplish.
                 </p>
                 <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                   <a href="#book-updates" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white hover:bg-blue-500">
@@ -49,7 +50,7 @@ export default function BetterBusinessBook() {
               <div className="w-full lg:w-1/2 xl:w-[45%] flex justify-center lg:justify-end">
                 <img 
                   src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png" 
-                  alt="The Better Business Book cover by Rick Hesse" 
+                  alt="The Better Business Building Book cover by Rick Hesse" 
                   className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[400px] h-auto object-contain rounded-xl shadow-2xl"
                   loading="eager"
                 />
@@ -65,7 +66,7 @@ export default function BetterBusinessBook() {
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">Who this book is for</p>
               <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">For owners who want clarity, not another sales pitch.</h2>
               <p className="mt-6 text-lg leading-8 text-slate-300">
-                The Better Business Book is written for small-business owners, entrepreneurs, and people preparing to start something of their own. It explains business principles first and technology second, using real situations instead of jargon.
+                The Better Business Building Book is written for small-business owners, entrepreneurs, and people preparing to start something of their own. It explains business principles first and technology second, using real situations instead of jargon.
               </p>
               <div className="mt-8 flex items-start gap-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
                 <Users className="mt-1 h-6 w-6 flex-shrink-0 text-blue-300" />
@@ -104,23 +105,23 @@ export default function BetterBusinessBook() {
         <section id="book-updates" className="px-6 py-20">
           <div className="mx-auto max-w-4xl rounded-3xl border border-blue-500/20 bg-blue-500/5 p-9 text-center md:p-14">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">Book request</p>
-            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Download The Better Business Book</h2>
+            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Download The Better Business Building Book</h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-              Add your name and email below to access the full 116-page guide. Your request will be saved in the NTA subscriber system, and you will receive instant access to download the book.
+              Add your name and email below to access the complete revised guide. Your request will be saved in the NTA subscriber system, and you will receive instant access to download the book.
             </p>
             <PublicationSignupForm
-              publicationTitle="The Better Business Book"
+              publicationTitle="The Better Business Building Book"
               publicationTag="better-business-book"
               source="better_business_book_free_download"
               accent="blue"
               showBusinessName={true}
               extraTags={['free-book-download']}
-              consentContext="Requested free download of The Better Business Book and agreed to receive related NTA publication updates."
-              consentCheckboxText="I want to download The Better Business Book and receive related NTA publication updates. I can unsubscribe at any time."
-              successMessage="Thanks. Your request has been saved. You can download The Better Business Book below."
+              consentContext="Requested free download of The Better Business Building Book and agreed to receive related NTA publication updates."
+              consentCheckboxText="I want to download The Better Business Building Book and receive related NTA publication updates. I can unsubscribe at any time."
+              successMessage="Thanks. Your request has been saved. You can download The Better Business Building Book below."
               downloadUrl="https://drive.usercontent.google.com/download?id=1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9&export=download"
               viewerUrl="https://drive.google.com/file/d/1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9/view?usp=sharing"
-              downloadButtonLabel="Download The Better Business Book"
+              downloadButtonLabel="Download The Better Business Building Book"
             />
             <Link to="/books" className="mt-8 inline-flex items-center gap-2 font-bold text-blue-300 hover:text-blue-200">
               View all NTA publications <ArrowRight className="h-4 w-4" />

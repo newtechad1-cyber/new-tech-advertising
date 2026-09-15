@@ -33,7 +33,7 @@ export default function Books() {
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold text-white md:text-4xl">Business First. Technology Second. People Always.</h2>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              The Better Business Book explains the foundation of a stronger business: understanding, trust, systems, customer relationships, business knowledge, and connected growth.
+              The Better Business Building Book explains the foundation of a stronger business: understanding, trust, systems, customer relationships, business knowledge, and connected growth.
             </p>
             <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">
               Practical AI for Small Business builds on that foundation by showing where artificial intelligence can genuinely help when it is used as a tool, not as the strategy and not as a replacement for human judgment.
@@ -50,15 +50,15 @@ export default function Books() {
             
             {/* Card 1 */}
             <article className="flex flex-col rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-xl">
-              <h3 className="text-2xl font-bold text-white">The Better Business Book</h3>
+              <h3 className="text-2xl font-bold text-white">The Better Business Building Book</h3>
               <p className="mt-3 text-lg font-medium text-blue-300">
-                How Small Businesses Grow Through Understanding, Trust, Systems, and Relationships
+                Practical Lessons from a Lifetime in Retail, Wholesale, B2B, and Online Business
               </p>
               <p className="mt-5 flex-1 leading-7 text-slate-400">
                 A practical guide for owners who want to build stronger businesses by understanding how growth really happens. This book explains why good businesses still struggle, how trust is earned, why systems matter, and how relationships create durable growth.
               </p>
               <Link to="/better-business-book" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-bold text-white transition-all hover:bg-blue-500">
-                Get The Better Business Book <ArrowRight className="h-4 w-4" />
+                Get The Better Business Building Book <ArrowRight className="h-4 w-4" />
               </Link>
             </article>
 
@@ -111,14 +111,14 @@ export default function Books() {
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold text-white md:text-5xl">Start with the book that fits where you are right now.</h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              If you want to understand how a stronger business grows, start with The Better Business Book.
+              If you want to understand how a stronger business grows, start with The Better Business Building Book.
             </p>
             <p className="mx-auto mt-2 max-w-2xl text-lg leading-8 text-slate-300">
               If you are trying to make sense of AI and how it fits into a real business, start with Practical AI for Small Business.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/better-business-book" className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white shadow-lg transition-all hover:bg-blue-500">
-                Get The Better Business Book
+                Get The Better Business Building Book
               </Link>
               <Link to="/practical-ai" className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white shadow-lg transition-all hover:bg-indigo-500">
                 Get Practical AI for Small Business

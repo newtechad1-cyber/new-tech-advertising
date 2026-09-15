@@ -13,17 +13,17 @@ export default function PublicationsSection() {
         </div>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {/* Better Business Book */}
+          {/* Better Business Building Book */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-slate-700 transition-colors shadow-sm">
             <div className="mb-6 overflow-hidden rounded-xl bg-slate-900 aspect-[3/4] flex items-center justify-center relative shadow-lg">
               <img 
                 src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png" 
-                alt="The Better Business Book cover by Rick Hesse" 
+                alt="The Better Business Building Book cover by Rick Hesse" 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">The Better Business Book</h3>
+            <h3 className="text-xl font-bold text-white mb-2">The Better Business Building Book</h3>
             <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">
               A practical, plainspoken business guide written specifically for owners of independent and local businesses trying to build stronger foundations.
             </p>

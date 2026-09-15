@@ -102,7 +102,7 @@ const PUBLICATIONS = Object.freeze({
     delivery_url: '',
   },
   'better-business-book': {
-    title: 'The Better Business Book',
+    title: 'The Better Business Building Book',
     tags: ['free-book-download'],
     delivery_url: 'https://drive.usercontent.google.com/download?id=1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9&export=download',
   },
