@@ -80,7 +80,7 @@ export default function NewsletterFooterSection() {
         <div className="w-full md:w-auto md:min-w-[400px]">
           {status === 'success' ? (
             <div className="flex h-12 items-center justify-center md:justify-start gap-2 text-[#10B981] font-semibold text-lg">
-              ✅ You're subscribed! The NTA Journal arrives by email on Mondays.
+              ✅ You're subscribed! The NTA Journal arrives by email every Tuesday morning.
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3">

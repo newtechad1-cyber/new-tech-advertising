@@ -36,7 +36,7 @@ export default function NtaJournal() {
     <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
         title="Subscribe to The NTA Journal | Practical Business and AI Guidance"
-        description="Get The NTA Journal each Monday: practical, plainspoken lessons about business growth, digital trust, customer relationships, and useful AI for small-business owners."
+        description="Get The NTA Journal every Tuesday morning: practical, plainspoken lessons about business growth, digital trust, customer relationships, and useful AI for small-business owners."
       />
       <MarketingNav />
 
@@ -53,7 +53,7 @@ export default function NtaJournal() {
                 Practical business and AI guidance, delivered once a week.
               </h1>
               <p className="mt-7 max-w-3xl text-xl leading-relaxed text-slate-300">
-                The NTA Journal is a free Monday publication for owners who want useful ideas, clear explanations, and honest guidance without hype or technical clutter.
+                The NTA Journal is a free publication delivered every Tuesday morning for owners who want useful ideas, clear explanations, and honest guidance without hype or technical clutter.
               </p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <a
@@ -75,7 +75,7 @@ export default function NtaJournal() {
               <Mail className="h-9 w-9 text-indigo-400" />
               <h2 className="mt-5 text-3xl font-bold text-white">Join the NTA Journal</h2>
               <p className="mt-4 leading-7 text-slate-400">
-                New editions are planned for Monday mornings. Your email is used for the Journal and related NTA publication updates, and you can unsubscribe at any time.
+                New editions are sent every Tuesday morning. Your email is used for the Journal and related NTA publication updates, and you can unsubscribe at any time.
               </p>
               <PublicationSignupForm
                 publicationTitle="The NTA Journal"

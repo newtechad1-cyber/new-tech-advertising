@@ -119,7 +119,7 @@ export default function NewsletterPopup() {
 
         <div className="text-center mb-6">
           <div className="text-5xl mb-4">📬</div>
-          <h2 className="text-2xl font-bold text-[#0B1120] mb-2">Get Smarter Growth Tips Every Monday</h2>
+          <h2 className="text-2xl font-bold text-[#0B1120] mb-2">Get Smarter Growth Tips Every Tuesday Morning</h2>
           <p className="text-sm text-slate-600">
             Join local business owners getting one short, actionable AI &amp; marketing tip every week. Free forever.
           </p>
@@ -127,7 +127,7 @@ export default function NewsletterPopup() {
 
         {status === 'success' ? (
           <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium py-6 bg-emerald-50 rounded-lg">
-            <span>🎉</span> You're in! The NTA Journal arrives by email on Mondays.
+            <span>🎉</span> You're in! The NTA Journal arrives by email every Tuesday morning.
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">

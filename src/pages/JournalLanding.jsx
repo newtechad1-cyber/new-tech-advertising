@@ -388,7 +388,7 @@ export default function JournalLanding() {
             <h2 className="text-2xl font-bold text-white mb-3">Want the Journal in Your Inbox?</h2>
             <p className="text-slate-400 mb-6">
               Visit the Journal subscription page to see what each edition includes,
-              read the first issue, and join the free Monday email.
+              read the first issue, and join the free Tuesday morning email.
             </p>
             <Link
               to="/nta-journal#subscribe"

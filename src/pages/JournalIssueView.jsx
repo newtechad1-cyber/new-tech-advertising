@@ -341,7 +341,7 @@ export default function JournalIssueView() {
             <section className="border-t border-slate-800 py-12 px-6">
               <div className="max-w-3xl mx-auto text-center">
                 <h2 className="text-xl font-bold text-white mb-3">Enjoyed This Issue?</h2>
-                <p className="text-slate-400 text-sm mb-6">Get The NTA Journal in your inbox every Monday morning.</p>
+                <p className="text-slate-400 text-sm mb-6">Get The NTA Journal in your inbox every Tuesday morning.</p>
                 <Link
                   to="/nta-journal#subscribe"
                   className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 font-bold text-white transition-colors hover:bg-indigo-500"
