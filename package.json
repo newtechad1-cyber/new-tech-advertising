@@ -16,7 +16,9 @@
     "typecheck": "tsc -p ./jsconfig.json",
     "preview": "vite preview",
     "test:backend-auth": "node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs",
-    "check:release": "npm run audit:security -- --strict && npm run test:backend-auth && npm run test:growth-guide && npm run test:route-governance && npm run build && node --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs tests/visitor-journey.test.mjs"
+    "check:release": "npm run audit:security -- --strict && npm run test:backend-auth && npm run test:growth-guide && npm run test:route-governance && npm run build && node --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs tests/visitor-journey.test.mjs && npm run test:core-bridge && npm run check:core-bridge",
+    "test:core-bridge": "node --test tests/core-bridge-boundaries.test.mjs",
+    "check:core-bridge": "node scripts/check-core-bridge-readiness.mjs"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.48",
