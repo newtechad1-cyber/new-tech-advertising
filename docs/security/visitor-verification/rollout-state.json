@@ -1,6 +1,6 @@
 {
   "app_id": "691f41a18de4a7f498c8f884",
-  "stage": "visitor_gateway_hardened_core_bridge_pending_secret",
+  "stage": "visitor_gateway_and_core_bridge_active_source_verified",
   "updated_at": "2026-09-15T12:47:37.267Z",
   "keys": "User confirmed both secrets saved. The published metadata responses returned public Site Key/action; actual provider validity is not yet verified.",
   "live_config_checks": {
@@ -139,5 +139,12 @@
   "verification_enforcement_active_in_source": true,
   "production_enforcement_verified": false,
   "latest_review": "docs/security/core-bridge/review-state.json",
-  "core_bridge_rollout": "docs/security/core-bridge/rollout.json"
+  "core_bridge_rollout": "docs/security/core-bridge/rollout.json",
+  "latest_validation": {
+    "public_release_tests": 249,
+    "core_active_tests": 35,
+    "both_builds_passed": true,
+    "source_readiness_passed": true,
+    "live_runtime_verification_pending": true
+  }
 }

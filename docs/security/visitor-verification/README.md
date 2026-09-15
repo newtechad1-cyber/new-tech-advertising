@@ -1,3 +1,7 @@
+# Current status — Core bridge source activated, publication pending
+
+The final shared-secret connection changes are now active in both apps. Rick confirmed the setting is saved in both. Both release commands passed. Follow `../core-bridge/README.md` for the current publication handoff and remaining live checks. Older staged activation instructions below are historical and must not be reapplied.
+
 > **Current status — September 15, 2026:** Public-source visitor guards now cover six endpoints. The latest review and exact Core connection rollout are in `../core-bridge/README.md` and `../core-bridge/rollout.json`. The Core shared secret is still required before activation and coordinated publishing. The notes below describe the preceding three-endpoint release; old staged snapshots are historical.
 
 # NTA backend caller verification — release status

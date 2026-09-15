@@ -1,13 +1,15 @@
 {
   "review_date": "2026-09-15",
-  "status": "prepared_awaiting_shared_secret_and_coordinated_publish",
+  "status": "source_activated_release_checks_passed_awaiting_publish_and_live_verification",
   "public_app_id": "691f41a18de4a7f498c8f884",
   "core_app_id": "6a7215451eb90dc843a94546",
   "required_user_setting": {
     "name": "NTA_CORE_BRIDGE_SECRET",
     "same_random_value_in_both_apps": true,
     "minimum_characters": 32,
-    "secret_value_recorded": false
+    "secret_value_recorded": false,
+    "owner_confirmed_saved_in_both_apps": true,
+    "runtime_values_compared": false
   },
   "validation": {
     "public_security_preflight": {
@@ -18,12 +20,12 @@
       "medium": 0,
       "scope": "source heuristic; not a hosted scan or complete Core audit"
     },
-    "active_source_tests_passed": 210,
-    "staged_core_tests_passed": 39,
-    "total_tests_passed": 249,
     "public_build": "passed",
-    "isolated_core_candidate_build": "passed; 15 candidate files; active Core unchanged",
-    "release_readiness": "intentionally blocked until shared-secret source changes are activated"
+    "release_readiness": "both source release commands passed",
+    "public_release_test_cases_passed": 249,
+    "core_active_test_cases_passed": 35,
+    "core_active_build": "passed",
+    "note": "Some Core cases repeat in the public review suite; counts are test executions, not unique workflows."
   },
   "live_review": {
     "sitemap_urls_checked": 167,
@@ -47,12 +49,10 @@
     "fresh_emails_sent_in_review": false
   },
   "remaining": [
-    "Save the same new random NTA_CORE_BRIDGE_SECRET in both apps",
-    "Activate exact staged changes in rollout.json; abort/rebase if existing text changed",
-    "Run release checks and verify active Core source against tested candidates",
-    "Publish the two apps as a coordinated release",
-    "Run approved no-data rejection checks and one agreed real visitor/email-delivery test",
-    "Run Base44 hosted security scan after publishing",
+    "Publish NTA Core Admin Hub, then New Tech Advertising",
+    "Verify published runtime authentication and matched shared credential without creating records",
+    "Complete one agreed real visitor submission and recipient mailbox confirmation",
+    "Run Base44 hosted Security Scan",
     "Check the final visitor journey on a phone"
   ],
   "automation_scope": "GitHub workflow is configured for pushes and pull requests; its execution and branch protection were not verified. Base44 Publish does not automatically enforce the repository command.",
@@ -60,5 +60,9 @@
     "before_publish": "Run npm run check:release and Base44 Security Scan after form, route, backend, permission, or integration changes",
     "weekly": "Brief visitor journey and delivery-status review while the site is being actively maintained",
     "after_connection_changes": "One agreed end-to-end submission and mailbox confirmation"
-  }
+  },
+  "activated_at": "2026-09-15T16:41:07.968342+00:00",
+  "runtime_credential_handshake_verified": false,
+  "public_frontend_publication_verified": false,
+  "core_frontend_publication_verified": false
 }

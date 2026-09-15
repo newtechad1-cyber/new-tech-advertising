@@ -1,49 +1,56 @@
 # NTA security and visitor journey review — September 15, 2026
 
-The public-source repairs are saved. The final cross-app protection is prepared and tested, but **not activated**. Do not report the whole system secure or the release complete yet.
+The Core connection changes are **active in the saved source of both apps**. Rick confirmed that `NTA_CORE_BRIDGE_SECRET` is saved in both app secret stores. Both release commands and builds passed. The final UI publication and live submission/delivery checks remain; do not report the whole system fully verified.
 
-## One required setting
+## Publication handoff
 
-Create `NTA_CORE_BRIDGE_SECRET` in the Secrets settings of both **New Tech Advertising** (`691f41a18de4a7f498c8f884`) and **NTA Core Admin Hub** (`6a7215451eb90dc843a94546`). Use the same newly generated random value of at least 32 characters in both apps. Keep its value in the secret stores and the owner's password manager, never in browser code, source files, screenshots, logs, or chat. These credentials are separate from the existing Turnstile settings.
+1. Open **NTA Core Admin Hub** (`6a7215451eb90dc843a94546`) in Base44 and click **Publish**.
+2. Then open **New Tech Advertising** (`691f41a18de4a7f498c8f884`) and click **Publish**.
+3. Reload open visitor forms after both apps are published. Inspect the live public experience, run the hosted Security Scan, and complete one agreed visitor submission with actual mailbox confirmation.
 
-The available Base44 tools do not expose secret-setting management. The owner must enter this setting. No secret value was generated, retrieved, or saved in this repository.
+The connector has no final Publish control in this session. Backend resource files can synchronize as they are saved; a saved checkpoint is not evidence that the latest frontend bundle was published. Do not leave the two app releases at different versions. Do not make the whole Core app public.
 
-## Saved public-source repairs
+## Active connection protections
 
-- Six visitor entry points use the same server-verified Turnstile implementation: `growthGuideChat`, `publicationSignup`, `ntaUnifiedIntake`, `startDiscoverySession`, `submitPublicTrialSignup`, and `submitRecruitingApplication`. Verified admin/service workflows retain access. The public recruiting page still calls Core directly until the staged bridge changes are activated.
-- Seven legacy/internal entry points require verified admin/service identities, including the two legacy analytics writers. Browser journey and book-click measurement uses the platform analytics API. The existing Core book counters will no longer receive browser click events; server book-access requests remain part of the staged authenticated connection.
-- Guided setup submits once. Its server records the trial and sends the CRM handoff. Failed handoffs retain a review status, and the visitor sees a visible error when a request fails. Confirmation copy describes a saved request instead of promising a ready dashboard. The existing background provisioning workflow still needs a real end-to-end check.
-- Contact and Gap Audit fields have connected labels; newsletter email has an accessible name. Returning book subscribers can reach their existing free download instead of being blocked by an already-subscribed response.
-- The public NTA Opportunity navigation now points to `/account-manager`. The Core URL currently sends anonymous visitors to a sign-in page. Existing intentional staff/client sign-in links remain private entrances.
-- The security inventory includes helper-wrapped calls and anonymous cross-app relays. Shared-guard, route, analytics-isolation, and handoff regression tests are part of the release process.
+Four public backend senders put the shared credential in the `x-nta-core-bridge-secret` request header: `ntaUnifiedIntake`, `submitRecruitingApplication`, `publicationSignup` book-access tracking, and the authorized legacy `trackBookEvent` relay. SDK 0.8.48 supports this configuration. The credential is read only from server settings and is never put in browser code or form payloads. A missing or too-short credential prevents the handoff.
 
-## Core connection changes awaiting activation
+Core intake, recruiting, and book tracking verify the shared credential or an authenticated administrator/service identity before privileged work. Exact authenticated `{ "connection_check": true }` requests return no-data connection metadata. A matching Origin, body role, or public site key is not authorization.
 
-`rollout.json` contains exact edits for 20 files: 5 public-app files and 15 Core files. `candidates.json` contains the resulting source used in isolated tests. Apply the edits only when their `old_text` still matches; rebase against new changes instead of overwriting newer work.
+The public recruiting form and eleven remaining Core visitor forms now use the website's verified visitor gateway. The two Core recruiting forms now ask for the required business-observation answer. Core's private staff interfaces retain their authenticated internal calls.
 
-The four public senders use SDK 0.8.48 and put the new credential in `x-nta-core-bridge-secret`. Core intake, recruiting, and book tracking verify that credential or a verified administrator/service identity before privileged work. Rejected calls do not write records or send messages. Exact authenticated `{ "connection_check": true }` requests provide a no-data connection check.
+All 20 activation files match the prepared candidates after ignoring final newline differences. `rollout.json` records the active state, Core source hashes, and recovery checkpoints. Its old-text edits are retained as a historical review record; **do not apply the activation bundle again**.
 
-Public forms remaining in Core route through the public visitor gateway. The two Core recruiting forms gain the business-observation answer required by their backend. One currently never asks for it, and the older form also omitted it. This is a real request-contract mismatch, not a confirmed delivered application.
+## Saved visitor journey repairs
 
-Coordinate publication of both apps once the settings and source are ready. A mixed release can temporarily reject old calls; do not leave only half of the change published. Reload any open recruiting form after the cutover. Update `rollout.json` to `active_source_verified` only after checking the actual Core files against the prepared changes. Then run the final release command again.
+- Six public entry points verify Cloudflare Turnstile proof server-side: Guide chat, publication signup, unified intake, discovery-session start, guided setup, and recruiting.
+- Seven legacy/internal entry points require verified admin/service identities, including legacy analytics writers. Browser journey and book-click measurement uses platform analytics; existing GA4 calls remain.
+- Guided setup submits once and records its CRM handoff status. Failed requests show a visible error; confirmation describes a saved setup request instead of promising an immediately ready dashboard. The existing background provisioning workflow still needs a real end-to-end check.
+- Contact and Gap Audit fields have connected labels; newsletter email has an accessible name. Returning book subscribers can reach their existing download.
+- Public NTA Opportunity navigation points to `/account-manager`; the Core root currently redirects anonymous visitors to sign-in. Intentional private sign-in links remain private.
 
-## Evidence and limits
+## Verification completed
 
-- **249 automated tests passed:** 210 for active public-source behavior and 39 for staged Core guards/senders/forms. The public build and an isolated Core build with all 15 Core changes passed.
-- The public source preflight reports 0 critical/high/medium findings across 365 functions and 737 entities. This heuristic result is not a fresh hosted scan and does not certify the entire Core app.
-- All 167 URLs from the live sitemap returned HTTP 200. This checks availability, not every interaction on every page. Both book download targets returned PDF bytes. Rick's calendar opens with available appointment times.
-- The question doorway, Guide opening, audit/contact/publication forms, public opportunity page, and all three Growth Conversation steps were inspected in the live desktop browser. No contact information was submitted, no appointment booked, and no new email sent. A phone walkthrough remains necessary.
-- Existing Core records show recent audit submissions arrived. The newest report email has Brevo acceptance evidence, not confirmed mailbox delivery. A historical August record has delivered/opened evidence. Fresh successful Cloudflare, intake, CRM, notification, and recipient-delivery checks remain after the coordinated publication.
-- Earlier automatic approval review rejected live negative POST probes because the published receiver could still perform writes or downstream actions. Those probes were not rerouted or repeated here. This review used read-only live requests and isolated handler tests.
+- **Public app:** `npm run check:release` passed — 249 test cases, production build, and the final Core-source readiness gate.
+- **Core app:** `npm run check:release` passed — 35 cases against its active receiver/form source and a production build. Some Core boundary cases repeat in the public review suite; the counts are test executions, not 284 unique workflows.
+- The public source heuristic reports 0 critical/high/medium findings across 365 functions and 737 entities. This is not a fresh hosted scan or a complete Core security audit.
+- Existing live review: all 167 sitemap URLs returned HTTP 200; both book downloads returned PDF bytes; Rick's calendar showed available appointments. The three Growth Conversation questions advanced to a recommendation/contact form.
+- The question doorway, Guide opening, audit/contact/publication forms, and public opportunity page were inspected on desktop. No contact information was submitted, no appointment booked, no AI message sent, and no new email sent in this review.
+- Recent audit submissions exist in Core. The newest audit email has Brevo acceptance evidence, not confirmed recipient delivery. Historical August records contain delivered/opened evidence.
 
-## Repeatable release process
+## Remaining verification
 
-Run `npm run check:release` before publishing. It runs the security inventory, authentication/visitor tests, Guide tests, route tests, builds, journey checks, staged bridge tests, and source readiness check. **It currently stops intentionally at Core bridge readiness** until the secret-backed changes are activated.
+The actual runtime secret values were not read or compared. Rick's confirmation establishes that he saved them; a successful authenticated live handshake remains to prove they match and the published runtimes are using them. Fresh Cloudflare verification, visitor intake/CRM handoff, notification/email delivery, and a phone walkthrough remain after publication.
 
-`.github/workflows/release-checks.yml` runs this command on repository pushes/pull requests when GitHub Actions is connected and enabled. Execution and branch protection were not verified. Base44's Publish button does not automatically enforce this repository workflow.
+Earlier automatic approval review rejected live negative POST probes because the published receiver could still perform writes or downstream actions. Those probes were not repeated through another route. This activation used isolated handler tests and source/build checks; any live probe must satisfy the approval boundary and be proven nonmutating.
 
-Run Base44's hosted Security Scan after meaningful form, permission, backend, or integration changes and after the coordinated publish. Base44 recommends checking before publishing and after significant changes: https://docs.base44.com/Setting-up-your-app/running-a-security-scan
+## Keeping the repair in place
 
-A short weekly walkthrough is our recommended steady maintenance cadence while the site is active. When a connection, credential, or email workflow changes, add one agreed real submission and confirm the actual mailbox result. Daily development can justify daily release checks; repeated findings alone are not evidence of a new daily attack. No recurring ChatGPT task was created in this review.
+Both app repositories now provide `npm run check:release`. Core tests read its active files; public sender tests read active public files. The public repository retains reviewed Core snapshots as supporting evidence, while Core's own command detects subsequent receiver changes.
+
+GitHub workflows are configured for pushes, pull requests, and manual runs. GitHub execution and branch protection were not verified, and Base44's Publish button does not automatically enforce these repository commands.
+
+Run release checks and Base44's hosted Security Scan before publishing meaningful form, route, backend, permission, or integration changes. Base44 recommends scans before publishing and after significant changes: https://docs.base44.com/Setting-up-your-app/running-a-security-scan
+
+A short weekly visitor walkthrough is our maintenance recommendation. After connection, credential, or email-workflow changes, add an agreed real submission and confirm its mailbox result. No recurring ChatGPT task was created.
 
 Cloudflare documents that a configured root hostname covers its subdomains: https://developers.cloudflare.com/turnstile/additional-configuration/hostname-management/
