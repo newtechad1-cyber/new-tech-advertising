@@ -1,5 +1,25 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.41';
 
+// Public configuration only; visitor enforcement follows the browser rollout.
+function verificationSettings() {
+  const siteKey = String(Deno.env.get('NTA_TURNSTILE_SITE_KEY') || '').trim();
+  const secret = String(Deno.env.get('NTA_TURNSTILE_SECRET_KEY') || '').trim();
+  const isTestKey = (value) => /^[123]x0{8,}/.test(value);
+  return siteKey.length >= 20 && secret.length >= 20 && !isTestKey(siteKey) && !isTestKey(secret)
+    ? { siteKey, secret }
+    : null;
+}
+
+function publicVerificationConfig(action) {
+  const settings = verificationSettings();
+  if (!settings) {
+    return Response.json({ error: 'Verification is temporarily unavailable. Please call or text 641-420-8816.' }, { status: 503 });
+  }
+  return Response.json({ site_key: settings.siteKey, action }, {
+    headers: { 'Cache-Control': 'no-store' },
+  });
+}
+
 const GUIDE_PUBLIC_ORIGIN = 'https://www.newtechadvertising.com';
 const VERIFIED_GUIDE_PATHS = new Set([
   '/operating-system',
@@ -202,6 +222,14 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Untrusted request origin' }, { status: 403 });
     }
 
+    const parsed = await readJsonBody(req);
+    if (parsed.error) return parsed.error;
+
+    // This metadata response exposes only the public site key, never the secret.
+    if (parsed.body.verification_config === true && Object.keys(parsed.body).length === 1) {
+      return publicVerificationConfig('growth_guide_chat');
+    }
+
     if (!trustedService) {
       const retryAfterSeconds = isRateLimited(req);
       if (retryAfterSeconds) {
@@ -211,9 +239,6 @@ Deno.serve(async (req) => {
         );
       }
     }
-
-    const parsed = await readJsonBody(req);
-    if (parsed.error) return parsed.error;
 
     const messages = cleanMessages(parsed.body.messages);
     const knowledgeContext = cleanKnowledgeContext(parsed.body.knowledge_context);
