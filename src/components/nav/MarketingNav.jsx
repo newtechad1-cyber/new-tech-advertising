@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 
 const LOGO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/691f41a18de4a7f498c8f884/45ced7207_nta_logo_header_1600x320.png';
 
@@ -19,6 +21,9 @@ const NAV_LINKS = [
 const OPPORTUNITY_HREF = '/account-manager';
 
 export default function MarketingNav() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const closeMobileMenu = () => setMobileOpen(false);
 
   return (
     <>
@@ -52,15 +57,25 @@ export default function MarketingNav() {
               onClick={() => window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'main_navigation' } }))}
               aria-label="Talk to My Office: call, text, email, or start a conversation"
               title="Call, text, email, or start a conversation"
-              className="whitespace-nowrap rounded-lg bg-blue-600 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-500 sm:px-4 sm:text-sm"
+              className="hidden whitespace-nowrap rounded-lg bg-blue-600 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-500 sm:inline-flex sm:px-4 sm:text-sm"
             >
               Talk to My Office™
+            </button>
+            <button
+              type="button"
+              onClick={() => setMobileOpen((open) => !open)}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-main-menu"
+              aria-label={mobileOpen ? 'Close website menu' : 'Open website menu'}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 text-slate-200 transition-colors hover:bg-slate-900 hover:text-white md:hidden"
+            >
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
 
           </div>
         </div>
 
-        <div className="border-t border-slate-800/80 bg-slate-950">
+        <div className="hidden border-t border-slate-800/80 bg-slate-950 md:block">
           <div
             className="mx-auto flex h-11 max-w-7xl items-center gap-1 overflow-x-auto overscroll-x-contain px-3 [scrollbar-width:none] sm:px-6 [&::-webkit-scrollbar]:hidden"
             aria-label="Website sections"
@@ -88,9 +103,42 @@ export default function MarketingNav() {
             </Link>
           </div>
         </div>
+
+        {mobileOpen && (
+          <div id="mobile-main-menu" className="border-t border-slate-800 bg-slate-950 px-4 py-3 md:hidden">
+            <div className="mx-auto flex max-w-7xl flex-col gap-1" aria-label="Mobile website sections">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  onClick={closeMobileMenu}
+                  className="block rounded-lg px-3 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-slate-900 hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a href={OPPORTUNITY_HREF} onClick={closeMobileMenu} className="block rounded-lg px-3 py-3 text-base font-medium text-cyan-300 hover:bg-slate-900">
+                NTA Opportunity
+              </a>
+              <Link to="/free-audit" onClick={closeMobileMenu} className="block rounded-lg px-3 py-3 text-base font-medium text-blue-300 hover:bg-slate-900">
+                Free Audit
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  closeMobileMenu();
+                  window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'mobile_navigation' } }));
+                }}
+                className="mt-2 w-full rounded-lg bg-blue-600 px-4 py-3 text-left text-base font-bold text-white hover:bg-blue-500"
+              >
+                Talk to My Office™
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
-      <div className="h-[108px]" aria-hidden="true" />
+      <div className="h-16 md:h-[108px]" aria-hidden="true" />
     </>
   );
 }
