@@ -178,7 +178,9 @@ From there, the path is designed to stay useful and human:
 
 We also simplified the way a person can reach NTA and continued testing the forms, notifications, and security behind the visible experience.
 
-The goal is not to force everyone through one sales funnel. It is to help each person take the next step that fits the question they are trying to answer.`,
+The goal is not to force everyone through one sales funnel. It is to help each person take the next step that fits the question they are trying to answer.
+
+This week's NTA Growth Show explores the same principle through three connected conversations: why discovery comes before technology, the human element in business systems, and collaboration over automation. A clearer website is one practical example of beginning with the people and the work before choosing a tool.`,
   what_we_learned: `More information does not automatically make a website more helpful.
 
 A business can build page after page and still make visitors work too hard to understand where to begin. The first job of a page is not to explain everything the company knows. It is to answer the question that brought the person there.
@@ -186,6 +188,8 @@ A business can build page after page and still make visitors work too hard to un
 We also learned again that the visible page and the system behind it cannot be separated. The answer, the form, the notification, the follow-up, and the human conversation are all part of one business experience.
 
 AI can help organize those pieces, reveal gaps, and carry work forward. It cannot decide what promise the business should make or take responsibility for keeping it.
+
+That is why discovery matters before adding technology. Ask the people doing the work where it becomes difficult, what customers need, and what already works well. AI can help organize what you learn and prepare possible next steps. People still bring the experience, make the decisions, and take responsibility for the relationship.
 
 **That is the NTA Point of View: answer the question the visitor has now, then make the next appropriate step obvious.**`,
   what_it_means_for_your_business: `Your website is already teaching people something about your business.
@@ -226,16 +230,16 @@ Write down the first point where the experience becomes unclear. That is probabl
   featured_video: {
     source_id: 'PmXSEkj03ak',
     source_type: 'YouTube',
-    title: "This Week's NTA Growth Show",
+    title: "Before You Add AI, Understand Your Business",
     url: 'https://youtu.be/PmXSEkj03ak',
     duration: '',
-    description: 'This week’s NTA Growth Show continues the conversation about building the business experience from the customer’s question forward.',
+    description: "Rick Hesse and Free AI Guy explore why discovery comes before technology, why people remain central to business systems, and how collaboration with AI supports human judgment.",
     cta_text: "Watch this week's NTA Growth Show",
   },
   related_article_ids: ['6a4bddd0f29cfc0dcba4d1ad'],
   related_video_ids: ['PmXSEkj03ak'],
   related_video_url: 'https://youtu.be/PmXSEkj03ak',
-  related_video_title: "This Week's NTA Growth Show",
+  related_video_title: "Before You Add AI, Understand Your Business",
   publishing_article_id: '6a4bddd0f29cfc0dcba4d1ad',
   cta_text: 'Read Websites as Salespeople',
   cta_url: 'https://newtechadvertising.com/websites-as-salespeople',
@@ -243,7 +247,7 @@ Write down the first point where the experience becomes unclear. That is probabl
 
 That is why NTA is building from the visitor's question forward and connecting each answer to a useful next step.
 
-Read [“Websites as Salespeople”](https://newtechadvertising.com/websites-as-salespeople) and watch [this week's NTA Growth Show](https://youtu.be/PmXSEkj03ak).`,
+Read [“Websites as Salespeople”](https://newtechadvertising.com/websites-as-salespeople) and watch [“Before You Add AI, Understand Your Business”](https://youtu.be/PmXSEkj03ak).`,
 }, {
   id: 'seed-journal-issue-6',
   issue_number: 6,
