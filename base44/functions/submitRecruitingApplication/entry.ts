@@ -261,6 +261,13 @@ Deno.serve(async (req) => {
     });
   } catch (error) {
     const upstreamStatus = Number(error?.response?.status || 0);
+    if (upstreamStatus === 401 || upstreamStatus === 403) {
+      console.error('[NTA intake] Core connection rejected:', upstreamStatus);
+      return Response.json({
+        error: 'We could not save your request because our website connection is temporarily unavailable. Please call or text 641-420-8816.',
+        code: 'NTA_CONNECTION_UNAVAILABLE',
+      }, { status: 503 });
+    }
     const status = upstreamStatus >= 400 && upstreamStatus < 500 ? upstreamStatus : 502;
     const detail = status < 500
       ? (error?.response?.data || { error: error?.message || 'Unable to save your inquiry.' })
