@@ -129,5 +129,10 @@ export async function invokeVerifiedPublicFunction(name, payload) {
   const pending = verificationQueue.then(() => requestVisitorToken(config));
   verificationQueue = pending.catch(() => {});
   const token = await pending;
-  return base44.functions.invoke(name, { ...payload, verification_token: token });
+  const response = await base44.functions.invoke(name, { ...payload, verification_token: token });
+  const result = response?.data ?? response;
+  if (result?.success === false || result?.accepted === false) {
+    throw new Error(result.error || 'Your request was not accepted. Please try again or call or text 641-420-8816.');
+  }
+  return response;
 }

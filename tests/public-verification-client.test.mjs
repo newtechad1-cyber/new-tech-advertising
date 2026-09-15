@@ -51,7 +51,7 @@ function setup(mode = 'success') {
             ({ growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake', startDiscoverySession: 'start_discovery_session', submitPublicTrialSignup: 'trial_signup' })[name],
         } };
       }
-      return { data: { success: true } };
+      return { data: mode === 'not_accepted' ? { success: true, accepted: false } : { success: true } };
     } } },
   });
   return { invoke: exports.invokeVerifiedPublicFunction, requests, dialogs, widgets };
@@ -133,3 +133,9 @@ for (const name of ['startDiscoverySession', 'submitPublicTrialSignup']) {
     assert.equal(cancelled.requests.filter(r => !r.payload.verification_config).length, 0);
   });
 }
+
+test('public client never shows success when the server declines a submission', async () => {
+  const fixture = setup('not_accepted');
+  await assert.rejects(fixture.invoke('ntaUnifiedIntake', {}), /not accepted/);
+  assert.equal(fixture.requests.filter(r => !r.payload.verification_config).length, 1);
+});
