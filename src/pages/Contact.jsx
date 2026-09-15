@@ -125,7 +125,7 @@ export default function Contact() {
                     641-420-8816
                   </a>
                   <p className="text-sm text-slate-600 mt-2">
-<a href="sms:16414208816" className="font-semibold text-blue-600 hover:text-blue-700">Open a text to this number</a>
+                    <a href="sms:16414208816" className="font-semibold text-blue-600 hover:text-blue-700">Open a text to this number</a>
                   </p>
                 </div>
               </div>

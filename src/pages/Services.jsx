@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -8,6 +9,11 @@ import {
 } from 'lucide-react';
 
 export default function Services() {
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash === '#first-project') document.getElementById('first-project')?.scrollIntoView({ block: 'start' });
+  }, [hash]);
+
   return (
     <div className="bg-slate-950 min-h-screen text-white">
       <SEOHead

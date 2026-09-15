@@ -23,7 +23,7 @@ export function ContentNextSteps({ title, path, resources = [] }) {
           <div className="mt-4 grid gap-3">
             {links.map(link => {
               const Icon = link.kind === 'video' ? Play : BookOpen;
-              const contents = <><Icon className="mt-1 h-4 w-4 shrink-0 text-blue-300" aria-hidden="true" /><span><span className="block text-xs font-semibold text-slate-400">{link.kind === 'video' ? 'Watch the related video' : 'Read the related article or lesson'}</span><span className="mt-1 block font-semibold text-white">{link.title}</span></span><ArrowRight className="ml-auto mt-1 h-4 w-4 shrink-0 text-blue-300" aria-hidden="true" /></>;
+              const contents = <><Icon className="mt-1 h-4 w-4 shrink-0 text-blue-300" aria-hidden="true" /><span className="min-w-0 break-words"><span className="block text-xs font-semibold text-slate-400">{link.kind === 'video' ? 'Watch the related video' : 'Read the related article or lesson'}</span><span className="mt-1 block font-semibold text-white">{link.title}</span></span><ArrowRight className="ml-auto mt-1 h-4 w-4 shrink-0 text-blue-300" aria-hidden="true" /></>;
               const className = 'flex items-start gap-3 rounded-xl border border-slate-700 p-4 transition-colors hover:border-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-400';
               return link.href.startsWith('/')
                 ? <Link key={link.href} to={link.href} className={className}>{contents}</Link>
@@ -53,6 +53,6 @@ export function ContentNextSteps({ title, path, resources = [] }) {
 
 export default function ConnectedContentNextSteps(props) {
   const { episodes } = useGrowthShow();
-  const relatedVideos = relatedEpisodeLinks(props, episodes);
+  const relatedVideos = props.resources?.some(resource => resource.kind === 'video') ? [] : relatedEpisodeLinks(props, episodes);
   return <ContentNextSteps {...props} resources={[...(props.resources || []), ...relatedVideos]} />;
 }
