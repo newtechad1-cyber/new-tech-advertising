@@ -1,4 +1,4 @@
-import { createClient } from 'npm:@base44/sdk@0.8.31';
+import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
 const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
 const TRUSTED_PUBLIC_ORIGINS = new Set([
@@ -42,8 +42,11 @@ Deno.serve(async (req) => {
   if (req.method !== 'POST') {
     return Response.json({ error: 'Method not allowed.' }, { status: 405 });
   }
-  if (!isTrustedPublicOrigin(req)) {
-    return Response.json({ error: 'Untrusted request origin.' }, { status: 403 });
+  const base44 = createClientFromRequest(req);
+  const user = await base44.auth.me().catch(() => null);
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (user.role !== 'admin' && user.is_service !== true) {
+    return Response.json({ error: 'Admin access required' }, { status: 403 });
   }
 
   const retryAfter = getRetryAfter(req);

@@ -39,9 +39,12 @@ export default function PublicationSignupForm({
 
   async function trackBookEvent(eventType) {
     try {
-      await base44.functions.invoke('trackBookEvent', {
+      base44.analytics.track({
+        eventName: `book_${eventType}`,
+        properties: {
         book_key: publicationTag,
         event_type: eventType,
+        },
       });
     } catch (trackingError) {
       console.warn('[book tracking] Event could not be recorded.', trackingError);
