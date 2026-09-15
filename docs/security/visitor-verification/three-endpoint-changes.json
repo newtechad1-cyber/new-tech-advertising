@@ -11,7 +11,7 @@
     {
       "path": "base44/functions/publicationSignup/entry.ts",
       "before_sha256": "c34101a0b578839d6a72ede9be29b9c0104aad012415c7e99446b167a08ad636",
-      "after_sha256": "433f67fa46c5900e2a0422e8a3997fac27f39a895c55986a3e65dc0c8d85d4bb"
+      "after_sha256": "52e379c45606bb71bc97218cd6e5fe1eaecd2daeda56ed61c547242a3f069537"
     },
     {
       "path": "base44/functions/ntaUnifiedIntake/entry.ts",
@@ -51,7 +51,7 @@
     {
       "path": "src/components/publishing/PublicationSignupForm.jsx",
       "before_sha256": "7856d7187079016f7e68e1b55506b7e1c6030251be42248a447eb93c21288739",
-      "after_sha256": "be8ec9dabd185da7cef473a8d45ef47246921126dcdb2a27451ba461e3bf04f0"
+      "after_sha256": "1b36281aabc3f6304af8e05671a5d1d339ef96593bd1b46d60c0dd79b9a3bc9e"
     },
     {
       "path": "src/components/landing/SignupModal.jsx",
@@ -120,7 +120,6 @@
     "src/components/restaurant-demo/RestaurantNTASection.jsx",
     "src/components/hvac-funnel/HVACLeadForm.jsx",
     "src/components/service-pages/ServicePageLayout.jsx",
-    "src/components/publishing/PublicationSignupForm.jsx",
     "src/components/landing/SignupModal.jsx",
     "src/components/funnel/LeadCaptureForm.jsx",
     "src/pages/Rebuild-Intake.jsx",
@@ -140,5 +139,12 @@
     "publicationSignup": 200,
     "browser_asset": "/assets/index-ktYDXSSE.js"
   },
-  "production_enforcement_verified": false
+  "production_enforcement_verified": false,
+  "server_routed_publication_form": "src/components/publishing/PublicationSignupForm.jsx",
+  "validation": {
+    "behavior_tests": 99,
+    "build": "passed",
+    "diff_check": "passed",
+    "live_negative_check": "blocked_by_automatic_approval_review"
+  }
 }

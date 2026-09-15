@@ -1,77 +1,91 @@
-# Seven backend authentication findings — 2026-09-15
+# NTA backend caller verification — release status
 
-Target: New Tech Advertising, public Base44 app `691f41a18de4a7f498c8f884`.
-Production site: https://newtechadvertising.com
+Public Base44 app: New Tech Advertising, 691f41a18de4a7f498c8f884.
+Website: https://newtechadvertising.com
 
 ## Current status
 
-Five authentication fixes are saved in the active app source. The two public handlers now include read-only Turnstile configuration responses, and the browser helper plus four caller updates are saved and ready to publish. The enforcing backend replacements remain staged and **are not active**. Rick confirmed that both Turnstile keys were saved in Base44 Secrets. Narrow live configuration checks still returned the previously published validation errors, so hosted configuration and real visitor verification remain unconfirmed. See `rollout-state.json` for current hashes and the next release steps.
+The three latest reported functions now contain enforcing caller checks in the active app source:
 
-| Function | Saved change / remaining action |
+| Function | Saved behavior |
 | --- | --- |
-| adaIntake | Require verified Base44 administrator or service identity before privileged work. |
-| auditWebsiteAccessibility | Same authentication gate; preserve URL/DNS/redirect safeguards in its own entry point. |
-| chatbotChat | Same authentication gate before reading chat configuration or constructing the AI client. |
-| chatbotLeadCapture | Same authentication gate; preserve verified workflow/service calls. |
-| demoAiChat | Same authentication gate before any AI work. |
-| growthGuideChat | Configuration response and browser integration saved; server-side verification remains staged until the browser release is verified. |
-| publicationSignup | Configuration response, browser integration and consent payload saved; server verification and consent enforcement remain staged. |
+| growthGuideChat | Requires server-verified Turnstile proof or a verified Base44 administrator/service identity before any LLM invocation. |
+| publicationSignup | Requires the same caller proof and explicit publication consent before subscriber work and email synchronization. Publication-form CRM intake is forwarded through the authenticated server service call after the same visitor verification. |
+| ntaUnifiedIntake | Requires the same proof before forwarding normalized intake data to Core. The visitor token is not forwarded or stored in the intake payload. |
 
-Only growthGuideChat and publicationSignup have callers in the current public import graph. The five restricted functions belong to older UI components or internal workflows. The legacy lead-capture agent/workflow still needs a live authenticated service invocation checked after release. No emails, real signups, or paid AI calls were sent during this work.
+These are no longer dormant backend candidates. The source and browser changes are ready for publication. Production enforcement is **not yet verified**, and the hosted Security Scan must be rerun.
 
-## Verified
+The first browser/configuration release was independently observed on the live site: both original metadata endpoints returned HTTP 200 with only site_key/action, and /assets/index-ktYDXSSE.js contained the Turnstile script and token field. Rick confirmed the two secrets were saved. A real Cloudflare proof has not been consumed during our tests, so provider success and live administrator/service workflows remain unverified.
 
-- 66 isolated behavioral tests pass: anonymous/invalid/member rejection, administrator/service admission, forged header/body claims, private URL/redirect rejection, scan form-label handling, provider rejection/outage/missing configuration, wrong action/hostname, expiry, replay, consent, cancellation, and fresh browser tokens.
-- `npm run build` passes and produces SEO HTML for 167 public URLs plus 963 legacy cleanup/alias URLs.
-- The staged browser changes also pass an isolated Vite production build.
-- Source and documentation whitespace checks pass. The historical generated patch is excluded because its unified-diff context lines intentionally contain a space.
-- The active browser helper and four updated public callers pass the production build; the six client behavior tests now execute the active helper.
-- Ten additional isolated checks of the active metadata handlers passed: configured response shape/no secret disclosure, missing settings, public test keys, untrusted origins, and extra-field rejection; all produced zero provider, entity, AI or downstream calls.
+Earlier fixes for adaIntake, auditWebsiteAccessibility, chatbotChat, chatbotLeadCapture and demoAiChat remain in source. They require a verified administrator or service identity.
 
-The provider and Base44 identity/data operations are mocked in the behavioral tests. Real Turnstile, live administrator/service calls, live visitor submissions, and the hosted Base44 Security Scan are not yet verified.
+## Browser integration
 
-Base44 initially reported a failed accessibility-function revision with no build detail. The independently deployed entry point now contains its URL safeguards directly instead of importing another function directory, and a pre-existing form-label variable-scope error was repaired. The updated source passes local checks; the hosted revision still needs release verification.
+The shared helper src/lib/publicVerification.js supports three provider actions:
 
-## Finish the two public functions
+- growthGuideChat: growth_guide_chat
+- publicationSignup: publication_signup
+- ntaUnifiedIntake: nta_unified_intake
 
-Create a real **Managed** Cloudflare Turnstile widget for the NTA hostnames:
-`newtechadvertising.com`, `www.newtechadvertising.com`, `app.newtechadvertising.com`, and `new-tech-advertising.base44.app`.
+Seventeen direct public/legacy intake form callers use the helper. PublicationSignupForm sends record_intake: true with its verified publication request instead of asking the visitor for another token. The server sends the normalized follow-up as a service identity. A failed CRM follow-up is recorded as intake_status: needs_attention without hiding the already saved publication/download response.
 
-Save these values directly in this Base44 app's Secrets settings:
+The orphaned CRMPipelinePanel retains a direct call for authenticated administration, and existing backend service calls retain their supported authenticated path. No public browser receives a shared secret.
 
-- `NTA_TURNSTILE_SITE_KEY` — the public widget site key.
-- `NTA_TURNSTILE_SECRET_KEY` — the server-only verification secret.
+Each visitor mutation needs a fresh single-use provider token. The backend checks provider success, action, hostname and issue time; missing/invalid/expired/replayed proof and provider/configuration failures cannot authorize privileged work. Origin checks and request limits remain additional filters.
 
-Rick confirmed both keys are saved in this app’s Secrets settings. Hosted secret storage is not exposed through the connected tools, and the sandbox shell does not inherit those settings. The live configuration requests still return the earlier published handlers’ 400 validation errors, so neither saved-key availability nor provider validity has been verified yet. Do not request or copy the private key into source, logs or chat.
+## Configuration
 
-The staged implementation checks the provider's success result, hostname, action and issue time. It rejects missing configuration, known public test keys, invalid/expired/replayed proof and provider failures. The browser receives only the public site key and uses a fresh single-use token per request. It does not store tokens or retry mutations automatically.
+In this public app's Secrets settings:
 
-Coordinate rollout to keep public features working:
+- NTA_TURNSTILE_SITE_KEY: public Turnstile Site Key
+- NTA_TURNSTILE_SECRET_KEY: server-only Turnstile Secret Key
 
-1. Completed: checked original baseline hashes, added the metadata responses, applied the exact tested browser edits, and verified the build plus 66 behavior tests and 10 metadata checks.
-2. Rick must publish this prepared browser/configuration release in Base44; the current connection has no Publish action.
-3. Check both live metadata responses and the published browser bundle. Have Rick refresh the public site and send a short Guide question to confirm real visitor verification succeeds.
-4. After the published browser supplies tokens, compare current source against the hashes in `rollout-state.json` and apply the two enforcing backend candidates. Preserve any newer unrelated edits. Do not reapply the original full patch over the already updated browser.
-5. Confirm those enforcing backend revisions are live; another Publish step may be needed if production still serves the preparation version.
-6. Confirm anonymous/forged requests are rejected and real verified visitors and authenticated administrator/service workflows succeed. Use narrowly scoped non-mutating live checks; do not send bulk probes that might invoke privileged work. Older browser tabs may need a refresh.
-7. Rerun the hosted Base44 Security Scan. Its interpretation of intentionally public but provider-verified endpoints has not been tested.
+Rick confirmed both are saved. The live configuration response checks that both are present and not known public testing keys; this does not prove that Cloudflare accepts the secret or widget configuration.
 
-The staged `public-verification.patch` is review material for the final state; applying it blindly before keys and the browser rollout are ready would interrupt the Guide and publication signups.
+The Managed widget uses newtechadvertising.com, which also covers its subdomains. The backend allowlist additionally includes www.newtechadvertising.com, app.newtechadvertising.com and new-tech-advertising.base44.app. Add another legitimate frontend hostname to the widget only if it must be used.
 
-## Audit correction and remaining review
+## Validation
 
-The earlier source-only audit reported zero findings because it counted origin/rate/spam checks as a sufficient public boundary. The revised heuristic flags anonymous privileged mutations with an origin-based admission path, while distinguishing public reads and existing custom session checks.
+- 99 isolated behavior tests passed against the active source.
+- Tests cover missing proof and forged claims, ordinary members, failed identity checks, administrator/service calls, wrong host/action, expired/future/replayed tokens, missing/testing keys, provider failure, consent, metadata isolation, non-POST requests, normalized intake forwarding, publication service forwarding, cancellation and fresh browser tokens.
+- No production leads, subscriptions, AI requests or emails were generated by the tests. Provider and Base44 data/identity operations are mocked.
+- The production build passed and generated SEO HTML for 167 public URLs and 963 legacy/alias URLs.
+- Source whitespace checks passed.
+- Source inspection found no direct public-browser calls to the three protected endpoints; the remaining CRM-panel call is retained for authenticated administration.
 
-It currently flags the two pending functions above, plus three additional endpoints for a separate review: `startDiscoverySession`, `submitPublicTrialSignup`, and `trackJourneyEvent`. These are source-review candidates, not a hosted scan result. They were not silently changed or suppressed during this seven-function repair.
+The attempted live negative test was rejected by automatic approval review. It would have POSTed only an empty verification_token to the three reported public-app endpoints, with no message or contact data. The review could not establish that the published intake version rejects this before side effects. The requests did not run. Live POST verification requires explicit user authorization or another approved non-mutating verification mechanism; do not reroute or disguise the rejected calls.
+
+## Release and verification
+
+1. Publish the public New Tech Advertising app in Base44. The connected development tools do not expose Publish.
+2. Verify the new browser bundle and all three live metadata responses.
+3. With explicit authorization for live negative checks, confirm HTTP 403/VERIFICATION_REQUIRED for a no-data request without valid proof. Do not send real contact/subscription data or trigger an AI/email workflow as part of a rejection check.
+4. Have Rick refresh the public site and ask the Guide one short question to check actual provider verification and the normal visitor flow.
+5. Check authenticated service workflows and rerun the hosted Base44 Security Scan.
+6. If a release problem occurs, repair the specific failing integration. Do not restore the origin-only admission path as a fallback.
+
+See rollout-state.json and three-endpoint-changes.json for source hashes and test/release state. The original manifest hashes, staged snapshots and public-verification.patch are historical review material; they are superseded by active source and must not overwrite these final changes.
+
+## Separate findings to review
+
+The source-only audit still reports startDiscoverySession, submitPublicTrialSignup and trackJourneyEvent. These are separate review candidates and have not been silently suppressed or described as cleared.
+
+A read-only check of the receiving ntaUnifiedIntake function in the separate Core app (6a7215451eb90dc843a94546) found no code-level caller verification before service-role entity work. Platform-level access restrictions and public exposure were not tested. No Core source or data was changed. That receiving endpoint needs a separate access review; the public-app bridge guard does not establish the Core endpoint's own protection.
 
 ## Recovery
 
-Before-change checkpoint: **Before seven-function authentication repair — 2026-09-15**.
-Checkpoint ID: `6aa88d4746a213d6be335f7c`.
-Baseline commit: `3c3ba44c581a765d11a882dcd141253ccfe24ccb`.
+Before the latest three-function completion:
+- Checkpoint: Turnstile browser and configuration ready to publish; enforcement staged — 2026-09-15
+- Checkpoint ID: 6aa89c675d2e76b4f5d19bc0
+- Git commit: 6081a194656d54ed287b23fca52efc46721fe6fc
 
-Restoring that baseline also restores the previous unauthenticated behavior. Prefer a targeted repair if release verification finds a problem.
+Original seven-function baseline:
+- Checkpoint ID: 6aa88d4746a213d6be335f7c
+- Git commit: 3c3ba44c581a765d11a882dcd141253ccfe24ccb
 
-## Provider reference
+Those older checkpoints restore earlier security behavior. Prefer targeted repairs.
 
-[Server-side validation](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/) and [widget configuration](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/widget-configurations/).
+## Provider references
+
+- https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
+- https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/widget-configurations/

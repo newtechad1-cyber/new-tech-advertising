@@ -1,70 +1,140 @@
 {
   "app_id": "691f41a18de4a7f498c8f884",
-  "stage": "browser_ready_awaiting_publication",
-  "updated_at": "2026-09-15T01:15:11.251Z",
-  "keys": "User confirmed both Turnstile keys saved in Base44 Secrets. Hosted availability is not yet verified.",
+  "stage": "three_public_guards_saved_awaiting_publication",
+  "updated_at": "2026-09-15T12:45:22.049Z",
+  "keys": "User confirmed both secrets saved. The published metadata responses returned public Site Key/action; actual provider validity is not yet verified.",
   "live_config_checks": {
     "growthGuideChat": {
-      "status": 400,
-      "error": "A message is required"
+      "status": 200,
+      "action": "growth_guide_chat"
     },
     "publicationSignup": {
-      "status": 400,
-      "error": "A valid email address and recognized publication are required."
+      "status": 200,
+      "action": "publication_signup"
+    },
+    "ntaUnifiedIntake": {
+      "status": "not_checked"
     }
   },
   "verification_enforcement_active": false,
   "files": [
     {
       "path": "base44/functions/growthGuideChat/entry.ts",
-      "current_sha256": "7354689e2b8f696c03fc864e2184afcf971de004246a36c937c3b19141507ca8",
-      "final_sha256": "a159bab1ed29e0021b0c5711e06b8ae140d77da4bf70fbe8720ab7a8782de666"
+      "current_sha256": "a159bab1ed29e0021b0c5711e06b8ae140d77da4bf70fbe8720ab7a8782de666"
     },
     {
       "path": "base44/functions/publicationSignup/entry.ts",
-      "current_sha256": "c34101a0b578839d6a72ede9be29b9c0104aad012415c7e99446b167a08ad636",
-      "final_sha256": "433f67fa46c5900e2a0422e8a3997fac27f39a895c55986a3e65dc0c8d85d4bb"
+      "current_sha256": "52e379c45606bb71bc97218cd6e5fe1eaecd2daeda56ed61c547242a3f069537"
     },
     {
       "path": "src/components/nta-guide/YourDigitalGrowthGuide.jsx",
-      "current_sha256": "5c0c04349373e8597f5ea6d33f96256f3e495bbb4b8e7d187f2224eb5d0b0bcc",
-      "final_sha256": "5c0c04349373e8597f5ea6d33f96256f3e495bbb4b8e7d187f2224eb5d0b0bcc"
+      "current_sha256": "5c0c04349373e8597f5ea6d33f96256f3e495bbb4b8e7d187f2224eb5d0b0bcc"
     },
     {
       "path": "src/components/publishing/PublicationSignupForm.jsx",
-      "current_sha256": "7856d7187079016f7e68e1b55506b7e1c6030251be42248a447eb93c21288739",
-      "final_sha256": "7856d7187079016f7e68e1b55506b7e1c6030251be42248a447eb93c21288739"
+      "current_sha256": "1b36281aabc3f6304af8e05671a5d1d339ef96593bd1b46d60c0dd79b9a3bc9e"
     },
     {
       "path": "src/components/newsletter/NewsletterFooterSection.jsx",
-      "current_sha256": "08d09e458b297f35ba1350b843a0b9ece1998bb1253211a8de9be953dc89a3c0",
-      "final_sha256": "08d09e458b297f35ba1350b843a0b9ece1998bb1253211a8de9be953dc89a3c0"
+      "current_sha256": "08d09e458b297f35ba1350b843a0b9ece1998bb1253211a8de9be953dc89a3c0"
     },
     {
       "path": "src/components/newsletter/NewsletterPopup.jsx",
-      "current_sha256": "6fef166f859efe4bebff856e31127a7a1a4b4b8e826f54d863968fbd428332fb",
-      "final_sha256": "6fef166f859efe4bebff856e31127a7a1a4b4b8e826f54d863968fbd428332fb"
+      "current_sha256": "6fef166f859efe4bebff856e31127a7a1a4b4b8e826f54d863968fbd428332fb"
     },
     {
       "path": "src/lib/publicVerification.js",
-      "current_sha256": "73f2257b500ff44b6f6fa770aa05e2bd98a0802312948da3fca23750ec8c8685",
-      "final_sha256": "73f2257b500ff44b6f6fa770aa05e2bd98a0802312948da3fca23750ec8c8685"
+      "current_sha256": "095ac1641cca55eb13b2567be784555eb3730216ddd4c0eabef0f755e465da84"
+    },
+    {
+      "path": "base44/functions/ntaUnifiedIntake/entry.ts",
+      "current_sha256": "35651b4035f88971e04edd52d2cd83df3e12a1216340879c920811ec030fc21f"
+    },
+    {
+      "path": "src/legacy-page-components/StreamingIntake.jsx",
+      "current_sha256": "0532d904f33856ea0c7004855c4570c21685a5c30ba52d1ed074af982e8913f6"
+    },
+    {
+      "path": "src/components/start/StartForm.jsx",
+      "current_sha256": "b4f478967fe228ccde2a43b32e0493c3bebfd9601c1302536526383a84b9f8fa"
+    },
+    {
+      "path": "src/components/restaurant-demo/RestaurantNTASection.jsx",
+      "current_sha256": "4e0fff93a04ca6a7e953cca4a50ba1c3b5ce50cbd1ff5b9e352d9c8bbc288ede"
+    },
+    {
+      "path": "src/components/hvac-funnel/HVACLeadForm.jsx",
+      "current_sha256": "abb9b889d4112abdb283eb161df633008af6d9dd87e1adf300cc61f7eac0b5c7"
+    },
+    {
+      "path": "src/components/service-pages/ServicePageLayout.jsx",
+      "current_sha256": "1187ad5f2c6e07e093baaf580654cc55fac4e670cad0fd5b5654cccd7074d16a"
+    },
+    {
+      "path": "src/components/landing/SignupModal.jsx",
+      "current_sha256": "638ba4c87b8695444575640e9244158e5bb298ef12e7303f79260d2665005706"
+    },
+    {
+      "path": "src/components/funnel/LeadCaptureForm.jsx",
+      "current_sha256": "47bc124d49bc92bd5e263328fb611b0e4db0e21b01c276c7c3ae720889ec4bb1"
+    },
+    {
+      "path": "src/pages/Rebuild-Intake.jsx",
+      "current_sha256": "229771275daaf7070305b5aba4e5fa98fc1dba5404f05414cec6bb836f77338a"
+    },
+    {
+      "path": "src/pages/Book-Call.jsx",
+      "current_sha256": "85bb0e4b907227d712f4cd08dea600d839714adfa02ef424df0abf7c56380c34"
+    },
+    {
+      "path": "src/pages/CaseStudyDetail.jsx",
+      "current_sha256": "f4df944c3a0250d20321f04d0429085030e233b2aa8c89eaaad9b9dc0fd6b1ae"
+    },
+    {
+      "path": "src/pages/StartTrial.jsx",
+      "current_sha256": "c9214c66424134a2075a255b5b425229b443b9f30eb830d99543e38f02265aeb"
+    },
+    {
+      "path": "src/pages/Contact.jsx",
+      "current_sha256": "a1cdc44f01e0e92ebd044bce3c27471ef78d94e89fccdf7168ca67156404d13c"
+    },
+    {
+      "path": "src/pages/ServiceLocation.jsx",
+      "current_sha256": "5803ba876a2d97f5331ce940f5fbeb3f58dcdefa9d00362b1b9772ed0118f8fe"
+    },
+    {
+      "path": "src/pages/NTAGrowthConversation.jsx",
+      "current_sha256": "104519db66b4ab61adbf66bd3b3eade71fc2a1d17503b11de9a59eca7a8410b3"
+    },
+    {
+      "path": "src/pages/CommunityPartnerProgram.jsx",
+      "current_sha256": "b01ab052cb86d5886b26ad767275212a9965cbcc35b97e2d1ed3a789ecdbc109"
+    },
+    {
+      "path": "src/pages/Get-Started.jsx",
+      "current_sha256": "cb3ecc83fcb7655ef58cccc39d1f17d93a0fddb2aa01b8148a37db74196aa281"
+    },
+    {
+      "path": "src/pages/Free-Audit.jsx",
+      "current_sha256": "c16c46b3799862722cb2b00ffe4fd8efc2b28e81422aaf4e21e9cf3e56ff46a9"
     }
   ],
   "remaining": [
-    "Publish the prepared browser/configuration release in Base44.",
-    "Check both live metadata responses and a real visitor verification.",
-    "Apply the two enforcing backend candidates only after the published browser supplies tokens.",
-    "Verify live request rejection and rerun the hosted Security Scan."
+    "Publish the complete three-endpoint release.",
+    "Obtain explicit authorization for the live no-data rejection checks blocked by automatic review.",
+    "Confirm actual visitor/provider and authenticated service behavior.",
+    "Rerun the hosted Security Scan."
   ],
   "validation": {
     "build": "passed",
-    "behavior_tests_passed": 66,
-    "active_metadata_safety_checks_passed": 10,
-    "real_provider_verified": false
+    "behavior_tests_passed": 99,
+    "real_provider_verified": false,
+    "live_negative_check": "blocked_by_automatic_approval_review"
   },
   "previously_published_browser_asset": "/assets/index-YZnJPN7O.js",
   "prepared_browser_verification_assets": [
-    "index-ktYDXSSE.js"
-  ]
+    "index-CBf-0wAu.js"
+  ],
+  "verification_enforcement_active_in_source": true,
+  "production_enforcement_verified": false
 }
