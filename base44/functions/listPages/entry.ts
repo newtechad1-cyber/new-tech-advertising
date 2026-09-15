@@ -187,7 +187,7 @@ const PUBLIC_ROUTE_METADATA = [
   },
   {
     "path": "/better-business-book",
-    "title": "The Better Business Building Book: Practical Growth Guidance | NTA",
+    "title": "The Better Business Building Book | NTA",
     "description": "A practical business book for owners who want clearer decisions, stronger relationships, and growth that is built on more than constant advertising.",
     "canonical": "https://newtechadvertising.com/better-business-book/"
   },

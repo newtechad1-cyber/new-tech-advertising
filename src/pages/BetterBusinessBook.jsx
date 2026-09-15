@@ -49,7 +49,7 @@ export default function BetterBusinessBook() {
 
               <div className="w-full lg:w-1/2 xl:w-[45%] flex justify-center lg:justify-end">
                 <img 
-                  src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/9671c51cd_TheBetterBusinessBookFront.png" 
+                  src="/images/books/the-better-business-building-book.webp" 
                   alt="The Better Business Building Book cover by Rick Hesse" 
                   className="w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[400px] h-auto object-contain rounded-xl shadow-2xl"
                   loading="eager"

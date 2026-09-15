@@ -28,7 +28,7 @@ export default function PracticalAI() {
                   A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion.
                 </p>
                 <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
-                  AI can help a small business, but only when it serves a real business purpose. This guide starts with business first — customers, trust, communication, follow-up, systems, and decision-making — then shows where AI can genuinely support the work.
+                  AI can help a small business when it serves a real business purpose. This revised edition includes Rick Hesse's experience working with AI, why an AI website needs the owner's knowledge and feedback, and how to check that the finished work does what the business needs.
                 </p>
                 <p className="mt-5 text-lg font-semibold text-indigo-300">
                   People Always. AI Where It Genuinely Helps.
@@ -122,7 +122,7 @@ export default function PracticalAI() {
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Free Download</p>
             <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">Get the Practical AI for Small Business Guide</h2>
             <p className="mx-auto mt-5 mb-8 max-w-2xl text-lg leading-8 text-slate-300">
-              Enter your details below for instant access to the guide. Your request will be saved in the NTA subscriber system, and you will be able to download the PDF immediately.
+              Enter your details below for instant access to the revised guide. Your request will be saved in the NTA subscriber system, and you will be able to download the PDF immediately.
             </p>
             <PublicationSignupForm
               publicationTitle="Practical AI for Small Business"
