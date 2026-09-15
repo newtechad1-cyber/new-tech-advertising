@@ -93,3 +93,43 @@ for (const name of functionNames) {
     assert.equal(fixture.effectCount(), 0);
   });
 }
+
+function loadAccessibilityScanner(fetchImpl) {
+  const file = path.join(candidateRoot, 'base44/functions/auditWebsiteAccessibility/entry.ts');
+  const source = readFileSync(file, 'utf8').replace(/^import[^\n]*\n/gm, '');
+  const context = {
+    exports: {}, URL, Response, AbortSignal,
+    console: { warn() {}, error() {} },
+    Deno: { serve() {}, async resolveDns() { return ['93.184.216.34']; } },
+    fetch: fetchImpl,
+  };
+  vm.runInNewContext(ts.transpileModule(source, {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
+  }).outputText, context);
+  return context;
+}
+
+test('accessibility scan keeps form label counts in scope', async () => {
+  const context = loadAccessibilityScanner(async () => new Response('<html lang="en"><head><meta name="viewport"></head><body><main><h1>Test</h1><form><label for="name">Name</label><input id="name"></form><style>:focus{outline:1px solid}</style></main></body></html>'));
+  const result = await context.performAccessibilityScan('https://example.com');
+  assert.equal(result.formLabelIssues, false);
+  assert.doesNotMatch(result.report, /could not be completed/);
+});
+
+test('accessibility scan rejects private targets before fetching', async () => {
+  let fetches = 0;
+  const context = loadAccessibilityScanner(async () => { fetches++; return new Response(''); });
+  await assert.rejects(context.fetchPublicUrl('http://127.0.0.1/'));
+  await assert.rejects(context.fetchPublicUrl('http://[::1]/'));
+  assert.equal(fetches, 0);
+});
+
+test('accessibility scan rejects redirects to a private target', async () => {
+  let fetches = 0;
+  const context = loadAccessibilityScanner(async () => {
+    fetches++;
+    return new Response(null, { status: 302, headers: { Location: 'http://169.254.169.254/' } });
+  });
+  await assert.rejects(context.fetchPublicUrl('https://example.com'));
+  assert.equal(fetches, 1);
+});
