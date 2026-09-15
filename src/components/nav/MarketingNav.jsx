@@ -15,7 +15,8 @@ const NAV_LINKS = [
   { label: 'Account Manager Opportunity', href: '/account-manager' },
 ];
 
-const OPPORTUNITY_HREF = 'https://app.newtechadvertising.com';
+// This is the prospect entrance; the Core domain currently requires sign-in.
+const OPPORTUNITY_HREF = '/account-manager';
 
 export default function MarketingNav() {
 

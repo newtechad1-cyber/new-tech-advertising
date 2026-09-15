@@ -58,3 +58,7 @@ test('all main visitor destinations have a production page', () => {
     assert.ok([`dist/${route}`, `dist/${route}.html`, `dist/${route}/index.html`].some(existsSync), route);
   }
 });
+
+test('the public opportunity entrance cannot lead to the Core sign-in page', () => {
+  assert.match(read('src/components/nav/MarketingNav.jsx'), /const OPPORTUNITY_HREF = '\/account-manager'/);
+});

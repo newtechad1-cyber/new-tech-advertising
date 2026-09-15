@@ -32,6 +32,7 @@ export default function PublicationSignupForm({
   const [form, setForm] = useState({ name: '', email: '', business_name: '', consent: false, website: '' });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [existingAccess, setExistingAccess] = useState(false);
   const [error, setError] = useState('');
   const startedAt = useRef(Date.now());
 
@@ -89,6 +90,12 @@ export default function PublicationSignupForm({
 
       setSuccess(true);
     } catch (submissionError) {
+      const detail = submissionError?.response?.data || submissionError?.data;
+      if ((downloadUrl || viewerUrl) && detail?.status === 'already_subscribed') {
+        setExistingAccess(true);
+        setSuccess(true);
+        return;
+      }
       setError(getFunctionError(submissionError, 'Something went wrong. Please call or text NTA at 641-420-8816.'));
     } finally {
       setSubmitting(false);
@@ -99,7 +106,7 @@ export default function PublicationSignupForm({
     return (
       <div className="mt-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6 text-left">
         <CheckCircle2 className="h-8 w-8 text-emerald-300" />
-        <p className="mt-3 font-semibold text-white">{successMessage}</p>
+        <p className="mt-3 font-semibold text-white">{existingAccess ? 'You already have access to this book. Choose a download or reading option below.' : successMessage}</p>
         {(downloadUrl || viewerUrl) && (
           <div className="mt-5 flex flex-wrap items-center gap-3">
             {downloadUrl && (
