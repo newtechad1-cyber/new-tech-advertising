@@ -5,20 +5,22 @@ import path from 'node:path';
 import test from 'node:test';
 import ts from 'typescript';
 
-const root = path.resolve('docs/security/visitor-verification');
+// Exercise the active handlers that will be published, not the old staged snapshots.
+const root = path.resolve('.');
 const settings = {
   NTA_TURNSTILE_SITE_KEY: '0x-stub-site-key-for-isolated-unit-tests',
   NTA_TURNSTILE_SECRET_KEY: 'stub-secret-for-isolated-unit-tests-only',
 };
-const actions = { growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup' };
+const actions = { growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake' };
 const validPayloads = {
   growthGuideChat: { messages: [{ role: 'user', content: 'How can I grow my business?' }] },
   publicationSignup: {
     email: 'unit-test@example.invalid', publication_title: 'The NTA Journal',
     publication_tag: 'nta-journal', create_delivery_request: false, consent: true,
   },
+  ntaUnifiedIntake: { email: 'unit-test@example.invalid', name: 'Test Visitor', submission_type: 'contact' },
 };
-function setup(name, { env = settings, user = null, result = {}, networkError = false } = {}) {
+function setup(name, { env = settings, user = null, result = {}, networkError = false, authError = false, intakeError = false } = {}) {
   const source = readFileSync(path.join(root, 'base44/functions', name, 'entry.ts'), 'utf8')
     .replace(/^import[^\n]*\n/gm, '');
   const output = ts.transpileModule(source, {
@@ -27,12 +29,17 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
   });
   assert.equal((output.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
   let handler;
-  const stats = { effects: 0, provider: 0 };
+  const stats = { effects: 0, provider: 0, serviceCalls: [], crossAppCalls: [] };
   const used = new Set();
   const counted = value => async () => { stats.effects++; return value; };
   const service = {
     integrations: { Core: { InvokeLLM: counted('Choose one useful task and review the result.') } },
-    functions: { invoke: counted({ data: { status: 'synced' } }) },
+    functions: { async invoke(name, payload) {
+      stats.effects++;
+      stats.serviceCalls.push({ name, payload });
+      if (intakeError && name === 'ntaUnifiedIntake') throw new Error('Downstream intake unavailable');
+      return { data: { status: 'synced', success: true } };
+    } },
     entities: {
       Subscriber: { filter: counted([]), create: counted({ id: 'test-subscriber' }) },
       PublicationDeliveryRequest: { create: counted({ id: 'test-delivery' }) },
@@ -42,8 +49,12 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
     exports: {}, Request, Response, Headers, URL, AbortSignal, TextEncoder,
     console: { log() {}, warn() {}, error() {} },
     Deno: { serve(fn) { handler = fn; }, env: { get(key) { return env[key]; } } },
-    createClientFromRequest() { return { auth: { async me() { return user; } }, asServiceRole: service }; },
-    createClient() { return { functions: { invoke: counted({}) } }; },
+    createClientFromRequest() { return { auth: { async me() { if (authError) throw new Error('Invalid caller session'); return user; } }, asServiceRole: service }; },
+    createClient(options) { return { functions: { async invoke(name, payload) {
+      stats.effects++;
+      stats.crossAppCalls.push({ appId: options.appId, name, payload });
+      return { data: { success: true } };
+    } } }; },
     async fetch(url, options) {
       assert.equal(url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
       assert.equal(options.method, 'POST');
@@ -68,7 +79,7 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
       body: JSON.stringify(payload),
     }));
   }
-  return { request, stats };
+  return { request, stats, handler };
 }
 
 for (const name of Object.keys(actions)) {
@@ -134,6 +145,37 @@ for (const name of Object.keys(actions)) {
     assert.equal(fixture.stats.effects, 0);
     assert.equal(fixture.stats.provider, 0);
   });
+
+  test(name + ': verified service identity retains internal access without visitor proof', async () => {
+    const fixture = setup(name, { env: {}, user: { id: 'verified-service', is_service: true } });
+    assert.equal((await fixture.request()).status, 200);
+    assert.equal(fixture.stats.provider, 0);
+  });
+
+  test(name + ': ordinary signed-in member still needs visitor proof', async () => {
+    const fixture = setup(name, { user: { id: 'ordinary-member', role: 'user' } });
+    assert.equal((await fixture.request()).status, 403);
+    assert.equal(fixture.stats.effects, 0);
+  });
+
+  test(name + ': invalid caller session does not bypass visitor proof', async () => {
+    const fixture = setup(name, { authError: true });
+    assert.equal((await fixture.request()).status, 403);
+    assert.equal(fixture.stats.effects, 0);
+  });
+
+  test(name + ': metadata flag cannot authorize a submission', async () => {
+    const fixture = setup(name);
+    assert.equal((await fixture.request({ ...validPayloads[name], verification_config: true })).status, 403);
+    assert.equal(fixture.stats.effects, 0);
+  });
+
+  test(name + ': non-POST request cannot run provider or privileged work', async () => {
+    const fixture = setup(name);
+    assert.equal((await fixture.handler(new Request('https://newtechadvertising.com/api/test'))).status, 405);
+    assert.equal(fixture.stats.effects, 0);
+    assert.equal(fixture.stats.provider, 0);
+  });
 }
 
 test('publicationSignup: server requires explicit publication consent', async () => {
@@ -141,4 +183,57 @@ test('publicationSignup: server requires explicit publication consent', async ()
   const response = await fixture.request({ ...validPayloads.publicationSignup, consent: false, verification_token: 'valid-proof' });
   assert.equal(response.status, 400);
   assert.equal(fixture.stats.effects, 0);
+});
+
+test('ntaUnifiedIntake: verified proof forwards only the normalized public intake', async () => {
+  const fixture = setup('ntaUnifiedIntake');
+  const response = await fixture.request({
+    ...validPayloads.ntaUnifiedIntake,
+    verification_token: 'one-time-intake-proof',
+    source_system: 'crm_manual', skip_webhook: false, priority: 'low', role: 'admin',
+    source_page: '/contact', source_url: 'https://untrusted.example/redirect',
+    name: '  Test Visitor  ',
+  });
+  assert.equal(response.status, 200);
+  assert.equal(fixture.stats.provider, 1);
+  assert.equal(fixture.stats.crossAppCalls.length, 1);
+  const call = fixture.stats.crossAppCalls[0];
+  assert.equal(call.appId, '6a7215451eb90dc843a94546');
+  assert.equal(call.name, 'ntaUnifiedIntake');
+  assert.equal(call.payload.name, 'Test Visitor');
+  assert.equal(call.payload.source_system, 'website');
+  assert.equal(call.payload.source_url, '/contact');
+  assert.equal(call.payload.skip_webhook, true);
+  assert.equal(call.payload.priority, 'high');
+  assert.equal('verification_token' in call.payload, false);
+  assert.equal('role' in call.payload, false);
+});
+
+test('publicationSignup: one visitor proof sends its optional intake as an authenticated service', async () => {
+  const fixture = setup('publicationSignup');
+  const response = await fixture.request({
+    ...validPayloads.publicationSignup, verification_token: 'one-publication-proof',
+    record_intake: true, source_page: '/journal', submission_type: 'crm_manual',
+  });
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).intake_status, 'saved');
+  assert.equal(fixture.stats.provider, 1);
+  const calls = fixture.stats.serviceCalls.filter(call => call.name === 'ntaUnifiedIntake');
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].payload.submission_type, 'publication_request');
+  assert.equal(calls[0].payload.email, validPayloads.publicationSignup.email);
+  assert.equal(calls[0].payload.consent, true);
+  assert.equal('verification_token' in calls[0].payload, false);
+});
+
+test('publicationSignup: a failed CRM follow-up preserves the saved publication response', async () => {
+  const fixture = setup('publicationSignup', { intakeError: true });
+  const response = await fixture.request({
+    ...validPayloads.publicationSignup, verification_token: 'one-publication-proof', record_intake: true,
+  });
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.success, true);
+  assert.equal(body.subscriber_id, 'test-subscriber');
+  assert.equal(body.intake_status, 'needs_attention');
 });

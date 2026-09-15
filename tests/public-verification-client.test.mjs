@@ -48,7 +48,7 @@ function setup(mode = 'success') {
         return { data: {
           site_key: '0x-unit-test-public-site-key',
           action: mode === 'wrong_action' ? 'unexpected_action' :
-            name === 'growthGuideChat' ? 'growth_guide_chat' : 'publication_signup',
+            ({ growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake' })[name],
         } };
       }
       return { data: { success: true } };
@@ -96,4 +96,29 @@ test('public client preserves payload and never exposes a shared secret', async 
   assert.equal(typeof sent.verification_token, 'string');
   assert.equal('secret' in sent, false);
   assert.equal('verification_token' in payload, false);
+});
+
+test('public client: intake obtains proof before submitting contact details', async () => {
+  const fixture = setup();
+  await fixture.invoke('ntaUnifiedIntake', { email: 'unit-test@example.invalid', submission_type: 'contact' });
+  assert.equal(fixture.requests.length, 2);
+  assert.equal(fixture.requests[0].payload.verification_config, true);
+  assert.equal(Object.keys(fixture.requests[0].payload).length, 1);
+  const submitted = fixture.requests[1];
+  assert.equal(submitted.name, 'ntaUnifiedIntake');
+  assert.equal(submitted.payload.submission_type, 'contact');
+  assert.equal(submitted.payload.email, 'unit-test@example.invalid');
+  assert.equal(typeof submitted.payload.verification_token, 'string');
+});
+
+test('public client: intake and publication never reuse the same provider token', async () => {
+  const fixture = setup();
+  await Promise.all([
+    fixture.invoke('ntaUnifiedIntake', { email: 'unit-test@example.invalid' }),
+    fixture.invoke('publicationSignup', { email: 'unit-test@example.invalid', consent: true }),
+  ]);
+  const submissions = fixture.requests.filter(request => !request.payload.verification_config);
+  assert.equal(submissions.length, 2);
+  assert.notEqual(submissions[0].payload.verification_token, submissions[1].payload.verification_token);
+  assert.equal(fixture.widgets.size, 0);
 });
