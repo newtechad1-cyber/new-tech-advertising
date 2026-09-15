@@ -319,6 +319,38 @@ Deno.serve(async (req) => {
       }
     }
 
+    // A publication form has already provided one verified visitor request.
+    // Forward its optional CRM intake with the server's authenticated identity
+    // so the browser does not need a second challenge or a reusable token.
+    let intakeStatus = null;
+    if (payload.record_intake === true) {
+      try {
+        const sourcePage = value(payload.source_page, 500) || '/';
+        const intake = await base44.asServiceRole.functions.invoke('ntaUnifiedIntake', {
+          name, email, business_name: businessName,
+          source: value(payload.source, 200),
+          source_page: sourcePage,
+          source_url: value(payload.source_url, 1500),
+          publication_title: publicationTitle, publication_tag: publicationTag,
+          consent: true, consent_context: value(payload.consent_context, 1000),
+          anti_spam: { honeypot: value(antiSpam.honeypot, 200), form_started_at: formStartedAt || undefined },
+          submission_type: 'publication_request', offer_type: 'business_education',
+          mapping_confidence: 'hardcoded',
+          mapping_notes: 'Public publication signup for ' + publicationTitle,
+          detected_route: sourcePage, detected_component: 'PublicationSignupForm',
+          source_system: 'website', priority: 'low',
+          notes: 'Requested ' + publicationTitle,
+        });
+        if (intake?.data?.success !== true) throw new Error('Publication intake was not confirmed');
+        intakeStatus = 'saved';
+      } catch (intakeError) {
+        // The publication/subscriber record is already saved. A CRM follow-up
+        // failure must not hide the download or ask the visitor to subscribe again.
+        intakeStatus = 'needs_attention';
+        console.warn('[publicationSignup] Publication saved; CRM intake needs attention:', intakeError?.message);
+      }
+    }
+
     try {
       const office = createClient({ appId: OFFICE_APP_ID });
       await office.functions.invoke('trackBookEvent', {
@@ -329,7 +361,7 @@ Deno.serve(async (req) => {
       console.warn('[publicationSignup] Book access event could not be recorded:', trackingError);
     }
 
-    return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null, journal_sync_status: journalSyncStatus });
+    return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null, journal_sync_status: journalSyncStatus, intake_status: intakeStatus });
   } catch (error) {
     console.error('[publicationSignup]', error);
     return Response.json({ error: 'Unable to save the publication request.' }, { status: 500 });

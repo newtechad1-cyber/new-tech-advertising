@@ -76,6 +76,7 @@ export default function PublicationSignupForm({
 
       const registration = await invokeVerifiedPublicFunction('publicationSignup', {
         ...sharedPayload,
+        record_intake: true,
         tags: ['nta-publications', publicationTag, ...extraTags],
         create_delivery_request: createDeliveryRequest,
         delivery_url: downloadUrl || '',
@@ -83,20 +84,6 @@ export default function PublicationSignupForm({
 
       if (registration?.data?.success === false) throw new Error(registration.data.error || 'We could not complete your request.');
 
-      const intake = await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
-        ...sharedPayload,
-        submission_type: 'publication_request',
-        offer_type: 'business_education',
-        mapping_confidence: 'hardcoded',
-        mapping_notes: 'Public publication signup for ' + publicationTitle,
-        detected_route: route,
-        detected_component: 'PublicationSignupForm',
-        source_system: 'website',
-        priority: 'low',
-        notes: 'Requested ' + publicationTitle,
-      });
-
-      if (intake?.data?.success === false) throw new Error(intake.data.error || 'We could not save your request.');
       setSuccess(true);
     } catch (submissionError) {
       setError(getFunctionError(submissionError, 'Something went wrong. Please call or text NTA at 641-420-8816.'));
