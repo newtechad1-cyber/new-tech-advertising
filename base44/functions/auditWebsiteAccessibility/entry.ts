@@ -1,27 +1,10 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 import { fetchPublicUrl, validatePublicHttpUrl } from '../shared/security.ts';
 
-const TRUSTED_PUBLIC_ORIGINS = new Set([
-  'https://newtechadvertising.com',
-  'https://www.newtechadvertising.com',
-  'https://app.newtechadvertising.com',
-  'https://new-tech-advertising.base44.app',
-]);
 const REQUEST_WINDOW_MS = 60 * 60 * 1000;
 const REQUEST_LIMIT = 6;
 const MAX_BODY_LENGTH = 12000;
 const requestBuckets = new Map();
-
-function isTrustedPublicOrigin(req: Request) {
-  const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
-  if (!rawOrigin) return false;
-
-  try {
-    return TRUSTED_PUBLIC_ORIGINS.has(new URL(rawOrigin).origin);
-  } catch {
-    return false;
-  }
-}
 
 function requestClientIdentity(req: Request) {
   return String(
@@ -58,23 +41,21 @@ Deno.serve(async (req) => {
 
   try {
     const base44 = createClientFromRequest(req);
-    // This public checker permits normal visitors but only from NTA's own
-    // website, with a bounded per-client rate. Trusted server work is exempt.
+    // Internal/legacy endpoint. Origin and Referer headers are not authentication.
     const user = await base44.auth.me().catch(() => null);
-    const trustedService = user?.role === 'admin' || user?.is_service === true;
-
-    if (!trustedService && !isTrustedPublicOrigin(req)) {
-      return Response.json({ error: 'Untrusted request origin' }, { status: 403 });
+    if (!user) {
+      return Response.json({ error: 'Authentication required' }, { status: 401 });
+    }
+    if (user.role !== 'admin' && user.is_service !== true) {
+      return Response.json({ error: 'Administrator or service access required' }, { status: 403 });
     }
 
-    if (!trustedService) {
-      const retryAfterSeconds = isRateLimited(req);
-      if (retryAfterSeconds) {
-        return Response.json(
-          { error: 'Too many requests. Please try again shortly.' },
-          { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
-        );
-      }
+    const retryAfterSeconds = isRateLimited(req);
+    if (retryAfterSeconds) {
+      return Response.json(
+        { error: 'Too many requests. Please try again shortly.' },
+        { status: 429, headers: { 'Retry-After': String(retryAfterSeconds) } },
+      );
     }
 
     const contentLength = Number(req.headers.get('content-length') || 0);
