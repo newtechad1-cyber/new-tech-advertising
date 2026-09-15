@@ -1390,6 +1390,53 @@
   ],
   "journalIssues": [
     {
+      "issueNumber": 7,
+      "title": "NTA Journal #7: Are You Building a Business—or Just a Website?",
+      "subtitle": "Your website is not separate from the business experience. For many customers, it is where that experience begins.",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-7-are-you-building-a-business-or-just-a-website",
+      "contentType": "Newsletter",
+      "description": "This week, Rick Hesse asks whether a business is merely building a website or using the website to build the business. NTA’s work on question-first doorways reinforced a practical lesson: answer the visitor’s question now, then make the next appropriate step clear.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "review",
+      "lastModified": "2026-09-15",
+      "estimatedReadingTime": "5 min read",
+      "introductoryMessage": "A website is not a separate marketing project that sits beside the business. It is often where a customer first experiences the business—where questions are answered, trust begins, and the next step either becomes clear or gets lost.",
+      "sections": [
+        {
+          "heading": "From Rick's Desk",
+          "body": "A question came to me this week:\n\n**Are you building a business, or are you building a website?**\n\nThere is a difference—but not because the website is unimportant.\n\nI have lived through brick-and-mortar business, wholesale, business-to-business selling, and the growth of the internet. I have watched the website move from being an extra advertising piece to becoming part of the place where the business itself is experienced.\n\nA customer may search for you, read an answer, watch a video, look for proof, ask a question, fill out a form, or decide whether to call—all before you know that person exists.\n\nThat means the website cannot merely tell people how good the company is. It has to help them understand whether they are in the right place and what to do next.\n\nThis week I realized NTA needed to follow that advice more clearly on its own website. We had built a great deal of useful information, but the visitor should not have to understand everything about NTA before finding help.\n\nSo we began turning the experience around: start with the question the visitor has now, give a useful answer, and make the next appropriate step obvious."
+        },
+        {
+          "heading": "What We Built",
+          "body": "This week, we reorganized the public NTA experience around the questions business owners actually bring.\n\nInstead of making people begin with our services or our story, the website now gives them clearer doorways: I need more customers. I want to save time. My website is not working. I am trying to understand AI. I need better customer follow-up.\n\nFrom there, the path is designed to stay useful and human:\n\n**Question → useful answer → Your Digital Growth Guide™ → Free Business Gap Audit → clear next steps → human conversation**\n\nWe also simplified the way a person can reach NTA and continued testing the forms, notifications, and security behind the visible experience.\n\nThe goal is not to force everyone through one sales funnel. It is to help each person take the next step that fits the question they are trying to answer.\n\nThis week's NTA Growth Show explores the same principle through three connected conversations: why discovery comes before technology, the human element in business systems, and collaboration over automation. A clearer website is one practical example of beginning with the people and the work before choosing a tool."
+        },
+        {
+          "heading": "What We Learned",
+          "body": "More information does not automatically make a website more helpful.\n\nA business can build page after page and still make visitors work too hard to understand where to begin. The first job of a page is not to explain everything the company knows. It is to answer the question that brought the person there.\n\nWe also learned again that the visible page and the system behind it cannot be separated. The answer, the form, the notification, the follow-up, and the human conversation are all part of one business experience.\n\nAI can help organize those pieces, reveal gaps, and carry work forward. It cannot decide what promise the business should make or take responsibility for keeping it.\n\nThat is why discovery matters before adding technology. Ask the people doing the work where it becomes difficult, what customers need, and what already works well. AI can help organize what you learn and prepare possible next steps. People still bring the experience, make the decisions, and take responsibility for the relationship.\n\n**That is the NTA Point of View: answer the question the visitor has now, then make the next appropriate step obvious.**"
+        },
+        {
+          "heading": "What It Means for Your Business",
+          "body": "Your website is already teaching people something about your business.\n\nIt may be teaching them that you understand their problem and can help. Or it may be teaching them that finding an answer will take too much work.\n\nLook beyond colors and design. Ask what a real customer experiences:\n\n- Does the page begin with the customer's question or the company's description of itself?\n- Is the answer understandable without industry language?\n- Can the visitor find proof that builds confidence?\n- Is there a clear next step that does not feel pushy?\n- When the person responds, does the business receive the information and follow up reliably?\n\nA website becomes more valuable when it helps the business listen, explain, build trust, and continue the relationship—not merely when it looks new."
+        },
+        {
+          "heading": "This Week's Challenge",
+          "body": "Choose the page where a potential customer is most likely to enter your website.\n\nThen look at it as if you know nothing about the business.\n\n1. What question is the visitor probably trying to answer?\n2. Can that person recognize the answer within a few seconds?\n3. Is there enough explanation or proof to build confidence?\n4. Is the next step clear?\n5. Have you tested what happens after that next step is taken?\n\nWrite down the first point where the experience becomes unclear. That is probably a better place to begin than adding another tool or another advertisement."
+        }
+      ],
+      "primaryArticle": {
+        "title": "Websites as Salespeople",
+        "url": "https://newtechadvertising.com/websites-as-salespeople",
+        "excerpt": "A modern website should answer real customer questions, build trust, and help people take the next useful step."
+      },
+      "featuredVideo": {
+        "title": "Your Business Comes First. Technology Comes Second.",
+        "url": "https://youtu.be/PmXSEkj03ak",
+        "description": "Rick Hesse and Free AI Guy explore why discovery comes before technology, why people remain central to business systems, and how collaboration with AI supports human judgment."
+      },
+      "closingMessage": "A website is not the business by itself. But for many people, it is where the business first becomes real.\n\nThat is why NTA is building from the visitor's question forward and connecting each answer to a useful next step.\n\nRead [“Websites as Salespeople”](https://newtechadvertising.com/websites-as-salespeople) and watch [“Your Business Comes First. Technology Comes Second.”](https://youtu.be/PmXSEkj03ak)."
+    },
+    {
       "issueNumber": 5,
       "title": "NTA Journal #5: Build With the Budget You Have",
       "subtitle": "Why the first dollars should build a foundation, not disappear into a one-time campaign",
