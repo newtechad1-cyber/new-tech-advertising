@@ -98,7 +98,7 @@ const AREAS = [
   {
     icon: Compass,
     title: 'Practical AI and automation',
-    text: 'Useful assistance that supports the work you already do without forcing you to change how you work.',
+    text: 'Useful assistance that supports the work you already do, without requiring unnecessary time learning every technology or system.',
   },
 ];
 
@@ -283,7 +283,7 @@ export default function WorkWithNTA() {
               <div className="rounded-2xl border border-blue-900/60 bg-slate-950/60 p-6">
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Learn in the real work</p>
                 <h3 className="mt-3 text-xl font-semibold text-white">Do it with us—or watch us do it with you.</h3>
-                <p className="mt-3 leading-relaxed text-slate-300">Rick teaches as the work is being done. You and your team can see how the useful pieces fit, ask questions, and gain confidence without having to become technology experts.</p>
+                <p className="mt-3 leading-relaxed text-slate-300">Rick teaches as the work is being done. You and your team can see how the useful pieces fit, ask questions, and gain confidence while NTA carries the technical learning and implementation that would otherwise take time away from the business.</p>
               </div>
             </div>
           </div>
