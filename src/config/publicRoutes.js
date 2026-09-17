@@ -41,6 +41,7 @@ import CommunityPartnerProgram from '@/pages/CommunityPartnerProgram';
 import Contact from '@/pages/Contact';
 import ContractorMarketingNorthIowa from '@/pages/ContractorMarketingNorthIowa';
 import DigitalRisks from '@/pages/DigitalRisks';
+import DigitalGrowthAdvisor from '@/pages/DigitalGrowthAdvisor';
 import DemoSchoolChannel from '@/pages/DemoSchoolChannel';
 import FreeAudit from '@/pages/Free-Audit';
 import GetStarted from '@/pages/Get-Started';
@@ -221,6 +222,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/gap-audit', FreeAudit),
   alias('/free-audit', FreeAudit),
   alias('/tools', FreeAudit),
+  alias('/digital-growth-advisor', DigitalGrowthAdvisor),
   alias('/account-manager', RegionalAccountManager),
   alias('/regional-account-manager', RegionalAccountManager),
   alias('/join-nta', JoinNTA),
