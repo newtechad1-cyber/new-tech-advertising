@@ -3,6 +3,8 @@ import { ArrowRight, Brain, Compass, Heart, Shield, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import SEOHead from '@/components/shared/SEOHead';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 
 const principles = [
   {
@@ -29,13 +31,16 @@ export default function WhyNTA() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 pb-24">
+    <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
         title="Why NTA Teaches Practical AI for Small Business Owners"
         description="Meet Rick Hesse and understand the human-centered philosophy connecting New Tech Advertising, practical AI, trust, and lifelong learning."
       />
 
-      <section className="relative border-b border-slate-800/70 px-6 pb-20 pt-32 overflow-hidden">
+      <MarketingNav />
+
+      <main>
+      <section className="relative border-b border-slate-800/70 px-6 pb-20 pt-16 sm:pt-20 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.16),transparent_38%)]" />
         <motion.div initial="hidden" animate="visible" variants={fadeIn} className="relative mx-auto max-w-4xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">
@@ -108,6 +113,9 @@ export default function WhyNTA() {
           </Button>
         </div>
       </section>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 }
