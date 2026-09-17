@@ -96,8 +96,8 @@ const SLIDES = [
   },
   {
     id: 'closing',
-    headline: "You Don't Need To Become A Marketing Expert.",
-    supporting: "The Operating System™ does the teaching.\n\nYou simply introduce businesses to a better way to grow.",
+    headline: "Your Relationships, Backed By NTA Support.",
+    supporting: "NTA provides the learning, tools, and technical depth.\n\nYou focus on the business relationship and the useful next step.",
     icon: BrainCircuit,
     color: "indigo",
     isClosing: true
