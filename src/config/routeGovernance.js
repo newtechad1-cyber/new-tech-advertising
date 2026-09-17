@@ -208,6 +208,7 @@ export const ROUTE_OVERRIDES = {
   '/':                           'public',
   '/Login':                      'public',
   '/signup':                     'public',
+  '/digital-growth-advisor':     'public',
   '/account-manager':            'public',
   '/regional-account-manager':   'public',
   '/join-nta':                   'public',
