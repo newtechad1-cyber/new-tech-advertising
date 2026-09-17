@@ -218,9 +218,22 @@ Deno.serve(async (req) => {
     const interest_reason = cleanText(body.interest_reason, 4000);
     const business_observation = cleanText(body.business_observation, 6000);
     const nta_questions = cleanText(body.nta_questions, 3000);
+    const advisorProgram = body.program === 'digital_growth_advisor';
+    const allowedRelationshipMethods = new Set(['phone', 'email', 'face_to_face', 'networking', 'social', 'combination']);
+    const ai_business_interest = cleanText(body.ai_business_interest, 2000);
+    const learning_goals = cleanText(body.learning_goals, 2000);
+    const exploration_discovery = cleanText(body.exploration_discovery, 2000);
+    const relationship_methods = Array.isArray(body.relationship_methods)
+      ? [...new Set(body.relationship_methods.filter((value) => typeof value === 'string' && allowedRelationshipMethods.has(value)))].slice(0, 6)
+      : [];
+    const contact_preference = body.contact_preference === 'phone' ? 'phone' : 'email';
+    const contact_consent = body.contact_consent === true;
 
     if (!full_name || !validEmail(email)) {
       return Response.json({ error: 'A name and valid email are required.' }, { status: 400 });
+    }
+    if (advisorProgram && (!interest_reason || !ai_business_interest || !learning_goals || !exploration_discovery || !relationship_methods.length || !contact_consent || (contact_preference === 'phone' && !phone))) {
+      return Response.json({ error: 'Please answer the discovery questions, choose how you connect, and allow Rick to follow up.' }, { status: 400 });
     }
 
     // Route this opportunity form into the dedicated recruiting workflow in
@@ -236,12 +249,19 @@ Deno.serve(async (req) => {
       campaign_source,
       campaign_medium,
       campaign_name,
-      landing_path: landing_path || '/account-manager',
+      landing_path: landing_path || (advisorProgram ? '/digital-growth-advisor' : '/account-manager'),
       current_role,
       business_relationships,
       interest_reason,
       business_observation,
       nta_questions,
+      program: advisorProgram ? 'digital_growth_advisor' : undefined,
+      ai_business_interest,
+      learning_goals,
+      exploration_discovery,
+      relationship_methods,
+      contact_preference,
+      contact_consent,
     });
     const data = response?.data ?? response;
 
