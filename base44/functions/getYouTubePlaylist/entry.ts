@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { XMLParser } from 'npm:fast-xml-parser@5.11.1';
 
 const PLAYLIST_ID = Deno.env.get('YOUTUBE_PLAYLIST_ID') || 'UUdGaYoTxcO-W6wuC3iDqFDg';
 const CACHE_TTL_MS = 15 * 60 * 1000;
@@ -59,51 +60,42 @@ function isRateLimited(req) {
   return 0;
 }
 
-function entryText(entry, tagName) {
-  return entry.getElementsByTagName(tagName)[0]?.textContent?.trim() || '';
-}
+const playlistParser = new XMLParser({
+  ignoreAttributes: false,
+  parseTagValue: false,
+  trimValues: true,
+});
 
 function slugify(value) {
-  return String(value || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
 function parsePlaylistFeed(xml) {
-  if (typeof DOMParser === 'undefined') {
-    throw new Error('XML parsing is unavailable');
-  }
-
-  const document = new DOMParser().parseFromString(xml, 'application/xml');
-  if (!document || document.querySelector('parsererror')) {
+  if (typeof xml !== 'string' || xml.length > 1_000_000 || /<!DOCTYPE|<!ENTITY/i.test(xml)) {
     throw new Error('Invalid YouTube playlist feed');
   }
-
-  return Array.from(document.getElementsByTagName('entry'))
-    .slice(0, 50)
-    .map((entry) => {
-      const youtubeId = entryText(entry, 'yt:videoId');
-      if (!/^[A-Za-z0-9_-]{6,128}$/.test(youtubeId)) return null;
-
-      const title = entryText(entry, 'title').slice(0, 500);
-      const description = entryText(entry, 'media:description').slice(0, 5000);
-      const thumbnail = entry.getElementsByTagName('media:thumbnail')[0];
-      const thumbnailUrl = thumbnail?.getAttribute('url') || null;
-
-      return {
-        title,
-        description,
-        youtubeId,
-        youtubeUrl: 'https://youtu.be/' + youtubeId,
-        embedUrl: 'https://www.youtube.com/embed/' + youtubeId,
-        thumbnailUrl,
-        publishedAt: entryText(entry, 'published'),
-        duration: '',
-        slug: slugify(title),
-      };
-    })
-    .filter(Boolean);
+  const feed = playlistParser.parse(xml, true)?.feed;
+  if (!feed) throw new Error('Invalid YouTube playlist feed');
+  const entries = Array.isArray(feed.entry) ? feed.entry : feed.entry ? [feed.entry] : [];
+  const seen = new Set();
+  return entries.slice(0, 50).map(entry => {
+    const youtubeId = String(entry['yt:videoId'] || '');
+    const title = String(entry.title || '').trim().slice(0, 500);
+    if (!/^[A-Za-z0-9_-]{11}$/.test(youtubeId) || !title || /^(private|deleted) video$/i.test(title) || seen.has(youtubeId)) return null;
+    seen.add(youtubeId);
+    const publishedAt = String(entry.published || '');
+    return {
+      title,
+      description: String(entry['media:group']?.['media:description'] || '').slice(0, 5000),
+      youtubeId,
+      youtubeUrl: 'https://www.youtube.com/watch?v=' + youtubeId,
+      embedUrl: 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?rel=0',
+      thumbnailUrl: 'https://i.ytimg.com/vi/' + youtubeId + '/hqdefault.jpg',
+      publishedAt: Number.isFinite(Date.parse(publishedAt)) ? publishedAt : '',
+      duration: '',
+      slug: slugify(title),
+    };
+  }).filter(Boolean);
 }
 
 Deno.serve(async (req) => {
