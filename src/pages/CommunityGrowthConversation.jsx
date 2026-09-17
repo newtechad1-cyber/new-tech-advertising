@@ -240,7 +240,7 @@ export default function CommunityGrowthConversation() {
                   How Community Partners Help
                 </h2>
                 <p className="text-2xl text-blue-400 font-medium mb-12 text-center">
-                  Partners do not need to become marketing experts.
+                  Partners begin with the relationships they already have; NTA brings the marketing knowledge, technology, and support.
                 </p>
 
                 <div className="space-y-4">
