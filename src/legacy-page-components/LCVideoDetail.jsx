@@ -29,8 +29,8 @@ export default function LCVideoDetail() {
           "name": video.title,
           "description": video.description || video.title,
           "thumbnailUrl": `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
-          "uploadDate": video.date || new Date().toISOString().split('T')[0],
-          "embedUrl": `https://www.youtube.com/embed/${video.youtubeId}`
+          ...(video.publishedAt ? { "uploadDate": video.publishedAt } : {}),
+          "embedUrl": `https://www.youtube-nocookie.com/embed/${video.youtubeId}?rel=0`
         };
         const script = document.createElement('script');
         script.type = 'application/ld+json';
@@ -97,7 +97,7 @@ export default function LCVideoDetail() {
           {video.youtubeId ? (
             <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-slate-800 mb-10">
               <iframe 
-                src={`https://www.youtube.com/embed/${video.youtubeId}`} 
+                src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?rel=0`} 
                 className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen
@@ -115,6 +115,8 @@ export default function LCVideoDetail() {
               </div>
             </div>
           )}
+
+          <p className="mb-8 text-center"><a href={video.youtubeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-xl border border-slate-600 px-5 py-3 font-semibold text-white hover:border-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300">Watch on YouTube ↗</a></p>
 
           {video.hasArticle ? (
             <div className="flex justify-center mb-16">

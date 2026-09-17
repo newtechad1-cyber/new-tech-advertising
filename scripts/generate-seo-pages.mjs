@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { VERIFIED_VIDEO_SELECTION, NTA_YOUTUBE_CHANNEL_URL } from "../src/data/videoGallery.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getSeoMetadata } from "../src/config/seoMetadata.js";
@@ -975,12 +976,27 @@ function opportunitySchemaMarkup(pathname, metadata) {
     .join("\n");
 }
 
+function videoGalleryStaticBody(pathname) {
+  if (cleanPath(pathname) !== "/learning-center/videos") return "";
+  const links = VERIFIED_VIDEO_SELECTION.map(video =>
+    '<li><a href="https://www.youtube.com/watch?v=' + escapeHtml(video.youtubeId) + '">' + escapeHtml(video.title) + '</a></li>'
+  ).join("\n");
+  return '<main data-prerendered="true" class="seo-shell"><article>' +
+    '<p class="seo-kicker">Watch. Learn. See the work.</p><h1>NTA Video Gallery</h1>' +
+    '<p>Business ideas, practical AI, and stories told through video. Explore the NTA Growth Show and a selection of our work. Watch here or continue on YouTube.</p>' +
+    '<p><a href="' + NTA_YOUTUBE_CHANNEL_URL + '/videos">Visit our YouTube channel</a> · <a href="/growth-show">Explore the Growth Show</a></p>' +
+    '<h2>Selected NTA videos</h2><ul>' + links + '</ul>' +
+    '<h2>Help people see what you do.</h2><p><a href="/ai-video-marketing">Explore NTA video services</a></p>' +
+    '</article></main>';
+}
+
 function shellMarkup(metadata, pathname) {
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = homeStaticBody(pathname)
+  const body = videoGalleryStaticBody(pathname)
+    || homeStaticBody(pathname)
     || knowledgeQuestionHubStaticBody(pathname)
     || knowledgeQuestionStaticBody(pathname)
     || journalStaticBody(pathname)

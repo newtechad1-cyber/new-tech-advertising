@@ -32,6 +32,11 @@ const STATIC_SEO = {
     title: "Practical AI and Small Business Growth Options | NTA",
     description: "Explore practical AI education and small-business growth options from New Tech Advertising. Start with free learning and choose help when it becomes useful.",
   },
+  "/learning-center/videos": {
+    title: "Video Gallery | NTA Growth Show, AI & Business Videos",
+    description: "Watch the NTA Growth Show, practical AI and business lessons, and a selection of NTA video work. Browse by topic, watch here, or continue on YouTube.",
+    noIndex: false,
+  },
   "/learning-center": {
     title: "AI Learning Center for Small Business Owners | NTA",
     description: "Free AI lessons and small-business education on AI search, digital trust, local visibility, and connected growth systems.",

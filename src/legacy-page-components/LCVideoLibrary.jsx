@@ -194,7 +194,7 @@ export default function LCVideoLibrary() {
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-[100000] bg-slate-950/90 backdrop-blur-sm" />
           <Dialog.Content onCloseAutoFocus={event => { event.preventDefault(); lastTrigger.current?.focus(); }}
-            className="fixed left-1/2 top-1/2 z-[100001] max-h-[90dvh] w-[calc(100%-2rem)] max-w-5xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-slate-600 bg-slate-900 text-white shadow-2xl focus:outline-none">
+            className="fixed left-1/2 top-1/2 z-[100001] max-h-[90dvh] w-[calc(100%_-_2rem)] max-w-5xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-slate-600 bg-slate-900 text-white shadow-2xl focus:outline-none">
             {selectedVideo && (
               <>
                 <div className="relative p-5 pr-16 sm:p-6 sm:pr-16">

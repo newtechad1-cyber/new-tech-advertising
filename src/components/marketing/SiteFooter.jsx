@@ -42,7 +42,7 @@ export default function SiteFooter() {
             <li><Link to="/services" className="hover:text-white transition-colors">Services Overview</Link></li>
             <li><Link to="/services/website-rebuilds" className="hover:text-white transition-colors">Websites</Link></li>
             <li><Link to="/services/social-media-management" className="hover:text-white transition-colors">Social Media</Link></li>
-            <li><Link to="/ai-video-marketing" className="hover:text-white transition-colors">Video</Link></li>
+            <li><Link to="/ai-video-marketing" className="hover:text-white transition-colors">Video Services</Link></li>
             <li><Link to="/local-visibility" className="hover:text-white transition-colors">Local Visibility</Link></li>
           </ul>
         </div>
@@ -54,6 +54,7 @@ export default function SiteFooter() {
             <li><Link to="/knowledge" className="hover:text-white transition-colors">Knowledge Library</Link></li>
             <li><Link to="/knowledge/ai-foundations" className="hover:text-white transition-colors">Free AI Education</Link></li>
             <li><Link to="/growth-show" className="hover:text-white transition-colors">NTA Growth Show</Link></li>
+            <li><Link to="/learning-center/videos" className="hover:text-white transition-colors">Video Gallery</Link></li>
             <li><Link to="/journal" className="hover:text-white transition-colors">NTA Journal</Link></li>
             <li><Link to="/books" className="hover:text-white transition-colors">Free Business Books</Link></li>
             <li><Link to="/knowledge/questions" className="hover:text-white transition-colors">Questions &amp; Lessons</Link></li>
