@@ -243,7 +243,7 @@ A practical, hype-free introduction to using artificial intelligence in a local 
 
 - [AI Does Not Have to Be a Monster](https://newtechadvertising.com/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster): A respectful way to help people move from fear and uncertainty about AI toward one small, safe, practical experience—without pressure or loss of control.
 
-- [You Can Do What I Do—But You Don’t Have To](https://newtechadvertising.com/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to): AI makes complex work more accessible, but small-business owners should not have to spend years becoming experts in websites, software, automation, and AI just to keep up.
+- [Benefit from AI Without Learning Every Technology](https://newtechadvertising.com/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to): AI makes complex work more accessible, but small-business owners should be able to benefit without spending years learning every website, software, automation, and AI system.
 
 - [Use the Model That Gets the Job Done](https://newtechadvertising.com/knowledge/ai-foundations/use-the-model-that-gets-the-job-done): The newest or most expensive AI model is not automatically the right choice. Match the capability and cost to the work you actually need done.
 
@@ -263,7 +263,7 @@ Three connected lessons from Rick Hesse on using AI to give a small business mor
 
 - [How AI Gives Small Business Its Speed Back](https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back): AI can give small businesses big-company capability while preserving small-company speed, flexibility, and the ability to change quickly.
 
-- [You Don't Have to Become an AI Expert](https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert): Small-business owners do not need to become AI engineers. NTA builds practical AI systems around the business the owner already knows how to run.
+- [Use AI Without Learning Every Technology](https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert): Small-business owners can benefit from AI without learning every tool or system. NTA connects practical AI to the business the owner already knows how to run.
 
 ### [What Is Digital Trust?](https://newtechadvertising.com/knowledge/what-is-digital-trust)
 
