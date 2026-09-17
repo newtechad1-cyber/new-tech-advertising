@@ -977,7 +977,7 @@ function opportunitySchemaMarkup(pathname, metadata) {
 }
 
 function videoGalleryStaticBody(pathname) {
-  if (cleanPath(pathname) !== "/learning-center/videos") return "";
+  if (pathname.replace(/\/+$/, "") !== "/learning-center/videos") return "";
   const links = VERIFIED_VIDEO_SELECTION.map(video =>
     '<li><a href="https://www.youtube.com/watch?v=' + escapeHtml(video.youtubeId) + '">' + escapeHtml(video.title) + '</a></li>'
   ).join("\n");
