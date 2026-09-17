@@ -1,11 +1,11 @@
 export const lesson13 = {
   id: 13,
   slug: "you-can-do-what-i-do-but-you-dont-have-to",
-  title: "You Can Do What I Do—But You Don’t Have To",
-  description: "AI makes complex work more accessible, but small-business owners should not have to spend years becoming experts in websites, software, automation, and AI just to keep up.",
+  title: "Benefit from AI Without Learning Every Technology",
+  description: "AI makes complex work more accessible, but small-business owners should be able to benefit without spending years learning every website, software, automation, and AI system.",
   readingTime: "8–10 min read",
   level: "Beginner",
-  takeaway: "You can learn to build the whole system yourself, but you should not have to. The value is in knowing what matters, simplifying the choices, and implementing only what a real small business needs.",
+  takeaway: "The value is in knowing what matters, simplifying the choices, and implementing only what a real small business needs—not asking the owner to learn the entire technical system first.",
   content: `
 ### The Two Years Your Business Does Not Have
 
@@ -13,7 +13,7 @@ A business owner could spend two years learning AI, websites, automation, and co
 
 I know that because I have spent a great deal of time doing exactly that.
 
-But most business owners should not have to.
+But most business owners should be able to benefit without making that investment of time.
 
 Their time belongs to running the business. They have customers to serve, employees to lead, equipment to maintain, bills to pay, and decisions to make. They do not need another full-time job learning every tool that appears on the internet.
 
@@ -47,7 +47,7 @@ The value is in knowing what to choose and what to leave out.
 
 DIY tools can be useful for learning and experimenting. They helped me learn.
 
-But a business owner who is already responsible for the business usually cannot spend two years becoming the person who builds and maintains the entire system.
+But a business owner who is already responsible for the business usually cannot spend two years learning every technology and maintaining the entire system.
 
 I started by building tools in DIY platforms because I needed to understand what was possible. Over time, the work grew into something far more involved than most small businesses need.
 
@@ -67,9 +67,9 @@ That means simplifying the choices, explaining the parts in plain language, impl
 
 This is why I have priced my services as reasonably as I can. I want practical help to be available to small businesses—not only to companies with large budgets or full-time technology staff.
 
-The goal is not to make business owners work like I work.
+The goal is not to ask business owners to recreate NTA’s technical learning process.
 
-The goal is to help them work with AI without changing how they work.
+The goal is to help them benefit from AI while keeping their attention on the business.
 
 That is the difference between selling a pile of tools and helping someone build a useful system.
 
@@ -79,9 +79,9 @@ You can learn to do what I do.
 
 You can spend the time, ask the questions, solve the problems, and gradually understand how the pieces fit together.
 
-But you do not have to.
+But a business should not need that amount of technical learning before it can benefit.
 
-A business owner should be able to benefit from the result without spending years becoming an AI systems builder.
+A business owner should be able to benefit from the result without spending years learning every technology and system behind it.
 
 The real value is not merely knowing what is possible.
 
@@ -94,13 +94,13 @@ It is knowing what is enough.
 * What could I leave out without hurting the customer experience?
 * Am I buying tools because I need them, or because I am excited about what they can do?
 * Would a smaller, clearer system help me more than a larger one?
-* What would it mean to work with AI without changing how I work?
+* What would help me benefit from AI without taking on unnecessary technology learning?
 `,
   relatedPrompts: [
     { label: "Small Business AI Readiness Check", link: "/knowledge/prompts" }
   ],
   relatedVideos: [
-    { label: "Work With AI Without Changing How You Work", link: "/knowledge/videos" }
+    { label: "Practical AI Without Learning Every System", link: "/knowledge/videos" }
   ],
   relatedLessons: [
     { label: "AI Does Not Have to Be a Monster", link: "/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster" },
