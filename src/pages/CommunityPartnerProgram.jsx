@@ -313,7 +313,7 @@ export default function CommunityPartnerProgram() {
               <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-300">What NTA brings</p>
               <h2 className="mt-3 text-3xl font-bold md:text-4xl">You bring the trust. NTA brings the learning and support system.</h2>
               <p className="mt-5 text-lg leading-relaxed text-slate-300">
-                You do not have to become an AI or marketing expert. NTA has been built to help people learn, ask better questions, and communicate more clearly—with each other, with the people their organization serves, and with technology itself.
+                NTA has been built so partners can focus on trusted relationships instead of spending unnecessary time trying to master every technology or marketing system. It helps people learn, ask better questions, and communicate more clearly—with each other, with the people their organization serves, and with technology itself.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
