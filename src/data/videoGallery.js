@@ -144,30 +144,29 @@ export const VERIFIED_VIDEO_SELECTION = [
   {
     "youtubeId": "UPPqjOPkHGc",
     "title": "AI Brought Me Out of Retirement"
+  },
+  {
+    "youtubeId": "odp74hcdjEA",
+    "title": "Monson Plumbing, Boiler & Excavating | Clear Lake, Iowa | Business Profile",
+    "publishedAt": "2026-06-07T03:23:31-07:00",
+    "galleryCategory": "Video Work",
+    "summary": "A 25-second business profile introducing Monson's work in North Iowa.",
+    "relatedUrl": "/case-studies/monson-plumbing"
+  },
+  {
+    "youtubeId": "Wkm8FfpxBl0",
+    "title": "Johnson Heating & AC LLC | HVAC Contractor Mason City, Iowa | Business Profile",
+    "publishedAt": "2026-06-07T03:23:29-07:00",
+    "galleryCategory": "Video Work",
+    "summary": "A 25-second business profile introducing Johnson Heating and Air Conditioning.",
+    "relatedUrl": "/case-studies/johnson-heating"
+  },
+  {
+    "youtubeId": "tmpy20Xz1vU",
+    "title": "Johnson Heating & AC — Brand Showcase #17",
+    "publishedAt": "2026-05-10T13:02:16-07:00",
+    "galleryCategory": "Video Work",
+    "summary": "A 41-second brand message from NTA's public Johnson Heating showcase series.",
+    "relatedUrl": "/case-studies/johnson-heating"
   }
-  ,{
-  "youtubeId": "odp74hcdjEA",
-  "title": "Monson Plumbing, Boiler & Excavating | Clear Lake, Iowa | Business Profile",
-  "publishedAt": "2026-06-07T03:23:31-07:00",
-  "galleryCategory": "Video Work",
-  "summary": "A 25-second business profile introducing Monson's work in North Iowa.",
-  "relatedUrl": "/case-studies/monson-plumbing"
-},
-{
-  "youtubeId": "Wkm8FfpxBl0",
-  "title": "Johnson Heating & AC LLC | HVAC Contractor Mason City, Iowa | Business Profile",
-  "publishedAt": "2026-06-07T03:23:29-07:00",
-  "galleryCategory": "Video Work",
-  "summary": "A 25-second business profile introducing Johnson Heating and Air Conditioning.",
-  "relatedUrl": "/case-studies/johnson-heating"
-},
-{
-  "youtubeId": "tmpy20Xz1vU",
-  "title": "Johnson Heating & AC — Brand Showcase #17",
-  "publishedAt": "2026-05-10T13:02:16-07:00",
-  "galleryCategory": "Video Work",
-  "summary": "A 41-second brand message from NTA's public Johnson Heating showcase series.",
-  "relatedUrl": "/case-studies/johnson-heating"
-}
 ];
-
