@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Clock, MessageCircle } from 'lucide-react';
 
 const BOOKING_URL = 'https://calendar.app.google/p6ieYanvwhixXxZ67';
@@ -50,7 +51,7 @@ export default function BCBookingSection() {
         {opened && (
           <div className="mt-5 flex items-center justify-center gap-2 bg-green-500/20 border border-green-400/40 text-green-300 px-5 py-3 rounded-xl text-sm font-semibold">
             <CheckCircle className="w-4 h-4 flex-shrink-0" />
-            Calendar opened—choose a time only if it feels useful to you.
+            Choose your time in the calendar. Your appointment is booked when the calendar confirms it.
           </div>
         )}
 
@@ -68,7 +69,11 @@ export default function BCBookingSection() {
           </div>
         </div>
 
-        <p className="text-slate-500 text-sm mt-8">
+        <p className="mt-7 text-sm leading-6 text-slate-300">
+          Prefer a personal follow-up? <Link to="/contact?from=%2Fbook-call&topic=Growth%20Conversation" className="rounded font-semibold text-cyan-200 underline underline-offset-4 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300">Tell Rick what you would like to discuss</Link> and choose email, call, or text on the contact form.
+        </p>
+
+        <p className="text-slate-400 text-sm mt-8">
           NTA will not begin paid diagnostic or implementation work unless the scope, price, and next step are clearly agreed.
         </p>
       </div>

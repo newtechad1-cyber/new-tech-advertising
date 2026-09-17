@@ -131,7 +131,7 @@ const STATIC_SEO = {
   },
   "/book-call": {
     title: "Book a Small Business Growth Conversation | NTA",
-    description: "Talk with New Tech Advertising about your business goals, marketing challenges, practical AI, and the next useful step.",
+    description: "Book a free Growth Conversation with Rick Hesse. Start with your business goals and agree on practical work, setup, ongoing support, and pricing together.",
   },
   "/why-nta": {
     title: "Why NTA Teaches Practical AI for Small Business Owners",

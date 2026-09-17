@@ -31,7 +31,7 @@ export default function BCHero() {
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-sm font-semibold mb-8">
           <Zap className="w-3.5 h-3.5" />
-          A Growth Conversation, when a scheduled time is useful
+          A free Growth Conversation with Rick
         </div>
 
         <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8">
@@ -42,7 +42,7 @@ export default function BCHero() {
         </h1>
 
         <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-          If a scheduled conversation is the right next step, choose a time. We will start with what is happening in your business and make the next useful choice clear—without a predetermined package.
+          Tell Rick what you want to improve and where you need help. We’ll begin with your business, explore a practical first step, and discuss the scope and price together when paid work would be useful.
         </p>
 
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -76,7 +76,7 @@ export default function BCHero() {
         {opened && (
           <div className="mt-5 inline-flex items-center gap-2 bg-green-500/20 border border-green-400/40 text-green-300 px-5 py-3 rounded-xl text-sm font-semibold">
             <CheckCircle className="w-4 h-4 flex-shrink-0" />
-            Calendar opened—choose a time only if it feels like the useful next step.
+            Choose your time in the calendar. Your appointment is booked when the calendar confirms it.
           </div>
         )}
       </div>

@@ -14,6 +14,18 @@ export default function BCFAQ() {
       a: 'The Growth Conversation is free. A paid diagnostic, Growth Roadmap, or implementation begins only after the scope, price, and next step are clearly agreed.'
     },
     {
+      q: 'Do I need to choose a service before we talk?',
+      a: 'Start with the question or problem in your business. Rick will help you identify a useful priority and discuss what support would fit.'
+    },
+    {
+      q: 'How is my price decided?',
+      a: 'Pricing reflects the agreed work, what is already in place, and the support your business needs. NTA explains the scope and cost in a written recommendation before paid work begins.'
+    },
+    {
+      q: 'How do setup and ongoing support fit together?',
+      a: 'Your recommendation separates any one-time setup or foundation work from ongoing support. You can see what each part covers and agree on the responsibilities and cost.'
+    },
+    {
       q: 'What if I am not sure a conversation is the right step?',
       a: 'Keep learning first. Use the Knowledge Library or ask Your Digital Growth Guide™. You can decide later whether a human conversation would help.'
     },
@@ -48,6 +60,9 @@ export default function BCFAQ() {
               className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm"
             >
               <button
+                type="button"
+                aria-expanded={expanded === i}
+                aria-controls={'booking-faq-' + i}
                 onClick={() => setExpanded(expanded === i ? null : i)}
                 className="w-full flex items-center justify-between p-5 hover:bg-slate-50 transition-colors"
               >
@@ -58,11 +73,9 @@ export default function BCFAQ() {
                   }`}
                 />
               </button>
-              {expanded === i && (
-                <div className="px-5 pb-5 border-t border-slate-100">
-                  <p className="text-slate-600 leading-relaxed">{faq.a}</p>
-                </div>
-              )}
+              <div id={'booking-faq-' + i} hidden={expanded !== i} className="px-5 pb-5 border-t border-slate-100">
+                <p className="text-slate-600 leading-relaxed">{faq.a}</p>
+              </div>
             </div>
           ))}
         </div>

@@ -146,11 +146,16 @@ const LEGACY_PUBLIC_REDIRECTS = {
   '/BusinessJourney': '/work-with-nta',
 };
 
+function LegacyBookingRedirect() {
+  const { search, hash } = useLocation();
+  return <Navigate to={{ pathname: '/book-call', search, hash }} replace />;
+}
+
 function PublicRoutes() {
   return (
     <Routes>
       {Object.entries(LEGACY_PUBLIC_REDIRECTS).map(([from, to]) => (
-        <Route key={`legacy-public:${from}`} path={from} caseSensitive element={<Navigate to={to} replace />} />
+        <Route key={`legacy-public:${from}`} path={from} caseSensitive element={to === '/book-call' ? <LegacyBookingRedirect /> : <Navigate to={to} replace />} />
       ))}
       <Route
         path="/"
