@@ -25,7 +25,7 @@ const slides = [
     title: "Custom AI vs. Expensive SaaS",
     subtitle: "Why pay for 10 disconnected tools?",
     icon: <Cpu className="w-10 h-10 text-purple-500 mb-4" />,
-    content: "Cookie-cutter SaaS platforms charge per-seat fees and force you to change how you work. We build custom, interconnected AI systems and automation that fit your exact operations. No monthly SaaS bloat—just smart technology built for you.",
+    content: "Cookie-cutter SaaS platforms charge per-seat fees and require businesses to rebuild their processes around the software. NTA builds custom, interconnected AI systems and automation around the work that already matters. No monthly SaaS bloat—just practical technology built for the business.",
     color: "bg-purple-50"
   },
   {
