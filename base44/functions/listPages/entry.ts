@@ -29,6 +29,7 @@ const PUBLIC_PAGE_FILES = [
   'Contact.jsx',
   'ContractorMarketingNorthIowa.jsx',
   'DigitalRisks.jsx',
+  'DigitalGrowthAdvisor.jsx',
   'Free-Audit.jsx',
   'GrowthGuide.jsx',
   'GrowthShow.jsx',
@@ -70,6 +71,12 @@ const PUBLIC_ROUTE_METADATA = [
     "title": "Practical AI Education for Small Business Owners | New Tech Advertising",
     "description": "Free, practical AI education for small-business owners. Learn how AI can support real work, keep human judgment in control, and help a business grow.",
     "canonical": "https://newtechadvertising.com/"
+  },
+  {
+    "path": "/digital-growth-advisor",
+    "title": "Digital Growth Advisor Program | Learn. Earn. Build. | NTA",
+    "description": "Learn AI. Learn Business. Help Businesses Grow. Develop relationships with business owners while NTA’s Digital Growth Office provides the support behind you.",
+    "canonical": "https://newtechadvertising.com/digital-growth-advisor/"
   },
   {
     "path": "/about",
@@ -691,8 +698,8 @@ const PUBLIC_ROUTE_METADATA = [
   },
   {
     "path": "/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to",
-    "title": "How Small Business Owners Can Use AI Without Becoming Technicians | NTA Knowledge Library",
-    "description": "AI makes complex work more accessible, but small-business owners should not have to spend years becoming experts in websites, software, automation, and AI just to keep up.",
+    "title": "Benefit from AI Without Learning Every Technology | NTA Knowledge Library",
+    "description": "AI makes complex work more accessible. Small-business owners can benefit without spending years learning every website, software, automation, and AI system.",
     "canonical": "https://newtechadvertising.com/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to/"
   },
   {
