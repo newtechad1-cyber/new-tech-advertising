@@ -470,7 +470,7 @@ const LESSON_SEARCH_TITLES = {
   "ai-makes-complicated-work-easier": "How to Turn AI Conversations Into a Working Business System",
   "i-see-artificial-intelligence-differently": "A Practical Way to Think About AI for Small Business",
   "ai-does-not-have-to-be-a-monster": "How to Use AI Without Fear or Hype in a Small Business",
-  "you-can-do-what-i-do-but-you-dont-have-to": "How Small Business Owners Can Use AI Without Becoming Technicians",
+  "you-can-do-what-i-do-but-you-dont-have-to": "How Small Businesses Benefit from AI Without Learning Every Technology",
   "use-the-model-that-gets-the-job-done": "How to Choose the Right AI Model for the Work",
   "ai-finally-taught-me-how-to-multitask": "AI Finally Taught Me How to Multitask",
   "what-is-digital-trust": "What Is Digital Trust for a Small Business?",
@@ -483,7 +483,7 @@ const LESSON_SEARCH_TITLES = {
   "the-right-decision-should-make-sense": "Why the Right Small Business Growth Decision Should Make Sense",
   "the-problems-we-learn-to-live-with": "The Problems Small Businesses Learn to Live With",
   "ai-gives-small-business-its-speed-back": "How AI Gives Small Business Its Speed Back",
-  "you-dont-have-to-become-an-ai-expert": "You Don't Have to Become an AI Expert",
+  "you-dont-have-to-become-an-ai-expert": "Use AI Without Learning Every Technology",
   "ai-is-a-mirror-not-a-god": "AI Is a Mirror, Not a God",
 };
 
