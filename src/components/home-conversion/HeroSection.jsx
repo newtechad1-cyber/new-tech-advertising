@@ -78,7 +78,7 @@ export default function HeroSection() {
           </h1>
           <div className="mx-auto mt-7 max-w-3xl space-y-4 text-lg leading-relaxed text-slate-300 md:text-xl">
             <p>
-              AI and digital change are making business more complicated. You do not need to become an AI expert to make a good next decision.
+              AI and digital change are making business more complicated. NTA helps you make a good next decision without spending unnecessary time learning every technology or system.
             </p>
             <p>
               Start with the problem in front of you. NTA will help you understand where technology can help, where it cannot, and what makes sense to do next.
