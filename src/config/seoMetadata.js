@@ -34,7 +34,7 @@ const STATIC_SEO = {
   },
   "/learning-center/videos": {
     title: "Video Gallery | NTA Growth Show, AI & Business Videos",
-    description: "Watch the NTA Growth Show, practical AI and business lessons, and a selection of NTA video work. Browse by topic, watch here, or continue on YouTube.",
+    description: "Watch NTA videos, read related Knowledge Library lessons, and see examples of business video work. Browse by topic or continue on YouTube.",
     noIndex: false,
   },
   "/learning-center": {
@@ -43,7 +43,7 @@ const STATIC_SEO = {
   },
   "/knowledge": {
     title: "AI Lessons for Small Business Owners | NTA Knowledge Library",
-    description: "A connected library of practical AI, small-business growth, customer trust, and business-system lessons from Rick Hesse.",
+    description: "Read practical business and AI lessons or watch related NTA videos. Explore the Knowledge Library, Growth Show, and examples of how NTA works.",
   },
   "/knowledge/questions": {
     title: "Small Business Questions About AI, Marketing, and Growth | NTA",
@@ -205,8 +205,8 @@ const STATIC_SEO = {
     description: "Create a repeatable social media content system that keeps your business useful, recognizable, and connected to customer questions.",
   },
   "/ai-video-marketing": {
-    title: "AI Video Marketing for Small Business | NTA",
-    description: "Use practical video to explain your work, build customer confidence, and create useful content without pretending to be a large production company.",
+    title: "Video Production & Business Storytelling | NTA",
+    description: "See NTA video examples and explore short business profiles, brand messages, educational videos, and stories that help people understand your work.",
   },
   "/back-office-solutions": {
     title: "Back-Office Systems and Practical AI for Small Business | NTA",

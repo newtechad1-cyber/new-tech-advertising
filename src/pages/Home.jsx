@@ -149,8 +149,8 @@ export default function Home() {
               <Link to="/knowledge/questions" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500">
                 Browse small-business questions <ArrowRight className="h-5 w-5" />
               </Link>
-              <Link to="/growth-show" className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-6 py-3.5 font-bold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">
-                Watch the NTA Growth Show <ArrowRight className="h-5 w-5" />
+              <Link to="/learning-center/videos" className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-6 py-3.5 font-bold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">
+                Watch videos and the Growth Show <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
           </div>

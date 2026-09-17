@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen, MessageCircle, Play } from 'lucide-react';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
 import { contentContext, followUpPath, learningLinks, relatedEpisodeLinks } from '@/lib/contentJourney';
 import { trackJourneyEvent } from '@/lib/journeyAnalytics';
+import { videosForReading } from '@/data/videoLearningConnections';
 
 export function ContentNextSteps({ title, path, resources = [] }) {
   const context = contentContext({ title, path });
@@ -54,6 +55,9 @@ export function ContentNextSteps({ title, path, resources = [] }) {
 
 export default function ConnectedContentNextSteps(props) {
   const { episodes } = useGrowthShow();
-  const relatedVideos = props.resources?.some(resource => resource.kind === 'video') ? [] : relatedEpisodeLinks(props, episodes);
+  const relatedVideos = props.resources?.some(resource => resource.kind === 'video') ? [] : [
+    ...videosForReading(props.path),
+    ...relatedEpisodeLinks(props, episodes),
+  ];
   return <ContentNextSteps {...props} resources={[...(props.resources || []), ...relatedVideos]} />;
 }

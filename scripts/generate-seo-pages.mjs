@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { VERIFIED_VIDEO_SELECTION, NTA_YOUTUBE_CHANNEL_URL } from "../src/data/videoGallery.js";
+import { READ_WATCH_TOPICS, VIDEO_WORK_EXAMPLES, readingForVideo, videoWatchPath } from "../src/data/videoLearningConnections.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getSeoMetadata } from "../src/config/seoMetadata.js";
@@ -753,6 +754,7 @@ function homeStaticBody(pathname) {
       <h2>Continue learning</h2>
       <nav aria-label="NTA learning">
         <a href="/knowledge">Knowledge Library</a>
+        <a href="/learning-center/videos">Video Gallery</a>
         <a href="/growth-show">NTA Growth Show</a>
         <a href="/journal">NTA Journal</a>
         <a href="/case-studies">Case studies</a>
@@ -976,15 +978,31 @@ function opportunitySchemaMarkup(pathname, metadata) {
     .join("\n");
 }
 
+function connectedLearningStaticBody(pathname) {
+  const page = pathname.replace(/\/+$/, "");
+  if (!["/knowledge", "/ai-video-marketing"].includes(page)) return "";
+  const library = page === "/knowledge";
+  const items = library
+    ? READ_WATCH_TOPICS.map(topic => '<li><h2>' + escapeHtml(topic.title) + '</h2><a href="' + escapeHtml(topic.href) + '">Read the lesson</a> · <a href="' + escapeHtml(videoWatchPath(topic.video)) + '">Watch the related video: ' + escapeHtml(topic.video.title) + '</a></li>').join("\n")
+    : VIDEO_WORK_EXAMPLES.map(example => '<li><h2>' + escapeHtml(example.video.title) + '</h2><p>' + escapeHtml(example.note) + '</p><a href="/learning-center/videos/' + escapeHtml(example.videoId) + '">Watch here</a> · <a href="https://www.youtube.com/watch?v=' + escapeHtml(example.videoId) + '">Watch on YouTube</a></li>').join("\n");
+  return '<main data-prerendered="true" class="seo-shell"><article><h1>' +
+    (library ? 'NTA Knowledge Library: choose to read or watch' : 'Help people see what your business does.') +
+    '</h1><p>' + (library ? 'Practical business and AI lessons paired with related NTA video conversations. Read at your own pace, watch, or use both.' : 'Selected public examples of NTA video work: business profiles, brand messages, and educational conversations.') +
+    '</p><ul>' + items + '</ul><nav aria-label="Read or watch"><a href="/knowledge">Knowledge Library</a> · <a href="/learning-center/videos">Video Gallery</a> · <a href="/growth-show">Growth Show</a> · <a href="/ai-video-marketing">Video services</a></nav></article></main>';
+}
+
 function videoGalleryStaticBody(pathname) {
   if (pathname.replace(/\/+$/, "") !== "/learning-center/videos") return "";
-  const links = VERIFIED_VIDEO_SELECTION.map(video =>
-    '<li><a href="https://www.youtube.com/watch?v=' + escapeHtml(video.youtubeId) + '">' + escapeHtml(video.title) + '</a></li>'
-  ).join("\n");
+  const links = VERIFIED_VIDEO_SELECTION.map(video => {
+    const reading = readingForVideo(video.youtubeId);
+    return '<li><a href="https://www.youtube.com/watch?v=' + escapeHtml(video.youtubeId) + '">' + escapeHtml(video.title) + '</a>' +
+      (reading ? ' · <a href="' + escapeHtml(reading.href) + '">Read the related lesson: ' + escapeHtml(reading.title) + '</a>' : '') + '</li>';
+  }).join("\n");
   return '<main data-prerendered="true" class="seo-shell"><article>' +
     '<p class="seo-kicker">Watch. Learn. See the work.</p><h1>NTA Video Gallery</h1>' +
     '<p>Business ideas, practical AI, and stories told through video. Explore the NTA Growth Show and a selection of our work. Watch here or continue on YouTube.</p>' +
     '<p><a href="' + NTA_YOUTUBE_CHANNEL_URL + '/videos">Visit our YouTube channel</a> · <a href="/growth-show">Explore the Growth Show</a></p>' +
+    '<p>Prefer to read? <a href="/knowledge">Explore the Knowledge Library</a>.</p>' +
     '<h2>Selected NTA videos</h2><ul>' + links + '</ul>' +
     '<h2>Help people see what you do.</h2><p><a href="/ai-video-marketing">Explore NTA video services</a></p>' +
     '</article></main>';
@@ -995,7 +1013,8 @@ function shellMarkup(metadata, pathname) {
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = videoGalleryStaticBody(pathname)
+  const body = connectedLearningStaticBody(pathname)
+    || videoGalleryStaticBody(pathname)
     || homeStaticBody(pathname)
     || knowledgeQuestionHubStaticBody(pathname)
     || knowledgeQuestionStaticBody(pathname)

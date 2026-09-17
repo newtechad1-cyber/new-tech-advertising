@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { useLearningContent } from '@/hooks/useLearningContent';
+import { readingForVideo } from '@/data/videoLearningConnections';
 import LCCallToAction from '@/components/learning-center/LCCallToAction';
 import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import { ArrowLeft, Clock, Tag, BookOpen, Loader2 } from 'lucide-react';
@@ -11,6 +12,7 @@ export default function LCVideoDetail() {
   const { id } = useParams();
   const { data, isLoading } = useLearningContent();
   const video = data?.videos?.find(v => v.id === id);
+  const reading = readingForVideo(video?.youtubeId);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,19 +120,18 @@ export default function LCVideoDetail() {
 
           <p className="mb-8 text-center"><a href={video.youtubeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-xl border border-slate-600 px-5 py-3 font-semibold text-white hover:border-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300">Watch on YouTube ↗</a></p>
 
-          {video.hasArticle ? (
-            <div className="flex justify-center mb-16">
-              <Link to={`/${video.slug}`} className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 text-lg w-full sm:w-auto">
-                 <BookOpen className="w-5 h-5" /> Read The Full Article
-              </Link>
+          <section className="mb-12 rounded-2xl border border-slate-700 bg-slate-900 p-6" aria-labelledby="related-reading-heading">
+            <h2 id="related-reading-heading" className="text-xl font-bold text-white">Prefer to read or explore the idea further?</h2>
+            <div className="mt-5 flex flex-col items-start gap-4">
+              {reading ? (
+                <Link to={reading.href} className="inline-flex items-center gap-2 rounded font-semibold text-cyan-300 hover:text-cyan-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300"><BookOpen className="h-5 w-5 shrink-0" aria-hidden="true" /> Read the related lesson: {reading.title}</Link>
+              ) : video.hasArticle ? (
+                <Link to={'/' + video.slug} className="rounded font-semibold text-cyan-300 hover:text-cyan-100">Read the related article</Link>
+              ) : null}
+              {video.relatedUrl && <Link to={video.relatedUrl} className="rounded font-semibold text-cyan-300 hover:text-cyan-100">{video.relatedUrl.startsWith('/case-studies/') ? 'Read the client story' : 'Explore this Growth Show episode'}</Link>}
+              <Link to="/knowledge" className="rounded font-semibold text-white hover:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300">Browse the Knowledge Library →</Link>
             </div>
-          ) : (
-            <div className="flex justify-center mb-16">
-              <div className="inline-flex items-center justify-center gap-2 bg-slate-800 text-slate-400 font-bold px-8 py-4 rounded-xl border border-slate-700 text-lg w-full sm:w-auto">
-                 <BookOpen className="w-5 h-5" /> Full Article Coming Soon
-              </div>
-            </div>
-          )}
+          </section>
 
           <LCRelatedVideos currentVideoId={video.id} category={video.category} />
 
@@ -138,7 +139,7 @@ export default function LCVideoDetail() {
              <LCCallToAction 
                type="audit" 
                title="Want to apply this to your business?" 
-               description="Get a free AI Gap Audit and discover exactly how AI search engines are ranking your local business against competitors."
+               description="Start with a Free Business Gap Audit to identify visible gaps, immediate priorities, and practical next steps."
              />
           </div>
 

@@ -7,6 +7,7 @@ import SEOHead from '@/components/shared/SEOHead';
 import { masterCurriculumMap, collectionsOrder } from '@/data/masterCurriculum';
 import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 import { getJourneyMemory, resetJourneyMemory } from '@/lib/journeyMemory';
+import ReadWatchLearning from '@/components/knowledge/ReadWatchLearning';
 
 export default function KnowledgeLibrary() {
   const memory = getJourneyMemory();
@@ -76,17 +77,17 @@ export default function KnowledgeLibrary() {
                 className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2"
               >
                 {completedCount > 0 ? (
-                  <><PlayCircle className="w-5 h-5" /> Continue the Journey</>
+                  <><BookOpen className="w-5 h-5" /> Continue reading</>
                 ) : (
-                  <><PlayCircle className="w-5 h-5" /> Start the Journey</>
+                  <><BookOpen className="w-5 h-5" /> Read the lessons</>
                 )}
               </Link>
-              <a 
-                href="#collections" 
+              <Link
+                to="/learning-center/videos"
                 className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors border border-slate-700 flex items-center justify-center gap-2"
               >
-                <BookMarked className="w-5 h-5 text-slate-400" /> Explore the Collections
-              </a>
+                <PlayCircle className="w-5 h-5 text-cyan-300" aria-hidden="true" /> Watch the videos
+              </Link>
             </div>
 
             {/* PROGRESS SUMMARY */}
@@ -129,6 +130,8 @@ export default function KnowledgeLibrary() {
             </Link>
           </div>
         </section>
+
+        <ReadWatchLearning />
 
         {/* WHERE SHOULD I BEGIN */}
         <section className="py-20 px-6 bg-slate-950">

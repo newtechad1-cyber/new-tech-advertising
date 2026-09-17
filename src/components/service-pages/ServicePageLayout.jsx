@@ -118,6 +118,7 @@ export default function ServicePageLayout({
   solution,
   includes,
   example,
+  showcase,
   faqs,
   relatedLinks,
   formSource,
@@ -151,6 +152,7 @@ export default function ServicePageLayout({
       </section>
 
       <div className="max-w-5xl mx-auto px-6 py-16 space-y-16">
+        {showcase}
 
         {/* Problem */}
         <div className="grid lg:grid-cols-2 gap-10 items-start">
@@ -198,6 +200,7 @@ export default function ServicePageLayout({
         </div>
 
         {/* Example */}
+        {example && (
         <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-8">
           <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block mb-3">Real Example</span>
           <h2 className="text-xl font-extrabold text-slate-900 mb-3">{example.client}</h2>
@@ -209,6 +212,7 @@ export default function ServicePageLayout({
             </div>
           )}
         </div>
+        )}
 
         {/* CTA + Form */}
         <div className="grid lg:grid-cols-2 gap-10 items-start">
