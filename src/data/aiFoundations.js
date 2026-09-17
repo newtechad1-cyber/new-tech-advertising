@@ -230,9 +230,9 @@ Before moving to the next lesson, ask yourself:
 * Am I collecting AI tools, or am I learning to use one useful tool well?
 * What would I like to understand about AI before investing more time or money in it?
 
-You don’t need to become an AI expert.
+Start with the business question. You should be able to benefit without spending unnecessary time learning every AI tool or system.
 
-You only need enough understanding to begin asking better questions.
+Learn enough to ask better questions and choose the next useful step.
 `,
     relatedPrompts: [
       { label: "AI Opportunity Finder", link: "/knowledge/prompts" }
