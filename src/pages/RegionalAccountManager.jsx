@@ -41,7 +41,7 @@ const RECRUITING_VIDEOS = [
   },
   {
     id: 'AZuVbZFSFl4',
-    title: 'You Don’t Need to Be an AI Expert',
+    title: 'NTA Carries the Technical Depth',
     description: 'Why NTA’s system carries the technical depth behind the conversation.',
   },
   {
@@ -67,8 +67,8 @@ const REGIONAL_ACCOUNT_MANAGER_FAQS = [
     answer: 'No. This is a relationship-driven Account Manager opportunity. You are not handed a link and left on your own. You build the relationship, and NTA helps you understand the conversation, use the right resources, and decide what makes sense next.',
   },
   {
-    question: 'Do I need expertise in AI, websites, advertising, or marketing?',
-    answer: 'No. NTA provides the website, Knowledge Library, Rick’s books, videos, Your Digital Growth Guide™, Digital Growth Office, and direct support behind the relationship. You can keep learning and use those same resources with business owners, nonprofits, churches, and other organizations.',
+    question: 'How does NTA support the technical side?',
+    answer: 'NTA provides the website, Knowledge Library, Rick’s books, videos, Your Digital Growth Guide™, Digital Growth Office, and direct support behind the relationship. You keep learning while you work, and NTA supplies the technical depth and resources when they are useful.',
   },
   {
     question: 'Do I have to buy training, a course, or a system to begin?',
@@ -556,7 +556,7 @@ export default function RegionalAccountManager() {
             </div>
             <div className="space-y-5 text-lg leading-relaxed text-slate-700">
               <p>
-                This is not a traditional corporate sales job, and it is not a role where you have to become an expert in websites, AI, advertising, SEO, social media, video, or business systems.
+                This is not a traditional corporate sales job. NTA does not ask you to spend unnecessary time learning every technology or business system before you can begin a useful relationship with a business owner.
               </p>
               <p>
                 Your role is to build trust throughout the organization—not only with the person in charge. In a business, nonprofit, church, or community organization, you get to know the people who understand how the work really happens and how the organization communicates with the people it serves.
