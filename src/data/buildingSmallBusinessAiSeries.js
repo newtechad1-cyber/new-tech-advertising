@@ -501,15 +501,15 @@ For the small businesses willing to use it, that may be one of the biggest oppor
   {
     id: 3,
     slug: "you-dont-have-to-become-an-ai-expert",
-    title: "You Don't Have to Become an AI Expert",
-    description: "Small-business owners do not need another technical career. NTA's role is to understand the tools, connect them to the business, and make AI useful around the way the owner already works.",
-    searchTitle: "You Don't Have to Become an AI Expert",
-    searchDescription: "Small-business owners do not need to become AI engineers. NTA builds practical AI systems around the business the owner already knows how to run.",
+    title: "Use AI Without Learning Every Technology",
+    description: "Small-business owners should be able to benefit from AI without spending unnecessary time learning every technology or system. NTA understands the tools, connects them to the business, and makes AI useful in practical work.",
+    searchTitle: "Use AI Without Learning Every Technology",
+    searchDescription: "Small-business owners can benefit from AI without learning every tool or system. NTA connects practical AI to the business the owner already knows how to run.",
     readingTime: "10–12 min read",
     level: "Beginner",
     publishedDate: "2026-08-18",
     modifiedDate: "2026-08-18",
-    takeaway: "Work with AI without changing how you work. The owner should keep running the business; NTA's role is do-it-for-you implementation that makes powerful AI capabilities useful inside that business.",
+    takeaway: "Benefit from AI without spending unnecessary time learning every technology first. The owner keeps running the business; NTA’s role is to implement and support useful AI capabilities inside it.",
     content: `
 ## What Good Are You If You Can't Remember Yesterday?
 
@@ -821,7 +821,7 @@ They can make decisions.
 
 AI can increasingly organize and execute the work around them.
 
-They don't have to become AI experts.
+They should be able to benefit without spending unnecessary time learning every technology or system.
 
 They need a company that knows how to make AI useful.
 
