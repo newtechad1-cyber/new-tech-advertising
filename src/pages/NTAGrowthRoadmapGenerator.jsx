@@ -340,7 +340,38 @@ Action: ${savedRoadmap.later.action}
         </div>
       </section>
 
-      {/* 3. How the roadmap fits the NTA journey */}
+      {/* 3. A practical five-part framework */}
+      <section className="py-20 px-6 border-t border-slate-800/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">What could a Digital Growth Roadmap look like?</p>
+            <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">See the whole business without turning it into one giant project.</h2>
+            <p className="mt-5 text-lg leading-relaxed text-slate-300">The same framework can fit a restaurant, contractor, retailer, professional practice, or service company. It shows the areas we consider—not a rigid package every client must buy.</p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-5">
+            {[
+              ['Foundation', 'Website, domain, Google presence, existing systems, accurate information, and customer access points.'],
+              ['Digital Growth Office', 'A practical place where the owner, employees, and NTA can communicate, capture ideas, organize work, and gradually connect more of the business.'],
+              ['Knowledge', 'Capture what owners, employees, customers, documents, and systems already know. People provide the knowledge; AI helps remember, organize, and use it.'],
+              ['Audience & Growth', 'Use search, reviews, social, educational content, video, and other useful channels to grow the part of the business that needs attention.'],
+              ['Connect & Improve', 'Understand existing systems before adding software. Connect useful information, measure what happened, learn, and update the Roadmap.'],
+            ].map(([title, desc], index) => (
+              <div key={title} className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+                <span className="text-xs font-black tracking-widest text-blue-400">0{index + 1}</span>
+                <h3 className="mt-3 text-lg font-bold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-400">{desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-9 rounded-2xl border border-cyan-800/40 bg-cyan-950/20 p-6 text-center">
+            <p className="font-bold text-white">Ask a good question. Listen. Bring back what you learn.</p>
+            <p className="mt-2 text-cyan-100">Listen → Capture → Understand → Decide → Act → Measure → Learn → Improve</p>
+            <p className="mt-3 text-sm text-slate-400">AI can help transcribe, remember, organize, identify patterns, and bring important information forward. People continue making the decisions.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. How the roadmap fits the NTA journey */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16">
