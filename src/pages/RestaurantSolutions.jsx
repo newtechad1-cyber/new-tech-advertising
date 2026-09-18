@@ -386,6 +386,35 @@ export default function RestaurantSolutions() {
           </div>
         </section>
 
+        {/* RESTAURANT GROWTH ROADMAP EXAMPLE */}
+        <section className="mt-32 max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">AN EXAMPLE, NOT A PACKAGE</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">What could a Restaurant Growth Roadmap look like?</h2>
+            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-slate-400">A restaurant makes the idea easy to see because useful knowledge is spread among owners, managers, servers, bartenders, kitchen employees, customers, the POS, Google, social media, and other systems. NTA starts with what your restaurant already has and builds the next useful piece.</p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-5">
+            {[
+              ['Foundation', 'Website, menu, Google presence, ordering, hours, location details, and the customer path into the restaurant.'],
+              ['Digital Growth Office', 'A shared place for the owner, team, and NTA to capture questions, ideas, customer observations, and work without adding long meetings.'],
+              ['Knowledge', 'Build a Restaurant Knowledge Library from short team questions, recorded ideas, customer feedback, documents, recipes/process knowledge, and what the team sees every day.'],
+              ['Audience & Growth', 'Use reviews, search, social, video, and content to support the opportunity that matters now—dining, lunch, bar, catering, private events, specials, or seasonal traffic.'],
+              ['Connect & Improve', 'Use useful POS and customer information, loyalty and repeat-visit learning, and campaign results. Measure what worked and remember the lesson for the next decision.'],
+            ].map(([title, desc], index) => (
+              <div key={title} className="rounded-2xl border border-amber-500/20 bg-slate-900/60 p-6">
+                <span className="text-xs font-black tracking-widest text-amber-400">0{index + 1}</span>
+                <h3 className="mt-3 text-lg font-bold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-400">{desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 rounded-2xl border border-slate-700 bg-slate-900/60 p-7">
+            <h3 className="text-xl font-bold text-white">A simple way to involve the team</h3>
+            <p className="mt-3 leading-relaxed text-slate-300">A Question of the Week can go through communication employees already receive. A server, bartender, manager, or kitchen employee can tap a button and record a one- or two-minute answer or type a response. AI can organize the responses and surface useful patterns for the owner to consider, and employees can receive feedback so their ideas do not disappear.</p>
+            <p className="mt-3 text-sm font-semibold text-amber-200">People provide the knowledge. AI helps the business remember, organize, and use it. People continue making the decisions.</p>
+          </div>
+        </section>
+
         {/* HOW IT WORKS */}
         <section className="mt-32 max-w-5xl mx-auto px-6" id="how-it-works-section">
           <div className="text-center mb-16">
