@@ -54,6 +54,12 @@ export default function DigitalGrowthAdvisor() {
           </div>
           <p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300">Ask a good question. Listen. Bring back what you learn. NTA works with the way people want to work—whether that means listening and taking notes, bringing back their own summary, or recording a conversation with clear permission. If recording is not comfortable, you do not need to record.</p>
           <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-300">With your approval, AI can help organize what was said, keep track of the important points, prepare useful follow-up, and begin shaping the Growth Roadmap. The goal is to help people work better and smarter—not force them to change how they work.</p>
+          <div className="mt-7 max-w-4xl rounded-2xl border border-cyan-300/25 bg-cyan-950/20 p-6">
+            <h3 className="text-xl font-bold text-white">The Digital Growth Office connects people as well as technology.</h3>
+            <p className="mt-3 leading-relaxed text-slate-300">Owners and employees already know an enormous amount about customers, everyday problems, opportunities, and how the work really gets done. NTA can create simple ways to capture that knowledge through conversations, short recordings, questions, documents, and observations without turning participation into another complicated job.</p>
+            <p className="mt-3 font-semibold text-cyan-200">People provide the knowledge. AI helps the business remember, organize, and use it. People continue making the decisions.</p>
+            <p className="mt-3 text-sm leading-relaxed text-slate-400">That is team building, shared business knowledge, and continuous improvement—not employee surveillance and not AI making management decisions.</p>
+          </div>
         </div>
       </section>
 
