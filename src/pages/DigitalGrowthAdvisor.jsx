@@ -60,6 +60,12 @@ export default function DigitalGrowthAdvisor() {
             <p className="mt-3 font-semibold text-cyan-200">People provide the knowledge. AI helps the business remember, organize, and use it. People continue making the decisions.</p>
             <p className="mt-3 text-sm leading-relaxed text-slate-400">That is team building, shared business knowledge, and continuous improvement—not employee surveillance and not AI making management decisions.</p>
           </div>
+          <div className="mt-7 max-w-4xl rounded-2xl border border-cyan-300/25 bg-cyan-950/20 p-6">
+            <h3 className="text-xl font-bold text-white">The Digital Growth Office connects people as well as technology.</h3>
+            <p className="mt-3 leading-relaxed text-slate-300">Owners and employees already know an enormous amount about customers, everyday problems, opportunities, and how the work really gets done. NTA can create simple ways to capture that knowledge through conversations, short recordings, questions, documents, and observations without turning participation into another complicated job.</p>
+            <p className="mt-3 font-semibold text-cyan-200">People provide the knowledge. AI helps the business remember, organize, and use it. People continue making the decisions.</p>
+            <p className="mt-3 text-sm leading-relaxed text-slate-400">That is team building, shared business knowledge, and continuous improvement—not employee surveillance and not AI making management decisions.</p>
+          </div>
         </div>
       </section>
 
