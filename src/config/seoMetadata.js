@@ -285,6 +285,11 @@ const STATIC_SEO = {
     title: "AI Social Media for Small Business | NTA",
     description: "Create consistent social media content for Facebook, Instagram, and LinkedIn without hiring a marketing agency.",
   },
+  "/restaurants": {
+    title: "Restaurant Growth, Team Building & Digital Growth Roadmaps | NTA",
+    description:
+      "NTA helps restaurant owners build stronger teams, capture business and customer knowledge, improve communication, identify growth priorities, and connect useful technology through a Restaurant Growth Roadmap.",
+  },
   "/restaurant-social-media": {
     title: "Restaurant Social Media Marketing Platform | NTA",
     description: "Create menu highlights, daily specials, event announcements, and food promotion content for your restaurant.",
