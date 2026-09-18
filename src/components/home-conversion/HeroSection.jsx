@@ -74,7 +74,7 @@ export default function HeroSection() {
             Practical help for small-business owners
           </p>
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-            What are you trying to make better in your business?
+            What would make your business work better—for you, your team, and your customers?
           </h1>
           <div className="mx-auto mt-7 max-w-3xl space-y-4 text-lg leading-relaxed text-slate-300 md:text-xl">
             <p>
