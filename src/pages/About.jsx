@@ -93,7 +93,7 @@ export default function About() {
               <p className="text-slate-500 mb-2">Not complicated marketing strategies.</p>
               <p className="text-slate-500 mb-8">Not expensive agency retainers.</p>
               <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                Instead, we teach the principles, show the practical applications, and collaborate with owners to build systems around their real work.
+                Instead, we teach the principles, show the practical applications, and collaborate with owners to build systems around their real work. A business already contains enormous knowledge—owners, employees, and customers all hold pieces of it. NTA helps capture that knowledge naturally so the team can remember, organize, and use it together while people keep making the decisions.
               </p>
               <p className="text-slate-300 font-semibold mt-6">The goal is not to turn owners into technicians.</p>
               <p className="text-blue-400 font-bold text-lg">The goal is understanding, useful application, and long-term business capability.</p>
@@ -368,7 +368,7 @@ export default function About() {
           <p className="text-white font-bold text-xl mb-4">The challenge is not the stories themselves.</p>
           <p className="text-blue-400 font-bold text-xl mb-10">The challenge is getting those stories seen.</p>
           <p className="text-slate-400 text-lg leading-relaxed max-w-3xl mx-auto">
-            New Tech Advertising platforms help organizations turn everyday moments into powerful content that reaches their audience and strengthens their reputation.
+            New Tech Advertising platforms help organizations turn everyday moments into powerful content that reaches their audience and strengthens their reputation. The same idea applies inside the business: everyday conversations contain business intelligence, and NTA helps capture it so people can work together better—not so technology can replace them.
           </p>
         </div>
       </section>

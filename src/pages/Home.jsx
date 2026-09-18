@@ -43,7 +43,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'How does New Tech Advertising help a local business grow?',
-    answer: 'NTA teaches owners how AI fits into the complete business, then helps them strengthen their foundation, improve visibility and trust, organize customer follow-up, and connect practical AI with useful business systems.',
+    answer: 'NTA helps owners strengthen their foundation, improve visibility and trust, organize customer follow-up, and connect practical AI with useful business systems. A core part of that work is capturing the knowledge already living across the team—employees, customers, and everyday conversations—so the business can remember, organize, and use it. People continue making the decisions; AI helps with remembering, transcribing, identifying patterns, and preparing summaries.',
   },
   {
     question: 'Does New Tech Advertising serve businesses outside Iowa?',
@@ -180,7 +180,7 @@ export default function Home() {
               <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-7">
                 <div className="w-11 h-11 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-5"><FolderKanban className="w-5 h-5" /></div>
                 <h3 className="text-xl font-bold text-white mb-3">Connected Operations</h3>
-                <p className="text-slate-400 leading-relaxed">Business knowledge, tasks, reporting, useful automation, and practical AI assistance built around how you work.</p>
+                <p className="text-slate-400 leading-relaxed">Business knowledge from owners, employees, and customers—plus tasks, reporting, useful automation, and practical AI that helps the team remember, organize, and use what it already knows.</p>
               </div>
             </div>
 
@@ -216,6 +216,7 @@ export default function Home() {
             <div className="mb-8 rounded-2xl border border-cyan-800/40 bg-cyan-950/20 p-6 text-center">
               <p className="text-lg font-bold text-white">Ask a good question. Listen. Bring back what you learn.</p>
               <p className="mt-2 text-slate-300">People provide the knowledge. AI helps the business remember, organize, and use it. People continue making the decisions.</p>
+              <p className="mt-3 text-sm text-slate-400">This is team building, continuous improvement, and shared business knowledge—not employee surveillance, not replacing people, and not AI making management decisions.</p>
             </div>
             <h3 className="mb-6 text-center text-2xl font-bold text-white">What could a Digital Growth Roadmap look like?</h3>
             <div className="grid gap-4 md:grid-cols-5">
@@ -294,4 +295,3 @@ export default function Home() {
     </div>
   );
 }
-

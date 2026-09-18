@@ -106,6 +106,7 @@ export default function WhyNTA() {
           <div className="mt-7 space-y-5 text-lg leading-8 text-slate-300">
             <p>You do not need to share every belief I hold to work with me. But you deserve to know the person and principles behind the work.</p>
             <p>I want to understand before I recommend. I want to preserve what is already good. I want to be honest about what technology can and cannot do. I want the people I serve to understand what we are building together.</p>
+            <p>That includes the knowledge already living across a business—employees who hear customer questions, customers who share insight, and everyday conversations that contain real business intelligence. AI can help remember, organize, and bring those ideas forward. It is not for watching people, replacing them, or making decisions that should stay human.</p>
             <p>That does not make me better or wiser than anyone else. It simply explains why I approach business this way—and why trust is the foundation of everything I build.</p>
           </div>
           <Button asChild size="lg" className="mt-9 bg-blue-600 hover:bg-blue-500">

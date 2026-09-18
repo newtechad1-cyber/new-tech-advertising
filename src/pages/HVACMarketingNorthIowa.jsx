@@ -13,7 +13,7 @@ export default function HVACMarketingNorthIowa() {
       seoDescription="AI-powered HVAC marketing for North Iowa contractors. Get more furnace and AC calls with Google Business Profile, AI search optimization & social media."
       eyebrow="HVAC Marketing · North Iowa"
       headline="More Service Calls for Your HVAC Business in North Iowa"
-      subheadline="We build complete lead systems for heating and cooling companies — from seasonal campaigns to local SEO pages to follow-up automation — so your phone keeps ringing."
+      subheadline="We build complete lead systems for heating and cooling companies — from seasonal campaigns to local SEO pages to follow-up automation — so your phone keeps ringing. We also help capture the knowledge your technicians and customers already hold, so the business keeps learning."
       problem={[
         "Your busy seasons come and go without a consistent marketing system driving calls.",
         "Customers are searching for 'AC repair Mason City' or 'furnace tune-up North Iowa' and finding someone else.",
@@ -26,6 +26,7 @@ export default function HVACMarketingNorthIowa() {
         "Run seasonal campaigns before spring and fall to drive tune-up and service calls.",
         "Set up a follow-up system so every lead gets a response fast.",
         "Keep your brand visible with regular social content between seasons.",
+        "Capture what technicians and customers already know—common questions, recurring problems, and seasonal patterns—so the business can remember and reuse it.",
       ]}
       includes={[
         "HVAC-specific website rebuild or improvement",

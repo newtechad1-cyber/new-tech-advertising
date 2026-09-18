@@ -105,7 +105,7 @@ export default function GrowthGuide() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Digital Growth Guide™</span>
             </h1>
             <p className="text-xl text-slate-300 mb-12 leading-relaxed max-w-2xl">
-              I'm here to help you understand where your business is today and guide you toward your next right step.
+              I'm here to help you understand where your business is today and guide you toward your next right step. That includes the knowledge already living across your team and customers—not just the owner.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button onClick={() => updateState({step: 1})} className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group shadow-lg shadow-blue-900/20">

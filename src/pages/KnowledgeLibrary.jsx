@@ -64,7 +64,7 @@ export default function KnowledgeLibrary() {
             </h1>
 
             <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
-              The NTA Knowledge Library is a connected learning journey for business owners. These are not ordinary blog posts. Each lesson helps you understand one important principle about growth, trust, relationships, advertising, artificial intelligence, and building a business that can keep learning.
+              The NTA Knowledge Library is a connected learning journey for business owners. These are not ordinary blog posts. Each lesson helps you understand one important principle about growth, trust, relationships, advertising, artificial intelligence, and building a business that can keep learning. Several lessons focus on the knowledge already living across a business—owners, employees, and customers—and how AI can help a team remember, organize, and use it while people keep making the decisions.
             </p>
 
             <p className="text-sm text-slate-500 mb-10 max-w-xl mx-auto">

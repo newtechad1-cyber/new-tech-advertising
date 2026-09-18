@@ -16,7 +16,7 @@ export default function IndustryServiceTrades() {
               Service Trades (HVAC, Plumbing, Electrical)
             </h1>
             <p className="text-lg text-slate-600 mb-12">
-              Win more jobs in your service area and build lasting customer trust.
+              Win more jobs in your service area and build lasting customer trust. Your technicians and customers already know what works—NTA helps capture that knowledge so the whole team keeps learning and improving.
             </p>
 
             <div className="space-y-4 mb-12 text-left max-w-2xl mx-auto">

@@ -5,7 +5,7 @@ import PillarHero from '@/components/templates/PillarHero';
 import PillarSection from '@/components/templates/PillarSection';
 import PillarCTA from '@/components/templates/PillarCTA';
 import InternalLinks from '@/components/templates/InternalLinks';
-import { BrainCircuit, Video, Tv, BarChart2, Globe, Zap, CheckCircle, Shield } from 'lucide-react';
+import { BrainCircuit, Video, Tv, BarChart2, Globe, Zap, CheckCircle, Shield, Users, Brain } from 'lucide-react';
 
 const SYSTEM_LAYERS = [
   { icon: BrainCircuit, color: 'text-violet-400', bg: 'bg-violet-500/10', label: 'AI Content Engine', desc: 'Automatically generate brand-aligned social posts, captions, and campaign content from your business profile — every week.' },
@@ -76,6 +76,32 @@ export default function GrowthSystem() {
               </div>
             );
           })}
+        </div>
+      </PillarSection>
+
+      {/* People + Knowledge */}
+      <PillarSection
+        badge="Built Around People"
+        heading="Technology works best when it helps people work together."
+        subheading="Every business already contains enormous knowledge—owners, employees, customers, and everyday conversations. The Growth System helps capture that knowledge naturally so the team can remember, organize, and use it. AI helps transcribe, identify patterns, and prepare summaries. People continue making the decisions."
+        dark
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <Users className="w-6 h-6 text-blue-400 mb-3" />
+            <h3 className="text-white font-bold text-base mb-2">Knowledge lives across the team</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Employees hear customer questions and solve problems every day. Customers share valuable insight. The system helps capture it without long meetings.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <Brain className="w-6 h-6 text-violet-400 mb-3" />
+            <h3 className="text-white font-bold text-base mb-2">AI helps remember and organize</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Transcribe conversations, identify patterns, prepare summaries, and bring important ideas forward—so nothing useful disappears.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <Shield className="w-6 h-6 text-emerald-400 mb-3" />
+            <h3 className="text-white font-bold text-base mb-2">People stay in authority</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">This is team building and continuous improvement—not surveillance, not replacing people, and not AI making management decisions.</p>
+          </div>
         </div>
       </PillarSection>
 

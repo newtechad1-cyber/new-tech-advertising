@@ -43,7 +43,7 @@ export default function IndustriesHub() {
               Industries We Help
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Choose your industry to see the best starting point.
+              Choose your industry to see the best starting point. Whatever the industry, the most valuable knowledge often lives with the people doing the work—employees, customers, and everyday conversations. NTA helps capture it naturally so the business keeps learning.
             </p>
           </div>
 

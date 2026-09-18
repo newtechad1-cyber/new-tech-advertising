@@ -110,7 +110,7 @@ export default function FreeAudit() {
             Start Your Free Business Gap Audit
           </h1>
           <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-5 max-w-2xl mx-auto">
-            Tell us what is happening in your business. We will review the starting information, identify visible gaps and priorities, and give you a useful first-pass direction.
+            Tell us what is happening in your business. We will review the starting information, identify visible gaps and priorities, and give you a useful first-pass direction. The most useful starting point often includes what your team and customers already know—everyday conversations contain business intelligence worth capturing.
           </p>
           <p className="text-slate-400 max-w-2xl mx-auto mb-10">
             This free audit is designed to help you decide what deserves attention first. A deeper paid diagnostic is available only when more evidence, analysis, or a detailed Growth Roadmap would be useful.
