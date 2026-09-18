@@ -60,7 +60,7 @@ export default function DigitalGrowthAdvisor() {
         <div className="mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold">Choose the ways you naturally connect.</h2>
           <p className="mt-5 max-w-3xl text-lg text-slate-300">Phone. Email. Face-to-face. Networking. Social. A combination. There is no one required NTA approach.</p>
-          <p className="mt-4 max-w-3xl text-lg text-slate-300">In fact, you are not selling at all. You are helping business owners understand practical ways AI can help their business grow.</p>
+          <p className="mt-4 max-w-3xl text-lg text-slate-300">In fact, you're not selling at all. You're helping business owners understand practical ways they can use AI to help their business grow.</p>
           <div className="mt-7 grid gap-3 sm:grid-cols-3">
             {['Phone', 'Email', 'Face-to-face', 'Networking', 'Social', 'A combination'].map(method => <div key={method} className="rounded-xl border border-cyan-300/30 px-5 py-4 font-semibold text-cyan-100">{method}</div>)}
           </div>
