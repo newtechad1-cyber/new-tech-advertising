@@ -18,6 +18,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
   const [form, setForm] = useState({
     full_name: '',
     business_name: '',
+    website: '',
     email: '',
     phone: '',
     notes: '',
@@ -58,6 +59,7 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         source_page: sourceData.source_page || '/start',
         name: form.full_name,
         business_name: form.business_name,
+        website: form.website,
         email: form.email,
         phone: form.phone,
         notes: form.notes || 'Requested a free growth conversation',
@@ -122,6 +124,18 @@ export default function StartForm({ sourceData = {}, onSuccess }) {
         </div>
 
         {errMsg('contact')}
+
+        <Label className="block">
+          <span className="text-slate-300 text-sm mb-1.5 block">Business Website <span className="text-slate-500 font-normal">(optional)</span></span>
+          <Input
+            type="url"
+            value={form.website}
+            onChange={(e) => set('website', e.target.value)}
+            placeholder="Enter your website address if you have one. If you don't have a website yet, that's okay."
+            className={inputCls}
+            autoComplete="url"
+          />
+        </Label>
 
         <Label className="block">
           <span className="text-slate-300 text-sm mb-1.5 block">What's on your mind? (optional)</span>
