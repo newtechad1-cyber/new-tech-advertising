@@ -233,6 +233,8 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            <p className="mt-7 text-center text-sm font-semibold tracking-wide text-cyan-200">Listen → Capture → Understand → Decide → Act → Measure → Learn → Improve</p>
+            <p className="mx-auto mt-3 max-w-3xl text-center text-sm leading-relaxed text-slate-400">This is a framework, not a five-part package. We start with where your business is now, find where growth is getting stuck, and build the next useful piece without forcing you to buy or replace everything at once.</p>
 
             <p className="mt-7 text-center">
               <Link to="/services#first-project" className="font-semibold text-blue-300 hover:text-blue-200">See what your first project with NTA looks like →</Link>
