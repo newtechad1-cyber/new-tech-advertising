@@ -19,7 +19,7 @@ const NAV_LINKS = [
 ];
 
 // This is the prospect entrance; the Core domain currently requires sign-in.
-const OPPORTUNITY_HREF = '/account-manager';
+const OPPORTUNITY_HREF = '/digital-growth-advisor';
 
 export default function MarketingNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
