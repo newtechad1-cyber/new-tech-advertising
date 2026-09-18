@@ -1,89 +1,73 @@
 import { Link } from 'react-router-dom';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Phone, MessageSquare, Mail, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function StartSuccess({ trialId: _trialId }) {
+const PHONE = '6414208816';
+const PHONE_DISPLAY = '641-420-8816';
+const EMAIL = 'info@newtechadvertising.com';
+const CALENDAR_URL = 'https://calendar.app.google/p6ieYanvwhixXxZ67';
+const SMS_BODY = encodeURIComponent('Hey Rick, I started a free growth conversation and wanted to continue.');
+
+function openGrowthGuide() {
+  window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
+    detail: { source: 'start_success_talk_office' },
+  }));
+}
+
+export default function StartSuccess({ name }) {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 py-20 text-center">
-      <motion.div 
+      <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-6"
       >
         <CheckCircle2 className="w-10 h-10 text-emerald-500" />
       </motion.div>
-      
-      <h2 className="text-3xl font-black text-white mb-4">Your Setup Request Is Saved</h2>
-      <p className="text-slate-400 text-lg mb-10 max-w-lg mx-auto">
-        NTA will review your business and help you choose the next step. Here's what happens next:
+
+      <h2 className="text-3xl font-black text-white mb-4">
+        {name ? `${name}, your conversation request is in.` : 'Your conversation request is in.'}
+      </h2>
+      <p className="text-slate-400 text-lg mb-10 max-w-xl mx-auto">
+        Rick will reach out to listen and help you sort through what's on your mind. There's no package to choose and nothing to buy. You can also continue in whatever way feels natural.
       </p>
 
-      {/* Timeline Stepper */}
-      <div className="max-w-xl w-full mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-10 text-left">
-        <div className="relative space-y-6">
-          <div className="absolute left-3 top-3 bottom-3 w-0.5 bg-slate-800"></div>
-
-          <div className="relative flex gap-4">
-            <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center relative z-10 shrink-0 outline outline-4 outline-slate-900">
-              <CheckCircle2 className="w-4 h-4 text-slate-900" />
-            </div>
-            <div>
-              <p className="font-bold text-white mb-1">You signed up</p>
-              <p className="text-sm text-slate-400">Your business information has been saved for review</p>
-            </div>
-          </div>
-
-          <div className="relative flex gap-4">
-            <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center relative z-10 shrink-0 outline outline-4 outline-slate-900 animate-pulse">
-              <div className="w-2 h-2 rounded-full bg-white"></div>
-            </div>
-            <div>
-              <p className="font-bold text-white mb-1">We review your business</p>
-              <p className="text-sm text-slate-400">We'll discuss your goals and decide what a useful first step looks like</p>
-            </div>
-          </div>
-
-          <div className="relative flex gap-4">
-            <div className="w-6 h-6 rounded-full bg-slate-800 border-2 border-slate-700 relative z-10 shrink-0 outline outline-4 outline-slate-900"></div>
-            <div>
-              <p className="font-bold text-slate-500 mb-1">Agree on the next step</p>
-              <p className="text-sm text-slate-600">Any paid work begins after we agree on scope and price</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl mb-10">
-        {/* Left Card */}
-        <div className="bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors rounded-2xl p-6 text-left flex flex-col h-full">
-          <div className="text-3xl mb-4">📅</div>
-          <h3 className="text-xl font-bold text-white mb-2">Get Set Up With Rick</h3>
-          <p className="text-slate-400 text-sm mb-6 flex-grow">
-            Choose a time to talk through your business, answer questions, and decide what fits. The calendar shows the appointment length.
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-3xl mb-10 text-left">
+        {/* Continue the conversation */}
+        <div className="bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors rounded-2xl p-6 flex flex-col h-full">
+          <h3 className="text-lg font-bold text-white mb-3">Continue the Conversation</h3>
+          <p className="text-slate-400 text-sm mb-5 flex-grow">
+            Pick whatever feels natural. Call, text, email, book a time, or talk through the Digital Growth Guide.
           </p>
-          <div className="mt-auto">
-            <a 
-              href="https://calendar.app.google/p6ieYanvwhixXxZ67" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="block w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition-colors mb-2"
-            >
-              Book Kickoff Call →
+          <div className="space-y-2.5">
+            <a href={`tel:+1${PHONE}`} className="flex items-center gap-3 text-slate-200 hover:text-white text-sm transition-colors">
+              <Phone className="w-4 h-4 text-blue-400" /> Call Rick: {PHONE_DISPLAY}
             </a>
-            <p className="text-center text-slate-500 text-xs">Optional — choose the way you prefer to continue</p>
+            <a href={`sms:+1${PHONE}?body=${SMS_BODY}`} className="flex items-center gap-3 text-slate-200 hover:text-white text-sm transition-colors">
+              <MessageSquare className="w-4 h-4 text-blue-400" /> Text Rick
+            </a>
+            <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 text-slate-200 hover:text-white text-sm transition-colors">
+              <Mail className="w-4 h-4 text-blue-400" /> {EMAIL}
+            </a>
+            <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-200 hover:text-white text-sm transition-colors">
+              <Calendar className="w-4 h-4 text-blue-400" /> Book a time to talk
+            </a>
+            <button type="button" onClick={openGrowthGuide} className="flex items-center gap-3 text-slate-200 hover:text-white text-sm transition-colors text-left">
+              <MessageSquare className="w-4 h-4 text-blue-400" /> Talk to My Office™
+            </button>
           </div>
         </div>
 
-        {/* Right Card */}
-        <div className="bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors rounded-2xl p-6 text-left flex flex-col h-full">
-          <div className="text-3xl mb-4">💻</div>
+        {/* Keep learning */}
+        <div className="bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors rounded-2xl p-6 flex flex-col h-full">
+          <div className="text-3xl mb-4">📚</div>
           <h3 className="text-xl font-bold text-white mb-2">Keep Learning While You Wait</h3>
           <p className="text-slate-400 text-sm mb-6 flex-grow">
-            Explore answers to common business questions. NTA will explain any account access once your setup is ready.
+            Explore plain-English answers to common business questions. No account is needed to keep learning.
           </p>
           <div className="mt-auto">
-            <Link 
-              to="/knowledge/questions" 
+            <Link
+              to="/knowledge/questions"
               className="block w-full text-center bg-transparent border border-slate-700 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition-colors mb-2"
             >
               Browse Business Questions →
@@ -94,7 +78,7 @@ export default function StartSuccess({ trialId: _trialId }) {
       </div>
 
       <p className="text-slate-500 text-sm">
-        Questions anytime? Call or text Rick: <a href="tel:6414208816" className="text-blue-400 hover:text-blue-300">641-420-8816</a>
+        Questions anytime? Call or text Rick: <a href={`tel:+1${PHONE}`} className="text-blue-400 hover:text-blue-300">{PHONE_DISPLAY}</a>
       </p>
     </div>
   );

@@ -1,92 +1,60 @@
-import { ArrowDown, CheckCircle, Zap } from 'lucide-react';
-
-const BULLETS = [
-  'Weekly marketing plan tailored to your business',
-  'Content and video ideas ready to use',
-  'Campaign recommendations based on your industry',
-  'Marketing tools built around your goals',
-];
-
-const STEPS = [
-  { num: '1', label: 'Tell us about your business' },
-  { num: '2', label: 'We generate your starting plan' },
-  { num: '3', label: 'Begin creating content & campaigns' },
-];
+import { ArrowDown, MessageCircle } from 'lucide-react';
 
 export default function StartHero({ onScrollToForm }) {
+  const openGrowthGuide = () => {
+    window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
+      detail: { source: 'start_hero_talk_office' },
+    }));
+  };
+
   return (
-    <section className="relative bg-slate-950 overflow-hidden pt-16 pb-12">
+    <section className="relative bg-slate-950 overflow-hidden pt-28 pb-16">
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-violet-600/15 rounded-full blur-[100px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[420px] bg-blue-600/15 rounded-full blur-[110px]" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-center mb-5">
-          <span className="inline-flex items-center gap-2 bg-violet-600/20 border border-violet-500/30 text-violet-300 text-sm font-medium px-4 py-1.5 rounded-full">
-            <Zap className="w-3.5 h-3.5" /> Free 14-day trial · No credit card required
-          </span>
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span className="inline-flex items-center gap-2 bg-blue-600/15 border border-blue-500/30 text-blue-300 text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full uppercase tracking-wider">
+          <MessageCircle className="w-3.5 h-3.5" /> A Free Conversation About Your Business
+        </span>
+
+        <h1 className="mt-6 text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight tracking-tight">
+          What would you like to understand better about your business?
+        </h1>
+
+        <div className="mt-6 max-w-2xl mx-auto text-slate-300 text-base sm:text-lg leading-relaxed space-y-4">
+          <p>
+            You don't need to know what service you need—or whether you need one at all.
+          </p>
+          <p>
+            Tell me what's on your mind. It might be your team, customers, website, marketing, AI, communication, growth, or simply something in the business that doesn't seem to be working as well as you'd like.
+          </p>
+          <p>
+            We'll talk about it. I'll listen, ask questions, and help you sort through what you're seeing. If there's a useful next step, we'll identify it together.
+          </p>
+          <p>
+            That conversation may eventually become the beginning of your <strong className="text-white font-semibold">Digital Growth Roadmap™</strong>, but there's no package you have to choose and nothing you have to buy just to have the conversation.
+          </p>
+          <p className="text-blue-300 font-semibold">
+            The conversation is free. The purpose is understanding your business better.
+          </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: copy */}
-          <div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-white leading-tight tracking-tight mb-4">
-              Start Your{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">
-                Free Trial
-              </span>
-            </h1>
-            <p className="text-lg text-slate-300 mb-7 leading-relaxed">
-              Tell us about your business and we'll help you start building your marketing system — content, videos, campaigns, and direction all in one place.
-            </p>
-
-            <ul className="space-y-3 mb-8">
-              {BULLETS.map(b => (
-                <li key={b} className="flex items-start gap-3 text-slate-300">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-
-            <button
-              onClick={onScrollToForm}
-              className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-violet-600/30"
-            >
-              Get Started <ArrowDown className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* Right: step visual */}
-          <div className="hidden lg:block">
-            <div className="bg-slate-900 border border-slate-700 rounded-2xl p-8">
-              <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold mb-6">How It Works</p>
-              <div className="space-y-5">
-                {STEPS.map((step, i) => (
-                  <div key={step.num} className="flex items-start gap-4">
-                    <div className="w-9 h-9 rounded-full bg-violet-600/20 border border-violet-500/40 flex items-center justify-center flex-shrink-0">
-                      <span className="text-violet-300 font-bold text-sm">{step.num}</span>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-white font-semibold">{step.label}</p>
-                      {i < STEPS.length - 1 && (
-                        <div className="mt-3 ml-0.5 w-px h-5 bg-slate-700" />
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8 pt-6 border-t border-slate-800">
-                <p className="text-slate-500 text-sm">Built for small businesses. Not agencies.</p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {['No contracts', 'Cancel anytime', 'Setup in 48 hrs'].map(t => (
-                    <span key={t} className="text-xs bg-slate-800 border border-slate-700 text-slate-400 px-3 py-1 rounded-full">{t}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button
+            onClick={onScrollToForm}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-3.5 rounded-xl text-base sm:text-lg transition-colors shadow-lg shadow-blue-600/30"
+          >
+            Start a Free Growth Conversation <ArrowDown className="w-5 h-5" />
+          </button>
+          <button
+            type="button"
+            onClick={openGrowthGuide}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-7 py-3.5 rounded-xl text-base transition-colors border border-slate-700"
+          >
+            Talk to My Office™
+          </button>
         </div>
       </div>
     </section>

@@ -1,289 +1,152 @@
 import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import React, { useState } from 'react';
-import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import StartTrust from './StartTrust';
 
-const INDUSTRIES = [
-  'HVAC', 'Plumbing', 'Restaurant', 'Contractor', 'Electrician',
-  'Roofing', 'Auto Repair', 'Other Local Service Business', 'Marketing / Agency / Other',
-];
-
-const GOALS = [
-  { value: 'leads', label: 'Get more leads' },
-  { value: 'visibility', label: 'Improve visibility online' },
-  { value: 'consistency', label: 'Stay consistent with marketing' },
-  { value: 'content_video', label: 'Create more content and videos' },
-  { value: 'replace_marketing', label: 'Replace my current marketing approach' },
-];
-
-const SOURCES = [
-  { value: 'google', label: 'Google Search' },
-  { value: 'facebook', label: 'Facebook' },
-  { value: 'youtube', label: 'YouTube' },
-  { value: 'referral', label: 'Referral' },
-  { value: 'email', label: 'Email' },
-  { value: 'demo_tool', label: 'Demo / Tool Page' },
-  { value: 'other', label: 'Other' },
-];
-
-const FIELD = ({ label, children, required }) => (
-  <Label className="block">
-    <span className="text-slate-300 text-sm mb-1.5 block">
-      {label}{required && <span className="text-violet-400 ml-0.5">*</span>}
-    </span>
-    {children}
-  </Label>
-);
-
-const inputCls = "bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-violet-500 focus:ring-violet-500/20";
-const selectCls = "w-full bg-slate-800 border border-slate-700 text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500";
+const inputCls = 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20';
 
 export default function StartForm({ sourceData = {}, onSuccess }) {
-  const [step, setStep] = useState(1);
-  const [showExtra, setShowExtra] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState('');
-  // Anti-spam: honeypot + page-load timestamp
+  // Anti-spam: honeypot
   const [_hp, setHp] = useState('');
-  const [pageLoadTs] = useState(() => Date.now());
 
   const [form, setForm] = useState({
-    // Step 1
-    business_name: '',
     full_name: '',
+    business_name: '',
     email: '',
     phone: '',
-    industry: '',
-    city: '',
-    state: '',
-    primary_goal: '',
-    // Step 2 / extras
-    website_url: '',
-    how_did_you_find_us: '',
     notes: '',
     ...sourceData,
   });
 
   const set = (field, value) => {
-    setForm(prev => ({ ...prev, [field]: value }));
-    if (errors[field]) setErrors(prev => ({ ...prev, [field]: null }));
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: null }));
   };
 
-  const validateStep1 = () => {
+  const validate = () => {
     const errs = {};
-    if (!form.business_name.trim()) errs.business_name = 'Required';
-    if (!form.full_name.trim()) errs.full_name = 'Required';
-    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Valid email required';
-    if (!form.industry) errs.industry = 'Required';
-    if (!form.city.trim()) errs.city = 'Required';
-    if (!form.state.trim()) errs.state = 'Required';
-    if (!form.primary_goal) errs.primary_goal = 'Required';
+    if (!form.full_name.trim()) errs.full_name = "Please share your name so Rick knows who he is talking with.";
+    const hasEmail = form.email.trim() && /\S+@\S+\.\S+/.test(form.email);
+    const hasPhone = form.phone.trim();
+    if (!hasEmail && !hasPhone) {
+      errs.contact = 'Add an email or a phone number so Rick can reach you.';
+    }
     return errs;
-  };
-
-  const handleStep1 = () => {
-    const errs = validateStep1();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
-    setStep(2);
-    window.scrollTo({ top: document.getElementById('start-form')?.offsetTop - 80, behavior: 'smooth' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (submitting) return;
-    const validationErrors = validateStep1();
-    if (Object.keys(validationErrors).length) { setErrors(validationErrors); setStep(1); return; }
+    if (_hp.trim()) return; // honeypot tripped — silently ignore
+    const errs = validate();
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
     setSubmitError('');
     setSubmitting(true);
     try {
-      // One verified request saves the trial and forwards its CRM handoff on the server.
-      const trialResponse = await invokeVerifiedPublicFunction('submitPublicTrialSignup', {
+      await invokeVerifiedPublicFunction('ntaUnifiedIntake', {
+        submission_type: 'growth_conversation_request',
+        source_system: 'website',
+        source_page: sourceData.source_page || '/start',
+        name: form.full_name,
         business_name: form.business_name,
-        full_name: form.full_name,
         email: form.email,
         phone: form.phone,
-        industry: form.industry,
-        city: form.city,
-        state: form.state,
-        primary_goal: form.primary_goal,
-        website_url: form.website_url,
-        how_did_you_find_us: form.how_did_you_find_us || 'other',
-        source_page: sourceData.source_page || '/start',
-        source_tool: sourceData.source_tool || '',
-        source_campaign: sourceData.source_campaign || '',
-        notes: form.notes,
-        anti_spam: {
-          honeypot: _hp,
-          form_started_at: pageLoadTs,
-        },
+        notes: form.notes || 'Requested a free growth conversation',
+        skip_webhook: true,
+        anti_spam: { honeypot: _hp },
       });
-      const trialResult = trialResponse?.data ?? trialResponse;
-      if (!trialResult?.success || !trialResult?.trial_id) {
-        throw new Error(trialResult?.error || 'We could not begin your trial.');
-      }
-
-      onSuccess({
-        trialId: trialResult.trial_id,
-        businessProfileId: trialResult.business_profile_id,
-        provisioningStatus: trialResult.provisioning_status || 'queued',
-      });
+      onSuccess({ name: form.full_name.trim() });
     } catch (err) {
-      console.error('Trial submission error:', err);
-      setSubmitError(err?.response?.data?.error || err?.message || 'We could not save your request. Please try again or call or text 641-420-8816.');
+      const message =
+        err?.response?.data?.error ||
+        err?.data?.error ||
+        err?.message ||
+        'We could not save your request. Please call or text 641-420-8816 instead.';
+      setSubmitError(message);
       setSubmitting(false);
     }
   };
 
-  const errMsg = (field) => errors[field] ? (
-    <p className="text-red-400 text-xs mt-1">{errors[field]}</p>
-  ) : null;
+  const errMsg = (field) =>
+    errors[field] ? <p className="text-red-400 text-xs mt-1">{errors[field]}</p> : null;
 
   return (
     <div id="start-form" className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8">
-      {/* Progress */}
-      <div className="flex items-center gap-3 mb-7">
-        {[1, 2].map(n => (
-          <React.Fragment key={n}>
-            <div className={`flex items-center gap-2 ${step >= n ? 'text-white' : 'text-slate-600'}`}>
-              <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all ${step >= n ? 'bg-violet-600 border-violet-600 text-white' : 'border-slate-700 text-slate-600'}`}>
-                {n}
-              </div>
-              <span className="text-sm font-medium hidden sm:inline">
-                {n === 1 ? 'Your Business' : 'A Few More Details'}
-              </span>
-            </div>
-            {n < 2 && <div className={`flex-1 h-px ${step > 1 ? 'bg-violet-600' : 'bg-slate-800'}`} />}
-          </React.Fragment>
-        ))}
-      </div>
+      <h2 className="text-2xl font-bold text-white mb-2">Start a Free Growth Conversation</h2>
+      <p className="text-slate-400 text-sm leading-relaxed mb-6">
+        Just enough to begin the conversation. Rick will reach out, listen, and help you sort through what's on your mind. There's no package to choose and nothing to buy just to talk.
+      </p>
 
-      <form onSubmit={handleSubmit}>
-        {submitError && <p role="alert" className="mb-5 rounded-xl border border-red-500/40 bg-red-950/40 p-4 text-sm text-red-200">{submitError}</p>}
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {submitError && (
+          <p role="alert" className="rounded-xl border border-red-500/40 bg-red-950/40 p-4 text-sm text-red-200">
+            {submitError}
+          </p>
+        )}
+
         {/* Anti-spam honeypot — hidden from real users */}
         <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
           <label htmlFor="company_url">Company URL</label>
-          <input id="company_url" name="company_url" type="text" tabIndex={-1} autoComplete="off" value={_hp} onChange={e => setHp(e.target.value)} />
+          <input id="company_url" name="company_url" type="text" tabIndex={-1} autoComplete="off" value={_hp} onChange={(e) => setHp(e.target.value)} />
         </div>
-        {/* ── STEP 1 ─────────────────────────────────── */}
-        {step === 1 && (
-          <div className="space-y-5">
-            <div className="grid sm:grid-cols-2 gap-5">
-              <FIELD label="Business Name" required>
-                <Input value={form.business_name} onChange={e => set('business_name', e.target.value)} placeholder="Smith Plumbing" className={inputCls} />
-                {errMsg('business_name')}
-              </FIELD>
-              <FIELD label="Your Name" required>
-                <Input value={form.full_name} onChange={e => set('full_name', e.target.value)} placeholder="Jane Smith" className={inputCls} />
-                {errMsg('full_name')}
-              </FIELD>
-              <FIELD label="Email" required>
-                <Input type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="jane@smithplumbing.com" className={inputCls} />
-                {errMsg('email')}
-              </FIELD>
-              <FIELD label="Phone">
-                <Input type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="(555) 123-4567" className={inputCls} />
-              </FIELD>
-            </div>
 
-            <FIELD label="Industry" required>
-              <select value={form.industry} onChange={e => set('industry', e.target.value)} className={selectCls}>
-                <option value="">Select your industry…</option>
-                {INDUSTRIES.map(i => <option key={i} value={i}>{i}</option>)}
-              </select>
-              {errMsg('industry')}
-            </FIELD>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <Label className="block">
+            <span className="text-slate-300 text-sm mb-1.5 block">
+              Your Name <span className="text-blue-400">*</span>
+            </span>
+            <Input value={form.full_name} onChange={(e) => set('full_name', e.target.value)} placeholder="Jane Smith" className={inputCls} />
+            {errMsg('full_name')}
+          </Label>
+          <Label className="block">
+            <span className="text-slate-300 text-sm mb-1.5 block">Business Name</span>
+            <Input value={form.business_name} onChange={(e) => set('business_name', e.target.value)} placeholder="Smith Plumbing" className={inputCls} />
+          </Label>
+          <Label className="block">
+            <span className="text-slate-300 text-sm mb-1.5 block">Email</span>
+            <Input type="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="jane@smithplumbing.com" className={inputCls} />
+          </Label>
+          <Label className="block">
+            <span className="text-slate-300 text-sm mb-1.5 block">Phone</span>
+            <Input type="tel" value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder="(555) 123-4567" className={inputCls} />
+          </Label>
+        </div>
 
-            <div className="grid sm:grid-cols-2 gap-5">
-              <FIELD label="City" required>
-                <Input value={form.city} onChange={e => set('city', e.target.value)} placeholder="Des Moines" className={inputCls} />
-                {errMsg('city')}
-              </FIELD>
-              <FIELD label="State" required>
-                <Input value={form.state} onChange={e => set('state', e.target.value)} placeholder="IA" className={inputCls} />
-                {errMsg('state')}
-              </FIELD>
-            </div>
+        {errMsg('contact')}
 
-            <FIELD label="What's your primary marketing goal?" required>
-              <select value={form.primary_goal} onChange={e => set('primary_goal', e.target.value)} className={selectCls}>
-                <option value="">Select your goal…</option>
-                {GOALS.map(g => <option key={g.value} value={g.value}>{g.label}</option>)}
-              </select>
-              {errMsg('primary_goal')}
-            </FIELD>
+        <Label className="block">
+          <span className="text-slate-300 text-sm mb-1.5 block">What's on your mind? (optional)</span>
+          <textarea
+            aria-label="What's on your mind"
+            value={form.notes}
+            onChange={(e) => set('notes', e.target.value)}
+            rows={4}
+            placeholder="Share as much or as little as you'd like. A question, something that isn't working as well as you'd like, or what you'd like to understand better."
+            className="w-full bg-slate-800 border border-slate-700 text-white rounded-md px-3 py-2 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 resize-none"
+          />
+        </Label>
 
-            <Button
-              type="button"
-              onClick={handleStep1}
-              className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 h-auto text-base rounded-xl shadow-lg shadow-violet-600/30"
-            >
-              Continue <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </div>
-        )}
+        <Button
+          type="submit"
+          disabled={submitting}
+          className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 h-auto text-base rounded-xl shadow-lg shadow-blue-600/30"
+        >
+          {submitting ? 'Sending your request…' : 'Start a Free Growth Conversation'}
+          {!submitting && <ArrowRight className="w-5 h-5 ml-2" />}
+        </Button>
 
-        {/* ── STEP 2 ─────────────────────────────────── */}
-        {step === 2 && (
-          <div className="space-y-5">
-            <FIELD label="Business Website">
-              <Input type="url" value={form.website_url} onChange={e => set('website_url', e.target.value)} placeholder="https://smithplumbing.com" className={inputCls} />
-            </FIELD>
-
-            <FIELD label="How did you find us?">
-              <select value={form.how_did_you_find_us} onChange={e => set('how_did_you_find_us', e.target.value)} className={selectCls}>
-                <option value="">Select…</option>
-                {SOURCES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-              </select>
-            </FIELD>
-
-            {/* Optional extras */}
-            <button
-              type="button"
-              onClick={() => setShowExtra(!showExtra)}
-              className="flex items-center gap-2 text-slate-400 hover:text-white text-sm transition-colors"
-            >
-              {showExtra ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              Add a note about your business (optional)
-            </button>
-
-            {showExtra && (
-              <textarea
-                aria-label="Notes about your business"
-                value={form.notes}
-                onChange={e => set('notes', e.target.value)}
-                rows={3}
-                placeholder="Tell us anything that would help us set up your marketing system better…"
-                className="w-full bg-slate-800 border border-slate-700 text-white rounded-md px-3 py-2 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 resize-none"
-              />
-            )}
-
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => setStep(1)}
-                className="px-4 py-3 text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 rounded-xl text-sm font-medium transition-colors"
-              >
-                ← Back
-              </button>
-              <Button
-                type="submit"
-                disabled={submitting}
-                className="flex-1 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 h-auto text-base rounded-xl shadow-lg shadow-violet-600/30"
-              >
-                {submitting ? 'Saving your request…' : 'Request My Guided Setup'}
-                {!submitting && <ArrowRight className="w-5 h-5 ml-2" />}
-              </Button>
-            </div>
-
-            <p className="text-center text-slate-600 text-xs">
-              No agency sales pitch · Built for small businesses · Guided setup
-            </p>
-          </div>
-        )}
+        <p className="text-center text-slate-500 text-xs">
+          The conversation is free · No package to choose · Nothing to buy just to talk
+        </p>
       </form>
 
       <StartTrust />
