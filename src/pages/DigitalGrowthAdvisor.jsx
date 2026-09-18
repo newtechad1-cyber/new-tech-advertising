@@ -6,7 +6,7 @@ import { ADVISOR_FAQS, ADVISOR_RESOURCES, ADVISOR_STEPS, PUBLIC_SITE } from '@/d
 
 const support = [
   ['Research and preparation', 'Prospect research, a connected prospecting system, Gap Audits, and talking points help you begin with useful context.'],
-  ['Learning while you work', 'AI, marketing knowledge, lessons, the Growth Show, and Your Digital Growth Guide™ help with the question in front of you.'],
+  ['Learning while you work', 'AI, marketing knowledge, lessons, the Growth Show, and Your Digital Growth Guide™ help with the question in front of you. With the business owner’s permission, AI can organize the important points from a conversation and help prepare the next step.'],
   ['Follow-through and implementation', 'Email assistance, follow-up tools, printable leave-behind material, and NTA’s implementation capabilities support the relationship.'],
 ];
 
@@ -52,7 +52,8 @@ export default function DigitalGrowthAdvisor() {
               <p className="mt-4 leading-relaxed text-slate-300">{text}</p>
             </article>)}
           </div>
-          <p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300">Ask a good question. Listen. Bring back what you learn. NTA helps you understand the business, prepare useful follow-up, and connect the owner with the right support.</p>
+          <p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300">Ask a good question. Listen. Bring back what you learn. NTA works with the way people want to work—whether that means listening and taking notes, bringing back their own summary, or recording a conversation with clear permission. If recording is not comfortable, you do not need to record.</p>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-300">With your approval, AI can help organize what was said, keep track of the important points, prepare useful follow-up, and begin shaping the Growth Roadmap. The goal is to help people work better and smarter—not force them to change how they work.</p>
         </div>
       </section>
 
