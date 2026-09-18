@@ -24,7 +24,7 @@ export default function DigitalGrowthAdvisor() {
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.16em] text-cyan-300">Learn. Earn. Build.</p>
-            <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-6xl">Digital Growth Advisor</h1>
+            <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-6xl">Become a Digital Growth Advisor</h1>
             <p className="mt-6 text-2xl font-semibold leading-snug sm:text-3xl">Learn AI. Learn Business.<br />Help Businesses Grow.</p>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">Develop relationships with business owners. Listen to what they are trying to accomplish. NTA brings the Digital Growth Office, tools, knowledge, and support behind you.</p>
             <div className="mt-8 flex flex-wrap gap-3">
