@@ -78,10 +78,13 @@ export default function HeroSection() {
           </h1>
           <div className="mx-auto mt-7 max-w-3xl space-y-4 text-lg leading-relaxed text-slate-300 md:text-xl">
             <p>
-              AI and digital change are making business more complicated. NTA helps you make a good next decision without spending unnecessary time learning every technology or system.
+              Your <strong className="text-white">Digital Growth Office™</strong> gives you, your team and NTA a practical place to capture questions, ideas and everyday business knowledge. AI helps remember, organize and bring important things back to your attention. <strong className="text-white">People provide the knowledge. People make the decisions.</strong>
             </p>
             <p>
-              Start with the problem in front of you. NTA will help you understand where technology can help, where it cannot, and what makes sense to do next.
+              From there, we build a practical <strong className="text-white">Digital Growth Roadmap™</strong> around your business—not a package of things you have to buy.
+            </p>
+            <p className="font-semibold text-white">
+              Ask a good question. Listen. Bring back what you learn. Then decide what makes sense to do next.
             </p>
           </div>
         </div>
