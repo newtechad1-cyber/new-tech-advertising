@@ -266,8 +266,8 @@ const STATIC_SEO = {
     noIndex: true,
   },
   "/growth-system": {
-    title: "The NTA Growth System | Connected Marketing for Small Business",
-    description: "See how NTA connects AI content, video, streaming TV, local SEO, reporting, and done-for-you marketing into one small-business growth system.",
+    title: "How NTA Helps Your Business Work Better Together | New Tech Advertising",
+    description: "NTA helps small businesses connect people, knowledge, customers, communication, marketing, and practical technology through a Digital Growth Office and a practical Digital Growth Roadmap.",
   },
   "/local-business-marketing": {
     title: "Local Business Marketing | AI Marketing for Small Business",
