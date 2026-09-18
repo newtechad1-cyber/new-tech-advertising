@@ -213,13 +213,18 @@ export default function Home() {
               </p>
             </div>
 
+            <div className="mb-8 rounded-2xl border border-cyan-800/40 bg-cyan-950/20 p-6 text-center">
+              <p className="text-lg font-bold text-white">Ask a good question. Listen. Bring back what you learn.</p>
+              <p className="mt-2 text-slate-300">People provide the knowledge. AI helps the business remember, organize, and use it. People continue making the decisions.</p>
+            </div>
+            <h3 className="mb-6 text-center text-2xl font-bold text-white">What could a Digital Growth Roadmap look like?</h3>
             <div className="grid gap-4 md:grid-cols-5">
               {[
-                ['01', 'Understand', 'Learn from the owner and, with permission, the people doing the work.'],
-                ['02', 'Involve', 'Bring in the knowledge and teach what matters.'],
-                ['03', 'Growth Roadmap', 'Agree on the priorities and a practical path forward.'],
-                ['04', 'First project', 'Choose the scope, cost, and responsibilities before work begins.'],
-                ['05', 'Build and improve', 'Put the agreed work in place, review it together, and decide what comes next.'],
+                ['01', 'Foundation', 'Strengthen the website, domain, Google presence, accurate business information, and customer access points.'],
+                ['02', 'Digital Growth Office', 'Create a practical place for the owner, employees, and NTA to communicate, capture ideas, organize work, and connect the business.'],
+                ['03', 'Knowledge', 'Turn owner, employee, customer, and system knowledge into a useful Knowledge Library through conversations, questions, recordings, documents, and observations.'],
+                ['04', 'Audience & Growth', 'Use search, reviews, social, educational content, video, and the right channels to grow the part of the business that needs attention now.'],
+                ['05', 'Connect & Improve', 'Understand existing systems first, connect useful information where it helps, measure what happened, and feed the learning back into the Roadmap.'],
               ].map(([number, title, text]) => (
                 <div key={number} className="rounded-2xl border border-blue-900/50 bg-slate-950/60 p-5">
                   <span className="text-xs font-black tracking-[0.2em] text-blue-300">{number}</span>
