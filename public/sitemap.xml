@@ -92,7 +92,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1012,6 +1012,48 @@
     <loc>https://newtechadvertising.com/learning-center/videos</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-tried-a-lot-of-businesses</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/the-gold-is-in-the-niche-the-business-is-in-the-connections</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/free-is-free</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/ai-didnt-give-me-my-experience</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 </urlset>
