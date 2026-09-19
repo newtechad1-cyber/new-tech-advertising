@@ -17,11 +17,6 @@ export default function KnowledgeLibrary() {
   const completedCount = completedLessons.filter(id => typeof id === 'number').length;
   const totalLessons = masterCurriculumMap.length;
   
-  // Determine overall status
-  const lastVisitedLessonId = memory.lastVisitedLessonId || null;
-  const lastVisitedLesson = lastVisitedLessonId 
-    ? masterCurriculumMap.find(l => l.lessonNumber === lastVisitedLessonId)
-    : null;
 
   const handleReset = () => {
     if (window.confirm("Are you sure you want to reset your reading progress?")) {
@@ -73,14 +68,10 @@ export default function KnowledgeLibrary() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link 
-                to={lastVisitedLesson ? lastVisitedLesson.canonicalUrl : '/knowledge/business-foundations'} 
+                to="/knowledge/what-a-lifetime-in-business-taught-me" 
                 className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2"
               >
-                {completedCount > 0 ? (
-                  <><BookOpen className="w-5 h-5" /> Continue reading</>
-                ) : (
-                  <><BookOpen className="w-5 h-5" /> Read the lessons</>
-                )}
+                <BookMarked className="w-5 h-5" /> Explore the NTA Point of View Collection
               </Link>
               <Link
                 to="/learning-center/videos"
@@ -96,11 +87,6 @@ export default function KnowledgeLibrary() {
                 <div>
                   <h3 className="text-white font-bold mb-1">Your Progress</h3>
                   <p className="text-sm text-slate-400">You've completed {completedCount} of {totalLessons} lessons.</p>
-                  {lastVisitedLesson && (
-                    <p className="text-xs text-blue-400 mt-2">
-                      Last visited: {lastVisitedLesson.lessonTitle} ({lastVisitedLesson.collectionTitle})
-                    </p>
-                  )}
                 </div>
                 <div className="w-full md:w-32">
                   <div className="flex justify-between text-xs text-slate-400 mb-1">
