@@ -12,7 +12,11 @@ import GrowWhatMattersSection from '@/components/restaurants/GrowWhatMattersSect
 import ConnectExistingSection from '@/components/restaurants/ConnectExistingSection';
 import TechnologyPeopleSection from '@/components/restaurants/TechnologyPeopleSection';
 import StartConversationSection from '@/components/restaurants/StartConversationSection';
-import RestaurantDemoCallout from '@/components/restaurants/RestaurantDemoCallout';
+import CaseStudyIntro from '@/components/restaurants/case-study/CaseStudyIntro';
+import CaseStudyRoadmap from '@/components/restaurants/case-study/CaseStudyRoadmap';
+import CaseStudyTeamCallout from '@/components/restaurants/case-study/CaseStudyTeamCallout';
+import CaseStudyInProgress from '@/components/restaurants/case-study/CaseStudyInProgress';
+import CaseStudyCTA from '@/components/restaurants/case-study/CaseStudyCTA';
 
 export default function RestaurantSolutions() {
   return (
@@ -26,11 +30,15 @@ export default function RestaurantSolutions() {
         <KnowledgeLibrarySection />
         <ConsistencySection />
         <GrowthRoadmapSection />
+        <CaseStudyIntro />
+        <CaseStudyRoadmap />
+        <CaseStudyTeamCallout />
+        <CaseStudyInProgress />
+        <CaseStudyCTA />
         <GrowWhatMattersSection />
         <ConnectExistingSection />
         <TechnologyPeopleSection />
         <StartConversationSection />
-        <RestaurantDemoCallout />
       </main>
       <SiteFooter />
     </div>
