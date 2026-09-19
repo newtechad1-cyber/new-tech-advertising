@@ -1,129 +1,67 @@
-import { useState } from 'react';
-import Header from '../components/landing/Header';
-import Footer from '../components/landing/Footer';
-import SignupModal from '../components/landing/SignupModal';
-import Chatbot from '../components/Chatbot';
-import { motion } from 'framer-motion';
-import { Search, BarChart2, Globe, ArrowUpCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Brain, CheckCircle2, Compass, FileQuestion, Search, Users } from 'lucide-react';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 
-export default function AiSeo() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const questions = [
+  'What are customers actually searching or asking for?',
+  'Can Google and AI systems clearly understand what your business does?',
+  'Does your website answer useful questions with real business knowledge?',
+  'Are your business name, services, locations and contact details consistent?',
+  'Do reviews and customer experiences support the story your website tells?',
+  'Are you measuring what people find and what they do next?',
+];
 
+export default function AiSeo() {
   return (
-    <div className="bg-white min-h-screen flex flex-col">
-      <SEOHead 
-        title="AI Search Engine Optimization (AISO) | New Tech Advertising"
-        description="Get found by ChatGPT, Google AI & Perplexity. AI Search Optimization builds your visibility where AI models pull answers. First in North Iowa. New Tech Advertising."
-      />
-      <Header onCTAClick={() => setIsModalOpen(true)} />
-      
-      <main className="flex-grow pt-20">
-        <section className="py-20 bg-green-50">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <div className="inline-block p-3 bg-green-100 rounded-full mb-6">
-                <Search className="w-8 h-8 text-green-600" />
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-                Dominate Local Search in Iowa & Minnesota with <br/><span className="text-green-600">AI-Powered SEO</span>
-              </h1>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                Get found by Mason City, Clear Lake, Rochester, Des Moines & Minneapolis customers exactly when they're searching for your services. Our AI analyzes thousands of local ranking factors to push you to the top of Google.
-              </p>
-              <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg rounded-xl">
-                Boost My Rankings
-              </Button>
-            </motion.div>
+    <div className="min-h-screen bg-slate-950 text-slate-200">
+      <SEOHead title="How Can Customers Find My Business Online? | New Tech Advertising" description="Understand SEO, Google visibility and AI search as part of a practical Digital Growth Roadmap for your business." />
+      <MarketingNav />
+      <main>
+        <section className="relative overflow-hidden border-b border-slate-800">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.16),_transparent_42%)]" />
+          <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm font-semibold text-emerald-300"><Search className="h-4 w-4" /> Search, Google & AI visibility</div>
+            <h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">“Why can’t people find my business?” <span className="text-emerald-400">Start with what they need to find.</span></h1>
+            <p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">SEO is not simply a race for rankings. It is the work of making your business understandable and useful when people are looking for answers. Sometimes the gap is technical. Sometimes it is content, reviews, Google Business Profile information, website structure, or simply that the business has never captured what its people already know.</p>
+            <Link to="/start" className="mt-9 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-7 py-4 font-bold text-white transition hover:bg-emerald-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5" /></Link>
           </div>
         </section>
 
-        <section className="py-20">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid md:grid-cols-2 gap-12">
-              <div className="space-y-8">
-                <div className="flex gap-4">
-                  <div className="bg-green-100 p-3 rounded-lg h-fit">
-                    <Globe className="w-6 h-6 text-green-700" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">Smart Keyword Targeting</h3>
-                    <p className="text-slate-600">We don't guess. Our AI identifies "high intent" keywords that your competitors are missing, bringing you ready-to-buy customers.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="bg-blue-100 p-3 rounded-lg h-fit">
-                    <BarChart2 className="w-6 h-6 text-blue-700" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">Automated Content Strategy</h3>
-                    <p className="text-slate-600">Search engines love fresh content. Our system generates authoritative blog posts and location pages automatically to build your relevance.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="bg-purple-100 p-3 rounded-lg h-fit">
-                    <ArrowUpCircle className="w-6 h-6 text-purple-700" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">Review Management</h3>
-                    <p className="text-slate-600">Social proof boosts SEO. We help generate and manage 5-star reviews to signal trust to Google.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-8">
-                <div className="bg-slate-900 rounded-xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-6">The AI Advantage</h3>
-                <div className="space-y-6">
-                  <div>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-slate-300">Keyword Research Speed</span>
-                      <span className="text-green-400">100x Faster</span>
-                    </div>
-                    <div className="w-full bg-slate-700 rounded-full h-2">
-                      <div className="bg-green-500 h-2 rounded-full w-full"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-slate-300">Content Production Cost</span>
-                      <span className="text-green-400">90% Lower</span>
-                    </div>
-                    <div className="w-full bg-slate-700 rounded-full h-2">
-                      <div className="bg-green-500 h-2 rounded-full w-[10%]"></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-slate-300">Ranking Updates</span>
-                      <span className="text-green-400">Daily</span>
-                    </div>
-                    <div className="w-full bg-slate-700 rounded-full h-2">
-                      <div className="bg-green-500 h-2 rounded-full w-full"></div>
-                    </div>
-                  </div>
-                </div>
-                <div className="rounded-xl overflow-hidden shadow-2xl h-64">
-                  <img 
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop" 
-                    alt="AI SEO Analytics" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
+        <section className="bg-white py-20 text-slate-900">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="max-w-3xl"><p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-700">Questions before tactics</p><h2 className="mt-3 text-3xl font-black md:text-4xl">Being found starts with being clear.</h2><p className="mt-5 text-lg leading-relaxed text-slate-600">Before adding pages or chasing keywords, understand the questions customers ask, the services that matter, the areas you actually serve, and the knowledge that makes your business useful.</p></div>
+            <div className="mt-10 grid gap-4 md:grid-cols-2">
+              {questions.map(q => <div key={q} className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-5"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" /><p className="font-semibold">{q}</p></div>)}
             </div>
           </div>
+        </section>
+
+        <section className="border-y border-slate-800 bg-slate-900 py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-400">NTA Point of View</p>
+            <h2 className="mt-3 max-w-4xl text-3xl font-black text-white md:text-4xl">Search visibility is one part of the Digital Growth Roadmap™.</h2>
+            <div className="mt-10 grid gap-5 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6"><FileQuestion className="h-7 w-7 text-emerald-400" /><h3 className="mt-4 text-xl font-bold text-white">Answer real questions</h3><p className="mt-2 leading-relaxed text-slate-400">Useful pages begin with customer questions and the experience of the people inside the business—not filler written just to create another page.</p></div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6"><Users className="h-7 w-7 text-emerald-400" /><h3 className="mt-4 text-xl font-bold text-white">Capture what people know</h3><p className="mt-2 leading-relaxed text-slate-400">Owners, employees and customers continually reveal language, problems and answers that can strengthen the Knowledge Library and public website.</p></div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6"><Compass className="h-7 w-7 text-emerald-400" /><h3 className="mt-4 text-xl font-bold text-white">Connect the system</h3><p className="mt-2 leading-relaxed text-slate-400">Website structure, Google, reviews, content, follow-up and measurement work better when they are treated as connected parts of the business.</p></div>
+            </div>
           </div>
         </section>
-      </main>
 
-      <Footer />
-      <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      <Chatbot />
+        <section className="bg-white py-20 text-slate-900">
+          <div className="mx-auto grid max-w-5xl gap-10 px-6 md:grid-cols-2">
+            <div><Brain className="h-8 w-8 text-emerald-600" /><h2 className="mt-4 text-3xl font-black">What about AI search?</h2><p className="mt-4 leading-relaxed text-slate-600">People increasingly ask AI tools questions as well as searching Google. The same foundation matters: clear facts, useful explanations, trustworthy source material and a business that can be understood. NTA does not promise a particular ranking or AI citation.</p></div>
+            <div><Search className="h-8 w-8 text-emerald-600" /><h2 className="mt-4 text-3xl font-black">What AI can help with</h2><p className="mt-4 leading-relaxed text-slate-600">AI can help organize questions, summarize source material, identify patterns, prepare drafts and keep knowledge easier to retrieve. People provide the knowledge, review the work and make the decisions.</p></div>
+          </div>
+        </section>
+
+        <section className="bg-emerald-950/30 py-20 text-center">
+          <div className="mx-auto max-w-4xl px-6"><h2 className="text-3xl font-black text-white md:text-4xl">You do not need to diagnose the search problem before we talk.</h2><p className="mx-auto mt-5 max-w-2xl text-lg text-slate-300">Bring the question: “Why aren’t people finding us?” We can start there, understand the larger business, and decide what belongs on the Roadmap.</p><Link to="/start" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-8 py-4 font-bold text-white transition hover:bg-emerald-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5" /></Link></div>
+        </section>
+      </main>
+      <SiteFooter />
     </div>
   );
 }
