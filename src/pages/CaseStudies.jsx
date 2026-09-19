@@ -26,16 +26,7 @@ const caseStudies = [
   {
     title: "Cattleman's Dining — Building a Restaurant Growth Roadmap",
     description: "How NTA is working with Pete and Cattleman's Dining in Belmond to turn the restaurant's real strengths, team knowledge, customer experience, and growth opportunities into a practical Restaurant Growth Roadmap.",
-    href: '/restaurants#cattlemans-case-study',
-    label: 'Restaurant Growth Roadmap · Ongoing Work',
-    location: 'Belmond, Iowa',
-    icon: Building2,
-    accent: 'orange',
-  },
-  {
-    title: "Cattleman's Dining — Building a Restaurant Growth Roadmap",
-    description: "How NTA is working with Pete and Cattleman's Dining in Belmond to turn the restaurant's real strengths, team knowledge, customer experience, and growth opportunities into a practical Restaurant Growth Roadmap.",
-    href: '/restaurants#cattlemans-case-study',
+    href: '/restaurants?section=cattlemans-case-study',
     label: 'Restaurant Growth Roadmap · Ongoing Work',
     location: 'Belmond, Iowa',
     icon: Building2,
