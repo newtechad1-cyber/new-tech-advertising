@@ -9,7 +9,7 @@ export default function CaseStudyCTA() {
         Could This Work in Your Restaurant?
       </h2>
       <p className="text-slate-400 text-lg leading-relaxed mb-3 max-w-2xl mx-auto text-center">
-        Your Roadmap wouldn't look exactly like Cattleman's.
+        Your Roadmap wouldn't look exactly like the one we're building with Cattleman's Dining.
       </p>
       <p className="text-white font-semibold text-lg leading-relaxed mb-8 max-w-2xl mx-auto text-center">
         That's the point.

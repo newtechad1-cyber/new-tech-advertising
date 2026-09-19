@@ -10,7 +10,7 @@ export default function CaseStudyTeamCallout() {
           <h3 className="text-lg font-bold text-white">The Team Becomes Part of the Roadmap</h3>
         </div>
         <p className="text-slate-300 leading-relaxed mb-4 max-w-3xl">
-          One of the ideas we're exploring with Cattleman's is a simple way for employees to contribute what they're seeing
+          One of the ideas we're exploring with Cattleman's Dining is a simple way for employees to contribute what they're seeing
           and learning.
         </p>
         <p className="text-slate-300 leading-relaxed mb-3 max-w-3xl">
@@ -18,8 +18,8 @@ export default function CaseStudyTeamCallout() {
           kitchen employee, or other team member record a short answer or type a response.
         </p>
         <ul className="space-y-2 text-slate-400 max-w-3xl mb-5">
-          <li className="flex items-start gap-2"><span className="text-blue-400 mt-1">•</span>AI can help organize those responses and bring useful patterns back to Pete.</li>
-          <li className="flex items-start gap-2"><span className="text-blue-400 mt-1">•</span>Pete can respond, clarify, teach, and decide what deserves attention.</li>
+          <li className="flex items-start gap-2"><span className="text-blue-400 mt-1">•</span>AI can help organize those responses and bring useful patterns back to Pete and Janine.</li>
+          <li className="flex items-start gap-2"><span className="text-blue-400 mt-1">•</span>Pete and Janine can respond, clarify, teach, and decide what deserves attention.</li>
         </ul>
         <p className="text-slate-400 leading-relaxed mb-5 max-w-3xl">
           The goal isn't employee surveillance. It's better communication and a restaurant that learns from the people

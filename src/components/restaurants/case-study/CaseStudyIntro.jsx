@@ -1,8 +1,8 @@
 import React from 'react';
 
 const QUESTIONS = [
-  "What does Cattleman's already have?",
-  "What do Pete and his team know about the business?",
+  "What does Cattleman's Dining already have?",
+  "What do Pete, Janine and their team know about the business?",
   "What are customers telling them?",
   "Where are the opportunities?",
   "What information is getting lost?",
@@ -17,14 +17,27 @@ export default function CaseStudyIntro() {
         A Real Restaurant. A Roadmap in Progress.
       </div>
       <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-snug">
-        See How We're Building This With Cattleman's
+        See How We're Building This With Cattleman's Dining
       </h2>
+
+      {/* Owner + business + location. When the Cattleman's Dining website is live,
+          wrap the business name below in a <Link> or add a "Visit Cattleman's Dining" button. */}
+      <p className="text-slate-300 text-base leading-relaxed mb-6 max-w-3xl">
+        <span className="text-white font-semibold">Pete and Janine Gardner</span>
+        {' — '}
+        <span className="text-white font-semibold">Cattleman's Dining</span>
+        {', Belmond, Iowa'}
+      </p>
+
       <p className="text-slate-400 text-lg leading-relaxed mb-6 max-w-3xl">
-        Cattleman's gives us a real example of how a Restaurant Growth Roadmap begins.
+        Cattleman's Dining gives us a real example of how a Restaurant Growth Roadmap begins.
+      </p>
+      <p className="text-slate-400 text-lg leading-relaxed mb-3 max-w-3xl">
+        We're working with Pete and Janine to look at the restaurant as a whole—not beginning with a package of marketing
+        services or deciding in advance what technology they need.
       </p>
       <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-3xl">
-        We didn't start by deciding what software Pete needed or by handing him a package of marketing services. We started
-        by looking at the restaurant as a whole.
+        We're starting with questions.
       </p>
 
       <ul className="space-y-2.5 mb-8 max-w-3xl">
@@ -38,7 +51,7 @@ export default function CaseStudyIntro() {
 
       <p className="text-white text-lg leading-relaxed max-w-3xl">
         From those conversations, we're beginning to build a practical{' '}
-        <span className="text-blue-300 font-semibold">Cattleman's Growth Roadmap</span>.
+        <span className="text-blue-300 font-semibold">Cattleman's Dining Growth Roadmap</span>.
       </p>
     </section>
   );
