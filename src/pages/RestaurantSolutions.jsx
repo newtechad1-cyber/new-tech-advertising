@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import RestaurantHero from '@/components/restaurants/RestaurantHero';
@@ -20,6 +21,17 @@ import CaseStudyInProgress from '@/components/restaurants/case-study/CaseStudyIn
 import CaseStudyCTA from '@/components/restaurants/case-study/CaseStudyCTA';
 
 export default function RestaurantSolutions() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('section') !== 'cattlemans-case-study') return;
+    const timer = window.setTimeout(() => {
+      document.getElementById('cattlemans-case-study')?.scrollIntoView({ block: 'start' });
+    }, 50);
+    return () => window.clearTimeout(timer);
+  }, [location.search]);
+
   return (
     <div className="bg-[#020617] min-h-screen text-slate-300 font-sans selection:bg-blue-500/30">
       <MarketingNav />
@@ -32,9 +44,7 @@ export default function RestaurantSolutions() {
         <ConsistencySection />
         <GrowthRoadmapSection />
         <div id="cattlemans-case-study" className="scroll-mt-24">
-          <div id="cattlemans-case-study" className="scroll-mt-24">
           <CaseStudyIntro />
-        </div>
         </div>
         <CaseStudyRoadmap />
         <CaseStudyRoadmapPDF />
