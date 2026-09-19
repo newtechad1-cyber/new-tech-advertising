@@ -1,62 +1,37 @@
-import ServicePageLayout from '../components/service-pages/ServicePageLayout';
-
+import { Link } from 'react-router-dom';
+import { ArrowRight, CalendarDays, Compass, MessageSquareText, Users, Wrench } from 'lucide-react';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-export default function HVACMarketingNorthIowa() {
-  return (
-    <>
-      <SEOHead
-        title="HVAC Marketing North Iowa | AI Marketing for HVAC Companies"
-        description="AI-powered marketing for HVAC companies in North Iowa. Automated social media, local SEO, and lead generation for heating and cooling businesses."
-      />
-      <ServicePageLayout
-      seoTitle="HVAC Marketing North Iowa | New Tech Advertising"
-      seoDescription="AI-powered HVAC marketing for North Iowa contractors. Get more furnace and AC calls with Google Business Profile, AI search optimization & social media."
-      eyebrow="HVAC Marketing · North Iowa"
-      headline="More Service Calls for Your HVAC Business in North Iowa"
-      subheadline="We build complete lead systems for heating and cooling companies — from seasonal campaigns to local SEO pages to follow-up automation — so your phone keeps ringing. We also help capture the knowledge your technicians and customers already hold, so the business keeps learning."
-      problem={[
-        "Your busy seasons come and go without a consistent marketing system driving calls.",
-        "Customers are searching for 'AC repair Mason City' or 'furnace tune-up North Iowa' and finding someone else.",
-        "You're relying on word-of-mouth but it isn't growing fast enough.",
-        "You tried Facebook ads or a website before and didn't see results.",
-      ]}
-      solution={[
-        "Build or rebuild your website with HVAC-specific local SEO structure.",
-        "Create city-specific pages targeting searches in your service area.",
-        "Run seasonal campaigns before spring and fall to drive tune-up and service calls.",
-        "Set up a follow-up system so every lead gets a response fast.",
-        "Keep your brand visible with regular social content between seasons.",
-        "Capture what technicians and customers already know—common questions, recurring problems, and seasonal patterns—so the business can remember and reuse it.",
-      ]}
-      includes={[
-        "HVAC-specific website rebuild or improvement",
-        "Service area SEO pages (heating, cooling, emergency service)",
-        "Seasonal campaign setup (spring + fall)",
-        "Google Business Profile optimization",
-        "Facebook campaign management",
-        "Lead capture and follow-up sequence",
-        "Monthly performance reporting",
-      ]}
-      example={{
-        client: "Johnson Heating & A/C — Mason City, IA",
-        story: "Johnson Heating came to us with a basic website and no marketing system. We rebuilt their site with local SEO, created landing pages for spring and fall seasonal services, and ran a Facebook campaign targeting homeowners in Mason City and surrounding communities. The result was a steady flow of inbound service calls — especially during their peak seasons.",
-        result: "Consistent inbound service calls from local homeowners during seasonal peaks.",
-      }}
-      faqs={[
-        { q: "What's the most important thing for HVAC marketing?", a: "Timing and visibility. You want campaigns running 2–3 weeks before your season starts, and you want to show up when people search for your service in your area. Both require planning ahead." },
-        { q: "Do seasonal campaigns work in a small market?", a: "Yes — often better than in large cities. Competition is lower, ad costs are lower, and you're marketing to a community where trust and name recognition matter." },
-        { q: "Can you handle emergency service call marketing?", a: "Yes. We can set up pages and campaigns specifically for emergency calls — one of the highest-value leads for HVAC businesses." },
-        { q: "How much does HVAC marketing cost?", a: "It depends on what you need. We start with a free gap audit to understand your situation and build a proposal from there. No guesswork." },
-      ]}
-      relatedLinks={[
-        { label: "Local Lead Systems", href: "/local-lead-systems" },
-        { label: "Seasonal Campaigns", href: "/seasonal-campaigns" },
-        { label: "Website Rebuilds", href: "/website-rebuilds" },
-        { label: "SEO Pages", href: "/seo-pages-for-local-businesses" },
-        { label: "Free Gap Audit", href: "/gap-audit" },
-      ]}
-      formSource="HVACMarketing"
-    />
-    </>
-  );
+
+const questions=[
+  'What do customers ask before they schedule service?',
+  'What problems do technicians explain over and over?',
+  'Which seasons, services and service areas matter most?',
+  'How quickly are calls, forms and after-hours inquiries followed up?',
+  'Can customers find clear answers before an emergency happens?',
+  'What knowledge is walking around with the team but never getting captured?'
+];
+
+export default function HVACMarketingNorthIowa(){
+ return <div className="min-h-screen bg-slate-950 text-slate-200">
+  <SEOHead title="Growth Ideas for HVAC Businesses | New Tech Advertising" description="A practical HVAC growth roadmap connecting technician knowledge, customer questions, seasonal visibility, websites, follow-up and business systems." />
+  <MarketingNav />
+  <main>
+   <section className="relative overflow-hidden border-b border-slate-800"><div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.18),_transparent_42%)]"/><div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
+    <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1.5 text-sm font-semibold text-sky-300"><Wrench className="h-4 w-4"/> HVAC business growth</div>
+    <h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">“How do we keep growing between the busy seasons?” <span className="text-sky-400">Start with the whole HVAC business.</span></h1>
+    <p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">HVAC growth is more than running an ad when the weather changes. Your technicians, customers, website, Google presence, dispatch, follow-up and seasonal experience are all producing information that can help the business improve.</p>
+    <Link to="/start" className="mt-9 inline-flex items-center gap-2 rounded-xl bg-sky-600 px-7 py-4 font-bold text-white hover:bg-sky-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5"/></Link>
+   </div></section>
+   <section className="bg-white py-20 text-slate-900"><div className="mx-auto max-w-6xl px-6"><p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-700">Listen before prescribing</p><h2 className="mt-3 max-w-3xl text-3xl font-black md:text-4xl">The people doing the work already know a lot about where growth gets stuck.</h2><div className="mt-10 grid gap-4 md:grid-cols-2">{questions.map(q=><div key={q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 font-semibold">{q}</div>)}</div></div></section>
+   <section className="border-y border-slate-800 bg-slate-900 py-20"><div className="mx-auto max-w-6xl px-6"><p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-400">NTA Point of View</p><h2 className="mt-3 text-3xl font-black text-white md:text-4xl">Build from the knowledge inside the business.</h2><div className="mt-10 grid gap-5 md:grid-cols-3">
+    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6"><Users className="h-7 w-7 text-sky-400"/><h3 className="mt-4 text-xl font-bold text-white">Technicians teach</h3><p className="mt-2 text-slate-400">Common repairs, homeowner misunderstandings and recurring questions can become useful knowledge instead of disappearing after each call.</p></div>
+    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6"><MessageSquareText className="h-7 w-7 text-sky-400"/><h3 className="mt-4 text-xl font-bold text-white">Customers teach</h3><p className="mt-2 text-slate-400">Calls, estimates, reviews and questions reveal what customers need explained and where communication can improve.</p></div>
+    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6"><CalendarDays className="h-7 w-7 text-sky-400"/><h3 className="mt-4 text-xl font-bold text-white">Seasons teach</h3><p className="mt-2 text-slate-400">Spring, summer, fall and winter create different needs. Capturing what happened this season helps prepare for the next one.</p></div>
+   </div></div></section>
+   <section className="bg-white py-20 text-slate-900"><div className="mx-auto max-w-5xl px-6"><Compass className="h-8 w-8 text-sky-600"/><h2 className="mt-4 text-3xl font-black">The Digital Growth Roadmap™ decides what comes next.</h2><p className="mt-5 text-lg leading-relaxed text-slate-600">That could include improving the website, seasonal pages, Google visibility, customer follow-up, reviews, video, social communication, dispatch or internal knowledge systems. NTA does not assume every HVAC company needs the same package.</p></div></section>
+   <section className="bg-sky-950/30 py-20 text-center"><div className="mx-auto max-w-4xl px-6"><h2 className="text-3xl font-black text-white md:text-4xl">Bring us the HVAC business you have now.</h2><p className="mx-auto mt-5 max-w-2xl text-lg text-slate-300">We will start with what is working, what is getting lost, what your people know and what your customers are telling you—then build the next practical steps.</p><Link to="/start" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-sky-600 px-8 py-4 font-bold text-white hover:bg-sky-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5"/></Link></div></section>
+  </main><SiteFooter />
+ </div>;
 }
