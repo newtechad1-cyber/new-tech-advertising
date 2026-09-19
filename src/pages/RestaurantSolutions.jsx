@@ -31,7 +31,9 @@ export default function RestaurantSolutions() {
         <KnowledgeLibrarySection />
         <ConsistencySection />
         <GrowthRoadmapSection />
-        <CaseStudyIntro />
+        <div id="cattlemans-case-study" className="scroll-mt-24">
+          <CaseStudyIntro />
+        </div>
         <CaseStudyRoadmap />
         <CaseStudyRoadmapPDF />
         <CaseStudyTeamCallout />
