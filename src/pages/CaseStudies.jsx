@@ -24,6 +24,15 @@ const caseStudies = [
     accent: 'cyan',
   },
   {
+    title: "Cattleman's Dining — Building a Restaurant Growth Roadmap",
+    description: "How NTA is working with Pete and Cattleman's Dining in Belmond to turn the restaurant's real strengths, team knowledge, customer experience, and growth opportunities into a practical Restaurant Growth Roadmap.",
+    href: '/restaurants#cattlemans-case-study',
+    label: 'Restaurant Growth Roadmap · Ongoing Work',
+    location: 'Belmond, Iowa',
+    icon: Building2,
+    accent: 'orange',
+  },
+  {
     title: 'How NTA Became a Digital Growth Office',
     description: 'How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into a connected system for education, discovery, and practical growth.',
     href: '/case-studies/how-nta-became-a-digital-growth-office',
