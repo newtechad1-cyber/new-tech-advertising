@@ -62,6 +62,7 @@ import IWasEarlyAgain from '@/pages/IWasEarlyAgain';
 import IndustriesHub from '@/pages/IndustriesHub';
 import JoinNTA from '@/pages/JoinNTA';
 import RegionalAccountManager from '@/pages/RegionalAccountManager';
+import AccountManager from '@/pages/AccountManager';
 import JournalIssueView from '@/pages/JournalIssueView';
 import JournalLanding from '@/pages/JournalLanding';
 import KnowledgeCollection from '@/pages/KnowledgeCollection';
@@ -223,7 +224,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/free-audit', FreeAudit),
   alias('/tools', FreeAudit),
   alias('/digital-growth-advisor', DigitalGrowthAdvisor),
-  alias('/account-manager', RegionalAccountManager),
+  alias('/account-manager', AccountManager),
   alias('/regional-account-manager', RegionalAccountManager),
   alias('/join-nta', JoinNTA),
   alias('/rebuild-intake', RebuildIntake),
