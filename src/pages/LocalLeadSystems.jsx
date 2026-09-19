@@ -1,65 +1,19 @@
-import ServicePageLayout from '../components/service-pages/ServicePageLayout';
-
+import { Link } from 'react-router-dom';
+import { ArrowRight, Compass, Eye, MessageSquareReply, Search, Workflow } from 'lucide-react';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
-export default function LocalLeadSystems() {
-  return (
-    <>
-      <SEOHead
-        title="Local Lead Generation Systems | New Tech Advertising"
-        description="Automated local lead generation systems for small businesses. AI-powered SEO, social media, and review management in Mason City, Iowa."
-      />
-      <ServicePageLayout
-      seoTitle="Local Lead Systems for Service Businesses | NTA North Iowa"
-      seoDescription="NTA builds complete local lead systems for service businesses in North Iowa — websites, SEO pages, seasonal campaigns, social content, video, and follow-up automation."
-      eyebrow="Local Lead Systems · North Iowa"
-      headline="Stop Losing Leads to Competitors Who Show Up Online"
-      subheadline="A complete lead system for local service businesses — not just a website, but every piece that brings customers in the door consistently."
-      problem={[
-        "Your competitors are showing up on Google and you're not — even though you've been in business longer.",
-        "You don't have time to manage marketing — you're already running the business.",
-        "You tried a website or ads before and didn't see real results.",
-        "You're depending entirely on word-of-mouth with no system to capture new leads.",
-      ]}
-      solution={[
-        "We audit your current online presence and identify the exact gaps costing you leads.",
-        "We build or rebuild your website with the right structure, content, and conversion elements.",
-        "We add city and service-specific SEO pages so you show up when customers search.",
-        "We create seasonal campaigns that drive calls during your busy seasons.",
-        "We layer in regular social content and video to keep your brand visible.",
-        "We set up simple follow-up systems so no lead falls through the cracks.",
-      ]}
-      includes={[
-        "Free gap audit showing your biggest lead opportunities",
-        "Website rebuild or improvement with local SEO structure",
-        "City and service-specific landing pages",
-        "Seasonal Facebook and social campaigns",
-        "Regular social media content — done for you",
-        "AI video marketing for YouTube and social",
-        "Lead capture forms and call CTAs on every page",
-        "Follow-up automation (text/email) for new leads",
-        "Monthly reporting on what's working",
-      ]}
-      example={{
-        client: "Johnson Heating & A/C — Mason City, IA",
-        story: "Johnson Heating had a basic website that wasn't generating calls. We built a complete lead system: rebuilt their site with proper local SEO, added a seasonal spring tune-up campaign on Facebook, and set up a follow-up sequence for new inquiries. Their spring season saw a measurable increase in inbound service calls.",
-        result: "More inbound calls during spring season — from both Google and Facebook.",
-      }}
-      faqs={[
-        { q: "What does a 'lead system' actually mean?", a: "It means every piece of your marketing works together — your website, search rankings, social presence, campaigns, and follow-up. Most businesses have one or two of these. We build the whole system." },
-        { q: "How long does it take to set up?", a: "A basic system can be up in 2–4 weeks. A full system with campaigns and content takes 4–8 weeks depending on scope." },
-        { q: "Do I have to manage it myself?", a: "No. We handle the technical side. You approve content and take the calls." },
-        { q: "What types of businesses do you work with?", a: "Primarily local service businesses in North Iowa — HVAC, plumbing, excavating, lawn care, home services, care providers, and equipment companies." },
-      ]}
-      relatedLinks={[
-        { label: "Website Rebuilds", href: "/website-rebuilds" },
-        { label: "SEO Pages", href: "/seo-pages-for-local-businesses" },
-        { label: "Seasonal Campaigns", href: "/seasonal-campaigns" },
-        { label: "Social Media Content", href: "/social-media-content-system" },
-        { label: "AI Video Marketing", href: "/ai-video-marketing" },
-        { label: "Free Gap Audit", href: "/gap-audit" },
-      ]}
-      formSource="LocalLeadSystems"
-    />
-    </>
-  );
-}
+const stages=[
+ {icon:Search,title:'Be understandable',text:'Make it clear what you do, who you help and which questions you can answer.'},
+ {icon:Eye,title:'Be findable',text:'Website, search, Google, reviews, social and other channels can help the right people discover you.'},
+ {icon:MessageSquareReply,title:'Respond well',text:'A lead is not useful if calls, forms, messages or after-hours inquiries disappear or wait too long.'},
+ {icon:Workflow,title:'Follow through',text:'Simple follow-up and a clear handoff help turn interest into a real conversation without making the process impersonal.'},
+];
+export default function LocalLeadSystems(){return <div className="min-h-screen bg-slate-950 text-slate-200">
+<SEOHead title="How Can My Business Get and Follow Up With More Leads? | NTA" description="Understand local lead generation as a connected system of visibility, response, follow-up and learning inside a Digital Growth Roadmap."/><MarketingNav/><main>
+<section className="relative overflow-hidden border-b border-slate-800"><div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(245,158,11,0.17),_transparent_42%)]"/><div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28"><div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-sm font-semibold text-amber-300"><Workflow className="h-4 w-4"/> Leads, response & follow-up</div><h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">“We need more leads.” <span className="text-amber-400">First, let’s see what happens before and after someone raises their hand.</span></h1><p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">More traffic is not always the first answer. A business can lose opportunity because people cannot find it, do not understand it, cannot reach anyone, or never receive useful follow-up. A lead system connects those moments.</p><Link to="/start" className="mt-9 inline-flex items-center gap-2 rounded-xl bg-amber-600 px-7 py-4 font-bold text-white hover:bg-amber-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5"/></Link></div></section>
+<section className="bg-white py-20 text-slate-900"><div className="mx-auto max-w-6xl px-6"><p className="text-sm font-bold uppercase tracking-[0.2em] text-amber-700">Follow the customer journey</p><h2 className="mt-3 text-3xl font-black md:text-4xl">Find the gap before buying another tactic.</h2><div className="mt-10 grid gap-5 md:grid-cols-2">{stages.map(({icon:Icon,title,text})=><div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-6"><Icon className="h-7 w-7 text-amber-600"/><h3 className="mt-4 text-xl font-bold">{title}</h3><p className="mt-2 text-slate-600">{text}</p></div>)}</div></div></section>
+<section className="border-y border-slate-800 bg-slate-900 py-20"><div className="mx-auto max-w-5xl px-6"><p className="text-sm font-bold uppercase tracking-[0.2em] text-amber-400">NTA Point of View</p><h2 className="mt-3 text-3xl font-black text-white md:text-4xl">A lead system is not a bundle of marketing products.</h2><p className="mt-5 text-lg leading-relaxed text-slate-300">It is the connected experience from a person having a need to finding the business, understanding it, making contact, receiving a response and getting the next appropriate step. The Digital Growth Roadmap™ helps identify where that experience is breaking down.</p></div></section>
+<section className="bg-white py-20 text-slate-900"><div className="mx-auto max-w-5xl px-6"><Compass className="h-8 w-8 text-amber-600"/><h2 className="mt-4 text-3xl font-black">The solution depends on the gap.</h2><p className="mt-5 text-lg leading-relaxed text-slate-600">The next step might involve the website, Google, a campaign, reviews, phone handling, forms, text or email follow-up, internal workflow—or simply clearer information. NTA starts with the business before recommending the tool.</p></div></section>
+<section className="bg-amber-950/30 py-20 text-center"><div className="mx-auto max-w-4xl px-6"><h2 className="text-3xl font-black text-white md:text-4xl">Start with the leads you already get—and the ones you may be losing.</h2><p className="mx-auto mt-5 max-w-2xl text-lg text-slate-300">We can trace the path, find the gaps and decide what belongs on the Roadmap.</p><Link to="/start" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-amber-600 px-8 py-4 font-bold text-white hover:bg-amber-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5"/></Link></div></section>
+</main><SiteFooter/></div>}
