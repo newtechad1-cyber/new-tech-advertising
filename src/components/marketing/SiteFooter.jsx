@@ -18,18 +18,18 @@ export default function SiteFooter() {
             style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }}
             className="mb-3"
           />
-          <p className="text-sm leading-relaxed">Based in North Iowa, NTA works with businesses throughout North Iowa and southern Minnesota—including the growing Rochester market—while serving clients nationally.</p>
+          <p className="text-sm leading-relaxed">Built in Mason City, Iowa, NTA works with businesses wherever they are. We help owners and teams understand what they already have, capture what they are learning, and build a practical Digital Growth Roadmap™.</p>
         </div>
 
         {/* Service Areas */}
         <div>
-          <p className="text-white font-semibold mb-3 text-sm">Service Areas</p>
+          <p className="text-white font-semibold mb-3 text-sm">Start With a Question</p>
           <ul className="space-y-2 text-sm">
-            <li><a href="/website-rebuilds/mason-city-ia" className="hover:text-white transition-colors">Mason City, IA</a></li>
-            <li><a href="/website-rebuilds/rochester-mn" className="hover:text-white transition-colors">Rochester, MN</a></li>
-            <li><a href="/website-rebuilds/austin-mn" className="hover:text-white transition-colors">Austin, MN</a></li>
-            <li><a href="/website-rebuilds/albert-lea-mn" className="hover:text-white transition-colors">Albert Lea, MN</a></li>
-            <li><Link to="/small-businesses-nationwide" className="text-slate-300 hover:text-white transition-colors">Small Businesses Nationwide</Link></li>
+            <li><Link to="/ai-websites" className="hover:text-white transition-colors">I need a better website</Link></li>
+            <li><Link to="/ai-seo" className="hover:text-white transition-colors">I need help being found</Link></li>
+            <li><Link to="/ai-social-media" className="hover:text-white transition-colors">I need better communication</Link></li>
+            <li><Link to="/ai-marketing-platform" className="hover:text-white transition-colors">I want to understand AI</Link></li>
+            <li><Link to="/start" className="text-slate-300 hover:text-white transition-colors">Start a Growth Conversation</Link></li>
           </ul>
         </div>
 
@@ -71,8 +71,7 @@ export default function SiteFooter() {
             <li><Link to="/help-and-support" className="hover:text-white transition-colors">Help &amp; Support</Link></li>
             <li><Link to="/about" className="hover:text-white transition-colors">About NTA</Link></li>
             <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
-            <li><a href="https://calendar.app.google/p6ieYanvwhixXxZ67" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Book a Call</a></li>
-            <li><Link to="/find-your-plan" className="hover:text-white transition-colors">Pricing</Link></li>
+            <li><Link to="/start" className="hover:text-white transition-colors">Start a Free Growth Conversation</Link></li>
             <li><Link to="/join-nta" className="hover:text-white transition-colors">Join the Team</Link></li>
             <li><a href="tel:6414208816" className="hover:text-white transition-colors">641-420-8816</a></li>
             <li><a href="mailto:info@newtechadvertising.com" className="hover:text-white transition-colors">info@newtechadvertising.com</a></li>
