@@ -32,7 +32,9 @@ export default function RestaurantSolutions() {
         <ConsistencySection />
         <GrowthRoadmapSection />
         <div id="cattlemans-case-study" className="scroll-mt-24">
+          <div id="cattlemans-case-study" className="scroll-mt-24">
           <CaseStudyIntro />
+        </div>
         </div>
         <CaseStudyRoadmap />
         <CaseStudyRoadmapPDF />
