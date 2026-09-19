@@ -1,138 +1,157 @@
-import { useState } from 'react';
-import Header from '../components/landing/Header';
-import Footer from '../components/landing/Footer';
-import SignupModal from '../components/landing/SignupModal';
-import Chatbot from '../components/Chatbot';
-import { motion } from 'framer-motion';
-import { Layout, Smartphone, Gauge, MousePointerClick } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { ArrowRight, BookOpen, Brain, Building2, CheckCircle2, Compass, Lightbulb, MessageSquareText, MonitorSmartphone, Search, Users } from 'lucide-react';
+import MarketingNav from '@/components/nav/MarketingNav';
+import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 
+const cycle = ['Listen', 'Capture', 'Understand', 'Decide', 'Act', 'Measure', 'Learn', 'Improve'];
+
+const questions = [
+  'Can customers quickly understand what we do and who we help?',
+  'Does the site answer the questions people actually ask before they call?',
+  'Is it easy to use on a phone and easy to find the next step?',
+  'Does it reflect what our team and customers are teaching us?',
+  'Does it connect with Google, follow-up, reviews, social media and the rest of the business?',
+  'Are we improving the site as the business changes, or treating it as a one-time project?',
+];
+
+const possibilities = [
+  { icon: MonitorSmartphone, title: 'Improve what you already have', text: 'Sometimes the right answer is better structure, clearer language, stronger mobile usability or a few focused pages—not a new website.' },
+  { icon: Search, title: 'Make useful knowledge easier to find', text: 'Customer questions, team knowledge and real business experience can become helpful pages for people and search engines.' },
+  { icon: Users, title: 'Connect the website to the business', text: 'The website may need to work more closely with Google, reviews, customer follow-up, social content, video or internal systems.' },
+  { icon: Compass, title: 'Rebuild when rebuilding makes sense', text: 'If the existing site is holding the business back, a rebuild can be part of the Roadmap—but the business need comes first.' },
+];
+
 export default function AiWebsites() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
-    <div className="bg-white min-h-screen flex flex-col">
-      <SEOHead 
-        title="AI Website Design & Rebuilds | New Tech Advertising"
-        description="Modern, mobile-first websites built with AI for small businesses. Fast load times, SEO-ready & conversion-optimized. New Tech Advertising, Mason City IA."
+    <div className="min-h-screen bg-slate-950 text-slate-200">
+      <SEOHead
+        title="Do I Need a Better Business Website? | New Tech Advertising"
+        description="A practical way to evaluate your business website, understand what it should accomplish, and decide whether to improve, rebuild, or connect it to a larger Digital Growth Roadmap."
       />
-      <Header onCTAClick={() => setIsModalOpen(true)} />
-      
-      <main className="flex-grow pt-20">
-        <section className="py-20 bg-gradient-to-b from-blue-50 to-white">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-                AI Website Design for Iowa & Minnesota Businesses That <br/><span className="text-blue-600">Actually Convert</span>
-              </h1>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                Serving Mason City, Clear Lake, Rochester, Des Moines & Minneapolis. Stop settling for digital brochures. Our AI-optimized websites are built to turn local visitors into paying customers from day one.
-              </p>
-              <Button onClick={() => setIsModalOpen(true)} size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg rounded-xl">
-                Get Your AI Website
-              </Button>
-            </motion.div>
-          </div>
-        </section>
+      <MarketingNav />
 
-        <section className="py-20">
-          <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <Layout className="w-16 h-16 text-blue-600 mb-6" />
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">Dynamic Content Adaptation</h2>
-              <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                Our websites don't just sit there. They learn. Using AI analysis, we optimize headlines, images, and calls-to-action based on what works best for your specific audience.
-              </p>
-              <ul className="space-y-3">
-                {[
-                  "Auto-generating fresh content",
-                  "A/B testing built-in",
-                  "Personalized user experiences",
-                  "Semantic structure for SEO"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full" /> {item}
-                  </li>
-                ))}
-              </ul>
+      <main>
+        <section className="relative overflow-hidden border-b border-slate-800">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(37,99,235,0.20),_transparent_42%)]" />
+          <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-sm font-semibold text-blue-300">
+              <MessageSquareText className="h-4 w-4" /> A practical website conversation
             </div>
-            <div className="rounded-xl overflow-hidden aspect-square shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" 
-                alt="AI-powered website design analytics dashboard showing conversion optimization" 
-                className="w-full h-full object-cover"
-              />
+            <h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">
+              “I need a better website.” <span className="text-blue-400">Maybe. Let’s understand what needs to be better first.</span>
+            </h1>
+            <p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">
+              Your website matters. But it is one part of your business—not the whole Growth Roadmap. Before recommending a rebuild, NTA looks at what you already have, what customers need, what your team knows, and what you are actually trying to improve.
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link to="/start" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition hover:bg-blue-500">
+                Start a Free Growth Conversation <ArrowRight className="h-5 w-5" />
+              </Link>
+              <button type="button" onClick={() => window.dispatchEvent(new CustomEvent('nta:open-growth-guide', { detail: { source: 'ai_websites' } }))} className="inline-flex items-center justify-center rounded-xl border border-slate-700 px-7 py-4 font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900">
+                Ask Your Digital Growth Guide™
+              </button>
             </div>
           </div>
         </section>
 
-        <section className="py-20 bg-slate-50">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid md:grid-cols-3 gap-8 mb-20">
-              <div className="bg-white p-8 rounded-xl shadow-sm">
-                <Smartphone className="w-10 h-10 text-purple-600 mb-4" />
-                <h3 className="text-xl font-bold mb-3">Mobile Perfection</h3>
-                <p className="text-slate-600">Responsive design that adapts flawlessly to every device screen size instantly.</p>
-              </div>
-              <div className="bg-white p-8 rounded-xl shadow-sm">
-                <Gauge className="w-10 h-10 text-green-600 mb-4" />
-                <h3 className="text-xl font-bold mb-3">Lightning Fast</h3>
-                <p className="text-slate-600">Optimized code and assets ensure your site loads in milliseconds, boosting SEO.</p>
-              </div>
-              <div className="bg-white p-8 rounded-xl shadow-sm">
-                <MousePointerClick className="w-10 h-10 text-red-600 mb-4" />
-                <h3 className="text-xl font-bold mb-3">Conversion Focused</h3>
-                <p className="text-slate-600">Every pixel is placed with one goal: getting the customer to click "Buy" or "Call".</p>
-              </div>
-            </div>
-
-            {/* Local Focus Section */}
-            <div className="grid md:grid-cols-2 gap-12 items-center border-t border-slate-200 pt-20">
+        <section className="bg-white py-20 text-slate-900">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
               <div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-6">Built for Your Market</h2>
-                <p className="text-slate-600 mb-4">
-                  Trust is everything. Your website needs to reflect the hard work and integrity of your business.
-                </p>
-                <p className="text-slate-600 mb-6">
-                  We don't just use generic templates. Our AI analyzes successful local competitors in your market to understand what drives customers to take action. We build sites that feel local but perform like global brands.
-                </p>
-                <Button onClick={() => setIsModalOpen(true)} variant="outline" className="text-blue-600 border-blue-600 hover:bg-blue-50">
-                  Schedule a Demo
-                </Button>
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600">Start with the question</p>
+                <h2 className="mt-3 text-3xl font-black md:text-4xl">What should a useful business website actually do?</h2>
+                <p className="mt-5 text-lg leading-relaxed text-slate-600">A useful website helps people understand the business, answers real questions, builds confidence, and gives someone a sensible next step. It should also help the business learn—not just sit online unchanged.</p>
               </div>
-              <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
-                <h3 className="font-bold text-lg mb-4">The "New Tech" Process</h3>
-                <ol className="space-y-4">
-                  <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">1</span>
-                    <span className="text-slate-600">AI Analysis of your local market & competitors</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">2</span>
-                    <span className="text-slate-600">Generation of conversion-optimized copy & layout</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">3</span>
-                    <span className="text-slate-600">Mobile-first development & speed optimization</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">4</span>
-                    <span className="text-slate-600">Launch & continuous AI A/B testing</span>
-                  </li>
-                </ol>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {questions.map((question) => (
+                  <div key={question} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                    <CheckCircle2 className="mb-3 h-5 w-5 text-blue-600" />
+                    <p className="font-semibold leading-relaxed">{question}</p>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="border-y border-slate-800 bg-slate-900 py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">The NTA point of view</p>
+              <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">The website is part of a connected business.</h2>
+              <p className="mt-5 text-lg leading-relaxed text-slate-300">Someone may arrive here because they think they need a website. That is a good place to begin. The answer may be a new website, improvements to the current one, better Google visibility, clearer customer communication, stronger follow-up, better use of existing knowledge—or a combination.</p>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              {possibilities.map(({ icon: Icon, title, text }) => (
+                <div key={title} className="rounded-2xl border border-slate-800 bg-slate-950 p-6">
+                  <Icon className="h-7 w-7 text-blue-400" />
+                  <h3 className="mt-4 text-xl font-bold text-white">{title}</h3>
+                  <p className="mt-2 leading-relaxed text-slate-400">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-20 text-slate-900">
+          <div className="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-3">
+            <div className="rounded-3xl border border-slate-200 p-7">
+              <Building2 className="h-8 w-8 text-blue-600" />
+              <h2 className="mt-5 text-2xl font-black">Digital Growth Office™</h2>
+              <p className="mt-3 leading-relaxed text-slate-600">A practical place for the owner, team and NTA to capture questions, ideas, customer knowledge and ongoing work so improvement does not depend on starting over.</p>
+            </div>
+            <div className="rounded-3xl border border-slate-200 p-7">
+              <BookOpen className="h-8 w-8 text-blue-600" />
+              <h2 className="mt-5 text-2xl font-black">Knowledge Library</h2>
+              <p className="mt-3 leading-relaxed text-slate-600">Owner knowledge, employee experience, customer questions, documents and conversations gradually become a reusable business asset. Some of that knowledge may become useful website content.</p>
+            </div>
+            <div className="rounded-3xl border border-slate-200 p-7">
+              <Compass className="h-8 w-8 text-blue-600" />
+              <h2 className="mt-5 text-2xl font-black">Digital Growth Roadmap™</h2>
+              <p className="mt-3 leading-relaxed text-slate-600">The Roadmap helps identify what deserves attention now, what can wait, and how website work fits with the rest of the business.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-blue-950/30 py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center">
+              <Lightbulb className="mx-auto h-8 w-8 text-blue-400" />
+              <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">Growth is a learning cycle, not a one-time website project.</h2>
+            </div>
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+              {cycle.map((step, index) => (
+                <div key={step} className="rounded-xl border border-blue-500/20 bg-slate-950 px-3 py-5 text-center">
+                  <div className="text-xs font-bold text-blue-400">{String(index + 1).padStart(2, '0')}</div>
+                  <div className="mt-1 font-bold text-white">{step}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-slate-800 bg-slate-900 py-20">
+          <div className="mx-auto max-w-5xl px-6 text-center">
+            <Brain className="mx-auto h-9 w-9 text-blue-400" />
+            <h2 className="mt-5 text-3xl font-black text-white">Where AI fits</h2>
+            <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">AI can help capture, remember, organize, summarize, retrieve, identify patterns and prepare useful follow-up. It can help turn what your business already knows into something easier to use.</p>
+            <p className="mx-auto mt-5 max-w-3xl text-xl font-bold text-blue-300">People provide the knowledge. AI helps the business remember, organize and use it. People make the decisions.</p>
+          </div>
+        </section>
+
+        <section className="bg-white py-20 text-slate-900">
+          <div className="mx-auto max-w-5xl px-6 text-center">
+            <h2 className="text-3xl font-black md:text-4xl">You do not need to know whether you need a new website before we talk.</h2>
+            <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">Bring the question you have now. We will start there, look at the larger business, and help you understand the next practical step. NTA is based in Mason City, Iowa, and can work with businesses regardless of location.</p>
+            <Link to="/start" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-8 py-4 font-bold text-white transition hover:bg-blue-500">
+              Start a Free Growth Conversation <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
         </section>
       </main>
 
-      <Footer />
-      <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      <Chatbot />
+      <SiteFooter />
     </div>
   );
 }
