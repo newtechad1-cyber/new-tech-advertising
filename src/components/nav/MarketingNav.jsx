@@ -55,7 +55,7 @@ const NAV_LINKS = [
       { label: 'Account Manager Opportunity', href: '/account-manager', desc: 'Explore the role, learning path, support and compensation' },
       { label: 'Community Partner', href: '/community-partner', desc: 'Help businesses and organizations learn and connect' },
       { label: 'Explore Before You Decide', href: '/account-manager#explore-first', desc: 'Read, watch and understand NTA before taking a next step' },
-      { label: 'Start a Private Conversation', href: '/account-manager#interest-form', desc: 'Tell Rick what caught your attention—no résumé required' },
+      { label: 'Start a Private Conversation', href: '/account-manager#start-conversation', desc: 'Tell Rick what caught your attention—no résumé required' },
     ],
   },
   {
