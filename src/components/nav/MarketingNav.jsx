@@ -50,12 +50,9 @@ const NAV_LINKS = [
     label: 'Opportunity',
     href: OPPORTUNITY_HREF,
     children: [
-      { label: 'Opportunity Overview', href: OPPORTUNITY_HREF, desc: 'Learn AI. Learn Business. Help Businesses Grow.' },
-      { label: 'Digital Growth Advisor', href: OPPORTUNITY_HREF, desc: 'Develop business relationships with NTA behind you' },
-      { label: 'Account Manager Opportunity', href: '/account-manager', desc: 'Explore the role, learning path, support and compensation' },
+      { label: 'Digital Growth Advisor', href: OPPORTUNITY_HREF, desc: 'Learn AI. Learn Business. Help Businesses Grow.' },
+      { label: 'Account Manager', href: '/account-manager', desc: 'Manage ongoing client and partner relationships' },
       { label: 'Community Partner', href: '/community-partner', desc: 'Help businesses and organizations learn and connect' },
-      { label: 'Explore Before You Decide', href: '/account-manager#explore-first', desc: 'Read, watch and understand NTA before taking a next step' },
-      { label: 'Start a Private Conversation', href: '/account-manager#start-conversation', desc: 'Tell Rick what caught your attention—no résumé required' },
     ],
   },
   {
