@@ -69,7 +69,7 @@ const NAV_LINKS = [
 
 function DropdownMenu({ items, onClose }) {
   return (
-    <div className="absolute left-0 top-full z-50 mt-1 w-72 rounded-xl border border-slate-100 bg-white py-2 shadow-xl">
+    <div className="absolute left-0 top-full z-50 mt-1 max-h-[calc(100vh-5rem)] w-72 overflow-y-auto overscroll-contain rounded-xl border border-slate-100 bg-white py-2 shadow-xl">
       {items.map((item) => (
         <Link
           key={item.label}
