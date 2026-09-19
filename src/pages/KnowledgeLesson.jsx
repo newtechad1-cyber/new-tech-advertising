@@ -292,6 +292,11 @@ export default function KnowledgeLesson() {
                 <div><span className="text-xs text-blue-400 uppercase tracking-wider block mb-1">Continue Learning</span><span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">Turning What a Business Knows Into an Asset</span></div>
                 <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center group-hover:bg-blue-500 transition-colors flex-shrink-0"><ArrowRight className="w-5 h-5" /></div>
               </Link>
+            ) : isLifetimeFinalLesson ? (
+              <Link to="/knowledge/turning-what-a-business-knows-into-an-asset" className="group flex flex-1 items-center justify-end gap-4 p-4 rounded-xl hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all text-right">
+                <div><span className="text-xs text-blue-400 uppercase tracking-wider block mb-1">Continue Learning</span><span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">Turning What a Business Knows Into an Asset</span></div>
+                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center group-hover:bg-blue-500 transition-colors flex-shrink-0"><ArrowRight className="w-5 h-5" /></div>
+              </Link>
             ) : collection.nextCollectionSlug ? (
               <Link to={`/knowledge/${collection.nextCollectionSlug}`} className="group flex flex-1 items-center justify-end gap-4 p-4 rounded-xl hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all text-right">
                 <div>
