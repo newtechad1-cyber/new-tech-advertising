@@ -295,7 +295,7 @@ export default function KnowledgeLibrary() {
                     <div className="relative z-10 bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-all rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
                       {/* Number circle */}
                       <div className={`w-12 h-12 flex-shrink-0 rounded-full flex items-center justify-center font-black text-lg border-2 ${isComplete ? 'bg-blue-600 border-blue-500 text-white' : collCompleted > 0 ? 'bg-slate-800 border-blue-500 text-blue-400' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>
-                        {collection.id}
+                        {idx + 1}
                       </div>
 
                       <div className="flex-1">
