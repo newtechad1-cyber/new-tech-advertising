@@ -34,6 +34,8 @@ export default function KnowledgeLesson() {
   const lessonIndex = collection.lessons.findIndex(item => item.slug === lesson.slug);
   const lessonPosition = lessonIndex >= 0 ? lessonIndex + 1 : lesson.id;
   const totalLessons = collection.lessons.length;
+  const isLifetimeCollection = collection.slug === 'what-a-lifetime-in-business-taught-me';
+  const isLifetimeFinalLesson = isLifetimeCollection && lessonIndex === totalLessons - 1;
   const connectedResources = getConnectedLessonResources(collectionSlug, lessonSlug);
   const lessonSeo = getLessonSearchMetadata(collectionSlug, lesson);
 
@@ -41,6 +43,8 @@ export default function KnowledgeLesson() {
     addCompletedModule(lesson.id);
     if (lesson.nextLessonSlug) {
       navigate(`/knowledge/${collection.slug}/${lesson.nextLessonSlug}`);
+    } else if (isLifetimeFinalLesson) {
+      navigate('/knowledge/turning-what-a-business-knows-into-an-asset');
     } else if (collection.nextCollectionSlug) {
       navigate(`/knowledge/${collection.nextCollectionSlug}`);
     }
@@ -94,7 +98,7 @@ export default function KnowledgeLesson() {
                 to={`/knowledge/${collection.slug}`}
                 className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/25 bg-blue-500/10 px-3 py-1.5 text-blue-300 font-bold text-xs uppercase tracking-widest hover:bg-blue-500/20 transition-colors"
               >
-                <List className="w-3.5 h-3.5" /> Lesson {lessonPosition} of {totalLessons}
+                <List className="w-3.5 h-3.5" /> {isLifetimeCollection ? 'NTA Point of View · ' : ''}Lesson {lessonPosition} of {totalLessons}
               </Link>
               <span className="text-slate-600">•</span>
               <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
@@ -223,6 +227,22 @@ export default function KnowledgeLesson() {
             </div>
           </div>
         </section>
+
+        {isLifetimeFinalLesson && (
+          <section className="px-6 py-14 border-t border-slate-800 bg-slate-900/30">
+            <div className="max-w-3xl mx-auto">
+              <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Continue the idea</p>
+              <h2 className="text-2xl md:text-3xl font-black text-white mb-4">A lifetime of experience becomes more useful when a business can keep learning from it.</h2>
+              <p className="text-slate-400 leading-relaxed mb-7">If this collection raised questions about collaboration, practical AI, business knowledge, or the Digital Growth Office, these are natural places to continue—not because you need another product, but because each explores one of those ideas more deeply.</p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Link to="/knowledge/turning-what-a-business-knows-into-an-asset" className="rounded-2xl border border-slate-800 bg-slate-950 p-5 hover:border-blue-500/50"><p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Business Knowledge</p><p className="font-bold text-white">Turning What a Business Knows Into an Asset</p></Link>
+                <Link to="/knowledge/ai-foundations" className="rounded-2xl border border-slate-800 bg-slate-950 p-5 hover:border-blue-500/50"><p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Practical AI</p><p className="font-bold text-white">AI Foundations</p></Link>
+                <Link to="/knowledge/building-a-small-business-with-ai" className="rounded-2xl border border-slate-800 bg-slate-950 p-5 hover:border-blue-500/50"><p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Collaboration</p><p className="font-bold text-white">Building a Small Business With AI</p></Link>
+                <Link to="/operating-system" className="rounded-2xl border border-slate-800 bg-slate-950 p-5 hover:border-blue-500/50"><p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Connected System</p><p className="font-bold text-white">The Digital Growth Office™</p></Link>
+              </div>
+            </div>
+          </section>
+        )}
 
         <section className="py-12 px-6">
           <div className="max-w-3xl mx-auto">
