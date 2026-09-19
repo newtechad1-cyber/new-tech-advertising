@@ -136,10 +136,17 @@ export default function KnowledgeLibrary() {
         {/* WHERE SHOULD I BEGIN */}
         <section className="py-20 px-6 bg-slate-950">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-black text-white mb-10 text-center">Where Should I Begin?</h2>
+            <h2 className="text-3xl font-black text-white mb-3 text-center">Where Should I Begin?</h2>
+            <p className="text-slate-400 text-center max-w-2xl mx-auto mb-10">Choose a collection or learning path when you want to follow an idea from beginning to end. Choose a practical question when you need one useful answer now.</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
+                {
+                  q: "If you want Rick’s NTA Point of View:",
+                  a: "Read What a Lifetime in Business Taught Me.",
+                  link: "/knowledge/what-a-lifetime-in-business-taught-me",
+                  icon: <BookMarked className="w-5 h-5 text-blue-400" />
+                },
                 { 
                   q: "If you want to understand NTA:", 
                   a: "Begin with Business Foundations.", 
@@ -266,8 +273,8 @@ export default function KnowledgeLibrary() {
         <section id="collections" className="py-20 px-6 bg-slate-950">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-black text-white mb-4">The Complete Curriculum</h2>
-              <p className="text-slate-400">{collectionsOrder.length} collections. {totalLessons} lessons. One connected system.</p>
+              <h2 className="text-3xl font-black text-white mb-4">Collections & Learning Paths</h2>
+              <p className="text-slate-400">{collectionsOrder.length} connected collections. {totalLessons} lessons. Follow a complete path or enter where the question matters to you.</p>
             </div>
 
             <div className="space-y-6">
@@ -296,6 +303,9 @@ export default function KnowledgeLibrary() {
                           <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
                             {collection.title}
                           </h3>
+                          {collection.slug === 'what-a-lifetime-in-business-taught-me' && (
+                            <span className="bg-blue-500/10 text-blue-300 border border-blue-500/20 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">NTA Point of View Collection</span>
+                          )}
                           {collection.slug === 'building-a-small-business-with-ai' && (
                             <span className="bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">
                               New lesson series
