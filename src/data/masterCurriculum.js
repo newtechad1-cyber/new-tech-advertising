@@ -11,6 +11,7 @@ import { lesson14 as aiFoundationsLesson14 } from './aiFoundationsLesson14';
 import { lesson15 as aiFoundationsLesson15 } from './aiFoundationsLesson15';
 import { whatIsDigitalTrustLessons } from './whatIsDigitalTrust';
 import { buildingSmallBusinessAiSeriesLessons } from './buildingSmallBusinessAiSeries';
+import { lifetimeBusinessLessons } from './lifetimeBusiness';
 
 const withDerivedLessonNavigation = (lessons) => lessons.map((lesson, index) => ({
   ...lesson,
@@ -309,8 +310,17 @@ const collectionDefinitions = [
     title: 'Business Foundations',
     description: 'Learn the core principles of building a business that grows through understanding rather than constant selling.',
     lessons: businessFoundationsLessons,
-    nextCollectionSlug: 'truth-about-business-growth',
+    nextCollectionSlug: 'what-a-lifetime-in-business-taught-me',
     previousCollectionSlug: null
+  },
+  {
+    id: 9,
+    slug: 'what-a-lifetime-in-business-taught-me',
+    title: 'What a Lifetime in Business Taught Me',
+    description: 'Six NTA Point of View lessons drawn from decades of working, selling, trying businesses, watching people, learning from successes and failures, and now using AI to bring those experiences together.',
+    lessons: lifetimeBusinessLessons,
+    nextCollectionSlug: 'truth-about-business-growth',
+    previousCollectionSlug: 'business-foundations'
   },
   {
     id: 2,
@@ -319,7 +329,7 @@ const collectionDefinitions = [
     description: 'Understand the difference between unpredictable spikes in activity and compounded digital momentum.',
     lessons: truthAboutBusinessGrowthLessons,
     nextCollectionSlug: 'how-customers-decide-who-to-trust',
-    previousCollectionSlug: 'business-foundations'
+    previousCollectionSlug: 'what-a-lifetime-in-business-taught-me'
   },
   {
     id: 3,
