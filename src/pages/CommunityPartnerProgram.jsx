@@ -409,8 +409,8 @@ export default function CommunityPartnerProgram() {
                   <Link to="/community-growth-conversation" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white hover:bg-blue-700">
                     Keep exploring the community conversation <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link to="/account-manager" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-6 py-3.5 font-bold text-slate-900 hover:border-blue-400 hover:bg-blue-50">
-                    Explore the individual opportunity <ArrowRight className="h-4 w-4" />
+                  <Link to="/digital-growth-advisor" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-6 py-3.5 font-bold text-slate-900 hover:border-blue-400 hover:bg-blue-50">
+                    Explore the Digital Growth Advisor opportunity <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -500,13 +500,13 @@ export default function CommunityPartnerProgram() {
 
         <section className="bg-slate-950 px-6 py-16 text-center text-white">
           <div className="mx-auto max-w-3xl">
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-300">Building your own opportunity?</p>
-            <h2 className="mt-3 text-3xl font-bold">The individual Account Manager path may be a better fit.</h2>
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-300">Want to work directly with businesses?</p>
+            <h2 className="mt-3 text-3xl font-bold">The Digital Growth Advisor path may be a better fit.</h2>
             <p className="mt-5 text-lg leading-relaxed text-slate-300">
-              If you want to begin with your own relationships, learn alongside business owners, and build a relationship-based opportunity one conversation at a time, start there.
+              If you want to develop relationships directly with business owners, ask good questions, listen, and bring what you learn back to NTA, explore the Advisor opportunity.
             </p>
-            <Link to="/account-manager" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3.5 font-bold text-slate-950 transition hover:bg-cyan-300">
-              Explore the Account Manager opportunity <ArrowRight className="h-4 w-4" />
+            <Link to="/digital-growth-advisor" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3.5 font-bold text-slate-950 transition hover:bg-cyan-300">
+              Explore Digital Growth Advisor <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </section>
