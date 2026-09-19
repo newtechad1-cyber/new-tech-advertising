@@ -278,12 +278,12 @@ const STATIC_SEO = {
     description: "Explore practical marketing and digital growth systems built around the realities of local service businesses, restaurants, contractors, and other small businesses.",
   },
   "/ai-marketing-platform": {
-    title: "AI Marketing Platform for Small Businesses | NTA",
-    description: "Create content, schedule posts, produce videos, and manage campaigns from one AI marketing platform—or let NTA run it for you.",
+    title: "How Can AI Help My Small Business? | New Tech Advertising",
+    description: "Practical AI for small business: capture knowledge, organize information, prepare follow-up, and support better decisions inside a Digital Growth Office.",
   },
   "/ai-social-media-small-business": {
-    title: "AI Social Media for Small Business | NTA",
-    description: "Create consistent social media content for Facebook, Instagram, and LinkedIn without hiring a marketing agency.",
+    title: "What Should My Business Post on Social Media? | NTA",
+    description: "A practical approach to business social media built from customer questions, team knowledge, and a connected Digital Growth Roadmap.",
   },
   "/restaurants": {
     title: "Restaurant Growth, Team Building & Digital Growth Roadmaps | NTA",
@@ -291,12 +291,12 @@ const STATIC_SEO = {
       "NTA helps restaurant owners build stronger teams, capture business and customer knowledge, improve communication, identify growth priorities, and connect useful technology through a Restaurant Growth Roadmap.",
   },
   "/restaurant-social-media": {
-    title: "Restaurant Social Media Marketing Platform | NTA",
-    description: "Create menu highlights, daily specials, event announcements, and food promotion content for your restaurant.",
+    title: "Restaurant Growth, Team Building & Digital Growth Roadmaps | NTA",
+    description: "Build restaurant growth around team knowledge, customer learning, useful communication, and a practical Digital Growth Roadmap.",
   },
   "/streaming-tv-advertising": {
-    title: "Streaming TV Advertising for Small Business | NTA",
-    description: "Reach local customers on Hulu, Roku, and other streaming platforms with targeted, measurable TV advertising.",
+    title: "Should My Business Use Streaming TV Advertising? | NTA",
+    description: "Understand where streaming TV and connected TV advertising may fit in a small-business Digital Growth Roadmap.",
   },
   "/tv-commercial-script-generator": {
     title: "Free TV Commercial Script Generator | NTA",
@@ -304,8 +304,8 @@ const STATIC_SEO = {
     noIndex: true,
   },
   "/hvac-industry": {
-    title: "HVAC Marketing Systems for Small Business | NTA",
-    description: "Use practical AI, local SEO, social content, seasonal campaigns, and streaming TV to grow an HVAC business.",
+    title: "Growth Ideas for HVAC Businesses | New Tech Advertising",
+    description: "A practical HVAC growth roadmap connecting technician knowledge, customer questions, seasonal visibility, follow-up, and business systems.",
   },
   "/ada-website-compliance": {
     title: "ADA Website Compliance and Rebuild | NTA",
