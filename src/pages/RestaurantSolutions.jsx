@@ -14,6 +14,7 @@ import TechnologyPeopleSection from '@/components/restaurants/TechnologyPeopleSe
 import StartConversationSection from '@/components/restaurants/StartConversationSection';
 import CaseStudyIntro from '@/components/restaurants/case-study/CaseStudyIntro';
 import CaseStudyRoadmap from '@/components/restaurants/case-study/CaseStudyRoadmap';
+import CaseStudyRoadmapPDF from '@/components/restaurants/case-study/CaseStudyRoadmapPDF';
 import CaseStudyTeamCallout from '@/components/restaurants/case-study/CaseStudyTeamCallout';
 import CaseStudyInProgress from '@/components/restaurants/case-study/CaseStudyInProgress';
 import CaseStudyCTA from '@/components/restaurants/case-study/CaseStudyCTA';
@@ -32,6 +33,7 @@ export default function RestaurantSolutions() {
         <GrowthRoadmapSection />
         <CaseStudyIntro />
         <CaseStudyRoadmap />
+        <CaseStudyRoadmapPDF />
         <CaseStudyTeamCallout />
         <CaseStudyInProgress />
         <CaseStudyCTA />
