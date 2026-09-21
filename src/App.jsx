@@ -151,9 +151,26 @@ function LegacyBookingRedirect() {
   return <Navigate to={{ pathname: '/book-call', search, hash }} replace />;
 }
 
+function ScrollToTopOnRouteChange() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    // Preserve intentional in-page anchor navigation, but make every normal
+    // page-to-page navigation start at the top instead of reusing the previous
+    // route's scroll position.
+    if (!hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
+
 function PublicRoutes() {
   return (
-    <Routes>
+    <>
+      <ScrollToTopOnRouteChange />
+      <Routes>
       {Object.entries(LEGACY_PUBLIC_REDIRECTS).map(([from, to]) => (
         <Route key={`legacy-public:${from}`} path={from} caseSensitive element={to === '/book-call' ? <LegacyBookingRedirect /> : <Navigate to={to} replace />} />
       ))}
@@ -221,7 +238,8 @@ function PublicRoutes() {
       <Route path="/executive-dashboard/*" element={<CoreHubRedirect />} />
       <Route path="/nta/*" element={<CoreHubRedirect />} />
       <Route path="*" element={<LegacyPrivateRouteRedirect />} />
-    </Routes>
+      </Routes>
+    </>
   );
 }
 
