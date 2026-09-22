@@ -27,6 +27,7 @@ const NAV_LINKS = [
       { label: 'Practical AI', href: '/practical-ai-for-small-business', desc: 'Practical AI for small businesses' },
       { label: 'Better Business Building Book', href: '/better-business-book', desc: 'A free, practical book for owners' },
       { label: 'Growth Show', href: '/growth-show', desc: 'Business and AI conversations' },
+      { label: 'NTA Journal', href: '/journal', desc: 'Weekly practical ideas for business growth, marketing, and AI' },
       { label: 'Case Studies', href: '/case-studies', desc: 'See how the work comes together' },
     ],
   },
