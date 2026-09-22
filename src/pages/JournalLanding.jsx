@@ -94,12 +94,30 @@ function IssueCard({ issue, featured = false }) {
 export default function JournalLanding() {
   const kg = useKnowledgeGraph();
   const loading = kg.loading;
-  const issues = useMemo(() =>
-    (kg.journals || [])
-      .filter(i => i.status === 'Published')
-      .sort((a, b) => (b.issue_number || 0) - (a.issue_number || 0)),
-    [kg.journals]
-  );
+  const issues = useMemo(() => {
+    const canonical = (kg.journals || [])
+      // The public archive is the weekly NTA Journal, not legacy Knowledge Library
+      // articles/case studies that were historically stored in JournalIssue.
+      .filter(i =>
+        i.status === 'Published' &&
+        i.issue_number >= 3 &&
+        i.issue_number <= 8 &&
+        i.date >= '2026-08-17' &&
+        Boolean(i.from_ricks_desk) &&
+        Boolean(i.newsletter_subject)
+      )
+      .sort((a, b) => {
+        if ((b.issue_number || 0) !== (a.issue_number || 0)) return (b.issue_number || 0) - (a.issue_number || 0);
+        const aCanonical = a.slug?.startsWith(`issue-${a.issue_number}-`) ? 1 : 0;
+        const bCanonical = b.slug?.startsWith(`issue-${b.issue_number}-`) ? 1 : 0;
+        return bCanonical - aCanonical;
+      });
+
+    // Keep one canonical record per weekly issue number (there is legacy duplicate data).
+    return canonical.filter((issue, index, all) =>
+      all.findIndex(candidate => candidate.issue_number === issue.issue_number) === index
+    );
+  }, [kg.journals]);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState(null);
 
