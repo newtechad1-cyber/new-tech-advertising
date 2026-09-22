@@ -131,6 +131,107 @@ export const DUPLICATE_GROUPS = [
 // Keeping the launch edition here guarantees that the public archive remains
 // available even before Base44 contains its first JournalIssue record.
 export const SEED_JOURNAL_ENTRIES = [{
+  id: 'seed-journal-issue-8',
+  issue_number: 8,
+  volume: 1,
+  title: 'Your Business Already Knows More Than You Think',
+  subtitle: 'Automation is the last step, not the first.',
+  slug: 'issue-8-your-business-already-knows-more-than-you-think',
+  summary: 'One of the greatest values of AI for a small business may be helping the business use what it already knows. Before automating, learn how the business works, capture its knowledge, find the gaps, improve the process, and then automate what actually makes sense.',
+  date: '2026-09-22',
+  status: 'Draft',
+  category: 'Business Growth',
+  series: 'NTA Journal',
+  tags: ['small business AI', 'business automation', 'business knowledge', 'business growth', 'NTA Point of View'],
+  author: 'Rick Hesse',
+  editor_signature: 'Rick Hesse',
+  featured: true,
+  featured_image_url: null,
+  views: 0,
+  newsletter_sent: false,
+  newsletter_subject: 'The NTA Journal #8: Automation Is the Last Step, Not the First',
+  estimated_reading_time: '6 min read',
+  introduction_headline: 'Start With the Business, Not the AI',
+  introductory_message: `One of the greatest values of AI for a small business may be helping the business use what it already knows.`,
+  from_ricks_desk: `I've spent somewhere around 45 years thinking about businesses and how they grow.
+
+I've owned businesses. I've worked with small-business owners. During my years in advertising, I wasn't interested only in selling somebody an ad. I wanted to understand the business.
+
+How did it make money? What did it sell? Who were its customers? What did the owner want to accomplish? What could the business afford to spend? What was normal for that industry? What was working? What wasn't?
+
+Over the years, you begin to recognize patterns.
+
+But I've discovered something interesting since I began working with AI.
+
+**AI didn't give me that experience. It helps me use more of the experience I already have.**`,
+  what_we_built: `I Don't Remember Everything I Know
+
+When I'm sitting across from a business owner, I'm listening. The conversation moves, and I may know ten other questions I should ask without remembering all ten at that moment. Three hours later, I'll think, *I should have asked about that.*
+
+AI has changed that for me. I can use it to help capture the conversation, organize what I've learned, connect it with other things we've already discussed and bring back important questions or steps I might otherwise have remembered later.
+
+And I began realizing the same thing is true inside almost every small business.
+
+Your Business Knows Things You May Not Be Capturing
+
+The owner knows things. The person answering the telephone knows things. Your salesperson knows things. The technician working in somebody's home knows things. The employee dealing with customers every day knows things. And your customers are constantly telling you things.
+
+What questions do customers ask over and over? What information gets missed when somebody calls? Where does that information get written down? Who follows up? Does one employee answer a customer's question differently than another employee?
+
+A tremendous amount of business knowledge is sitting in people's heads, buried in emails and text messages, scattered among different software programs or simply disappearing in conversations.
+
+Your business may already know much of what it needs to know to improve. The problem is that nobody has connected it all.`,
+  what_we_learned: `Start With the Business, Not the AI
+
+I don't believe the first question should be: What can we automate?
+
+First, I want to understand the business. What do you do every day? What happens when a customer calls? What information do you collect? Where does it go? How do you follow up? How do you deliver the product or service? Where are people getting frustrated? What does the owner want to accomplish? Where are things falling through the cracks?
+
+Only after we understand those things can we intelligently decide where AI, automation, a website, better software or simply a better process belongs.
+
+Otherwise, we can end up automating broken pieces. Sometimes that just makes the broken process happen faster.
+
+Automation Is the Last Step, Not the First
+
+First, listen. Then understand. Organize what you've learned. Find the gaps. Improve the process. Get the right people on the same page. Then automate the parts that actually should be automated.
+
+AI doesn't know your business. You do. Your employees do. Your customers do.`,
+  what_it_means_for_your_business: `Two companies in the same industry can have completely different problems. One may need a better website. Another may think it needs a website when its bigger problem is what happens after a lead comes in. Another may have good people but no consistent way of sharing information. Another may have an owner carrying half the business around in his or her head.
+
+That's why I don't think you start with a predetermined AI solution. You ask good questions. You listen. You learn how the business actually works. Then you bring back what you've learned and begin figuring out the next appropriate step together.
+
+AI can help capture knowledge that used to disappear. A repeated customer question might become better website information, employee training, a video, a sales answer or a new service idea. One conversation can connect with another. Patterns become easier to see.`,
+  this_weeks_challenge: `Before you ask what AI can do for your business, ask a different question:
+
+**What does my business already know that we're not using?**
+
+Ask your employees. Listen to your customers. Look at the questions that keep coming up. Look at the problems that keep repeating. Look at what you explain over and over. Look at what only one person in the company seems to know.
+
+That's where I would start.`,
+  selected_articles: [],
+  featured_video: {
+    source_id: 'T4fPojz2RmI',
+    source_type: 'YouTube',
+    title: 'Automation Is the Last Step, Not the First | NTA Growth Show',
+    url: 'https://youtu.be/T4fPojz2RmI',
+    duration: '',
+    description: 'Rick Hesse and the AI Guy discuss why a business should understand its people, knowledge, workflow and problems before automating them.',
+    cta_text: "Watch this week's NTA Growth Show",
+  },
+  related_article_ids: [],
+  related_video_ids: ['T4fPojz2RmI'],
+  related_video_url: 'https://youtu.be/T4fPojz2RmI',
+  related_video_title: 'Automation Is the Last Step, Not the First | NTA Growth Show',
+  cta_text: "Watch this week's NTA Growth Show",
+  cta_url: 'https://youtu.be/T4fPojz2RmI',
+  closing_message: `Your next growth opportunity may not come from teaching AI something it found on the Internet.
+
+It may come from finally capturing, connecting and using the knowledge that's been inside your business all along.
+
+**That's the NTA Point of View.**
+
+Watch this week's NTA Growth Show: [Automation Is the Last Step, Not the First](https://youtu.be/T4fPojz2RmI).`,
+}, {
   id: 'seed-journal-issue-7',
   issue_number: 7,
   volume: 1,
