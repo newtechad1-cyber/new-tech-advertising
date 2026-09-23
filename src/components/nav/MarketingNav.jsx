@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, Menu, X } from 'lucide-react';
 
@@ -89,6 +89,7 @@ export default function MarketingNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileExpanded, setMobileExpanded] = useState(null);
+  const mobileToggleRef = useRef(null);
 
   useEffect(() => {
     const closeDropdown = () => setActiveDropdown(null);
@@ -110,9 +111,39 @@ export default function MarketingNav() {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    document.querySelector('#mobile-main-menu a')?.focus();
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false);
+        setMobileExpanded(null);
+        mobileToggleRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [mobileOpen]);
+
   const closeMobile = () => {
     setMobileOpen(false);
     setMobileExpanded(null);
+    mobileToggleRef.current?.focus();
+  };
+
+  const keepFocusInMobileMenu = (event) => {
+    if (event.key !== 'Tab') return;
+    const focusable = [...event.currentTarget.querySelectorAll('a[href], button:not([disabled])')];
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   };
 
   const openGrowthGuide = (source) => {
@@ -183,6 +214,7 @@ export default function MarketingNav() {
           </div>
 
           <button
+            ref={mobileToggleRef}
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
             aria-expanded={mobileOpen}
@@ -195,7 +227,7 @@ export default function MarketingNav() {
         </div>
 
         {mobileOpen && (
-          <div id="mobile-main-menu" className="fixed inset-0 top-16 z-40 overflow-y-auto bg-slate-950 lg:hidden">
+          <div id="mobile-main-menu" role="dialog" aria-label="Website menu" aria-modal="true" onKeyDown={keepFocusInMobileMenu} className="absolute inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain bg-slate-950 lg:hidden">
             <div className="space-y-1 px-4 py-4">
               {NAV_LINKS.map((link) => (
                 <div key={link.label}>
