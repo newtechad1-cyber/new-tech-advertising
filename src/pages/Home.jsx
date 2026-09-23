@@ -15,7 +15,7 @@ import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 const HOMEPAGE_FAQS = [
   {
     question: 'What is New Tech Advertising now?',
-    answer: 'New Tech Advertising is a practical business-growth guide for small-business owners. Begin with a question, use free teaching or Your Digital Growth Guide™ when it helps, and talk to NTA when a human conversation would be useful.',
+    answer: 'New Tech Advertising helps small businesses advertise better by starting with the customer rather than an advertising product. NTA helps owners understand who they need to reach, what matters to those customers, where to reach them, and how websites, search, social, video, content, AI, follow-up, and other channels can work together as one connected growth system.',
   },
   {
     question: 'What happens when I work with NTA?',
@@ -63,8 +63,8 @@ export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
-        title="Small-Business Questions About AI, Marketing, Websites & Growth | NTA"
-        description="Plain-English answers for small-business owners who want to improve customers, time, websites, follow-up, AI understanding, or the next business decision."
+        title="Advertise Better | Small Business Advertising Strategy | NTA"
+        description="New Tech Advertising helps small businesses advertise better by starting with the customer, building useful messages, choosing the right channels, and creating consistent exposure over time."
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />

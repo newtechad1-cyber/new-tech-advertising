@@ -13,8 +13,8 @@ const DEFAULT_SEO = {
 const STATIC_SEO = {
   "/": {
     ...DEFAULT_SEO,
-    title: "Small-Business Questions About AI, Marketing, Websites & Growth | NTA",
-    description: "Plain-English answers for small-business owners who want to improve customers, time, websites, follow-up, AI understanding, or the next business decision.",
+    title: "Advertise Better | Small Business Advertising Strategy | NTA",
+    description: "New Tech Advertising helps small businesses advertise better by starting with the customer, building useful messages, choosing the right channels, and creating consistent exposure over time.",
   },
   "/about": {
     title: "Practical AI for Small Business Owners | About Rick Hesse & NTA",

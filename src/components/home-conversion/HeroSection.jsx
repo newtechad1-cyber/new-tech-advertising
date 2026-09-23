@@ -71,20 +71,23 @@ export default function HeroSection() {
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         <div className="mx-auto max-w-4xl text-center">
           <p className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-            Practical help for small-business owners
+            Better advertising starts with the customer
           </p>
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-            What would make your business work better—for you, your team, and your customers?
+            Advertise Better.
           </h1>
           <div className="mx-auto mt-7 max-w-3xl space-y-4 text-lg leading-relaxed text-slate-300 md:text-xl">
-            <p>
-              Your <strong className="text-white">Digital Growth Office™</strong> gives you, your team and NTA a practical place to capture questions, ideas and everyday business knowledge. AI helps remember, organize and bring important things back to your attention. <strong className="text-white">People provide the knowledge. People make the decisions.</strong>
-            </p>
-            <p>
-              From there, we build a practical <strong className="text-white">Digital Growth Roadmap™</strong> around your business—not a package of things you have to buy.
-            </p>
             <p className="font-semibold text-white">
-              Ask a good question. Listen. Bring back what you learn. Then decide what makes sense to do next.
+              Start with your customer. Not the advertising product.
+            </p>
+            <p>
+              New Tech Advertising helps small businesses understand <strong className="text-white">who they are trying to reach, what matters to those customers, where to reach them, and how to stay consistently visible until the time is right.</strong>
+            </p>
+            <p>
+              We do not begin by selling you Facebook ads, Google ads, a website, video, AI, or another marketing package. We begin by understanding your business and your customers. Then we build a practical <strong className="text-white">Digital Growth Roadmap™</strong> and connect the right messages, campaigns, content, technology and advertising around the people you actually need to reach.
+            </p>
+            <p className="font-semibold text-blue-200">
+              Better advertising starts with better understanding.
             </p>
           </div>
         </div>
