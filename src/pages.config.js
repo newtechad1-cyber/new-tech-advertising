@@ -38,6 +38,8 @@ import GrowthShowEpisode from './pages/GrowthShowEpisode';
 import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
+import RestaurantSolutions from './pages/RestaurantSolutions';
+import DigitalGrowthAdvisor from './pages/DigitalGrowthAdvisor';
 import OurStory from './pages/OurStory';
 import OurWork from './pages/OurWork';
 import PracticalAI from './pages/PracticalAI';
@@ -74,6 +76,9 @@ const PAGES = {
   HelpAndSupport,
   LearningCenter,
   KnowledgeLibrary,
+  knowledge: KnowledgeLibrary,
+  restaurants: RestaurantSolutions,
+  'digital-growth-advisor': DigitalGrowthAdvisor,
   OurStory,
   OurWork,
   PracticalAI,
