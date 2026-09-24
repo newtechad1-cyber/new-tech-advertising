@@ -47,6 +47,7 @@ test('question-first knowledge resources are in every intentional discovery surf
   const sitemap = fs.readFileSync(path.join(root, 'public', 'sitemap.xml'), 'utf8');
   const aiSitemap = JSON.parse(fs.readFileSync(path.join(root, 'public', 'ai-sitemap.json'), 'utf8'));
   const llms = fs.readFileSync(path.join(root, 'public', 'llms.txt'), 'utf8');
+  const pageRegistry = fs.readFileSync(path.join(root, 'src', 'pages.config.js'), 'utf8');
 
   assert.doesNotMatch(sitemap, /<loc>https:\/\/newtechadvertising\.com\/insights<\/loc>/);
   assert.doesNotMatch(sitemap, /<loc>https:\/\/newtechadvertising\.com\/(?:business-journey|restaurant-social-media)<\/loc>/);
@@ -59,6 +60,7 @@ test('question-first knowledge resources are in every intentional discovery surf
   assert.doesNotMatch(llms, /https:\/\/newtechadvertising\.com\/insights/);
 
   for (const route of QUESTION_PATHS) {
+    assert.ok(pageRegistry.includes("'" + route.slice(1) + "':"), 'Expected a crawler page registration for ' + route);
     assert.match(sitemap, new RegExp('<loc>https://newtechadvertising\\.com' + route + '</loc>'));
     const aiSitemapPage = aiSitemap.publicPages.find(
       page => page.canonicalUrl === 'https://newtechadvertising.com' + route
