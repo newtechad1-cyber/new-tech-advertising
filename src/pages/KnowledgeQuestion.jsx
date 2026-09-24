@@ -35,9 +35,9 @@ function ExperienceCard({ eyebrow, title, description, to, href, label }) {
   return <Link to={to} className={className}>{content}</Link>;
 }
 
-export default function KnowledgeQuestion() {
+export default function KnowledgeQuestion({ questionSlugOverride }) {
   const { questionSlug } = useParams();
-  const question = getKnowledgeQuestionBySlug(questionSlug);
+  const question = getKnowledgeQuestionBySlug(questionSlugOverride || questionSlug);
 
   if (!question) {
     return <Navigate to="/knowledge/questions" replace />;
