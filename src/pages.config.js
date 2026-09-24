@@ -43,6 +43,14 @@ import KnowledgeQuestion from './pages/KnowledgeQuestion';
 import KnowledgeCollection from './pages/KnowledgeCollection';
 import KnowledgeLesson from './pages/KnowledgeLesson';
 import LCVideoLibrary from './legacy-page-components/LCVideoLibrary';
+import CanonExplorer from './pages/CanonExplorer';
+import Books from './pages/Books';
+import BetterBusinessBook from './pages/BetterBusinessBook';
+import POVCollection from './pages/POVCollection';
+import NTAOperatingSystem from './pages/NTAOperatingSystem';
+import WorkWithNTA from './pages/WorkWithNTA';
+import GrowthGuide from './pages/GrowthGuide';
+import NTAGrowthConversation from './pages/NTAGrowthConversation';
 import RestaurantSolutions from './pages/RestaurantSolutions';
 import DigitalGrowthAdvisor from './pages/DigitalGrowthAdvisor';
 import OurStory from './pages/OurStory';
@@ -90,6 +98,15 @@ const PAGES = {
   'knowledge/:collectionSlug/:lessonSlug': KnowledgeLesson,
   'knowledge/:collectionSlug': KnowledgeCollection,
   'learning-center/videos': LCVideoLibrary,
+  journal: JournalLanding,
+  'point-of-view': POVCollection,
+  canon: CanonExplorer,
+  books: Books,
+  'better-business-book': BetterBusinessBook,
+  'operating-system': NTAOperatingSystem,
+  'work-with-nta': WorkWithNTA,
+  'growth-guide': GrowthGuide,
+  'growth-conversation': NTAGrowthConversation,
   restaurants: RestaurantSolutions,
   'digital-growth-advisor': DigitalGrowthAdvisor,
   OurStory,
