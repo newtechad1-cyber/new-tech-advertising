@@ -39,11 +39,6 @@ import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
 import HowCanASmallBusinessUseAI from './pages/knowledge/questions/how-can-a-small-business-use-ai';
-import StartWithTheWorkNativeLesson from './pages/knowledge/ai-foundations/start-with-the-work-not-the-tool';
-import AiNeedsContextNativeLesson from './pages/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful';
-import UnderstandingBeforeSpendingNativeLesson from './pages/knowledge/business-foundations/understanding-before-spending';
-import UseTheModelNativeLesson from './pages/knowledge/ai-foundations/use-the-model-that-gets-the-job-done';
-import BuildingGrowthOfficeNativeLesson from './pages/knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me';
 import WhereShouldIStartWithAiQuestionPage from './pages/knowledge/questions/where-should-i-start-with-ai';
 import WhatCanChatgptDoForASmallBusinessQuestionPage from './pages/knowledge/questions/what-can-chatgpt-do-for-a-small-business';
 import DoINeedAPerfectPromptQuestionPage from './pages/knowledge/questions/do-i-need-a-perfect-prompt';
@@ -110,11 +105,6 @@ const PAGES = {
   KnowledgeLibrary,
   knowledge: KnowledgeLibrary,
   'knowledge/questions/how-can-a-small-business-use-ai': HowCanASmallBusinessUseAI,
-  'knowledge/ai-foundations/start-with-the-work-not-the-tool': StartWithTheWorkNativeLesson,
-  'knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful': AiNeedsContextNativeLesson,
-  'knowledge/business-foundations/understanding-before-spending': UnderstandingBeforeSpendingNativeLesson,
-  'knowledge/ai-foundations/use-the-model-that-gets-the-job-done': UseTheModelNativeLesson,
-  'knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me': BuildingGrowthOfficeNativeLesson,
   'knowledge/questions/where-should-i-start-with-ai': WhereShouldIStartWithAiQuestionPage,
   'knowledge/questions/what-can-chatgpt-do-for-a-small-business': WhatCanChatgptDoForASmallBusinessQuestionPage,
   'knowledge/questions/do-i-need-a-perfect-prompt': DoINeedAPerfectPromptQuestionPage,

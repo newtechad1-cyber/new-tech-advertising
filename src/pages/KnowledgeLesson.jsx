@@ -10,10 +10,8 @@ import { getLessonBySlug, getCollectionBySlug, getConnectedLessonResources } fro
 import { getLessonSearchMetadata } from '@/config/seoMetadata';
 import { getJourneyMemory, updateJourneyMemory, addCompletedModule } from '@/lib/journeyMemory';
 
-export default function KnowledgeLesson({ collectionSlugOverride, lessonSlugOverride }) {
-  const routeParams = useParams();
-  const collectionSlug = collectionSlugOverride || routeParams.collectionSlug;
-  const lessonSlug = lessonSlugOverride || routeParams.lessonSlug;
+export default function KnowledgeLesson() {
+  const { collectionSlug, lessonSlug } = useParams();
   const navigate = useNavigate();
   
   const collection = getCollectionBySlug(collectionSlug);
