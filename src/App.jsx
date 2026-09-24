@@ -144,6 +144,7 @@ const LEGACY_PUBLIC_REDIRECTS = {
   // The former Business Journey is now part of the canonical client process.
   '/business-journey': '/work-with-nta',
   '/BusinessJourney': '/work-with-nta',
+  '/restaurant-social-media': '/restaurants',
 };
 
 function LegacyBookingRedirect() {
