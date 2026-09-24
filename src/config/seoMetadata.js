@@ -299,7 +299,7 @@ const STATIC_SEO = {
     description: "Build restaurant growth around team knowledge, customer learning, useful communication, and a practical Digital Growth Roadmap.",
     canonical: "https://newtechadvertising.com/restaurants",
     noIndex: true,
-  }
+  },
   "/streaming-tv-advertising": {
     title: "Should My Business Use Streaming TV Advertising? | NTA",
     description: "Understand where streaming TV and connected TV advertising may fit in a small-business Digital Growth Roadmap.",
