@@ -39,6 +39,74 @@ import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
 import StartWithTheWorkNotTheToolLessonPage from './pages/knowledge/ai-foundations/start-with-the-work-not-the-tool';
+// BEGIN GENERATED NATIVE LESSON IMPORTS
+import NativeLessonPage001 from './pages/knowledge/business-foundations/why-nta-exists';
+import NativeLessonPage002 from './pages/knowledge/business-foundations/how-businesses-really-grow';
+import NativeLessonPage003 from './pages/knowledge/business-foundations/marketing-isnt-magic';
+import NativeLessonPage004 from './pages/knowledge/business-foundations/every-system-produces-exactly-what-it-was-designed-to-produce';
+import NativeLessonPage005 from './pages/knowledge/business-foundations/understanding-before-spending';
+import NativeLessonPage006 from './pages/knowledge/business-foundations/ai-is-my-team-not-my-replacement';
+import NativeLessonPage007 from './pages/knowledge/business-foundations/why-trust-comes-before-marketing';
+import NativeLessonPage008 from './pages/knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me';
+import NativeLessonPage009 from './pages/knowledge/business-foundations/the-right-decision-should-make-sense';
+import NativeLessonPage010 from './pages/knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people';
+import NativeLessonPage011 from './pages/knowledge/what-a-lifetime-in-business-taught-me/i-tried-a-lot-of-businesses';
+import NativeLessonPage012 from './pages/knowledge/what-a-lifetime-in-business-taught-me/the-gold-is-in-the-niche-the-business-is-in-the-connections';
+import NativeLessonPage013 from './pages/knowledge/what-a-lifetime-in-business-taught-me/free-is-free';
+import NativeLessonPage014 from './pages/knowledge/what-a-lifetime-in-business-taught-me/ai-didnt-give-me-my-experience';
+import NativeLessonPage015 from './pages/knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it';
+import NativeLessonPage016 from './pages/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system';
+import NativeLessonPage017 from './pages/knowledge/truth-about-business-growth/marketing-doesnt-create-great-businesses';
+import NativeLessonPage018 from './pages/knowledge/truth-about-business-growth/every-business-is-already-perfectly-designed';
+import NativeLessonPage019 from './pages/knowledge/truth-about-business-growth/the-difference-between-activity-and-progress';
+import NativeLessonPage020 from './pages/knowledge/truth-about-business-growth/why-growth-is-a-system';
+import NativeLessonPage021 from './pages/knowledge/truth-about-business-growth/what-business-owners-really-buy';
+import NativeLessonPage022 from './pages/knowledge/truth-about-business-growth/why-understanding-comes-before-advertising';
+import NativeLessonPage023 from './pages/knowledge/how-customers-decide-who-to-trust/trust-begins-before-the-first-conversation';
+import NativeLessonPage024 from './pages/knowledge/how-customers-decide-who-to-trust/people-trust-what-they-can-understand';
+import NativeLessonPage025 from './pages/knowledge/how-customers-decide-who-to-trust/customers-trust-evidence-more-than-claims';
+import NativeLessonPage026 from './pages/knowledge/how-customers-decide-who-to-trust/trust-is-built-through-kept-promises';
+import NativeLessonPage027 from './pages/knowledge/how-customers-decide-who-to-trust/people-remember-how-a-business-made-them-feel';
+import NativeLessonPage028 from './pages/knowledge/how-customers-decide-who-to-trust/trust-means-putting-the-relationship-before-the-transaction';
+import NativeLessonPage029 from './pages/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-sale-is-the-beginning-not-the-end';
+import NativeLessonPage030 from './pages/knowledge/how-businesses-turn-trust-into-lasting-relationships/staying-connected-without-always-selling';
+import NativeLessonPage031 from './pages/knowledge/how-businesses-turn-trust-into-lasting-relationships/a-business-should-remember-its-customers';
+import NativeLessonPage032 from './pages/knowledge/how-businesses-turn-trust-into-lasting-relationships/every-customer-relationship-should-teach-the-business-something';
+import NativeLessonPage033 from './pages/knowledge/how-businesses-turn-trust-into-lasting-relationships/customer-feedback-should-change-the-business';
+import NativeLessonPage034 from './pages/knowledge/how-businesses-turn-trust-into-lasting-relationships/customers-become-loyal-when-they-help-shape-the-business';
+import NativeLessonPage035 from './pages/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-strongest-growth-comes-from-relationships-that-create-more-relationships';
+import NativeLessonPage036 from './pages/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented';
+import NativeLessonPage037 from './pages/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-usually-lives-in-the-owners-head';
+import NativeLessonPage038 from './pages/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach';
+import NativeLessonPage039 from './pages/knowledge/turning-what-a-business-knows-into-an-asset/stories-turn-experience-into-understanding';
+import NativeLessonPage040 from './pages/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable';
+import NativeLessonPage041 from './pages/knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business';
+import NativeLessonPage042 from './pages/knowledge/turning-what-a-business-knows-into-an-asset/knowledge-becomes-an-asset-when-it-can-keep-working-without-you';
+import NativeLessonPage043 from './pages/knowledge/ai-foundations/ai-isnt-magic-either';
+import NativeLessonPage044 from './pages/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful';
+import NativeLessonPage045 from './pages/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it';
+import NativeLessonPage046 from './pages/knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation';
+import NativeLessonPage047 from './pages/knowledge/ai-foundations/automation-comes-after-understanding';
+import NativeLessonPage048 from './pages/knowledge/ai-foundations/building-your-first-ai-teammate';
+import NativeLessonPage049 from './pages/knowledge/ai-foundations/when-ai-tells-you-youre-different';
+import NativeLessonPage050 from './pages/knowledge/ai-foundations/the-team-i-spent-my-life-trying-to-build';
+import NativeLessonPage051 from './pages/knowledge/ai-foundations/ai-makes-complicated-work-easier';
+import NativeLessonPage052 from './pages/knowledge/ai-foundations/i-see-artificial-intelligence-differently';
+import NativeLessonPage053 from './pages/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster';
+import NativeLessonPage054 from './pages/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to';
+import NativeLessonPage055 from './pages/knowledge/ai-foundations/use-the-model-that-gets-the-job-done';
+import NativeLessonPage056 from './pages/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask';
+import NativeLessonPage057 from './pages/knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with';
+import NativeLessonPage058 from './pages/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back';
+import NativeLessonPage059 from './pages/knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert';
+import NativeLessonPage060 from './pages/knowledge/what-is-digital-trust/what-is-digital-trust';
+import NativeLessonPage061 from './pages/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website';
+import NativeLessonPage062 from './pages/knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough';
+import NativeLessonPage063 from './pages/knowledge/what-is-digital-trust/digital-assets-keep-working';
+import NativeLessonPage064 from './pages/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses';
+import NativeLessonPage065 from './pages/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage';
+import NativeLessonPage066 from './pages/knowledge/what-is-digital-trust/the-connected-business-is-the-future';
+// END GENERATED NATIVE LESSON IMPORTS
 import HowCanASmallBusinessUseAI from './pages/knowledge/questions/how-can-a-small-business-use-ai';
 import WhereShouldIStartWithAiQuestionPage from './pages/knowledge/questions/where-should-i-start-with-ai';
 import WhatCanChatgptDoForASmallBusinessQuestionPage from './pages/knowledge/questions/what-can-chatgpt-do-for-a-small-business';
@@ -106,6 +174,74 @@ const PAGES = {
   KnowledgeLibrary,
   knowledge: KnowledgeLibrary,
   'knowledge/ai-foundations/start-with-the-work-not-the-tool': StartWithTheWorkNotTheToolLessonPage,
+  // BEGIN GENERATED NATIVE LESSON ROUTES
+  'knowledge/business-foundations/why-nta-exists': NativeLessonPage001,
+  'knowledge/business-foundations/how-businesses-really-grow': NativeLessonPage002,
+  'knowledge/business-foundations/marketing-isnt-magic': NativeLessonPage003,
+  'knowledge/business-foundations/every-system-produces-exactly-what-it-was-designed-to-produce': NativeLessonPage004,
+  'knowledge/business-foundations/understanding-before-spending': NativeLessonPage005,
+  'knowledge/business-foundations/ai-is-my-team-not-my-replacement': NativeLessonPage006,
+  'knowledge/business-foundations/why-trust-comes-before-marketing': NativeLessonPage007,
+  'knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me': NativeLessonPage008,
+  'knowledge/business-foundations/the-right-decision-should-make-sense': NativeLessonPage009,
+  'knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people': NativeLessonPage010,
+  'knowledge/what-a-lifetime-in-business-taught-me/i-tried-a-lot-of-businesses': NativeLessonPage011,
+  'knowledge/what-a-lifetime-in-business-taught-me/the-gold-is-in-the-niche-the-business-is-in-the-connections': NativeLessonPage012,
+  'knowledge/what-a-lifetime-in-business-taught-me/free-is-free': NativeLessonPage013,
+  'knowledge/what-a-lifetime-in-business-taught-me/ai-didnt-give-me-my-experience': NativeLessonPage014,
+  'knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it': NativeLessonPage015,
+  'knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system': NativeLessonPage016,
+  'knowledge/truth-about-business-growth/marketing-doesnt-create-great-businesses': NativeLessonPage017,
+  'knowledge/truth-about-business-growth/every-business-is-already-perfectly-designed': NativeLessonPage018,
+  'knowledge/truth-about-business-growth/the-difference-between-activity-and-progress': NativeLessonPage019,
+  'knowledge/truth-about-business-growth/why-growth-is-a-system': NativeLessonPage020,
+  'knowledge/truth-about-business-growth/what-business-owners-really-buy': NativeLessonPage021,
+  'knowledge/truth-about-business-growth/why-understanding-comes-before-advertising': NativeLessonPage022,
+  'knowledge/how-customers-decide-who-to-trust/trust-begins-before-the-first-conversation': NativeLessonPage023,
+  'knowledge/how-customers-decide-who-to-trust/people-trust-what-they-can-understand': NativeLessonPage024,
+  'knowledge/how-customers-decide-who-to-trust/customers-trust-evidence-more-than-claims': NativeLessonPage025,
+  'knowledge/how-customers-decide-who-to-trust/trust-is-built-through-kept-promises': NativeLessonPage026,
+  'knowledge/how-customers-decide-who-to-trust/people-remember-how-a-business-made-them-feel': NativeLessonPage027,
+  'knowledge/how-customers-decide-who-to-trust/trust-means-putting-the-relationship-before-the-transaction': NativeLessonPage028,
+  'knowledge/how-businesses-turn-trust-into-lasting-relationships/the-sale-is-the-beginning-not-the-end': NativeLessonPage029,
+  'knowledge/how-businesses-turn-trust-into-lasting-relationships/staying-connected-without-always-selling': NativeLessonPage030,
+  'knowledge/how-businesses-turn-trust-into-lasting-relationships/a-business-should-remember-its-customers': NativeLessonPage031,
+  'knowledge/how-businesses-turn-trust-into-lasting-relationships/every-customer-relationship-should-teach-the-business-something': NativeLessonPage032,
+  'knowledge/how-businesses-turn-trust-into-lasting-relationships/customer-feedback-should-change-the-business': NativeLessonPage033,
+  'knowledge/how-businesses-turn-trust-into-lasting-relationships/customers-become-loyal-when-they-help-shape-the-business': NativeLessonPage034,
+  'knowledge/how-businesses-turn-trust-into-lasting-relationships/the-strongest-growth-comes-from-relationships-that-create-more-relationships': NativeLessonPage035,
+  'knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented': NativeLessonPage036,
+  'knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-usually-lives-in-the-owners-head': NativeLessonPage037,
+  'knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach': NativeLessonPage038,
+  'knowledge/turning-what-a-business-knows-into-an-asset/stories-turn-experience-into-understanding': NativeLessonPage039,
+  'knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable': NativeLessonPage040,
+  'knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business': NativeLessonPage041,
+  'knowledge/turning-what-a-business-knows-into-an-asset/knowledge-becomes-an-asset-when-it-can-keep-working-without-you': NativeLessonPage042,
+  'knowledge/ai-foundations/ai-isnt-magic-either': NativeLessonPage043,
+  'knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful': NativeLessonPage044,
+  'knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it': NativeLessonPage045,
+  'knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation': NativeLessonPage046,
+  'knowledge/ai-foundations/automation-comes-after-understanding': NativeLessonPage047,
+  'knowledge/ai-foundations/building-your-first-ai-teammate': NativeLessonPage048,
+  'knowledge/ai-foundations/when-ai-tells-you-youre-different': NativeLessonPage049,
+  'knowledge/ai-foundations/the-team-i-spent-my-life-trying-to-build': NativeLessonPage050,
+  'knowledge/ai-foundations/ai-makes-complicated-work-easier': NativeLessonPage051,
+  'knowledge/ai-foundations/i-see-artificial-intelligence-differently': NativeLessonPage052,
+  'knowledge/ai-foundations/ai-does-not-have-to-be-a-monster': NativeLessonPage053,
+  'knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to': NativeLessonPage054,
+  'knowledge/ai-foundations/use-the-model-that-gets-the-job-done': NativeLessonPage055,
+  'knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask': NativeLessonPage056,
+  'knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with': NativeLessonPage057,
+  'knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back': NativeLessonPage058,
+  'knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert': NativeLessonPage059,
+  'knowledge/what-is-digital-trust/what-is-digital-trust': NativeLessonPage060,
+  'knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website': NativeLessonPage061,
+  'knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough': NativeLessonPage062,
+  'knowledge/what-is-digital-trust/digital-assets-keep-working': NativeLessonPage063,
+  'knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses': NativeLessonPage064,
+  'knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage': NativeLessonPage065,
+  'knowledge/what-is-digital-trust/the-connected-business-is-the-future': NativeLessonPage066,
+  // END GENERATED NATIVE LESSON ROUTES
   'knowledge/questions/how-can-a-small-business-use-ai': HowCanASmallBusinessUseAI,
   'knowledge/questions/where-should-i-start-with-ai': WhereShouldIStartWithAiQuestionPage,
   'knowledge/questions/what-can-chatgpt-do-for-a-small-business': WhatCanChatgptDoForASmallBusinessQuestionPage,
