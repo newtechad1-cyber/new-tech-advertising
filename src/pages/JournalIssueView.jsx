@@ -4,7 +4,7 @@
  * Route: /journal/:slug
  */
 import { useEffect, useMemo } from 'react';
-import { Link, useLocation, useParams, Navigate } from 'react-router-dom';
+import { Link, useParams, Navigate } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -58,9 +58,7 @@ function JournalSection({ sectionKey, content }) {
 }
 
 export default function JournalIssueView() {
-  const { slug: routeSlug } = useParams();
-  const { pathname } = useLocation();
-  const slug = routeSlug || pathname.split('/').filter(Boolean).pop();
+  const { slug } = useParams();
   const kg = useKnowledgeGraph();
   const loading = kg.loading;
   const published = useMemo(() =>

@@ -1,4 +1,4 @@
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, ChevronRight, CircleCheck, User } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -36,11 +36,7 @@ function ExperienceCard({ eyebrow, title, description, to, href, label }) {
 }
 
 export default function KnowledgeQuestion() {
-  const { questionSlug: routeQuestionSlug } = useParams();
-  const { pathname } = useLocation();
-  // Base44's public page registry uses literal paths for crawler rendering;
-  // React Router supplies a parameter only on the dynamic compatibility route.
-  const questionSlug = routeQuestionSlug || pathname.split('/').filter(Boolean).pop();
+  const { questionSlug } = useParams();
   const question = getKnowledgeQuestionBySlug(questionSlug);
 
   if (!question) {

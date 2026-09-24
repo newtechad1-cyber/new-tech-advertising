@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useLocation, useParams, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import LessonArticle from '@/components/knowledge/LessonArticle';
 import { ChevronRight, Clock, CheckCircle, ArrowLeft, ArrowRight, User, BookOpen, List, Quote } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
@@ -11,11 +11,7 @@ import { getLessonSearchMetadata } from '@/config/seoMetadata';
 import { getJourneyMemory, updateJourneyMemory, addCompletedModule } from '@/lib/journeyMemory';
 
 export default function KnowledgeLesson() {
-  const { collectionSlug: routeCollectionSlug, lessonSlug: routeLessonSlug } = useParams();
-  const { pathname } = useLocation();
-  const segments = pathname.split('/').filter(Boolean);
-  const collectionSlug = routeCollectionSlug || segments[1];
-  const lessonSlug = routeLessonSlug || segments[2];
+  const { collectionSlug, lessonSlug } = useParams();
   const navigate = useNavigate();
   
   const collection = getCollectionBySlug(collectionSlug);

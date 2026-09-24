@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import LessonArticle from '@/components/knowledge/LessonArticle';
 import {
@@ -27,9 +27,7 @@ import { contentPath } from '@/lib/contentJourney';
  * no article copy so the Knowledge Library has one source of truth.
  */
 export default function CanonArticleView() {
-  const { slug: routeSlug } = useParams();
-  const { pathname } = useLocation();
-  const slug = routeSlug || pathname.split('/').filter(Boolean).pop();
+  const { slug } = useParams();
   const kg = useKnowledgeGraph();
   const journalIssues = (kg.journals || [])
     .filter(issue => issue.status === 'Published')
