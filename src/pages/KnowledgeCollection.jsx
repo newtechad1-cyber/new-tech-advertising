@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useParams, Navigate, useNavigate } from 'react-router-dom';
 import { ChevronRight, Clock, CheckCircle, Circle, PlayCircle, BookOpen, FileText, Layers3 } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -10,7 +10,9 @@ import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/fl
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
 export default function KnowledgeCollection() {
-  const { collectionSlug } = useParams();
+  const { collectionSlug: routeCollectionSlug } = useParams();
+  const { pathname } = useLocation();
+  const collectionSlug = routeCollectionSlug || pathname.split('/').filter(Boolean)[1];
   const navigate = useNavigate();
 
   useEffect(() => {
