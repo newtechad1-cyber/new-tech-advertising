@@ -96,6 +96,8 @@ test('historical route variants can never inherit generic indexable metadata', (
     '/insights',
     '/Insights',
     '/restaurantsocialmedia',
+    '/restaurant-social-media',
+    '/business-journey',
     '/blogpost',
     '/website-rebuilds',
     '/KnowledgeCaptureWorkspace',
