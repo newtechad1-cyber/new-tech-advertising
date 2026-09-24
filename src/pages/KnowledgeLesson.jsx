@@ -65,8 +65,8 @@ export default function KnowledgeLesson() {
           title: lesson.title,
           description: lessonSeo.description,
           author: "Rick Hesse",
-          datePublished: lesson.publishedDate || "2026-07-15",
-          dateModified: lesson.modifiedDate || "2026-07-23",
+          datePublished: isLifetimeCollection ? undefined : lesson.publishedDate || "2026-07-15",
+          dateModified: isLifetimeCollection ? undefined : lesson.modifiedDate || "2026-07-23",
           slug: `/knowledge/${collection.slug}/${lesson.slug}`
         }}
         learningData={{
@@ -98,7 +98,7 @@ export default function KnowledgeLesson() {
                 to={`/knowledge/${collection.slug}`}
                 className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/25 bg-blue-500/10 px-3 py-1.5 text-blue-300 font-bold text-xs uppercase tracking-widest hover:bg-blue-500/20 transition-colors"
               >
-                <List className="w-3.5 h-3.5" /> {isLifetimeCollection ? 'NTA Point of View · ' : ''}Lesson {lessonPosition} of {totalLessons}
+                <List className="w-3.5 h-3.5" /> {isLifetimeCollection ? 'Featured Series · NTA Point of View · ' : ''}Lesson {lessonPosition} of {totalLessons}
               </Link>
               <span className="text-slate-600">•</span>
               <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
@@ -123,11 +123,11 @@ export default function KnowledgeLesson() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">Rick Hesse</p>
-                  <p className="text-xs text-slate-500">Your Digital Growth Guide™</p>
+                  <p className="text-xs text-slate-500">{isLifetimeCollection ? 'NTA Point of View' : 'Your Digital Growth Guide™'}</p>
                 </div>
               </div>
               <Link to={`/knowledge/${collection.slug}`} className="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300">
-                <List className="w-4 h-4" /> View all {totalLessons} {collection.title} lessons
+                <List className="w-4 h-4" /> {isLifetimeCollection ? `Back to collection: ${collection.title}` : `View all ${totalLessons} ${collection.title} lessons`}
               </Link>
             </div>
           </div>
@@ -233,7 +233,7 @@ export default function KnowledgeLesson() {
             <div className="max-w-3xl mx-auto">
               <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Continue the idea</p>
               <h2 className="text-2xl md:text-3xl font-black text-white mb-4">A lifetime of experience becomes more useful when a business can keep learning from it.</h2>
-              <p className="text-slate-400 leading-relaxed mb-7">If this collection raised questions about collaboration, practical AI, business knowledge, or the Digital Growth Office, these are natural places to continue—not because you need another product, but because each explores one of those ideas more deeply.</p>
+              <p className="text-slate-400 leading-relaxed mb-7">Continue exploring practical AI, collaboration, business knowledge, and the connected Digital Growth Office through these NTA lessons.</p>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Link to="/knowledge/turning-what-a-business-knows-into-an-asset" className="rounded-2xl border border-slate-800 bg-slate-950 p-5 hover:border-blue-500/50"><p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Business Knowledge</p><p className="font-bold text-white">Turning What a Business Knows Into an Asset</p></Link>
                 <Link to="/knowledge/ai-foundations" className="rounded-2xl border border-slate-800 bg-slate-950 p-5 hover:border-blue-500/50"><p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Practical AI</p><p className="font-bold text-white">AI Foundations</p></Link>
@@ -271,7 +271,7 @@ export default function KnowledgeLesson() {
                   <List className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-xs text-slate-500 uppercase tracking-wider block mb-1">All Lessons</span>
+                  <span className="text-xs text-slate-500 uppercase tracking-wider block mb-1">Series overview</span>
                   <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">Back to {collection.title}</span>
                 </div>
               </Link>
