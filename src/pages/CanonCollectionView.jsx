@@ -10,21 +10,42 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { useKnowledgeGraph, THEME_COLORS } from '@/lib/knowledgeGraph';
+import { ALL_SEED_ASSETS, SEED_COLLECTIONS } from '@/data/canonSeed';
 import { CollectionEntryList, getCollectionProgress } from '@/components/knowledge/ReaderJourney';
 import {
   ArrowLeft, BookOpen, Clock, CheckCircle2,
   Loader2, Compass
 } from 'lucide-react';
 
-export default function CanonCollectionView() {
-  const { slug } = useParams();
+const principleSeed = SEED_COLLECTIONS.find(collection => collection.slug === 'nta-principles');
+const principleEntries = (principleSeed?.entry_canon_ids || [])
+  .map(id => ALL_SEED_ASSETS.find(article => article.canon_id === id))
+  .filter(Boolean);
+const principleFallback = principleSeed ? {
+  ...principleSeed,
+  entries: [...principleEntries, {
+    canon_id: 'NTA-SETUP-MATTERS',
+    title: 'The Work You Don’t See: Why Setup Matters',
+    summary: 'Simple business systems take significant discovery, configuration, and experience to build. Rick Hesse explains why setup is part of the real value—and why the best systems absorb complexity so business owners can focus on their work.',
+    slug: 'the-work-you-dont-see-why-setup-matters',
+    canonical_url: '/canon/the-work-you-dont-see-why-setup-matters',
+    content_type: 'Learning Lesson',
+    asset_type: 'lesson',
+    estimated_read_time: 7,
+    status: 'Published',
+  }],
+} : null;
+
+export default function CanonCollectionView({ collectionSlug }) {
+  const { slug: routeSlug } = useParams();
+  const slug = collectionSlug || routeSlug;
   const kg = useKnowledgeGraph();
 
   const collectionData = useMemo(() => {
-    return kg.getCollectionWithEntries(slug);
+    return kg.getCollectionWithEntries(slug) || (slug === 'nta-principles' ? principleFallback : null);
   }, [kg, slug]);
 
-  if (kg.loading) {
+  if (kg.loading && !collectionData) {
     return (
       <>
         <MarketingNav />

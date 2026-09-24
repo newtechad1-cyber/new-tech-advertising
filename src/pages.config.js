@@ -89,6 +89,7 @@ import PublicJournalIssue05 from './pages/journal/issue-5-build-with-the-budget-
 import PublicJournalIssue06 from './pages/journal/issue-6-ai-finally-taught-me-how-to-multitask';
 import PublicJournalIssue07 from './pages/journal/issue-7-are-you-building-a-business-or-just-a-website';
 import PublicJournalIssue08 from './pages/journal/issue-8-your-business-already-knows-more-than-you-think';
+import CanonNtaPrinciplesCollectionPage from './pages/CanonNtaPrinciplesCollectionPage';
 // BEGIN GENERATED NATIVE LESSON IMPORTS
 import NativeLessonPage001 from './pages/knowledge/business-foundations/why-nta-exists';
 import NativeLessonPage002 from './pages/knowledge/business-foundations/how-businesses-really-grow';
@@ -274,6 +275,7 @@ const PAGES = {
   'journal/issue-6-ai-finally-taught-me-how-to-multitask': PublicJournalIssue06,
   'journal/issue-7-are-you-building-a-business-or-just-a-website': PublicJournalIssue07,
   'journal/issue-8-your-business-already-knows-more-than-you-think': PublicJournalIssue08,
+  'canon/collection/nta-principles': CanonNtaPrinciplesCollectionPage,
   // BEGIN GENERATED NATIVE LESSON ROUTES
   'knowledge/business-foundations/why-nta-exists': NativeLessonPage001,
   'knowledge/business-foundations/how-businesses-really-grow': NativeLessonPage002,
