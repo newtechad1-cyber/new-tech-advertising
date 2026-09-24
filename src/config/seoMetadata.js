@@ -157,6 +157,10 @@ const STATIC_SEO = {
     title: "NTA Account Manager Opportunity | Free AI Education & Residual Income",
     description: "Free practical-AI education for curious people who enjoy business conversations. Help owners learn, build relationships, and pursue residual income under a written agreement.",
   },
+  "/digital-growth-advisor": {
+    title: "Digital Growth Advisor Program | Learn. Earn. Build. | NTA",
+    description: "Learn AI. Learn Business. Help Businesses Grow. Start with your relationship skills, supported by New Tech Advertising's Digital Growth Office.",
+  },
   "/regional-account-manager": {
     title: "NTA Account Manager Opportunity | Free AI Education & Residual Income",
     description: "Free practical-AI education for curious people who enjoy business conversations. Help owners learn, build relationships, and pursue residual income under a written agreement.",
@@ -293,7 +297,9 @@ const STATIC_SEO = {
   "/restaurant-social-media": {
     title: "Restaurant Growth, Team Building & Digital Growth Roadmaps | NTA",
     description: "Build restaurant growth around team knowledge, customer learning, useful communication, and a practical Digital Growth Roadmap.",
-  },
+    canonical: "https://newtechadvertising.com/restaurants",
+    noIndex: true,
+  }
   "/streaming-tv-advertising": {
     title: "Should My Business Use Streaming TV Advertising? | NTA",
     description: "Understand where streaming TV and connected TV advertising may fit in a small-business Digital Growth Roadmap.",
