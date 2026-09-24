@@ -303,10 +303,10 @@ export default function SEOHead({
         "@type": "VideoObject",
         "name": videoData.name || resolvedTitle,
         "description": videoData.description || resolvedDescription,
-        "thumbnailUrl": videoData.thumbnailUrl || `${SITE_ORIGIN}/og-image.png`,
-        "uploadDate": videoData.uploadDate || "2026-01-01",
-        "contentUrl": videoData.contentUrl || videoData.embedUrl,
-        "embedUrl": videoData.embedUrl,
+        ...(videoData.thumbnailUrl ? { "thumbnailUrl": videoData.thumbnailUrl } : {}),
+        ...(videoData.uploadDate ? { "uploadDate": videoData.uploadDate } : {}),
+        ...(videoData.contentUrl ? { "contentUrl": videoData.contentUrl } : {}),
+        ...(videoData.embedUrl ? { "embedUrl": videoData.embedUrl } : {}),
         "publisher": {
           "@type": "Organization",
           "@id": `${SITE_ORIGIN}/#organization`
