@@ -18,6 +18,12 @@ import {
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
+// Issues 6 and 8 are publicly published in JournalIssue, while their archived seed statuses lag.
+// The seed is only an initial crawler-readable snapshot until live records load.
+const PUBLISHED_SEED_JOURNALS = SEED_JOURNAL_ENTRIES.map(issue =>
+  [6, 8].includes(issue.issue_number) ? { ...issue, status: 'Published' } : issue
+);
+
 const LucideIcons = { Pen, Hammer, Lightbulb, Target, Rocket, BookOpen };
 import {
   CATEGORY_COLORS, SECTION_LABELS, SECTION_ICONS, SECTION_ORDER,
@@ -62,7 +68,7 @@ export default function JournalIssueView({ issueSlug }) {
   const { slug: routeSlug } = useParams();
   const slug = issueSlug || routeSlug;
   const kg = useKnowledgeGraph();
-  const sourceJournals = kg.journals?.length ? kg.journals : SEED_JOURNAL_ENTRIES;
+  const sourceJournals = kg.journals?.length ? kg.journals : PUBLISHED_SEED_JOURNALS;
   const loading = kg.loading && !sourceJournals.length;
   const published = useMemo(() =>
     sourceJournals
