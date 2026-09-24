@@ -71,7 +71,7 @@ export default function KnowledgeLibrary() {
                 to="/knowledge/what-a-lifetime-in-business-taught-me" 
                 className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2"
               >
-                <BookMarked className="w-5 h-5" /> Explore the NTA Point of View Collection
+                <BookMarked className="w-5 h-5" /> Explore the Featured Series
               </Link>
               <Link
                 to="/learning-center/videos"
@@ -98,6 +98,36 @@ export default function KnowledgeLibrary() {
                 </div>
               </div>
             )}
+          </div>
+        </section>
+
+        {/* FEATURED SERIES */}
+        <section className="border-b border-slate-800 bg-slate-900/50 px-6 py-14" aria-labelledby="featured-series-heading">
+          <div className="mx-auto max-w-6xl rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-950/50 via-slate-900 to-slate-950 p-7 shadow-xl shadow-blue-950/10 md:p-10">
+            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+              <div>
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-blue-300">Featured Series · NTA Point of View</p>
+                <h2 id="featured-series-heading" className="mb-5 text-3xl font-black leading-tight text-white md:text-4xl">What a Lifetime in Business Taught Me</h2>
+                <p className="mb-5 leading-7 text-slate-300">Six lessons from Rick Hesse about watching people, trying businesses, connecting the pieces, building with limited resources, and finding a useful way to work with AI.</p>
+                <p className="mb-7 text-sm font-semibold leading-6 text-blue-200">People → Experience → Connections → Economics → AI → Voice</p>
+                <Link to="/knowledge/what-a-lifetime-in-business-taught-me" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500 sm:w-auto">
+                  Explore the full series <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <div>
+                <p className="mb-4 text-sm font-bold text-slate-200">Read the six lessons in order</p>
+                <ol className="grid gap-2 sm:grid-cols-2">
+                  {collectionsOrder.find(item => item.slug === 'what-a-lifetime-in-business-taught-me')?.lessons.map((lesson, index) => (
+                    <li key={lesson.slug}>
+                      <Link to={`/knowledge/what-a-lifetime-in-business-taught-me/${lesson.slug}`} className="flex h-full gap-3 rounded-xl border border-slate-700/70 bg-slate-950/60 p-4 text-sm font-semibold leading-5 text-slate-200 transition-colors hover:border-blue-400/70 hover:text-white">
+                        <span className="shrink-0 text-blue-300">{index + 1}.</span>
+                        <span>{lesson.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
           </div>
         </section>
 
