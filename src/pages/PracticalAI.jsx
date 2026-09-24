@@ -3,6 +3,8 @@ import { ArrowRight, CheckCircle2, Users, Compass } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import BookStructuredData from '@/components/books/BookStructuredData';
+import { getBookByPath } from '@/data/bookSeo.js';
 import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
 
 export default function PracticalAI() {
@@ -12,6 +14,7 @@ export default function PracticalAI() {
         title="Practical AI for Small Business Owners | Free Guide"
         description="A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion."
       />
+      <BookStructuredData book={getBookByPath('/practical-ai-for-small-business')} />
       <MarketingNav />
 
       <main>

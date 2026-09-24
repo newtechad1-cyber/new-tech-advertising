@@ -399,6 +399,8 @@ const LEGACY_CANONICALS = {
   "/ourstory": "/our-story",
   "/ourwork": "/our-work",
   "/practicalai": "/practical-ai-for-small-business",
+  "/practical-ai": "/practical-ai-for-small-business",
+  "/practical-ai-for-small-businesses": "/practical-ai-for-small-business",
   "/whynta": "/why-nta",
   "/casestudies": "/case-studies",
   // PascalCase page keys retained from the original public app.

@@ -237,7 +237,7 @@ export default function WorkWithNTA() {
                 <p className="mt-3 text-sm leading-relaxed text-slate-300">Start with practical business foundations and the questions that shape good decisions.</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">Start reading <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
               </Link>
-              <Link to="/practical-ai" className="group rounded-2xl border border-slate-700/80 bg-slate-900/70 p-6 transition hover:-translate-y-1 hover:border-blue-400/60">
+              <Link to="/practical-ai-for-small-business" className="group rounded-2xl border border-slate-700/80 bg-slate-900/70 p-6 transition hover:-translate-y-1 hover:border-blue-400/60">
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-300">Ready for AI?</p>
                 <h3 className="mt-3 text-xl font-semibold text-white">Practical AI Guide</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-300">Understand where AI fits in the real work before choosing tools or changing how you operate.</p>

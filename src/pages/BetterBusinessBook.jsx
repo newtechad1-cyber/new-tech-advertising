@@ -3,6 +3,8 @@ import { ArrowRight, CheckCircle2, Library, Users } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import BookStructuredData from '@/components/books/BookStructuredData';
+import { getBookByPath } from '@/data/bookSeo.js';
 import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
 
 const themes = [
@@ -22,6 +24,7 @@ export default function BetterBusinessBook() {
         title="The Better Business Building Book | New Tech Advertising"
         description="A practical, plainspoken business guide from Rick Hesse about foundations, trust, customer relationships, systems, and sustainable growth."
       />
+      <BookStructuredData book={getBookByPath('/better-business-book')} />
       <MarketingNav />
 
       <main>

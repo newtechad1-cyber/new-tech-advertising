@@ -71,7 +71,7 @@ export default function Books() {
               <p className="mt-5 flex-1 leading-7 text-slate-400">
                 A plain-English guide for owners who want to understand AI without hype, jargon, or overwhelm. This book explains what AI can help with, what it cannot replace, and how to use it responsibly inside a real business.
               </p>
-              <Link to="/practical-ai" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 font-bold text-white transition-all hover:bg-indigo-500">
+              <Link to="/practical-ai-for-small-business" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 font-bold text-white transition-all hover:bg-indigo-500">
                 Get Practical AI for Small Business <ArrowRight className="h-4 w-4" />
               </Link>
             </article>
@@ -120,7 +120,7 @@ export default function Books() {
               <Link to="/better-business-book" className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white shadow-lg transition-all hover:bg-blue-500">
                 Get The Better Business Building Book
               </Link>
-              <Link to="/practical-ai" className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white shadow-lg transition-all hover:bg-indigo-500">
+              <Link to="/practical-ai-for-small-business" className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white shadow-lg transition-all hover:bg-indigo-500">
                 Get Practical AI for Small Business
               </Link>
             </div>
