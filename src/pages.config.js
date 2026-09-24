@@ -39,6 +39,8 @@ import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
 import HowCanASmallBusinessUseAI from './pages/knowledge/questions/how-can-a-small-business-use-ai';
+import AIFoundationsNativePage from './pages/knowledge/ai-foundations';
+import StartWithTheWorkNativeLesson from './pages/knowledge/ai-foundations/start-with-the-work-not-the-tool';
 import WhereShouldIStartWithAiQuestionPage from './pages/knowledge/questions/where-should-i-start-with-ai';
 import WhatCanChatgptDoForASmallBusinessQuestionPage from './pages/knowledge/questions/what-can-chatgpt-do-for-a-small-business';
 import DoINeedAPerfectPromptQuestionPage from './pages/knowledge/questions/do-i-need-a-perfect-prompt';
@@ -105,6 +107,8 @@ const PAGES = {
   KnowledgeLibrary,
   knowledge: KnowledgeLibrary,
   'knowledge/questions/how-can-a-small-business-use-ai': HowCanASmallBusinessUseAI,
+  'knowledge/ai-foundations': AIFoundationsNativePage,
+  'knowledge/ai-foundations/start-with-the-work-not-the-tool': StartWithTheWorkNativeLesson,
   'knowledge/questions/where-should-i-start-with-ai': WhereShouldIStartWithAiQuestionPage,
   'knowledge/questions/what-can-chatgpt-do-for-a-small-business': WhatCanChatgptDoForASmallBusinessQuestionPage,
   'knowledge/questions/do-i-need-a-perfect-prompt': DoINeedAPerfectPromptQuestionPage,
