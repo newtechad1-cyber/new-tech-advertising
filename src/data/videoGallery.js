@@ -106,15 +106,18 @@ export const VERIFIED_VIDEO_SELECTION = [
   },
   {
     "youtubeId": "scPcJSMFn-E",
+    "publishedAt": "2026-05-12T16:13:21-07:00",
     "title": "The Role of AI in Local Marketing"
   },
   {
     "youtubeId": "3_P36VrK9jc",
+    "publishedAt": "2026-05-13T11:30:40-07:00",
     "title": "Video Storytelling Builds Confidence",
     "galleryCategory": "Video Work"
   },
   {
     "youtubeId": "elcnGAfYdgk",
+    "publishedAt": "2026-05-13T15:33:14-07:00",
     "title": "Websites as Salespeople"
   },
   {
@@ -135,10 +138,12 @@ export const VERIFIED_VIDEO_SELECTION = [
   },
   {
     "youtubeId": "6kB55gnGGHo",
+    "publishedAt": "2026-05-12T13:00:08-07:00",
     "title": "Growth Systems vs  Campaigns"
   },
   {
     "youtubeId": "MsiyOAZrCNo",
+    "publishedAt": "2026-05-21T06:16:54-07:00",
     "title": "My Journey  Why I Built North Iowa's First AI Agency"
   },
   {
