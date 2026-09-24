@@ -49,6 +49,9 @@ test('question-first knowledge resources are in every intentional discovery surf
   const llms = fs.readFileSync(path.join(root, 'public', 'llms.txt'), 'utf8');
 
   assert.doesNotMatch(sitemap, /<loc>https:\/\/newtechadvertising\.com\/insights<\/loc>/);
+  assert.doesNotMatch(sitemap, /<loc>https:\/\/newtechadvertising\.com\/(?:business-journey|restaurant-social-media)<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/newtechadvertising\.com\/restaurants<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/newtechadvertising\.com\/digital-growth-advisor<\/loc>/);
   assert.equal(
     aiSitemap.publicPages.some(page => page.canonicalUrl === 'https://newtechadvertising.com/insights'),
     false
@@ -68,7 +71,7 @@ test('question-first knowledge resources are in every intentional discovery surf
   assert.match(llms, /How can AI help my small business\?/);
 
   const homepage = readOutputForRoute('/');
-  assert.match(homepage, /<h1>What are you trying to make better in your business\?<\/h1>/);
+  assert.match(homepage, /<h1>Advertise Better\.<\/h1>/);
   assert.match(homepage, /Ask Your Digital Growth Guide™/);
 
   const answerPage = readOutputForRoute('/knowledge/questions/how-can-a-small-business-use-ai');
