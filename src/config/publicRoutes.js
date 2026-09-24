@@ -161,6 +161,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/knowledge', KnowledgeLibrary),
   alias('/knowledge/questions', KnowledgeQuestions),
   alias('/knowledge/questions/:questionSlug', KnowledgeQuestion),
+  alias('/knowledge/questions/:questionSlug.html', KnowledgeQuestion),
   alias('/canon', CanonExplorer),
   alias('/canon/collection/:slug', CanonCollectionView),
   alias('/canon/:slug', CanonArticleView),
