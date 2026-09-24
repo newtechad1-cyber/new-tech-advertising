@@ -39,6 +39,48 @@ import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
 import StartWithTheWorkNotTheToolLessonPage from './pages/knowledge/ai-foundations/start-with-the-work-not-the-tool';
+// Public canonical route pages for Base44 crawler rendering.
+import PublicSeoPage001 from './pages/GrowthSystem';
+import PublicSeoPage002 from './pages/IndustriesHub';
+import PublicSeoPage003 from './pages/AiMarketingPlatform';
+import PublicSeoPage004 from './pages/StreamingTvAdvertising';
+import PublicSeoPage005 from './pages/AdaWebsiteCompliance';
+import PublicSeoPage006 from './pages/AIVisibilityBasics';
+import PublicSeoPage007 from './pages/NTAOperatingSystem';
+import PublicSeoPage008 from './pages/WorkWithNTA';
+import PublicSeoPage009 from './pages/POVCollection';
+import PublicSeoPage010 from './pages/CanonExplorer';
+import PublicSeoPage011 from './pages/Books';
+import PublicSeoPage012 from './pages/BetterBusinessBook';
+import PublicSeoPage013 from './pages/PracticalAI';
+import PublicSeoPage014 from './pages/JournalLanding';
+import PublicSeoPage015 from './pages/GrowthGuide';
+import PublicSeoPage016 from './pages/NTAGrowthConversation';
+import PublicSeoPage017 from './pages/CommunityPartnerProgram';
+import PublicSeoPage018 from './pages/CommunityGrowthConversation';
+import PublicSeoPage019 from './pages/AccountManager';
+import PublicSeoPage020 from './pages/AIVideoMarketing';
+import PublicSeoPage021 from './pages/BackOfficeSolutions';
+import PublicSeoPage022 from './pages/AccessibleWebsites';
+import PublicSeoPage023 from './pages/WebAccessibilityTrust';
+import PublicSeoPage024 from './pages/DigitalRisks';
+import PublicSeoPage025 from './pages/ReputationIsNowAGrowthEngine';
+import PublicSeoPage026 from './pages/GrowthSystemsVsCampaigns';
+import PublicSeoPage027 from './pages/HVACMarketingNorthIowa';
+import PublicSeoPage028 from './pages/SmallBusinessesNationwide';
+import PublicSeoPage029 from './pages/BusinessFoundationsCollection';
+import PublicSeoPage030 from './pages/TruthAboutBusinessGrowthCollection';
+import PublicSeoPage031 from './pages/HowCustomersDecideWhoToTrustCollection';
+import PublicSeoPage032 from './pages/HowBusinessesTurnTrustIntoLastingRelationshipsCollection';
+import PublicSeoPage033 from './pages/TurningWhatABusinessKnowsIntoAnAssetCollection';
+import PublicSeoPage034 from './pages/AIFoundationsCollection';
+import PublicSeoPage035 from './pages/WhatIsDigitalTrustCollection';
+import PublicSeoPage036 from './pages/AIHumanityCollection';
+import PublicSeoPage037 from './pages/AIHumanityArticle';
+import PublicSeoPage038 from './pages/KnowledgeQuestions';
+import PublicSeoPage039 from './legacy-page-components/LCVideoLibrary';
+import PublicSeoPage040 from './pages/KnowledgeBuildingSmallBusinessWithAiCollection';
+import PublicSeoPage041 from './pages/KnowledgeLifetimeBusinessCollection';
 // BEGIN GENERATED NATIVE LESSON IMPORTS
 import NativeLessonPage001 from './pages/knowledge/business-foundations/why-nta-exists';
 import NativeLessonPage002 from './pages/knowledge/business-foundations/how-businesses-really-grow';
@@ -174,6 +216,48 @@ const PAGES = {
   KnowledgeLibrary,
   knowledge: KnowledgeLibrary,
   'knowledge/ai-foundations/start-with-the-work-not-the-tool': StartWithTheWorkNotTheToolLessonPage,
+  // Public canonical route pages for Base44 crawler rendering.
+  'growth-system': PublicSeoPage001,
+  'industries': PublicSeoPage002,
+  'ai-marketing-platform': PublicSeoPage003,
+  'streaming-tv-advertising': PublicSeoPage004,
+  'ada-website-compliance': PublicSeoPage005,
+  'ai-visibility-basics': PublicSeoPage006,
+  'operating-system': PublicSeoPage007,
+  'work-with-nta': PublicSeoPage008,
+  'point-of-view': PublicSeoPage009,
+  'canon': PublicSeoPage010,
+  'books': PublicSeoPage011,
+  'better-business-book': PublicSeoPage012,
+  'practical-ai-for-small-business': PublicSeoPage013,
+  'journal': PublicSeoPage014,
+  'growth-guide': PublicSeoPage015,
+  'growth-conversation': PublicSeoPage016,
+  'community-partner': PublicSeoPage017,
+  'community-growth-conversation': PublicSeoPage018,
+  'account-manager': PublicSeoPage019,
+  'ai-video-marketing': PublicSeoPage020,
+  'back-office-solutions': PublicSeoPage021,
+  'accessible-websites': PublicSeoPage022,
+  'web-accessibility-trust': PublicSeoPage023,
+  'digital-risks': PublicSeoPage024,
+  'reputation-is-now-a-growth-engine': PublicSeoPage025,
+  'growth-systems-vs-campaigns': PublicSeoPage026,
+  'hvac-marketing-north-iowa': PublicSeoPage027,
+  'small-businesses-nationwide': PublicSeoPage028,
+  'knowledge/business-foundations': PublicSeoPage029,
+  'knowledge/truth-about-business-growth': PublicSeoPage030,
+  'knowledge/how-customers-decide-who-to-trust': PublicSeoPage031,
+  'knowledge/how-businesses-turn-trust-into-lasting-relationships': PublicSeoPage032,
+  'knowledge/turning-what-a-business-knows-into-an-asset': PublicSeoPage033,
+  'knowledge/ai-foundations': PublicSeoPage034,
+  'knowledge/what-is-digital-trust': PublicSeoPage035,
+  'knowledge/ai-humanity': PublicSeoPage036,
+  'knowledge/ai-humanity/ai-is-a-mirror-not-a-god': PublicSeoPage037,
+  'knowledge/questions': PublicSeoPage038,
+  'learning-center/videos': PublicSeoPage039,
+  'knowledge/building-a-small-business-with-ai': PublicSeoPage040,
+  'knowledge/what-a-lifetime-in-business-taught-me': PublicSeoPage041,
   // BEGIN GENERATED NATIVE LESSON ROUTES
   'knowledge/business-foundations/why-nta-exists': NativeLessonPage001,
   'knowledge/business-foundations/how-businesses-really-grow': NativeLessonPage002,
