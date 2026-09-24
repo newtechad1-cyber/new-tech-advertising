@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { VERIFIED_VIDEO_SELECTION, NTA_YOUTUBE_CHANNEL_URL } from "../src/data/videoGallery.js";
+import { BOOK_PAGES, getBookByPath, bookSchemaFor } from "../src/data/bookSeo.js";
 import { VIDEO_WATCH_PAGES, getVideoWatchById, getVideoWatchByPath, videoSchemaFor } from "../src/data/videoSeo.js";
 import { READ_WATCH_TOPICS, VIDEO_WORK_EXAMPLES, readingForVideo, videoWatchPath } from "../src/data/videoLearningConnections.js";
 import path from "node:path";
@@ -1032,12 +1033,39 @@ function videoSchemaMarkup(pathname) {
     : '';
 }
 
+function bookStaticBody(pathname) {
+  if (pathname === '/books') {
+    const links = BOOK_PAGES.map(book =>
+      '<li><h2><a href="' + escapeHtml(book.path) + '">' + escapeHtml(book.title) + '</a></h2><p>' + escapeHtml(book.description) + '</p></li>'
+    ).join('');
+    return '<main data-prerendered="true" class="seo-shell"><article><p class="seo-kicker">NTA books</p>' +
+      '<h1>Free Practical Business Books for Small-Business Owners</h1>' +
+      '<p>Two free guides by Rick Hesse connect business foundations with practical AI.</p><ul>' + links + '</ul>' +
+      '<p><a href="/knowledge">Explore the NTA Knowledge Library</a></p></article></main>';
+  }
+  const book = getBookByPath(pathname);
+  if (!book) return "";
+  return '<main data-prerendered="true" class="seo-shell"><article><p class="seo-kicker">An NTA business guide</p>' +
+    '<h1>' + escapeHtml(book.title) + '</h1><p>By Rick Hesse</p><p>' + escapeHtml(book.description) + '</p>' +
+    '<img src="' + escapeHtml(book.image) + '" alt="' + escapeHtml(book.title) + ' cover by Rick Hesse" width="320" />' +
+    '<p>Request this free book on this page to access the PDF.</p>' +
+    '<p><a href="' + escapeHtml(book.companionPath) + '">Explore the companion book: ' + escapeHtml(book.companionTitle) + '</a></p>' +
+    '<p><a href="/books">See both NTA books</a> · <a href="/knowledge">Explore related lessons</a></p></article></main>';
+}
+
+function bookSchemaMarkup(pathname) {
+  const schema = bookSchemaFor(getBookByPath(pathname));
+  return schema ? '<script type="application/ld+json" data-seo-static-book-schema="true">' +
+    JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>' : '';
+}
+
 function shellMarkup(metadata, pathname) {
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
   const body = videoWatchStaticBody(pathname)
+    || bookStaticBody(pathname)
     || connectedLearningStaticBody(pathname)
     || videoGalleryStaticBody(pathname)
     || homeStaticBody(pathname)
@@ -1109,7 +1137,7 @@ function renderHtml(template, metadata, pathname) {
       .seo-shell article { border-radius: 1rem; }
     }
   </style>`;
-  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
+  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
   html = html.replace('<div id="root"></div>', '<div id="root">' + shell.body + '</div>');
   return html;
 }
