@@ -79,7 +79,7 @@ export default function NewsletterFooterSection() {
         
         <div className="w-full md:w-auto md:min-w-[400px]">
           {status === 'success' ? (
-            <div className="flex h-12 items-center justify-center md:justify-start gap-2 text-[#10B981] font-semibold text-lg">
+            <div role="status" className="flex h-12 items-center justify-center md:justify-start gap-2 text-[#10B981] font-semibold text-lg">
               ✅ You're subscribed! The NTA Journal arrives by email every Tuesday morning.
             </div>
           ) : (
@@ -126,7 +126,7 @@ export default function NewsletterFooterSection() {
             </form>
           )}
           {status === 'error' && (
-            <p className="mt-2 text-center text-sm text-red-500 md:text-left">
+            <p role="alert" className="mt-2 text-center text-sm text-red-400 md:text-left">
               {errorMessage || 'Something went wrong — please try again.'}
             </p>
           )}

@@ -110,7 +110,7 @@ export default function PublicationSignupForm({
 
   if (success) {
     return (
-      <div className="mt-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6 text-left">
+      <div role="status" className="mt-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6 text-left">
         <CheckCircle2 className="h-8 w-8 text-emerald-300" />
         <p className="mt-3 font-semibold text-white">{existingAccess ? 'You already have access to this book. Choose a download or reading option below.' : successMessage}</p>
         {(downloadUrl || viewerUrl) && (

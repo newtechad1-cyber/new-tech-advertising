@@ -157,6 +157,17 @@ button:focus-visible {
   }
 }
 
+/* Make keyboard focus visible on both light and dark public pages. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #fbbf24 !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px #0f172a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within { scroll-behavior: auto; }
+}
+
 /* Hide the Growth Guide when mobile navigation is open */
 body.mobile-nav-open #nta-guide-container,
 body.mobile-nav-open .nta-guide-widget {

@@ -67,9 +67,9 @@ const NAV_LINKS = [
   },
 ];
 
-function DropdownMenu({ items, onClose }) {
+function DropdownMenu({ items, onClose, id }) {
   return (
-    <div className="absolute left-0 top-full z-50 mt-1 max-h-[calc(100vh-5rem)] w-72 overflow-y-auto overscroll-contain rounded-xl border border-slate-100 bg-white py-2 shadow-xl">
+    <div id={id} className="absolute left-0 top-full z-50 mt-1 max-h-[calc(100vh-5rem)] w-72 overflow-y-auto overscroll-contain rounded-xl border border-slate-100 bg-white py-2 shadow-xl">
       {items.map((item) => (
         <Link
           key={item.label}
@@ -90,6 +90,7 @@ export default function MarketingNav() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const mobileToggleRef = useRef(null);
+  const desktopDropdownTriggerRef = useRef(null);
 
   useEffect(() => {
     const closeDropdown = () => setActiveDropdown(null);
@@ -125,6 +126,18 @@ export default function MarketingNav() {
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!activeDropdown) return;
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setActiveDropdown(null);
+        desktopDropdownTriggerRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [activeDropdown]);
 
   const closeMobile = () => {
     setMobileOpen(false);
@@ -163,12 +176,17 @@ export default function MarketingNav() {
 
           <div className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex">
             {NAV_LINKS.map((link) => (
-              <div key={link.label} className="relative">
+              <div key={link.label} className="relative" onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) setActiveDropdown(null);
+              }}>
                 {link.children ? (
                   <button
                     type="button"
                     aria-expanded={activeDropdown === link.label}
+                    aria-controls={"desktop-nav-" + link.label.toLowerCase().replace(/\s+/g, "-")}
+                    aria-haspopup="true"
                     onClick={(event) => {
+                      desktopDropdownTriggerRef.current = event.currentTarget;
                       event.stopPropagation();
                       setActiveDropdown(activeDropdown === link.label ? null : link.label);
                     }}
@@ -186,7 +204,7 @@ export default function MarketingNav() {
                   </Link>
                 )}
                 {link.children && activeDropdown === link.label && (
-                  <DropdownMenu items={link.children} onClose={() => setActiveDropdown(null)} />
+                  <DropdownMenu id={"desktop-nav-" + link.label.toLowerCase().replace(/\s+/g, "-")} items={link.children} onClose={() => setActiveDropdown(null)} />
                 )}
               </div>
             ))}

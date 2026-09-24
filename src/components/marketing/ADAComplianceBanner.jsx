@@ -1,4 +1,5 @@
 import { Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function ADAComplianceBanner() {
   return (
@@ -8,7 +9,7 @@ export default function ADAComplianceBanner() {
           <Shield className="w-4 h-4 text-emerald-400/80 flex-shrink-0" />
           <p className="text-xs text-slate-400 leading-snug">
             <span className="font-semibold text-slate-300 mr-2">Accessibility Statement:</span>
-            We are committed to ensuring digital accessibility for all users. If you encounter any accessibility barriers on this website, please contact us for assistance.
+            We are working to make this site usable for everyone. If you encounter a barrier, <Link to="/contact" className="font-semibold text-slate-200 underline hover:text-white">contact us for help or an accessible alternative</Link>. You can also call or text 641-420-8816.
           </p>
         </div>
       </div>

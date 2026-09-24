@@ -71,6 +71,7 @@ export default function SiteFooter() {
             <li><Link to="/help-and-support" className="hover:text-white transition-colors">Help &amp; Support</Link></li>
             <li><Link to="/about" className="hover:text-white transition-colors">About NTA</Link></li>
             <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+            <li><Link to="/contact" className="hover:text-white transition-colors">Report an Accessibility Barrier</Link></li>
             <li><Link to="/start" className="hover:text-white transition-colors">Start a Free Growth Conversation</Link></li>
             <li><Link to="/join-nta" className="hover:text-white transition-colors">Join the Team</Link></li>
             <li><a href="tel:6414208816" className="hover:text-white transition-colors">641-420-8816</a></li>
