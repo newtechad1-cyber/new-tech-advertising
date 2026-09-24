@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { VERIFIED_VIDEO_SELECTION, NTA_YOUTUBE_CHANNEL_URL } from "../src/data/videoGallery.js";
+import { VIDEO_WATCH_PAGES, getVideoWatchById, getVideoWatchByPath, videoSchemaFor } from "../src/data/videoSeo.js";
 import { READ_WATCH_TOPICS, VIDEO_WORK_EXAMPLES, readingForVideo, videoWatchPath } from "../src/data/videoLearningConnections.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -995,7 +996,9 @@ function videoGalleryStaticBody(pathname) {
   if (pathname.replace(/\/+$/, "") !== "/learning-center/videos") return "";
   const links = VERIFIED_VIDEO_SELECTION.map(video => {
     const reading = readingForVideo(video.youtubeId);
-    return '<li><a href="https://www.youtube.com/watch?v=' + escapeHtml(video.youtubeId) + '">' + escapeHtml(video.title) + '</a>' +
+    const watch = getVideoWatchById(video.youtubeId);
+    return '<li>' + (watch ? '<a href="' + escapeHtml(watch.path) + '">' + escapeHtml(video.title) + '</a>' : escapeHtml(video.title)) +
+      ' · <a href="https://www.youtube.com/watch?v=' + escapeHtml(video.youtubeId) + '">YouTube</a>' +
       (reading ? ' · <a href="' + escapeHtml(reading.href) + '">Read the related lesson: ' + escapeHtml(reading.title) + '</a>' : '') + '</li>';
   }).join("\n");
   return '<main data-prerendered="true" class="seo-shell"><article>' +
@@ -1008,12 +1011,34 @@ function videoGalleryStaticBody(pathname) {
     '</article></main>';
 }
 
+function videoWatchStaticBody(pathname) {
+  const video = getVideoWatchByPath(pathname);
+  if (!video) return "";
+  const parent = video.category === 'Growth Show' ? '/growth-show' : '/learning-center/videos';
+  return '<main data-prerendered="true" class="seo-shell"><article>' +
+    '<p class="seo-kicker">' + escapeHtml(video.category) + '</p>' +
+    '<h1>' + escapeHtml(video.title) + '</h1><p>' + escapeHtml(video.description) + '</p>' +
+    '<iframe title="' + escapeHtml(video.title) + '" src="' + escapeHtml(video.embedUrl) + '" width="640" height="360" allowfullscreen></iframe>' +
+    '<p><a href="' + escapeHtml(video.youtubeUrl) + '">Watch on YouTube</a></p>' +
+    (video.reading ? '<p><a href="' + escapeHtml(video.reading.href) + '">Read the related lesson: ' + escapeHtml(video.reading.title) + '</a></p>' : '') +
+    (video.relatedUrl ? '<p><a href="' + escapeHtml(video.relatedUrl) + '">Explore the related NTA story</a></p>' : '') +
+    '<p><a href="' + parent + '">Explore more NTA videos</a></p></article></main>';
+}
+
+function videoSchemaMarkup(pathname) {
+  const schema = videoSchemaFor(getVideoWatchByPath(pathname));
+  return schema
+    ? '<script type="application/ld+json" data-seo-static-video-schema="true">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>'
+    : '';
+}
+
 function shellMarkup(metadata, pathname) {
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = connectedLearningStaticBody(pathname)
+  const body = videoWatchStaticBody(pathname)
+    || connectedLearningStaticBody(pathname)
     || videoGalleryStaticBody(pathname)
     || homeStaticBody(pathname)
     || knowledgeQuestionHubStaticBody(pathname)
@@ -1084,7 +1109,7 @@ function renderHtml(template, metadata, pathname) {
       .seo-shell article { border-radius: 1rem; }
     }
   </style>`;
-  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
+  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
   html = html.replace('<div id="root"></div>', '<div id="root">' + shell.body + '</div>');
   return html;
 }
