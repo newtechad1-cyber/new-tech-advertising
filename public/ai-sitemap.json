@@ -1405,6 +1405,48 @@
   ],
   "journalIssues": [
     {
+      "issueNumber": 8,
+      "title": "NTA Journal #8: Your Business Already Knows More Than You Think",
+      "subtitle": "Automation is the last step, not the first.",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-8-your-business-already-knows-more-than-you-think",
+      "contentType": "Newsletter",
+      "description": "One of the greatest values of AI for a small business may be helping the business use what it already knows. Before automating, learn how the business works, capture its knowledge, find the gaps, improve the process, and then automate what actually makes sense.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-09-22",
+      "estimatedReadingTime": "6 min read",
+      "introductoryMessage": "One of the greatest values of AI for a small business may be helping the business use what it already knows.",
+      "sections": [
+        {
+          "heading": "From Rick's Desk",
+          "body": "I've spent somewhere around 45 years thinking about businesses and how they grow.\n\nI've owned businesses. I've worked with small-business owners. During my years in advertising, I wasn't interested only in selling somebody an ad. I wanted to understand the business.\n\nHow did it make money? What did it sell? Who were its customers? What did the owner want to accomplish? What could the business afford to spend? What was normal for that industry? What was working? What wasn't?\n\nOver the years, you begin to recognize patterns.\n\nBut I've discovered something interesting since I began working with AI.\n\n**AI didn't give me that experience. It helps me use more of the experience I already have.**"
+        },
+        {
+          "heading": "What We Built",
+          "body": "I Don't Remember Everything I Know\n\nWhen I'm sitting across from a business owner, I'm listening. The conversation moves, and I may know ten other questions I should ask without remembering all ten at that moment. Three hours later, I'll think, *I should have asked about that.*\n\nAI has changed that for me. I can use it to help capture the conversation, organize what I've learned, connect it with other things we've already discussed and bring back important questions or steps I might otherwise have remembered later.\n\nAnd I began realizing the same thing is true inside almost every small business.\n\nYour Business Knows Things You May Not Be Capturing\n\nThe owner knows things. The person answering the telephone knows things. Your salesperson knows things. The technician working in somebody's home knows things. The employee dealing with customers every day knows things. And your customers are constantly telling you things.\n\nWhat questions do customers ask over and over? What information gets missed when somebody calls? Where does that information get written down? Who follows up? Does one employee answer a customer's question differently than another employee?\n\nA tremendous amount of business knowledge is sitting in people's heads, buried in emails and text messages, scattered among different software programs or simply disappearing in conversations.\n\nYour business may already know much of what it needs to know to improve. The problem is that nobody has connected it all."
+        },
+        {
+          "heading": "What We Learned",
+          "body": "Start With the Business, Not the AI\n\nI don't believe the first question should be: What can we automate?\n\nFirst, I want to understand the business. What do you do every day? What happens when a customer calls? What information do you collect? Where does it go? How do you follow up? How do you deliver the product or service? Where are people getting frustrated? What does the owner want to accomplish? Where are things falling through the cracks?\n\nOnly after we understand those things can we intelligently decide where AI, automation, a website, better software or simply a better process belongs.\n\nOtherwise, we can end up automating broken pieces. Sometimes that just makes the broken process happen faster.\n\nAutomation Is the Last Step, Not the First\n\nFirst, listen. Then understand. Organize what you've learned. Find the gaps. Improve the process. Get the right people on the same page. Then automate the parts that actually should be automated.\n\nAI doesn't know your business. You do. Your employees do. Your customers do."
+        },
+        {
+          "heading": "What It Means for Your Business",
+          "body": "Two companies in the same industry can have completely different problems. One may need a better website. Another may think it needs a website when its bigger problem is what happens after a lead comes in. Another may have good people but no consistent way of sharing information. Another may have an owner carrying half the business around in his or her head.\n\nThat's why I don't think you start with a predetermined AI solution. You ask good questions. You listen. You learn how the business actually works. Then you bring back what you've learned and begin figuring out the next appropriate step together.\n\nAI can help capture knowledge that used to disappear. A repeated customer question might become better website information, employee training, a video, a sales answer or a new service idea. One conversation can connect with another. Patterns become easier to see."
+        },
+        {
+          "heading": "This Week's Challenge",
+          "body": "Before you ask what AI can do for your business, ask a different question:\n\n**What does my business already know that we're not using?**\n\nAsk your employees. Listen to your customers. Look at the questions that keep coming up. Look at the problems that keep repeating. Look at what you explain over and over. Look at what only one person in the company seems to know.\n\nThat's where I would start."
+        }
+      ],
+      "featuredVideo": {
+        "title": "Automation Is the Last Step, Not the First | NTA Growth Show",
+        "url": "https://youtu.be/T4fPojz2RmI",
+        "description": "Rick Hesse and the AI Guy discuss why a business should understand its people, knowledge, workflow and problems before automating them."
+      },
+      "closingMessage": "Your next growth opportunity may not come from teaching AI something it found on the Internet.\n\nIt may come from finally capturing, connecting and using the knowledge that's been inside your business all along.\n\n**That's the NTA Point of View.**\n\nWatch this week's NTA Growth Show: [Automation Is the Last Step, Not the First](https://youtu.be/T4fPojz2RmI)."
+    },
+    {
       "issueNumber": 7,
       "title": "NTA Journal #7: Are You Building a Business—or Just a Website?",
       "subtitle": "Your website is not separate from the business experience. For many customers, it is where that experience begins.",
@@ -1450,6 +1492,48 @@
         "description": "Rick Hesse and Free AI Guy explore why discovery comes before technology, why people remain central to business systems, and how collaboration with AI supports human judgment."
       },
       "closingMessage": "A website is not the business by itself. But for many people, it is where the business first becomes real.\n\nThat is why NTA is building from the visitor's question forward and connecting each answer to a useful next step.\n\nRead [“Websites as Salespeople”](https://newtechadvertising.com/websites-as-salespeople) and watch [“Your Business Comes First. Technology Comes Second.”](https://youtu.be/PmXSEkj03ak)."
+    },
+    {
+      "issueNumber": 6,
+      "title": "NTA Journal #6: AI Finally Taught Me How to Multitask",
+      "subtitle": "AI did not teach me to do more things at once. It helped me carry less while directing more.",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-6-ai-finally-taught-me-how-to-multitask",
+      "contentType": "Newsletter",
+      "description": "AI did not make Rick Hesse multitask. It gave him a way to capture, contextualize, and direct multiple streams of worthwhile work without having to carry every detail in his head. This Journal issue shares what that idea can mean for a small-business owner.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-09-08",
+      "estimatedReadingTime": "5 min read",
+      "introductoryMessage": "For years, multitasking sounded like doing several things at once. AI helped me see a more useful answer: a person can capture a worthwhile thought, give it context, get work moving, and return to it without trying to carry every detail alone.",
+      "sections": [
+        {
+          "heading": "From Rick's Desk",
+          "body": "For most of my life, I thought multitasking meant trying to keep several things going in my head at the same time.\n\nI was never especially good at that. A new idea would show up while I was working on something else, and I would either have to stop what I was doing or hope I could remember the thought later.\n\nAI did not teach my brain to do four things at once.\n\nIt gave me somewhere to put the thought while it was still fresh.\n\nI can open a conversation, explain what I am seeing, give it enough context to understand what I am trying to accomplish, and get that work moving. Then I can come back when my judgment, experience, or approval is needed.\n\nFrom the outside, it may look like I am multitasking.\n\nBut I do not think that is what is happening.\n\n**I am not doing four things at once. I am directing four things.**"
+        },
+        {
+          "heading": "What We Built",
+          "body": "This week, we connected one idea across several places instead of leaving it as a passing thought.\n\nThe latest NTA Growth Show takes up this question of multitasking. The Knowledge Library lesson, “AI Finally Taught Me How to Multitask,” explains the idea in more depth. This Journal edition carries the same lesson into a practical conversation for business owners.\n\nThat is part of what I am trying to build with NTA: not a pile of disconnected content, but a system where one useful idea can become a video, a lesson, a Journal edition, a conversation, and eventually a better decision for someone else.\n\nThe tools are not the point. The point is helping people understand what the tools can make possible when they are used with purpose."
+        },
+        {
+          "heading": "What We Learned",
+          "body": "The limitation was not always time. A large part of the limitation was how much a person could personally keep track of.\n\nAn idea has to be remembered. Then it has to be thought through, organized, acted on, and returned to later. There are only so many of those chains a person can carry alone.\n\nAI can help carry context and keep a stream of work from disappearing while attention moves somewhere else.\n\nThat does not mean AI should run the business or make the decisions. The human being still needs to recognize what matters, provide direction, correct misunderstandings, make the judgment calls, and approve the result.\n\n**AI increases how much a person can direct. It does not remove the person from the responsibility.**"
+        },
+        {
+          "heading": "What It Means for Your Business",
+          "body": "Most business owners already have more worthwhile work than they can comfortably hold in their heads: customer questions, follow-up, team needs, ideas for improvement, marketing decisions, and the daily work of serving people.\n\nThe first useful use of AI may not be a complicated automation.\n\nIt may be as simple as giving yourself a dependable place to capture an idea, explain the context, develop the next step, and return when you are ready.\n\nThat can help a business owner spend less energy trying not to forget and more energy thinking, deciding, connecting the right pieces, and serving people well.\n\nStart with the work you are already carrying. Then ask where a little more context, organization, or follow-through would make the work easier."
+        },
+        {
+          "heading": "This Week's Challenge",
+          "body": "Think of one useful idea, question, or unfinished piece of work you keep carrying around because you do not want to lose it.\n\n1. Put it into a conversation or a simple written note while it is fresh.\n2. Explain why it matters and what you think the next step might be.\n3. Add enough context that you could return to it later without starting from zero.\n4. Decide whether anything can move forward now—or whether it simply needs a good place to wait.\n\nYou do not have to solve every part of the business today. The goal is to stop making your mind be the only place where worthwhile work can live."
+        }
+      ],
+      "featuredVideo": {
+        "title": "This Week's NTA Video",
+        "url": "https://youtu.be/6lhiYFHFsCQ",
+        "description": "A Growth Show conversation about how AI can help one person capture and direct more work without carrying every detail mentally."
+      },
+      "closingMessage": "AI did not teach my brain to do more things at once. It allowed my brain to carry less while directing more.\n\nThat is the NTA Point of View: start with the real work, keep human judgment in the center, and use AI where it can make the work more understandable and more manageable.\n\nRead [“AI Finally Taught Me How to Multitask”](https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask) and watch [this week's NTA Growth Show](https://youtu.be/6lhiYFHFsCQ)."
     },
     {
       "issueNumber": 5,
