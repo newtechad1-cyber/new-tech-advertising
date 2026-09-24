@@ -739,9 +739,9 @@ function homeStaticBody(pathname) {
   return `<main data-prerendered="true" class="seo-shell">
     <article>
       <p class="seo-kicker">New Tech Advertising</p>
-      <h1>What are you trying to make better in your business?</h1>
-      <p>AI and digital change are making business more complicated. You do not need to become an AI expert to make a good next decision.</p>
-      <p>Start with the problem in front of you. NTA helps you understand where technology can help, where it cannot, and what makes sense to do next.</p>
+      <h1>Advertise Better.</h1>
+      <p>Start with your customer. New Tech Advertising helps small businesses understand who they need to reach, what matters to those customers, and how to stay consistently visible until the time is right.</p>
+      <p>We begin by understanding your business and your customers. Then we build a practical Digital Growth Roadmap™ and connect useful messages, channels, content, technology, and follow-up around the people you actually need to reach.</p>
       <h2>Start with the question that fits</h2>
       <ul>${paths.map(item => '<li><a href="' + escapeHtml(item.href) + '"><strong>' + escapeHtml(item.label) + '</strong></a>: ' + escapeHtml(item.description) + '</li>').join("")}</ul>
       <h2>Not sure how to name the problem?</h2>
