@@ -1,3 +1,3 @@
-import AIFoundationsCollection from '../AIFoundationsCollection';
+import AIFoundationsCollection from '../../AIFoundationsCollection';
 
 export default AIFoundationsCollection;
