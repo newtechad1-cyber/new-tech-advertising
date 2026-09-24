@@ -38,6 +38,11 @@ import GrowthShowEpisode from './pages/GrowthShowEpisode';
 import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
+import KnowledgeQuestions from './pages/KnowledgeQuestions';
+import KnowledgeQuestion from './pages/KnowledgeQuestion';
+import KnowledgeCollection from './pages/KnowledgeCollection';
+import KnowledgeLesson from './pages/KnowledgeLesson';
+import LCVideoLibrary from './legacy-page-components/LCVideoLibrary';
 import RestaurantSolutions from './pages/RestaurantSolutions';
 import DigitalGrowthAdvisor from './pages/DigitalGrowthAdvisor';
 import OurStory from './pages/OurStory';
@@ -77,6 +82,14 @@ const PAGES = {
   LearningCenter,
   KnowledgeLibrary,
   knowledge: KnowledgeLibrary,
+  // Register nested public paths here as well as in publicRoutes so Base44's
+  // crawler renderer can identify them as actual pages instead of returning
+  // the generic homepage shell for direct requests.
+  'knowledge/questions': KnowledgeQuestions,
+  'knowledge/questions/:questionSlug': KnowledgeQuestion,
+  'knowledge/:collectionSlug/:lessonSlug': KnowledgeLesson,
+  'knowledge/:collectionSlug': KnowledgeCollection,
+  'learning-center/videos': LCVideoLibrary,
   restaurants: RestaurantSolutions,
   'digital-growth-advisor': DigitalGrowthAdvisor,
   OurStory,
