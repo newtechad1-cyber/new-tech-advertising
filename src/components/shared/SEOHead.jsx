@@ -284,8 +284,8 @@ export default function SEOHead({
             "url": `${SITE_ORIGIN}/og-image.png`
           }
         },
-        "datePublished": articleData.datePublished || "2026-01-01",
-        "dateModified": articleData.dateModified || articleData.datePublished || "2026-07-06",
+        ...(articleData.datePublished ? { "datePublished": articleData.datePublished } : {}),
+        ...(articleData.dateModified || articleData.datePublished ? { "dateModified": articleData.dateModified || articleData.datePublished } : {}),
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": resolvedCanonical
