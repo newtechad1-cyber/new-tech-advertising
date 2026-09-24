@@ -19,6 +19,10 @@ const CANONICAL = "https://newtechadvertising.com/knowledge/ai-foundations/start
 const LESSON_ID = 2;
 const PREVIOUS_PATH = "/knowledge/ai-foundations/ai-isnt-magic-either";
 const NEXT_PATH = "/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful";
+const RELATED_LESSONS = [
+  { title: 'Understanding Before Spending', description: 'The importance of education and transparency before investing in growth.', path: '/knowledge/business-foundations/understanding-before-spending' },
+  { title: 'Every System Produces Exactly What It Was Designed to Produce', description: 'Why your current results are a direct reflection of your current operational structure.', path: '/knowledge/business-foundations/every-system-produces-exactly-what-it-was-designed-to-produce' }
+];
 
 export default function StartWithTheWorkNotTheToolLessonPage() {
   const navigate = useNavigate();
@@ -74,7 +78,20 @@ export default function StartWithTheWorkNotTheToolLessonPage() {
             <p className="border-t border-slate-800 pt-6 text-sm font-bold text-white">Rick Hesse <span className="font-normal text-slate-500">· Your Digital Growth Guide™</span></p>
           </div>
         </header>
-        <article className="px-6 py-12"><div className="mx-auto max-w-3xl"><LessonArticle content={CONTENT} /></div></article>
+        <article className="px-6 py-12"><div className="mx-auto max-w-3xl">
+          <LessonArticle content={CONTENT} />
+          <aside className="mt-16 border-t border-slate-800 pt-10" aria-labelledby="related-lessons-heading">
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-blue-400">Continue Learning</p>
+            <h2 id="related-lessons-heading" className="mb-6 text-2xl font-black text-white">Keep exploring this idea</h2>
+            <div className="grid gap-4 md:grid-cols-2">{RELATED_LESSONS.map(resource => (
+              <Link key={resource.path} to={resource.path} className="rounded-2xl border border-slate-800 bg-slate-900/55 p-5 hover:border-blue-500/60">
+                <h3 className="mb-2 text-lg font-bold text-white">{resource.title}</h3>
+                <p className="text-sm leading-6 text-slate-400">{resource.description}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-400">Read this next <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+            ))}</div>
+          </aside>
+        </div></article>
         <section className="border-t border-slate-800 bg-slate-900 px-6 py-12">
           <div className="mx-auto max-w-3xl">
             <div className="mb-12 rounded-2xl border border-blue-500/20 bg-blue-900/20 p-8">
@@ -90,8 +107,8 @@ export default function StartWithTheWorkNotTheToolLessonPage() {
         <section className="px-6 py-12"><div className="mx-auto max-w-3xl"><ContentNextSteps title={TITLE} path="/knowledge/ai-foundations/start-with-the-work-not-the-tool" /></div></section>
         <nav className="border-t border-slate-800 px-6 py-8" aria-label="Lesson navigation">
           <div className="mx-auto flex max-w-4xl flex-col justify-between gap-6 sm:flex-row">
-            <Link to={PREVIOUS_PATH} className="flex items-center gap-3 rounded-xl p-4 font-bold text-slate-300 hover:bg-slate-900 hover:text-white"><ArrowLeft className="h-5 w-5" />Previous Lesson</Link>
-            <Link to={NEXT_PATH} className="flex items-center gap-3 rounded-xl p-4 font-bold text-slate-300 hover:bg-slate-900 hover:text-white">Next Lesson<ArrowRight className="h-5 w-5" /></Link>
+            <Link to={PREVIOUS_PATH} className="flex items-center gap-3 rounded-xl p-4 font-bold text-slate-300 hover:bg-slate-900 hover:text-white"><ArrowLeft className="h-5 w-5" />Previous Lesson: AI Isn't Magic Either</Link>
+            <Link to={NEXT_PATH} className="flex items-center gap-3 rounded-xl p-4 font-bold text-slate-300 hover:bg-slate-900 hover:text-white">Next Lesson: AI Needs Context Before It Can Be Helpful<ArrowRight className="h-5 w-5" /></Link>
           </div>
         </nav>
       </main>
