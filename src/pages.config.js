@@ -40,6 +40,7 @@ import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
 import HowCanASmallBusinessUseAI from './pages/knowledge/questions/how-can-a-small-business-use-ai';
 import StartWithTheWorkNativeLesson from './pages/knowledge/ai-foundations/start-with-the-work-not-the-tool';
+import AiNeedsContextNativeLesson from './pages/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful';
 import UnderstandingBeforeSpendingNativeLesson from './pages/knowledge/business-foundations/understanding-before-spending';
 import WhereShouldIStartWithAiQuestionPage from './pages/knowledge/questions/where-should-i-start-with-ai';
 import WhatCanChatgptDoForASmallBusinessQuestionPage from './pages/knowledge/questions/what-can-chatgpt-do-for-a-small-business';
@@ -108,6 +109,7 @@ const PAGES = {
   knowledge: KnowledgeLibrary,
   'knowledge/questions/how-can-a-small-business-use-ai': HowCanASmallBusinessUseAI,
   'knowledge/ai-foundations/start-with-the-work-not-the-tool': StartWithTheWorkNativeLesson,
+  'knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful': AiNeedsContextNativeLesson,
   'knowledge/business-foundations/understanding-before-spending': UnderstandingBeforeSpendingNativeLesson,
   'knowledge/questions/where-should-i-start-with-ai': WhereShouldIStartWithAiQuestionPage,
   'knowledge/questions/what-can-chatgpt-do-for-a-small-business': WhatCanChatgptDoForASmallBusinessQuestionPage,
