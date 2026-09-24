@@ -247,7 +247,6 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/ai-video-marketing', AIVideoMarketing),
   alias('/ai-marketing-platform', AiMarketingPlatform),
   alias('/ai-social-media-small-business', AiSocialMedia),
-  alias('/restaurant-social-media', RestaurantSolutions),
   alias('/streaming-tv-advertising', StreamingTvAdvertising),
   alias('/tv-commercial-script-generator', TvCommercialScriptGenerator),
   alias('/back-office', BackOfficeSolutions),
