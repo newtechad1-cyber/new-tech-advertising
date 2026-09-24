@@ -49,6 +49,16 @@ test('question-first knowledge resources are in every intentional discovery surf
   const llms = fs.readFileSync(path.join(root, 'public', 'llms.txt'), 'utf8');
   const pageRegistry = fs.readFileSync(path.join(root, 'src', 'pages.config.js'), 'utf8');
 
+  const sitemapRoutes = [...sitemap.matchAll(/<loc>https:\/\/newtechadvertising\.com([^<]*)<\/loc>/g)]
+    .map(match => match[1] || '/');
+  for (const route of sitemapRoutes) {
+    if (route === '/') continue;
+    const key = route.slice(1);
+    const literalKey = pageRegistry.includes("'" + key + "':");
+    const bareKey = /^[A-Za-z_$][\w$]*$/.test(key) && pageRegistry.includes('  ' + key + ':');
+    assert.ok(literalKey || bareKey, 'Expected a direct crawler page registration for ' + route);
+  }
+
   assert.doesNotMatch(sitemap, /<loc>https:\/\/newtechadvertising\.com\/insights<\/loc>/);
   assert.doesNotMatch(sitemap, /<loc>https:\/\/newtechadvertising\.com\/(?:business-journey|restaurant-social-media)<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/newtechadvertising\.com\/restaurants<\/loc>/);
