@@ -102,7 +102,7 @@ export default function Contact() {
       />
       <MarketingNav />
       
-      <section className="pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white">
+      <main className="pt-32 pb-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
@@ -307,7 +307,7 @@ export default function Contact() {
             )}
           </Card>
         </div>
-      </section>
+      </main>
 
       <SiteFooter />
     </div>
