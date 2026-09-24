@@ -59,7 +59,17 @@ export default function GrowthShowEpisode({ initialVideo = null }) {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300">
-      <SEOHead title={`${episode.title} | The NTA Growth Show`} description={episode.summary} />
+      <SEOHead
+        title={`${episode.title} | The NTA Growth Show`}
+        description={episode.summary}
+        videoData={initialVideo?.publishedAt ? {
+          name: initialVideo.title,
+          description: initialVideo.description,
+          thumbnailUrl: initialVideo.thumbnailUrl,
+          uploadDate: initialVideo.publishedAt,
+          embedUrl: initialVideo.embedUrl,
+        } : null}
+      />
       <MarketingNav />
 
       <main>
