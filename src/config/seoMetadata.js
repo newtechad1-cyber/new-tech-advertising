@@ -1,4 +1,5 @@
 import { getKnowledgeQuestionBySlug } from "../data/knowledgeQuestions.js";
+import { getVideoWatchByPath } from "../data/videoSeo.js";
 
 const SITE_ORIGIN = "https://newtechadvertising.com";
 
@@ -610,6 +611,16 @@ export function getSeoMetadata(pathname) {
   const normalized = normalizePath(pathname);
   const legacyCanonical = LEGACY_CANONICALS[normalized];
   const canonicalPath = legacyCanonical || normalized;
+  const video = getVideoWatchByPath(canonicalPath);
+  if (video) {
+    return {
+      title: clip(video.title + " | New Tech Advertising", 80),
+      description: clip(video.description, 158),
+      canonical: canonicalUrl(video.path),
+      noIndex: false,
+      routeSpecific: true,
+    };
+  }
 
   if (STATIC_SEO[canonicalPath]) {
     return {

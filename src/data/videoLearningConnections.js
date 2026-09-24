@@ -21,7 +21,7 @@ export function readingForVideo(videoId) {
 }
 
 export function videoWatchPath(video) {
-  return video.relatedUrl || VIDEO_GALLERY_PATH + '/' + video.youtubeId;
+  return video.relatedUrl?.startsWith('/growth-show/') ? video.relatedUrl : VIDEO_GALLERY_PATH + '/' + video.youtubeId;
 }
 
 export function videosForReading(path) {

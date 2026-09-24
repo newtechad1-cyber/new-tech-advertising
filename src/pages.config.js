@@ -91,6 +91,20 @@ import PublicJournalIssue07 from './pages/journal/issue-7-are-you-building-a-bus
 import PublicJournalIssue08 from './pages/journal/issue-8-your-business-already-knows-more-than-you-think';
 import CanonNtaPrinciplesCollectionPage from './pages/CanonNtaPrinciplesCollectionPage';
 import CanonSetupMattersPage from './pages/CanonSetupMattersPage';
+// Native public video watch pages, with the player in the first HTML.
+import NativeGrowthVideo01 from './pages/growth-show/before-you-add-ai-understand-your-business';
+import NativeGrowthVideo02 from './pages/growth-show/ai-finally-taught-me-how-to-multitask';
+import NativeGrowthVideo03 from './pages/growth-show/you-dont-need-more-marketing-connected-system';
+import NativeGrowthVideo04 from './pages/growth-show/nta-growth-show-episode-2';
+import NativeLearningVideo01 from './pages/learning-center/videos/CbNxn-P74D8';
+import NativeLearningVideo02 from './pages/learning-center/videos/scPcJSMFn-E';
+import NativeLearningVideo03 from './pages/learning-center/videos/6kB55gnGGHo';
+import NativeLearningVideo04 from './pages/learning-center/videos/MsiyOAZrCNo';
+import NativeLearningVideo05 from './pages/learning-center/videos/3_P36VrK9jc';
+import NativeLearningVideo06 from './pages/learning-center/videos/elcnGAfYdgk';
+import NativeLearningVideo07 from './pages/learning-center/videos/odp74hcdjEA';
+import NativeLearningVideo08 from './pages/learning-center/videos/Wkm8FfpxBl0';
+import NativeLearningVideo09 from './pages/learning-center/videos/tmpy20Xz1vU';
 // BEGIN GENERATED NATIVE LESSON IMPORTS
 import NativeLessonPage001 from './pages/knowledge/business-foundations/why-nta-exists';
 import NativeLessonPage002 from './pages/knowledge/business-foundations/how-businesses-really-grow';
@@ -278,6 +292,21 @@ const PAGES = {
   'journal/issue-8-your-business-already-knows-more-than-you-think': PublicJournalIssue08,
   'canon/collection/nta-principles': CanonNtaPrinciplesCollectionPage,
   'canon/the-work-you-dont-see-why-setup-matters': CanonSetupMattersPage,
+  // BEGIN NATIVE VIDEO WATCH ROUTES
+  'growth-show/before-you-add-ai-understand-your-business': NativeGrowthVideo01,
+  'growth-show/ai-finally-taught-me-how-to-multitask': NativeGrowthVideo02,
+  'growth-show/you-dont-need-more-marketing-connected-system': NativeGrowthVideo03,
+  'growth-show/nta-growth-show-episode-2': NativeGrowthVideo04,
+  'learning-center/videos/CbNxn-P74D8': NativeLearningVideo01,
+  'learning-center/videos/scPcJSMFn-E': NativeLearningVideo02,
+  'learning-center/videos/6kB55gnGGHo': NativeLearningVideo03,
+  'learning-center/videos/MsiyOAZrCNo': NativeLearningVideo04,
+  'learning-center/videos/3_P36VrK9jc': NativeLearningVideo05,
+  'learning-center/videos/elcnGAfYdgk': NativeLearningVideo06,
+  'learning-center/videos/odp74hcdjEA': NativeLearningVideo07,
+  'learning-center/videos/Wkm8FfpxBl0': NativeLearningVideo08,
+  'learning-center/videos/tmpy20Xz1vU': NativeLearningVideo09,
+  // END NATIVE VIDEO WATCH ROUTES
   // BEGIN GENERATED NATIVE LESSON ROUTES
   'knowledge/business-foundations/why-nta-exists': NativeLessonPage001,
   'knowledge/business-foundations/how-businesses-really-grow': NativeLessonPage002,

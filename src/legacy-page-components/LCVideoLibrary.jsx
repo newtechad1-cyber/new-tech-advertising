@@ -6,6 +6,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { useLearningContent } from '@/hooks/useLearningContent';
 import { NTA_YOUTUBE_CHANNEL_URL } from '@/data/videoGallery';
+import { getVideoWatchById } from '@/data/videoSeo.js';
 import { readingForVideo } from '@/data/videoLearningConnections';
 import { filterGalleryVideos, galleryCategories, galleryDateLabel, resolveGalleryCategory } from '@/lib/videoGallery';
 
@@ -163,6 +164,7 @@ export default function LCVideoLibrary() {
                     </h3>
                     <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
                       <RelatedReading video={video} />
+                      {getVideoWatchById(video.youtubeId) && <Link to={getVideoWatchById(video.youtubeId).path} className={'rounded font-semibold text-cyan-300 hover:text-cyan-100 ' + focusStyle}>Video page</Link>}
                       <button type="button" onClick={event => watch(video, event)} aria-label={'Watch ' + video.title + ' here'} className={'inline-flex items-center gap-1.5 rounded font-semibold text-cyan-300 hover:text-cyan-100 ' + focusStyle}><Play className="h-3.5 w-3.5" aria-hidden="true" /> Watch here</button>
                       <a href={video.youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label={'Watch ' + video.title + ' on YouTube (opens a new tab)'} className={'inline-flex items-center gap-1 rounded text-slate-300 hover:text-white ' + focusStyle}>YouTube <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
                     </div>

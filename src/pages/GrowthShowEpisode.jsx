@@ -6,6 +6,7 @@ import SEOHead from '@/components/shared/SEOHead';
 import { ContentNextSteps } from '@/components/knowledge/ContentNextSteps';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
 import { findGrowthShowEpisode } from '@/lib/growthShow';
+import VideoWatchPage from '@/components/video/VideoWatchPage';
 
 function ResourceCard({ icon: Icon, eyebrow, title, description, to, external = false }) {
   const content = (
@@ -26,14 +27,18 @@ function ResourceCard({ icon: Icon, eyebrow, title, description, to, external = 
     : <Link to={to} className={className}>{content}</Link>;
 }
 
-export default function GrowthShowEpisode() {
+export default function GrowthShowEpisode({ initialVideo = null }) {
   const { slug } = useParams();
   const { episodes, loading } = useGrowthShow();
   const episode = findGrowthShowEpisode(episodes, slug);
 
   if (loading) {
-    return <div className="flex min-h-screen items-center justify-center bg-slate-950 text-slate-400"><Loader2 className="mr-3 h-6 w-6 animate-spin" /> Loading episode…</div>;
+    return initialVideo
+      ? <VideoWatchPage video={initialVideo} />
+      : <div className="flex min-h-screen items-center justify-center bg-slate-950 text-slate-400"><Loader2 className="mr-3 h-6 w-6 animate-spin" /> Loading episode…</div>;
   }
+
+  if (!episode && initialVideo) return <VideoWatchPage video={initialVideo} />;
 
   if (!episode) {
     return (
