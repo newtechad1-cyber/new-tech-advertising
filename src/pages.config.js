@@ -62,6 +62,26 @@ import GrowthGuide from './pages/GrowthGuide';
 import NTAGrowthConversation from './pages/NTAGrowthConversation';
 import RestaurantSolutions from './pages/RestaurantSolutions';
 import DigitalGrowthAdvisor from './pages/DigitalGrowthAdvisor';
+import GrowthSystem from '@/pages/GrowthSystem';
+import AiMarketingPlatform from '@/pages/AiMarketingPlatform';
+import IndustriesHub from '@/pages/IndustriesHub';
+import StreamingTvAdvertising from '@/pages/StreamingTvAdvertising';
+import HVACMarketingNorthIowa from '@/pages/HVACMarketingNorthIowa';
+import AdaWebsiteCompliance from '@/pages/AdaWebsiteCompliance';
+import AiVisibilityBasics from '@/pages/AIVisibilityBasics';
+import CanonCollectionView from '@/pages/CanonCollectionView';
+import CanonArticleView from '@/pages/CanonArticleView';
+import CommunityPartnerProgram from '@/pages/CommunityPartnerProgram';
+import CommunityGrowthConversation from '@/pages/CommunityGrowthConversation';
+import AccountManager from '@/pages/AccountManager';
+import AIVideoMarketing from '@/pages/AIVideoMarketing';
+import BackOfficeSolutions from '@/pages/BackOfficeSolutions';
+import AccessibleWebsites from '@/pages/AccessibleWebsites';
+import WebAccessibilityTrust from '@/pages/WebAccessibilityTrust';
+import DigitalRisks from '@/pages/DigitalRisks';
+import ReputationIsNowAGrowthEngine from '@/pages/ReputationIsNowAGrowthEngine';
+import GrowthSystemsVsCampaigns from '@/pages/GrowthSystemsVsCampaigns';
+import SmallBusinessesNationwide from '@/pages/SmallBusinessesNationwide';
 import OurStory from './pages/OurStory';
 import OurWork from './pages/OurWork';
 import PracticalAI from './pages/PracticalAI';
@@ -228,6 +248,64 @@ const PAGES = {
   'growth-conversation': NTAGrowthConversation,
   restaurants: RestaurantSolutions,
   'digital-growth-advisor': DigitalGrowthAdvisor,
+  // Every intentional sitemap URL is a direct public page in the registry.
+  // Base44 can then render its actual content for a crawler's first request.
+  'about': About,
+  'services': Services,
+  'growth-system': GrowthSystem,
+  'local-business-marketing': AiMarketingPlatform,
+  'industries': IndustriesHub,
+  'ai-marketing-platform': AiMarketingPlatform,
+  'ai-social-media-small-business': AiSocialMedia,
+  'streaming-tv-advertising': StreamingTvAdvertising,
+  'hvac-industry': HVACMarketingNorthIowa,
+  'ada-website-compliance': AdaWebsiteCompliance,
+  'contact': Contact,
+  'pricing': Pricing,
+  'learning-center': LearningCenter,
+  'ai-visibility-basics': AiVisibilityBasics,
+  'ai-seo': AiSeo,
+  'ai-social-media': AiSocialMedia,
+  'ai-websites': AiWebsites,
+  'ai-advertising': AiAdvertising,
+  'ai-videos': AiVideos,
+  'canon/collection/nta-principles': CanonCollectionView,
+  'canon/the-work-you-dont-see-why-setup-matters': CanonArticleView,
+  'practical-ai-for-small-business': PracticalAI,
+  'growth-show': GrowthShow,
+  'free-audit': FreeAudit,
+  'book-call': BookCall,
+  'why-nta': WhyNTA,
+  'our-story': OurStory,
+  'our-work': OurWork,
+  'community-partner': CommunityPartnerProgram,
+  'community-growth-conversation': CommunityGrowthConversation,
+  'account-manager': AccountManager,
+  'local-lead-systems': LocalLeadSystems,
+  'seo-pages-for-local-businesses': AiSeo,
+  'services/website-rebuilds': AiWebsites,
+  'website-rebuilds/mason-city-ia': AiWebsites,
+  'website-rebuilds/rochester-mn': AiWebsites,
+  'website-rebuilds/austin-mn': AiWebsites,
+  'website-rebuilds/albert-lea-mn': AiWebsites,
+  'services/social-media-management': AiSocialMedia,
+  'social-media-content-system': AiSocialMedia,
+  'ai-video-marketing': AIVideoMarketing,
+  'back-office-solutions': BackOfficeSolutions,
+  'accessible-websites': AccessibleWebsites,
+  'web-accessibility-trust': WebAccessibilityTrust,
+  'digital-risks': DigitalRisks,
+  'reputation-is-now-a-growth-engine': ReputationIsNowAGrowthEngine,
+  'growth-systems-vs-campaigns': GrowthSystemsVsCampaigns,
+  'small-business-marketing-north-iowa': IndustriesHub,
+  'contractor-marketing-north-iowa': IndustriesHub,
+  'hvac-marketing-north-iowa': HVACMarketingNorthIowa,
+  'small-businesses-nationwide': SmallBusinessesNationwide,
+  'case-studies': CaseStudies,
+  'privacy-policy': PrivacyPolicy,
+  'terms-of-service': TermsOfService,
+  'journal/issue-5-build-with-the-budget-you-have': JournalIssueView,
+  'journal/issue-7-are-you-building-a-business-or-just-a-website': JournalIssueView,
   OurStory,
   OurWork,
   PracticalAI,
