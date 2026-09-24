@@ -173,10 +173,14 @@ const STATIC_SEO = {
   "/seo-pages-for-local-businesses": {
     title: "Local SEO Pages for Small Businesses | NTA",
     description: "Learn when local SEO pages help a small business and how useful, specific content is different from thin doorway pages.",
+    canonical: "https://newtechadvertising.com/ai-seo",
+    noIndex: true,
   },
   "/services/website-rebuilds": {
     title: "AI Website Rebuilds for Small Business | NTA",
     description: "Rebuild a small-business website around clear messaging, search visibility, trust, accessibility, and useful customer action.",
+    canonical: "https://newtechadvertising.com/ai-websites",
+    noIndex: true,
   },
   "/website-rebuilds": {
     title: "AI Website Rebuilds for Small Business | NTA",
@@ -187,26 +191,38 @@ const STATIC_SEO = {
   "/website-rebuilds/mason-city-ia": {
     title: "Website Rebuilds in Mason City, IA | NTA",
     description: "Modern, mobile-first website rebuilds for Mason City businesses, built around local SEO, clearer messaging, and customer action.",
+    canonical: "https://newtechadvertising.com/ai-websites",
+    noIndex: true,
   },
   "/website-rebuilds/rochester-mn": {
     title: "Website Rebuilds in Rochester, MN | NTA",
     description: "Modern website rebuilds for Rochester businesses, built around local SEO, clearer messaging, and Southeast Minnesota customer action.",
+    canonical: "https://newtechadvertising.com/ai-websites",
+    noIndex: true,
   },
   "/website-rebuilds/austin-mn": {
     title: "Website Rebuilds in Austin, MN | NTA",
     description: "Modern website rebuilds for Austin businesses, built around local SEO, clearer messaging, and Southern Minnesota customer action.",
+    canonical: "https://newtechadvertising.com/ai-websites",
+    noIndex: true,
   },
   "/website-rebuilds/albert-lea-mn": {
     title: "Website Rebuilds in Albert Lea, MN | NTA",
     description: "Modern website rebuilds for Albert Lea businesses, built around local SEO, clearer messaging, and Southern Minnesota customer action.",
+    canonical: "https://newtechadvertising.com/ai-websites",
+    noIndex: true,
   },
   "/services/social-media-management": {
     title: "Social Media Marketing in Iowa & Southern Minnesota | NTA",
     description: "Practical social media management for small businesses across Iowa, North Iowa, and Southern Minnesota—useful content, local visibility, and follow-up.",
+    canonical: "https://newtechadvertising.com/ai-social-media",
+    noIndex: true,
   },
   "/social-media-content-system": {
     title: "Social Media Content System for Small Business | NTA",
     description: "Create a repeatable social media content system that keeps your business useful, recognizable, and connected to customer questions.",
+    canonical: "https://newtechadvertising.com/ai-social-media",
+    noIndex: true,
   },
   "/ai-video-marketing": {
     title: "Video Production & Business Storytelling | NTA",
@@ -239,10 +255,14 @@ const STATIC_SEO = {
   "/small-business-marketing-north-iowa": {
     title: "Small Business Marketing in Iowa & Southern Minnesota | NTA",
     description: "Practical marketing, AI education, local visibility, and follow-up systems for small businesses across Iowa, North Iowa, and Southern Minnesota.",
+    canonical: "https://newtechadvertising.com/industries",
+    noIndex: true,
   },
   "/contractor-marketing-north-iowa": {
     title: "Contractor Marketing in Iowa & Southern Minnesota | NTA",
     description: "Practical contractor marketing for Iowa, North Iowa, and Southern Minnesota: local SEO, useful content, social media, and follow-up systems.",
+    canonical: "https://newtechadvertising.com/industries",
+    noIndex: true,
   },
   "/hvac-marketing-north-iowa": {
     title: "HVAC Marketing in North Iowa | NTA",
@@ -276,6 +296,8 @@ const STATIC_SEO = {
   "/local-business-marketing": {
     title: "Local Business Marketing | AI Marketing for Small Business",
     description: "AI-powered marketing for local businesses. Google Business Profile, social media, local SEO, and AI search optimization from New Tech Advertising.",
+    canonical: "https://newtechadvertising.com/ai-marketing-platform",
+    noIndex: true,
   },
   "/industries": {
     title: "Industry Marketing Systems for Small Business | NTA",
@@ -288,6 +310,8 @@ const STATIC_SEO = {
   "/ai-social-media-small-business": {
     title: "What Should My Business Post on Social Media? | NTA",
     description: "A practical approach to business social media built from customer questions, team knowledge, and a connected Digital Growth Roadmap.",
+    canonical: "https://newtechadvertising.com/ai-social-media",
+    noIndex: true,
   },
   "/restaurants": {
     title: "Restaurant Growth, Team Building & Digital Growth Roadmaps | NTA",
@@ -312,6 +336,8 @@ const STATIC_SEO = {
   "/hvac-industry": {
     title: "Growth Ideas for HVAC Businesses | New Tech Advertising",
     description: "A practical HVAC growth roadmap connecting technician knowledge, customer questions, seasonal visibility, follow-up, and business systems.",
+    canonical: "https://newtechadvertising.com/hvac-marketing-north-iowa",
+    noIndex: true,
   },
   "/ada-website-compliance": {
     title: "ADA Website Compliance and Rebuild | NTA",
