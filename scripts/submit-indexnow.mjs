@@ -10,9 +10,11 @@ const sitemapPath = path.join(root, "public", "sitemap.xml");
 
 const DEFAULT_CHANGED_PATHS = [
   "/",
-  "/account-manager",
-  "/community-partner",
-  "/community-growth-conversation",
+  "/knowledge",
+  "/knowledge/questions",
+  "/knowledge/questions/how-can-a-small-business-use-ai",
+  "/restaurants",
+  "/digital-growth-advisor",
 ];
 
 function normalizeUrl(value) {
