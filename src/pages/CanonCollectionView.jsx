@@ -5,7 +5,7 @@
  * Route: /canon/collection/:slug
  */
 import { useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useLocation, useParams, Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -17,7 +17,9 @@ import {
 } from 'lucide-react';
 
 export default function CanonCollectionView() {
-  const { slug } = useParams();
+  const { slug: routeSlug } = useParams();
+  const { pathname } = useLocation();
+  const slug = routeSlug || pathname.split('/').filter(Boolean).pop();
   const kg = useKnowledgeGraph();
 
   const collectionData = useMemo(() => {
