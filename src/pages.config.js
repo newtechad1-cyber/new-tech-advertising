@@ -81,6 +81,14 @@ import PublicSeoPage038 from './pages/KnowledgeQuestions';
 import PublicSeoPage039 from './legacy-page-components/LCVideoLibrary';
 import PublicSeoPage040 from './pages/KnowledgeBuildingSmallBusinessWithAiCollection';
 import PublicSeoPage041 from './pages/KnowledgeLifetimeBusinessCollection';
+import PublicJournalIssue01 from './pages/journal/issue-1-the-system-behind-the-work';
+import PublicJournalIssue02 from './pages/journal/issue-2-what-i-learned-while-rebuilding-nta';
+import PublicJournalIssue03 from './pages/journal/issue-3-what-i-learned-about-making-complicated-things-simple';
+import PublicJournalIssue04 from './pages/journal/the-free-ai-guy-comes-to-life';
+import PublicJournalIssue05 from './pages/journal/issue-5-build-with-the-budget-you-have';
+import PublicJournalIssue06 from './pages/journal/issue-6-ai-finally-taught-me-how-to-multitask';
+import PublicJournalIssue07 from './pages/journal/issue-7-are-you-building-a-business-or-just-a-website';
+import PublicJournalIssue08 from './pages/journal/issue-8-your-business-already-knows-more-than-you-think';
 // BEGIN GENERATED NATIVE LESSON IMPORTS
 import NativeLessonPage001 from './pages/knowledge/business-foundations/why-nta-exists';
 import NativeLessonPage002 from './pages/knowledge/business-foundations/how-businesses-really-grow';
@@ -258,6 +266,14 @@ const PAGES = {
   'learning-center/videos': PublicSeoPage039,
   'knowledge/building-a-small-business-with-ai': PublicSeoPage040,
   'knowledge/what-a-lifetime-in-business-taught-me': PublicSeoPage041,
+  'journal/issue-1-the-system-behind-the-work': PublicJournalIssue01,
+  'journal/issue-2-what-i-learned-while-rebuilding-nta': PublicJournalIssue02,
+  'journal/issue-3-what-i-learned-about-making-complicated-things-simple': PublicJournalIssue03,
+  'journal/the-free-ai-guy-comes-to-life': PublicJournalIssue04,
+  'journal/issue-5-build-with-the-budget-you-have': PublicJournalIssue05,
+  'journal/issue-6-ai-finally-taught-me-how-to-multitask': PublicJournalIssue06,
+  'journal/issue-7-are-you-building-a-business-or-just-a-website': PublicJournalIssue07,
+  'journal/issue-8-your-business-already-knows-more-than-you-think': PublicJournalIssue08,
   // BEGIN GENERATED NATIVE LESSON ROUTES
   'knowledge/business-foundations/why-nta-exists': NativeLessonPage001,
   'knowledge/business-foundations/how-businesses-really-grow': NativeLessonPage002,

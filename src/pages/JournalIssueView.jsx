@@ -10,6 +10,7 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import ContentNextSteps from '@/components/knowledge/ContentNextSteps';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
+import { SEED_JOURNAL_ENTRIES } from '@/data/canonSeed';
 import {
   Newspaper, ArrowLeft, ArrowRight, BookOpen, Clock, Calendar,
   ChevronRight, Mail, Pen, Hammer, Lightbulb, Target,
@@ -57,15 +58,17 @@ function JournalSection({ sectionKey, content }) {
   );
 }
 
-export default function JournalIssueView() {
-  const { slug } = useParams();
+export default function JournalIssueView({ issueSlug }) {
+  const { slug: routeSlug } = useParams();
+  const slug = issueSlug || routeSlug;
   const kg = useKnowledgeGraph();
-  const loading = kg.loading;
+  const sourceJournals = kg.journals?.length ? kg.journals : SEED_JOURNAL_ENTRIES;
+  const loading = kg.loading && !sourceJournals.length;
   const published = useMemo(() =>
-    (kg.journals || [])
+    sourceJournals
       .filter(item => item.status === 'Published')
       .sort((a, b) => (b.issue_number || 0) - (a.issue_number || 0)),
-    [kg.journals]
+    [sourceJournals]
   );
 
   useEffect(() => {
