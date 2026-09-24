@@ -18,6 +18,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import { contentPath } from '@/lib/contentJourney';
+import { setupMattersArticle } from '@/data/canonSetupMatters';
 
 /**
  * CanonArticleView
@@ -26,20 +27,22 @@ import { contentPath } from '@/lib/contentJourney';
  * Article bodies remain in PublishingArticle; this page intentionally contains
  * no article copy so the Knowledge Library has one source of truth.
  */
-export default function CanonArticleView() {
-  const { slug } = useParams();
+export default function CanonArticleView({ articleSlug }) {
+  const { slug: routeSlug } = useParams();
+  const slug = articleSlug || routeSlug;
+  const staticArticle = slug === setupMattersArticle.slug ? setupMattersArticle : null;
   const kg = useKnowledgeGraph();
   const journalIssues = (kg.journals || [])
     .filter(issue => issue.status === 'Published')
     .sort((a, b) => (b.issue_number || 0) - (a.issue_number || 0));
-  const [article, setArticle] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [article, setArticle] = useState(staticArticle);
+  const [loading, setLoading] = useState(!staticArticle);
 
   useEffect(() => {
     let cancelled = false;
 
     async function loadArticle() {
-      setLoading(true);
+      if (!staticArticle) setLoading(true);
       try {
         const matches = await base44.entities.PublishingArticle.filter(
           { slug, status: 'Published' },
@@ -48,12 +51,12 @@ export default function CanonArticleView() {
         );
 
         if (!cancelled) {
-          setArticle(matches[0] || null);
+          setArticle(matches[0] || staticArticle);
         }
       } catch (error) {
         console.error('Unable to load canonical article:', error);
         if (!cancelled) {
-          setArticle(null);
+          setArticle(staticArticle);
         }
       } finally {
         if (!cancelled) {
