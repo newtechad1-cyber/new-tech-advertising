@@ -83,7 +83,7 @@ export default function KnowledgeCollection() {
 
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-300 border border-blue-500/20 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">
-                <Layers3 className="w-3.5 h-3.5" /> {isLifetimeCollection ? 'NTA Point of View Collection' : 'Learning Series'}
+                <Layers3 className="w-3.5 h-3.5" /> {isLifetimeCollection ? 'Featured Series · NTA Point of View' : 'Learning Series'}
               </span>
               <span className="text-sm font-medium text-slate-400">{totalCount} lessons</span>
               {isComplete && (
@@ -101,7 +101,7 @@ export default function KnowledgeCollection() {
               {collection.description}
             </p>
             <p className="text-sm text-slate-500 mb-10">
-              {isLifetimeCollection ? 'These lessons grew out of decades of working, selling, trying businesses, watching people, learning from successes and failures, and now using AI to bring those experiences together. Read them in order for the complete journey.' : 'A learning series is a group of related lessons. Choose any lesson below, or begin with Lesson 1 and work through them in order.'}
+              {isLifetimeCollection ? 'People → Experience → Connections → Economics → AI → Voice. Follow the six lessons in order to see how these ideas came together.' : 'A learning series is a group of related lessons. Choose any lesson below, or begin with Lesson 1 and work through them in order.'}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
