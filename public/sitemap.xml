@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://newtechadvertising.com</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -49,10 +49,10 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://newtechadvertising.com/restaurant-social-media</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://newtechadvertising.com/restaurants</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://newtechadvertising.com/streaming-tv-advertising</loc>
@@ -135,12 +135,6 @@
   <url>
     <loc>https://newtechadvertising.com/operating-system</loc>
     <lastmod>2026-08-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://newtechadvertising.com/business-journey</loc>
-    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -263,6 +257,12 @@
     <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/digital-growth-advisor</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://newtechadvertising.com/local-lead-systems</loc>
