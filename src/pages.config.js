@@ -38,6 +38,7 @@ import GrowthShowEpisode from './pages/GrowthShowEpisode';
 import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
+import HowCanASmallBusinessUseAI from './pages/knowledge/questions/how-can-a-small-business-use-ai';
 import RestaurantSolutions from './pages/RestaurantSolutions';
 import DigitalGrowthAdvisor from './pages/DigitalGrowthAdvisor';
 import OurStory from './pages/OurStory';
@@ -77,6 +78,7 @@ const PAGES = {
   LearningCenter,
   KnowledgeLibrary,
   knowledge: KnowledgeLibrary,
+  'knowledge/questions/how-can-a-small-business-use-ai': HowCanASmallBusinessUseAI,
   restaurants: RestaurantSolutions,
   'digital-growth-advisor': DigitalGrowthAdvisor,
   OurStory,
