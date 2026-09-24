@@ -1279,6 +1279,12 @@ for (const pathname of paths) {
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
   fs.writeFileSync(outputFile, renderHtml(template, metadata, pathname));
 
+  // One published canary checks whether Base44 serves explicit .html assets at
+  // leaf paths when its clean-URL crawler renderer returns a generic shell.
+  if (pathname === "/knowledge/questions/how-can-a-small-business-use-ai") {
+    fs.writeFileSync(outputFile + ".html", renderHtml(template, metadata, pathname));
+  }
+
   if (!publicPathSet.has(pathname)) {
     renderedCleanupPaths.push(pathname);
   }
