@@ -9,8 +9,9 @@ import { getCollectionSearchMetadata } from '@/config/seoMetadata';
 import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 import { getJourneyMemory } from '@/lib/journeyMemory';
 
-export default function KnowledgeCollection() {
-  const { collectionSlug } = useParams();
+export default function KnowledgeCollection({ collectionSlug: collectionSlugOverride }) {
+  const { collectionSlug: routeCollectionSlug } = useParams();
+  const collectionSlug = collectionSlugOverride || routeCollectionSlug;
   const navigate = useNavigate();
 
   useEffect(() => {
