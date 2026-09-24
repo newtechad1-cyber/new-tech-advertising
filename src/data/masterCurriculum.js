@@ -238,6 +238,31 @@ const contextualLessonLinks = Object.freeze({
     lessonKey('ai-foundations', 'automation-comes-after-understanding')
   ],
 
+  [lessonKey('what-a-lifetime-in-business-taught-me', 'i-learned-business-by-watching-people')]: [
+    lessonKey('business-foundations', 'understanding-before-spending'),
+    lessonKey('how-customers-decide-who-to-trust', 'people-trust-what-they-can-understand')
+  ],
+  [lessonKey('what-a-lifetime-in-business-taught-me', 'i-tried-a-lot-of-businesses')]: [
+    lessonKey('truth-about-business-growth', 'every-business-is-already-perfectly-designed'),
+    lessonKey('business-foundations', 'how-businesses-really-grow')
+  ],
+  [lessonKey('what-a-lifetime-in-business-taught-me', 'the-gold-is-in-the-niche-the-business-is-in-the-connections')]: [
+    lessonKey('truth-about-business-growth', 'why-growth-is-a-system'),
+    lessonKey('what-is-digital-trust', 'the-connected-business-is-the-future')
+  ],
+  [lessonKey('what-a-lifetime-in-business-taught-me', 'free-is-free')]: [
+    lessonKey('business-foundations', 'understanding-before-spending'),
+    lessonKey('ai-foundations', 'start-with-the-work-not-the-tool')
+  ],
+  [lessonKey('what-a-lifetime-in-business-taught-me', 'ai-didnt-give-me-my-experience')]: [
+    lessonKey('turning-what-a-business-knows-into-an-asset', 'your-business-knows-more-than-it-has-documented'),
+    lessonKey('ai-foundations', 'ai-can-assist-judgment-it-cannot-own-it')
+  ],
+  [lessonKey('what-a-lifetime-in-business-taught-me', 'i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it')]: [
+    lessonKey('ai-foundations', 'a-prompt-is-the-beginning-of-a-conversation'),
+    lessonKey('turning-what-a-business-knows-into-an-asset', 'knowledge-becomes-an-asset-when-it-can-keep-working-without-you')
+  ],
+
   [lessonKey('what-is-digital-trust', 'what-is-digital-trust')]: [
     lessonKey('how-customers-decide-who-to-trust', 'trust-begins-before-the-first-conversation'),
     lessonKey('business-foundations', 'why-trust-comes-before-marketing')
