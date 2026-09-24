@@ -28,7 +28,8 @@ function ResourceCard({ icon: Icon, eyebrow, title, description, to, external = 
 }
 
 export default function GrowthShowEpisode({ initialVideo = null }) {
-  const { slug } = useParams();
+  const { slug: routeSlug } = useParams();
+  const slug = routeSlug || initialVideo?.path.split('/').pop();
   const { episodes, loading } = useGrowthShow();
   const episode = findGrowthShowEpisode(episodes, slug);
 
