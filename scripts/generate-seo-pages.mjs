@@ -1108,6 +1108,8 @@ const LEGACY_SEARCH_CLEANUP_PATHS = [
   "/index.html",
   "/insights",
   "/Insights",
+  "/business-journey",
+  "/restaurant-social-media",
   "/ContractorMarketingNorthIowa",
   "/SmallBusinessMarketingNorthIowa",
   "/ContentQueue",
@@ -1220,11 +1222,10 @@ function getPrerenderMetadata(pathname, publicPathSet) {
   const metadata = routeMetadata(pathname);
   const canonicalPath = cleanPath(metadata.canonical);
 
-  // A route is allowed to stay indexable only when its canonical destination
-  // is part of the intentional public sitemap. Everything else receives
-  // deterministic noindex HTML, including legacy page keys that still exist
-  // in the source tree and unknown SPA fallback paths.
-  if (metadata.noIndex || !publicPathSet.has(canonicalPath)) {
+  // Only URLs explicitly listed in the public sitemap stay indexable. An
+  // alias can point at an indexable canonical, but its own cleanup response
+  // must still carry noindex before the client-side redirect runs.
+  if (metadata.noIndex || !publicPathSet.has(pathname) || !publicPathSet.has(canonicalPath)) {
     return { ...metadata, noIndex: true };
   }
 
