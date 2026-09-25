@@ -45,6 +45,7 @@ import PublicSeoPage002 from './pages/IndustriesHub';
 import PublicSeoPage003 from './pages/AiMarketingPlatform';
 import PublicSeoPage004 from './pages/StreamingTvAdvertising';
 import PublicSeoPage005 from './pages/AdaWebsiteCompliance';
+import AccessibilityStatement from './pages/AccessibilityStatement';
 import PublicSeoPage006 from './pages/AIVisibilityBasics';
 import PublicSeoPage007 from './pages/NTAOperatingSystem';
 import PublicSeoPage008 from './pages/WorkWithNTA';
@@ -246,6 +247,7 @@ const PAGES = {
   'ai-marketing-platform': PublicSeoPage003,
   'streaming-tv-advertising': PublicSeoPage004,
   'ada-website-compliance': PublicSeoPage005,
+  accessibility: AccessibilityStatement,
   'ai-visibility-basics': PublicSeoPage006,
   'operating-system': PublicSeoPage007,
   'work-with-nta': PublicSeoPage008,
