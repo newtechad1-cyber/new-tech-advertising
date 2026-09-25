@@ -46,8 +46,8 @@ export default function LearningCenter() {
     },
     {
       id: 'ai-foundations',
-      title: 'AI Foundations',
-      description: 'Practical, actionable understanding of how AI impacts search, operations, and marketing.',
+      title: 'Learning to Work With AI',
+      description: 'Learn AI through conversation, context, correction, human judgment, and the experience you already have.',
       icon: MonitorSmartphone,
       color: 'blue',
       path: '/knowledge/ai-foundations',
@@ -151,10 +151,10 @@ export default function LearningCenter() {
                     New · Expanded Learning Path
                   </div>
                   <h2 className="text-3xl font-black text-white md:text-4xl">
-                    See all 10 AI Foundations lessons
+                    Learning to Work With AI
                   </h2>
                   <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-300">
-                    Start with a plain-language understanding of AI, learn how to work with it, then turn what you know into something useful for your business.
+                    Don’t start by trying to become an AI expert. Start with something you already know, bring that experience into the conversation, and learn how to work with AI without giving up your judgment.
                   </p>
                 </div>
                 <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col">
