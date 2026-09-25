@@ -68,6 +68,9 @@ export default function DigitalGrowthAdvisor() {
                     <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">Video {video.number} <span className="ml-2 font-normal text-slate-400">{video.length}</span></p>
                     <h3 className="mt-3 text-xl font-bold leading-snug">{video.title}</h3>
                     <p className="mt-4 leading-relaxed text-slate-300">{video.summary}</p>
+                    <a href={video.youtubeUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center rounded-xl border border-cyan-300/40 px-4 py-2 font-semibold text-cyan-200 hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300">
+                      Watch this Short on YouTube <span aria-hidden="true" className="ml-2">↗</span>
+                    </a>
                     <details className="mt-5 border-t border-slate-700 pt-4">
                       <summary className="cursor-pointer font-semibold text-cyan-200">Read the video transcript</summary>
                       <p className="mt-3 text-sm leading-relaxed text-slate-300">{video.transcript}</p>
