@@ -1,5 +1,5 @@
 // Public production entry point: the private app remains at app.newtechadvertising.com.
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
@@ -154,14 +154,23 @@ function LegacyBookingRedirect() {
 
 function ScrollToTopOnRouteChange() {
   const { pathname, hash } = useLocation();
+  const initialRoute = useRef(true);
 
   useEffect(() => {
-    // Preserve intentional in-page anchor navigation, but make every normal
-    // page-to-page navigation start at the top instead of reusing the previous
-    // route's scroll position.
+    // Keep anchor navigation intact. On client-side page changes, move keyboard
+    // and screen-reader focus into the new page instead of leaving it on an old link.
     if (!hash) {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      if (!initialRoute.current) {
+        requestAnimationFrame(() => {
+          const target = document.querySelector('main, [role="main"], h1');
+          if (!target) return;
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+        });
+      }
     }
+    initialRoute.current = false;
   }, [pathname, hash]);
 
   return null;
