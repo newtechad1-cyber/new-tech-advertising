@@ -45,7 +45,7 @@ import PublicSeoPage002 from './pages/IndustriesHub';
 import PublicSeoPage003 from './pages/AiMarketingPlatform';
 import PublicSeoPage004 from './pages/StreamingTvAdvertising';
 import PublicSeoPage005 from './pages/AdaWebsiteCompliance';
-import AccessibilityStatement from './pages/AccessibilityStatement';
+import AccessibilityStatement from './pages/accessibility';
 import PublicSeoPage006 from './pages/AIVisibilityBasics';
 import PublicSeoPage007 from './pages/NTAOperatingSystem';
 import PublicSeoPage008 from './pages/WorkWithNTA';
