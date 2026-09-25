@@ -32,7 +32,7 @@ export default function AccessibilityStatement() {
             <h2 className="mb-3 text-2xl font-semibold text-white">How we evaluate</h2>
             <p>Automated checks can identify some problems. They cannot establish that every page and task works with a keyboard or assistive technology. We also need hands-on testing and retesting as content changes. We are not claiming that the website has completed a full WCAG conformance evaluation.</p>
           </section>
-          <p className="text-sm text-slate-400">Last updated September 24, 2026.</p>
+          <p className="text-sm text-slate-400">Last updated September 25, 2026.</p>
         </article>
       </main>
       <SiteFooter />
