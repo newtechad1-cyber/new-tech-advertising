@@ -51,6 +51,9 @@ function generate(video, index) {
     "import MarketingNav from '@/components/nav/MarketingNav';",
     "import SiteFooter from '@/components/marketing/SiteFooter';",
     "import SEOHead from '@/components/shared/SEOHead';",
+    ...(video.category === 'Growth Show'
+      ? ["import GrowthShowEpisodeConnections from '@/components/video/GrowthShowEpisodeConnections';"]
+      : []),
     '',
     'const TITLE = ' + q(video.title) + ';',
     'const DESCRIPTION = ' + q(video.description) + ';',
@@ -105,6 +108,9 @@ function generate(video, index) {
   lines.push(
     '          <p className="mt-4"><Link to="/growth-conversation" className="text-cyan-300 hover:text-cyan-100">Ask a question about your business</Link></p>',
     '        </section>',
+    ...(video.category === 'Growth Show'
+      ? ['        <GrowthShowEpisodeConnections slug=' + q(video.path.split('/').pop()) + ' title={TITLE} path=' + q(video.path) + ' existingLinks={' + q(links.map(link => link.path)) + '} skipTestimonial={' + Boolean(testimonial[video.id]) + '} />']
+      : []),
     '        <p className="mt-10"><Link to=' + q(parent) + ' className="text-sm font-semibold text-slate-300 hover:text-white">Explore more ' + (video.category === 'Growth Show' ? 'Growth Show episodes' : 'videos') + '</Link></p>',
     '      </main>',
     '      <SiteFooter />',
