@@ -108,7 +108,7 @@ export default function SEOHead({
   const preferRouteMetadata = routeMetadata.routeSpecific === true;
   const resolvedTitle = preferRouteMetadata ? routeMetadata.title : (title || routeMetadata.title);
   const resolvedDescription = preferRouteMetadata ? routeMetadata.description : (description || routeMetadata.description);
-  const resolvedCanonical = canonical || routeMetadata.canonical || buildCanonical(location.pathname);
+  const resolvedCanonical = new URL(canonical || routeMetadata.canonical || buildCanonical(location.pathname), SITE_ORIGIN).href;
   const resolvedNoIndex = noIndex || routeMetadata.noIndex;
 
   useEffect(() => {
