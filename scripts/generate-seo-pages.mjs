@@ -1059,12 +1059,45 @@ function bookSchemaMarkup(pathname) {
     JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>' : '';
 }
 
+function accessibilityStaticBody(pathname) {
+  const content = {
+    '/accessible-websites': {
+      heading: 'Websites More People Can Use',
+      intro: 'We help identify and fix barriers that make a website difficult to use. Accessibility takes testing, content work, and continued attention as the site changes.',
+      details: 'A useful review checks keyboard navigation, visible focus, zoom, headings, images, forms, videos, and documents. WCAG 2.2 AA is a practical benchmark; automated scans cannot verify every task.',
+    },
+    '/ada-website-compliance': {
+      heading: 'Make Your Website Easier for People to Use',
+      intro: 'People should be able to learn about your business and contact you with a keyboard, screen reader, zoom, or other assistive technology.',
+      details: 'Combine automated checks with hands-on testing, fix barriers on important pages and tasks, and retest. A badge, overlay, or quick score cannot establish legal compliance.',
+    },
+    '/web-accessibility-trust': {
+      heading: 'Web Accessibility: The Foundation of Digital Trust',
+      intro: 'Web accessibility means making information and tasks usable by people with different abilities and devices.',
+      details: 'Clear headings and links, text alternatives, accessible forms, and keyboard support help visitors. They can also help search systems interpret content, without guaranteeing rankings or AI recommendations.',
+    },
+    '/accessibility': {
+      heading: 'Accessibility at New Tech Advertising',
+      intro: 'We want people to be able to use this public website, learn from its resources, and contact us in a way that works for them. We use WCAG 2.2 AA as a practical benchmark while we improve the site.',
+      details: 'We are reviewing navigation, forms, zoom, contrast, images, video captions, and downloadable documents. The two free book PDFs need further document accessibility review; caption accuracy has not been verified across the video catalog. Please ask for help or an alternative format.',
+    },
+  }[pathname];
+  if (!content) return '';
+  return '<main id="main-content" data-prerendered="true" class="seo-shell"><article>' +
+    '<p class="seo-kicker">New Tech Advertising</p><h1>' + escapeHtml(content.heading) + '</h1>' +
+    '<p>' + escapeHtml(content.intro) + '</p><h2>How we approach accessibility</h2><p>' + escapeHtml(content.details) + '</p>' +
+    '<p><a href="/contact">Contact NTA about an accessibility barrier or review</a></p>' +
+    '<nav aria-label="Accessibility links"><a href="/accessibility">Accessibility &amp; Help</a><a href="/accessible-websites">Accessible websites</a><a href="/">Home</a></nav>' +
+    '</article></main>';
+}
+
 function shellMarkup(metadata, pathname) {
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = videoWatchStaticBody(pathname)
+  const body = accessibilityStaticBody(pathname)
+    || videoWatchStaticBody(pathname)
     || bookStaticBody(pathname)
     || connectedLearningStaticBody(pathname)
     || videoGalleryStaticBody(pathname)
