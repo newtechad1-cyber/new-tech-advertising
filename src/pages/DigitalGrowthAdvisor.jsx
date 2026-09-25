@@ -3,6 +3,7 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import AdvisorDiscoveryForm from '@/components/advisor/AdvisorDiscoveryForm';
 import { ADVISOR_FAQS, ADVISOR_RESOURCES, ADVISOR_STEPS, PUBLIC_SITE } from '@/data/digitalGrowthAdvisor';
+import { ADVISOR_VIDEOS } from '@/data/advisorVideos';
 
 const support = [
   ['Research and preparation', 'Prospect research, a connected prospecting system, Gap Audits, and talking points help you begin with useful context.'],
@@ -29,7 +30,7 @@ export default function DigitalGrowthAdvisor() {
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">Develop relationships with business owners. Listen to what they are trying to accomplish. NTA brings the Digital Growth Office, tools, knowledge, and support behind you.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#support" className="rounded-xl bg-cyan-300 px-6 py-4 font-bold text-slate-950 hover:bg-cyan-200">See how NTA supports you</a>
-              <a href="#explore" className="rounded-xl border border-slate-500 px-6 py-4 font-semibold hover:bg-slate-800">Explore NTA first</a>
+              <a href="#videos" className="rounded-xl border border-slate-500 px-6 py-4 font-semibold hover:bg-slate-800">Watch the four videos</a>
             </div>
           </div>
           <aside className="rounded-3xl border border-cyan-300/25 bg-slate-900/80 p-7 sm:p-9">
@@ -39,6 +40,48 @@ export default function DigitalGrowthAdvisor() {
             <p className="mt-6 leading-relaxed text-slate-300">You bring the human relationship. Learn the technology and business tools as they become useful in your work.</p>
             <p className="mt-5 border-t border-slate-700 pt-5 text-sm text-slate-400">Built with Rick Hesse’s 45+ years of business experience.</p>
           </aside>
+        </div>
+      </section>
+
+      <section id="videos" className="scroll-mt-24 border-b border-slate-800 bg-slate-900/40 px-5 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">Four short introductions</p>
+          <h2 className="mt-4 text-3xl font-bold sm:text-4xl">See what a Digital Growth Advisor does</h2>
+          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">Watch in order: start with business curiosity, see AI used in real conversations, explore entrepreneurship, then hear Rick explain the full opportunity.</p>
+          <ol className="mt-9 grid gap-6 lg:grid-cols-2">
+            {ADVISOR_VIDEOS.map((video) => <li key={video.heygenId}>
+              <article className="h-full rounded-3xl border border-slate-700 bg-slate-900 p-5 sm:p-6">
+                <div className="grid gap-6 sm:grid-cols-[minmax(0,180px)_1fr] sm:items-start">
+                  <div className="mx-auto aspect-[9/16] w-full max-w-[220px] overflow-hidden rounded-2xl border border-slate-700 bg-slate-950">
+                    <video
+                      className="h-full w-full object-contain"
+                      controls
+                      playsInline
+                      preload="metadata"
+                      src={video.src}
+                      aria-label={`Video ${video.number}: ${video.title}`}
+                    >
+                      Your browser does not support video playback. <a href={video.src}>Open the video file</a>.
+                    </video>
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">Video {video.number} <span className="ml-2 font-normal text-slate-400">{video.length}</span></p>
+                    <h3 className="mt-3 text-xl font-bold leading-snug">{video.title}</h3>
+                    <p className="mt-4 leading-relaxed text-slate-300">{video.summary}</p>
+                    <details className="mt-5 border-t border-slate-700 pt-4">
+                      <summary className="cursor-pointer font-semibold text-cyan-200">Read the video transcript</summary>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-300">{video.transcript}</p>
+                    </details>
+                  </div>
+                </div>
+              </article>
+            </li>)}
+          </ol>
+          <div className="mt-9 rounded-2xl border border-cyan-300/25 bg-cyan-950/20 p-6">
+            <p className="max-w-3xl text-lg leading-relaxed text-slate-200">Start with what you already know how to do. NTA supplies the research, AI tools, Gap Audits, follow-up support, and Rick’s 45+ years of business experience. You’re not selling — you’re educating.</p>
+            <p className="mt-4 text-slate-300">Don’t rush to apply. Look around NTA first. If it makes sense to you, then let’s talk.</p>
+            <a href="#explore" className="mt-5 inline-flex rounded-xl bg-cyan-300 px-6 py-3 font-bold text-slate-950 hover:bg-cyan-200">Explore NTA first</a>
+          </div>
         </div>
       </section>
 
