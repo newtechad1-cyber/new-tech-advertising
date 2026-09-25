@@ -111,6 +111,39 @@ export default function About() {
         </div>
       </section>
 
+      {/* ── RICK'S LIVED EXPERIENCE ─────────────────────────── */}
+      <section className="py-20 px-6 border-y border-slate-800 bg-slate-950/70">
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-start">
+          <div>
+            <div className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Rick&apos;s Lived Experience</div>
+            <h2 className="text-4xl font-extrabold text-white leading-tight mb-6">
+              I learned business by watching how businesses actually work.
+            </h2>
+            <p className="text-slate-300 text-lg leading-relaxed mb-5">
+              Long before AI, I watched advertising, listened to radio commercials, studied how large companies operated, built businesses, lost businesses, managed stores, sold advertising, built websites, and kept asking the same question: what makes this work?
+            </p>
+            <p className="text-slate-400 text-lg leading-relaxed">
+              AI did not replace that experience. It gave me another way to use it. What I build today is an expression of the business knowledge, mistakes, questions, and judgment I have gathered over a lifetime.
+            </p>
+          </div>
+          <div className="rounded-3xl border border-blue-500/20 bg-slate-900 p-8 md:p-10">
+            <p className="text-blue-300 text-sm font-bold uppercase tracking-widest mb-4">A principle I keep coming back to</p>
+            <p className="text-2xl md:text-3xl font-bold text-white leading-snug">
+              Start with what you already know.
+            </p>
+            <p className="mt-5 text-slate-400 text-lg leading-relaxed">
+              You do not have to become an AI expert before AI can become useful. Bring the work you already understand, explain what you are trying to accomplish, react to the output, correct what it misses, and keep your human judgment in charge.
+            </p>
+            <Link
+              to="/knowledge/ai-foundations"
+              className="mt-7 inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold"
+            >
+              Explore Learning to Work With AI <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── 2. MISSION ──────────────────────────────────────── */}
       <section className="py-24 px-6">
         <div className="max-w-5xl mx-auto">
