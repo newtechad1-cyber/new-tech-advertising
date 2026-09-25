@@ -78,7 +78,7 @@ function DropdownMenu({ items, onClose, id }) {
           className="flex flex-col px-4 py-3 transition-colors hover:bg-slate-50"
         >
           <span className="text-sm font-semibold text-slate-900">{item.label}</span>
-          {item.desc && <span className="mt-0.5 text-xs text-slate-500">{item.desc}</span>}
+          {item.desc && <span className="mt-0.5 text-xs text-slate-400">{item.desc}</span>}
         </Link>
       ))}
     </div>
@@ -265,7 +265,7 @@ export default function MarketingNav() {
                           {link.children.map((child) => (
                             <Link key={child.label} to={child.href} onClick={closeMobile} className="block rounded-lg px-3 py-2.5 hover:bg-slate-800">
                               <div className="text-sm font-medium text-white">{child.label}</div>
-                              {child.desc && <div className="mt-0.5 text-xs text-slate-500">{child.desc}</div>}
+                              {child.desc && <div className="mt-0.5 text-xs text-slate-400">{child.desc}</div>}
                             </Link>
                           ))}
                         </div>
@@ -294,7 +294,7 @@ export default function MarketingNav() {
               >
                 Talk to My Office™
               </button>
-              <div className="flex justify-center gap-6 border-t border-slate-800 pt-4 text-sm text-slate-500">
+              <div className="flex justify-center gap-6 border-t border-slate-800 pt-4 text-sm text-slate-400">
                 <a href="tel:6414208816" className="transition-colors hover:text-slate-300">641-420-8816</a>
                 <Link to="/contact" className="transition-colors hover:text-slate-300" onClick={closeMobile}>Support</Link>
               </div>

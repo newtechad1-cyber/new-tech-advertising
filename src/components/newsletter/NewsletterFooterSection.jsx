@@ -97,7 +97,7 @@ export default function NewsletterFooterSection() {
                 aria-label="Email for The NTA Journal"
                 placeholder="you@yourbusiness.com"
                 required
-                className="h-12 w-full flex-1 rounded-lg border border-slate-700 bg-slate-800/50 px-4 text-white placeholder:text-slate-500 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
+                className="h-12 w-full flex-1 rounded-lg border border-slate-700 bg-slate-800/50 px-4 text-white placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
               />
               <button
                 type="submit"

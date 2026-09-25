@@ -92,7 +92,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="flex items-center gap-4 pt-4 border-t border-slate-800">
-          <span className="text-xs text-slate-500">Connect with NTA:</span>
+          <span className="text-xs text-slate-400">Connect with NTA:</span>
           <a href={NTA_SOCIAL_LINKS.facebook.url} target="_blank" rel="noopener noreferrer" aria-label="NTA on Facebook" title="NTA on Facebook" className="text-slate-400 hover:text-blue-600 transition-colors">
             <Facebook className="w-4 h-4" />
           </a>
