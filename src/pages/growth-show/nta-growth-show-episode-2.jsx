@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import GrowthShowEpisodeConnections from '@/components/video/GrowthShowEpisodeConnections';
 
 const TITLE = "The NTA Growth Show — Episode 2 | Practical Digital Growth for Small Businesses";
 const DESCRIPTION = "Watch The NTA Growth Show — Episode 2 | Practical Digital Growth for Small Businesses from New Tech Advertising, then explore related practical business and AI learning.";
@@ -54,6 +55,7 @@ export default function NativeVideoPage04() {
           <h2 className="text-2xl font-bold text-white">Continue the idea</h2>
           <p className="mt-4"><Link to="/growth-conversation" className="text-cyan-300 hover:text-cyan-100">Ask a question about your business</Link></p>
         </section>
+        <GrowthShowEpisodeConnections slug="nta-growth-show-episode-2" title={TITLE} path="/growth-show/nta-growth-show-episode-2" existingLinks={[]} skipTestimonial={false} />
         <p className="mt-10"><Link to="/growth-show" className="text-sm font-semibold text-slate-300 hover:text-white">Explore more Growth Show episodes</Link></p>
       </main>
       <SiteFooter />

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import GrowthShowEpisodeConnections from '@/components/video/GrowthShowEpisodeConnections';
 
 const TITLE = "You Don’t Need More Marketing—You Need a Connected System | NTA Growth Show";
 const DESCRIPTION = "Watch You Don’t Need More Marketing—You Need a Connected System | NTA Growth Show from New Tech Advertising, then explore related practical business and AI learning.";
@@ -55,6 +56,7 @@ export default function NativeVideoPage03() {
           <p className="mt-4"><Link to="/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system" className="text-cyan-300 hover:text-cyan-100">Read the related lesson: Businesses Don’t Need More Marketing. They Need a Better Growth System.</Link></p>
           <p className="mt-4"><Link to="/growth-conversation" className="text-cyan-300 hover:text-cyan-100">Ask a question about your business</Link></p>
         </section>
+        <GrowthShowEpisodeConnections slug="you-dont-need-more-marketing-connected-system" title={TITLE} path="/growth-show/you-dont-need-more-marketing-connected-system" existingLinks={["/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system"]} skipTestimonial={false} />
         <p className="mt-10"><Link to="/growth-show" className="text-sm font-semibold text-slate-300 hover:text-white">Explore more Growth Show episodes</Link></p>
       </main>
       <SiteFooter />

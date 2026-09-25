@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import GrowthShowEpisodeConnections from '@/components/video/GrowthShowEpisodeConnections';
 
 const TITLE = "AI Finally Taught Me How to Multitask | NTA Growth Show Episode 5";
 const DESCRIPTION = "Rick shares how working alongside AI helps him organize ideas and move several pieces of work forward.";
@@ -61,6 +62,7 @@ export default function NativeVideoPage02() {
           <p className="mt-4"><Link to="/journal/issue-6-ai-finally-taught-me-how-to-multitask" className="text-cyan-300 hover:text-cyan-100">Read the related NTA Journal</Link></p>
           <p className="mt-4"><Link to="/growth-conversation" className="text-cyan-300 hover:text-cyan-100">Ask a question about your business</Link></p>
         </section>
+        <GrowthShowEpisodeConnections slug="ai-finally-taught-me-how-to-multitask" title={TITLE} path="/growth-show/ai-finally-taught-me-how-to-multitask" existingLinks={["/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask","/journal/issue-6-ai-finally-taught-me-how-to-multitask"]} skipTestimonial={true} />
         <p className="mt-10"><Link to="/growth-show" className="text-sm font-semibold text-slate-300 hover:text-white">Explore more Growth Show episodes</Link></p>
       </main>
       <SiteFooter />
