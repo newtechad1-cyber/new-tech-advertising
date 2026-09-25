@@ -331,6 +331,13 @@
       "lastModified": "2026-08-14"
     },
     {
+      "title": "Accessibility at New Tech Advertising",
+      "canonicalUrl": "https://newtechadvertising.com/accessibility",
+      "contentType": "WebPage",
+      "description": "Report a website accessibility barrier or request another way to access an NTA video, book, or service.",
+      "lastModified": "2026-09-25"
+    },
+    {
       "title": "Small Business Questions About AI, Marketing, and Growth",
       "canonicalUrl": "https://newtechadvertising.com/knowledge/questions",
       "contentType": "CollectionPage",
@@ -609,13 +616,6 @@
       "publisher": "New Tech Advertising",
       "publicStatus": "published",
       "lastModified": "2026-09-11"
-    },
-    {
-      "title": "Accessibility at New Tech Advertising",
-      "canonicalUrl": "https://newtechadvertising.com/accessibility",
-      "contentType": "WebPage",
-      "description": "Report a website accessibility barrier or request another way to access an NTA video, book, or service.",
-      "lastModified": "2026-09-25"
     }
   ],
   "knowledgeCollections": [
