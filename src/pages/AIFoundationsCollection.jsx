@@ -51,8 +51,8 @@ export default function AIFoundationsCollection() {
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200">
       <SEOHead 
-        title="AI Foundations Collection | NTA Knowledge Library"
-        description="The recommended starting point for understanding AI in business. Learn how modern AI really works and why judgment comes before automation."
+        title="Learning to Work With AI | NTA Knowledge Library"
+        description="A practical learning path built from real experience: conversation, context, correction, human judgment, and using AI without giving up control."
       />
       <MarketingNav />
       
@@ -61,16 +61,16 @@ export default function AIFoundationsCollection() {
           <div className="flex items-center justify-center gap-2 text-sm font-medium text-slate-400 mb-8 overflow-x-auto whitespace-nowrap">
             <Link to="/learning-center" className="hover:text-white transition-colors">Knowledge Library</Link>
             <ChevronRight className="w-4 h-4 text-slate-600" />
-            <span className="text-slate-300">AI Foundations</span>
+            <span className="text-slate-300">Learning to Work With AI</span>
           </div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold tracking-wide uppercase mb-6">
             <BookOpen className="w-4 h-4" /> Collection
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-            AI Foundations
+            Learning to Work With AI
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
-            Learn how to turn your experience, ideas, and everyday work into useful business systems—without surrendering your judgment or control.
+            Start with what you already know. Learn how to give AI context, work through mistakes and mismatched focus, judge the output, and turn your experience into something useful—without surrendering your judgment or control.
           </p>
           
           <div className="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
