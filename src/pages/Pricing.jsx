@@ -93,7 +93,7 @@ export default function Pricing() {
       <SEOHead
         title="Small Business Marketing Price Ranges | New Tech Advertising"
         description="Explore practical starting price ranges for websites, local visibility, content, social media, video, and a connected Digital Growth Office from NTA."
-        canonical="/pricing"
+        canonical="https://newtechadvertising.com/pricing"
       />
 
       <MarketingNav />
