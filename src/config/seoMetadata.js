@@ -341,8 +341,12 @@ const STATIC_SEO = {
     noIndex: true,
   },
   "/ada-website-compliance": {
-    title: "ADA Website Compliance and Rebuild | NTA",
-    description: "Understand website accessibility risks and explore a practical ADA-focused website review or rebuild for your business.",
+    title: "Website Accessibility Review and Improvements | NTA",
+    description: "A practical approach to improving small business website accessibility through testing, repairs, and retesting.",
+  },
+  "/accessibility": {
+    title: "Accessibility at New Tech Advertising | NTA",
+    description: "Report a website accessibility barrier or request another way to access an NTA video, book, or service.",
   },
   "/get-started": {
     title: "Start Your Free Trial | New Tech Advertising",

@@ -283,6 +283,7 @@ export const ROUTE_OVERRIDES = {
   '/tv-commercial-script-generator': 'noindex',
   '/hvac-industry':               'public',
   '/ada-website-compliance':      'public',
+  '/accessibility':              'public',
   '/ai-brought-me-out-of-retirement': 'public',
   '/i-was-early-again':          'public',
   '/journal':                    'public',

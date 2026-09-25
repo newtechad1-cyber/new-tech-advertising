@@ -279,14 +279,14 @@
       "canonicalUrl": "https://newtechadvertising.com/accessible-websites",
       "contentType": "WebPage",
       "description": "Build a more accessible, understandable website that serves customers better and supports long-term digital trust.",
-      "lastModified": "2026-08-14"
+      "lastModified": "2026-09-25"
     },
     {
       "title": "Website Accessibility and Digital Trust for Small Business",
       "canonicalUrl": "https://newtechadvertising.com/web-accessibility-trust",
       "contentType": "WebPage",
       "description": "Understand why accessibility, clarity, and usability are part of the trust a small-business website creates.",
-      "lastModified": "2026-08-14"
+      "lastModified": "2026-09-25"
     },
     {
       "title": "Digital Risks Small Business Owners Should Understand",
@@ -609,6 +609,13 @@
       "publisher": "New Tech Advertising",
       "publicStatus": "published",
       "lastModified": "2026-09-11"
+    },
+    {
+      "title": "Accessibility at New Tech Advertising",
+      "canonicalUrl": "https://newtechadvertising.com/accessibility",
+      "contentType": "WebPage",
+      "description": "Report a website accessibility barrier or request another way to access an NTA video, book, or service.",
+      "lastModified": "2026-09-25"
     }
   ],
   "knowledgeCollections": [
