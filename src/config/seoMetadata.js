@@ -32,6 +32,7 @@ const STATIC_SEO = {
   "/pricing": {
     title: "Practical AI and Small Business Growth Options | NTA",
     description: "Explore practical AI education and small-business growth options from New Tech Advertising. Start with free learning and choose help when it becomes useful.",
+    canonical: "https://newtechadvertising.com/pricing",
   },
   "/learning-center/videos": {
     title: "Video Gallery | NTA Growth Show, AI & Business Videos",
@@ -272,6 +273,7 @@ const STATIC_SEO = {
   "/small-businesses-nationwide": {
     title: "Practical AI and Digital Growth for Small Businesses Nationwide",
     description: "NTA helps small-business owners across the United States understand practical AI and build clearer, connected growth systems.",
+    canonical: "https://newtechadvertising.com/small-businesses-nationwide",
   },
   "/case-studies": {
     title: "Small Business Growth Case Studies | New Tech Advertising",
