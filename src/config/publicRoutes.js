@@ -94,6 +94,7 @@ import POVArticleView from '@/pages/POVArticleView';
 import POVCollection from '@/pages/POVCollection';
 import PracticalAI from '@/pages/PracticalAI';
 import Pricing from '@/pages/Pricing';
+import FindYourPlan from '@/pages/find-your-plan';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import RestaurantDemo from '@/pages/RestaurantDemo';
 import RestaurantDemoBar from '@/pages/RestaurantDemoBar';
@@ -218,7 +219,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/get-started', GetStarted),
   alias('/start', Start),
   alias('/onboard/thank-you', OnboardThankYou),
-  alias('/find-your-plan', Pricing),
+  alias('/find-your-plan', FindYourPlan),
   alias('/pricing', Pricing),
   alias('/gap-audit', FreeAudit),
   alias('/free-audit', FreeAudit),
