@@ -180,10 +180,10 @@ export default function IndustriesProfessionals() {
       <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Not Sure Where to Start?</h2>
-          <p className="text-blue-100 mb-8 text-lg">Our full onboarding walks you through all your options.</p>
-          <a href="/get-started">
+          <p className="text-blue-100 mb-8 text-lg">Start with a free conversation about what your business needs.</p>
+          <a href="/start">
             <Button className="bg-white text-blue-600 hover:bg-slate-100 px-8 py-6 text-lg">
-              Full Onboarding
+              Start a Free Growth Conversation
             </Button>
           </a>
         </div>
