@@ -363,6 +363,7 @@ const STATIC_SEO = {
   "/find-your-plan": {
     title: "Find Your Small Business Growth Starting Point | NTA",
     description: "Choose the next useful NTA starting point for your business.",
+    canonical: "https://newtechadvertising.com/pricing",
     noIndex: true,
   },
 };
