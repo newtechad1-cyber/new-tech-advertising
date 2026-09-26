@@ -29,6 +29,7 @@ import NtaJournal from './pages/NtaJournal';
 import JournalLanding from './pages/JournalLanding';
 import JournalIssueView from './pages/JournalIssueView';
 import Pricing from './pages/Pricing';
+import FindYourPlan from './pages/find-your-plan';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import RestaurantMarketing from './pages/RestaurantMarketing';
 import Services from './pages/Services';
@@ -216,6 +217,7 @@ const PAGES = {
   Services,
   Contact,
   Pricing,
+  'find-your-plan': FindYourPlan,
   PrivacyPolicy,
   TermsOfService,
   'Free-Audit': FreeAudit,
