@@ -351,8 +351,9 @@ const STATIC_SEO = {
     description: "Report a website accessibility barrier or request another way to access an NTA video, book, or service.",
   },
   "/get-started": {
-    title: "Start Your Free Trial | New Tech Advertising",
-    description: "Start a free 14-day trial with New Tech Advertising. We set up a practical marketing system around your business, goals, and next steps.",
+    title: "Start a Free Growth Conversation | New Tech Advertising",
+    description: "Begin a free conversation with NTA about your business, needs, and useful next steps.",
+    canonical: "https://newtechadvertising.com/start",
     noIndex: true,
   },
   "/start": {
