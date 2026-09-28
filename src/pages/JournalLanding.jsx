@@ -101,7 +101,6 @@ export default function JournalLanding() {
       .filter(i =>
         i.status === 'Published' &&
         i.issue_number >= 3 &&
-        i.issue_number <= 8 &&
         i.date >= '2026-08-17' &&
         Boolean(i.from_ricks_desk) &&
         Boolean(i.newsletter_subject)
