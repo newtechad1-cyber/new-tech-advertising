@@ -9,6 +9,7 @@ import { lesson12 as aiFoundationsLesson12 } from './aiFoundationsLesson12';
 import { lesson13 as aiFoundationsLesson13 } from './aiFoundationsLesson13';
 import { lesson14 as aiFoundationsLesson14 } from './aiFoundationsLesson14';
 import { lesson15 as aiFoundationsLesson15 } from './aiFoundationsLesson15';
+import { lesson16 as aiFoundationsLesson16 } from './aiFoundationsLesson16';
 import { whatIsDigitalTrustLessons } from './whatIsDigitalTrust';
 import { buildingSmallBusinessAiSeriesLessons } from './buildingSmallBusinessAiSeries';
 import { lifetimeBusinessLessons } from './lifetimeBusiness';
@@ -26,7 +27,8 @@ const completeAiFoundationsLessons = [
   aiFoundationsLesson12,
   aiFoundationsLesson13,
   aiFoundationsLesson14,
-  aiFoundationsLesson15
+  aiFoundationsLesson15,
+  aiFoundationsLesson16
 ];
 
 
