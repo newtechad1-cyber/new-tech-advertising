@@ -1422,6 +1422,43 @@
   ],
   "journalIssues": [
     {
+      "issueNumber": 9,
+      "title": "NTA Journal #9: Start With the Work, Then Choose the AI",
+      "subtitle": "Putting AI to work begins with understanding the people and the business.",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-9-start-with-the-work-then-choose-the-ai",
+      "contentType": "Newsletter",
+      "description": "Rick Hesse traces how an ongoing conversation became the NTA AI team and a more useful way to preserve business ideas. His practical starting point for a small business: understand the people and the work, then choose a specific job for AI.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-09-28",
+      "estimatedReadingTime": "5 min read",
+      "introductoryMessage": "Putting AI to work begins with understanding the people and the business.",
+      "sections": [
+        {
+          "heading": "From Rick's Desk",
+          "body": "I've spent nearly two years working with different AIs. At first, I could see work I wanted them to help me do, but they often couldn't keep up with the conversation or hold enough of the larger picture. I tried other models, learned where each helped, and watched the capabilities improve.\n\nI didn't set out with a plan to build an AI team. I was trying to solve real problems and make the work useful.\n\nWhile reading a lesson we were preparing from our conversations, I kept stopping to capture an idea before I lost it. More than once, I read a little farther and found that the draft had already answered my question or moved in the direction I was about to suggest. My own words still mattered. But it showed me what an ongoing conversation, correction, and preserved context can do: the work can begin to fit the way a person thinks."
+        },
+        {
+          "heading": "What We Built",
+          "body": "I've been developing what I call the **NTA AI team**. The point is not to put a roomful of models in front of a business owner. It is to understand a real piece of work, give each capability a specific job where it helps, and keep a person responsible for checking the result and making the decisions.\n\nI also need that kind of continuity in my own work. Ideas come while I'm reading or working on something else. If I leave them in a chat and never carry them forward, they disappear from the work. My Working Brain is where I preserve the thought, the decision, and the next step so I can return to it. I'm still improving that process; it has reminded me that useful AI depends on a clear handoff as much as on a clever answer."
+        },
+        {
+          "heading": "What We Learned",
+          "body": "I've spent a lifetime trying to understand people and businesses. That helps me work with AI: I notice when an answer misses what someone meant or how a business actually operates, ask a better question, and keep the real work at the center.\n\nWhen somebody brings me a business idea, I want to know who needs it, what it costs to deliver, how customers find it, and what happens after a customer says yes. I've asked those questions through years of business, advertising, and sometimes failure. They concern people's livelihoods. They deserve more than an attractive answer on a screen.\n\nAI did not give me that experience. It is becoming a way to put more of it to work. I can talk through a problem, organize what we learn, and prepare a lesson, website answer, process, or next step. Then I still have to read it, correct what doesn't fit, and decide whether it would actually help a person."
+        },
+        {
+          "heading": "What It Means for Your Business",
+          "body": "Every business has its own people, customers, and way of working. The owner should be able to explain the business in a familiar way and understand what is being proposed. Employees and customers know things a public website cannot show. Their knowledge belongs in the conversation before we choose the technology.\n\nStart with one customer request and follow it from beginning to end. Who receives it? What information is needed? Where does it wait? Who decides what happens next? What does the customer experience while waiting?\n\nOnce you know where the work gets stuck, you can make a better decision about whether AI would help and what job it should do. You might find the first fix is a clearer handoff or a better follow-up habit."
+        },
+        {
+          "heading": "This Week's Challenge",
+          "body": "Choose one request that your business handles often. Ask the person who receives it and the person who completes it what gets missed between them. Write down one question customers keep asking and one point where the work waits. Then decide what a clearer human handoff would solve before adding a tool."
+        }
+      ],
+      "closingMessage": "**Start with the business and the people; then give the technology a job.**\n\nRead the complete Knowledge Library lesson, [How Do You Put AI to Work in a Real Business?](https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business).\n\n— Rick"
+    },
+    {
       "issueNumber": 8,
       "title": "NTA Journal #8: Your Business Already Knows More Than You Think",
       "subtitle": "Automation is the last step, not the first.",
