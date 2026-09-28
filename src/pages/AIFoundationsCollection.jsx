@@ -96,6 +96,9 @@ export default function AIFoundationsCollection() {
               </Link>
             </div>
           </div>
+          <Link to="/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 underline underline-offset-4 transition-colors hover:text-white">
+            New lesson: How Do You Put AI to Work in a Real Business? <ChevronRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 
