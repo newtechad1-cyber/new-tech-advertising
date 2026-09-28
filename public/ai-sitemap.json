@@ -1112,7 +1112,7 @@
       "description": "A practical, hype-free introduction to using artificial intelligence in a local business.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-09-04",
+      "lastModified": "2026-09-28",
       "lessons": [
         {
           "title": "AI Isn't Magic Either",
@@ -1263,6 +1263,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-09-04"
+        },
+        {
+          "title": "How Do You Put AI to Work in a Real Business?",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business",
+          "contentType": "LearningResource",
+          "description": "Business judgment and owner knowledge come first. Rick Hesse explains how to give AI specific jobs that fit a real small business.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-09-28"
         }
       ]
     },

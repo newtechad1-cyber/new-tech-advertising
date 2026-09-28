@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -572,7 +572,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge/ai-foundations</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1188,5 +1188,11 @@
       <video:player_loc>https://www.youtube-nocookie.com/embed/tmpy20Xz1vU?rel=0</video:player_loc>
       <video:publication_date>2026-05-10T13:02:16-07:00</video:publication_date>
     </video:video>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
