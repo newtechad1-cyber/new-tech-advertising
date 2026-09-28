@@ -20,7 +20,7 @@ const READING_TIME = "8–10 min read";
 const LEVEL = "Beginner";
 const AUTHOR_LABEL = "Your Digital Growth Guide™";
 const PREVIOUS_LABEL = "Previous Lesson: Use the Model That Gets the Job Done";
-const NEXT_LABEL = "Continue Learning";
+const NEXT_LABEL = "Next Lesson: How Do You Put AI to Work in a Real Business?";
 const PUBLISHED_DATE = "2026-09-04";
 const MODIFIED_DATE = "2026-07-23";
 const READER_RESPONSE = {"label":"A reader's response","quote":"I like this one. Very useful, and I will put it into practice.","attribution":"Pete Gardner","context":"Pete shared this after receiving the NTA Journal issue built around this lesson and the related Growth Show conversation."};
@@ -31,7 +31,7 @@ const SEO_TITLE = "AI Finally Taught Me How to Multitask | NTA Knowledge Library
 const CANONICAL = "https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask";
 const LESSON_ID = 15;
 const PREVIOUS_PATH = "/knowledge/ai-foundations/use-the-model-that-gets-the-job-done";
-const NEXT_PATH = "/knowledge/building-a-small-business-with-ai";
+const NEXT_PATH = "/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business";
 const RELATED_LESSONS = [
   {
     "title": "The Work You Don’t See: Why Setup Matters",

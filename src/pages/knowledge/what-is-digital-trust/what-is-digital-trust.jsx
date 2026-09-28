@@ -45,7 +45,7 @@ const RELATED_LESSONS = [
   }
 ];
 
-export default function NativeLessonPage060() {
+export default function NativeLessonPage061() {
   const navigate = useNavigate();
   const [isComplete, setIsComplete] = useState(false);
 

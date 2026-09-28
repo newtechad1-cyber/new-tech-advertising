@@ -164,16 +164,17 @@ import NativeLessonPage053 from './pages/knowledge/ai-foundations/ai-does-not-ha
 import NativeLessonPage054 from './pages/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to';
 import NativeLessonPage055 from './pages/knowledge/ai-foundations/use-the-model-that-gets-the-job-done';
 import NativeLessonPage056 from './pages/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask';
-import NativeLessonPage057 from './pages/knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with';
-import NativeLessonPage058 from './pages/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back';
-import NativeLessonPage059 from './pages/knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert';
-import NativeLessonPage060 from './pages/knowledge/what-is-digital-trust/what-is-digital-trust';
-import NativeLessonPage061 from './pages/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website';
-import NativeLessonPage062 from './pages/knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough';
-import NativeLessonPage063 from './pages/knowledge/what-is-digital-trust/digital-assets-keep-working';
-import NativeLessonPage064 from './pages/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses';
-import NativeLessonPage065 from './pages/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage';
-import NativeLessonPage066 from './pages/knowledge/what-is-digital-trust/the-connected-business-is-the-future';
+import NativeLessonPage057 from './pages/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business';
+import NativeLessonPage058 from './pages/knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with';
+import NativeLessonPage059 from './pages/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back';
+import NativeLessonPage060 from './pages/knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert';
+import NativeLessonPage061 from './pages/knowledge/what-is-digital-trust/what-is-digital-trust';
+import NativeLessonPage062 from './pages/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website';
+import NativeLessonPage063 from './pages/knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough';
+import NativeLessonPage064 from './pages/knowledge/what-is-digital-trust/digital-assets-keep-working';
+import NativeLessonPage065 from './pages/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses';
+import NativeLessonPage066 from './pages/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage';
+import NativeLessonPage067 from './pages/knowledge/what-is-digital-trust/the-connected-business-is-the-future';
 // END GENERATED NATIVE LESSON IMPORTS
 import HowCanASmallBusinessUseAI from './pages/knowledge/questions/how-can-a-small-business-use-ai';
 import WhereShouldIStartWithAiQuestionPage from './pages/knowledge/questions/where-should-i-start-with-ai';
@@ -368,16 +369,17 @@ const PAGES = {
   'knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to': NativeLessonPage054,
   'knowledge/ai-foundations/use-the-model-that-gets-the-job-done': NativeLessonPage055,
   'knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask': NativeLessonPage056,
-  'knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with': NativeLessonPage057,
-  'knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back': NativeLessonPage058,
-  'knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert': NativeLessonPage059,
-  'knowledge/what-is-digital-trust/what-is-digital-trust': NativeLessonPage060,
-  'knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website': NativeLessonPage061,
-  'knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough': NativeLessonPage062,
-  'knowledge/what-is-digital-trust/digital-assets-keep-working': NativeLessonPage063,
-  'knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses': NativeLessonPage064,
-  'knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage': NativeLessonPage065,
-  'knowledge/what-is-digital-trust/the-connected-business-is-the-future': NativeLessonPage066,
+  'knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business': NativeLessonPage057,
+  'knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with': NativeLessonPage058,
+  'knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back': NativeLessonPage059,
+  'knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert': NativeLessonPage060,
+  'knowledge/what-is-digital-trust/what-is-digital-trust': NativeLessonPage061,
+  'knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website': NativeLessonPage062,
+  'knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough': NativeLessonPage063,
+  'knowledge/what-is-digital-trust/digital-assets-keep-working': NativeLessonPage064,
+  'knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses': NativeLessonPage065,
+  'knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage': NativeLessonPage066,
+  'knowledge/what-is-digital-trust/the-connected-business-is-the-future': NativeLessonPage067,
   // END GENERATED NATIVE LESSON ROUTES
   'knowledge/questions/how-can-a-small-business-use-ai': HowCanASmallBusinessUseAI,
   'knowledge/questions/where-should-i-start-with-ai': WhereShouldIStartWithAiQuestionPage,
