@@ -17,6 +17,7 @@ export default function SeeWhatToWorkOnSection() {
         <div className="mx-auto mt-9 max-w-3xl rounded-2xl border border-cyan-800/40 bg-cyan-950/20 p-7 text-center">
           <p className="text-lg leading-relaxed text-slate-200">That&rsquo;s where the <strong className="text-white">Digital Growth Roadmap™</strong> becomes useful.</p>
           <p className="mt-4 leading-relaxed text-slate-300">NTA helps you turn what you&rsquo;re learning into practical priorities—what to work on now, what can wait, and what could make the biggest difference next.</p>
+          <p className="mt-4 leading-relaxed text-slate-300">Every business has its own people and way of working. We look at where the customer experience or daily work gets stuck before deciding whether a clearer message, a better process, a human follow-up, or AI with a specific job will help.</p>
         </div>
 
         <p className="mx-auto mt-8 max-w-3xl text-center text-sm font-semibold tracking-wide text-cyan-200">
@@ -26,6 +27,9 @@ export default function SeeWhatToWorkOnSection() {
         <div className="mt-8 text-center">
           <Link to="/growth-roadmap-generator" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500">
             Explore the Digital Growth Roadmap™ <ArrowRight className="h-5 w-5" />
+          </Link>
+          <Link to="/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business" className="mt-5 flex items-center justify-center gap-2 text-sm font-semibold text-cyan-200 underline underline-offset-4 transition-colors hover:text-white">
+            See how AI fits a real business <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
