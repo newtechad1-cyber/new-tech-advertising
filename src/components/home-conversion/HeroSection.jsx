@@ -84,7 +84,7 @@ export default function HeroSection() {
               New Tech Advertising helps small businesses understand <strong className="text-white">who they are trying to reach, what matters to those customers, where to reach them, and how to stay consistently visible until the time is right.</strong>
             </p>
             <p>
-              We do not begin by selling you Facebook ads, Google ads, a website, video, AI, or another marketing package. We begin by understanding your business and your customers. Then we build a practical <strong className="text-white">Digital Growth Roadmap™</strong> and connect the right messages, campaigns, content, technology and advertising around the people you actually need to reach.
+              We do not begin by selling you Facebook ads, Google ads, a website, video, AI, or another marketing package. We begin with the problem you want to solve, the people doing the work, and what your customers actually need. Then we build a practical <strong className="text-white">Digital Growth Roadmap™</strong> and connect the right messages, campaigns, content, technology and advertising around the people you actually need to reach.
             </p>
             <p className="font-semibold text-blue-200">
               Better advertising starts with better understanding.
