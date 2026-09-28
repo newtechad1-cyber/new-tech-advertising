@@ -1091,12 +1091,48 @@ function accessibilityStaticBody(pathname) {
     '</article></main>';
 }
 
+function approvedLessonInline(text) {
+  return escapeHtml(text)
+    .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+|\/[^)\s]+)\)/g, (_match, label, href) => '<a href="' + href + '">' + label + '</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+
+function approvedLessonMarkup(markdown) {
+  return String(markdown || "").trim().split(/\n\s*\n/).map(block => {
+    const lines = block.trim().split("\n");
+    if (lines.length === 1 && /^###? /.test(lines[0])) {
+      return "<h2>" + approvedLessonInline(lines[0].replace(/^###? /, "")) + "</h2>";
+    }
+    if (lines.every(line => /^- /.test(line))) {
+      return "<ul>" + lines.map(line => "<li>" + approvedLessonInline(line.slice(2)) + "</li>").join("") + "</ul>";
+    }
+    return "<p>" + approvedLessonInline(lines.join(" ")) + "</p>";
+  }).join("\n");
+}
+
+function approvedLessonStaticBody(pathname) {
+  const collectionSlug = "ai-foundations";
+  const lessonSlug = "how-do-you-put-ai-to-work-in-a-real-business";
+  if (pathname !== "/knowledge/" + collectionSlug + "/" + lessonSlug) return "";
+  const collection = collectionsOrder.find(item => item.slug === collectionSlug);
+  const lesson = collection?.lessons.find(item => item.slug === lessonSlug);
+  if (!lesson) throw new Error("Approved lesson is missing from the curriculum");
+  return '<main data-prerendered="true" class="seo-shell"><article>' +
+    '<p class="seo-kicker">NTA Knowledge Library · ' + escapeHtml(collection.title) + '</p>' +
+    '<h1>' + escapeHtml(lesson.title) + '</h1>' +
+    '<p>' + escapeHtml(lesson.description) + '</p>' +
+    approvedLessonMarkup(lesson.content) +
+    '<nav aria-label="Related NTA resources"><a href="/knowledge/ai-foundations">AI Foundations lessons</a><a href="/knowledge">Knowledge Library</a></nav>' +
+    '</article></main>';
+}
+
 function shellMarkup(metadata, pathname) {
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = accessibilityStaticBody(pathname)
+  const body = approvedLessonStaticBody(pathname)
+    || accessibilityStaticBody(pathname)
     || videoWatchStaticBody(pathname)
     || bookStaticBody(pathname)
     || connectedLearningStaticBody(pathname)
