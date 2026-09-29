@@ -2,6 +2,8 @@
  * Curated question networks around approved Knowledge Library lessons.
  * One lesson can have many useful entrances; each question retains its own answer.
  */
+import { recentLessonQuestions } from './recentLessonQuestions';
+
 export const lessonDoorways = [
   {
     id: 'listen-before-you-build',
@@ -37,7 +39,15 @@ export const lessonDoorways = [
       'do-i-need-a-perfect-prompt',
       'how-can-a-small-business-use-ai'
     ]
-  }
+  },
+  ...recentLessonQuestions.map((lesson) => ({
+    id: lesson.lessonPath.split('/').pop(),
+    title: lesson.lessonTitle,
+    description: 'Begin with the question that fits your situation, then follow Rick’s full lesson for the connected teaching.',
+    lessonTitle: lesson.lessonTitle,
+    lessonPath: lesson.lessonPath,
+    questionSlugs: lesson.questions.map((question) => question.slug)
+  }))
 ];
 
 export function getDoorwayForQuestion(slug) {
