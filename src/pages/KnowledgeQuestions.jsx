@@ -85,7 +85,7 @@ export default function KnowledgeQuestions() {
             <p className="max-w-3xl leading-7 text-slate-400 mb-8">Start with the question that sounds like yours. Each answer stands on its own and connects to the full teaching when you want to go deeper.</p>
             <div className="grid gap-6 lg:grid-cols-2">
               {lessonDoorways.map((doorway) => (
-                <div key={doorway.id} className="rounded-2xl border border-blue-500/20 bg-slate-950/70 p-7">
+                <div id={doorway.id} key={doorway.id} className="scroll-mt-24 rounded-2xl border border-blue-500/20 bg-slate-950/70 p-7">
                   <h3 className="text-2xl font-bold text-white mb-3">{doorway.title}</h3>
                   <p className="leading-7 text-slate-400 mb-5">{doorway.description}</p>
                   <ul className="space-y-3 mb-6">
