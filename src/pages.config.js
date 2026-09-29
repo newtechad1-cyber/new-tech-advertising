@@ -178,6 +178,10 @@ import NativeLessonPage066 from './pages/knowledge/what-is-digital-trust/relatio
 import NativeLessonPage067 from './pages/knowledge/what-is-digital-trust/the-connected-business-is-the-future';
 // END GENERATED NATIVE LESSON IMPORTS
 import HowCanASmallBusinessUseAI from './pages/knowledge/questions/how-can-a-small-business-use-ai';
+import ListenBeforeSellingQuestion from './pages/knowledge/questions/why-should-a-business-listen-before-selling';
+import CustomerQuestionsQuestion from './pages/knowledge/questions/what-can-customer-questions-teach-my-business';
+import SayOneThingQuestion from './pages/knowledge/questions/why-do-customers-say-one-thing-and-do-another';
+import CustomerNeedsQuestion from './pages/knowledge/questions/how-do-i-know-what-my-customers-really-need';
 import WhereShouldIStartWithAiQuestionPage from './pages/knowledge/questions/where-should-i-start-with-ai';
 import WhatCanChatgptDoForASmallBusinessQuestionPage from './pages/knowledge/questions/what-can-chatgpt-do-for-a-small-business';
 import DoINeedAPerfectPromptQuestionPage from './pages/knowledge/questions/do-i-need-a-perfect-prompt';
@@ -383,6 +387,10 @@ const PAGES = {
   'knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage': NativeLessonPage066,
   'knowledge/what-is-digital-trust/the-connected-business-is-the-future': NativeLessonPage067,
   // END GENERATED NATIVE LESSON ROUTES
+  'knowledge/questions/why-should-a-business-listen-before-selling': ListenBeforeSellingQuestion,
+  'knowledge/questions/what-can-customer-questions-teach-my-business': CustomerQuestionsQuestion,
+  'knowledge/questions/why-do-customers-say-one-thing-and-do-another': SayOneThingQuestion,
+  'knowledge/questions/how-do-i-know-what-my-customers-really-need': CustomerNeedsQuestion,
   'knowledge/questions/how-can-a-small-business-use-ai': HowCanASmallBusinessUseAI,
   'knowledge/questions/where-should-i-start-with-ai': WhereShouldIStartWithAiQuestionPage,
   'knowledge/questions/what-can-chatgpt-do-for-a-small-business': WhatCanChatgptDoForASmallBusinessQuestionPage,
