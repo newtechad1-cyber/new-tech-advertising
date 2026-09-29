@@ -11,6 +11,7 @@ import {
   getRelatedKnowledgeQuestions
 } from '@/data/knowledgeQuestions';
 import { getQuestionExperience } from '@/data/questionExperience';
+import { getDoorwayForQuestion } from '@/data/lessonDoorways';
 
 const UPDATED_LABEL = 'September 11, 2026';
 
@@ -45,6 +46,7 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
 
   const relatedQuestions = getRelatedKnowledgeQuestions(question);
   const experience = getQuestionExperience(question.slug);
+  const doorway = getDoorwayForQuestion(question.slug);
   const questionPath = getKnowledgeQuestionPath(question);
   const canonical = 'https://newtechadvertising.com' + questionPath;
 
@@ -152,6 +154,19 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
                     </div>
                   )}
                 </div>
+              </div>
+            </section>
+          )}
+
+          {doorway && (
+            <section className="border-t border-blue-500/20 bg-blue-950/20 px-6 py-12">
+              <div className="max-w-3xl mx-auto rounded-2xl border border-blue-500/30 bg-slate-950/70 p-7">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-300 mb-3">The lesson behind this question</p>
+                <h2 className="text-2xl font-black text-white mb-3">{doorway.lessonTitle}</h2>
+                <p className="leading-7 text-slate-300 mb-5">{doorway.description}</p>
+                <Link to={doorway.lessonPath} className="inline-flex items-center gap-2 font-bold text-blue-300 hover:text-white">
+                  Read the full lesson <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </section>
           )}
