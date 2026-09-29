@@ -22,6 +22,7 @@ export const knowledgeQuestions = [
   {
     group: 'trust-and-visibility',
     slug: "why-should-a-business-listen-before-selling",
+    updatedDate: '2026-09-29',
     question: "Why should a business listen before trying to sell?",
     seoTitle: "Why should a business listen before trying to sell? | NTA",
     description: "Listening helps you understand what someone is trying to do, what worries them, and what they need to know before deciding. An explanation that b",
@@ -34,6 +35,7 @@ export const knowledgeQuestions = [
   {
     group: 'trust-and-visibility',
     slug: "what-can-customer-questions-teach-my-business",
+    updatedDate: '2026-09-29',
     question: "What can customer questions teach my business?",
     seoTitle: "What can customer questions teach my business? | NTA",
     description: "A repeated customer question points to something your business may not have explained clearly enough. It can teach you what people value, what ma",
@@ -46,6 +48,7 @@ export const knowledgeQuestions = [
   {
     group: 'trust-and-visibility',
     slug: "why-do-customers-say-one-thing-and-do-another",
+    updatedDate: '2026-09-29',
     question: "Why do customers sometimes say one thing and do another?",
     seoTitle: "Why do customers sometimes say one thing and do another? | NTA",
     description: "A person may like an idea and still hesitate because of timing, cost, uncertainty, or something they have not said yet. You cannot know the reaso",
@@ -58,6 +61,7 @@ export const knowledgeQuestions = [
   {
     group: 'trust-and-visibility',
     slug: "how-do-i-know-what-my-customers-really-need",
+    updatedDate: '2026-09-29',
     question: "How do I know what my customers really need?",
     seoTitle: "How do I know what my customers really need? | NTA",
     description: "Ask what customers are trying to accomplish, listen to the words they use, and notice where they hesitate. Then check your understanding with the",
