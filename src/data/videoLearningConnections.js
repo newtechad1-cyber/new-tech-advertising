@@ -5,6 +5,9 @@ export const VIDEO_GALLERY_PATH = '/learning-center/videos';
 // Editorial topic connections, not claims that a video is a word-for-word
 // recording of the lesson. Add only verified public videos and existing pages.
 export const VIDEO_READING_CONNECTIONS = [
+  { videoId: 'rbqIiynd1zo', title: 'How Do You Put AI to Work in a Real Business?', href: '/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business' },
+  { videoId: 'T4fPojz2RmI', title: 'Automation Comes After Understanding', href: '/knowledge/ai-foundations/automation-comes-after-understanding' },
+  { videoId: 'T4fPojz2RmI', title: 'Your Business Knows More Than It Has Documented', href: '/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented' },
   { videoId: 'PmXSEkj03ak', title: 'Understanding Before Spending', href: '/knowledge/business-foundations/understanding-before-spending' },
   { videoId: '6lhiYFHFsCQ', title: 'AI Finally Taught Me How to Multitask', href: '/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask' },
   { videoId: 'S-hRkzo6_3M', title: 'Businesses Don’t Need More Marketing. They Need a Better Growth System.', href: '/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system' },
