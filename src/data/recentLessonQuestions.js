@@ -3,6 +3,7 @@
 export const recentLessonQuestions = [
   {
     "lessonTitle": "How Do You Put AI to Work in a Real Business?",
+    "doorwayDescription": "Follow a piece of real business work from request to response. Give AI defined jobs while the owner and team keep judgment and responsibility.",
     "lessonPath": "/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business",
     "questions": [
       {
@@ -141,6 +142,7 @@ export const recentLessonQuestions = [
   },
   {
     "lessonTitle": "AI Finally Taught Me How to Multitask",
+    "doorwayDescription": "Capture, direct, and return to several streams of work without keeping every detail in your head.",
     "lessonPath": "/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask",
     "questions": [
       {
@@ -279,6 +281,7 @@ export const recentLessonQuestions = [
   },
   {
     "lessonTitle": "Use the Model That Gets the Job Done",
+    "doorwayDescription": "Match a model’s capability and full cost to the work, then test whether its result is reliable enough.",
     "lessonPath": "/knowledge/ai-foundations/use-the-model-that-gets-the-job-done",
     "questions": [
       {
