@@ -130,7 +130,63 @@ export const DUPLICATE_GROUPS = [
 // A Journal edition is a complete weekly publication, not an article alias.
 // Keeping the launch edition here guarantees that the public archive remains
 // available even before Base44 contains its first JournalIssue record.
-export const SEED_JOURNAL_ENTRIES = [{
+export const SEED_JOURNAL_ENTRIES = [
+  {
+    "id": "seed-journal-issue-9",
+    "issue_number": 9,
+    "volume": 1,
+    "title": "Start With the Work, Then Choose the AI",
+    "subtitle": "Putting AI to work begins with understanding the people and the business.",
+    "slug": "issue-9-start-with-the-work-then-choose-the-ai",
+    "summary": "Rick Hesse traces how an ongoing conversation became the NTA AI team and a more useful way to preserve business ideas. His practical starting point for a small business: understand the people and the work, then choose a specific job for AI.",
+    "date": "2026-09-28",
+    "status": "Published",
+    "category": "AI & Technology",
+    "series": "NTA Journal",
+    "tags": [
+      "small business AI",
+      "business workflows",
+      "NTA AI team",
+      "people and businesses"
+    ],
+    "author": "Rick Hesse",
+    "editor_signature": "Rick Hesse",
+    "featured": true,
+    "featured_image_url": null,
+    "views": 0,
+    "newsletter_sent": false,
+    "newsletter_subject": "The NTA Journal #9: Start With the Work, Then Choose the AI",
+    "estimated_reading_time": "5 min read",
+    "introduction_headline": "Start With the Work, Then Choose the AI",
+    "introductory_message": "Putting AI to work begins with understanding the people and the business.",
+    "from_ricks_desk": "I've spent nearly two years working with different AIs. At first, I could see work I wanted them to help me do, but they often couldn't keep up with the conversation or hold enough of the larger picture. I tried other models, learned where each helped, and watched the capabilities improve.\n\nI didn't set out with a plan to build an AI team. I was trying to solve real problems and make the work useful.\n\nWhile reading a lesson we were preparing from our conversations, I kept stopping to capture an idea before I lost it. More than once, I read a little farther and found that the draft had already answered my question or moved in the direction I was about to suggest. My own words still mattered. But it showed me what an ongoing conversation, correction, and preserved context can do: the work can begin to fit the way a person thinks.",
+    "what_we_built": "I've been developing what I call the **NTA AI team**. The point is not to put a roomful of models in front of a business owner. It is to understand a real piece of work, give each capability a specific job where it helps, and keep a person responsible for checking the result and making the decisions.\n\nI also need that kind of continuity in my own work. Ideas come while I'm reading or working on something else. If I leave them in a chat and never carry them forward, they disappear from the work. My Working Brain is where I preserve the thought, the decision, and the next step so I can return to it. I'm still improving that process; it has reminded me that useful AI depends on a clear handoff as much as on a clever answer.",
+    "what_we_learned": "I've spent a lifetime trying to understand people and businesses. That helps me work with AI: I notice when an answer misses what someone meant or how a business actually operates, ask a better question, and keep the real work at the center.\n\nWhen somebody brings me a business idea, I want to know who needs it, what it costs to deliver, how customers find it, and what happens after a customer says yes. I've asked those questions through years of business, advertising, and sometimes failure. They concern people's livelihoods. They deserve more than an attractive answer on a screen.\n\nAI did not give me that experience. It is becoming a way to put more of it to work. I can talk through a problem, organize what we learn, and prepare a lesson, website answer, process, or next step. Then I still have to read it, correct what doesn't fit, and decide whether it would actually help a person.",
+    "what_it_means_for_your_business": "Every business has its own people, customers, and way of working. The owner should be able to explain the business in a familiar way and understand what is being proposed. Employees and customers know things a public website cannot show. Their knowledge belongs in the conversation before we choose the technology.\n\nStart with one customer request and follow it from beginning to end. Who receives it? What information is needed? Where does it wait? Who decides what happens next? What does the customer experience while waiting?\n\nOnce you know where the work gets stuck, you can make a better decision about whether AI would help and what job it should do. You might find the first fix is a clearer handoff or a better follow-up habit.",
+    "this_weeks_challenge": "Choose one request that your business handles often. Ask the person who receives it and the person who completes it what gets missed between them. Write down one question customers keep asking and one point where the work waits. Then decide what a clearer human handoff would solve before adding a tool.",
+    "closing_message": "**Start with the business and the people; then give the technology a job.**\n\nRead the complete Knowledge Library lesson, [How Do You Put AI to Work in a Real Business?](https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business).\n\n— Rick",
+    "selected_articles": [
+      {
+        "reading_time": null,
+        "display_order": 1,
+        "is_lead": true,
+        "source_type": "KnowledgeLibrary",
+        "source_id": "how-do-you-put-ai-to-work-in-a-real-business",
+        "title": "How Do You Put AI to Work in a Real Business?",
+        "excerpt": "The complete lesson behind this Journal edition.",
+        "featured_image_url": null,
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business"
+      }
+    ],
+    "related_video_url": null,
+    "related_video_title": null,
+    "related_learning_lesson_ids": [
+      "how-do-you-put-ai-to-work-in-a-real-business"
+    ],
+    "cta_text": "Read the complete Knowledge Library lesson",
+    "cta_url": "https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business"
+  },
+{
   id: 'seed-journal-issue-8',
   issue_number: 8,
   volume: 1,
