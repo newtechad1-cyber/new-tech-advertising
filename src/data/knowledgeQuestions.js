@@ -1,3 +1,5 @@
+import { recentKnowledgeQuestions } from './recentLessonQuestions';
+
 export const KNOWLEDGE_QUESTION_LAST_UPDATED = '2026-09-11';
 
 export const knowledgeQuestionGroups = [
@@ -19,6 +21,7 @@ export const knowledgeQuestionGroups = [
 ];
 
 export const knowledgeQuestions = [
+  ...recentKnowledgeQuestions,
   {
     group: 'trust-and-visibility',
     slug: "why-should-a-business-listen-before-selling",
