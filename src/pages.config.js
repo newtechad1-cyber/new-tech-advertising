@@ -182,6 +182,24 @@ import ListenBeforeSellingQuestion from './pages/knowledge/questions/why-should-
 import CustomerQuestionsQuestion from './pages/knowledge/questions/what-can-customer-questions-teach-my-business';
 import SayOneThingQuestion from './pages/knowledge/questions/why-do-customers-say-one-thing-and-do-another';
 import CustomerNeedsQuestion from './pages/knowledge/questions/how-do-i-know-what-my-customers-really-need';
+import RecentQuestionPage01 from './pages/knowledge/questions/what-should-happen-before-i-add-ai-to-my-business';
+import RecentQuestionPage02 from './pages/knowledge/questions/can-ai-turn-my-business-ideas-into-useful-work';
+import RecentQuestionPage03 from './pages/knowledge/questions/why-does-ai-need-to-understand-my-business';
+import RecentQuestionPage04 from './pages/knowledge/questions/how-do-i-give-different-ai-tools-different-jobs';
+import RecentQuestionPage05 from './pages/knowledge/questions/which-business-decisions-should-ai-not-make';
+import RecentQuestionPage06 from './pages/knowledge/questions/can-ai-find-gaps-in-my-website-and-social-media';
+import RecentQuestionPage07 from './pages/knowledge/questions/how-can-ai-help-me-keep-track-of-several-projects';
+import RecentQuestionPage08 from './pages/knowledge/questions/what-if-a-new-idea-interrupts-my-work';
+import RecentQuestionPage09 from './pages/knowledge/questions/can-ai-help-me-stop-starting-over-every-day';
+import RecentQuestionPage10 from './pages/knowledge/questions/is-using-ai-the-same-as-multitasking';
+import RecentQuestionPage11 from './pages/knowledge/questions/what-should-i-save-when-i-pause-ai-work';
+import RecentQuestionPage12 from './pages/knowledge/questions/how-do-i-stay-in-control-when-ai-helps-with-many-projects';
+import RecentQuestionPage13 from './pages/knowledge/questions/do-i-need-the-newest-ai-model-for-my-business';
+import RecentQuestionPage14 from './pages/knowledge/questions/when-is-a-cheaper-ai-model-good-enough';
+import RecentQuestionPage15 from './pages/knowledge/questions/how-do-i-compare-ai-cost-with-business-value';
+import RecentQuestionPage16 from './pages/knowledge/questions/when-should-i-pay-for-a-stronger-ai-model';
+import RecentQuestionPage17 from './pages/knowledge/questions/am-i-paying-for-too-many-ai-tools';
+import RecentQuestionPage18 from './pages/knowledge/questions/how-do-i-test-an-ai-model-on-real-work';
 import WhereShouldIStartWithAiQuestionPage from './pages/knowledge/questions/where-should-i-start-with-ai';
 import WhatCanChatgptDoForASmallBusinessQuestionPage from './pages/knowledge/questions/what-can-chatgpt-do-for-a-small-business';
 import DoINeedAPerfectPromptQuestionPage from './pages/knowledge/questions/do-i-need-a-perfect-prompt';
@@ -391,6 +409,24 @@ const PAGES = {
   'knowledge/questions/what-can-customer-questions-teach-my-business': CustomerQuestionsQuestion,
   'knowledge/questions/why-do-customers-say-one-thing-and-do-another': SayOneThingQuestion,
   'knowledge/questions/how-do-i-know-what-my-customers-really-need': CustomerNeedsQuestion,
+  'knowledge/questions/what-should-happen-before-i-add-ai-to-my-business': RecentQuestionPage01,
+  'knowledge/questions/can-ai-turn-my-business-ideas-into-useful-work': RecentQuestionPage02,
+  'knowledge/questions/why-does-ai-need-to-understand-my-business': RecentQuestionPage03,
+  'knowledge/questions/how-do-i-give-different-ai-tools-different-jobs': RecentQuestionPage04,
+  'knowledge/questions/which-business-decisions-should-ai-not-make': RecentQuestionPage05,
+  'knowledge/questions/can-ai-find-gaps-in-my-website-and-social-media': RecentQuestionPage06,
+  'knowledge/questions/how-can-ai-help-me-keep-track-of-several-projects': RecentQuestionPage07,
+  'knowledge/questions/what-if-a-new-idea-interrupts-my-work': RecentQuestionPage08,
+  'knowledge/questions/can-ai-help-me-stop-starting-over-every-day': RecentQuestionPage09,
+  'knowledge/questions/is-using-ai-the-same-as-multitasking': RecentQuestionPage10,
+  'knowledge/questions/what-should-i-save-when-i-pause-ai-work': RecentQuestionPage11,
+  'knowledge/questions/how-do-i-stay-in-control-when-ai-helps-with-many-projects': RecentQuestionPage12,
+  'knowledge/questions/do-i-need-the-newest-ai-model-for-my-business': RecentQuestionPage13,
+  'knowledge/questions/when-is-a-cheaper-ai-model-good-enough': RecentQuestionPage14,
+  'knowledge/questions/how-do-i-compare-ai-cost-with-business-value': RecentQuestionPage15,
+  'knowledge/questions/when-should-i-pay-for-a-stronger-ai-model': RecentQuestionPage16,
+  'knowledge/questions/am-i-paying-for-too-many-ai-tools': RecentQuestionPage17,
+  'knowledge/questions/how-do-i-test-an-ai-model-on-real-work': RecentQuestionPage18,
   'knowledge/questions/how-can-a-small-business-use-ai': HowCanASmallBusinessUseAI,
   'knowledge/questions/where-should-i-start-with-ai': WhereShouldIStartWithAiQuestionPage,
   'knowledge/questions/what-can-chatgpt-do-for-a-small-business': WhatCanChatgptDoForASmallBusinessQuestionPage,
