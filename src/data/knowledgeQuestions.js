@@ -20,6 +20,54 @@ export const knowledgeQuestionGroups = [
 
 export const knowledgeQuestions = [
   {
+    group: 'trust-and-visibility',
+    slug: "why-should-a-business-listen-before-selling",
+    question: "Why should a business listen before trying to sell?",
+    seoTitle: "Why should a business listen before trying to sell? | NTA",
+    description: "Listening helps you understand what someone is trying to do, what worries them, and what they need to know before deciding. An explanation that b",
+    answer: "Listening helps you understand what someone is trying to do, what worries them, and what they need to know before deciding. An explanation that begins there is more useful than a pitch prepared before the conversation.",
+    context: "Rick learned in business-to-business sales that teaching could come before selling. Customers, employees, and owners often see different parts of the same problem. Their experience should shape what the business offers.",
+    nextStep: "In your next customer conversation, ask what they are trying to accomplish and listen for the part they find confusing. Explain that part before suggesting a product or service.",
+    resources: [{ title: 'I Learned Business by Watching People', path: '/knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people' }],
+    relatedQuestionSlugs: ["what-can-customer-questions-teach-my-business","why-do-customers-say-one-thing-and-do-another","how-do-i-know-what-my-customers-really-need"]
+  },
+  {
+    group: 'trust-and-visibility',
+    slug: "what-can-customer-questions-teach-my-business",
+    question: "What can customer questions teach my business?",
+    seoTitle: "What can customer questions teach my business? | NTA",
+    description: "A repeated customer question points to something your business may not have explained clearly enough. It can teach you what people value, what ma",
+    answer: "A repeated customer question points to something your business may not have explained clearly enough. It can teach you what people value, what makes them hesitate, and where the experience needs a better answer.",
+    context: "The answer may belong in a conversation, on a service page, in a short video, or in the way your team follows up. Start with the actual words customers use.",
+    nextStep: "Write down three questions customers asked recently. For each, ask whether your website and team give the same clear, honest answer.",
+    resources: [{ title: 'I Learned Business by Watching People', path: '/knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people' }],
+    relatedQuestionSlugs: ["why-should-a-business-listen-before-selling","why-do-customers-say-one-thing-and-do-another","how-do-i-know-what-my-customers-really-need"]
+  },
+  {
+    group: 'trust-and-visibility',
+    slug: "why-do-customers-say-one-thing-and-do-another",
+    question: "Why do customers sometimes say one thing and do another?",
+    seoTitle: "Why do customers sometimes say one thing and do another? | NTA",
+    description: "A person may like an idea and still hesitate because of timing, cost, uncertainty, or something they have not said yet. You cannot know the reaso",
+    answer: "A person may like an idea and still hesitate because of timing, cost, uncertainty, or something they have not said yet. You cannot know the reason from behavior alone. Make it easier for them to ask questions and decide.",
+    context: "Rick has spent years watching the difference between what people say and what they do, including in his own decisions. That observation calls for humility and curiosity, not pressure.",
+    nextStep: "When interest does not turn into action, check whether the next step is clear and invite an honest question. Avoid filling in the customer’s reason for them.",
+    resources: [{ title: 'I Learned Business by Watching People', path: '/knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people' }],
+    relatedQuestionSlugs: ["why-should-a-business-listen-before-selling","what-can-customer-questions-teach-my-business","how-do-i-know-what-my-customers-really-need"]
+  },
+  {
+    group: 'trust-and-visibility',
+    slug: "how-do-i-know-what-my-customers-really-need",
+    question: "How do I know what my customers really need?",
+    seoTitle: "How do I know what my customers really need? | NTA",
+    description: "Ask what customers are trying to accomplish, listen to the words they use, and notice where they hesitate. Then check your understanding with the",
+    answer: "Ask what customers are trying to accomplish, listen to the words they use, and notice where they hesitate. Then check your understanding with them. One conversation is a clue; repeated patterns are more useful evidence.",
+    context: "Owners know their work deeply, but customers see the experience from the outside. Employees also hear concerns that never reach the owner. Bringing those perspectives together helps solve the right problem.",
+    nextStep: "Ask your team which customer question keeps coming back. Compare their answer with your website, then talk with a customer before changing the experience.",
+    resources: [{ title: 'I Learned Business by Watching People', path: '/knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people' }],
+    relatedQuestionSlugs: ["why-should-a-business-listen-before-selling","what-can-customer-questions-teach-my-business","why-do-customers-say-one-thing-and-do-another"]
+  },
+  {
     group: 'practical-ai',
     slug: 'how-can-a-small-business-use-ai',
     question: 'How can AI help my small business?',
