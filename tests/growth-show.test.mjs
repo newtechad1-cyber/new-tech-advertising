@@ -75,6 +75,45 @@ test('an explicit episode can render before its YouTubeKnowledge record is migra
   assert.equal(episode.lessons[0].canon_id, 'A-100');
 });
 
+test('a public published Growth Show video uses its editorial record without a second release flag', () => {
+  const episodes = buildGrowthShowEpisodes({
+    videos: [{
+      ...video,
+      playlist_slug: 'nta-growth-show',
+      published_date: '2026-09-29',
+    }],
+    episodeRecords: [{
+      id: 'episode-9',
+      title: 'The approved title',
+      slug: 'the-approved-title',
+      status: 'Approved',
+      youtube_video_id: 'abc123',
+      related_journal_issue_ids: ['issue-nine'],
+    }],
+    journals: [{ id: 'issue-nine', slug: 'issue-nine', status: 'Published' }],
+  });
+  assert.equal(episodes.length, 1);
+  assert.equal(episodes[0].slug, 'the-approved-title');
+  assert.equal(episodes[0].journals[0].slug, 'issue-nine');
+});
+
+test('private or unclassified videos are excluded, and the newest show is first', () => {
+  const episodes = buildGrowthShowEpisodes({
+    videos: [
+      { ...video, youtube_video_id: 'new123', video_url: 'https://youtu.be/new123',
+        playlist_slug: 'nta-growth-show', published_date: '2026-09-29' },
+      { ...video, youtube_video_id: 'private123', video_url: 'https://youtu.be/private123',
+        playlist_slug: 'nta-growth-show', visibility: 'Private' },
+      { ...video, youtube_video_id: 'ordinary123', video_url: 'https://youtu.be/ordinary123' },
+    ],
+    episodeRecords: [{
+      id: 'older', slug: 'older', status: 'Published', featured: true,
+      youtube_video_id: 'older123', published_date: '2026-09-15',
+    }],
+  });
+  assert.deepEqual(episodes.map(episode => episode.youtubeVideoId), ['new123', 'older123']);
+});
+
 test('episode lookup accepts canonical slug and YouTube ID', () => {
   const episodes = buildGrowthShowEpisodes({
     videos: [video],
