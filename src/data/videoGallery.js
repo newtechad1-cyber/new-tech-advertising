@@ -3,7 +3,24 @@
 // Do not add draft, private, unlisted, or unverified videos here.
 export const VIDEO_GALLERY_VERIFIED_AT = '2026-09-17';
 export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
+// Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
+{
+  "youtubeId": "rbqIiynd1zo",
+  "title": "I Didn't Set Out to Build an AI Team | The NTA Growth Show",
+  "publishedAt": "2026-09-29T14:10:47Z",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/i-didnt-set-out-to-build-an-ai-team",
+  "summary": "Putting AI to work through business context, experience, and correction."
+},
+{
+  "youtubeId": "T4fPojz2RmI",
+  "title": "Automation Is the Last Step, Not the First | NTA Growth Show",
+  "publishedAt": "2026-09-22T13:23:22Z",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/automation-is-the-last-step-not-the-first",
+  "summary": "Understand the work and the knowledge inside your business before automating it."
+},
   {
     "youtubeId": "PmXSEkj03ak",
     "title": "Your Business Comes First. Technology Comes Second. | Growth Show Ep. 7",
