@@ -107,6 +107,9 @@ export default function KnowledgeLibrary() {
               <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">New lesson · AI Foundations</p>
               <h2 id="new-lesson-heading" className="mt-3 text-2xl font-bold text-white md:text-3xl">How Do You Put AI to Work in a Real Business?</h2>
               <p className="mt-3 leading-7 text-slate-300">Rick shares how years of business questions and nearly two years of working with AI led to the NTA AI team: giving different capabilities useful jobs around real work, with people checking the result.</p>
+              <Link to="/knowledge/questions#how-do-you-put-ai-to-work-in-a-real-business" className="mt-4 inline-flex items-center gap-2 font-semibold text-cyan-300 hover:text-white">
+                Explore questions from this lesson <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
             <Link to="/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business" className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500 md:mt-0">
               Read the new lesson <ArrowRight className="h-4 w-4" />
