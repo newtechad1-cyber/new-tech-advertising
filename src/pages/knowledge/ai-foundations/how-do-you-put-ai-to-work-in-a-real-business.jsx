@@ -7,6 +7,7 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import LessonArticle from '@/components/knowledge/LessonArticle';
 import ContentNextSteps from '@/components/knowledge/ContentNextSteps';
+import LessonDoorwayQuestions from '@/components/knowledge/LessonDoorwayQuestions';
 import { addCompletedModule, getJourneyMemory, updateJourneyMemory } from '@/lib/journeyMemory';
 
 // The lesson text is part of this native Base44 page's source so its first HTML
@@ -136,6 +137,7 @@ export default function NativeLessonPage057() {
             </div>
           </div>
         </section>
+        <LessonDoorwayQuestions lessonPath={LESSON_PATH} />
         <section className="px-6 py-12"><div className="mx-auto max-w-3xl"><ContentNextSteps title={TITLE} path={LESSON_PATH} /></div></section>
         <nav className="border-t border-slate-800 px-6 py-8" aria-label="Lesson navigation">
           <div className="mx-auto flex max-w-4xl flex-col justify-between gap-6 sm:flex-row">
