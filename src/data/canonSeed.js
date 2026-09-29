@@ -164,7 +164,7 @@ export const SEED_JOURNAL_ENTRIES = [
     "what_we_learned": "I've spent a lifetime trying to understand people and businesses. That helps me work with AI: I notice when an answer misses what someone meant or how a business actually operates, ask a better question, and keep the real work at the center.\n\nWhen somebody brings me a business idea, I want to know who needs it, what it costs to deliver, how customers find it, and what happens after a customer says yes. I've asked those questions through years of business, advertising, and sometimes failure. They concern people's livelihoods. They deserve more than an attractive answer on a screen.\n\nAI did not give me that experience. It is becoming a way to put more of it to work. I can talk through a problem, organize what we learn, and prepare a lesson, website answer, process, or next step. Then I still have to read it, correct what doesn't fit, and decide whether it would actually help a person.",
     "what_it_means_for_your_business": "Every business has its own people, customers, and way of working. The owner should be able to explain the business in a familiar way and understand what is being proposed. Employees and customers know things a public website cannot show. Their knowledge belongs in the conversation before we choose the technology.\n\nStart with one customer request and follow it from beginning to end. Who receives it? What information is needed? Where does it wait? Who decides what happens next? What does the customer experience while waiting?\n\nOnce you know where the work gets stuck, you can make a better decision about whether AI would help and what job it should do. You might find the first fix is a clearer handoff or a better follow-up habit.",
     "this_weeks_challenge": "Choose one request that your business handles often. Ask the person who receives it and the person who completes it what gets missed between them. Write down one question customers keep asking and one point where the work waits. Then decide what a clearer human handoff would solve before adding a tool.",
-    "closing_message": "**Start with the business and the people; then give the technology a job.**\n\nRead the complete Knowledge Library lesson, [How Do You Put AI to Work in a Real Business?](https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business).\n\n— Rick",
+    "closing_message": "**Start with the business and the people; then give the technology a job.**\n\nRead the complete Knowledge Library lesson, [How Do You Put AI to Work in a Real Business?](https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business).\n\nWatch this week's NTA Growth Show: [I Didn't Set Out to Build an AI Team](https://youtu.be/rbqIiynd1zo).\n\n— Rick",
     "selected_articles": [
       {
         "reading_time": null,
@@ -178,8 +178,8 @@ export const SEED_JOURNAL_ENTRIES = [
         "url": "https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business"
       }
     ],
-    "related_video_url": null,
-    "related_video_title": null,
+    "related_video_url": "https://youtu.be/rbqIiynd1zo",
+    "related_video_title": "I Didn't Set Out to Build an AI Team | The NTA Growth Show",
     "related_learning_lesson_ids": [
       "how-do-you-put-ai-to-work-in-a-real-business"
     ],
