@@ -5,6 +5,14 @@
 import { recentLessonQuestions } from './recentLessonQuestions';
 
 export const lessonDoorways = [
+  ...recentLessonQuestions.map((lesson) => ({
+    id: lesson.lessonPath.split('/').pop(),
+    title: lesson.lessonTitle,
+    description: lesson.doorwayDescription,
+    lessonTitle: lesson.lessonTitle,
+    lessonPath: lesson.lessonPath,
+    questionSlugs: lesson.questions.map((question) => question.slug)
+  })),
   {
     id: 'listen-before-you-build',
     title: 'Understand people before you build',
@@ -39,15 +47,7 @@ export const lessonDoorways = [
       'do-i-need-a-perfect-prompt',
       'how-can-a-small-business-use-ai'
     ]
-  },
-  ...recentLessonQuestions.map((lesson) => ({
-    id: lesson.lessonPath.split('/').pop(),
-    title: lesson.lessonTitle,
-    description: 'Begin with the question that fits your situation, then follow Rick’s full lesson for the connected teaching.',
-    lessonTitle: lesson.lessonTitle,
-    lessonPath: lesson.lessonPath,
-    questionSlugs: lesson.questions.map((question) => question.slug)
-  }))
+  }
 ];
 
 export function getDoorwayForQuestion(slug) {
