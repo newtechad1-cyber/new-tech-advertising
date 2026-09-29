@@ -77,7 +77,44 @@ export function buildGrowthShowEpisodes({
   // videos remain in the Learning Center and cannot become show episodes just
   // because they happen to be published on YouTube. A published WebsiteVideoStory
   // is also eligible so the website can go live before YouTube distribution.
-  const allRecords = [...episodeRecords, ...websiteOnlyRecords];
+  // A published, public video explicitly classified for the Growth Show is
+  // ready for the website. Reuse an editorial episode record when present,
+  // so publishing the video does not create a second card or require a
+  // separate status update in another dashboard.
+  const episodeByVideoId = new Map(episodeRecords
+    .filter(record => record.youtube_video_id)
+    .map(record => [record.youtube_video_id, record]));
+  const publishedShowVideos = videos.filter(video => (
+    video.playlist_slug === 'nta-growth-show' &&
+    video.publish_status === 'Published' &&
+    video.visibility === 'Public' &&
+    video.youtube_video_id &&
+    /^https:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)/.test(video.video_url || '') &&
+    video.video_url.includes(video.youtube_video_id)
+  ));
+  const publishedVideoIds = new Set(publishedShowVideos.map(video => video.youtube_video_id));
+  const videoRecords = publishedShowVideos
+    .map(video => {
+      const editorial = episodeByVideoId.get(video.youtube_video_id);
+      if (editorial?.status === 'Archived') return null;
+      return {
+        ...editorial,
+        id: editorial?.id || video.id,
+        title: editorial?.title || video.video_title,
+        summary: editorial?.summary || video.description,
+        slug: editorial?.slug || video.source_asset_slug || video.youtube_video_id,
+        status: 'Published',
+        published_date: editorial?.published_date || video.published_date,
+        youtube_video_id: video.youtube_video_id,
+        thumbnail_url: editorial?.thumbnail_url || video.thumbnail_url,
+      };
+    })
+    .filter(Boolean);
+  const allRecords = [
+    ...episodeRecords.filter(record => !publishedVideoIds.has(record.youtube_video_id)),
+    ...videoRecords,
+    ...websiteOnlyRecords,
+  ];
   const recordByKey = new Map();
   for (const record of allRecords) {
     if (record.status !== 'Published' || (!record.youtube_video_id && !record.website_video_url)) continue;
@@ -155,8 +192,8 @@ export function buildGrowthShowEpisodes({
       };
     })
     .sort((a, b) => {
-      if (a.featured !== b.featured) return a.featured ? -1 : 1;
       if (a.publishedDate !== b.publishedDate) return (b.publishedDate || '').localeCompare(a.publishedDate || '');
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
       return (b.episodeNumber || 0) - (a.episodeNumber || 0);
     });
 }
