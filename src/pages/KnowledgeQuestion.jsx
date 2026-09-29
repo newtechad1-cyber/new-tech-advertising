@@ -46,6 +46,7 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
   const relatedQuestions = getRelatedKnowledgeQuestions(question);
   const experience = getQuestionExperience(question.slug);
   const doorway = getDoorwayForQuestion(question.slug);
+  const otherResources = question.resources.filter((resource) => resource.path !== doorway?.lessonPath);
   const questionPath = getKnowledgeQuestionPath(question);
   const canonical = 'https://newtechadvertising.com' + questionPath;
   const updatedDate = question.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED;
@@ -172,18 +173,18 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
             </section>
           )}
 
-          <section className="border-t border-slate-800 bg-slate-900/40 px-6 py-12">
+          {otherResources.length > 0 && <section className="border-t border-slate-800 bg-slate-900/40 px-6 py-12">
             <div className="max-w-4xl mx-auto">
               <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Go deeper</p>
               <h2 className="text-2xl font-black text-white mb-3">Explore the teaching behind this answer</h2>
               <p className="leading-7 text-slate-400 mb-7">These NTA resources explain the connected ideas without asking you to start over from the beginning.</p>
               <div className="grid gap-4 md:grid-cols-3">
-                {question.resources.map((resource) => (
+                {otherResources.map((resource) => (
                   <ExperienceCard key={resource.path} eyebrow="NTA lesson" title={resource.title} to={resource.path} />
                 ))}
               </div>
             </div>
-          </section>
+          </section>}
 
           {(experience?.video || experience?.caseStudy || experience?.service) && (
             <section className="px-6 py-12">
