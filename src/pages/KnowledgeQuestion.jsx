@@ -13,7 +13,6 @@ import {
 import { getQuestionExperience } from '@/data/questionExperience';
 import { getDoorwayForQuestion } from '@/data/lessonDoorways';
 
-const UPDATED_LABEL = 'September 11, 2026';
 
 function ExperienceCard({ eyebrow, title, description, to, href, label }) {
   const content = (
@@ -49,6 +48,8 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
   const doorway = getDoorwayForQuestion(question.slug);
   const questionPath = getKnowledgeQuestionPath(question);
   const canonical = 'https://newtechadvertising.com' + questionPath;
+  const updatedDate = question.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED;
+  const updatedLabel = new Date(updatedDate + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
@@ -61,8 +62,8 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
           title: question.question,
           description: question.description,
           author: 'Rick Hesse',
-          datePublished: KNOWLEDGE_QUESTION_LAST_UPDATED,
-          dateModified: KNOWLEDGE_QUESTION_LAST_UPDATED,
+          datePublished: updatedDate,
+          dateModified: updatedDate,
           slug: questionPath
         }}
       />
@@ -88,7 +89,7 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
                 <div className="w-9 h-9 rounded-full border border-slate-700 bg-slate-800 flex items-center justify-center text-slate-400">
                   <User className="w-4 h-4" />
                 </div>
-                <p>By Rick Hesse <span className="mx-1.5">·</span><time dateTime={KNOWLEDGE_QUESTION_LAST_UPDATED}>Updated {UPDATED_LABEL}</time></p>
+                <p>By Rick Hesse <span className="mx-1.5">·</span><time dateTime={updatedDate}>Updated {updatedLabel}</time></p>
               </div>
             </div>
           </header>
