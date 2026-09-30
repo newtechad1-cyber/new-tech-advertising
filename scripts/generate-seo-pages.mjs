@@ -713,7 +713,7 @@ function homeStaticBody(pathname) {
   const paths = [
     {
       label: "I need more customers",
-      description: "Start with the path from being found to being understood, trusted, contacted, and followed up with.",
+      description: "Help people discover what you offer, choose with confidence, and come back—to shop, dine, order online, or use your services.",
       href: "/knowledge/questions/how-can-ai-help-me-get-more-customers",
     },
     {
@@ -723,8 +723,8 @@ function homeStaticBody(pathname) {
     },
     {
       label: "My website isn't working",
-      description: "Look beyond design and find gaps in clarity, proof, next steps, and follow-up.",
-      href: "/knowledge/questions/why-isnt-my-website-generating-leads",
+      description: "Start with what your website needs to do: help people shop, plan a meal, order, find answers, or begin a service conversation.",
+      href: "/ai-websites",
     },
     {
       label: "I'm trying to understand AI",
@@ -732,8 +732,8 @@ function homeStaticBody(pathname) {
       href: "/knowledge/questions/how-can-a-small-business-use-ai",
     },
     {
-      label: "I need better customer follow-up",
-      description: "Build a clearer way to prepare, remember, and carry the customer conversation forward.",
+      label: "I want customers to stay connected",
+      description: "Make useful follow-up, customer help, and reasons to return part of the relationship—not just the first purchase or visit.",
       href: "/knowledge/questions/how-can-ai-help-with-customer-follow-up",
     },
   ];
@@ -742,12 +742,17 @@ function homeStaticBody(pathname) {
     <article>
       <p class="seo-kicker">New Tech Advertising</p>
       <h1>Advertise Better.</h1>
-      <p>Start with your customer. New Tech Advertising helps small businesses understand who they need to reach, what matters to those customers, and how to stay consistently visible until the time is right.</p>
-      <p>We begin by understanding your business and your customers. Then we build a practical Digital Growth Roadmap™ and connect useful messages, channels, content, technology, and follow-up around the people you actually need to reach.</p>
+      <p>Start with your customer. Not the advertising product.</p>
+      <p>New Tech Advertising helps small-business owners connect their advertising, customer experience, and everyday operations—so people can find them, understand what they offer, buy with confidence, and come back.</p>
+      <p>You do not need to know which tool or service to ask for. Tell us what is happening in your business. We listen to you and your team, look at how customers find, choose, and buy from you, and agree on the next useful improvement. Your Digital Growth Roadmap™ keeps that work connected to the whole business. Advertising, websites, AI, and other tools serve the work—not the other way around.</p>
+      <p>A <a href="/ai-websites#retail-and-online-stores">small shop or online store</a>, a <a href="/restaurants">restaurant</a>, and a service business need different customer paths. We start with how your customers shop, dine, order, or ask for help.</p>
       <h2>Start with the question that fits</h2>
       <ul>${paths.map(item => '<li><a href="' + escapeHtml(item.href) + '"><strong>' + escapeHtml(item.label) + '</strong></a>: ' + escapeHtml(item.description) + '</li>').join("")}</ul>
       <h2>Not sure how to name the problem?</h2>
-      <p>Ask Your Digital Growth Guide™ the question that is on your mind. If a human conversation would be useful, Talk to My Office™ and NTA can help sort out the next step.</p>
+      <p>You do not need to know the right question yet. Describe a familiar frustration or something you would like to improve. Your Digital Growth Guide™ can help you explore it, or you can talk with a real person at NTA.</p>
+      <h2>Put the next useful improvement to work</h2>
+      <p>We help put the agreed improvement to work, show the team how to use it, and test it in a real customer situation. Then we review what happened and adjust. That might mean easier shopping, clearer menus and smoother restaurant service, better customer conversations, or less repeated work.</p>
+      <p>Follow the work with Pete and Janine at <a href="/restaurants?section=cattlemans-case-study">Cattleman&rsquo;s Dining</a>—a Restaurant Growth Roadmap in progress, not a finished success story.</p>
       <nav aria-label="Homepage next steps">
         <a href="/growth-guide">Ask Your Digital Growth Guide™</a>
         <a href="/knowledge/questions">Browse small-business questions</a>
