@@ -18,7 +18,7 @@ export default function Services() {
     <div className="bg-slate-950 min-h-screen text-white">
       <SEOHead
         title="AI and Digital Growth Services for Small Business | NTA"
-        description="Practical AI education, local visibility, websites, content, customer follow-up, and connected growth systems for small-business owners."
+        description="Connect advertising, customer experience, and everyday operations. Practical growth help for small retailers, online sellers, restaurants, and service businesses."
       />
       <MarketingNav />
 
@@ -32,10 +32,10 @@ export default function Services() {
             Solve the Right Problem Before Adding Another Tool
           </h1>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-            Most business owners are not struggling because they lack software, advertising options, or marketing ideas. They are struggling because the pieces of the business are disconnected, priorities are unclear, and too much work depends on the owner.
+            Start with what you recognize in your own business: customers are not finding what you sell, buying feels harder than it should, information gets lost, or too much work depends on you. We listen before recommending a tool or advertising package.
             <br className="hidden sm:block" />
             <br className="hidden sm:block" />
-            NTA helps identify the real bottleneck and then connects the right solutions in the right order.
+            NTA looks at the whole business, agrees on a practical first improvement, helps put it to work with your team, and checks what is helping. The plan fits your customers, budget, and way of working.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/growth-conversation" className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all text-lg shadow-[0_0_20px_rgba(37,99,235,0.3)]">
@@ -92,15 +92,15 @@ export default function Services() {
               <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 mb-6 border border-emerald-500/20">
                 <Users className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Leads Are Not Being Followed Up</h3>
-              <p className="text-emerald-400 text-sm font-medium mb-4 uppercase tracking-wider">Leads and Sales</p>
+              <h3 className="text-xl font-bold text-white mb-2">Customers Get Stuck Before or After Buying</h3>
+              <p className="text-emerald-400 text-sm font-medium mb-4 uppercase tracking-wider">Buying and Follow-Through</p>
               <ul className="space-y-2 text-slate-400">
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Lead capture</li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> CRM organization</li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Response systems</li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Sales conversations</li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Proposals</li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Follow-up automation</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Clear product and service information</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Useful customer records</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Inquiries and order updates</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Buying and service conversations</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Estimates when your business needs them</li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-slate-600 shrink-0" /> Helpful follow-up after a purchase</li>
               </ul>
             </div>
 
@@ -162,7 +162,7 @@ export default function Services() {
             One Business. One Direction. Connected Solutions.
           </h2>
           <p className="text-xl text-slate-400 mb-16 leading-relaxed">
-            AI and automation are here to support your system — not to replace the owner, your employees, or your customer relationships. Every piece connects logically to build your business.
+            Advertising, customer experience, team knowledge, and everyday work belong in the same conversation. AI and automation support the agreed work; they do not replace your judgment or customer relationships. We put improvements into practice, help the team use them, and review results together.
           </p>
           
           <div className="flex flex-col gap-4 text-left">
@@ -185,8 +185,8 @@ export default function Services() {
             <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex items-start gap-4 ml-0 md:ml-16">
               <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-white font-bold shrink-0">3</div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">Leads and Relationships</h3>
-                <p className="text-slate-400">Lead capture, CRM, follow-up, reviews, referrals, and retention.</p>
+                <h3 className="text-xl font-bold text-white mb-2">Customers, Purchases, and Relationships</h3>
+                <p className="text-slate-400">Store visits, purchases, inquiries, useful follow-up, repeat customers, and referrals—the right path for your business.</p>
               </div>
             </div>
 
@@ -194,7 +194,7 @@ export default function Services() {
               <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-white font-bold shrink-0">4</div>
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">Operations and Knowledge</h3>
-                <p className="text-slate-400">Processes, customer records, scheduling, tasks, documents, and business expertise.</p>
+                <p className="text-slate-400">Product knowledge, orders, customer records, team responsibilities, scheduling, and business processes.</p>
               </div>
             </div>
 
@@ -226,8 +226,13 @@ export default function Services() {
               <div className="space-y-4">
                 <Link to="/services/website-rebuilds" className="block bg-slate-900 border border-slate-800 p-5 rounded-xl hover:border-slate-700 transition-colors group">
                   <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Website Design & Rebuilds</h4>
-                  <p className="text-slate-400 text-sm mb-3">Modern, mobile-responsive websites built for speed, SEO, and conversions.</p>
+                  <p className="text-slate-400 text-sm mb-3">Useful websites shaped around store visits, online purchases, customer questions, or service inquiries.</p>
                   <span className="text-blue-400 text-sm font-medium flex items-center gap-1">Learn More <ArrowRight className="w-4 h-4" /></span>
+                </Link>
+                <Link to="/ai-websites#retail-and-online-stores" className="block bg-slate-900 border border-slate-800 p-5 rounded-xl hover:border-slate-700 transition-colors group">
+                  <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Retail and Online Stores</h4>
+                  <p className="text-slate-300 text-sm mb-3">Different paths for specialty shops, variety stores, ecommerce, and businesses selling both in person and online.</p>
+                  <span className="text-blue-400 text-sm font-medium flex items-center gap-1">Explore Your Store&rsquo;s Needs <ArrowRight className="w-4 h-4" /></span>
                 </Link>
                 <Link to="/ai-seo" className="block bg-slate-900 border border-slate-800 p-5 rounded-xl hover:border-slate-700 transition-colors group">
                   <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">AI Search Optimization</h4>
