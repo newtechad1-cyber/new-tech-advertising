@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, BookOpen, Brain, Building2, CheckCircle2, Compass, Lightbulb, MessageSquareText, MonitorSmartphone, Search, Users } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -8,26 +9,60 @@ const cycle = ['Listen', 'Capture', 'Understand', 'Decide', 'Act', 'Measure', 'L
 
 const questions = [
   'Can customers quickly understand what we do and who we help?',
-  'Does the site answer the questions people actually ask before they call?',
+  'Does the site answer what people need to know before they visit, buy, or contact us?',
   'Is it easy to use on a phone and easy to find the next step?',
   'Does it reflect what our team and customers are teaching us?',
-  'Does it connect with Google, follow-up, reviews, social media and the rest of the business?',
+  'Does it connect with product information, customer service, advertising and the systems we already use?',
   'Are we improving the site as the business changes, or treating it as a one-time project?',
 ];
 
 const possibilities = [
   { icon: MonitorSmartphone, title: 'Improve what you already have', text: 'Sometimes the right answer is better structure, clearer language, stronger mobile usability or a few focused pages—not a new website.' },
   { icon: Search, title: 'Make useful knowledge easier to find', text: 'Customer questions, team knowledge and real business experience can become helpful pages for people and search engines.' },
-  { icon: Users, title: 'Connect the website to the business', text: 'The website may need to work more closely with Google, reviews, customer follow-up, social content, video or internal systems.' },
+  { icon: Users, title: 'Connect the website to the business', text: 'Connect the customer experience with the information and work behind it: product knowledge, store visits, purchases, order updates, useful follow-up and existing systems.' },
   { icon: Compass, title: 'Rebuild when rebuilding makes sense', text: 'If the existing site is holding the business back, a rebuild can be part of the Roadmap—but the business need comes first.' },
 ];
 
+const RETAIL_PATHS = [
+  {
+    title: 'A sewing-machine or specialty shop',
+    question: 'How do we help someone choose the right product and understand the value of buying from us?',
+    text: 'Your website can extend the helpful conversation at the counter through product explanations, demonstrations, and answers. Classes, service, supplies, and after-purchase help belong in that path when your shop offers them.',
+    outcome: 'Look at useful visits, purchases, and continuing customer relationships—not only form submissions.',
+  },
+  {
+    title: 'A variety or neighborhood store',
+    question: 'Do people know what we carry, what is new, and why they should stop in again?',
+    text: 'Connect advertising, seasonal merchandise, useful product ideas, and current store information. A manageable selection of products may serve customers better than a full catalog the team cannot keep current.',
+    outcome: 'Look at store purchases, repeat visits, and which merchandise is selling.',
+  },
+  {
+    title: 'An ecommerce business',
+    question: 'Can customers find the right item, buy with confidence, and receive what we promised?',
+    text: 'Product information and availability need to connect with checkout, order handling, delivery, returns, and customer support. We first review the existing selling platform and daily work rather than assume you need another system.',
+    outcome: 'Look at completed orders, what remains after costs, reliable delivery, and repeat purchases.',
+  },
+  {
+    title: 'A store that also sells online',
+    question: 'Can a customer move between our website and our store without starting over?',
+    text: 'Someone may research online and buy in the store, or discover a product in person and reorder online. Confirm how product information, availability, pickup or shipping, and customer help will stay connected.',
+    outcome: 'Look at the whole customer relationship across online and in-store activity.',
+  },
+];
+
 export default function AiWebsites() {
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash === '#retail-and-online-stores') {
+      document.getElementById('retail-and-online-stores')?.scrollIntoView({ block: 'start' });
+    }
+  }, [hash]);
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
         title="Do I Need a Better Business Website? | New Tech Advertising"
-        description="A practical way to evaluate your business website, understand what it should accomplish, and decide whether to improve, rebuild, or connect it to a larger Digital Growth Roadmap."
+        Understand what your website should do for your shop, online store, or service business. Connect customer needs, advertising, purchases, and everyday work."
       />
       <MarketingNav />
 
@@ -71,6 +106,31 @@ export default function AiWebsites() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="retail-and-online-stores" aria-labelledby="retail-heading" className="scroll-mt-20 border-t border-slate-800 bg-slate-950 py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">Retail and online stores</p>
+              <h2 id="retail-heading" className="mt-3 text-3xl font-black text-white md:text-4xl">Your shop needs customers, not somebody else&rsquo;s lead funnel.</h2>
+              <p className="mt-5 text-lg leading-relaxed text-slate-300">A physical retailer, an online seller, and a service company do not need identical websites. Start with how people discover, choose, buy, and return to your business. Then decide what the website and the work behind it need to do.</p>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              {RETAIL_PATHS.map(({ title, question, text, outcome }) => (
+                <article key={title} className="rounded-2xl border border-slate-700 bg-slate-900 p-6 md:p-8">
+                  <h3 className="text-xl font-bold text-white">{title}</h3>
+                  <p className="mt-4 font-semibold leading-relaxed text-cyan-200">{question}</p>
+                  <p className="mt-4 leading-relaxed text-slate-300">{text}</p>
+                  <p className="mt-5 border-t border-slate-700 pt-4 text-sm leading-relaxed text-slate-300"><strong className="text-white">A useful measure:</strong> {outcome}</p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-8 rounded-2xl border border-cyan-800/50 bg-cyan-950/20 p-6 md:p-8">
+              <h3 className="text-xl font-bold text-white">A useful retail website does not have to be a full online store.</h3>
+              <p className="mt-3 max-w-4xl leading-relaxed text-slate-300">It may need to help customers discover what you carry, answer questions, or plan a visit. Online purchasing belongs in the plan only when it fits your products, margins, staff capacity, and existing systems. These are starting points for discovery, not a feature package every retailer needs.</p>
+              <Link to="/start?source=retail-and-online-stores" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-bold text-white transition hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">Talk about your store <ArrowRight className="h-5 w-5" aria-hidden="true" /></Link>
             </div>
           </div>
         </section>
