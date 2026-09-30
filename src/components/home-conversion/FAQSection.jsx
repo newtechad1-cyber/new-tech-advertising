@@ -24,7 +24,7 @@ export default function FAQSection() {
     },
     {
       question: "How does New Tech Advertising help a local business grow?",
-      answer: "NTA helps local businesses strengthen their website and growth foundation, improve visibility, build trust, strengthen customer follow-up, and connect practical AI and automation into one useful system."
+      answer: "NTA starts with how your business works and what your customers need. We connect advertising, the customer experience, team knowledge, and everyday operations; agree on a practical improvement; help put it to work; and review what is helping. That can mean easier shopping, a better dining experience, useful follow-up, or less repeated work. AI supports specific tasks while people make the decisions."
     },
     {
       question: "Does New Tech Advertising serve businesses outside Iowa?",
@@ -32,7 +32,7 @@ export default function FAQSection() {
     },
     {
       question: "What types of businesses does NTA work with?",
-      answer: "NTA primarily helps local service businesses, restaurants, retailers, contractors, and other small businesses that need clearer marketing, stronger customer relationships, better follow-up, and practical growth systems."
+      answer: "NTA works with small retailers, including specialty and variety shops, ecommerce businesses, restaurants, contractors, and other service businesses. We adapt to how your customers shop, dine, order, ask for help, and return. A store visit, a meal, an online purchase, and a service inquiry are different paths—not one lead-generation formula."
     }
   ];
 
