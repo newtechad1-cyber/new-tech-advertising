@@ -43,7 +43,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'How does New Tech Advertising help a local business grow?',
-    answer: 'NTA helps owners strengthen their foundation, improve visibility and trust, organize customer follow-up, and connect practical AI with useful business systems. A core part of that work is capturing the knowledge already living across the team—employees, customers, and everyday conversations—so the business can remember, organize, and use it. People continue making the decisions; AI helps with remembering, transcribing, identifying patterns, and preparing summaries.',
+    answer: 'NTA starts with how your business works and what your customers need. We connect advertising, the customer experience, team knowledge, and everyday operations; agree on a practical improvement; help put it to work; and review what is helping. That can mean easier shopping, a better dining experience, useful follow-up, or less repeated work. AI supports specific tasks while people make the decisions.',
   },
   {
     question: 'Does New Tech Advertising serve businesses outside Iowa?',
@@ -51,7 +51,7 @@ const HOMEPAGE_FAQS = [
   },
   {
     question: 'What types of businesses does NTA work with?',
-    answer: 'NTA primarily helps local service businesses, restaurants, retailers, contractors, and other small businesses that need clearer marketing, stronger customer relationships, better follow-up, and practical growth systems.',
+    answer: 'NTA works with small retailers, including specialty and variety shops, ecommerce businesses, restaurants, contractors, and other service businesses. We adapt to how your customers shop, dine, order, ask for help, and return. A store visit, a meal, an online purchase, and a service inquiry are different paths—not one lead-generation formula.',
   },
 ];
 
@@ -64,7 +64,7 @@ export default function Home() {
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
         title="Advertise Better | Small Business Advertising Strategy | NTA"
-        description="New Tech Advertising helps small businesses advertise better by starting with the customer, building useful messages, choosing the right channels, and creating consistent exposure over time."
+        description="Connect advertising, customer experience, and everyday work. Practical growth help for small shops, online stores, restaurants, and service businesses."
         faqs={HOMEPAGE_FAQS}
       />
       <MarketingNav />
