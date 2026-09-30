@@ -16,12 +16,12 @@ export default function SeeWhatToWorkOnSection() {
 
         <div className="mx-auto mt-9 max-w-3xl rounded-2xl border border-cyan-800/40 bg-cyan-950/20 p-7 text-center">
           <p className="text-lg leading-relaxed text-slate-200">That&rsquo;s where the <strong className="text-white">Digital Growth Roadmap™</strong> becomes useful.</p>
-          <p className="mt-4 leading-relaxed text-slate-300">NTA helps you turn what you&rsquo;re learning into practical priorities—what to work on now, what can wait, and what could make the biggest difference next.</p>
-          <p className="mt-4 leading-relaxed text-slate-300">Every business has its own people and way of working. We look at where the customer experience or daily work gets stuck before deciding whether a clearer message, a better process, a human follow-up, or AI with a specific job will help.</p>
+          <p className="mt-4 leading-relaxed text-slate-300">Start with something you recognize in your business. Together, we look at one relevant possibility and decide whether it belongs in the plan—what to work on now, what can wait, and why.</p>
+          <p className="mt-4 leading-relaxed text-slate-300">We help put the agreed improvement to work, show the team how to use it, and test it in a real customer situation. Then we review what happened and adjust. For a retailer that might mean a better shopping experience; for another business, clearer service conversations or less repeated work.</p>
         </div>
 
         <p className="mx-auto mt-8 max-w-3xl text-center text-sm font-semibold tracking-wide text-cyan-200">
-          Listen → Capture → Understand → Decide → Act → Measure → Learn → Improve
+          Understand the business → Choose a priority → Put it to work → Teach and test → Review and improve
         </p>
 
         <div className="mt-8 text-center">
