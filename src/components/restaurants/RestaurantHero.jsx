@@ -19,7 +19,7 @@ export default function RestaurantHero() {
         </h1>
 
         <div className="max-w-3xl space-y-5 text-slate-300/90 text-lg md:text-xl leading-relaxed mb-10">
-          <p>Your restaurant already knows more than you may realize.</p>
+          <p>Whether you want more diners, more repeat visits, clearer menu information, or smoother service, start with what your restaurant and its customers are already telling you.</p>
           <p>
             Your servers hear what customers ask for. Bartenders know what people order and why they come back. Kitchen
             employees see what slows things down. Managers solve problems every day. Customers tell you what they love—and
@@ -27,8 +27,8 @@ export default function RestaurantHero() {
           </p>
           <p>Most of that knowledge disappears into conversations, texts, meetings and people's heads.</p>
           <p>
-            NTA helps you capture it, organize it and turn what your restaurant is learning into a practical{' '}
-            <span className="text-white font-semibold">Restaurant Growth Roadmap&trade;</span>.
+            NTA helps connect your advertising, website, guest experience, team knowledge, and daily work through a practical{' '}
+            <span className="text-white font-semibold">Restaurant Growth Roadmap&trade;</span>. We choose a useful first improvement together, help put it to work, and review what is helping.
           </p>
         </div>
 
