@@ -17,7 +17,7 @@ export default function SeeWhatToWorkOnSection() {
         <div className="mx-auto mt-9 max-w-3xl rounded-2xl border border-cyan-800/40 bg-cyan-950/20 p-7 text-center">
           <p className="text-lg leading-relaxed text-slate-200">That&rsquo;s where the <strong className="text-white">Digital Growth Roadmap™</strong> becomes useful.</p>
           <p className="mt-4 leading-relaxed text-slate-300">Start with something you recognize in your business. Together, we look at one relevant possibility and decide whether it belongs in the plan—what to work on now, what can wait, and why.</p>
-          <p className="mt-4 leading-relaxed text-slate-300">We help put the agreed improvement to work, show the team how to use it, and test it in a real customer situation. Then we review what happened and adjust. For a retailer that might mean a better shopping experience; for another business, clearer service conversations or less repeated work.</p>
+          <p className="mt-4 leading-relaxed text-slate-300">We help put the agreed improvement to work, show the team how to use it, and test it in a real customer situation. Then we review what happened and adjust. That might mean easier shopping, clearer menus and smoother restaurant service, better customer conversations, or less repeated work.</p>
         </div>
 
         <p className="mx-auto mt-8 max-w-3xl text-center text-sm font-semibold tracking-wide text-cyan-200">
