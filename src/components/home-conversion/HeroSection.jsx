@@ -5,7 +5,7 @@ import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 const BUSINESS_PATHS = [
   {
     title: 'I need more customers',
-    description: 'Help people discover what you offer, choose with confidence, buy, and come back—in your store, online, or through a conversation.',
+    description: 'Help people discover what you offer, choose with confidence, and come back—to shop, dine, order online, or use your services.',
     to: '/knowledge/questions/how-can-ai-help-me-get-more-customers',
     icon: Users,
     step: 'more_customers'
@@ -19,7 +19,7 @@ const BUSINESS_PATHS = [
   },
   {
     title: "My website isn't working",
-    description: 'Start with what your website needs to do: bring people into the store, support online purchases, answer questions, or begin a service conversation.',
+    description: 'Start with what your website needs to do: help people shop, plan a meal, order, find answers, or begin a service conversation.',
     to: '/ai-websites',
     icon: Globe,
     step: 'website_not_working'
@@ -33,7 +33,7 @@ const BUSINESS_PATHS = [
   },
   {
     title: 'I want customers to stay connected',
-    description: 'Make useful follow-up, product help, and reasons to return part of the customer relationship—not just the first sale.',
+    description: 'Make useful follow-up, customer help, and reasons to return part of the relationship—not just the first purchase or visit.',
     to: '/knowledge/questions/how-can-ai-help-with-customer-follow-up',
     icon: MessageCircle,
     step: 'customer_follow_up'
@@ -90,7 +90,7 @@ export default function HeroSection() {
               Better advertising starts with better understanding.
             </p>
             <p className="text-base text-slate-300">
-              A small shop, an online store, a restaurant, and a service business need different customer paths. <Link to="/ai-websites#retail-and-online-stores" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">See what that means for retailers and online sellers.</Link>
+              A <Link to="/ai-websites#retail-and-online-stores" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">small shop or online store</Link>, a <Link to="/restaurants" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">restaurant</Link>, and a service business need different customer paths. We start with how your customers shop, dine, order, or ask for help.
             </p>
           </div>
         </div>
@@ -133,8 +133,8 @@ export default function HeroSection() {
         <div className="mx-auto mt-10 max-w-5xl rounded-3xl border border-slate-700/80 bg-slate-900/75 p-6 shadow-2xl shadow-cyan-950/15 backdrop-blur-sm md:flex md:items-center md:justify-between md:gap-8 md:p-8">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">A simple place to start</p>
-            <h2 className="mt-3 text-2xl font-bold text-white">Ask the question that is actually on your mind.</h2>
-            <p className="mt-3 leading-relaxed text-slate-300">Your Digital Growth Guide™ can help you sort out a practical next step. You can keep learning, or talk to a real person at NTA when human help would be useful.</p>
+            <h2 className="mt-3 text-2xl font-bold text-white">Start with what is happening in your business.</h2>
+            <p className="mt-3 leading-relaxed text-slate-300">You do not need to know the right question yet. Describe a familiar frustration or something you would like to improve. Your Digital Growth Guide™ can help you explore it, or you can talk with a real person at NTA.</p>
           </div>
           <div className="mt-6 flex shrink-0 flex-col gap-3 sm:flex-row md:mt-0 md:flex-col">
             <button type="button" onClick={() => openGrowthGuide()} className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-colors hover:bg-blue-500">
