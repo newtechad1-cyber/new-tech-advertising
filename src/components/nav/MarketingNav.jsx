@@ -39,6 +39,7 @@ const NAV_LINKS = [
     children: [
       { label: 'AI for Small Business', href: '/ai-marketing-platform', desc: 'Practical ways AI can support your business' },
       { label: 'Websites', href: '/ai-websites', desc: 'Understand what your website should accomplish' },
+      { label: 'Retail & Online Stores', href: '/ai-websites#retail-and-online-stores', desc: 'Connect shopping, purchases, and repeat customers' },
       { label: 'Marketing', href: '/ai-social-media', desc: 'Turn business knowledge into useful communication' },
       { label: 'SEO', href: '/ai-seo', desc: 'Help people find useful answers from your business' },
       { label: 'Industry Solutions', href: '/industries', desc: 'See how the Growth Roadmap fits your industry' },
