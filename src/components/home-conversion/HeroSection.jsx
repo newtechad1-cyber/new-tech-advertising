@@ -5,7 +5,7 @@ import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 const BUSINESS_PATHS = [
   {
     title: 'I need more customers',
-    description: 'Start with the path from being found to being understood, trusted, contacted, and followed up with.',
+    description: 'Help people discover what you offer, choose with confidence, buy, and come back—in your store, online, or through a conversation.',
     to: '/knowledge/questions/how-can-ai-help-me-get-more-customers',
     icon: Users,
     step: 'more_customers'
@@ -19,8 +19,8 @@ const BUSINESS_PATHS = [
   },
   {
     title: "My website isn't working",
-    description: 'Look beyond design and find the gaps in clarity, proof, next steps, and follow-up.',
-    to: '/knowledge/questions/why-isnt-my-website-generating-leads',
+    description: 'Start with what your website needs to do: bring people into the store, support online purchases, answer questions, or begin a service conversation.',
+    to: '/ai-websites',
     icon: Globe,
     step: 'website_not_working'
   },
@@ -32,8 +32,8 @@ const BUSINESS_PATHS = [
     step: 'understand_ai'
   },
   {
-    title: 'I need better customer follow-up',
-    description: 'Build a clearer way to prepare, remember, and carry the customer conversation forward.',
+    title: 'I want customers to stay connected',
+    description: 'Make useful follow-up, product help, and reasons to return part of the customer relationship—not just the first sale.',
     to: '/knowledge/questions/how-can-ai-help-with-customer-follow-up',
     icon: MessageCircle,
     step: 'customer_follow_up'
@@ -81,13 +81,16 @@ export default function HeroSection() {
               Start with your customer. Not the advertising product.
             </p>
             <p>
-              New Tech Advertising helps small businesses understand <strong className="text-white">who they are trying to reach, what matters to those customers, where to reach them, and how to stay consistently visible until the time is right.</strong>
+              New Tech Advertising helps small-business owners connect <strong className="text-white">their advertising, customer experience, and everyday operations—so people can find them, understand what they offer, buy with confidence, and come back.</strong>
             </p>
             <p>
-              We do not begin by selling you Facebook ads, Google ads, a website, video, AI, or another marketing package. We begin with the problem you want to solve, the people doing the work, and what your customers actually need. Then we build a practical <strong className="text-white">Digital Growth Roadmap™</strong> and connect the right messages, campaigns, content, technology and advertising around the people you actually need to reach.
+              You do not need to know which tool or service to ask for. Tell us what is happening in your business. We listen to you and your team, look at how customers find, choose, and buy from you, and agree on the next useful improvement. Your <strong className="text-white">Digital Growth Roadmap™</strong> keeps that work connected to the whole business. Advertising, websites, AI, and other tools serve the work—not the other way around.
             </p>
             <p className="font-semibold text-blue-200">
               Better advertising starts with better understanding.
+            </p>
+            <p className="text-base text-slate-300">
+              A small shop, an online store, a restaurant, and a service business need different customer paths. <Link to="/ai-websites#retail-and-online-stores" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">See what that means for retailers and online sellers.</Link>
             </p>
           </div>
         </div>
