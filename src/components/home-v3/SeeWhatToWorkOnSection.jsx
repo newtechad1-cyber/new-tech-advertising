@@ -31,6 +31,9 @@ export default function SeeWhatToWorkOnSection() {
           <Link to="/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business" className="mt-5 flex items-center justify-center gap-2 text-sm font-semibold text-cyan-200 underline underline-offset-4 transition-colors hover:text-white">
             See how AI fits a real business <ArrowRight className="h-4 w-4" />
           </Link>
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-slate-300">
+            Follow the work with Pete and Janine at <Link to="/restaurants?section=cattlemans-case-study" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">Cattleman&rsquo;s Dining</Link>—a Restaurant Growth Roadmap in progress, not a finished success story.
+          </p>
         </div>
       </div>
     </section>
