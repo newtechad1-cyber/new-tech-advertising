@@ -62,7 +62,7 @@ export default function AiWebsites() {
     <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
         title="Do I Need a Better Business Website? | New Tech Advertising"
-        description="Understand what your website should do for your shop, online store, or service business. Connect customer needs, advertising, purchases, and everyday work."
+        description="Understand what your website should do for your shop, online store, restaurant, or service business. Connect customer needs, advertising, and everyday work."
       />
       <MarketingNav />
 
@@ -115,7 +115,7 @@ export default function AiWebsites() {
             <div className="max-w-3xl">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">Retail and online stores</p>
               <h2 id="retail-heading" className="mt-3 text-3xl font-black text-white md:text-4xl">Your website should fit the way your customers shop.</h2>
-              <p className="mt-5 text-lg leading-relaxed text-slate-300">A physical retailer, an online seller, and a service company do not need identical websites. Start with how people discover, choose, buy, and return to your business. Then decide what the website and the work behind it need to do.</p>
+              <p className="mt-5 text-lg leading-relaxed text-slate-300">A physical retailer, an online seller, a restaurant, and a service company do not need identical websites. Start with how people discover, choose, buy, and return to your business. Then decide what the website and the work behind it need to do.</p>
             </div>
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               {RETAIL_PATHS.map(({ title, question, text, outcome }) => (
