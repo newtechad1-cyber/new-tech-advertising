@@ -15,7 +15,7 @@ const STATIC_SEO = {
   "/": {
     ...DEFAULT_SEO,
     title: "Advertise Better | Small Business Advertising Strategy | NTA",
-    description: "New Tech Advertising helps small businesses advertise better by starting with the customer, building useful messages, choosing the right channels, and creating consistent exposure over time.",
+    description: "Connect advertising, customer experience, and everyday work. Practical growth help for small shops, online stores, restaurants, and service businesses.",
   },
   "/about": {
     title: "Practical AI for Small Business Owners | About Rick Hesse & NTA",
@@ -23,7 +23,7 @@ const STATIC_SEO = {
   },
   "/services": {
     title: "AI and Digital Growth Services for Small Business | NTA",
-    description: "Practical AI education, local visibility, websites, content, customer follow-up, and connected growth systems for small-business owners.",
+    description: "Connect advertising, customer experience, and everyday operations. Practical growth help for small retailers, online sellers, restaurants, and service businesses.",
   },
   "/contact": {
     title: "Contact NTA | Practical AI for Small Business",
@@ -64,8 +64,8 @@ const STATIC_SEO = {
     description: "Use practical AI support to plan, write, and organize social media content while keeping the business owner's voice and judgment in control.",
   },
   "/ai-websites": {
-    title: "AI Website Strategy for Small Business | NTA",
-    description: "Build a clearer small-business website that helps people find, understand, trust, and contact the business.",
+    title: "Do I Need a Better Business Website? | New Tech Advertising",
+    description: "Understand what your website should do for your shop, online store, restaurant, or service business. Connect customer needs, advertising, and everyday work.",
   },
   "/ai-advertising": {
     title: "AI Advertising Strategy for Small Business | NTA",
