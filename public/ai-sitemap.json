@@ -1018,7 +1018,7 @@
       "description": "Understand the difference between unpredictable spikes in activity and compounded digital momentum.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-08-14",
+      "lastModified": "2026-10-05",
       "lessons": [
         {
           "title": "Businesses Don’t Need More Marketing. They Need a Better Growth System.",
@@ -1089,6 +1089,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-08-14"
+        },
+        {
+          "title": "Business Owners Are Tired of Being Sold",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold",
+          "contentType": "LearningResource",
+          "description": "Rick Hesse draws on buying advertising in the 1980s and selling it in the 1990s to explain five questions owners can ask before buying.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-10-05"
         }
       ]
     },
