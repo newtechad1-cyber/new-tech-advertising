@@ -117,6 +117,15 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="advertising-lesson-heading">
+          <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
+            <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">New lesson · NTA Point of View</p>
+            <h2 id="advertising-lesson-heading" className="mt-3 text-2xl font-bold text-white md:text-3xl">Business Owners Are Tired of Being Sold</h2>
+            <p className="mt-3 leading-7 text-slate-300">A better way to buy advertising starts with understanding the purpose, the fit, the full commitment, and what happens after someone responds.</p>
+            <Link to="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white hover:bg-blue-500">Read the lesson <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+        </section>
+
         {/* FEATURED SERIES */}
         <section className="border-b border-slate-800 bg-slate-900/50 px-6 py-14" aria-labelledby="featured-series-heading">
           <div className="mx-auto max-w-6xl rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-950/50 via-slate-900 to-slate-950 p-7 shadow-xl shadow-blue-950/10 md:p-10">
