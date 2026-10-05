@@ -39,6 +39,7 @@ import GrowthShowEpisode from './pages/GrowthShowEpisode';
 import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
+import BusinessOwnersAreTiredOfBeingSold from './pages/BusinessOwnersAreTiredOfBeingSold';
 import StartWithTheWorkNotTheToolLessonPage from './pages/knowledge/ai-foundations/start-with-the-work-not-the-tool';
 // Public canonical route pages for Base44 crawler rendering.
 import PublicSeoPage001 from './pages/GrowthSystem';
@@ -265,6 +266,7 @@ const PAGES = {
   HelpAndSupport,
   LearningCenter,
   KnowledgeLibrary,
+  BusinessOwnersAreTiredOfBeingSold,
   knowledge: KnowledgeLibrary,
   'knowledge/ai-foundations/start-with-the-work-not-the-tool': StartWithTheWorkNotTheToolLessonPage,
   // Public canonical route pages for Base44 crawler rendering.

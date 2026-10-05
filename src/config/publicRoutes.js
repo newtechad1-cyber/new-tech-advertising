@@ -68,6 +68,7 @@ import JournalLanding from '@/pages/JournalLanding';
 import KnowledgeCollection from '@/pages/KnowledgeCollection';
 import KnowledgeLesson from '@/pages/KnowledgeLesson';
 import KnowledgeLibrary from '@/pages/KnowledgeLibrary';
+import BusinessOwnersAreTiredOfBeingSold from '@/pages/BusinessOwnersAreTiredOfBeingSold';
 import KnowledgeQuestion from '@/pages/KnowledgeQuestion';
 import KnowledgeQuestions from '@/pages/KnowledgeQuestions';
 import KnowledgePrompts from '@/pages/KnowledgePrompts';
@@ -160,6 +161,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/point-of-view', POVCollection),
   alias('/point-of-view/:slug', POVArticleView),
   alias('/knowledge', KnowledgeLibrary),
+  alias('/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold', BusinessOwnersAreTiredOfBeingSold),
   alias('/knowledge/questions', KnowledgeQuestions),
   alias('/knowledge/questions/:questionSlug', KnowledgeQuestion),
   alias('/canon', CanonExplorer),
