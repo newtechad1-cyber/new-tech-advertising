@@ -5,6 +5,31 @@ import { flagshipArticleToolsVsSystem } from '@/data/flagshipArticles';
  * A Base44 record with the same YouTube ID replaces the seed record.
  */
 export const SEED_GROWTH_SHOW_EPISODES = [{
+  "id": "seed-growth-show-814-k8Tl-LE",
+  "episode_number": 10,
+  "title": "Business Owners Are Tired of Being Sold | NTA Growth Show — Episode 10",
+  "slug": "business-owners-are-tired-of-being-sold",
+  "summary": "Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide.",
+  "status": "Published",
+  "published_date": "2026-10-05",
+  "featured": true,
+  "thumbnail_url": "https://i.ytimg.com/vi/814-k8Tl-LE/hqdefault.jpg",
+  "youtube_video_id": "814-k8Tl-LE",
+  "source_article_slug": "business-owners-are-tired-of-being-sold",
+  "source_canon_id": "6ac38ae01da8b49dc1015856",
+  "publishing_article_id": "6ac38ae01da8b49dc1015856",
+  "related_lesson_canon_ids": [
+    "6ac38ae01da8b49dc1015856"
+  ],
+  "related_journal_issue_ids": [
+    "6ac38ae092da7cd84bed6a5b",
+    "issue-10-a-better-way-to-buy-advertising"
+  ],
+  "playlist_slug": "nta-growth-show",
+  "cta_text": "Read the lesson",
+  "cta_url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold",
+  "notes": "Rick confirmed final assembly and YouTube upload October 5, 2026. YouTube oEmbed verified public title and embed availability. Five renders completed; final playback not reviewed here. Journal email prepared; scheduling remains unavailable in guarded send function."
+}, {
   "id": "seed-growth-show-PmXSEkj03ak",
   "title": "Your Business Comes First. Technology Comes Second.",
   "slug": "before-you-add-ai-understand-your-business",
@@ -52,7 +77,7 @@ export const SEED_GROWTH_SHOW_EPISODES = [{
  * The flagship article remains authoritative in flagshipArticles.js. This
  * adapter makes that source available to the relationship graph.
  */
-export const GROWTH_SHOW_SOURCE_ARTICLES = [{
+export const GROWTH_SHOW_SOURCE_ARTICLES = [{"id":"6ac38ae01da8b49dc1015856","canon_id":"6ac38ae01da8b49dc1015856","slug":"business-owners-are-tired-of-being-sold","title":"Business Owners Are Tired of Being Sold","summary":"Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold","status":"Published","related_lesson_ids":[]}, {
   ...flagshipArticleToolsVsSystem,
   canon_id: flagshipArticleToolsVsSystem.id,
   summary: flagshipArticleToolsVsSystem.primaryPrinciple,
