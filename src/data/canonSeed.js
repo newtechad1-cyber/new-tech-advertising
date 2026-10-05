@@ -138,7 +138,7 @@ export const SEED_JOURNAL_ENTRIES = [
   "subtitle": "Knowledge first. Then decide what to buy.",
   "slug": "issue-10-a-better-way-to-buy-advertising",
   "date": "2026-10-06",
-  "status": "Review",
+  "status": "Published",
   "newsletter_subject": "Business owners are tired of being sold",
   "newsletter_sent": false,
   "author": "Rick Hesse",
@@ -156,23 +156,28 @@ export const SEED_JOURNAL_ENTRIES = [
   "from_ricks_desk": "Something came together for me this week that I've been trying to explain for a long time.\n\nI bought advertising for my store in the 1980s. In the 1990s, I sold it. I've been on both sides of that dollar exchange, and the frustration behind this week's article has been with me for decades.\n\nThis isn't something I learned this morning. It's something I've carried for years. What finally came together was the language.\n\nWe've spent decades teaching people how to sell advertising. Maybe it's time somebody taught small-business owners how to buy it.\n\nThat sentence gets to the heart of what I mean.\n\nThe owner doesn't need another person explaining why their advertising package is wonderful. The owner needs to understand whether that package fits the business, what it is supposed to accomplish, and what happens after somebody responds.\n\nI'm not against advertising. I've sold it. I'm not suggesting every salesperson is the problem, either. I'm asking whether we can start the conversation somewhere different.\n\nInstead of beginning with what we have to sell, let's begin with what the business needs.\n\nAnd knowledge first doesn't mean asking you to learn another profession. It means helping you understand enough to make a decision without having to become an expert in every advertising choice.\n\nIn the full article, I walk through five questions: What are we trying to accomplish? Why does this fit our customers and our situation? What happens after someone responds? What are we really committing to? And how will we judge what happens?\n\nYou should be able to understand the answers. You should also be able to say yes, take a smaller first step, or decide not yet.\n\nI think this is one of the most important things I've written about advertising because it finally explains the kind of help I want to offer a business owner.\n\nNot a better way to sell you something. A better way to help you decide.\n\nKnowledge first. Then decide what to buy.",
   "selected_articles": [
     {
-      "title": "Business Owners Are Tired of Being Sold",
-      "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold",
-      "source_type": "PublishingArticle",
+      "reading_time": "9 min read",
       "display_order": 1,
       "is_lead": true,
+      "source_type": "PublishingArticle",
       "source_id": "6ac38ae01da8b49dc1015856",
+      "title": "Business Owners Are Tired of Being Sold",
       "excerpt": "Rick Hesse draws on buying advertising in the 1980s and selling it in the 1990s to explain five questions owners can ask before buying.",
-      "reading_time": "9 min read"
+      "featured_image_url": null,
+      "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold"
     }
   ],
   "cta_text": "Read: Business Owners Are Tired of Being Sold",
   "cta_url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold",
-  "closing_message": "Continue learning in the NTA Knowledge Library: https://newtechadvertising.com/knowledge\n\nExplore the NTA Growth Show: https://newtechadvertising.com/growth-show",
+  "closing_message": "Read the complete lesson, [Business Owners Are Tired of Being Sold](https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold).\n\n[Watch Episode 10 of the NTA Growth Show](https://youtu.be/814-k8Tl-LE), where the Free AI Guy and I talk through a better way to buy advertising.\n\nKnowledge first. Then decide what to buy.",
   "related_learning_lesson_ids": [
     "truth-about-business-growth/business-owners-are-tired-of-being-sold"
   ],
-  "related_video_ids": [],
+  "related_video_ids": [
+    "814-k8Tl-LE"
+  ],
+  "related_video_url": "https://youtu.be/814-k8Tl-LE",
+  "related_video_title": "Business Owners Are Tired of Being Sold | NTA Growth Show — Episode 10",
   "publishing_article_id": "6ac38ae01da8b49dc1015856",
   "id": "seed-journal-issue-10"
 },
