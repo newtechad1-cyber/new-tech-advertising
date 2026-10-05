@@ -417,6 +417,7 @@ const LEGACY_CANONICALS = {
   "/aifoundationscollection": "/knowledge/ai-foundations",
   "/businessfoundationscollection": "/knowledge/business-foundations",
   "/truthaboutbusinessgrowthcollection": "/knowledge/truth-about-business-growth",
+  "/businessownersaretiredofbeingsold": "/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold",
   "/howcustomersdecidewhotrustcollection": "/knowledge/how-customers-decide-who-to-trust",
   "/howbusinessesturntrustintolastingrelationshipscollection": "/knowledge/how-businesses-turn-trust-into-lasting-relationships",
   "/turningwhatabusinessknowsintoanassetcollection": "/knowledge/turning-what-a-business-knows-into-an-asset",
@@ -476,6 +477,7 @@ const COLLECTION_SEARCH = {
 };
 
 const LESSON_SEARCH_TITLES = {
+  "business-owners-are-tired-of-being-sold": "Business Owners Are Tired of Being Sold",
   "why-nta-exists": "Why Practical AI Education Matters for Small Business Owners",
   "how-businesses-really-grow": "How Small Businesses Really Grow: From Activity to Momentum",
   "marketing-isnt-magic": "Why Small Business Marketing Is Not Magic",

@@ -1116,9 +1116,13 @@ function approvedLessonMarkup(markdown) {
 }
 
 function approvedLessonStaticBody(pathname) {
-  const collectionSlug = "ai-foundations";
-  const lessonSlug = "how-do-you-put-ai-to-work-in-a-real-business";
-  if (pathname !== "/knowledge/" + collectionSlug + "/" + lessonSlug) return "";
+  const approvedPaths = {
+    "/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business": ["ai-foundations", "how-do-you-put-ai-to-work-in-a-real-business"],
+    "/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold": ["truth-about-business-growth", "business-owners-are-tired-of-being-sold"]
+  };
+  const identity = approvedPaths[pathname];
+  if (!identity) return "";
+  const [collectionSlug, lessonSlug] = identity;
   const collection = collectionsOrder.find(item => item.slug === collectionSlug);
   const lesson = collection?.lessons.find(item => item.slug === lessonSlug);
   if (!lesson) throw new Error("Approved lesson is missing from the curriculum");
@@ -1127,7 +1131,7 @@ function approvedLessonStaticBody(pathname) {
     '<h1>' + escapeHtml(lesson.title) + '</h1>' +
     '<p>' + escapeHtml(lesson.description) + '</p>' +
     approvedLessonMarkup(lesson.content) +
-    '<nav aria-label="Related NTA resources"><a href="/knowledge/ai-foundations">AI Foundations lessons</a><a href="/knowledge">Knowledge Library</a></nav>' +
+    '<nav aria-label="Related NTA resources"><a href="/knowledge/' + escapeHtml(collectionSlug) + '">' + escapeHtml(collection.title) + '</a><a href="/knowledge">Knowledge Library</a></nav>' +
     '</article></main>';
 }
 
