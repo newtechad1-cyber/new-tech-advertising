@@ -15,6 +15,17 @@ export default function BusinessOwnersAreTiredOfBeingSold() {
       <h1 className="mt-4 text-4xl font-black leading-tight text-white md:text-5xl">{lesson.title}</h1>
       <p className="mt-6 text-xl leading-8">{lesson.description}</p>
       <p className="mt-5 mb-12 text-sm text-slate-400">By Rick Hesse · {lesson.readingTime}</p>
+      <section className="mb-12 rounded-2xl border border-blue-500/25 bg-blue-950/20 p-6">
+        <h2 className="text-2xl font-bold text-white">Watch the conversation — Episode 10</h2>
+        <p className="mt-3 leading-7">Rick Hesse and the Free AI Guy discuss a better way to buy advertising.</p>
+        <div className="mt-5 aspect-video overflow-hidden rounded-xl">
+          <iframe className="h-full w-full" src="https://www.youtube-nocookie.com/embed/814-k8Tl-LE?rel=0" title="Business Owners Are Tired of Being Sold — NTA Growth Show Episode 10" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+        </div>
+        <div className="mt-5 flex flex-wrap gap-6">
+          <Link to="/growth-show/business-owners-are-tired-of-being-sold" className="text-cyan-300 hover:text-white">Explore Episode 10</Link>
+          <Link to="/journal/issue-10-a-better-way-to-buy-advertising" className="text-cyan-300 hover:text-white">Read Journal Issue 10</Link>
+        </div>
+      </section>
       <LessonArticle content={lesson.content} />
       <aside className="mt-14 rounded-2xl border border-cyan-500/25 bg-cyan-950/15 p-7">
         <h2 className="text-xl font-bold text-white">Put it to work</h2>
