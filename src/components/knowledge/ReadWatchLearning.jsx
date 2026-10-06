@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Play } from 'lucide-react';
+import { ArrowRight, BookOpen, Play, Headphones } from 'lucide-react';
 import { READ_WATCH_TOPICS, videoWatchPath, VIDEO_GALLERY_PATH } from '@/data/videoLearningConnections';
 
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+
 export default function ReadWatchLearning() {
+  const { episodes } = useGrowthShow();
   return (
     <section className="border-b border-slate-800 bg-slate-950 px-6 py-14" aria-labelledby="read-or-watch-heading">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">Learn in the way that works for you</p>
-          <h2 id="read-or-watch-heading" className="mt-3 text-3xl font-bold text-white">Choose a topic. Read or watch.</h2>
+          <h2 id="read-or-watch-heading" className="mt-3 text-3xl font-bold text-white">Choose a topic. Read, watch, or listen.</h2>
           <p className="mt-4 leading-relaxed text-slate-300">Each pairing connects a Knowledge Library lesson with a related video conversation. Read at your own pace, hear Rick explain the idea, or use both.</p>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -23,6 +26,7 @@ export default function ReadWatchLearning() {
                 <p className="mt-3 flex-1 text-sm leading-6 text-slate-400">Related video: {topic.video.title}</p>
                 <div className="mt-5 flex flex-wrap gap-x-5 gap-y-4 text-sm font-bold">
                   <Link to={topic.href} className="inline-flex items-center gap-2 rounded text-cyan-300 hover:text-cyan-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300"><BookOpen className="h-4 w-4" aria-hidden="true" /> Read the lesson</Link>
+                  {episodes.find(e => e.youtubeVideoId === topic.videoId && e.audioReady) && <Link to={'/podcasts#' + episodes.find(e => e.youtubeVideoId === topic.videoId).slug} className="inline-flex items-center gap-2 rounded text-cyan-300"><Headphones className="h-4 w-4" aria-hidden="true" /> Listen to podcast</Link>}
                   <Link to={videoWatchPath(topic.video)} className="inline-flex items-center gap-2 rounded text-white hover:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300"><Play className="h-4 w-4" aria-hidden="true" /> Watch the video</Link>
                 </div>
               </div>
