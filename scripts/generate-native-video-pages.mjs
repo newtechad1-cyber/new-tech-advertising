@@ -125,6 +125,9 @@ function generate(video, index) {
 for (const [index, video] of VIDEO_WATCH_PAGES.entries()) {
   const output = path.join(pagesRoot, video.path.slice(1) + '.jsx');
   if (!fs.existsSync(output)) throw new Error('Existing route file missing: ' + output);
+  // Growth Show routes contain listening tied to their existing episode record.
+  // Preserve those custom native pages rather than regenerating them as video-only.
+  if (video.category === 'Growth Show') continue;
   fs.writeFileSync(output, generate(video, index + 1));
 }
 console.log('Generated ' + VIDEO_WATCH_PAGES.length + ' native video pages with route-specific source content.');

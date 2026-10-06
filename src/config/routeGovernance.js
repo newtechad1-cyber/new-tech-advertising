@@ -288,6 +288,7 @@ export const ROUTE_OVERRIDES = {
   '/i-was-early-again':          'public',
   '/journal':                    'public',
   '/journal/:slug':              'public',
+  '/growth-show.xml': 'public',
   '/growth-show':                'public',
   '/growth-show/:slug':          'public',
   '/what-changed-online':        'public',
