@@ -7,6 +7,8 @@ const OPPORTUNITY_HREF = '/digital-growth-advisor';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
+  { label: 'Video Library', href: '/learning-center/videos' },
+  { label: 'Podcast', href: '/growth-show' },
   {
     label: 'How It Works',
     href: '/start',
@@ -28,7 +30,7 @@ const NAV_LINKS = [
       { label: 'Questions & Answers', href: '/knowledge/questions', desc: 'Start with the question on your mind' },
       { label: 'Practical AI', href: '/practical-ai-for-small-business', desc: 'Practical AI for small businesses' },
       { label: 'Better Business Building Book', href: '/better-business-book', desc: 'A free, practical book for owners' },
-      { label: 'Growth Show', href: '/growth-show', desc: 'Business and AI conversations' },
+      { label: 'Growth Show — Watch or Listen', href: '/growth-show', desc: 'Full videos, podcast audio and related lessons' },
       { label: 'NTA Journal', href: '/journal', desc: 'Weekly practical ideas for business growth, marketing, and AI' },
       { label: 'Case Studies', href: '/case-studies', desc: 'See how the work comes together' },
     ],
@@ -177,7 +179,7 @@ export default function MarketingNav() {
             <img src={LOGO_URL} alt="New Tech Advertising" className="h-8 max-w-[155px] object-contain sm:h-10 sm:max-w-none" />
           </Link>
 
-          <div className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex">
+          <div className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 xl:flex">
             {NAV_LINKS.map((link) => (
               <div key={link.label} className="relative" onBlur={(event) => {
                 if (!event.currentTarget.contains(event.relatedTarget)) setActiveDropdown(null);
@@ -213,7 +215,7 @@ export default function MarketingNav() {
             ))}
           </div>
 
-          <div className="hidden shrink-0 items-center gap-2 lg:flex">
+          <div className="hidden shrink-0 items-center gap-2 xl:flex">
             <a href="tel:6414208816" className="hidden text-xs font-medium text-slate-400 transition-colors hover:text-white 2xl:inline">
               641-420-8816
             </a>
@@ -241,14 +243,14 @@ export default function MarketingNav() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-main-menu"
             aria-label={mobileOpen ? 'Close website menu' : 'Open website menu'}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 text-slate-200 transition-colors hover:bg-slate-900 hover:text-white lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 text-slate-200 transition-colors hover:bg-slate-900 hover:text-white xl:hidden"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
 
         {mobileOpen && (
-          <div id="mobile-main-menu" role="dialog" aria-label="Website menu" aria-modal="true" onKeyDown={keepFocusInMobileMenu} className="absolute inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain bg-slate-950 lg:hidden">
+          <div id="mobile-main-menu" role="dialog" aria-label="Website menu" aria-modal="true" onKeyDown={keepFocusInMobileMenu} className="absolute inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain bg-slate-950 xl:hidden">
             <div className="space-y-1 px-4 py-4">
               {NAV_LINKS.map((link) => (
                 <div key={link.label}>
