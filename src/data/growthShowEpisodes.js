@@ -1,4 +1,4 @@
-import { flagshipArticleToolsVsSystem } from '@/data/flagshipArticles';
+import { flagshipArticleToolsVsSystem } from './flagshipArticles.js';
 
 /**
  * Explicit public episodes that remain available before Base44 data migration.

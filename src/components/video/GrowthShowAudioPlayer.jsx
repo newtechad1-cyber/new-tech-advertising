@@ -9,7 +9,7 @@ export default function GrowthShowAudioPlayer({ episode }) {
       <p className="mt-2 text-sm text-slate-300">The complete show, with the original voices. Keep listening here, then continue into the related teaching.</p>
       {failed ? <p role="alert" className="mt-4 text-slate-200">Audio could not load. Please try again later, or watch the episode below.</p> : (
         <audio key={episode.audioUrl} controls preload="none" className="mt-4 w-full min-w-0" aria-label={episode.title + ' podcast audio'} onError={() => setFailed(true)}>
-          <source src={new URL(episode.audioUrl).pathname} type={episode.audioContentType} />
+          <source src={(new URL(episode.audioUrl).hostname === 'newtechadvertising.com' ? new URL(episode.audioUrl).pathname : episode.audioUrl)} type={episode.audioContentType} />
           Your browser does not support audio playback.
         </audio>
       )}
