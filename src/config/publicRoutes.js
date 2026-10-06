@@ -1,3 +1,4 @@
+import Podcasts from '@/pages/Podcasts';
 /**
  * Canonical public URL aliases.
  *
@@ -187,6 +188,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/practical-ai', PracticalAI),
   alias('/practical-ai-for-small-business', PracticalAI),
   alias('/practical-ai-for-small-businesses', PracticalAI),
+  alias('/podcasts', Podcasts),
   alias('/growth-show', GrowthShow),
   alias('/growth-show/:slug', GrowthShowEpisode),
   alias('/video-story', VideoStory),

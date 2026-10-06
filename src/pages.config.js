@@ -1,3 +1,4 @@
+import Podcasts from '@/pages/Podcasts';
 /**
  * Explicit public page registry for the public NTA site.
  *
@@ -263,6 +264,7 @@ const PAGES = {
   JournalIssueView,
   GrowthShow,
   GrowthShowEpisode,
+  podcasts: Podcasts,
   HelpAndSupport,
   LearningCenter,
   KnowledgeLibrary,

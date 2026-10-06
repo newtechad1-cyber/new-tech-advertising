@@ -1,3 +1,4 @@
+import LearningFormatNav from '@/components/knowledge/LearningFormatNav';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Calendar, Loader2, Newspaper, Play, Quote, Search, Share2 } from 'lucide-react';
@@ -84,6 +85,7 @@ export default function GrowthShow() {
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-400">
               The NTA Growth Show turns practical business conversations into connected learning. Listen or watch here, read the related lessons, explore the Journal, and follow the idea across the NTA publishing system.
             </p>
+            <LearningFormatNav />
             <div className="mx-auto mt-8 grid max-w-3xl grid-cols-2 gap-3 text-sm sm:grid-cols-5">
               {[
                 ['Listen', 'Full episode audio'],

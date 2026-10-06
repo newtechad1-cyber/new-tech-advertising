@@ -5,6 +5,7 @@ export const VIDEO_GALLERY_PATH = '/learning-center/videos';
 // Editorial topic connections, not claims that a video is a word-for-word
 // recording of the lesson. Add only verified public videos and existing pages.
 export const VIDEO_READING_CONNECTIONS = [
+  { videoId: '814-k8Tl-LE', title: 'Business Owners Are Tired of Being Sold', href: '/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold' },
   { videoId: 'rbqIiynd1zo', title: 'How Do You Put AI to Work in a Real Business?', href: '/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business' },
   { videoId: 'T4fPojz2RmI', title: 'Automation Comes After Understanding', href: '/knowledge/ai-foundations/automation-comes-after-understanding' },
   { videoId: 'T4fPojz2RmI', title: 'Your Business Knows More Than It Has Documented', href: '/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented' },

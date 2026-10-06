@@ -222,6 +222,7 @@ export const ROUTE_OVERRIDES = {
   '/community-growth-conversation': 'public',
   '/community-growth-advisor':   'public',
   '/community-intelligence':     'public',
+  '/podcasts':                   'public',
   '/books':                      'public',
   '/better-business-book':       'public',
   '/practical-ai-for-small-business': 'public',

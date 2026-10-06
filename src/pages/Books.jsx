@@ -1,3 +1,4 @@
+import LearningFormatNav from '@/components/knowledge/LearningFormatNav';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
@@ -28,6 +29,7 @@ export default function Books() {
           </div>
         </section>
 
+        <div className="mx-auto max-w-6xl px-6"><LearningFormatNav /></div>
         {/* Main Positioning Section */}
         <section className="px-6 py-20">
           <div className="mx-auto max-w-4xl text-center">

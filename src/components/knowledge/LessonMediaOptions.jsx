@@ -27,6 +27,6 @@ export default function LessonMediaOptions({ path }) {
       </div>;
     })}
     {selected?.mode === 'watch' && <div id="watch" className="mt-6 aspect-video scroll-mt-24 overflow-hidden rounded-xl bg-black"><iframe className="h-full w-full" src={'https://www.youtube-nocookie.com/embed/' + selected.connection.videoId + '?rel=0'} title="Related NTA video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div>}
-    {selected?.mode === 'listen' && <GrowthShowAudioPlayer episode={episodes.find(e => e.youtubeVideoId === selected.connection.videoId)} />}
+    {selected?.mode === 'listen' && <GrowthShowAudioPlayer episode={episodes.find(e => e.youtubeVideoId === selected.connection.videoId)} watchHref={"/growth-show/" + episodes.find(e => e.youtubeVideoId === selected.connection.videoId)?.slug + "#watch"} />}
   </section>;
 }

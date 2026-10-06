@@ -1,3 +1,4 @@
+import LessonMediaOptions from '@/components/knowledge/LessonMediaOptions';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -26,7 +27,8 @@ export default function BusinessOwnersAreTiredOfBeingSold() {
           <Link to="/journal/issue-10-a-better-way-to-buy-advertising" className="text-cyan-300 hover:text-white">Read Journal Issue 10</Link>
         </div>
       </section>
-      <LessonArticle content={lesson.content} />
+      <LessonMediaOptions path="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold" />
+      <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={lesson.content} /></div>
       <aside className="mt-14 rounded-2xl border border-cyan-500/25 bg-cyan-950/15 p-7">
         <h2 className="text-xl font-bold text-white">Put it to work</h2>
         <p className="mt-4 leading-8">Choose one advertising offer you are considering. Use the five questions in this lesson to write down what you understand and what still needs explaining. Bring the unanswered questions into the conversation before committing.</p>

@@ -1,3 +1,4 @@
+import LessonMediaOptions from '@/components/knowledge/LessonMediaOptions';
 import { useEffect } from 'react';
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 import LessonArticle from '@/components/knowledge/LessonArticle';
@@ -135,7 +136,8 @@ export default function KnowledgeLesson() {
 
         <article className="py-12 px-6">
           <div className="max-w-3xl mx-auto">
-            <LessonArticle content={lesson.content} />
+            <LessonMediaOptions path={`/knowledge/${collection.slug}/${lesson.slug}`} />
+            <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={lesson.content} /></div>
 
             {lesson.readerResponse && (
               <section

@@ -115,6 +115,11 @@ const STATIC_SEO = {
     title: "NTA Journal: Practical AI and Small Business Growth Lessons",
     description: "Weekly practical lessons and observations about AI, business growth, digital trust, customer relationships, and connected systems.",
   },
+  "/podcasts": {
+    title: "Listen to NTA Podcasts | The NTA Growth Show",
+    description: "Listen to complete business and AI conversations from Rick Hesse and the Free AI Guy. Explore podcast audio, related videos, lessons, books, and the RSS feed.",
+    noIndex: false,
+  },
   "/growth-show": {
     title: "The NTA Growth Show: Practical AI and Small Business Growth",
     description: "Listen, watch and learn with Rick Hesse about practical AI, digital growth, customer trust, and the real work of building a stronger small business.",

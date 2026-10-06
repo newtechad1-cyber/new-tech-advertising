@@ -1,3 +1,5 @@
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
@@ -9,6 +11,7 @@ import LCRelatedVideos from '@/components/learning-center/LCRelatedVideos';
 import { ArrowLeft, Clock, Tag, BookOpen, Loader2 } from 'lucide-react';
 
 export default function LCVideoDetail() {
+  const { episodes } = useGrowthShow();
   const { id } = useParams();
   const { data, isLoading } = useLearningContent();
   const video = data?.videos?.find(v => v.id === id);
@@ -96,8 +99,9 @@ export default function LCVideoDetail() {
             <VideoDescription text={video.description} />
           </div>
 
+          <GrowthShowAudioPlayer episode={episodes.find(episode => episode.youtubeVideoId === video.youtubeId)} />
           {video.youtubeId ? (
-            <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-slate-800 mb-10">
+            <div id="watch" className="scroll-mt-24 w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-slate-800 mb-10">
               <iframe 
                 src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?rel=0`} 
                 className="w-full h-full border-0"

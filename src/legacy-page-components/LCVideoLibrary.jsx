@@ -1,3 +1,5 @@
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+import LearningFormatNav from '@/components/knowledge/LearningFormatNav';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -16,11 +18,18 @@ function RelatedReading({ video, showTitle = false }) {
   return <Link to={reading.href} aria-label={'Read the related lesson: ' + reading.title} className={'inline-flex items-center gap-2 rounded text-sm font-semibold text-cyan-300 hover:text-cyan-100 ' + focusStyle}><BookOpen className="h-4 w-4 shrink-0" aria-hidden="true" />{showTitle ? 'Read: ' + reading.title : 'Read related lesson'}</Link>;
 }
 
+function PodcastLink({ episode }) {
+  if (!episode?.audioReady) return null;
+  return <Link to={'/podcasts#' + episode.slug} className={'rounded-lg border border-cyan-300/40 bg-cyan-400/10 px-3 py-2 font-bold text-cyan-200 ' + focusStyle}>Listen to podcast</Link>;
+}
+
 const PAGE_SIZE = 12;
 const focusStyle = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950';
 
 export default function LCVideoLibrary() {
   const { data, isFetching } = useLearningContent();
+  const { episodes } = useGrowthShow();
+  const podcastForVideo = id => episodes.find(episode => episode.youtubeVideoId === id);
   const videos = data?.videos || [];
   const [params, setParams] = useSearchParams();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
@@ -77,6 +86,7 @@ export default function LCVideoLibrary() {
             </a>
           </div>
 
+          <LearningFormatNav />
           {featured && (
             <div className="mt-10 grid overflow-hidden rounded-2xl border border-slate-700 bg-slate-900 lg:grid-cols-[1.25fr_1fr]">
               <button type="button" onClick={event => watch(featured, event)} aria-label={'Watch ' + featured.title}
@@ -98,6 +108,7 @@ export default function LCVideoLibrary() {
                 {featured.publishedAt && <p className="mt-4 text-sm text-slate-400">{galleryDateLabel(featured.publishedAt)}</p>}
                 <div className="mt-6 flex flex-wrap gap-x-6 gap-y-4">
                   <RelatedReading video={featured} />
+                  <PodcastLink episode={podcastForVideo(featured.youtubeId)} />
                   <a href={featured.youtubeUrl} target="_blank" rel="noopener noreferrer" className={'inline-flex items-center gap-2 rounded text-sm font-bold text-white hover:text-cyan-200 ' + focusStyle}>Watch on YouTube <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
                   <Link to="/growth-show" className={'inline-flex items-center gap-2 rounded text-sm font-bold text-cyan-300 hover:text-cyan-100 ' + focusStyle}>Explore the Growth Show <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></Link>
                 </div>
@@ -164,6 +175,7 @@ export default function LCVideoLibrary() {
                     </h3>
                     <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
                       <RelatedReading video={video} />
+                  <PodcastLink episode={podcastForVideo(video.youtubeId)} />
                       {getVideoWatchById(video.youtubeId) && <Link to={getVideoWatchById(video.youtubeId).path} className={'rounded font-semibold text-cyan-300 hover:text-cyan-100 ' + focusStyle}>Video page</Link>}
                       <button type="button" onClick={event => watch(video, event)} aria-label={'Watch ' + video.title + ' here'} className={'inline-flex items-center gap-1.5 rounded font-semibold text-cyan-300 hover:text-cyan-100 ' + focusStyle}><Play className="h-3.5 w-3.5" aria-hidden="true" /> Watch here</button>
                       <a href={video.youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label={'Watch ' + video.title + ' on YouTube (opens a new tab)'} className={'inline-flex items-center gap-1 rounded text-slate-300 hover:text-white ' + focusStyle}>YouTube <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
@@ -220,6 +232,7 @@ export default function LCVideoLibrary() {
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
                   <RelatedReading video={selectedVideo} showTitle />
+                  <PodcastLink episode={podcastForVideo(selectedVideo.youtubeId)} />
                   {selectedVideo.relatedUrl || selectedVideo.hasArticle ? <Link to={selectedVideo.relatedUrl || '/' + selectedVideo.slug} className={'rounded text-sm font-semibold text-cyan-300 hover:text-cyan-100 ' + focusStyle}>Continue learning on NTA</Link> : <span className="text-sm text-slate-400">{selectedVideo.galleryCategory}</span>}
                   <a href={selectedVideo.youtubeUrl} target="_blank" rel="noopener noreferrer" className={'inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-bold text-slate-950 hover:bg-cyan-100 ' + focusStyle}><Youtube className="h-5 w-5" aria-hidden="true" /> Watch on YouTube <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
                 </div>

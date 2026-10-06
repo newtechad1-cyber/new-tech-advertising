@@ -1,3 +1,4 @@
+import LearningFormatNav from '@/components/knowledge/LearningFormatNav';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, CheckCircle, PlayCircle, BookMarked, BrainCircuit, Lightbulb, Users, Target, Search } from 'lucide-react';
@@ -66,6 +67,7 @@ export default function KnowledgeLibrary() {
               You do not have to complete everything at once. Begin with the question that matters most to you, or follow the complete journey one lesson at a time.
             </p>
 
+            <LearningFormatNav />
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link 
                 to="/knowledge/what-a-lifetime-in-business-taught-me" 
