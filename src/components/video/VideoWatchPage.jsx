@@ -4,8 +4,12 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { videoSchemaFor } from '@/data/videoSeo.js';
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 
 export default function VideoWatchPage({ video }) {
+  const { episodes } = useGrowthShow();
+  const episode = episodes.find(e => e.youtubeVideoId === video?.youtubeId);
   const schema = videoSchemaFor(video);
   useEffect(() => {
     // The route-aware production HTML has its own initial structured data.
@@ -27,7 +31,8 @@ export default function VideoWatchPage({ video }) {
         <h1 className="mt-3 max-w-4xl text-3xl font-black leading-tight text-white md:text-5xl">{video.title}</h1>
         <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">{video.description}</p>
         {video.publishedAt && <p className="mt-3 text-sm text-slate-400">Published <time dateTime={video.publishedAt}>{new Date(video.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time></p>}
-        <div className="mt-9 aspect-video overflow-hidden rounded-2xl border border-slate-700 bg-black">
+        {episode?.audioReady && <GrowthShowAudioPlayer episode={episode} />}
+        <div id="watch" className="mt-9 aspect-video scroll-mt-24 overflow-hidden rounded-2xl border border-slate-700 bg-black">
           <iframe
             className="h-full w-full"
             src={video.embedUrl}
