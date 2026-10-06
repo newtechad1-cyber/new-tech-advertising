@@ -6,6 +6,9 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import GrowthShowEpisodeConnections from '@/components/video/GrowthShowEpisodeConnections';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+import { findGrowthShowEpisode } from '@/lib/growthShow';
 
 const TITLE = "The NTA Growth Show — Episode 2 | Practical Digital Growth for Small Businesses";
 const DESCRIPTION = "Watch The NTA Growth Show — Episode 2 | Practical Digital Growth for Small Businesses from New Tech Advertising, then explore related practical business and AI learning.";
@@ -30,6 +33,8 @@ const VIDEO_SCHEMA = {
 };
 
 export default function NativeVideoPage04() {
+  const { episodes } = useGrowthShow();
+  const episode = findGrowthShowEpisode(episodes, 'nta-growth-show-episode-2');
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);
@@ -46,6 +51,7 @@ export default function NativeVideoPage04() {
         <h1 className="mt-3 max-w-4xl text-3xl font-black leading-tight text-white md:text-5xl">{TITLE}</h1>
         <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">{DESCRIPTION}</p>
         <p className="mt-3 text-sm text-slate-400">Published <time dateTime={UPLOAD_DATE}>August 10, 2026</time></p>
+        <GrowthShowAudioPlayer episode={episode} />
         <div className="mt-9 aspect-video overflow-hidden rounded-2xl border border-slate-700 bg-black">
           <iframe className="h-full w-full" src={EMBED_URL} title={TITLE} loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
@@ -55,7 +61,7 @@ export default function NativeVideoPage04() {
           <h2 className="text-2xl font-bold text-white">Continue the idea</h2>
           <p className="mt-4"><Link to="/growth-conversation" className="text-cyan-300 hover:text-cyan-100">Ask a question about your business</Link></p>
         </section>
-        <GrowthShowEpisodeConnections slug="nta-growth-show-episode-2" title={TITLE} path="/growth-show/nta-growth-show-episode-2" existingLinks={[]} skipTestimonial={false} />
+        <GrowthShowEpisodeConnections slug="nta-growth-show-episode-2" title={TITLE} path="/growth-show/nta-growth-show-episode-2" hideAudio existingLinks={[]} skipTestimonial={false} />
         <p className="mt-10"><Link to="/growth-show" className="text-sm font-semibold text-slate-300 hover:text-white">Explore more Growth Show episodes</Link></p>
       </main>
       <SiteFooter />

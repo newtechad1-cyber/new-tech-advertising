@@ -6,6 +6,9 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import GrowthShowEpisodeConnections from '@/components/video/GrowthShowEpisodeConnections';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+import { findGrowthShowEpisode } from '@/lib/growthShow';
 
 const TITLE = "AI Finally Taught Me How to Multitask | NTA Growth Show Episode 5";
 const DESCRIPTION = "Rick shares how working alongside AI helps him organize ideas and move several pieces of work forward.";
@@ -30,6 +33,8 @@ const VIDEO_SCHEMA = {
 };
 
 export default function NativeVideoPage02() {
+  const { episodes } = useGrowthShow();
+  const episode = findGrowthShowEpisode(episodes, 'ai-finally-taught-me-how-to-multitask');
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);
@@ -46,6 +51,7 @@ export default function NativeVideoPage02() {
         <h1 className="mt-3 max-w-4xl text-3xl font-black leading-tight text-white md:text-5xl">{TITLE}</h1>
         <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">{DESCRIPTION}</p>
         <p className="mt-3 text-sm text-slate-400">Published <time dateTime={UPLOAD_DATE}>September 8, 2026</time></p>
+        <GrowthShowAudioPlayer episode={episode} />
         <div className="mt-9 aspect-video overflow-hidden rounded-2xl border border-slate-700 bg-black">
           <iframe className="h-full w-full" src={EMBED_URL} title={TITLE} loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
@@ -62,7 +68,7 @@ export default function NativeVideoPage02() {
           <p className="mt-4"><Link to="/journal/issue-6-ai-finally-taught-me-how-to-multitask" className="text-cyan-300 hover:text-cyan-100">Read the related NTA Journal</Link></p>
           <p className="mt-4"><Link to="/growth-conversation" className="text-cyan-300 hover:text-cyan-100">Ask a question about your business</Link></p>
         </section>
-        <GrowthShowEpisodeConnections slug="ai-finally-taught-me-how-to-multitask" title={TITLE} path="/growth-show/ai-finally-taught-me-how-to-multitask" existingLinks={["/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask","/journal/issue-6-ai-finally-taught-me-how-to-multitask"]} skipTestimonial={true} />
+        <GrowthShowEpisodeConnections slug="ai-finally-taught-me-how-to-multitask" title={TITLE} path="/growth-show/ai-finally-taught-me-how-to-multitask" hideAudio existingLinks={["/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask","/journal/issue-6-ai-finally-taught-me-how-to-multitask"]} skipTestimonial={true} />
         <p className="mt-10"><Link to="/growth-show" className="text-sm font-semibold text-slate-300 hover:text-white">Explore more Growth Show episodes</Link></p>
       </main>
       <SiteFooter />

@@ -6,6 +6,9 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import GrowthShowEpisodeConnections from '@/components/video/GrowthShowEpisodeConnections';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+import { findGrowthShowEpisode } from '@/lib/growthShow';
 
 const TITLE = "Your Business Comes First. Technology Comes Second. | Growth Show Ep. 7";
 const DESCRIPTION = "A practical conversation about understanding your business before choosing the technology to support it.";
@@ -30,6 +33,8 @@ const VIDEO_SCHEMA = {
 };
 
 export default function NativeVideoPage01() {
+  const { episodes } = useGrowthShow();
+  const episode = findGrowthShowEpisode(episodes, 'before-you-add-ai-understand-your-business');
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);
@@ -46,6 +51,7 @@ export default function NativeVideoPage01() {
         <h1 className="mt-3 max-w-4xl text-3xl font-black leading-tight text-white md:text-5xl">{TITLE}</h1>
         <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">{DESCRIPTION}</p>
         <p className="mt-3 text-sm text-slate-400">Published <time dateTime={UPLOAD_DATE}>September 15, 2026</time></p>
+        <GrowthShowAudioPlayer episode={episode} />
         <div className="mt-9 aspect-video overflow-hidden rounded-2xl border border-slate-700 bg-black">
           <iframe className="h-full w-full" src={EMBED_URL} title={TITLE} loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
@@ -58,7 +64,7 @@ export default function NativeVideoPage01() {
           <p className="mt-4"><Link to="/books" className="text-cyan-300 hover:text-cyan-100">Explore the free business books</Link></p>
           <p className="mt-4"><Link to="/growth-conversation" className="text-cyan-300 hover:text-cyan-100">Ask a question about your business</Link></p>
         </section>
-        <GrowthShowEpisodeConnections slug="before-you-add-ai-understand-your-business" title={TITLE} path="/growth-show/before-you-add-ai-understand-your-business" existingLinks={["/knowledge/business-foundations/understanding-before-spending","/journal/issue-7-are-you-building-a-business-or-just-a-website","/books"]} skipTestimonial={false} />
+        <GrowthShowEpisodeConnections slug="before-you-add-ai-understand-your-business" title={TITLE} path="/growth-show/before-you-add-ai-understand-your-business" hideAudio existingLinks={["/knowledge/business-foundations/understanding-before-spending","/journal/issue-7-are-you-building-a-business-or-just-a-website","/books"]} skipTestimonial={false} />
         <p className="mt-10"><Link to="/growth-show" className="text-sm font-semibold text-slate-300 hover:text-white">Explore more Growth Show episodes</Link></p>
       </main>
       <SiteFooter />

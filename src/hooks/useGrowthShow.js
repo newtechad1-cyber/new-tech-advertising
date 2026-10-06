@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { GROWTH_SHOW_AUDIO } from '@/data/growthShowAudio';
 import { base44 } from '@/api/base44Client';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import { buildGrowthShowEpisodes } from '@/lib/growthShow';
@@ -13,7 +14,7 @@ function mergeEpisodeRecords(seedRecords, entityRecords) {
   for (const record of entityRecords) {
     byVideoId.set(record.youtube_video_id || record.id, record);
   }
-  return [...byVideoId.values()];
+  return [...byVideoId.values()].map(record => ({ ...GROWTH_SHOW_AUDIO[record.youtube_video_id], ...record }));
 }
 
 function mergeSourceArticles(articles, sourceArticles) {

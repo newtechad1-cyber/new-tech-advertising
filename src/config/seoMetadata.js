@@ -117,7 +117,7 @@ const STATIC_SEO = {
   },
   "/growth-show": {
     title: "The NTA Growth Show: Practical AI and Small Business Growth",
-    description: "Watch and learn with Rick Hesse about practical AI, digital growth, customer trust, and the real work of building a stronger small business.",
+    description: "Listen, watch and learn with Rick Hesse about practical AI, digital growth, customer trust, and the real work of building a stronger small business.",
   },
   "/growth-guide": {
     title: "Free Small Business Growth Guide | NTA",

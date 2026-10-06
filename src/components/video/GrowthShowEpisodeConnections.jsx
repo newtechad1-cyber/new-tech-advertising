@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
 import { findGrowthShowEpisode } from '@/lib/growthShow';
 import { ContentNextSteps } from '@/components/knowledge/ContentNextSteps';
 
-export default function GrowthShowEpisodeConnections({ slug, title, path, existingLinks = [], skipTestimonial = false }) {
+export default function GrowthShowEpisodeConnections({ slug, title, path, existingLinks = [], skipTestimonial = false, hideAudio = false }) {
   const { episodes } = useGrowthShow();
   const episode = findGrowthShowEpisode(episodes, slug);
   if (!episode) return null;
@@ -37,18 +38,13 @@ export default function GrowthShowEpisodeConnections({ slug, title, path, existi
     url: item.url,
     external: true,
   });
-  if (episode.podcastUrl) resources.push({
-    label: 'Podcast',
-    title: 'Listen to this episode',
-    url: episode.podcastUrl,
-    external: true,
-  });
 
   const normalized = url => String(url || '').replace(/^https:\/\/newtechadvertising\.com/, '');
   const visibleResources = resources.filter(resource => !existingLinks.some(link => normalized(link) === normalized(resource.url)));
 
   return (
     <section className="mt-12 border-t border-slate-800 pt-8" aria-label="Connected episode resources">
+      {!hideAudio && <GrowthShowAudioPlayer episode={episode} />}
       {episode.testimonial && !skipTestimonial && (
         <div className="mb-10 rounded-2xl border border-blue-400/25 bg-blue-500/5 p-6">
           <h2 className="text-xs font-bold uppercase tracking-widest text-blue-300">{episode.testimonial.label || 'A viewer’s response'}</h2>

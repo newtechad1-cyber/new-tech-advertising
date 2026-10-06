@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs scripts/generate-seo-pages.mjs",
+    "build": "node --experimental-loader=./scripts/resolve-extensionless-modules.mjs scripts/generate-podcast-feed.mjs && vite build && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs scripts/generate-seo-pages.mjs",
     "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "lint": "eslint .",
     "audit:security": "node scripts/security-audit.mjs",
@@ -19,7 +19,8 @@
     "check:release": "npm run audit:security -- --strict && npm run test:backend-auth && npm run test:growth-guide && npm run test:route-governance && npm run build && node --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs tests/visitor-journey.test.mjs && npm run test:core-bridge && npm run check:core-bridge && npm run check:core-bridge-live",
     "test:core-bridge": "node --test tests/core-bridge-boundaries.test.mjs tests/core-bridge-runtime.test.mjs",
     "check:core-bridge": "node scripts/check-core-bridge-readiness.mjs",
-    "check:core-bridge-live": "node scripts/check-core-bridge-live.mjs"
+    "check:core-bridge-live": "node scripts/check-core-bridge-live.mjs",
+    "test:podcast": "node --test tests/growth-show-podcast.test.mjs"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.53",

@@ -7,6 +7,7 @@ import { ContentNextSteps } from '@/components/knowledge/ContentNextSteps';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
 import { findGrowthShowEpisode } from '@/lib/growthShow';
 import VideoWatchPage from '@/components/video/VideoWatchPage';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 
 function ResourceCard({ icon: Icon, eyebrow, title, description, to, external = false }) {
   const content = (
@@ -88,6 +89,7 @@ export default function GrowthShowEpisode({ initialVideo = null }) {
         </header>
 
         <section className="mx-auto max-w-5xl px-6 py-12">
+          <GrowthShowAudioPlayer episode={episode} />
           <div className="aspect-video overflow-hidden rounded-2xl border border-slate-800 bg-black shadow-2xl">
             {episode.youtubeVideoId ? (
               <iframe
@@ -213,14 +215,13 @@ export default function GrowthShowEpisode({ initialVideo = null }) {
               />
             ))}
 
-            {episode.podcastUrl && (
+            {episode.audioReady && (
               <ResourceCard
                 icon={Headphones}
                 eyebrow="Podcast"
                 title="Listen to this episode"
                 description="Continue the same conversation in audio form."
-                to={episode.podcastUrl}
-                external
+                to="#listen"
               />
             )}
           </div>

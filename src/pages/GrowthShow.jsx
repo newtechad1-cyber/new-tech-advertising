@@ -34,6 +34,7 @@ function EpisodeCard({ episode }) {
         <p className="mb-2 text-xs font-bold uppercase tracking-widest text-blue-400">
           {episode.episodeNumber ? `Episode ${episode.episodeNumber}` : 'NTA Growth Show'}
         </p>
+        {episode.audioReady && <p className="mb-3 text-sm font-semibold text-cyan-300">Listen · Watch · Learn</p>}
         <h2 className="text-xl font-black leading-tight text-white transition-colors group-hover:text-blue-300">{episode.title}</h2>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-400">{episode.summary}</p>
         <div className="mt-5 flex flex-wrap gap-3 text-xs text-slate-500">
@@ -77,11 +78,12 @@ export default function GrowthShow() {
             </div>
             <h1 className="text-4xl font-black tracking-tight text-white md:text-6xl">One useful conversation. A complete learning path.</h1>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-400">
-              The NTA Growth Show turns practical business conversations into connected learning. Watch the episode, read the related lessons, explore the Journal, and follow the idea across the NTA publishing system.
+              The NTA Growth Show turns practical business conversations into connected learning. Listen or watch here, read the related lessons, explore the Journal, and follow the idea across the NTA publishing system.
             </p>
-            <div className="mx-auto mt-8 grid max-w-3xl grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+            <div className="mx-auto mt-8 grid max-w-3xl grid-cols-2 gap-3 text-sm sm:grid-cols-5">
               {[
-                ['Watch', 'YouTube episode'],
+                ['Listen', 'Full episode audio'],
+                ['Watch', 'On-site video'],
                 ['Learn', 'Knowledge Library'],
                 ['Continue', 'Journal and books'],
                 ['Share', 'Social clips'],
@@ -93,6 +95,7 @@ export default function GrowthShow() {
               ))}
             </div>
           </div>
+            {episodes.some(episode => episode.audioReady) && <p className="relative mt-7 text-center"><a href="/growth-show.xml" className="font-semibold text-cyan-300 underline">Podcast RSS feed</a></p>}
         </header>
 
         <section className="mx-auto max-w-6xl px-6 py-14">
@@ -138,7 +141,7 @@ export default function GrowthShow() {
                       <Calendar className="h-4 w-4" /> {featured.publishedDate}
                     </p>
                   )}
-                  <span className="mt-7 inline-flex items-center gap-2 font-bold text-blue-400">Watch and explore the episode <ArrowRight className="h-4 w-4" /></span>
+                  <span className="mt-7 inline-flex items-center gap-2 font-bold text-blue-400">{featured.audioReady ? "Listen, watch and explore" : "Watch and explore the episode"} <ArrowRight className="h-4 w-4" /></span>
                 </div>
               </Link>
 

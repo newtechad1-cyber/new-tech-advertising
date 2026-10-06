@@ -6,6 +6,9 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import GrowthShowEpisodeConnections from '@/components/video/GrowthShowEpisodeConnections';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+import { findGrowthShowEpisode } from '@/lib/growthShow';
 
 const TITLE = "You Don’t Need More Marketing—You Need a Connected System | NTA Growth Show";
 const DESCRIPTION = "Watch You Don’t Need More Marketing—You Need a Connected System | NTA Growth Show from New Tech Advertising, then explore related practical business and AI learning.";
@@ -30,6 +33,8 @@ const VIDEO_SCHEMA = {
 };
 
 export default function NativeVideoPage03() {
+  const { episodes } = useGrowthShow();
+  const episode = findGrowthShowEpisode(episodes, 'you-dont-need-more-marketing-connected-system');
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);
@@ -46,6 +51,7 @@ export default function NativeVideoPage03() {
         <h1 className="mt-3 max-w-4xl text-3xl font-black leading-tight text-white md:text-5xl">{TITLE}</h1>
         <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">{DESCRIPTION}</p>
         <p className="mt-3 text-sm text-slate-400">Published <time dateTime={UPLOAD_DATE}>August 24, 2026</time></p>
+        <GrowthShowAudioPlayer episode={episode} />
         <div className="mt-9 aspect-video overflow-hidden rounded-2xl border border-slate-700 bg-black">
           <iframe className="h-full w-full" src={EMBED_URL} title={TITLE} loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
@@ -56,7 +62,7 @@ export default function NativeVideoPage03() {
           <p className="mt-4"><Link to="/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system" className="text-cyan-300 hover:text-cyan-100">Read the related lesson: Businesses Don’t Need More Marketing. They Need a Better Growth System.</Link></p>
           <p className="mt-4"><Link to="/growth-conversation" className="text-cyan-300 hover:text-cyan-100">Ask a question about your business</Link></p>
         </section>
-        <GrowthShowEpisodeConnections slug="you-dont-need-more-marketing-connected-system" title={TITLE} path="/growth-show/you-dont-need-more-marketing-connected-system" existingLinks={["/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system"]} skipTestimonial={false} />
+        <GrowthShowEpisodeConnections slug="you-dont-need-more-marketing-connected-system" title={TITLE} path="/growth-show/you-dont-need-more-marketing-connected-system" hideAudio existingLinks={["/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system"]} skipTestimonial={false} />
         <p className="mt-10"><Link to="/growth-show" className="text-sm font-semibold text-slate-300 hover:text-white">Explore more Growth Show episodes</Link></p>
       </main>
       <SiteFooter />
