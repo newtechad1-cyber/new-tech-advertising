@@ -5,6 +5,7 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 
 function EpisodeCard({ episode }) {
   return (
@@ -144,6 +145,7 @@ export default function GrowthShow() {
                   <span className="mt-7 inline-flex items-center gap-2 font-bold text-blue-400">{featured.audioReady ? "Listen, watch and explore" : "Watch and explore the episode"} <ArrowRight className="h-4 w-4" /></span>
                 </div>
               </Link>
+              <GrowthShowAudioPlayer episode={featured} />
 
               <div className="mt-14 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                 <div>
