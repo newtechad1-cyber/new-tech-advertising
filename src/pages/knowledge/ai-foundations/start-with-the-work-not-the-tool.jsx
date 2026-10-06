@@ -1,3 +1,4 @@
+import LessonMediaOptions from '@/components/knowledge/LessonMediaOptions';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle } from 'lucide-react';
@@ -80,7 +81,8 @@ export default function StartWithTheWorkNotTheToolLessonPage() {
           </div>
         </header>
         <article className="px-6 py-12"><div className="mx-auto max-w-3xl">
-          <LessonArticle content={CONTENT} />
+          <LessonMediaOptions path={LESSON_PATH} />
+          <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={CONTENT} /></div>
           <aside className="mt-16 border-t border-slate-800 pt-10" aria-labelledby="related-lessons-heading">
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-blue-400">Continue Learning</p>
             <h2 id="related-lessons-heading" className="mb-6 text-2xl font-black text-white">Keep exploring this idea</h2>

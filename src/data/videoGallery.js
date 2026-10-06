@@ -6,6 +6,22 @@ export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
 {
+  "youtubeId": "814-k8Tl-LE",
+  "title": "Business Owners Are Tired of Being Sold | NTA Growth Show — Episode 10",
+  "publishedAt": "2026-10-05T00:00:00Z",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/business-owners-are-tired-of-being-sold",
+  "summary": "Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide."
+},
+{
+  "youtubeId": "bRuUdNZZzwQ",
+  "title": "They Sold Me the Tools. They Didn't Give Me a System.",
+  "publishedAt": "2026-07-25T00:00:00Z",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system",
+  "summary": "Rick Hesse and the NTA Growth Guide explore why access to advertising and AI tools is not the same as having a connected business growth system."
+},
+{
   "youtubeId": "rbqIiynd1zo",
   "title": "I Didn't Set Out to Build an AI Team | The NTA Growth Show",
   "publishedAt": "2026-09-29T14:10:47Z",

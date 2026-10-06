@@ -1,3 +1,4 @@
+import LessonMediaOptions from '@/components/knowledge/LessonMediaOptions';
 // Generated native lesson page. Source content: src/data/masterCurriculum.js.
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -100,7 +101,8 @@ export default function NativeLessonPage001() {
           </div>
         </header>
         <article className="px-6 py-12"><div className="mx-auto max-w-3xl">
-          <LessonArticle content={CONTENT} />
+          <LessonMediaOptions path={LESSON_PATH} />
+          <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={CONTENT} /></div>
           {READER_RESPONSE && <section className="mt-12 rounded-2xl border border-blue-400/25 bg-blue-500/5 p-6 md:p-8">
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-blue-300">{READER_RESPONSE.label || 'A reader’s response'}</p>
             <blockquote className="text-2xl font-medium leading-relaxed text-white">“{READER_RESPONSE.quote}”</blockquote>
