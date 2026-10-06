@@ -28,7 +28,7 @@ const NAV_LINKS = [
       { label: 'The NTA Point of View', href: '/point-of-view', desc: 'Our philosophy and experience' },
       { label: 'Knowledge Library', href: '/knowledge', desc: 'Read practical lessons and ideas' },
       { label: 'Video Library', href: '/learning-center/videos', desc: 'Watch NTA videos by topic' },
-      { label: 'Podcasts — Listen', href: '/podcasts', desc: 'Listen to complete Growth Show episodes' },
+      { label: 'Podcast Library — Listen', href: '/podcasts', desc: 'Listen to complete Growth Show episodes' },
       { label: 'Books', href: '/books', desc: 'Explore both free business books' },
       { label: 'Questions & Answers', href: '/knowledge/questions', desc: 'Start with the question on your mind' },
       { label: 'Practical AI', href: '/practical-ai-for-small-business', desc: 'Practical AI for small businesses' },
