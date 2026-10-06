@@ -5,7 +5,7 @@ Prepared in New Tech Advertising, app 691f41a18de4a7f498c8f884. Rick publishes t
 ## Changes
 
 - Dedicated /podcasts page with eight complete Growth Show audio episodes, search, Watch and related Read links, and RSS access.
-- Video Library and Podcasts in the header and Learn menu; Read / Watch / Listen / Books navigation across the learning and book destinations.
+- Video Library and Podcast Library inside the Learn menu, with no duplicate top-level header buttons; Read / Watch / Listen / Books navigation across the learning and book destinations.
 - Podcast links in the gallery and video detail views; twelve lessons with confirmed editorial video connections, including seven connected to actual podcast audio.
 - Curated gallery now includes both previously missing Growth Show uploads, for 35 selected videos.
 - Public /podcasts route, canonical metadata, sitemap and static search content.
@@ -24,3 +24,7 @@ Existing connections are editorial topic pairings, not word-for-word recordings.
 Browser checks verified all twelve paired native lesson routes with no page errors, Watch/Listen switching, eight podcast players, actual audio playback and seeking, and mobile navigation with no horizontal overflow. Desktop and mobile screenshots were inspected. Production build and podcast integrity tests pass. Source is autosynced to the matching GitHub repository. Saved changes require Rick’s Publish → Publish App step; live discovery UI has not yet been verified after publication.
 
 After publishing, check /podcasts, Learn → Video Library / Podcasts, gallery Growth Show Listen links, and /knowledge/business-foundations/understanding-before-spending. Existing public MP3 URLs were verified separately; never treat source saves as a production UI deployment.
+
+## Follow-up navigation correction
+
+A fresh browser verified the published Episode 10 Growth Show page has its real audio player and the published Learn dropdown has both library links. Rick then confirmed finding the links and directed both libraries to remain within Learn. Separate Video Library and Podcasts header buttons were removed, and the dropdown now says Podcast Library — Listen. Episode 10’s lesson now shows explicit Watch, Listen and Read choices plus its full audio player above the video. The episode page renders verified available seed content while related resources are loading. Browser checks passed with no page errors; these follow-up edits still require Rick’s publishing step.
