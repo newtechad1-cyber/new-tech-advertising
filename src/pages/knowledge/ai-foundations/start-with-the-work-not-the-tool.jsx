@@ -107,7 +107,7 @@ export default function StartWithTheWorkNotTheToolLessonPage() {
             </div>
           </div>
         </section>
-        <LessonDoorwayQuestions lessonPath={LESSON_PATH} />
+        <LessonDoorwayQuestions lessonPath={'/knowledge/ai-foundations/start-with-the-work-not-the-tool'} />
         <section className="px-6 py-12"><div className="mx-auto max-w-3xl"><ContentNextSteps title={TITLE} path="/knowledge/ai-foundations/start-with-the-work-not-the-tool" /></div></section>
         <nav className="border-t border-slate-800 px-6 py-8" aria-label="Lesson navigation">
           <div className="mx-auto flex max-w-4xl flex-col justify-between gap-6 sm:flex-row">
