@@ -53,8 +53,8 @@ export default function SiteFooter() {
           <ul className="space-y-2 text-sm">
             <li><Link to="/knowledge" className="hover:text-white transition-colors">Knowledge Library</Link></li>
             <li><Link to="/knowledge/ai-foundations" className="hover:text-white transition-colors">Free AI Education</Link></li>
-            <li><Link to="/growth-show" className="hover:text-white transition-colors">NTA Growth Show</Link></li>
-            <li><Link to="/learning-center/videos" className="hover:text-white transition-colors">Video Gallery</Link></li>
+            <li><Link to="/growth-show" className="hover:text-white transition-colors">Growth Show — Watch or Listen</Link></li>
+            <li><Link to="/learning-center/videos" className="hover:text-white transition-colors">Video Library</Link></li>
             <li><Link to="/journal" className="hover:text-white transition-colors">NTA Journal</Link></li>
             <li><Link to="/books" className="hover:text-white transition-colors">Free Business Books</Link></li>
             <li><Link to="/knowledge/questions" className="hover:text-white transition-colors">Questions &amp; Lessons</Link></li>
