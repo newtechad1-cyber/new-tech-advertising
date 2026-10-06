@@ -1,4 +1,5 @@
-import LessonMediaOptions from '@/components/knowledge/LessonMediaOptions';
+import { useGrowthShow } from '@/hooks/useGrowthShow';
+import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -7,6 +8,8 @@ import LessonArticle from '@/components/knowledge/LessonArticle';
 import { lesson8 as lesson } from '@/data/truthAboutBusinessGrowthLesson8';
 
 export default function BusinessOwnersAreTiredOfBeingSold() {
+  const { episodes } = useGrowthShow();
+  const episode = episodes.find(item => item.youtubeVideoId === '814-k8Tl-LE');
   return <div className="min-h-screen bg-slate-950 text-slate-300">
     <SEOHead title={lesson.title} description={lesson.searchDescription} canonical="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold" articleData={{title:lesson.title,author:'Rick Hesse',datePublished:lesson.publishedDate}} />
     <MarketingNav />
@@ -17,9 +20,15 @@ export default function BusinessOwnersAreTiredOfBeingSold() {
       <p className="mt-6 text-xl leading-8">{lesson.description}</p>
       <p className="mt-5 mb-12 text-sm text-slate-400">By Rick Hesse · {lesson.readingTime}</p>
       <section className="mb-12 rounded-2xl border border-blue-500/25 bg-blue-950/20 p-6">
-        <h2 className="text-2xl font-bold text-white">Watch the conversation — Episode 10</h2>
+        <h2 className="text-2xl font-bold text-white">Watch or listen to the conversation — Episode 10</h2>
         <p className="mt-3 leading-7">Rick Hesse and the Free AI Guy discuss a better way to buy advertising.</p>
-        <div className="mt-5 aspect-video overflow-hidden rounded-xl">
+        <div className="mt-4 flex flex-wrap gap-3">
+          <a href="#watch" className="rounded-lg bg-blue-600 px-4 py-3 font-bold text-white">Watch Episode 10</a>
+          <Link to="/podcasts#business-owners-are-tired-of-being-sold" className="rounded-lg bg-cyan-300 px-4 py-3 font-bold text-slate-950">Listen to Episode 10 podcast</Link>
+          <a href="#lesson-reading" className="rounded-lg border border-slate-600 px-4 py-3 font-bold text-white">Read this lesson</a>
+        </div>
+        <GrowthShowAudioPlayer episode={episode} />
+        <div id="watch" className="mt-5 scroll-mt-24 aspect-video overflow-hidden rounded-xl">
           <iframe className="h-full w-full" src="https://www.youtube-nocookie.com/embed/814-k8Tl-LE?rel=0" title="Business Owners Are Tired of Being Sold — NTA Growth Show Episode 10" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
         </div>
         <div className="mt-5 flex flex-wrap gap-6">
@@ -27,7 +36,6 @@ export default function BusinessOwnersAreTiredOfBeingSold() {
           <Link to="/journal/issue-10-a-better-way-to-buy-advertising" className="text-cyan-300 hover:text-white">Read Journal Issue 10</Link>
         </div>
       </section>
-      <LessonMediaOptions path="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold" />
       <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={lesson.content} /></div>
       <aside className="mt-14 rounded-2xl border border-cyan-500/25 bg-cyan-950/15 p-7">
         <h2 className="text-xl font-bold text-white">Put it to work</h2>
