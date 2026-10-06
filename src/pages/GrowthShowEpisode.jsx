@@ -34,7 +34,7 @@ export default function GrowthShowEpisode({ initialVideo = null }) {
   const { episodes, loading } = useGrowthShow();
   const episode = findGrowthShowEpisode(episodes, slug);
 
-  if (loading) {
+  if (loading && !episode) {
     return initialVideo
       ? <VideoWatchPage video={initialVideo} />
       : <div className="flex min-h-screen items-center justify-center bg-slate-950 text-slate-400"><Loader2 className="mr-3 h-6 w-6 animate-spin" /> Loading episode…</div>;
