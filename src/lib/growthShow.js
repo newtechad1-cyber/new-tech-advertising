@@ -1,3 +1,5 @@
+import { isPodcastAudioReady } from './growthShowPodcast.js';
+
 const DEFAULT_BOOKS = [
   {
     slug: 'better-business-book',
@@ -184,7 +186,12 @@ export function buildGrowthShowEpisodes({
         books,
         socialAssets: overlay.social_assets?.length ? overlay.social_assets : DEFAULT_SOCIAL_LINKS,
         downloadableResources: overlay.downloadable_resources || [],
-        podcastUrl: overlay.podcast_url || '',
+        audioReady: isPodcastAudioReady(overlay),
+        audioUrl: isPodcastAudioReady(overlay) ? overlay.audio_url : '',
+        audioStatus: overlay.audio_status || 'Missing',
+        audioContentType: overlay.audio_content_type || '',
+        audioDurationSeconds: overlay.audio_duration_seconds || 0,
+        podcastUrl: '',
         ctaText: overlay.cta_text || article?.cta_text || 'Start a Growth Conversation',
         ctaUrl: overlay.cta_url || article?.cta_url || '/growth-conversation',
         publishingArticleId: overlay.publishing_article_id || video.source_article_id || article?.id || '',
