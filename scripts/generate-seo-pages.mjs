@@ -1,4 +1,6 @@
 import fs from "node:fs";
+import { SEED_GROWTH_SHOW_EPISODES } from "../src/data/growthShowEpisodes.js";
+import { GROWTH_SHOW_AUDIO } from "../src/data/growthShowAudio.js";
 import { VERIFIED_VIDEO_SELECTION, NTA_YOUTUBE_CHANNEL_URL } from "../src/data/videoGallery.js";
 import { BOOK_PAGES, getBookByPath, bookSchemaFor } from "../src/data/bookSeo.js";
 import { VIDEO_WATCH_PAGES, getVideoWatchById, getVideoWatchByPath, videoSchemaFor } from "../src/data/videoSeo.js";
@@ -1135,12 +1137,19 @@ function approvedLessonStaticBody(pathname) {
     '</article></main>';
 }
 
+function podcastStaticBody(pathname) {
+  if (pathname !== '/podcasts') return '';
+  const episodes = SEED_GROWTH_SHOW_EPISODES.filter(e => GROWTH_SHOW_AUDIO[e.youtube_video_id]?.audio_status === 'Ready');
+  return '<main data-prerendered="true" class="seo-shell"><h1>Prefer to listen? Start here.</h1><p>Full audio episodes of the NTA Growth Show with Rick Hesse. Choose an episode, listen here, or explore its related video and reading.</p>' + episodes.map(e => '<article id="' + escapeHtml(e.slug) + '"><h2>' + escapeHtml(e.title) + '</h2><p>' + escapeHtml(e.summary) + '</p><audio controls preload="none" src="' + escapeHtml(GROWTH_SHOW_AUDIO[e.youtube_video_id].audio_url) + '"></audio><p><a href="/growth-show/' + escapeHtml(e.slug) + '#watch">Watch video and explore episode resources</a></p></article>').join('') + '<nav aria-label="Learning formats"><a href="/knowledge">Read lessons</a><a href="/learning-center/videos">Watch videos</a><a href="/books">Explore books</a><a href="/growth-show.xml">Podcast RSS feed</a></nav></main>';
+}
+
 function shellMarkup(metadata, pathname) {
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = approvedLessonStaticBody(pathname)
+  const body = podcastStaticBody(pathname)
+    || approvedLessonStaticBody(pathname)
     || accessibilityStaticBody(pathname)
     || videoWatchStaticBody(pathname)
     || bookStaticBody(pathname)

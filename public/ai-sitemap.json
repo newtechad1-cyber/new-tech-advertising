@@ -338,6 +338,13 @@
       "lastModified": "2026-09-25"
     },
     {
+      "title": "NTA Podcasts — Listen to the Growth Show",
+      "canonicalUrl": "https://newtechadvertising.com/podcasts",
+      "contentType": "CollectionPage",
+      "description": "Listen to full NTA Growth Show episodes and explore related videos, lessons and books.",
+      "lastModified": "2026-10-06"
+    },
+    {
       "title": "Small Business Questions About AI, Marketing, and Growth",
       "canonicalUrl": "https://newtechadvertising.com/knowledge/questions",
       "contentType": "CollectionPage",
@@ -836,13 +843,6 @@
       "publisher": "New Tech Advertising",
       "publicStatus": "published",
       "lastModified": "2026-09-11"
-    },
-    {
-      "title": "NTA Podcasts — Listen to the Growth Show",
-      "canonicalUrl": "https://newtechadvertising.com/podcasts",
-      "contentType": "CollectionPage",
-      "description": "Listen to full NTA Growth Show episodes and explore related videos, lessons and books.",
-      "lastModified": "2026-10-06"
     }
   ],
   "knowledgeCollections": [
