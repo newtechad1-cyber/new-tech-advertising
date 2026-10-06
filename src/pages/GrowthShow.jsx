@@ -9,8 +9,7 @@ import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 
 function EpisodeCard({ episode }) {
   return (
-    <Link
-      to={`/growth-show/${episode.slug}`}
+    <article
       className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/50 transition-all hover:-translate-y-1 hover:border-blue-500/40"
     >
       <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950">
@@ -36,7 +35,11 @@ function EpisodeCard({ episode }) {
           {episode.episodeNumber ? `Episode ${episode.episodeNumber}` : 'NTA Growth Show'}
         </p>
         {episode.audioReady && <p className="mb-3 text-sm font-semibold text-cyan-300">Listen · Watch · Learn</p>}
-        <h2 className="text-xl font-black leading-tight text-white transition-colors group-hover:text-blue-300">{episode.title}</h2>
+        <h2 className="text-xl font-black leading-tight text-white transition-colors group-hover:text-blue-300"><Link to={`/growth-show/${episode.slug}`}>{episode.title}</Link></h2>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link to={`/growth-show/${episode.slug}#watch`} className="rounded-lg bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-500">Watch</Link>
+          {episode.audioReady && <Link to={`/growth-show/${episode.slug}#listen`} className="rounded-lg border border-cyan-300 px-4 py-2 font-bold text-cyan-200 hover:bg-cyan-500/10">Listen</Link>}
+        </div>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-400">{episode.summary}</p>
         <div className="mt-5 flex flex-wrap gap-3 text-xs text-slate-500">
           <span className="inline-flex items-center gap-1"><BookOpen className="h-3.5 w-3.5" /> {episode.lessons.length || 1} lesson connection</span>
@@ -44,7 +47,7 @@ function EpisodeCard({ episode }) {
           <span className="inline-flex items-center gap-1"><Share2 className="h-3.5 w-3.5" /> Social</span>
         </div>
       </div>
-    </Link>
+    </article>
   );
 }
 
@@ -77,7 +80,7 @@ export default function GrowthShow() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-sm font-bold uppercase tracking-widest text-blue-400">
               <Play className="h-4 w-4 fill-current" /> The NTA Growth Show
             </div>
-            <h1 className="text-4xl font-black tracking-tight text-white md:text-6xl">One useful conversation. A complete learning path.</h1>
+            <h1 className="text-4xl font-black tracking-tight text-white md:text-6xl">Watch the show. Listen to the podcast.</h1>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-400">
               The NTA Growth Show turns practical business conversations into connected learning. Listen or watch here, read the related lessons, explore the Journal, and follow the idea across the NTA publishing system.
             </p>
@@ -106,7 +109,7 @@ export default function GrowthShow() {
             </div>
           ) : featured ? (
             <>
-              <Link to={`/growth-show/${featured.slug}`} className="group grid overflow-hidden rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-950/40 to-slate-900 lg:grid-cols-2">
+              <div className="group grid overflow-hidden rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-950/40 to-slate-900 lg:grid-cols-2">
                 <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950 lg:aspect-auto">
                   {featured.thumbnailUrl ? (
                     <img src={featured.thumbnailUrl} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -142,9 +145,13 @@ export default function GrowthShow() {
                       <Calendar className="h-4 w-4" /> {featured.publishedDate}
                     </p>
                   )}
-                  <span className="mt-7 inline-flex items-center gap-2 font-bold text-blue-400">{featured.audioReady ? "Listen, watch and explore" : "Watch and explore the episode"} <ArrowRight className="h-4 w-4" /></span>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <Link to={`/growth-show/${featured.slug}#watch`} className="rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">Watch episode</Link>
+                    {featured.audioReady && <a href="#listen" className="rounded-xl border border-cyan-300 px-5 py-3 font-bold text-cyan-200 hover:bg-cyan-500/10">Listen to podcast</a>}
+                    <Link to={`/growth-show/${featured.slug}`} className="inline-flex items-center gap-2 px-3 py-3 font-bold text-blue-300">Explore episode <ArrowRight className="h-4 w-4" /></Link>
+                  </div>
                 </div>
-              </Link>
+              </div>
               <GrowthShowAudioPlayer episode={featured} />
 
               <div className="mt-14 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
