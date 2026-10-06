@@ -52,7 +52,7 @@ export default function NativeVideoPage02() {
         <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">{DESCRIPTION}</p>
         <p className="mt-3 text-sm text-slate-400">Published <time dateTime={UPLOAD_DATE}>September 8, 2026</time></p>
         <GrowthShowAudioPlayer episode={episode} />
-        <div id="watch" className="scroll-mt-24 "mt-9 aspect-video overflow-hidden rounded-2xl border border-slate-700 bg-black">
+        <div id="watch" className="scroll-mt-24 mt-9 aspect-video overflow-hidden rounded-2xl border border-slate-700 bg-black">
           <iframe className="h-full w-full" src={EMBED_URL} title={TITLE} loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
         </div>
