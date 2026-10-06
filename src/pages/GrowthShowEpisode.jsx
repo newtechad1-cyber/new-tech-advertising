@@ -90,7 +90,7 @@ export default function GrowthShowEpisode({ initialVideo = null }) {
 
         <section className="mx-auto max-w-5xl px-6 py-12">
           <GrowthShowAudioPlayer episode={episode} />
-          <div className="aspect-video overflow-hidden rounded-2xl border border-slate-800 bg-black shadow-2xl">
+          <div id="watch" className="scroll-mt-24 "aspect-video overflow-hidden rounded-2xl border border-slate-800 bg-black shadow-2xl">
             {episode.youtubeVideoId ? (
               <iframe
                 className="h-full w-full"
