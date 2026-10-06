@@ -81,7 +81,7 @@ export default function StartWithTheWorkNotTheToolLessonPage() {
           </div>
         </header>
         <article className="px-6 py-12"><div className="mx-auto max-w-3xl">
-          <LessonMediaOptions path={LESSON_PATH} />
+          <LessonMediaOptions path={'/knowledge/ai-foundations/start-with-the-work-not-the-tool'} />
           <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={CONTENT} /></div>
           <aside className="mt-16 border-t border-slate-800 pt-10" aria-labelledby="related-lessons-heading">
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-blue-400">Continue Learning</p>

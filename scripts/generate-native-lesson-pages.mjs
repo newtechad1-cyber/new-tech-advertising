@@ -109,6 +109,7 @@ function renderPage(template, collection, lesson, name) {
     "Next Lesson: AI Needs Context Before It Can Be Helpful<ArrowRight className=\"h-5 w-5\" />",
     "{NEXT_LABEL}<ArrowRight className=\"h-5 w-5\" />");
 
+  page = replaceExact(page, "<LessonMediaOptions path={'/knowledge/ai-foundations/start-with-the-work-not-the-tool'} />", "<LessonMediaOptions path={LESSON_PATH} />");
   page = replaceExact(page, '          <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={CONTENT} /></div>',
     '          <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={CONTENT} /></div>\n' +
     "          {READER_RESPONSE && <section className=\"mt-12 rounded-2xl border border-blue-400/25 bg-blue-500/5 p-6 md:p-8\">\n" +
