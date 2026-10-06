@@ -7,8 +7,6 @@ const OPPORTUNITY_HREF = '/digital-growth-advisor';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'Video Library', href: '/learning-center/videos' },
-  { label: 'Podcasts', href: '/podcasts' },
   {
     label: 'How It Works',
     href: '/start',
