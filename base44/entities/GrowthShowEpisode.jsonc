@@ -19,7 +19,14 @@
     },
     "status": {
       "type": "string",
-      "enum": ["Draft", "Review", "Approved", "Scheduled", "Published", "Archived"],
+      "enum": [
+        "Draft",
+        "Review",
+        "Approved",
+        "Scheduled",
+        "Published",
+        "Archived"
+      ],
       "default": "Draft"
     },
     "published_date": {
@@ -60,25 +67,39 @@
     },
     "related_lesson_canon_ids": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "related_journal_issue_ids": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "related_book_slugs": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "social_assets": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "platform": { "type": "string" },
-          "label": { "type": "string" },
-          "url": { "type": "string" },
-          "asset_id": { "type": "string" }
+          "platform": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "asset_id": {
+            "type": "string"
+          }
         }
       }
     },
@@ -87,9 +108,15 @@
       "items": {
         "type": "object",
         "properties": {
-          "title": { "type": "string" },
-          "url": { "type": "string" },
-          "description": { "type": "string" }
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
         }
       }
     },
@@ -107,13 +134,72 @@
     "notes": {
       "type": "string",
       "description": "Internal publishing notes"
+    },
+    "audio_url": {
+      "type": "string"
+    },
+    "audio_source_url": {
+      "type": "string"
+    },
+    "audio_verified_at": {
+      "type": "string"
+    },
+    "audio_content_type": {
+      "type": "string"
+    },
+    "audio_sha256": {
+      "type": "string"
+    },
+    "audio_verification_method": {
+      "type": "string"
+    },
+    "audio_status": {
+      "type": "string",
+      "enum": [
+        "Missing",
+        "Converted",
+        "Review",
+        "Ready",
+        "Failed"
+      ]
+    },
+    "audio_byte_length": {
+      "type": "integer"
+    },
+    "audio_duration_seconds": {
+      "type": "number"
+    },
+    "audio_complete": {
+      "type": "boolean"
+    },
+    "audio_sound_checked": {
+      "type": "boolean"
+    },
+    "audio_seek_checked": {
+      "type": "boolean"
     }
   },
-  "required": ["title", "slug", "status"],
+  "required": [
+    "title",
+    "slug",
+    "status"
+  ],
   "rls": {
-    "create": { "user_condition": { "role": "admin" } },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
     "read": true,
-    "update": { "user_condition": { "role": "admin" } },
-    "delete": { "user_condition": { "role": "admin" } }
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
   }
 }
