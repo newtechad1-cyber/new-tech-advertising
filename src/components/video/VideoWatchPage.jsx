@@ -9,7 +9,7 @@ import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 
 export default function VideoWatchPage({ video }) {
   const { episodes } = useGrowthShow();
-  const episode = episodes.find(e => e.youtubeVideoId === video?.youtubeId);
+  const episode = episodes.find(e => e.youtubeVideoId === video?.id);
   const schema = videoSchemaFor(video);
   useEffect(() => {
     // The route-aware production HTML has its own initial structured data.
