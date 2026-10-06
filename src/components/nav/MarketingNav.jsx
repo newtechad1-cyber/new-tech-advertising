@@ -8,7 +8,7 @@ const OPPORTUNITY_HREF = '/digital-growth-advisor';
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Video Library', href: '/learning-center/videos' },
-  { label: 'Podcast', href: '/growth-show' },
+  { label: 'Podcasts', href: '/podcasts' },
   {
     label: 'How It Works',
     href: '/start',
@@ -26,7 +26,10 @@ const NAV_LINKS = [
     href: '/knowledge',
     children: [
       { label: 'The NTA Point of View', href: '/point-of-view', desc: 'Our philosophy and experience' },
-      { label: 'Knowledge Library', href: '/knowledge', desc: 'Practical lessons and ideas' },
+      { label: 'Knowledge Library', href: '/knowledge', desc: 'Read practical lessons and ideas' },
+      { label: 'Video Library', href: '/learning-center/videos', desc: 'Watch NTA videos by topic' },
+      { label: 'Podcasts — Listen', href: '/podcasts', desc: 'Listen to complete Growth Show episodes' },
+      { label: 'Books', href: '/books', desc: 'Explore both free business books' },
       { label: 'Questions & Answers', href: '/knowledge/questions', desc: 'Start with the question on your mind' },
       { label: 'Practical AI', href: '/practical-ai-for-small-business', desc: 'Practical AI for small businesses' },
       { label: 'Better Business Building Book', href: '/better-business-book', desc: 'A free, practical book for owners' },
