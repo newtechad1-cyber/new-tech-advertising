@@ -85,7 +85,7 @@ import PublicSeoPage033 from './pages/TurningWhatABusinessKnowsIntoAnAssetCollec
 import PublicSeoPage034 from './pages/AIFoundationsCollection';
 import PublicSeoPage035 from './pages/WhatIsDigitalTrustCollection';
 import PublicSeoPage036 from './pages/AIHumanityCollection';
-import PublicSeoPage037 from './pages/AIHumanityArticle';
+import PublicSeoPage037 from './pages/knowledge/ai-humanity/ai-is-a-mirror-not-a-god';
 import PublicSeoPage038 from './pages/KnowledgeQuestions';
 import PublicSeoPage039 from './legacy-page-components/LCVideoLibrary';
 import PublicSeoPage040 from './pages/KnowledgeBuildingSmallBusinessWithAiCollection';
