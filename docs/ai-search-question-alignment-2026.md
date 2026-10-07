@@ -55,3 +55,13 @@ Use the domain Search Console property to compare question-page impressions, dis
 ## Technical continuity
 
 Keep Base44 automatic titles/descriptions OFF because source code supplies those tags, and app SEO enabled. The previously identified clean AI-humanity article route still requires a platform metadata resolution; this content batch does not fix that separate issue. A passing build or simulated crawler check does not prove Google indexing. Rick publishes tested changes from Base44 using Publish → Publish App.
+
+## Verification after Rick published again — October 7, 2026
+
+A fresh live scan checked all 214 sitemap URLs using a simulated Googlebot user agent: 213 passed HTTP, title, heading, canonical, robots, and JSON-LD checks. This does not establish actual Google indexing. The remaining article at /knowledge/ai-humanity/ai-is-a-mirror-not-a-god still returns the correct article body with a Page Not Found title and noindex,nofollow; its .html variant has correct metadata.
+
+All nine revised question URLs return 200, indexing-allowed robots directives, correct question titles and canonicals, and valid JSON-LD. However, none exposes the revised copy or October 7 modification date in live HTML. Simulated OpenAI, ChatGPT, and Perplexity requests also receive the earlier copy. The live JavaScript asset remains /assets/index-3tb1SBHg.js and lacks the new answer phrases. Cache-busting requests with no-cache headers returned the same asset, with Cloudflare DYNAMIC responses. This narrows the issue to publication/version propagation rather than only crawler snapshots.
+
+The tested five-file source batch is retained in GitHub commit adc1a8002dee760f73e9022981a6033df9818143. Base44 working files contain the improvements, but edit_file reports BACKEND_ERROR/INVALID_ARGUMENT and repeated checkpoints still reference f854f20819f39184882709878921713f048a901d, the previous version. A checkpoint labeled with the new work must not be treated as a verified restore point for it. The attempted harmless save-trigger comment was removed; the working code was returned to the tested source. No new functional change or additional publication was performed in this verification round.
+
+Next priority: repair Base44's source-save and publication handoff, then confirm a changed live asset and all nine revised answers before asking Rick to publish more content. Do not toggle SEO settings again or call this an indexing delay; the current live build itself is still old.
