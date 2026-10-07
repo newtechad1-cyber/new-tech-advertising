@@ -1,3 +1,7 @@
+import NativeGrowthEpisodeSearch3 from './pages/growth-show/i-didnt-set-out-to-build-an-ai-team';
+import NativeGrowthEpisodeSearch2 from './pages/growth-show/automation-is-the-last-step-not-the-first';
+import NativeGrowthEpisodeSearch1 from './pages/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system';
+import NativeGrowthEpisodeSearch0 from './pages/growth-show/business-owners-are-tired-of-being-sold';
 import Podcasts from '@/pages/Podcasts';
 /**
  * Explicit public page registry for the public NTA site.
@@ -264,6 +268,10 @@ const PAGES = {
   JournalIssueView,
   GrowthShow,
   GrowthShowEpisode,
+  'growth-show/business-owners-are-tired-of-being-sold': NativeGrowthEpisodeSearch0,
+  'growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system': NativeGrowthEpisodeSearch1,
+  'growth-show/automation-is-the-last-step-not-the-first': NativeGrowthEpisodeSearch2,
+  'growth-show/i-didnt-set-out-to-build-an-ai-team': NativeGrowthEpisodeSearch3,
   podcasts: Podcasts,
   HelpAndSupport,
   LearningCenter,
