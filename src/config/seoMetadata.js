@@ -1,5 +1,7 @@
 import { getKnowledgeQuestionBySlug } from "../data/knowledgeQuestions.js";
 import { getVideoWatchByPath } from "../data/videoSeo.js";
+import { getLessonBySlug } from "../data/masterCurriculum.js";
+import { SEED_GROWTH_SHOW_EPISODES } from "../data/growthShowEpisodes.js";
 
 const SITE_ORIGIN = "https://newtechadvertising.com";
 
@@ -629,6 +631,16 @@ export function getSeoMetadata(pathname) {
   const normalized = normalizePath(pathname);
   const legacyCanonical = LEGACY_CANONICALS[normalized];
   const canonicalPath = legacyCanonical || normalized;
+  const episode = SEED_GROWTH_SHOW_EPISODES.find(item => item.status === "Published" && canonicalPath === "/growth-show/" + item.slug);
+  if (episode) {
+    return {
+      title: episode.title + " | NTA",
+      description: clip(episode.summary, 158),
+      canonical: canonicalUrl(canonicalPath),
+      noIndex: false,
+      routeSpecific: true,
+    };
+  }
   const video = getVideoWatchByPath(canonicalPath);
   if (video) {
     return {
@@ -686,12 +698,14 @@ export function getSeoMetadata(pathname) {
       };
     }
     if (segments.length === 3 && COLLECTION_SEARCH[segments[1]]) {
-      const title = LESSON_SEARCH_TITLES[segments[2]] || "Small Business Lesson";
+      const lesson = getLessonBySlug(segments[1], segments[2]);
+      if (lesson) return { ...getLessonSearchMetadata(segments[1], lesson), routeSpecific: true };
       return {
-        title: title + " | NTA Knowledge Library",
-        description: "A practical lesson for small-business owners about AI, growth, customer trust, and useful business systems.",
+        title: "Page Not Found | New Tech Advertising",
+        description: "This lesson is not part of the public NTA Knowledge Library.",
         canonical: canonicalUrl(canonicalPath),
-        noIndex: false,
+        noIndex: true,
+        routeSpecific: true,
       };
     }
   }
