@@ -45,6 +45,7 @@ import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
 import BusinessOwnersAreTiredOfBeingSold from './pages/BusinessOwnersAreTiredOfBeingSold';
+import BusinessOwnersPublicLesson from './pages/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold';
 import StartWithTheWorkNotTheToolLessonPage from './pages/knowledge/ai-foundations/start-with-the-work-not-the-tool';
 // Public canonical route pages for Base44 crawler rendering.
 import PublicSeoPage001 from './pages/GrowthSystem';
@@ -73,7 +74,7 @@ import PublicSeoPage022 from './pages/AccessibleWebsites';
 import PublicSeoPage023 from './pages/WebAccessibilityTrust';
 import PublicSeoPage024 from './pages/DigitalRisks';
 import PublicSeoPage025 from './pages/ReputationIsNowAGrowthEngine';
-import PublicSeoPage026 from './pages/GrowthSystemsVsCampaigns';
+import PublicSeoPage026 from './pages/growth-systems-vs-campaigns';
 import PublicSeoPage027 from './pages/HVACMarketingNorthIowa';
 import PublicSeoPage028 from './pages/SmallBusinessesNationwide';
 import PublicSeoPage029 from './pages/BusinessFoundationsCollection';
@@ -277,6 +278,7 @@ const PAGES = {
   LearningCenter,
   KnowledgeLibrary,
   BusinessOwnersAreTiredOfBeingSold,
+  'knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold': BusinessOwnersPublicLesson,
   knowledge: KnowledgeLibrary,
   'knowledge/ai-foundations/start-with-the-work-not-the-tool': StartWithTheWorkNotTheToolLessonPage,
   // Public canonical route pages for Base44 crawler rendering.
