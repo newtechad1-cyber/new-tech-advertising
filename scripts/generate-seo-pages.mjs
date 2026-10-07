@@ -1034,7 +1034,15 @@ function videoWatchStaticBody(pathname) {
 }
 
 function videoSchemaMarkup(pathname) {
-  const schema = videoSchemaFor(getVideoWatchByPath(pathname));
+  const episode = SEED_GROWTH_SHOW_EPISODES.find(e => e.status === 'Published' && pathname === '/growth-show/' + e.slug);
+  const schema = episode ? {
+    '@context': 'https://schema.org', '@type': 'VideoObject',
+    name: episode.title, description: episode.summary,
+    thumbnailUrl: episode.thumbnail_url,
+    uploadDate: (episode.published_date || '') + 'T12:00:00Z',
+    embedUrl: 'https://www.youtube-nocookie.com/embed/' + episode.youtube_video_id + '?rel=0',
+    url: SITE_ORIGIN + pathname,
+  } : videoSchemaFor(getVideoWatchByPath(pathname));
   return schema
     ? '<script type="application/ld+json" data-seo-static-video-schema="true">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>'
     : '';
@@ -1137,6 +1145,18 @@ function approvedLessonStaticBody(pathname) {
     '</article></main>';
 }
 
+function growthShowStaticBody(pathname) {
+  const episode = SEED_GROWTH_SHOW_EPISODES.find(e => e.status === 'Published' && pathname === '/growth-show/' + e.slug);
+  if (!episode) return '';
+  const audio = GROWTH_SHOW_AUDIO[episode.youtube_video_id];
+  return '<main data-prerendered="true" class="seo-shell"><article><p class="seo-kicker">The NTA Growth Show</p>' +
+    '<h1>' + escapeHtml(episode.title) + '</h1><p>' + escapeHtml(episode.summary) + '</p>' +
+    '<iframe title="' + escapeHtml(episode.title) + '" src="https://www.youtube-nocookie.com/embed/' + escapeHtml(episode.youtube_video_id) + '?rel=0" width="640" height="360" allowfullscreen></iframe>' +
+    (audio?.audio_status === 'Ready' ? '<audio controls preload="none" src="' + escapeHtml(audio.audio_url) + '"></audio>' : '') +
+    (episode.cta_url ? '<p><a href="' + escapeHtml(episode.cta_url) + '">Read the related lesson</a></p>' : '') +
+    '<nav aria-label="Learning formats"><a href="/growth-show">Growth Show</a><a href="/podcasts">Podcast Library</a><a href="/knowledge">Knowledge Library</a></nav></article></main>';
+}
+
 function podcastStaticBody(pathname) {
   if (pathname !== '/podcasts') return '';
   const episodes = SEED_GROWTH_SHOW_EPISODES.filter(e => GROWTH_SHOW_AUDIO[e.youtube_video_id]?.audio_status === 'Ready');
@@ -1148,7 +1168,8 @@ function shellMarkup(metadata, pathname) {
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = podcastStaticBody(pathname)
+  const body = growthShowStaticBody(pathname)
+    || podcastStaticBody(pathname)
     || approvedLessonStaticBody(pathname)
     || accessibilityStaticBody(pathname)
     || videoWatchStaticBody(pathname)
@@ -1423,5 +1444,12 @@ for (const pathname of paths) {
     renderedCleanupPaths.push(pathname);
   }
 }
+
+// Unknown URLs need a dedicated noindex response, rather than the homepage.
+fs.writeFileSync(path.join(distDir, "404.html"), renderHtml(template, {
+  title: "Page Not Found | New Tech Advertising",
+  description: "This address is not part of the public NTA website. Browse the Knowledge Library or return home.",
+  canonical: SITE_ORIGIN, noIndex: true,
+}, "/404"));
 
 console.log("Generated route-aware SEO HTML for " + publicPaths.length + " public URLs and " + renderedCleanupPaths.length + " legacy cleanup/alias URLs.");
