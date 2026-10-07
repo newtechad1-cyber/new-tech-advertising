@@ -1039,7 +1039,7 @@ function videoSchemaMarkup(pathname) {
     '@context': 'https://schema.org', '@type': 'VideoObject',
     name: episode.title, description: episode.summary,
     thumbnailUrl: episode.thumbnail_url,
-    uploadDate: (episode.published_date || '') + 'T12:00:00Z',
+    ...(episode.published_date ? { uploadDate: episode.published_date } : {}),
     embedUrl: 'https://www.youtube-nocookie.com/embed/' + episode.youtube_video_id + '?rel=0',
     url: SITE_ORIGIN + pathname,
   } : videoSchemaFor(getVideoWatchByPath(pathname));
