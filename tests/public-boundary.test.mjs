@@ -105,7 +105,8 @@ test('SEO cleanup prerendering covers private SPA fallbacks and public legacy eq
   assert.match(generator, /data-seo-static-question-schema/);
   assert.match(seoHead, /data-seo-static-question-schema/);
   assert.match(generator, /\.\.\.getStaticPublicAliasPaths\(\)/);
-  assert.match(generator, /pathsWithDescendants/);
+  assert.match(await read('dist/knowledge.html'), /<meta name="robots" content="index, follow/);
+  assert.match(await read('dist/knowledge/questions.html'), /Small Business Questions About AI/);
   assert.match(generator, /pathname\.slice\(1\) \+ ".html"/);
   assert.match(generator, /fs\.rmSync\(outputFile/);
   assert.match(generator, /function homeStaticBody\(pathname\)/);
