@@ -37,6 +37,16 @@ test('podcast initial content and error output are distinct from the homepage', 
   assert.equal(getSeoMetadata('/knowledge/business-foundations/nonexistent-lesson').noIndex, true);
 });
 
+test('clean public routes have matching directory indexes for exact-path hosting', () => {
+  const sitemap = fs.readFileSync('public/sitemap.xml', 'utf8');
+  const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => new URL(match[1]).pathname);
+  for (const route of urls.filter(route => route !== '/')) {
+    const directoryHtml = fs.readFileSync('dist' + route + '/index.html', 'utf8');
+    assert.equal(directoryHtml, output(route), route);
+    assert.match(directoryHtml, /<link rel="canonical"/, route);
+  }
+});
+
 test('lesson metadata uses approved lesson information', () => {
   const metadata = getSeoMetadata('/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold');
   assert.match(metadata.title, /Business Owners Are Tired of Being Sold/);
