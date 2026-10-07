@@ -106,6 +106,7 @@ export default function JournalIssueView({ issueSlug }) {
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       {issue && (
         <SEOHead
+          publishedJournal={issue.status === 'Published'}
           title={`${issue.title} — NTA Journal #${issue.issue_number}`}
           description={issue.summary || `Issue #${issue.issue_number} of The NTA Journal by Rick Hesse.`}
         />

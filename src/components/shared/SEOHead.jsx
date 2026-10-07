@@ -92,6 +92,7 @@ export default function SEOHead({
   canonical,
   faqs = [],
   noIndex = false,
+  publishedJournal = false,
   // R0.7 — Article schema props
   articleData = null,     // { title, author, datePublished, dateModified, description, image, slug }
   // R0.7 — Video schema props
@@ -104,7 +105,7 @@ export default function SEOHead({
   howToData = null,        // { name, description, steps: [{name, text}] }
 }) {
   const location = useLocation();
-  const routeMetadata = getSeoMetadata(location.pathname);
+  const routeMetadata = getSeoMetadata(location.pathname, { publishedJournal });
   const preferRouteMetadata = routeMetadata.routeSpecific === true;
   const resolvedTitle = preferRouteMetadata ? routeMetadata.title : (title || routeMetadata.title);
   const resolvedDescription = preferRouteMetadata ? routeMetadata.description : (description || routeMetadata.description);

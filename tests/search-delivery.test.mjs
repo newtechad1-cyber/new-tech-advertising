@@ -52,3 +52,33 @@ test('lesson metadata uses approved lesson information', () => {
   assert.match(metadata.title, /Business Owners Are Tired of Being Sold/);
   assert.notEqual(metadata.description, 'A practical lesson for small-business owners about AI, growth, customer trust, and useful business systems.');
 });
+
+test('every sitemap page stays indexable in route metadata and generated HTML', () => {
+  const sitemap = fs.readFileSync('public/sitemap.xml', 'utf8');
+  for (const match of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    const route = new URL(match[1]).pathname;
+    assert.equal(getSeoMetadata(route).noIndex, false, route);
+    const html = route === '/' ? fs.readFileSync('dist/index.html', 'utf8') : output(route);
+    assert.doesNotMatch(html, /name="robots" content="[^"]*noindex/, route);
+  }
+});
+
+test('unknown content paths cannot inherit public indexing permission', () => {
+  for (const route of ['/knowledge/nonexistent/fake', '/services/nonexistent', '/growth-show/nonexistent', '/journal/fake', '/agency/AgencyClientCMS']) {
+    assert.equal(getSeoMetadata(route).noIndex, true, route);
+  }
+  assert.equal(getSeoMetadata('/journal/seo-vs-ai-search').noIndex, false);
+  assert.equal(getSeoMetadata('/journal/a-new-published-issue', { publishedJournal: true }).noIndex, false);
+  assert.equal(getSeoMetadata('/agency/AgencyClientCMS', { publishedJournal: true }).noIndex, true);
+});
+
+test('newest published Journal retains its approved content and public route', () => {
+  const route = '/journal/issue-10-a-better-way-to-buy-advertising';
+  const html = output(route);
+  assert.match(html, /<h1>A Better Way to Buy Advertising<\/h1>/);
+  assert.match(html, /We've spent decades teaching people how to sell advertising|We&#39;ve spent decades teaching people how to sell advertising/);
+  assert.match(html, /814-k8Tl-LE/);
+  assert.match(html, /business-owners-are-tired-of-being-sold/);
+  assert.equal(getSeoMetadata(route).noIndex, false);
+  assert.ok(fs.existsSync('src/pages' + route + '.jsx'));
+});

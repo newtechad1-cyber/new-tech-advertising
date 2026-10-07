@@ -657,7 +657,7 @@ export function getLessonSearchMetadata(collectionSlug, lesson) {
   };
 }
 
-export function getSeoMetadata(pathname) {
+export function getSeoMetadata(pathname, { publishedJournal = false } = {}) {
   const normalized = normalizePath(pathname);
   const legacyCanonical = LEGACY_CANONICALS[normalized];
   const canonicalPath = legacyCanonical || normalized;
@@ -751,7 +751,7 @@ export function getSeoMetadata(pathname) {
     };
   }
 
-  if (PUBLISHED_JOURNAL_PATHS.includes(canonicalPath)) {
+  if (PUBLISHED_JOURNAL_PATHS.includes(canonicalPath) || (publishedJournal === true && canonicalPath.startsWith("/journal/"))) {
     const label = canonicalPath === "/" ? "New Tech Advertising" : canonicalPath
       .split("/")
       .filter(Boolean)
