@@ -1,6 +1,6 @@
 import { getKnowledgeQuestionBySlug } from "../data/knowledgeQuestions.js";
 import { getVideoWatchByPath } from "../data/videoSeo.js";
-import { getLessonBySlug } from "../data/masterCurriculum.js";
+import { getCollectionBySlug, getLessonBySlug } from "../data/masterCurriculum.js";
 import { SEED_GROWTH_SHOW_EPISODES } from "../data/growthShowEpisodes.js";
 
 const SITE_ORIGIN = "https://newtechadvertising.com";
@@ -44,6 +44,11 @@ const STATIC_SEO = {
   "/learning-center": {
     title: "AI Learning Center for Small Business Owners | NTA",
     description: "Free AI lessons and small-business education on AI search, digital trust, local visibility, and connected growth systems.",
+  },
+  "/knowledge/ai-humanity/ai-is-a-mirror-not-a-god": {
+    title: "AI Is a Mirror, Not a God | NTA Knowledge Library",
+    description: "AI reflects human knowledge, wisdom and mistakes. Rick Hesse explains how to use it with discernment, responsibility and human judgment.",
+    noIndex: false,
   },
   "/knowledge": {
     title: "AI Lessons for Small Business Owners | NTA Knowledge Library",
@@ -567,16 +572,19 @@ const PRIVATE_PREFIXES = [
   "/ntamigration", "/schoolstudentdashboard", "/schoolstudentprofile", "/schoolstudentupload",
 ];
 
-const PUBLIC_PREFIXES = [
-  "/knowledge", "/canon", "/journal", "/growth-show", "/services",
-  "/website-rebuilds", "/social-media", "/case-studies", "/case-study",
-  "/ai-", "/small-business", "/local-", "/community-", "/practical-ai",
-  "/books", "/better-business-book", "/growth-", "/why-nta", "/about",
-  "/our-", "/contact", "/pricing", "/free-audit", "/book-call",
-  "/learning-center", "/accessible-websites", "/web-", "/digital-risks",
-  "/reputation-", "/operating-system", "/back-office", "/restaurants",
-  "/restaurant-", "/hvac-", "/contractor-", "/seasonal-", "/video-",
-  "/campaigns-", "/the-", "/what-", "/business-",
+// These published Journal pages own their detailed metadata in native page
+// components. Other unknown paths must not become indexable merely because
+// their first segment resembles a public content family.
+const PUBLISHED_JOURNAL_PATHS = [
+  "/journal/issue-1-the-system-behind-the-work",
+  "/journal/issue-2-what-i-learned-while-rebuilding-nta",
+  "/journal/issue-3-what-i-learned-about-making-complicated-things-simple",
+  "/journal/the-free-ai-guy-comes-to-life",
+  "/journal/issue-5-build-with-the-budget-you-have",
+  "/journal/issue-6-ai-finally-taught-me-how-to-multitask",
+  "/journal/issue-7-are-you-building-a-business-or-just-a-website",
+  "/journal/issue-8-your-business-already-knows-more-than-you-think",
+  "/journal/issue-9-start-with-the-work-then-choose-the-ai",
 ];
 
 function normalizePath(pathname) {
@@ -687,8 +695,9 @@ export function getSeoMetadata(pathname) {
   }
 
   if (segments[0] === "knowledge" && segments[1]) {
-    if (segments.length === 2 && COLLECTION_SEARCH[segments[1]]) {
-      const collection = COLLECTION_SEARCH[segments[1]];
+    const knownCollection = getCollectionBySlug(segments[1]) || COLLECTION_SEARCH[segments[1]];
+    if (segments.length === 2 && knownCollection) {
+      const collection = knownCollection;
       return {
         title: clip(collection.title + " | NTA Knowledge Library", 72),
         description: clip(collection.description, 158),
@@ -697,7 +706,7 @@ export function getSeoMetadata(pathname) {
         routeSpecific: true,
       };
     }
-    if (segments.length === 3 && COLLECTION_SEARCH[segments[1]]) {
+    if (segments.length === 3) {
       const lesson = getLessonBySlug(segments[1], segments[2]);
       if (lesson) return { ...getLessonSearchMetadata(segments[1], lesson), routeSpecific: true };
       return {
@@ -720,7 +729,7 @@ export function getSeoMetadata(pathname) {
     };
   }
 
-  if (PUBLIC_PREFIXES.some(prefix => canonicalPath === prefix || canonicalPath.startsWith(prefix))) {
+  if (PUBLISHED_JOURNAL_PATHS.includes(canonicalPath)) {
     const label = canonicalPath === "/" ? "New Tech Advertising" : canonicalPath
       .split("/")
       .filter(Boolean)
