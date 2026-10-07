@@ -585,6 +585,28 @@ const PUBLISHED_JOURNAL_PATHS = [
   "/journal/issue-7-are-you-building-a-business-or-just-a-website",
   "/journal/issue-8-your-business-already-knows-more-than-you-think",
   "/journal/issue-9-start-with-the-work-then-choose-the-ai",
+  "/journal/issue-10-a-better-way-to-buy-advertising",
+  "/journal/issue-4-the-free-ai-guy-comes-to-life",
+  "/journal/what-changed-online",
+  "/journal/accessible-websites",
+  "/journal/web-accessibility-trust",
+  "/journal/reputation-is-now-a-growth-engine",
+  "/journal/building-digital-trust",
+  "/journal/the-future-belongs-to-market-leaders",
+  "/journal/campaigns-vs-authority",
+  "/journal/i-was-early-again",
+  "/journal/ai-brought-me-out-of-retirement",
+  "/journal/seo-vs-ai-search",
+  "/journal/role-of-ai-in-local-marketing",
+  "/journal/digital-risks",
+  "/journal/hidden-cost-of-outdated-marketing",
+  "/journal/websites-as-salespeople",
+  "/journal/video-storytelling-builds-confidence",
+  "/journal/practical-ai-for-small-businesses",
+  "/journal/ai-visibility-basics",
+  "/journal/case-studies/johnson-heating",
+  "/journal/case-study/monson-plumbing",
+  "/journal/case-study/papa-everetts",
 ];
 
 function normalizePath(pathname) {
@@ -695,7 +717,7 @@ export function getSeoMetadata(pathname) {
   }
 
   if (segments[0] === "knowledge" && segments[1]) {
-    const knownCollection = getCollectionBySlug(segments[1]) || COLLECTION_SEARCH[segments[1]];
+    const knownCollection = COLLECTION_SEARCH[segments[1]] || getCollectionBySlug(segments[1]);
     if (segments.length === 2 && knownCollection) {
       const collection = knownCollection;
       return {
