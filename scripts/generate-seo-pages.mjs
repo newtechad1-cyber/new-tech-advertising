@@ -205,7 +205,7 @@ function buildKnowledgeQuestionPages(existingPublicPages = []) {
       author: KNOWLEDGE_AUTHOR,
       publisher: KNOWLEDGE_PUBLISHER,
       publicStatus: "published",
-      lastModified: KNOWLEDGE_QUESTION_LAST_UPDATED,
+      lastModified: question.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED,
     };
   });
 
@@ -324,7 +324,7 @@ function syncKnowledgeIndexes() {
     const questionPath = getKnowledgeQuestionPath(question);
     generatedRoutes.set(
       questionPath,
-      renderSitemapUrl(questionPath, KNOWLEDGE_QUESTION_LAST_UPDATED, "monthly", "0.7")
+      renderSitemapUrl(questionPath, question.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED, "monthly", "0.7")
     );
   }
 
@@ -845,7 +845,7 @@ function knowledgeQuestionStaticBody(pathname) {
       </nav>
       <p class="seo-kicker">Small-business question</p>
       <h1>${escapeHtml(question.question)}</h1>
-      <p>By Rick Hesse &middot; <time datetime="${KNOWLEDGE_QUESTION_LAST_UPDATED}">Updated ${KNOWLEDGE_QUESTION_LAST_UPDATED}</time></p>
+      <p>By Rick Hesse &middot; <time datetime="${question.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED}">Updated ${question.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED}</time></p>
       <h2>Short answer</h2>
       <p class="speakable">${escapeHtml(question.answer)}</p>
       <h2>Where this fits in a real small business</h2>
@@ -896,8 +896,8 @@ function knowledgeQuestionSchemaMarkup(pathname, metadata) {
         "@id": SITE_ORIGIN + "/#organization",
         "name": KNOWLEDGE_PUBLISHER,
       },
-      "datePublished": KNOWLEDGE_QUESTION_LAST_UPDATED,
-      "dateModified": KNOWLEDGE_QUESTION_LAST_UPDATED,
+      "datePublished": question.publishedDate || question.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED,
+      "dateModified": question.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED,
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": canonical,

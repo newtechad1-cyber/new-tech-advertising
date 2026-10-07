@@ -64,7 +64,15 @@ test('question-first knowledge resources are in every intentional discovery surf
       page => page.canonicalUrl === 'https://newtechadvertising.com' + route
     );
     assert.ok(aiSitemapPage, 'Expected AI sitemap entry for ' + route);
-    assert.equal(aiSitemapPage.lastModified, KNOWLEDGE_QUESTION_LAST_UPDATED, 'Expected an editorial update date for ' + route);
+    const question = knowledgeQuestions.find(item => getKnowledgeQuestionPath(item) === route);
+    const editorialDate = question?.updatedDate || KNOWLEDGE_QUESTION_LAST_UPDATED;
+    assert.equal(aiSitemapPage.lastModified, editorialDate, 'Expected the answer’s editorial update date for ' + route);
+    if (question?.publishedDate) {
+      const output = readOutputForRoute(route);
+      assert.ok(output.includes('"datePublished":"' + question.publishedDate + '"'), 'Preserve the original publication date for ' + route);
+      assert.ok(output.includes('"dateModified":"' + editorialDate + '"'), 'Expose the actual revision date for ' + route);
+      assert.ok(output.includes('<time datetime="' + editorialDate + '">Updated ' + editorialDate + '</time>'), 'Show the same revision date to readers for ' + route);
+    }
   }
 
   assert.match(llms, /Start with a business question/);

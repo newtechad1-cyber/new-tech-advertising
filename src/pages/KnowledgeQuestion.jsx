@@ -63,7 +63,7 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
           title: question.question,
           description: question.description,
           author: 'Rick Hesse',
-          datePublished: updatedDate,
+          datePublished: question.publishedDate || updatedDate,
           dateModified: updatedDate,
           slug: questionPath
         }}
