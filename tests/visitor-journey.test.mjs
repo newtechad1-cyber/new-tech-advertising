@@ -43,13 +43,14 @@ test('visitor measurement cannot reach a privileged function or interrupt a jour
   }
 });
 
-test('guided setup is one verified submission with visible failure and accurate pending confirmation', () => {
+test('growth conversation is one verified submission with visible failure and accurate confirmation', () => {
   const form = read('src/components/start/StartForm.jsx');
   assert.equal([...form.matchAll(/invokeVerifiedPublicFunction\(/g)].length, 1);
-  assert.match(form, /invokeVerifiedPublicFunction\('submitPublicTrialSignup'/);
+  assert.match(form, /invokeVerifiedPublicFunction\('ntaUnifiedIntake'/);
+  assert.match(form, /submission_type: 'growth_conversation_request'/);
   assert.match(form, /role="alert"/);
   const success = read('src/components/start/StartSuccess.jsx');
-  assert.match(success, /Setup Request Is Saved/);
+  assert.match(success, /conversation request is in/);
   assert.doesNotMatch(success, /to="\/Login"|tools, and campaign builder are ready|email your login details shortly/);
 });
 
@@ -60,5 +61,5 @@ test('all main visitor destinations have a production page', () => {
 });
 
 test('the public opportunity entrance cannot lead to the Core sign-in page', () => {
-  assert.match(read('src/components/nav/MarketingNav.jsx'), /const OPPORTUNITY_HREF = '\/account-manager'/);
+  assert.match(read('src/components/nav/MarketingNav.jsx'), /const OPPORTUNITY_HREF = '\/digital-growth-advisor'/);
 });

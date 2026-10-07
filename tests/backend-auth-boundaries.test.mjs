@@ -66,7 +66,8 @@ for (const name of functionNames) {
           website_url: 'https://example.com', question: 'This must not reach AI',
         }),
       }));
-      assert.equal(response.status, expected);
+      // Book tracking validates its event before checking the signed public token.
+      assert.equal(response.status, name === 'trackBookEvent' ? 400 : expected);
       assert.equal(fixture.effectCount(), 0);
     });
   }
@@ -90,6 +91,37 @@ for (const name of functionNames) {
     const fixture = loadHandler(name, null);
     const response = await fixture.handler(new Request('https://newtechadvertising.com/api/test'));
     assert.equal(response.status, 405);
+    assert.equal(fixture.effectCount(), 0);
+  });
+}
+
+
+for (const [label, authMode] of [
+  ['anonymous', null],
+  ['invalid credentials', new Error('invalid token')],
+  ['ordinary member', { id: 'member', role: 'user', is_service: false }],
+]) {
+  test('trackBookEvent: a valid event with forged privileges still requires a signed tracking token (' + label + ')', async () => {
+    const fixture = loadHandler('trackBookEvent', authMode);
+    const response = await fixture.handler(new Request('https://newtechadvertising.com/api/test', {
+      method: 'POST',
+      headers: {
+        Origin: 'https://newtechadvertising.com',
+        Authorization: 'Bearer attacker-supplied-value',
+        'Base44-Service-Authorization': 'Bearer attacker-supplied-value',
+        'X-Is-Service': 'true',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        book_key: 'better-business-book',
+        event_type: 'download_click',
+        tracking_token: 'attacker-supplied-value',
+        role: 'admin',
+        is_service: true,
+      }),
+    }));
+    assert.equal(response.status, 403);
+    assert.match((await response.json()).error, /tracking authorization expired/i);
     assert.equal(fixture.effectCount(), 0);
   });
 }
