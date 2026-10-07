@@ -240,7 +240,7 @@ Perhaps it is that AI is showing us what humanity has always contained.
       <SEOHead
         title="AI Is a Mirror, Not a God | New Tech Advertising"
         description="AI reflects the wisdom, contradictions, goodness, and brokenness of the people who created it. Rick Hesse explores why understanding AI requires discernment rather than blind trust or fear."
-        canonicalUrl="/knowledge/ai-humanity/ai-is-a-mirror-not-a-god"
+        canonical="/knowledge/ai-humanity/ai-is-a-mirror-not-a-god"
         articleData={{
           headline: "AI Is a Mirror, Not a God",
           description: "AI reflects the wisdom, contradictions, goodness, and brokenness of the people who created it. Rick Hesse explores why understanding AI requires discernment rather than blind trust or fear.",
