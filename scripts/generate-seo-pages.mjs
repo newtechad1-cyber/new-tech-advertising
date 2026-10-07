@@ -1410,25 +1410,16 @@ const legacyPaths = [...new Set([
   ...getStaticPublicAliasPaths(),
 ])].filter(pathname => !publicPathSet.has(pathname));
 const paths = [...new Set([...publicPaths, ...legacyPaths])];
-const pathsWithDescendants = new Set(
-  paths.filter(pathname =>
-    paths.some(candidate => candidate !== pathname && candidate.startsWith(pathname + "/"))
-  )
-);
 const rootIndexFile = path.join(distDir, "index.html");
 const renderedCleanupPaths = [];
 
 for (const pathname of paths) {
-  // The production server must receive a file for the exact clean URL.
-  // Extensionless files handle leaf routes; parent routes use a sibling
-  // .html file so they can coexist with child-route directories. The
-  // production Vite appType setting prevents unknown paths from falling back
-  // to the root SPA shell before these files are checked.
+  // Serve every clean URL through an HTML file. Extensionless output loses
+  // its HTML Content-Type in static serving. Sibling .html files also coexist
+  // with directories containing nested routes.
   const outputFile = pathname === "/" || pathname === "/index.html"
     ? rootIndexFile
-    : pathsWithDescendants.has(pathname)
-      ? path.join(distDir, pathname.slice(1) + ".html")
-      : path.join(distDir, pathname.slice(1));
+    : path.join(distDir, pathname.slice(1) + ".html");
 
   if (outputFile === rootIndexFile && pathname !== "/") continue;
 
