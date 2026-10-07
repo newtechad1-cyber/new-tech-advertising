@@ -99,6 +99,7 @@ import PublicJournalIssue06 from './pages/journal/issue-6-ai-finally-taught-me-h
 import PublicJournalIssue07 from './pages/journal/issue-7-are-you-building-a-business-or-just-a-website';
 import PublicJournalIssue08 from './pages/journal/issue-8-your-business-already-knows-more-than-you-think';
 import PublicJournalIssue09 from './pages/journal/issue-9-start-with-the-work-then-choose-the-ai';
+import PublicJournalIssue10 from './pages/journal/issue-10-a-better-way-to-buy-advertising';
 import CanonNtaPrinciplesCollectionPage from './pages/CanonNtaPrinciplesCollectionPage';
 import CanonSetupMattersPage from './pages/CanonSetupMattersPage';
 // Native public video watch pages, with the player in the first HTML.
@@ -333,6 +334,7 @@ const PAGES = {
   'journal/issue-7-are-you-building-a-business-or-just-a-website': PublicJournalIssue07,
   'journal/issue-8-your-business-already-knows-more-than-you-think': PublicJournalIssue08,
   'journal/issue-9-start-with-the-work-then-choose-the-ai': PublicJournalIssue09,
+  'journal/issue-10-a-better-way-to-buy-advertising': PublicJournalIssue10,
   'canon/collection/nta-principles': CanonNtaPrinciplesCollectionPage,
   'canon/the-work-you-dont-see-why-setup-matters': CanonSetupMattersPage,
   // BEGIN NATIVE VIDEO WATCH ROUTES
