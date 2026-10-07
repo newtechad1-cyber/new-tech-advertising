@@ -1731,6 +1731,41 @@
   ],
   "journalIssues": [
     {
+      "issueNumber": 10,
+      "title": "A Better Way to Buy Advertising",
+      "subtitle": "Knowledge first. Then decide what to buy.",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-10-a-better-way-to-buy-advertising",
+      "contentType": "Newsletter",
+      "description": "Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-10-06",
+      "estimatedReadingTime": "3 min read",
+      "sections": [
+        {
+          "heading": "From Rick's Desk",
+          "body": "Something came together for me this week that I've been trying to explain for a long time.\n\nI bought advertising for my store in the 1980s. In the 1990s, I sold it. I've been on both sides of that dollar exchange, and the frustration behind this week's article has been with me for decades.\n\nThis isn't something I learned this morning. It's something I've carried for years. What finally came together was the language.\n\nWe've spent decades teaching people how to sell advertising. Maybe it's time somebody taught small-business owners how to buy it.\n\nThat sentence gets to the heart of what I mean.\n\nThe owner doesn't need another person explaining why their advertising package is wonderful. The owner needs to understand whether that package fits the business, what it is supposed to accomplish, and what happens after somebody responds.\n\nI'm not against advertising. I've sold it. I'm not suggesting every salesperson is the problem, either. I'm asking whether we can start the conversation somewhere different.\n\nInstead of beginning with what we have to sell, let's begin with what the business needs.\n\nAnd knowledge first doesn't mean asking you to learn another profession. It means helping you understand enough to make a decision without having to become an expert in every advertising choice.\n\nIn the full article, I walk through five questions: What are we trying to accomplish? Why does this fit our customers and our situation? What happens after someone responds? What are we really committing to? And how will we judge what happens?\n\nYou should be able to understand the answers. You should also be able to say yes, take a smaller first step, or decide not yet.\n\nI think this is one of the most important things I've written about advertising because it finally explains the kind of help I want to offer a business owner.\n\nNot a better way to sell you something. A better way to help you decide.\n\nKnowledge first. Then decide what to buy."
+        }
+      ],
+      "primaryArticle": {
+        "reading_time": "9 min read",
+        "display_order": 1,
+        "is_lead": true,
+        "source_type": "PublishingArticle",
+        "source_id": "6ac38ae01da8b49dc1015856",
+        "title": "Business Owners Are Tired of Being Sold",
+        "excerpt": "Rick Hesse draws on buying advertising in the 1980s and selling it in the 1990s to explain five questions owners can ask before buying.",
+        "featured_image_url": null,
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold"
+      },
+      "featuredVideo": {
+        "url": "https://youtu.be/814-k8Tl-LE",
+        "title": "Business Owners Are Tired of Being Sold | NTA Growth Show — Episode 10"
+      },
+      "closingMessage": "Read the complete lesson, [Business Owners Are Tired of Being Sold](https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold).\n\n[Watch Episode 10 of the NTA Growth Show](https://youtu.be/814-k8Tl-LE), where the Free AI Guy and I talk through a better way to buy advertising.\n\nKnowledge first. Then decide what to buy."
+    },
+    {
       "issueNumber": 9,
       "title": "NTA Journal #9: Start With the Work, Then Choose the AI",
       "subtitle": "Putting AI to work begins with understanding the people and the business.",
