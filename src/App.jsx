@@ -7,6 +7,7 @@ import { queryClientInstance } from '@/lib/query-client';
 import { pagesConfig } from './pages.config';
 import { PUBLIC_ROUTE_ALIASES } from '@/config/publicRoutes';
 import PageNotFound from './lib/PageNotFound';
+import { getSeoMetadata } from '@/config/seoMetadata';
 import { AuthProvider } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
 import { ExperienceProvider } from '@/lib/ExperienceLayer';
@@ -77,7 +78,16 @@ function isLegacyPrivatePageKey(value) {
 }
 
 function LegacyPrivateRouteRedirect() {
-  const { pathname } = useLocation();
+  const { pathname, search, hash } = useLocation();
+  // Explicit static HTML files have the same canonical visitor route. Keep
+  // their React handoff usable instead of replacing correct initial content
+  // with a client 404 after loading the app.
+  const cleanPath = pathname.endsWith('/index.html')
+    ? pathname.slice(0, -11) || '/'
+    : pathname.endsWith('.html') ? pathname.slice(0, -5) || '/' : null;
+  if (cleanPath && !getSeoMetadata(cleanPath).noIndex) {
+    return <Navigate to={{ pathname: cleanPath, search, hash }} replace />;
+  }
   const firstSegment = pathname.split('/').filter(Boolean)[0] || '';
   return isLegacyPrivatePageKey(firstSegment) ? <CoreHubRedirect /> : <PageNotFound />;
 }
