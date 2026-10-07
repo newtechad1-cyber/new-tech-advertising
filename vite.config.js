@@ -1,6 +1,24 @@
 import base44 from "@base44/vite-plugin"
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import { execFileSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+
+// Base44 may invoke Vite directly rather than npm's build script. Keep the
+// crawlable HTML and RSS generation inside that build lifecycle so both paths
+// produce the same publication artifact. Fail the build if generation fails.
+function publicSearchOutput() {
+  const cwd = fileURLToPath(new URL('.', import.meta.url))
+  const run = script => execFileSync(process.execPath, [
+    '--experimental-loader=./scripts/resolve-extensionless-modules.mjs', script,
+  ], { cwd, stdio: 'inherit' })
+  return {
+    name: 'nta-public-search-output',
+    apply: 'build',
+    buildStart() { run('scripts/generate-podcast-feed.mjs') },
+    closeBundle() { run('scripts/generate-seo-pages.mjs') },
+  }
+}
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,5 +33,6 @@ export default defineConfig({
       legacySDKImports: process.env.BASE44_LEGACY_SDK_IMPORTS === 'true'
     }),
     react(),
+    publicSearchOutput(),
   ]
 });
