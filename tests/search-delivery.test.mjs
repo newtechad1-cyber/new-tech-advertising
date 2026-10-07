@@ -17,7 +17,7 @@ test('every published Growth Show episode has its own initial content and native
   for (const episode of SEED_GROWTH_SHOW_EPISODES.filter(e => e.status === 'Published')) {
     const route = '/growth-show/' + episode.slug;
     const html = output(route);
-    assert.ok(html.includes('<h1>' + episode.title.replaceAll('&', '&amp;') + '</h1>'), route);
+    assert.ok(html.includes('<h1>' + episode.title.replaceAll('&', '&amp;').replaceAll("\'", '&#39;') + '</h1>'), route);
     assert.ok(html.includes('youtube-nocookie.com/embed/' + episode.youtube_video_id), route);
     assert.ok(registry.includes("'" + route.slice(1) + "':"), route);
     assert.ok(sitemap.includes('<loc>https://newtechadvertising.com' + route + '</loc>'), route);
