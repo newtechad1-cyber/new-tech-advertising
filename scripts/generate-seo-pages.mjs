@@ -1429,7 +1429,18 @@ for (const pathname of paths) {
 
   const metadata = getPrerenderMetadata(pathname, publicPathSet);
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
-  fs.writeFileSync(outputFile, renderHtml(template, metadata, pathname));
+  const html = renderHtml(template, metadata, pathname);
+  fs.writeFileSync(outputFile, html);
+
+  // Base44 serves explicit .html artifacts but does not resolve clean URLs
+  // to sibling .html files. Also publish conventional directory indexes so
+  // exact-path static hosts can serve both leaf routes and nested hubs.
+  // Keep the sibling copy for hosts such as Vite that resolve .html suffixes.
+  if (pathname !== "/" && pathname !== "/index.html") {
+    const directoryIndex = path.join(distDir, pathname.slice(1), "index.html");
+    fs.mkdirSync(path.dirname(directoryIndex), { recursive: true });
+    fs.writeFileSync(directoryIndex, html);
+  }
 
   if (!publicPathSet.has(pathname)) {
     renderedCleanupPaths.push(pathname);
