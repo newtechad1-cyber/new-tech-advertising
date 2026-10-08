@@ -13,6 +13,7 @@ const NAV_LINKS = [
     children: [
       { label: 'Start Here', href: '/start', desc: 'Your first step to working with NTA' },
       { label: 'How It Works', href: '/growth-system', desc: 'The connected growth system' },
+      { label: 'Work With NTA', href: '/work-with-nta', desc: 'A Working Brain shaped around your business' },
       { label: 'Growth Roadmap', href: '/growth-roadmap-generator', desc: 'Map your path to growth' },
       { label: 'Digital Growth Office', href: '/operating-system', desc: 'The connected system behind your growth' },
       { label: 'Your Digital Growth Guide', href: '/growth-guide', desc: 'Talk through your business, your way' },
