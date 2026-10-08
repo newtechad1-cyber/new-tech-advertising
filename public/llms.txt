@@ -119,7 +119,7 @@ Plainspoken answers to common questions about AI, marketing, customer trust, web
 
 - [How do I use AI in my small business?](https://newtechadvertising.com/knowledge/questions/where-should-i-start-with-ai): Start with a repeated or frustrating piece of work, not a product to buy. Define the outcome, give AI the right context, set boundaries, and keep a person responsible for the result.
 
-- [How can I use ChatGPT for my small business?](https://newtechadvertising.com/knowledge/questions/what-can-chatgpt-do-for-a-small-business): ChatGPT can help turn scattered information into useful drafts, summaries, questions, and first-pass communication. It cannot truly know your company, make promises, or replace your judgment unless you provide context and review its work.
+- [How can I use ChatGPT for my small business?](https://newtechadvertising.com/knowledge/questions/what-can-chatgpt-do-for-a-small-business): ChatGPT can help a small business draft customer replies, summarize approved notes, organize checklists, and prepare marketing content from its own knowledge. Give it the relevant facts and check its work. It can still make mistakes, and providing context never transfers responsibility for decisions or customer promises away from people.
 
 - [Do I need a perfect prompt to use AI?](https://newtechadvertising.com/knowledge/questions/do-i-need-a-perfect-prompt): No. A prompt is the beginning of a conversation, not a test you either pass or fail. Start clearly, add context, ask follow-up questions, and correct the result as you go.
 
