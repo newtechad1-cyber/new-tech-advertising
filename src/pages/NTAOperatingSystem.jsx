@@ -153,7 +153,7 @@ export default function NTAOperatingSystem() {
           >
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-400 mb-3">How NTA works with a business</p>
             <p className="text-lg text-slate-300 leading-relaxed">
-              The Digital Growth Office supports the work. The client-facing process begins by understanding the business:
+              We build your Digital Growth Office with a Working Brain shaped around your business. It connects the knowledge, decisions, and next actions behind the work, with AI doing useful jobs and people guiding the decisions. The client-facing process begins by understanding the business:
             </p>
             <p className="mt-4 text-xl md:text-2xl font-semibold text-white">
               Understand <span className="text-slate-500">→</span> Involve <span className="text-slate-500">→</span> Plan <span className="text-slate-500">→</span> Build <span className="text-slate-500">→</span> Improve
