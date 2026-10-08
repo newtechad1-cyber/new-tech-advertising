@@ -12,6 +12,39 @@ let scriptPromise;
 let verificationQueue = Promise.resolve();
 const configCache = new Map();
 
+const INQUIRY_TYPES = new Set([
+  'contact', 'growth_conversation_request', 'growth_conversation',
+  'free_audit_request', 'website_rebuild_intake', 'trial_signup',
+  'hvac_funnel_lead', 'service_location_inquiry', 'case_study_inquiry',
+  'community_partner_inquiry', 'lead_magnet_download', 'ada_intake_form',
+]);
+const trackedInquiryIds = new Set();
+
+function trackConfirmedInquiry(name, payload, result) {
+  // Count saved inquiries only, never verification probes or rejected requests.
+  // Keep customer details and submission IDs out of analytics.
+  if (name !== 'ntaUnifiedIntake' || result?.success !== true ||
+      result?.accepted === false || typeof result?.submission_id !== 'string' ||
+      !result.submission_id.trim() ||
+      !['newtechadvertising.com', 'www.newtechadvertising.com'].includes(globalThis.location?.hostname)) return;
+  if (trackedInquiryIds.has(result.submission_id)) return;
+  trackedInquiryIds.add(result.submission_id);
+  const properties = {
+    form_type: INQUIRY_TYPES.has(payload?.submission_type) ? payload.submission_type : 'other_inquiry',
+    site_surface: 'public',
+  };
+  // Each destination is independent; tracking must never fail a saved request.
+  try {
+    Promise.resolve(base44.analytics.track({ eventName: 'inquiry_saved', properties })).catch(() => {});
+  } catch { /* Analytics is optional. */ }
+  try {
+    if (typeof globalThis.gtag === 'function') {
+      Promise.resolve(globalThis.gtag('event', 'inquiry_saved', properties)).catch(() => {});
+    }
+  } catch { /* Analytics is optional. */ }
+}
+
+
 function loadVerificationScript() {
   if (window.turnstile) return Promise.resolve(window.turnstile);
   if (!scriptPromise) {
@@ -135,5 +168,6 @@ export async function invokeVerifiedPublicFunction(name, payload) {
   if (result?.success === false || result?.accepted === false) {
     throw new Error(result.error || 'Your request was not accepted. Please try again or call or text 641-420-8816.');
   }
+  trackConfirmedInquiry(name, payload, result);
   return response;
 }
