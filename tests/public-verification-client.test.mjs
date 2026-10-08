@@ -4,8 +4,10 @@ import vm from 'node:vm';
 import test from 'node:test';
 import ts from 'typescript';
 
-function setup(mode = 'success') {
+function setup(mode = 'success', options = {}) {
   const requests = [];
+  const analytics = [];
+  const google = [];
   const dialogs = [];
   const widgets = new Map();
   let sequence = 0;
@@ -42,7 +44,13 @@ function setup(mode = 'success') {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
   }).outputText, {
     exports, document, window: { turnstile, setTimeout, clearTimeout },
-    base44: { functions: { async invoke(name, payload) {
+    location: { hostname: options.hostname || 'newtechadvertising.com' },
+    gtag: (...args) => { google.push(args); if (options.googleThrows) throw new Error('Unavailable'); },
+    base44: { analytics: { track(event) {
+      analytics.push(event);
+      if (options.analyticsThrows) throw new Error('Unavailable');
+      if (options.analyticsRejects) return Promise.reject(new Error('Unavailable'));
+    } }, functions: { async invoke(name, payload) {
       requests.push({ name, payload });
       if (payload.verification_config) {
         return { data: {
@@ -51,10 +59,10 @@ function setup(mode = 'success') {
             ({ growthGuideChat: 'growth_guide_chat', publicationSignup: 'publication_signup', ntaUnifiedIntake: 'nta_unified_intake', startDiscoverySession: 'start_discovery_session', submitPublicTrialSignup: 'trial_signup', submitRecruitingApplication: 'recruiting_application' })[name],
         } };
       }
-      return { data: mode === 'not_accepted' ? { success: true, accepted: false } : { success: true } };
+      return { data: options.result ?? (mode === 'not_accepted' ? { success: true, accepted: false } : { success: true }) };
     } } },
   });
-  return { invoke: exports.invokeVerifiedPublicFunction, requests, dialogs, widgets };
+  return { invoke: exports.invokeVerifiedPublicFunction, requests, dialogs, widgets, analytics, google };
 }
 
 test('public client attaches distinct fresh tokens to concurrent submissions', async () => {
