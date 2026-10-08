@@ -220,6 +220,33 @@ export default function WorkWithNTA() {
           </div>
         </section>
 
+        <section id="working-brain" aria-labelledby="working-brain-heading" className="scroll-mt-24 border-b border-slate-800/70 bg-blue-950/20 px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">What we build together</p>
+            <h2 id="working-brain-heading" className="mt-3 max-w-3xl text-3xl font-bold text-white md:text-5xl">A Working Brain Shaped Around Your Business.</h2>
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_1fr]">
+              <div className="space-y-5 text-lg leading-relaxed text-slate-200">
+                <p>Every business has a way of thinking and working. Much of it lives in the owner's head: what customers need, how employees do their jobs, what has been tried, and what should happen next.</p>
+                <p>I call the system we're building around that knowledge a Working Brain. We begin by understanding your business, then connect your knowledge, decisions, people, and tools so useful ideas have a path into completed work.</p>
+                <p>A customer question might become a lesson, a website answer, a video, and a better follow-up conversation. Each piece should support the others. You should be able to see what we're working toward, what happens next, what it costs, and what was actually completed.</p>
+                <p className="font-medium text-blue-200">That's what I'm building through New Tech Advertising's Digital Growth Office, with a Working Brain shaped around your business, AI doing useful jobs, and people guiding the decisions.</p>
+                <Link to="/growth-system" className="inline-flex min-h-11 items-center gap-2 text-base font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">See how the pieces work together <ArrowRight className="h-4 w-4 shrink-0" /></Link>
+              </div>
+              <aside className="self-start rounded-2xl border border-blue-400/30 bg-slate-950/80 p-6 md:p-8">
+                <p className="text-sm font-semibold uppercase tracking-wide text-cyan-300">An example of how we could work together</p>
+                <h3 className="mt-3 text-2xl font-bold text-white">Start with one customer question.</h3>
+                <ol className="mt-6 list-decimal space-y-5 pl-5 text-base leading-relaxed text-slate-200">
+                  <li><strong className="text-white">Understand it.</strong> You or an employee shares the question. We connect it to what your business already knows and confirm the answer.</li>
+                  <li><strong className="text-white">Choose the next useful action.</strong> We agree on the result, who does the work, and the scope and cost.</li>
+                  <li><strong className="text-white">Prepare and review.</strong> We develop a useful answer for your website and employee follow-up. You review it before it is used.</li>
+                  <li><strong className="text-white">Check and keep learning.</strong> We verify what was completed, retain the answer, and learn from customer feedback. If we pause, we keep a clear place to resume.</li>
+                </ol>
+                <p className="mt-6 border-t border-slate-700 pt-5 text-sm leading-relaxed text-slate-300">We build the useful connections around your priorities, existing systems, and budget, one agreed step at a time.</p>
+              </aside>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800/70 bg-slate-950 px-6 py-20 md:py-24">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto mb-12 max-w-4xl text-center">
