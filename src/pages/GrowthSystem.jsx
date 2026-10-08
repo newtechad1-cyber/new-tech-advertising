@@ -135,6 +135,16 @@ export default function GrowthSystem() {
         </div>
       </section>
 
+      <section aria-labelledby="working-brain-process-heading" className="border-b border-slate-800 bg-blue-950/20 px-4 py-12 sm:px-6">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-wide text-cyan-300">Your Working Brain</p>
+          <h2 id="working-brain-process-heading" className="mt-3 text-3xl font-bold text-white">From a useful idea to completed work.</h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-200">Share a question or idea. We understand it together, choose the next useful action, do the agreed work, review the result, and retain what we learned.</p>
+          <p className="mt-4 text-base leading-relaxed text-slate-300">For each committed job, we keep the intended result, next action, responsibility, scope, cost, and actual outcome connected. An idea can stay an idea until you decide to act. If we pause, there is a clear place to resume.</p>
+          <Link to="/work-with-nta#working-brain" className="mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">See what working with NTA looks like <ArrowRight className="h-4 w-4 shrink-0" /></Link>
+        </div>
+      </section>
+
       {/* Section 1 — Build the Team */}
       <PillarSection
         badge="Section 1"
