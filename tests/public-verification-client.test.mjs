@@ -142,6 +142,63 @@ for (const name of ['startDiscoverySession', 'submitPublicTrialSignup', 'submitR
   });
 }
 
+
+test('saved inquiry measurement excludes customer details and deduplicates confirmed IDs', async () => {
+  const fixture = setup('success', { result: { success: true, submission_id: 'saved-123' } });
+  const payload = { submission_type: 'contact', name: 'Private Name', email: 'private@example.invalid',
+    phone: '5551234567', notes: 'Private message', source_url: '/?email=private@example.invalid' };
+  await fixture.invoke('ntaUnifiedIntake', payload);
+  await fixture.invoke('ntaUnifiedIntake', payload);
+  assert.equal(fixture.analytics.length, 1);
+  assert.equal(fixture.google.length, 1);
+  assert.deepEqual(JSON.parse(JSON.stringify(fixture.analytics[0])), {
+    eventName: 'inquiry_saved', properties: { form_type: 'contact', site_surface: 'public' },
+  });
+  assert.deepEqual(JSON.parse(JSON.stringify(fixture.google[0])), [
+    'event', 'inquiry_saved', { form_type: 'contact', site_surface: 'public' },
+  ]);
+});
+
+for (const result of [{ success: true }, { submission_id: 'saved-1' }, { success: true, submission_id: '' }]) {
+  test('uncertain save response is not counted: ' + JSON.stringify(result), async () => {
+    const fixture = setup('success', { result });
+    await fixture.invoke('ntaUnifiedIntake', {});
+    assert.equal(fixture.analytics.length, 0);
+    assert.equal(fixture.google.length, 0);
+  });
+}
+
+test('rejected, non-intake and private or preview requests never count as public inquiries', async () => {
+  const rejected = setup('not_accepted');
+  await assert.rejects(rejected.invoke('ntaUnifiedIntake', {}));
+  assert.equal(rejected.analytics.length, 0);
+  for (const hostname of ['app.newtechadvertising.com', 'preview.base44.com']) {
+    const fixture = setup('success', { hostname, result: { success: true, submission_id: 'saved-1' } });
+    await fixture.invoke('ntaUnifiedIntake', {});
+    assert.equal(fixture.analytics.length, 0);
+  }
+  const other = setup('success', { result: { success: true, submission_id: 'saved-1' } });
+  await other.invoke('publicationSignup', {});
+  assert.equal(other.analytics.length, 0);
+});
+
+test('unknown form types cannot send arbitrary text to measurement', async () => {
+  const fixture = setup('success', { result: { success: true, submission_id: 'saved-1' } });
+  await fixture.invoke('ntaUnifiedIntake', { submission_type: 'private@example.invalid' });
+  assert.equal(fixture.analytics[0].properties.form_type, 'other_inquiry');
+});
+
+for (const option of ['analyticsThrows', 'analyticsRejects', 'googleThrows']) {
+  test(option + ' does not interrupt a saved inquiry', async () => {
+    const fixture = setup('success', { [option]: true, result: { success: true, submission_id: 'saved-1' } });
+    const response = await fixture.invoke('ntaUnifiedIntake', { submission_type: 'contact' });
+    assert.equal(response.data.submission_id, 'saved-1');
+    assert.equal(fixture.analytics.length, 1);
+    assert.equal(fixture.google.length, 1);
+    await new Promise(resolve => setImmediate(resolve));
+  });
+}
+
 test('public client never shows success when the server declines a submission', async () => {
   const fixture = setup('not_accepted');
   await assert.rejects(fixture.invoke('ntaUnifiedIntake', {}), /not accepted/);
