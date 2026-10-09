@@ -155,6 +155,16 @@ const LEGACY_PUBLIC_REDIRECTS = {
   '/business-journey': '/work-with-nta',
   '/BusinessJourney': '/work-with-nta',
   '/restaurant-social-media': '/restaurants',
+  // Retired public addresses still appearing in Search Console.
+  '/services/ai-managed-marketing': '/ai-marketing-platform',
+  '/services/ai-marketing-systems': '/ai-marketing-platform',
+  '/SocialMediaContentSystem': '/ai-social-media',
+  '/social-media': '/ai-social-media',
+  '/CommunityPartnerProgram': '/community-partner',
+  '/getStarted': '/get-started',
+  '/TheHiddenCostOfOutdatedMarketing': '/hidden-cost-of-outdated-marketing',
+  '/SocialMediaRochesterMN': '/social-media/rochester-mn',
+  '/book-a-call': '/book-call',
 };
 
 function LegacyBookingRedirect() {
