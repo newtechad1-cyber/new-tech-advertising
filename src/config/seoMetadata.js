@@ -143,6 +143,10 @@ const STATIC_SEO = {
     title: "Free Small Business Marketing and AI Gap Audit | NTA",
     description: "Start a free small-business gap audit to identify what is working, what is missing, and what deserves attention next.",
   },
+  "/hidden-cost-of-outdated-marketing": {
+    title: "The Hidden Cost of Outdated Marketing | New Tech Advertising",
+    description: "What outdated marketing is really costing your small business. The hidden expenses of not adopting AI-powered marketing.",
+  },
   "/rebuild-intake": {
     title: "Website Rebuild Request | New Tech Advertising",
     description: "Tell NTA about your current website and what you want to improve. Start a practical website rebuild conversation without committing to a package.",
