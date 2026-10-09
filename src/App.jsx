@@ -163,7 +163,7 @@ const LEGACY_PUBLIC_REDIRECTS = {
   '/CommunityPartnerProgram': '/community-partner',
   '/getStarted': '/get-started',
   '/TheHiddenCostOfOutdatedMarketing': '/hidden-cost-of-outdated-marketing',
-  '/SocialMediaRochesterMN': '/social-media/rochester-mn',
+  '/SocialMediaRochesterMN': '/ai-social-media',
   '/book-a-call': '/book-call',
 };
 

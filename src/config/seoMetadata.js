@@ -394,7 +394,7 @@ const LEGACY_CANONICALS = {
   "/communitypartnerprogram": "/community-partner",
   "/getstarted": "/get-started",
   "/thehiddencostofoutdatedmarketing": "/hidden-cost-of-outdated-marketing",
-  "/socialmediarochestermn": "/social-media/rochester-mn",
+  "/socialmediarochestermn": "/ai-social-media",
   "/book-a-call": "/book-call",
   "/home": "/",
   "/homepage": "/",

@@ -1263,6 +1263,15 @@ function getSitemapPaths() {
 // metadata until JavaScript runs. Pre-rendering these cleanup URLs gives
 // crawlers the correct canonical/noindex instruction in the first HTML response.
 const LEGACY_SEARCH_CLEANUP_PATHS = [
+  "/services/ai-managed-marketing",
+  "/services/ai-marketing-systems",
+  "/SocialMediaContentSystem",
+  "/social-media",
+  "/CommunityPartnerProgram",
+  "/getStarted",
+  "/TheHiddenCostOfOutdatedMarketing",
+  "/SocialMediaRochesterMN",
+  "/book-a-call",
   "/home",
   "/Home",
   "/HomePage",

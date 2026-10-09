@@ -144,3 +144,18 @@ test('historical route variants can never inherit generic indexable metadata', (
     }
   }
 });
+
+test('retired public URLs have canonical cleanup HTML instead of homepage metadata', () => {
+  const mappings = {"/services/ai-managed-marketing":"/ai-marketing-platform","/services/ai-marketing-systems":"/ai-marketing-platform","/SocialMediaContentSystem":"/ai-social-media","/social-media":"/ai-social-media","/CommunityPartnerProgram":"/community-partner","/getStarted":"/get-started","/TheHiddenCostOfOutdatedMarketing":"/hidden-cost-of-outdated-marketing","/SocialMediaRochesterMN":"/ai-social-media","/book-a-call":"/book-call"};
+  for (const [oldPath, target] of Object.entries(mappings)) {
+    const html = readOutputForRoute(oldPath);
+    assert.ok(html.includes('rel="canonical" href="https://newtechadvertising.com' + target + '"'), oldPath);
+    assert.match(html, /name="robots" content="noindex, follow"/);
+    assert.doesNotMatch(html, /<title>Page Not Found/);
+  }
+});
+test('website rebuild intake has its own preferred URL and metadata', () => {
+  const html = readOutputForRoute('/rebuild-intake');
+  assert.match(html, /Website Rebuild Request/);
+  assert.ok(html.includes('rel="canonical" href="https://newtechadvertising.com/rebuild-intake"'));
+});
