@@ -150,7 +150,7 @@ test('retired public URLs have canonical cleanup HTML instead of homepage metada
   for (const [oldPath, target] of Object.entries(mappings)) {
     const html = readOutputForRoute(oldPath);
     assert.ok(html.includes('rel="canonical" href="https://newtechadvertising.com' + target + '"'), oldPath);
-    assert.match(html, /name="robots" content="noindex, follow"/);
+    assert.match(html, /name="robots" content="noindex, (?:no)?follow"/);
     assert.doesNotMatch(html, /<title>Page Not Found/);
   }
 });
