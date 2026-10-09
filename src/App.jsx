@@ -161,7 +161,7 @@ const LEGACY_PUBLIC_REDIRECTS = {
   '/SocialMediaContentSystem': '/ai-social-media',
   '/social-media': '/ai-social-media',
   '/CommunityPartnerProgram': '/community-partner',
-  '/getStarted': '/get-started',
+  '/getStarted': '/start',
   '/TheHiddenCostOfOutdatedMarketing': '/hidden-cost-of-outdated-marketing',
   '/SocialMediaRochesterMN': '/ai-social-media',
   '/book-a-call': '/book-call',
