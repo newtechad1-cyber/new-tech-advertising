@@ -143,6 +143,10 @@ const STATIC_SEO = {
     title: "Free Small Business Marketing and AI Gap Audit | NTA",
     description: "Start a free small-business gap audit to identify what is working, what is missing, and what deserves attention next.",
   },
+  "/rebuild-intake": {
+    title: "Website Rebuild Request | New Tech Advertising",
+    description: "Tell NTA about your current website and what you want to improve. Start a practical website rebuild conversation without committing to a package.",
+  },
   "/book-call": {
     title: "Book a Small Business Growth Conversation | NTA",
     description: "Book a free Growth Conversation with Rick Hesse. Start with your business goals and agree on practical work, setup, ongoing support, and pricing together.",
@@ -382,6 +386,16 @@ const STATIC_SEO = {
 };
 
 const LEGACY_CANONICALS = {
+  // Match the retired URL redirects and omit query strings from canonicals.
+  "/services/ai-managed-marketing": "/ai-marketing-platform",
+  "/services/ai-marketing-systems": "/ai-marketing-platform",
+  "/socialmediacontentsystem": "/ai-social-media",
+  "/social-media": "/ai-social-media",
+  "/communitypartnerprogram": "/community-partner",
+  "/getstarted": "/get-started",
+  "/thehiddencostofoutdatedmarketing": "/hidden-cost-of-outdated-marketing",
+  "/socialmediarochestermn": "/social-media/rochester-mn",
+  "/book-a-call": "/book-call",
   "/home": "/",
   "/homepage": "/",
   "/index.html": "/",
