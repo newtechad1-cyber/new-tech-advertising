@@ -1127,6 +1127,7 @@ function approvedLessonMarkup(markdown) {
 
 function approvedLessonStaticBody(pathname) {
   const approvedPaths = {
+    "/knowledge/truth-about-business-growth/show-me-before-you-sell-me": ["truth-about-business-growth", "show-me-before-you-sell-me"],
     "/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business": ["ai-foundations", "how-do-you-put-ai-to-work-in-a-real-business"],
     "/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold": ["truth-about-business-growth", "business-owners-are-tired-of-being-sold"]
   };
