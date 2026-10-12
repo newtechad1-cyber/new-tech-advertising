@@ -1097,7 +1097,7 @@
       "description": "Understand the difference between unpredictable spikes in activity and compounded digital momentum.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-10-05",
+      "lastModified": "2026-10-12",
       "lessons": [
         {
           "title": "Businesses Don’t Need More Marketing. They Need a Better Growth System.",
@@ -1178,6 +1178,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-10-05"
+        },
+        {
+          "title": "Show Me Before You Sell Me",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me",
+          "contentType": "LearningResource",
+          "description": "Rick Hesse follows the Appliance Outlet proposal process from discovery and demonstration to clear scope, costs, acceptance, and onboarding.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-10-12"
         }
       ]
     },
