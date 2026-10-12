@@ -41,6 +41,7 @@ export default function BusinessOwnersAreTiredOfBeingSold() {
         <h2 className="text-xl font-bold text-white">Put it to work</h2>
         <p className="mt-4 leading-8">Choose one advertising offer you are considering. Use the five questions in this lesson to write down what you understand and what still needs explaining. Bring the unanswered questions into the conversation before committing.</p>
       </aside>
+      <div className="mt-10"><Link to="/knowledge/truth-about-business-growth/show-me-before-you-sell-me" className="text-cyan-300 hover:text-white">Next lesson: Show Me Before You Sell Me →</Link></div>
       <div className="mt-10 flex flex-wrap gap-6">
         <Link to="/knowledge" className="text-cyan-300 hover:text-white">Explore the Knowledge Library</Link>
         <Link to="/journal" className="text-cyan-300 hover:text-white">Read the NTA Journal</Link>

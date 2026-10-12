@@ -16,8 +16,8 @@ export default function ShowMeBeforeYouSellMe() {
       <h1 className="mt-4 text-4xl font-black leading-tight text-white md:text-5xl">{lesson.title}</h1>
       <p className="mt-6 text-xl leading-8">{lesson.description}</p>
       <p className="mt-5 mb-12 text-sm text-slate-400">By Rick Hesse · {lesson.readingTime}</p>
-      <LessonMediaOptions collectionSlug="truth-about-business-growth" lessonSlug={lesson.slug} />
-      <LessonArticle content={lesson.content} />
+      <LessonMediaOptions path="/knowledge/truth-about-business-growth/show-me-before-you-sell-me" />
+      <div id="lesson-reading" className="scroll-mt-24"><LessonArticle content={lesson.content} /></div>
       <nav aria-label="Continue reading" className="mt-14 rounded-2xl border border-cyan-500/25 bg-cyan-950/15 p-7">
         <h2 className="text-xl font-bold text-white">Continue the conversation</h2>
         <div className="mt-5 flex flex-col gap-5">

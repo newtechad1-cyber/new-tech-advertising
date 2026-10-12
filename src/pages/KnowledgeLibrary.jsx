@@ -103,6 +103,18 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="proposal-lesson-heading">
+          <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
+            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">This week's lesson · NTA Point of View</p>
+            <h2 id="proposal-lesson-heading" className="mt-3 text-3xl font-black text-white">Show Me Before You Sell Me</h2>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">Follow the Appliance Outlet proposal process from understanding the business to a demonstration, clear scope, costs, and practical next steps.</p>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link to="/knowledge/truth-about-business-growth/show-me-before-you-sell-me" className="rounded-xl bg-cyan-300 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-200">Read the lesson</Link>
+              <Link to="/journal/issue-11-show-me-before-you-sell-me" className="rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-cyan-300">Read Journal Issue 11</Link>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800 bg-slate-950 px-6 py-10" aria-labelledby="new-lesson-heading">
           <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:flex md:items-center md:justify-between md:gap-10 md:p-9">
             <div className="max-w-2xl">

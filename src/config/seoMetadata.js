@@ -447,6 +447,7 @@ const LEGACY_CANONICALS = {
   "/aifoundationscollection": "/knowledge/ai-foundations",
   "/businessfoundationscollection": "/knowledge/business-foundations",
   "/truthaboutbusinessgrowthcollection": "/knowledge/truth-about-business-growth",
+  "/showmebeforeyousellme": "/knowledge/truth-about-business-growth/show-me-before-you-sell-me",
   "/businessownersaretiredofbeingsold": "/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold",
   "/howcustomersdecidewhotrustcollection": "/knowledge/how-customers-decide-who-to-trust",
   "/howbusinessesturntrustintolastingrelationshipscollection": "/knowledge/how-businesses-turn-trust-into-lasting-relationships",
@@ -594,6 +595,7 @@ const PRIVATE_PREFIXES = [
 // components. Other unknown paths must not become indexable merely because
 // their first segment resembles a public content family.
 const PUBLISHED_JOURNAL_PATHS = [
+  "/journal/issue-11-show-me-before-you-sell-me",
   "/journal/issue-1-the-system-behind-the-work",
   "/journal/issue-2-what-i-learned-while-rebuilding-nta",
   "/journal/issue-3-what-i-learned-about-making-complicated-things-simple",

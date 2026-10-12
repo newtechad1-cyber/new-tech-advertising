@@ -45,6 +45,9 @@ import HelpAndSupport from './pages/HelpAndSupport';
 import LearningCenter from './pages/LearningCenter';
 import KnowledgeLibrary from './pages/KnowledgeLibrary';
 import BusinessOwnersAreTiredOfBeingSold from './pages/BusinessOwnersAreTiredOfBeingSold';
+import ShowMeBeforeYouSellMe from './pages/ShowMeBeforeYouSellMe';
+import ShowMePublicLesson from './pages/knowledge/truth-about-business-growth/show-me-before-you-sell-me';
+import PublicJournalIssue11 from './pages/journal/issue-11-show-me-before-you-sell-me';
 import BusinessOwnersPublicLesson from './pages/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold';
 import StartWithTheWorkNotTheToolLessonPage from './pages/knowledge/ai-foundations/start-with-the-work-not-the-tool';
 // Public canonical route pages for Base44 crawler rendering.
@@ -279,6 +282,9 @@ const PAGES = {
   LearningCenter,
   KnowledgeLibrary,
   BusinessOwnersAreTiredOfBeingSold,
+  ShowMeBeforeYouSellMe,
+  'knowledge/truth-about-business-growth/show-me-before-you-sell-me': ShowMePublicLesson,
+  'journal/issue-11-show-me-before-you-sell-me': PublicJournalIssue11,
   'knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold': BusinessOwnersPublicLesson,
   knowledge: KnowledgeLibrary,
   'knowledge/ai-foundations/start-with-the-work-not-the-tool': StartWithTheWorkNotTheToolLessonPage,
