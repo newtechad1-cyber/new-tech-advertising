@@ -105,7 +105,7 @@ import RestaurantDemoPizza from '@/pages/RestaurantDemoPizza';
 import RestaurantSolutions from '@/pages/RestaurantSolutions';
 // legacy import removed: RestaurantSocialMedia from '@/pages/RestaurantSocialMedia';
 import ReputationIsNowAGrowthEngine from '@/pages/ReputationIsNowAGrowthEngine';
-import RebuildIntake from '@/pages/RebuildIntake';
+import RebuildIntake from '@/pages/Rebuild-Intake';
 import SalesConversations from '@/pages/SalesConversations';
 import SeasonalCampaigns from '@/pages/SeasonalCampaigns';
 import Services from '@/pages/Services';
