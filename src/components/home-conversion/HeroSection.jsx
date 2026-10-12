@@ -1,6 +1,7 @@
 import { ArrowRight, BookOpen, CircleHelp, Clock, Globe, MessageCircle, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { trackJourneyEvent } from '@/lib/journeyAnalytics';
+import RickMissionStatement from './RickMissionStatement';
 
 const BUSINESS_PATHS = [
   {
@@ -76,6 +77,7 @@ export default function HeroSection() {
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
             Advertise Better.
           </h1>
+          <RickMissionStatement />
           <div className="mx-auto mt-7 max-w-3xl space-y-4 text-lg leading-relaxed text-slate-300 md:text-xl">
             <p className="font-semibold text-white">
               Start with your customer. Not the advertising product.
