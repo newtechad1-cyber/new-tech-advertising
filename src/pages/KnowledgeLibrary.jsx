@@ -116,6 +116,18 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="ai-confusion-lesson-heading">
+          <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
+            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">Clear up AI confusion · NTA Point of View</p>
+            <h2 id="ai-confusion-lesson-heading" className="mt-3 text-3xl font-black text-white">Is Using AI Cheating?</h2>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">A contractor, a doctor, and an everyday example help explain useful assistance, honesty, and human judgment. Follow the research, compare the evidence, and explore the connections for yourself.</p>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link to="/knowledge/ai-foundations/is-using-ai-cheating" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">Read the lesson <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+              <Link to="/knowledge/ai-foundations/is-using-ai-cheating#lesson-sources" className="inline-flex min-h-12 items-center rounded-xl border border-slate-500 px-5 py-3 font-bold text-cyan-200 hover:border-cyan-300">Explore the sources</Link>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800 bg-slate-950 px-6 py-10" aria-labelledby="new-lesson-heading">
           <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:flex md:items-center md:justify-between md:gap-10 md:p-9">
             <div className="max-w-2xl">
