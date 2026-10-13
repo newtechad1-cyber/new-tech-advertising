@@ -1,10 +1,18 @@
 // Public YouTube feed and channel-owned oEmbed metadata verified on 2026-09-17.
 // This selection remains available if the live feed is temporarily unavailable.
 // Do not add draft, private, unlisted, or unverified videos here.
-export const VIDEO_GALLERY_VERIFIED_AT = '2026-09-17';
+export const VIDEO_GALLERY_VERIFIED_AT = '2026-10-13';
 export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
+{
+  "youtubeId": "ZWxTY-ajwc8",
+  "title": "AI Needs Context Before It Can Be Helpful | Why Generic AI Answers Happen",
+  "publishedAt": "2026-10-13",
+  "galleryCategory": "Knowledge Library",
+  "relatedUrl": "/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful",
+  "summary": "Rick Hesse explains why useful AI depends on context about the business, customer, voice, boundaries, examples, and goals instead of relying on generic prompts alone."
+},
 {
   "youtubeId": "gtksRYVq3VE",
   "title": "AI Does Not Have to Be a Monster | A Practical Way to Understand AI",
