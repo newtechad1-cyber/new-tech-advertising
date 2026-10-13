@@ -1,3 +1,4 @@
+import NativeGrowthEpisode11 from './pages/growth-show/show-me-before-you-sell-me';
 import NativeGrowthEpisodeSearch3 from './pages/growth-show/i-didnt-set-out-to-build-an-ai-team';
 import NativeGrowthEpisodeSearch2 from './pages/growth-show/automation-is-the-last-step-not-the-first';
 import NativeGrowthEpisodeSearch1 from './pages/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system';
@@ -246,6 +247,7 @@ import WhyNTA from './pages/WhyNTA';
 import __Layout from './Layout.jsx';
 
 const PAGES = {
+  'growth-show/show-me-before-you-sell-me': NativeGrowthEpisode11,
   "Home": Home,
   signup: SignupPage,
   About,

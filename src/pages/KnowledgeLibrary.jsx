@@ -111,6 +111,7 @@ export default function KnowledgeLibrary() {
             <div className="mt-6 flex flex-wrap gap-4">
               <Link to="/knowledge/truth-about-business-growth/show-me-before-you-sell-me" className="rounded-xl bg-cyan-300 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-200">Read the lesson</Link>
               <Link to="/journal/issue-11-show-me-before-you-sell-me" className="rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-cyan-300">Read Journal Issue 11</Link>
+              <Link to="/growth-show/show-me-before-you-sell-me" className="rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-cyan-300">Watch Episode 11</Link>
             </div>
           </div>
         </section>

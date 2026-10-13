@@ -5,6 +5,33 @@ import { flagshipArticleToolsVsSystem } from './flagshipArticles.js';
  * A Base44 record with the same YouTube ID replaces the seed record.
  */
 export const SEED_GROWTH_SHOW_EPISODES = [{
+  "episode_number": 11,
+  "title": "Show Me Before You Sell Me | NTA Growth Show — Episode 11",
+  "slug": "show-me-before-you-sell-me",
+  "summary": "Rick Hesse and the Free AI Guy follow the Appliance Outlet proposal process from business discovery and demonstration to clear scope, costs, acceptance, and onboarding.",
+  "status": "Published",
+  "featured": true,
+  "youtube_video_id": "HHFhZ-WJuaw",
+  "youtube_knowledge_id": "6ace289bae71648970b86be4",
+  "source_canon_id": "6acd387d74b52b52094b74aa",
+  "publishing_article_id": "6acd387d74b52b52094b74aa",
+  "source_article_slug": "show-me-before-you-sell-me",
+  "related_lesson_canon_ids": [
+    "6acd387d74b52b52094b74aa"
+  ],
+  "related_journal_issue_ids": [
+    "6acd39c09765ed7e20c09279",
+    "issue-11-show-me-before-you-sell-me"
+  ],
+  "playlist_slug": "nta-growth-show",
+  "cta_text": "Read the lesson",
+  "cta_url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me",
+  "notes": "Rick confirmed final assembled Episode 11 and published it October 13. YouTube oEmbed verified New Tech Advertising / @RickHesse, actual uploaded title and thumbnail. Anonymous embed with NTA Referer returned OK, playableInEmbed true, isCrawlable true; duration 712 seconds. Full human playback review was Rick's; no fabricated chapters or audio. Website Publish remains Rick's; subscriber email not sent in this connection step.",
+  "id": "seed-growth-show-HHFhZ-WJuaw",
+  "published_date": "2026-10-13",
+  "thumbnail_url": "https://i.ytimg.com/vi/HHFhZ-WJuaw/hqdefault.jpg"
+},
+{
   "id": "seed-growth-show-814-k8Tl-LE",
   "episode_number": 10,
   "title": "Business Owners Are Tired of Being Sold | NTA Growth Show — Episode 10",
@@ -77,7 +104,8 @@ export const SEED_GROWTH_SHOW_EPISODES = [{
  * The flagship article remains authoritative in flagshipArticles.js. This
  * adapter makes that source available to the relationship graph.
  */
-export const GROWTH_SHOW_SOURCE_ARTICLES = [{"id":"6ac38ae01da8b49dc1015856","canon_id":"6ac38ae01da8b49dc1015856","slug":"business-owners-are-tired-of-being-sold","title":"Business Owners Are Tired of Being Sold","summary":"Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold","status":"Published","related_lesson_ids":[]}, {
+export const GROWTH_SHOW_SOURCE_ARTICLES = [{"id":"6acd387d74b52b52094b74aa","canon_id":"6acd387d74b52b52094b74aa","slug":"show-me-before-you-sell-me","title":"Show Me Before You Sell Me","summary":"Rick Hesse and the Free AI Guy follow the Appliance Outlet proposal process from business discovery and demonstration to clear scope, costs, acceptance, and onboarding.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me","status":"Published","related_lesson_ids":[]},
+{"id":"6ac38ae01da8b49dc1015856","canon_id":"6ac38ae01da8b49dc1015856","slug":"business-owners-are-tired-of-being-sold","title":"Business Owners Are Tired of Being Sold","summary":"Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold","status":"Published","related_lesson_ids":[]}, {
   ...flagshipArticleToolsVsSystem,
   canon_id: flagshipArticleToolsVsSystem.id,
   summary: flagshipArticleToolsVsSystem.primaryPrinciple,

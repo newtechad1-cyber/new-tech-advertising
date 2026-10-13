@@ -23,6 +23,7 @@ export default function ShowMeBeforeYouSellMe() {
         <div className="mt-5 flex flex-col gap-5">
           <Link to="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold" className="text-cyan-300 hover:text-white">Previous lesson: Business Owners Are Tired of Being Sold</Link>
           <Link to="/journal/issue-11-show-me-before-you-sell-me" className="text-cyan-300 hover:text-white">Read Journal Issue 11: Show Me Before You Sell Me</Link>
+          <Link to="/growth-show/show-me-before-you-sell-me" className="text-cyan-300 hover:text-white">Watch Growth Show Episode 11</Link>
           <Link to="/knowledge" className="text-cyan-300 hover:text-white">Explore the Knowledge Library</Link>
         </div>
       </nav>

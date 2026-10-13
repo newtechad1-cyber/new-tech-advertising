@@ -1750,7 +1750,7 @@
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
       "publicStatus": "published",
-      "lastModified": "2026-10-12",
+      "lastModified": "2026-10-13",
       "estimatedReadingTime": "4 min read",
       "sections": [
         {
@@ -1768,7 +1768,11 @@
         "excerpt": "Rick Hesse follows the Appliance Outlet proposal process from discovery and demonstration to clear scope, costs, acceptance, and onboarding.",
         "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me"
       },
-      "closingMessage": "Read the complete lesson, [Show Me Before You Sell Me](https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me)."
+      "closingMessage": "Read the complete lesson, [Show Me Before You Sell Me](https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me).\n\n[Watch Episode 11 of the NTA Growth Show](https://youtu.be/HHFhZ-WJuaw), where the Free AI Guy and I discuss how a useful proposal takes shape.",
+      "featuredVideo": {
+        "url": "https://youtu.be/HHFhZ-WJuaw",
+        "title": "Show Me Before You Sell Me | NTA Growth Show — Episode 11"
+      }
     },
     {
       "issueNumber": 10,

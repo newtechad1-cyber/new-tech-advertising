@@ -292,6 +292,7 @@ export const ROUTE_OVERRIDES = {
   '/growth-show.xml': 'public',
   '/growth-show':                'public',
   '/growth-show/:slug':          'public',
+  '/growth-show/show-me-before-you-sell-me': 'public',
   '/what-changed-online':        'public',
   '/ai-visibility-basics':       'public',
   '/practical-ai-for-small-businesses': 'public',

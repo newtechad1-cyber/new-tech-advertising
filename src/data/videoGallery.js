@@ -6,6 +6,14 @@ export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
 {
+  "youtubeId": "HHFhZ-WJuaw",
+  "title": "Show Me Before You Sell Me | NTA Growth Show — Episode 11",
+  "publishedAt": "2026-10-13",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/show-me-before-you-sell-me",
+  "summary": "Rick Hesse and the Free AI Guy follow the Appliance Outlet proposal process from business discovery and demonstration to clear scope, costs, acceptance, and onboarding."
+},
+{
   "youtubeId": "814-k8Tl-LE",
   "title": "Business Owners Are Tired of Being Sold | NTA Growth Show — Episode 10",
   "publishedAt": "2026-10-05T00:00:00Z",
