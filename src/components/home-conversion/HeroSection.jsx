@@ -70,6 +70,7 @@ export default function HeroSection() {
       </div>
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        <RickMissionStatement />
         <div className="mx-auto max-w-4xl text-center">
           <p className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
             Better advertising starts with the customer
@@ -77,7 +78,6 @@ export default function HeroSection() {
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
             Advertise Better.
           </h1>
-          <RickMissionStatement />
           <div className="mx-auto mt-7 max-w-3xl space-y-4 text-lg leading-relaxed text-slate-300 md:text-xl">
             <p className="font-semibold text-white">
               Start with your customer. Not the advertising product.
