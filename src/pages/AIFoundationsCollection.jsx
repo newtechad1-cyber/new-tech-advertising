@@ -96,6 +96,9 @@ export default function AIFoundationsCollection() {
               </Link>
             </div>
           </div>
+          <Link to="/knowledge/ai-foundations/is-using-ai-cheating" className="mx-auto mt-7 flex max-w-2xl items-center justify-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-950/20 p-5 font-semibold text-cyan-200 hover:border-cyan-300 hover:text-white">
+            New lesson: Is Using AI Cheating? — examples, evidence, and sources <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+          </Link>
           <Link to="/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 underline underline-offset-4 transition-colors hover:text-white">
             New lesson: How Do You Put AI to Work in a Real Business? <ChevronRight className="h-4 w-4" />
           </Link>
