@@ -5,6 +5,15 @@ export const VIDEO_GALLERY_PATH = '/learning-center/videos';
 // Editorial topic connections, not claims that a video is a word-for-word
 // recording of the lesson. Add only verified public videos and existing pages.
 export const VIDEO_READING_CONNECTIONS = [
+  {
+    videoId: 'gtksRYVq3VE',
+    title: 'AI Does Not Have to Be a Monster | A Practical Way to Understand AI',
+    href: '/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster',
+    audioReady: true,
+    audioUrl: 'https://newtechadvertising.com/audio/knowledge-library/gtksRYVq3VE.mp3',
+    audioContentType: 'audio/mpeg',
+    audioDurationSeconds: 151.12,
+  },
   { videoId: 'HHFhZ-WJuaw', title: 'Show Me Before You Sell Me', href: '/knowledge/truth-about-business-growth/show-me-before-you-sell-me' },
   { videoId: '814-k8Tl-LE', title: 'Business Owners Are Tired of Being Sold', href: '/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold' },
   { videoId: 'rbqIiynd1zo', title: 'How Do You Put AI to Work in a Real Business?', href: '/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business' },
