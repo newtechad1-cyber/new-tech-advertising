@@ -1431,7 +1431,7 @@
       "description": "A practical, hype-free introduction to using artificial intelligence in a local business.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-09-28",
+      "lastModified": "2026-10-13",
       "lessons": [
         {
           "title": "AI Isn't Magic Either",
@@ -1592,6 +1592,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-09-28"
+        },
+        {
+          "title": "AI Confusion: Is Using AI Cheating?",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/is-using-ai-cheating",
+          "contentType": "LearningResource",
+          "description": "Is using AI cheating? Rick Hesse connects familiar examples, healthcare evidence and research to explain assistance, honesty, human judgment and shared knowledge.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-10-13"
         }
       ]
     },
