@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Headphones } from 'lucide-react';
-export default function GrowthShowAudioPlayer({ episode, watchHref }) {
+export default function GrowthShowAudioPlayer({ episode, watchHref, readHref }) {
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     if (!episode?.audioReady) return;
@@ -13,9 +13,11 @@ export default function GrowthShowAudioPlayer({ episode, watchHref }) {
     return () => cancelAnimationFrame(frame);
   }, [episode?.audioUrl, episode?.audioReady]);
   if (!episode?.audioReady) return null;
+  const reading = readHref || episode.lessons?.[0]?.canonical_url || episode.article?.canonical_url;
   return (
     <section id="listen" aria-label={'Listen to ' + episode.title} className="scroll-mt-24 my-8 rounded-2xl border border-cyan-400/30 bg-slate-900 p-5 sm:p-7">
       <div className="mb-5 flex flex-wrap gap-3" aria-label="Choose how to enjoy this episode">
+        {reading && <a href={reading} className="rounded-lg border border-slate-500 px-4 py-2 font-bold text-white">Read the lesson</a>}
         <a href="#listen" className="rounded-lg bg-cyan-400 px-4 py-2 font-bold text-slate-950">Listen to podcast</a>
         <a href={watchHref || (window.location.pathname.replace(/\/$/, "") === "/growth-show" ? `/growth-show/${episode.slug}#watch` : "#watch")} className="rounded-lg border border-blue-400 px-4 py-2 font-bold text-blue-200">Watch video</a>
       </div>

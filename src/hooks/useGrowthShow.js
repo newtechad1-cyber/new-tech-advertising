@@ -14,7 +14,14 @@ function mergeEpisodeRecords(seedRecords, entityRecords) {
   for (const record of entityRecords) {
     byVideoId.set(record.youtube_video_id || record.id, record);
   }
-  return [...byVideoId.values()].map(record => ({ ...GROWTH_SHOW_AUDIO[record.youtube_video_id], ...record }));
+  return [...byVideoId.values()].map(record => {
+    const audio = GROWTH_SHOW_AUDIO[record.youtube_video_id];
+    // Preview the verified local file before the owner publishes it; live records
+    // keep Listen gated until the public MP3 has passed the deployment check.
+    return import.meta.env?.DEV && audio?.audio_status === 'Ready'
+      ? { ...record, ...audio }
+      : { ...audio, ...record };
+  });
 }
 
 function mergeSourceArticles(articles, sourceArticles) {
