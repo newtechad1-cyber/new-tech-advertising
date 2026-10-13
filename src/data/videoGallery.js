@@ -6,6 +6,14 @@ export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
 {
+  "youtubeId": "gtksRYVq3VE",
+  "title": "AI Does Not Have to Be a Monster | A Practical Way to Understand AI",
+  "publishedAt": "2026-10-13",
+  "galleryCategory": "Knowledge Library",
+  "relatedUrl": "/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster",
+  "summary": "Rick Hesse offers a calm, practical way to approach artificial intelligence without hype or fear, beginning with one useful problem and keeping human judgment in control."
+},
+{
   "youtubeId": "HHFhZ-WJuaw",
   "title": "Show Me Before You Sell Me | NTA Growth Show — Episode 11",
   "publishedAt": "2026-10-13",
