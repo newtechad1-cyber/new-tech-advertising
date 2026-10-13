@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle, ExternalLink } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -19,14 +19,22 @@ const sourceContent = sourceIndex >= 0 ? lesson.content.slice(sourceIndex) : '';
 const linkStyle = '[&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-4 [&_a]:break-words [&_a]:text-blue-300 [&_a:focus-visible]:outline [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-offset-4';
 
 export default function AIConfusionLesson() {
+  const { hash } = useLocation();
   const [isComplete, setIsComplete] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
 
   useEffect(() => {
     setIsComplete(Boolean(getJourneyMemory().learningProgress[PROGRESS_KEY]));
     updateJourneyMemory({ lastVisitedLessonId: lesson.id });
-    if (!window.location.hash) window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (hash === '#lesson-sources' || hash === '#lesson-reading') {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [hash]);
 
   const markComplete = () => {
     addCompletedModule(lesson.id);
@@ -66,7 +74,7 @@ export default function AIConfusionLesson() {
           </div>
         </header>
 
-        <div className="mx-auto max-w-3xl px-6 py-12 sm:px-0">
+        <div className="mx-auto max-w-3xl px-6 py-12">
           <LessonMediaOptions path={AI_CONFUSION_PATH} />
           <div className="mb-10 rounded-xl border border-cyan-400/25 bg-cyan-950/15 p-5 text-sm leading-7">
             <p><strong className="text-white">How to read this lesson:</strong> Personal examples explain the idea. Linked sources support particular factual claims. The connections and conclusions are my NTA Point of View, not endorsements from the organizations cited.</p>
