@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import test from 'node:test';
 import { SEED_GROWTH_SHOW_EPISODES } from '../src/data/growthShowEpisodes.js';
 import { getSeoMetadata } from '../src/config/seoMetadata.js';
+import { GROWTH_SHOW_AUDIO } from '../src/data/growthShowAudio.js';
+import { isPodcastAudioReady } from '../src/lib/growthShowPodcast.js';
 
 function output(route) {
   for (const file of ['dist' + route, 'dist' + route + '.html', 'dist' + route + '/index.html']) {
@@ -30,7 +32,7 @@ test('every published Growth Show episode has its own initial content and native
 test('podcast initial content and error output are distinct from the homepage', () => {
   const podcasts = output('/podcasts');
   assert.match(podcasts, /<h1>Prefer to listen\? Start here\.<\/h1>/);
-  assert.equal((podcasts.match(/<audio /g) || []).length, 8);
+  assert.equal((podcasts.match(/<audio /g) || []).length, SEED_GROWTH_SHOW_EPISODES.filter(e => e.status === 'Published' && isPodcastAudioReady(GROWTH_SHOW_AUDIO[e.youtube_video_id])).length);
   assert.doesNotMatch(podcasts, /nta-journal-issue-5-fallback/);
   assert.match(output('/404.html'), /name="robots" content="noindex, nofollow"/);
   assert.equal(getSeoMetadata('/definitely-not-a-real-page').noIndex, true);

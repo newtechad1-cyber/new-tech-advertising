@@ -32,7 +32,7 @@ test('every current enclosure has actual complete MP3 bytes; no sample or duplic
   assert.equal(XMLValidator.validate(xml),true);
   const parsed=new XMLParser({ignoreAttributes:false}).parse(xml);
   const items=[parsed.rss.channel.item].flat();
-  assert.equal(items.length,8);
+  assert.equal(items.length,Object.values(GROWTH_SHOW_AUDIO).filter(isPodcastAudioReady).length);
   const ids=new Set();
   for(const item of items) {
     const enclosure=item.enclosure; const file='public'+new URL(enclosure['@_url']).pathname;
