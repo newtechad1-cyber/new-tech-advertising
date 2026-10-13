@@ -111,5 +111,19 @@ export const GROWTH_SHOW_AUDIO = {
     "audio_seek_checked": true,
     "audio_verification_method": "Full decode without errors; complete source duration; beginning/end non-silent signal checked; HTTP byte-range seeking verified. Human listening review remains with owner.",
     "audio_sha256": "f7af219391138b3115fca79a3a2e18351f15dee2ead93f0e9bff596e7da3a030"
+  },
+  "HHFhZ-WJuaw": {
+    "audio_status": "Ready",
+    "audio_url": "https://newtechadvertising.com/audio/growth-show/HHFhZ-WJuaw.mp3",
+    "audio_source_url": "https://www.youtube.com/watch?v=HHFhZ-WJuaw",
+    "audio_content_type": "audio/mpeg",
+    "audio_byte_length": 11378656,
+    "audio_duration_seconds": 711.13,
+    "audio_sha256": "4a9ded76270fb100c8a4f09fde71ae17441605642199b3b232bec1ebacf55e77",
+    "audio_complete": true,
+    "audio_sound_checked": true,
+    "audio_seek_checked": true,
+    "audio_verification_method": "Original final YouTube cut approved by Rick; full original audio extracted without regeneration; full codec decode, complete source duration match, and beginning/end non-silent signal verified. Human listening review remains with owner. Vite preview returned audio/mpeg and HTTP 206 with the correct 1000-byte range and full file length.",
+    "audio_verified_at": "2026-10-13T13:22:55.345Z"
   }
 };
