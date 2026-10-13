@@ -1,3 +1,4 @@
+import AIConfusionLesson from '@/pages/knowledge/ai-foundations/is-using-ai-cheating';
 import Podcasts from '@/pages/Podcasts';
 /**
  * Canonical public URL aliases.
@@ -184,6 +185,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/knowledge/sales-conversations', SalesConversations),
   alias('/knowledge/playbook', NTAPlaybook),
   alias('/knowledge/articles/:slug', FlagshipArticle),
+  alias('/knowledge/ai-foundations/is-using-ai-cheating', AIConfusionLesson),
   alias('/knowledge/:collectionSlug/:lessonSlug', KnowledgeLesson),
   alias('/knowledge/:collectionSlug', KnowledgeCollection),
   alias('/books', Books),
