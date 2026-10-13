@@ -1116,7 +1116,8 @@ function approvedLessonMarkup(markdown) {
   return String(markdown || "").trim().split(/\n\s*\n/).map(block => {
     const lines = block.trim().split("\n");
     if (lines.length === 1 && /^###? /.test(lines[0])) {
-      return "<h2>" + approvedLessonInline(lines[0].replace(/^###? /, "")) + "</h2>";
+      const sourceAnchor = lines[0] === '## Sources and further reading' ? ' id="lesson-sources"' : '';
+      return "<h2" + sourceAnchor + ">" + approvedLessonInline(lines[0].replace(/^###? /, "")) + "</h2>";
     }
     if (lines.every(line => /^- /.test(line))) {
       return "<ul>" + lines.map(line => "<li>" + approvedLessonInline(line.slice(2)) + "</li>").join("") + "</ul>";
@@ -1127,6 +1128,7 @@ function approvedLessonMarkup(markdown) {
 
 function approvedLessonStaticBody(pathname) {
   const approvedPaths = {
+    "/knowledge/ai-foundations/is-using-ai-cheating": ["ai-foundations", "is-using-ai-cheating"],
     "/knowledge/truth-about-business-growth/show-me-before-you-sell-me": ["truth-about-business-growth", "show-me-before-you-sell-me"],
     "/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business": ["ai-foundations", "how-do-you-put-ai-to-work-in-a-real-business"],
     "/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold": ["truth-about-business-growth", "business-owners-are-tired-of-being-sold"]
