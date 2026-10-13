@@ -6,6 +6,15 @@ export const VIDEO_GALLERY_PATH = '/learning-center/videos';
 // recording of the lesson. Add only verified public videos and existing pages.
 export const VIDEO_READING_CONNECTIONS = [
   {
+    videoId: 'ZWxTY-ajwc8',
+    title: 'AI Needs Context Before It Can Be Helpful | Why Generic AI Answers Happen',
+    href: '/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful',
+    audioReady: true,
+    audioUrl: 'https://newtechadvertising.com/audio/knowledge-library/ZWxTY-ajwc8.mp3',
+    audioContentType: 'audio/mpeg',
+    audioDurationSeconds: 207.68,
+  },
+  {
     videoId: 'gtksRYVq3VE',
     title: 'AI Does Not Have to Be a Monster | A Practical Way to Understand AI',
     href: '/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster',
