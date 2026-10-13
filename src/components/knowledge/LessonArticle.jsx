@@ -42,7 +42,7 @@ export function reflowLessonMarkdown(markdown = '') {
   return output.join('\n\n');
 }
 
-export default function LessonArticle({ content, accent = 'blue', className = '' }) {
+export default function LessonArticle({ content, accent = 'blue', className = '', preserveParagraphs = false }) {
   const accentOptions = {
     emerald: 'prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-li:marker:text-emerald-400',
     purple: 'prose-a:text-purple-400 hover:prose-a:text-purple-300 prose-li:marker:text-purple-400',
@@ -66,7 +66,7 @@ export default function LessonArticle({ content, accent = 'blue', className = ''
             ? <Link to={href} {...props}>{children}</Link>
             : <a href={href} {...props}>{children}</a>
         ),
-      }}>{reflowLessonMarkdown(content)}</ReactMarkdown>
+      }}>{preserveParagraphs ? content : reflowLessonMarkdown(content)}</ReactMarkdown>
     </article>
   );
 }
