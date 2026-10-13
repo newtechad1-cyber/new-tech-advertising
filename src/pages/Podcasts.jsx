@@ -6,12 +6,14 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import LearningFormatNav from '@/components/knowledge/LearningFormatNav';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
-import { readingForVideo } from '@/data/videoLearningConnections';
+import { readingForVideo, VIDEO_READING_CONNECTIONS } from '@/data/videoLearningConnections';
 
 export default function Podcasts() {
   const { episodes, loading } = useGrowthShow();
   const [query, setQuery] = useState('');
   const available = episodes.filter(episode => episode.audioReady);
+  const lessonAudio = VIDEO_READING_CONNECTIONS.filter(connection => connection.audioReady);
+  const filteredLessonAudio = useMemo(() => lessonAudio.filter(item => item.title.toLowerCase().includes(query.trim().toLowerCase())), [lessonAudio, query]);
   const filtered = useMemo(() => available.filter(e => (e.title + ' ' + e.summary).toLowerCase().includes(query.trim().toLowerCase())), [available, query]);
   return <div className="min-h-screen bg-slate-950 text-slate-300">
     <SEOHead title="Listen to NTA Podcasts | The NTA Growth Show" description="Listen to complete NTA Growth Show episodes on the website. Find practical business and AI conversations, related videos and lessons, and the podcast RSS feed." canonical="https://newtechadvertising.com/podcasts" />
@@ -27,7 +29,23 @@ export default function Podcasts() {
           <label className="flex w-full items-center gap-3 rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 sm:w-80"><Search className="h-5 w-5" aria-hidden="true" /><span className="sr-only">Search podcasts</span><input className="w-full bg-transparent text-white outline-none" type="search" placeholder="Search podcasts…" value={query} onChange={e => setQuery(e.target.value)} /></label>
         </div>
       </header>
-      <p className="mt-7 text-sm text-slate-400" role="status">{loading ? 'Loading podcast connections…' : available.length + ' complete episodes available to listen to'}</p>
+      <p className="mt-7 text-sm text-slate-400" role="status">{loading ? 'Loading podcast connections…' : (available.length + lessonAudio.length) + ' complete audio programs available to listen to'}</p>
+      {!!filteredLessonAudio.length && <section className="mt-8" aria-labelledby="knowledge-podcast-heading">
+        <h2 id="knowledge-podcast-heading" className="text-2xl font-black text-white">Knowledge Library audio lessons</h2>
+        <p className="mt-2 text-sm text-slate-400">Listen to the original audio from NTA video lessons, then continue into the complete written teaching.</p>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          {filteredLessonAudio.map(item => <article key={item.videoId} id={'lesson-' + item.videoId} className="rounded-2xl border border-cyan-300/25 bg-slate-900 p-6">
+            <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">Knowledge Library · Full lesson audio</p>
+            <h3 className="mt-3 text-2xl font-bold text-white">{item.title}</h3>
+            <audio controls preload="none" className="mt-5 w-full" aria-label={'Listen to ' + item.title}><source src={new URL(item.audioUrl).pathname} type={item.audioContentType || 'audio/mpeg'} /></audio>
+            <div className="mt-5 flex flex-wrap gap-4 text-sm font-bold">
+              <a href={'https://www.youtube.com/watch?v=' + item.videoId} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-white"><Play className="h-4 w-4" /> Watch video</a>
+              <Link to={item.href} className="inline-flex items-center gap-2 rounded-lg border border-slate-600 px-4 py-3 text-cyan-200"><BookOpen className="h-4 w-4" /> Read lesson</Link>
+            </div>
+          </article>)}
+        </div>
+      </section>}
+      <h2 className="mt-10 text-2xl font-black text-white">Growth Show podcast episodes</h2>
       <div className="mt-7 grid gap-6 md:grid-cols-2">
         {filtered.map(episode => {
           const reading = readingForVideo(episode.youtubeVideoId);
