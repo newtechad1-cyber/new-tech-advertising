@@ -22,7 +22,7 @@ const READING_TIME = "8 min read";
 const LEVEL = "Beginner";
 const AUTHOR_LABEL = "Your Digital Growth Guide™";
 const PREVIOUS_LABEL = "Previous Lesson: AI Finally Taught Me How to Multitask";
-const NEXT_LABEL = "Continue Learning";
+const NEXT_LABEL = "Next Lesson: Is Using AI Cheating?";
 const PUBLISHED_DATE = "2026-09-28";
 const MODIFIED_DATE = "2026-09-28";
 const READER_RESPONSE = null;
@@ -33,7 +33,7 @@ const SEO_TITLE = "How Do You Put AI to Work in a Real Business? | NTA Knowledge
 const CANONICAL = "https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business";
 const LESSON_ID = 16;
 const PREVIOUS_PATH = "/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask";
-const NEXT_PATH = "/knowledge/building-a-small-business-with-ai";
+const NEXT_PATH = "/knowledge/ai-foundations/is-using-ai-cheating";
 const RELATED_LESSONS = [
   {
     "title": "AI Needs Context Before It Can Be Helpful",
