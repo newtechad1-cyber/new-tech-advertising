@@ -97,7 +97,16 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-10 max-w-2xl text-center md:mt-12">
+          <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
+            Start where you are.
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-300 md:text-lg">
+            What would you like help with? Choose the statement below that sounds most like your situation. You don’t need to know the solution yet.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-6 grid max-w-6xl gap-4 md:mt-8 md:grid-cols-2 lg:grid-cols-3">
           {BUSINESS_PATHS.map(({ title, description, to, icon: Icon, step }) => (
             <Link
               key={step}
@@ -111,7 +120,7 @@ export default function HeroSection() {
                 </div>
                 <ArrowRight className="h-5 w-5 text-slate-600 transition-transform group-hover:translate-x-1 group-hover:text-blue-300" />
               </div>
-              <h2 className="text-xl font-bold text-white">{title}</h2>
+              <h3 className="text-xl font-bold text-white">{title}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-400">{description}</p>
             </Link>
           ))}
@@ -127,7 +136,7 @@ export default function HeroSection() {
               </div>
               <ArrowRight className="h-5 w-5 text-cyan-300 transition-transform group-hover:translate-x-1" />
             </div>
-            <h2 className="text-xl font-bold text-white">I don&apos;t know what to fix first</h2>
+            <h3 className="text-xl font-bold text-white">I don&apos;t know what to fix first</h3>
             <p className="mt-3 text-sm leading-6 text-slate-300">Tell Your Digital Growth Guide™ what is going on. Start with the question you have, even if you are not sure how to name it.</p>
           </button>
         </div>
