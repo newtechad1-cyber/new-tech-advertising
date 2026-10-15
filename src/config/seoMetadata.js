@@ -123,6 +123,11 @@ const STATIC_SEO = {
     title: "Practical AI for Small Business Owners | Free Guide",
     description: "A plainspoken guide to using AI in a real small business without hype, jargon, or giving up human judgment.",
   },
+  "/ai-curious": {
+    title: "AI Curious? - A First Look at AI for Everyday People | New Tech Advertising",
+    description: "AI Curious? is a welcoming first look at artificial intelligence for everyday people. Read online or download the free guide from New Tech Advertising.",
+    noIndex: false,
+  },
   "/journal": {
     title: "NTA Journal: Practical AI and Small Business Growth Lessons",
     description: "Weekly practical lessons and observations about AI, business growth, digital trust, customer relationships, and connected systems.",

@@ -98,6 +98,7 @@ import OurWork from '@/pages/OurWork';
 import POVArticleView from '@/pages/POVArticleView';
 import POVCollection from '@/pages/POVCollection';
 import PracticalAI from '@/pages/PracticalAI';
+import AICurious from '@/pages/AICurious';
 import Pricing from '@/pages/Pricing';
 import FindYourPlan from '@/pages/find-your-plan';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
@@ -194,6 +195,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/practical-ai', PracticalAI),
   alias('/practical-ai-for-small-business', PracticalAI),
   alias('/practical-ai-for-small-businesses', PracticalAI),
+  alias('/ai-curious', AICurious),
   alias('/podcasts', Podcasts),
   alias('/growth-show', GrowthShow),
   alias('/growth-show/show-me-before-you-sell-me', NativeGrowthEpisode11),

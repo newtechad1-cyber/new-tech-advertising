@@ -17,6 +17,14 @@ export const BOOK_PAGES = [
     companionPath: '/better-business-book',
     companionTitle: 'The Better Business Building Book',
   },
+  {
+    path: '/ai-curious',
+    title: 'AI Curious?',
+    description: 'A welcoming first look at artificial intelligence for everyday people, no technical background required, no hype, just plain answers to the questions curious people actually ask.',
+    image: 'https://media.base44.com/images/public/691f41a18de4a7f498c8f884/1845c6c11_ai_curious_inspirational_landscape_cover.png',
+    companionPath: '/practical-ai-for-small-business',
+    companionTitle: 'Practical AI for Small Business',
+  },
 ];
 
 export function getBookByPath(pathname) {
