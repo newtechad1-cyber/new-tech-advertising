@@ -40,6 +40,10 @@ export default function Books() {
             <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">
               Practical AI for Small Business builds on that foundation by showing where artificial intelligence can genuinely help when it is used as a tool, not as the strategy and not as a replacement for human judgment.
             </p>
+            <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">
+              AI Curious? is the on-ramp that comes before both of them, a calm first look at AI for everyday people who
+              are not ready for a business guide yet and just want to understand what AI is.
+            </p>
             <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300 font-semibold text-white">
               These books belong together because AI works best when it supports a business that understands what it is trying to improve.
             </p>
@@ -48,7 +52,7 @@ export default function Books() {
 
         {/* Book Cards Section */}
         <section className="px-6 py-10">
-          <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2">
+          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             
             {/* Card 1 */}
             <article className="flex flex-col rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-xl">
@@ -75,6 +79,21 @@ export default function Books() {
               </p>
               <Link to="/practical-ai-for-small-business" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 font-bold text-white transition-all hover:bg-indigo-500">
                 Get Practical AI for Small Business <ArrowRight className="h-4 w-4" />
+              </Link>
+            </article>
+
+            {/* Card 3 */}
+            <article className="flex flex-col rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-xl">
+              <h3 className="text-2xl font-bold text-white">AI Curious?</h3>
+              <p className="mt-3 text-lg font-medium text-blue-300">
+                A First Look at AI for Everyday People
+              </p>
+              <p className="mt-5 flex-1 leading-7 text-slate-400">
+                A welcoming first look at artificial intelligence for everyday people, not technicians. No jargon and no
+                pressure to become an expert, just plain answers to the questions curious people actually ask.
+              </p>
+              <Link to="/ai-curious" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-bold text-white transition-all hover:bg-blue-500">
+                Get AI Curious? <ArrowRight className="h-4 w-4" />
               </Link>
             </article>
 
