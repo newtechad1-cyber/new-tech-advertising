@@ -145,6 +145,7 @@ import WhyNTA from '@/pages/WhyNTA';
 import WorkWithNTA from '@/pages/WorkWithNTA';
 import WhatIsDigitalTrustCollection from '@/pages/WhatIsDigitalTrustCollection';
 import AiAdvertising from '@/pages/AiAdvertising';
+import VideoAdvertisingManagement from '@/pages/VideoAdvertisingManagement';
 import AiSeo from '@/pages/AiSeo';
 import AiSocialMedia from '@/pages/AiSocialMedia';
 import AiVideos from '@/pages/AiVideos';
@@ -254,6 +255,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/ai-social-media', AiSocialMedia),
   alias('/ai-websites', AiWebsites),
   alias('/ai-advertising', AiAdvertising),
+  alias('/video-advertising-management', VideoAdvertisingManagement),
   alias('/ai-videos', AiVideos),
   alias('/ai-video-marketing', AIVideoMarketing),
   alias('/ai-marketing-platform', AiMarketingPlatform),

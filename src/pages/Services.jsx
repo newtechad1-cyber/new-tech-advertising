@@ -273,6 +273,11 @@ export default function Services() {
                   <p className="text-slate-400 text-sm mb-3">Targeted digital advertising across Search, Social, and Streaming TV.</p>
                   <span className="text-blue-400 text-sm font-medium flex items-center gap-1">See How It Works <ArrowRight className="w-4 h-4" /></span>
                 </Link>
+                <Link to="/video-advertising-management" className="block bg-slate-900 border border-slate-800 p-5 rounded-xl hover:border-slate-700 transition-colors group">
+                  <h4 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Video Advertising Management</h4>
+                  <p className="text-slate-400 text-sm mb-3">Ongoing video-first advertising management — planning, scripting, publishing, and measuring, built around what you actually need to promote.</p>
+                  <span className="text-blue-400 text-sm font-medium flex items-center gap-1">See How It Works <ArrowRight className="w-4 h-4" /></span>
+                </Link>
               </div>
             </div>
 

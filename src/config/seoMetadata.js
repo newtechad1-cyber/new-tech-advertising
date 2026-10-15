@@ -78,6 +78,11 @@ const STATIC_SEO = {
     title: "AI Advertising Strategy for Small Business | NTA",
     description: "Understand where AI can support advertising and customer growth without replacing business strategy, human judgment, or trust.",
   },
+  "/video-advertising-management": {
+    title: "Video Advertising Management for Small Businesses | New Tech Advertising",
+    description: "New Tech Advertising manages video-first digital advertising for small businesses — planning, scripting, creating, publishing, scheduling, and measuring content built around what your business actually needs to promote.",
+    noIndex: false,
+  },
   "/ai-videos": {
     title: "AI Video Marketing for Small Business | NTA",
     description: "Practical video marketing guidance for small-business owners who want to explain their work, build trust, and stay visible.",
