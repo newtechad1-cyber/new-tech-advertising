@@ -222,15 +222,19 @@ export default function VideoAdvertisingManagement() {
           </div>
         </section>
 
-        {/* What NTA manages */}
+        {/* How NTA supports your advertising */}
         <section className="border-y border-slate-800 bg-slate-900/50 py-20">
           <div className="mx-auto max-w-6xl px-6">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">
-              What NTA manages
+              How NTA supports your advertising
             </p>
             <h2 className="mt-3 max-w-4xl text-3xl font-black text-white md:text-4xl">
-              We manage the advertising work so your staff doesn&rsquo;t have another job to do.
+              We support the advertising work your team may not have the time to consistently carry.
             </h2>
+            <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">
+              Your team already has enough to do. NTA supports the ongoing advertising work that is
+              easy to put off when the day-to-day business gets busy.
+            </p>
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {MANAGED_ITEMS.map(({ icon: Icon, label }) => (
                 <div key={label} className="flex items-start gap-3 rounded-2xl border border-slate-800 bg-slate-950 p-5">

@@ -54,6 +54,7 @@ const NAV_LINKS = [
       { label: 'Back Office', href: '/back-office-solutions', desc: 'Connect the work happening behind the scenes' },
     ],
   },
+  { label: 'Advertising Support', href: '/video-advertising-management' },
   {
     label: 'Opportunity',
     href: OPPORTUNITY_HREF,
