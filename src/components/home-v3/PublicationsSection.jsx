@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, Play, Headphones, BookOpen } from 'lucide-react';
 import growthShowCover from '@/assets/brand/nta-growth-show-cover.webp';
 
 export default function PublicationsSection() {
@@ -7,12 +7,12 @@ export default function PublicationsSection() {
     <section className="py-20 px-6 bg-slate-900/30 border-y border-slate-800/50">
       <div className="max-w-6xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4">Books, Journal &amp; Growth Show</p>
+          <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4">Books, Journal, Podcasts &amp; Growth Show</p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">Keep learning in the format that fits you.</h2>
-          <p className="text-lg text-slate-400 leading-relaxed">Read the books, follow practical ideas in the Journal, or watch the NTA Growth Show and continue the conversation.</p>
+          <p className="text-lg text-slate-400 leading-relaxed">Explore the books, follow the Journal, watch the Growth Show, or listen to podcasts. Choose the format that fits you.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
           {/* Better Business Building Book */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-slate-700 transition-colors shadow-sm">
             <div className="mb-6 overflow-hidden rounded-xl bg-slate-900 aspect-[3/4] flex items-center justify-center relative shadow-lg">
@@ -49,6 +49,18 @@ export default function PublicationsSection() {
             <Link to="/practical-ai-for-small-business" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">
               Learn More <ArrowRight className="w-4 h-4" />
             </Link>
+          </div>
+
+          {/* AI Curious */}
+          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-slate-700 transition-colors shadow-sm">
+            <div className="mb-6 rounded-xl bg-gradient-to-br from-blue-950 to-slate-900 aspect-[3/4] flex flex-col items-center justify-center text-center p-6 border border-blue-500/20">
+              <BookOpen className="w-14 h-14 text-blue-300 mb-5" aria-hidden="true" />
+              <span className="text-3xl font-black text-white">AI Curious?</span>
+              <span className="text-sm text-blue-200 mt-3">Simple AI for everyday people</span>
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">AI Curious?</h3>
+            <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">A welcoming introduction to AI for everyday life, without confusing jargon or hype.</p>
+            <Link to="/ai-curious" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">Explore the Book <ArrowRight className="w-4 h-4" /></Link>
           </div>
 
           {/* NTA Journal */}
@@ -96,6 +108,17 @@ export default function PublicationsSection() {
             <Link to="/growth-show" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg transition-colors text-sm">
               Watch the Show <ArrowRight className="w-4 h-4" />
             </Link>
+          </div>
+          {/* Podcasts */}
+          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-blue-500/30 transition-colors shadow-sm">
+            <div className="mb-6 rounded-xl bg-gradient-to-br from-cyan-950 to-slate-900 aspect-[3/4] flex flex-col items-center justify-center text-center p-6 border border-cyan-500/20">
+              <Headphones className="w-16 h-16 text-cyan-300 mb-5" aria-hidden="true" />
+              <span className="text-3xl font-black text-white">NTA Podcasts</span>
+              <span className="text-sm text-cyan-200 mt-3">Listen · Learn · Continue</span>
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">NTA Podcasts</h3>
+            <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">Listen to Growth Show conversations and discover related lessons and videos at your own pace.</p>
+            <Link to="/podcasts" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">Listen to Podcasts <ArrowRight className="w-4 h-4" /></Link>
           </div>
         </div>
 
