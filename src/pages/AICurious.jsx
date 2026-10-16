@@ -64,7 +64,7 @@ export default function AICurious() {
 
               <div className="w-full lg:w-1/2 xl:w-[45%] flex justify-center lg:justify-end">
                 <img
-                  src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/1845c6c11_ai_curious_inspirational_landscape_cover.png"
+                  src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/a9d6a747f_ai_curious_inspirational_landscape_cover.png"
                   alt="AI Curious? book cover by Rick Hesse"
                   className="w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[440px] h-auto object-contain rounded-xl shadow-2xl"
                   loading="eager"
