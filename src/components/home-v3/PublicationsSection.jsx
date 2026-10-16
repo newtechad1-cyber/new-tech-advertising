@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Play, Headphones, BookOpen } from 'lucide-react';
+import { ArrowRight, Play, Headphones, Radio } from 'lucide-react';
 import growthShowCover from '@/assets/brand/nta-growth-show-cover.webp';
 
 export default function PublicationsSection() {
@@ -53,10 +53,8 @@ export default function PublicationsSection() {
 
           {/* AI Curious */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-slate-700 transition-colors shadow-sm">
-            <div className="mb-6 rounded-xl bg-gradient-to-br from-blue-950 to-slate-900 aspect-[3/4] flex flex-col items-center justify-center text-center p-6 border border-blue-500/20">
-              <BookOpen className="w-14 h-14 text-blue-300 mb-5" aria-hidden="true" />
-              <span className="text-3xl font-black text-white">AI Curious?</span>
-              <span className="text-sm text-blue-200 mt-3">Simple AI for everyday people</span>
+            <div className="mb-6 overflow-hidden rounded-xl bg-slate-900 aspect-[3/4] flex items-center justify-center shadow-lg">
+              <img src="https://media.base44.com/images/public/691f41a18de4a7f498c8f884/1845c6c11_ai_curious_inspirational_landscape_cover.png" alt="AI Curious? original book cover by Rick Hesse" className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">AI Curious?</h3>
             <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">A welcoming introduction to AI for everyday life, without confusing jargon or hype.</p>
@@ -111,11 +109,15 @@ export default function PublicationsSection() {
           </div>
           {/* Podcasts */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col group hover:border-blue-500/30 transition-colors shadow-sm">
-            <div className="mb-6 rounded-xl bg-gradient-to-br from-cyan-950 to-slate-900 aspect-[3/4] flex flex-col items-center justify-center text-center p-6 border border-cyan-500/20">
-              <Headphones className="w-16 h-16 text-cyan-300 mb-5" aria-hidden="true" />
-              <span className="text-3xl font-black text-white">NTA Podcasts</span>
-              <span className="text-sm text-cyan-200 mt-3">Listen · Learn · Continue</span>
-            </div>
+            <Link to="/podcasts" className="mb-6 overflow-hidden rounded-xl bg-slate-900 aspect-[3/4] relative shadow-lg border border-cyan-500/20 block">
+              <img src={growthShowCover} alt="NTA Growth Show podcast studio artwork" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-slate-950/25" />
+              <div className="absolute inset-x-0 bottom-0 p-5 text-center flex flex-col items-center">
+                <div className="flex items-center justify-center gap-3 mb-4"><Radio className="w-8 h-8 text-cyan-300" aria-hidden="true" /><Headphones className="w-12 h-12 text-white" aria-hidden="true" /><Radio className="w-8 h-8 text-cyan-300" aria-hidden="true" /></div>
+                <span className="text-3xl font-black text-white drop-shadow-lg">NTA Podcasts</span>
+                <span className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-200 mt-3">Listen · Learn · Continue</span>
+              </div>
+            </Link>
             <h3 className="text-xl font-bold text-white mb-2">NTA Podcasts</h3>
             <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-1">Listen to Growth Show conversations and discover related lessons and videos at your own pace.</p>
             <Link to="/podcasts" className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg border border-slate-800 transition-colors text-sm">Listen to Podcasts <ArrowRight className="w-4 h-4" /></Link>
