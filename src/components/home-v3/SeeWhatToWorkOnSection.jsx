@@ -32,7 +32,7 @@ export default function SeeWhatToWorkOnSection() {
             See how AI fits a real business <ArrowRight className="h-4 w-4" />
           </Link>
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-slate-300">
-            Follow the work with Pete and Janine at <Link to="/restaurants?section=cattlemans-case-study" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">Cattleman&rsquo;s Dining</Link>—a Restaurant Growth Roadmap in progress, not a finished success story.
+            See how we developed a real proposal with <Link to="/knowledge/truth-about-business-growth/show-me-before-you-sell-me" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">Appliance Outlet Super Center — Show Me Before You Sell Me</Link>. Follow the discovery conversations, working demonstration, scope, costs, and next steps. This documents the proposal process, not a completed implementation or proven business result.
           </p>
         </div>
       </div>
