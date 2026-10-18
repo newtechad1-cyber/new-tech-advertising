@@ -14,6 +14,12 @@ const DEFAULT_SEO = {
 };
 
 const STATIC_SEO = {
+  "/business-planning-guide": { title: "Free AI Business Planning Guide | 50 Years of Experience | NTA", description: "Explore business ideas and build a practical plan with a free AI guide shaped by Rick Hesse's nearly 50 years in business." },
+  "/business-planning-guide/questions/is-my-business-idea-worth-pursuing": { title: "How Do I Know If My Business Idea Is Worth Pursuing? | NTA", description: "Learn how to test a business idea, identify customers, compare alternatives and find evidence of demand before making a major investment." },
+  "/business-planning-guide/questions/start-a-business-while-working-full-time": { title: "Can I Start a Business While Working Full-Time? | NTA", description: "Learn how to prepare a small business while employed, protect household income, check restrictions and plan a safer transition." },
+  "/business-planning-guide/questions/how-much-money-to-start-small-business": { title: "How Much Money Do I Need to Start a Small Business? | NTA", description: "Separate startup costs from operating expenses and working capital, then build a practical budget before launching." },
+  "/business-planning-guide/questions/borrow-money-or-start-small": { title: "Should I Borrow Money to Start a Business or Start Small? | NTA", description: "Compare startup borrowing with a lean launch, consider cash flow and family finances, and understand the risks before taking on debt." },
+  "/business-planning-guide/questions/start-business-without-running-one-before": { title: "How Do I Start a Business Without Experience Running One? | NTA", description: "Learn the difference between doing the work and running a business, from pricing and bookkeeping to customer service and cash flow." },
   "/": {
     ...DEFAULT_SEO,
     title: "Advertise Better | Small Business Advertising Strategy | NTA",
