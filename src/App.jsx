@@ -12,6 +12,7 @@ import { AuthProvider } from '@/lib/AuthContext';
 import { NTADataProvider } from '@/lib/NTADataContext';
 import { ExperienceProvider } from '@/lib/ExperienceLayer';
 import RouteMeta from '@/components/shared/RouteMeta';
+import ApplianceOutletCampaignProposal from '@/pages/ApplianceOutletCampaignProposal';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 // pages.config.js is intentionally public-only. Keeping this as a direct
@@ -201,6 +202,7 @@ function PublicRoutes() {
     <>
       <ScrollToTopOnRouteChange />
       <Routes>
+      <Route path="/appliance-outlet-campaign-proposal" element={<ApplianceOutletCampaignProposal />} />
       {Object.entries(LEGACY_PUBLIC_REDIRECTS).map(([from, to]) => (
         <Route key={`legacy-public:${from}`} path={from} caseSensitive element={to === '/book-call' ? <LegacyBookingRedirect /> : <Navigate to={to} replace />} />
       ))}
