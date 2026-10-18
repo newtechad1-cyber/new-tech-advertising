@@ -26,6 +26,7 @@ import CanonCollectionView from '@/pages/CanonCollectionView';
 import CanonExplorer from '@/pages/CanonExplorer';
 import BackOfficeSolutions from '@/pages/BackOfficeSolutions';
 import BetterBusinessBook from '@/pages/BetterBusinessBook';
+import BusinessPlanningGuide from '@/pages/BusinessPlanningGuide';
 import Books from '@/pages/Books';
 import BookCall from '@/pages/BookCall';
 import BusinessFoundationsCollection from '@/pages/BusinessFoundationsCollection';
@@ -306,6 +307,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/web-accessibility-trust', WebAccessibilityTrust),
   alias('/websites-as-salespeople', WebsitesAsSalespeople),
   alias('/growth-guide', GrowthGuide),
+  alias('/business-planning-guide', BusinessPlanningGuide),
   alias('/growth-roadmap-generator', NTAGrowthRoadmapGenerator),
   alias('/growth-conversation', NTAGrowthConversation),
   alias('/business-score', NTABusinessScore),
