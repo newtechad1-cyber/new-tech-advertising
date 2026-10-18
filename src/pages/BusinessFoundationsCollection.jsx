@@ -48,7 +48,7 @@ export default function BusinessFoundationsCollection() {
         </div>
       </section>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-6 border-b border-slate-800 bg-slate-900/50">
+      <section className="pt-12 pb-16 px-6 border-b border-slate-800 bg-slate-900/50">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 text-sm font-medium text-slate-400 mb-8 overflow-x-auto whitespace-nowrap">
             <Link to="/learning-center" className="hover:text-white transition-colors">Knowledge Library</Link>
