@@ -63,6 +63,14 @@ export default function BetterBusinessBook() {
           </div>
         </section>
 
+        <section className="px-6 py-12 border-b border-slate-800">
+          <div className="mx-auto max-w-6xl rounded-2xl border border-blue-500/30 bg-slate-900 p-7 md:p-9">
+            <h2 className="text-2xl font-bold text-white">Ready to work through your own business plan?</h2>
+            <p className="mt-3 max-w-3xl leading-7 text-slate-300">Take the ideas in this book into a free, one-question-at-a-time planning conversation. Explore customers, costs, and practical next steps.</p>
+            <Link to="/business-planning-guide" className="mt-5 inline-flex items-center gap-2 font-semibold text-blue-300 hover:text-blue-200">Explore the Free Business Planning Guide <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+        </section>
+
         <section className="px-6 py-20">
           <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[.9fr_1.1fr]">
             <div>
