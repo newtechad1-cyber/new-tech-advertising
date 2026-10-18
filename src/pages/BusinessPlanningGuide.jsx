@@ -3,8 +3,49 @@ import { ArrowRight, BookOpen, CheckCircle2, ExternalLink, MessageCircle } from 
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
+import { startupQuestions } from '@/pages/StartingBusinessQuestion';
 
 const GPT_URL = 'https://chatgpt.com/g/g-6ad3e2f05bfc81918a82ff3dbe385d0a-nta-business-growth-guide';
+
+
+const planningQuestions = [
+  [
+    "How do I write a business plan if I've never written one before?",
+    "Start with your business idea, the customers you want to serve, what you'll offer, how you'll operate, and what the numbers might look like. You don't need to finish everything at once. A useful plan can grow as you answer questions and verify assumptions."
+  ],
+  [
+    "Can AI help me create a business plan?",
+    "Yes. AI can help organize your thinking, ask useful questions, explore options, and draft a plan. It cannot independently verify every assumption or guarantee your business will succeed. Your knowledge and judgment remain essential."
+  ],
+  [
+    "What should a simple business plan include?",
+    "A practical plan explains the business idea, customers, products or services, competition, operations, startup costs, revenue assumptions, cash flow, risks, and next steps. The amount of detail depends on what decisions the plan needs to support."
+  ],
+  [
+    "How much revenue does my business need to replace my paycheck?",
+    "Begin with your household income needs, then account for business expenses, taxes, benefits, debt payments, and cash reserves. Revenue is not take-home pay. A business may need substantially more sales than your current salary to support the same lifestyle."
+  ],
+  [
+    "How do I know whether my business plan is realistic?",
+    "Look for evidence behind your assumptions. Can you reach enough paying customers? Are prices and costs reasonable? Is the workload manageable? Can the business withstand slower months? A realistic plan identifies what still needs testing."
+  ],
+  [
+    "What makes the NTA Business Growth Guide different from other AI business planning tools?",
+    "The guide is shaped by Rick Hesse's nearly 50 years of experience in retail, wholesale, B2B, and online business. Rather than simply generating a document, it uses a question-first teaching method to help you understand your choices, recognize risks, and build a practical plan around your circumstances."
+  ],
+  [
+    "Can an AI business guide really teach me about running a business?",
+    "AI can make experienced business teachings more accessible through conversation. The NTA guide draws on practical lessons and structured methods developed from Rick's business experience. It helps you think through decisions, but doesn't replace real-world research, professional advice, or your judgment."
+  ],
+  [
+    "Is the NTA Business Growth Guide free to use?",
+    "The guide is offered by New Tech Advertising as a free educational resource. It opens through ChatGPT, where account requirements and usage limits may apply. You can explore ideas and develop a business-plan draft without committing to NTA services."
+  ],
+  [
+    "Can I save the business plan I create with the guide?",
+    "Yes. You can ask the guide to organize your conversation into a written business plan that you can copy, save, review, and continue developing. The plan should distinguish established facts from assumptions and unanswered questions."
+  ]
+];
 
 export default function BusinessPlanningGuide() {
   return (
@@ -55,6 +96,24 @@ export default function BusinessPlanningGuide() {
                 <p className="mt-3 leading-7 text-slate-300">{description}</p>
               </div>
             ))}
+          </div>
+        </section>
+        <section className="border-t border-slate-800 px-6 py-16" id="business-planning-questions">
+          <div className="mx-auto max-w-4xl">
+            <p className="text-sm font-bold uppercase tracking-widest text-blue-400">Questions people ask</p>
+            <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Business planning questions, answered in plain language</h2>
+            <p className="mt-4 leading-7 text-slate-300">Explore the answers here, then use the free guide to work through what they mean for your own business.</p>
+            <div className="mt-8 space-y-3">
+              {planningQuestions.map(([question, answer]) => <details key={question} className="group rounded-xl border border-slate-700 bg-slate-900/60 p-5">
+                <summary className="cursor-pointer text-lg font-semibold text-white marker:text-blue-400">{question}</summary>
+                <p className="mt-4 leading-7 text-slate-300">{answer}</p>
+              </details>)}
+            </div>
+            <h2 className="mt-14 text-2xl font-bold text-white">Thinking about starting a business?</h2>
+            <p className="mt-3 leading-7 text-slate-300">Start with the question that matters most to you. Each article offers practical considerations and a question to take into your own planning conversation.</p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {startupQuestions.map(item => <Link key={item.slug} to={'/business-planning-guide/questions/' + item.slug} className="flex items-center justify-between gap-4 rounded-xl border border-slate-700 bg-slate-900 p-5 text-blue-200 hover:border-blue-400 hover:text-white"><span className="font-semibold">{item.title}</span><ArrowRight className="h-5 w-5 flex-shrink-0" /></Link>)}
+            </div>
           </div>
         </section>
         <section className="border-t border-slate-800 bg-slate-900/40 px-6 py-16">
