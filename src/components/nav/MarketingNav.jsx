@@ -26,6 +26,7 @@ const NAV_LINKS = [
     children: [
       { label: 'The NTA Point of View', href: '/point-of-view', desc: 'Our philosophy and experience' },
       { label: 'Knowledge Library', href: '/knowledge', desc: 'Read practical lessons and ideas' },
+      { label: 'Free Business Planning Guide', href: '/business-planning-guide', desc: 'Explore an idea or build a plan through conversation' },
       { label: 'Video Library', href: '/learning-center/videos', desc: 'Watch NTA videos by topic' },
       { label: 'Podcast Library — Listen', href: '/podcasts', desc: 'Listen to complete Growth Show episodes' },
       { label: 'Books', href: '/books', desc: 'Explore both free business books' },
