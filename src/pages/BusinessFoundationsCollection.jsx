@@ -40,6 +40,13 @@ export default function BusinessFoundationsCollection() {
       />
       <MarketingNav />
       
+      <section className="px-6 pt-28 pb-4">
+        <div className="mx-auto max-w-4xl rounded-2xl border border-blue-500/30 bg-slate-900 p-6 md:p-8">
+          <h2 className="text-2xl font-bold text-white">Want to build your own business plan?</h2>
+          <p className="mt-2 text-slate-300">Our free AI Business Planning Guide helps you explore your idea, customers, costs, and next steps through conversation.</p>
+          <Link to="/business-planning-guide" className="mt-4 inline-flex items-center gap-2 font-semibold text-blue-300 hover:text-blue-200">Explore the Free Business Planning Guide <ChevronRight className="h-4 w-4" /></Link>
+        </div>
+      </section>
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-6 border-b border-slate-800 bg-slate-900/50">
         <div className="max-w-4xl mx-auto text-center">
