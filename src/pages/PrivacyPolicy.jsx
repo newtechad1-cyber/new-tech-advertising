@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
       <MarketingNav />
       <div className="flex-1 max-w-3xl mx-auto px-6 py-12 w-full">
         <h1 className="text-3xl font-bold mb-2">Privacy Policy</h1>
-        <p className="text-slate-500 mb-8">Last updated: February 27, 2026</p>
+        <p className="text-slate-500 mb-8">Last updated: October 19, 2026</p>
 
         <div className="space-y-8 text-slate-700">
           <section>
@@ -57,6 +57,14 @@ export default function PrivacyPolicy() {
             <p className="mb-3"><strong>Meta (Facebook & Instagram):</strong> When you connect your Facebook or Instagram account, we access your pages and business account data to display analytics and post content on your behalf. Meta data is used solely to deliver our services to you.</p>
             <p className="mb-3"><strong>Google (YouTube & Google My Business):</strong> When you connect your Google account, we access your YouTube channel or Google Business Profile to display performance metrics and manage your presence. Google data is used solely to deliver our services to you.</p>
             <p><strong>LinkedIn:</strong> When you connect your LinkedIn account, we access your profile and organization data to publish content and view engagement metrics. LinkedIn data is used solely to deliver our services to you.</p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold mb-3">NTA Business Growth Guide (Free ChatGPT Plugin)</h2>
+            <p className="mb-3">The NTA Business Growth Guide is a free educational plugin available through ChatGPT. It helps visitors explore business ideas and create working business plans. Using the guide does not require purchasing New Tech Advertising services.</p>
+            <p className="mb-3">When you use the guide in ChatGPT, your conversation takes place on OpenAI's platform, not in a form hosted on the NTA website. ChatGPT account access, conversation handling, retention, privacy controls, and applicable data practices are governed by OpenAI's terms and privacy policies. Review <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">OpenAI's Privacy Policy</a> before sharing information.</p>
+            <p className="mb-3">The guide uses NTA educational reference materials to provide general business guidance. It does not require you to connect bank accounts, upload customer records, or provide confidential financial or personal information. Please avoid entering sensitive business or customer information unless you understand the platform's applicable privacy controls.</p>
+            <p>Questions about NTA's published guide or its educational materials can be sent using the contact details below. For requests about data in your ChatGPT account or conversations, use OpenAI's available privacy and account controls.</p>
           </section>
 
           <section>
