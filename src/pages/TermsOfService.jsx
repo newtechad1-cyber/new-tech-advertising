@@ -12,7 +12,7 @@ export default function TermsOfService() {
       <MarketingNav />
       <div className="flex-1 max-w-3xl mx-auto px-6 py-12 w-full">
         <h1 className="text-3xl font-bold mb-2">Terms of Service</h1>
-        <p className="text-slate-500 mb-8">Last updated: February 27, 2026</p>
+        <p className="text-slate-500 mb-8">Last updated: October 19, 2026</p>
 
         <div className="space-y-8 text-slate-700 leading-relaxed">
           <section>
@@ -23,6 +23,14 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-xl font-semibold mb-3">2. Description of Services</h2>
             <p>NewTech Advertising provides AI-powered marketing services including website design, local SEO optimization, content creation, social media management, video production, and advertising management across platforms such as TikTok, Facebook, Instagram, YouTube, Google My Business, and LinkedIn.</p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold mb-3">Free NTA Business Growth Guide</h2>
+            <p className="mb-3">NTA Business Growth Guide is a free educational plugin accessed through ChatGPT. It is separate from NTA's paid marketing and advertising services. Using the guide does not create a paid subscription, require a purchase, or obligate you to contact New Tech Advertising. ChatGPT account requirements and usage limits may apply under OpenAI's own terms.</p>
+            <p className="mb-3">The guide offers general educational information about business ideas, planning, operations, marketing, AI, and financial considerations. Its responses and draft business plans may contain errors or incomplete assumptions and are not guarantees of revenue, profitability, financing, or other business outcomes. Review important facts and figures independently before acting.</p>
+            <p className="mb-3">The guide does not provide individualized legal, tax, accounting, investment, or other regulated professional advice. Consult qualified professionals where appropriate, particularly for licensing, taxes, financing, contracts, and other consequential decisions.</p>
+            <p>Conversations take place within ChatGPT and are also subject to <a href="https://openai.com/policies/terms-of-use/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">OpenAI's applicable terms</a> and <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">privacy policy</a>. For an overview of the guide, visit <a href="/business-planning-guide" className="text-blue-600 hover:underline">NTA's Business Planning Guide</a>.</p>
           </section>
 
           <section>
