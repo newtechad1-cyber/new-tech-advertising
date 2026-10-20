@@ -1,5 +1,6 @@
 import AIConfusionLesson from './pages/knowledge/ai-foundations/is-using-ai-cheating';
 import NativeGrowthEpisode11 from './pages/growth-show/show-me-before-you-sell-me';
+import NativeGrowthEpisode12 from './pages/growth-show/representation-or-deception';
 import NativeGrowthEpisodeSearch3 from './pages/growth-show/i-didnt-set-out-to-build-an-ai-team';
 import NativeGrowthEpisodeSearch2 from './pages/growth-show/automation-is-the-last-step-not-the-first';
 import NativeGrowthEpisodeSearch1 from './pages/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system';
@@ -250,6 +251,7 @@ import __Layout from './Layout.jsx';
 const PAGES = {
   'knowledge/ai-foundations/is-using-ai-cheating': AIConfusionLesson,
   'growth-show/show-me-before-you-sell-me': NativeGrowthEpisode11,
+  'growth-show/representation-or-deception': NativeGrowthEpisode12,
   "Home": Home,
   signup: SignupPage,
   About,

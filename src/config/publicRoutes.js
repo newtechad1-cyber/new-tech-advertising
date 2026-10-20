@@ -55,6 +55,7 @@ import GrowthGuide from '@/pages/GrowthGuide';
 import GrowthShow from '@/pages/GrowthShow';
 import GrowthShowEpisode from '@/pages/GrowthShowEpisode';
 import NativeGrowthEpisode11 from '@/pages/growth-show/show-me-before-you-sell-me';
+import NativeGrowthEpisode12 from '@/pages/growth-show/representation-or-deception';
 import GrowthSystem from '@/pages/GrowthSystem';
 import GrowthSystemsVsCampaigns from '@/pages/GrowthSystemsVsCampaigns';
 import HelpAndSupport from '@/pages/HelpAndSupport';
@@ -203,6 +204,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/podcasts', Podcasts),
   alias('/growth-show', GrowthShow),
   alias('/growth-show/show-me-before-you-sell-me', NativeGrowthEpisode11),
+  alias('/growth-show/representation-or-deception', NativeGrowthEpisode12),
   alias('/growth-show/:slug', GrowthShowEpisode),
   alias('/video-story', VideoStory),
   alias('/journal', JournalLanding),
