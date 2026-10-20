@@ -1097,7 +1097,7 @@
       "description": "Understand the difference between unpredictable spikes in activity and compounded digital momentum.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-10-12",
+      "lastModified": "2026-10-20",
       "lessons": [
         {
           "title": "Businesses Don’t Need More Marketing. They Need a Better Growth System.",
@@ -1188,6 +1188,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-10-12"
+        },
+        {
+          "title": "Representation or Deception? Using AI Without Misleading People",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people",
+          "contentType": "LearningResource",
+          "description": "Rick Hesse explains the difference between AI representation and deception, and offers practical questions to ask before publishing AI-assisted business content.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-10-20"
         }
       ]
     },
