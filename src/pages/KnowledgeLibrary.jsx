@@ -125,6 +125,7 @@ export default function KnowledgeLibrary() {
             <div className="mt-6 flex flex-wrap gap-4">
               <Link to="/knowledge/ai-foundations/is-using-ai-cheating" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">Read the lesson <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
               <Link to="/knowledge/ai-foundations/is-using-ai-cheating#lesson-sources" className="inline-flex min-h-12 items-center rounded-xl border border-slate-500 px-5 py-3 font-bold text-cyan-200 hover:border-cyan-300">Explore the sources</Link>
+              <span className="inline-flex min-h-12 items-center rounded-xl border border-slate-700 px-5 py-3 text-sm text-slate-400" aria-label="Watch and Listen recordings not yet available for this lesson">Watch / Listen · recording pending</span>
             </div>
           </div>
         </section>
@@ -139,9 +140,11 @@ export default function KnowledgeLibrary() {
                 Explore questions from this lesson <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <Link to="/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business" className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white transition-colors hover:bg-blue-500 md:mt-0">
-              Read the new lesson <ArrowRight className="h-4 w-4" />
-            </Link>
+            <div className="mt-6 flex flex-wrap gap-3 md:mt-0">
+              <Link to="/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business" className="inline-flex min-h-12 items-center justify-center rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">Read the lesson</Link>
+              <Link to="/learning-center/videos/rbqIiynd1zo" className="inline-flex min-h-12 items-center rounded-xl border border-slate-500 px-5 py-3 font-bold text-white hover:border-cyan-300">Watch</Link>
+              <Link to="/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business#listen" className="inline-flex min-h-12 items-center rounded-xl border border-cyan-500 px-5 py-3 font-bold text-cyan-200 hover:border-cyan-300">Listen</Link>
+            </div>
           </div>
         </section>
 
@@ -150,7 +153,11 @@ export default function KnowledgeLibrary() {
             <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">New lesson · NTA Point of View</p>
             <h2 id="advertising-lesson-heading" className="mt-3 text-2xl font-bold text-white md:text-3xl">Business Owners Are Tired of Being Sold</h2>
             <p className="mt-3 leading-7 text-slate-300">A better way to buy advertising starts with understanding the purpose, the fit, the full commitment, and what happens after someone responds.</p>
-            <Link to="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white hover:bg-blue-500">Read the lesson <ArrowRight className="h-4 w-4" /></Link>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link to="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold" className="inline-flex min-h-12 items-center rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">Read the lesson</Link>
+              <Link to="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold#watch" className="inline-flex min-h-12 items-center rounded-xl border border-slate-500 px-5 py-3 font-bold text-white hover:border-cyan-300">Watch</Link>
+              <Link to="/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold#listen" className="inline-flex min-h-12 items-center rounded-xl border border-cyan-500 px-5 py-3 font-bold text-cyan-200 hover:border-cyan-300">Listen</Link>
+            </div>
           </div>
         </section>
 
