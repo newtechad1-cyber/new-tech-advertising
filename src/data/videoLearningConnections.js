@@ -5,7 +5,7 @@ export const VIDEO_GALLERY_PATH = '/learning-center/videos';
 // Editorial topic connections, not claims that a video is a word-for-word
 // recording of the lesson. Add only verified public videos and existing pages.
 export const VIDEO_READING_CONNECTIONS = [
-  {"videoId": "uKf9f_JFju8", "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12", "href": "/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people"},
+  {"videoId": "uKf9f_JFju8", "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12", "href": "/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people", "audioReady": true, "audioUrl": "https://newtechadvertising.com/audio/growth-show/uKf9f_JFju8.mp3", "audioContentType": "audio/mpeg", "audioDurationSeconds": 421.46},
   {
     videoId: 'ZWxTY-ajwc8',
     title: 'AI Needs Context Before It Can Be Helpful | Why Generic AI Answers Happen',
