@@ -75,6 +75,7 @@ import KnowledgeLesson from '@/pages/KnowledgeLesson';
 import KnowledgeLibrary from '@/pages/KnowledgeLibrary';
 import BusinessOwnersAreTiredOfBeingSold from '@/pages/BusinessOwnersAreTiredOfBeingSold';
 import ShowMeBeforeYouSellMe from '@/pages/ShowMeBeforeYouSellMe';
+import RepresentationOrDeception from '@/pages/RepresentationOrDeception';
 import KnowledgeQuestion from '@/pages/KnowledgeQuestion';
 import KnowledgeQuestions from '@/pages/KnowledgeQuestions';
 import KnowledgePrompts from '@/pages/KnowledgePrompts';
@@ -170,6 +171,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/point-of-view/:slug', POVArticleView),
   alias('/knowledge', KnowledgeLibrary),
   alias('/knowledge/truth-about-business-growth/show-me-before-you-sell-me', ShowMeBeforeYouSellMe),
+  alias('/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people', RepresentationOrDeception),
   alias('/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold', BusinessOwnersAreTiredOfBeingSold),
   alias('/knowledge/questions', KnowledgeQuestions),
   alias('/knowledge/questions/:questionSlug', KnowledgeQuestion),
