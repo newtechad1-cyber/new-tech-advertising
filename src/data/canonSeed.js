@@ -158,6 +158,7 @@ export const SEED_JOURNAL_ENTRIES = [
   "status": "Published",
   "scheduled_time": "07:00",
   "from_ricks_desk": "I've been thinking about something that comes up whenever people see a video, image, or article made with AI.\n\n**Does using AI make it dishonest?**\n\nI don't think so. I use AI to help develop my own thoughts and show my work. I read it, correct it, and decide what I am willing to put my name on.\n\nBut there's another side to that. If I create a testimonial from a customer who doesn't exist, or make an illustration look like footage of something that never happened, I'm not simply using a tool. I'm giving people a reason to believe something false.\n\nThat's the difference I want us to understand.\n\nBefore I publish, I try to ask three things:\n\n- What did I mean?\n- What did I actually show?\n- What will someone reasonably believe when they see it?\n\nThe last question matters. I can intend to be honest and still leave a misleading impression.\n\nMy approach is simple: show the work, tell the truth about what it is, and keep a human being responsible for the result.\n\nThat's the lesson we're exploring this week in the Knowledge Library: **Representation or Deception? Using AI Without Misleading People.**\n\nYou don't need to reject AI to work honestly. You need to know what you're saying, what you're showing, and what you're asking people to believe.\n\n— Rick Hesse",
+  "what_we_built": "A practical six-question human review for AI-assisted content: verify the message, remove unsupported facts or testimonials, check whether an illustration could be mistaken for evidence, confirm permission, add clarity where needed, and remain willing to explain how the piece was made.",
   "what_we_learned": "**Intention, expression, and perception** can differ. A good intention doesn't prevent a misleading impression.",
   "what_it_means_for_your_business": "Before publishing AI-assisted material, check the claims, make clear what is illustrative, and ask what a customer could reasonably believe.",
   "this_weeks_challenge": "If a customer asked you, **“Is this real?”**, could you give a clear and honest answer?",
@@ -170,12 +171,13 @@ export const SEED_JOURNAL_ENTRIES = [
     "truthful marketing",
     "NTA Point of View"
   ],
-  "related_article_ids": [],
-  "related_video_ids": [],
+  "related_article_ids": ["6ad76a555684b2dbb9dac6c0"],
+  "related_video_ids": ["uKf9f_JFju8"],
   "related_learning_lesson_ids": [
     "truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people"
   ],
   "related_service_slugs": [],
+  "publishing_article_id": "6ad76a555684b2dbb9dac6c0",
   "newsletter_sent": false,
   "newsletter_subject": "When Does AI Help You Tell the Truth—and When Does It Mislead?",
   "subscriber_count": 0,
