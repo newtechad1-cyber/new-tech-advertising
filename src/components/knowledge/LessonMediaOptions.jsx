@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { BookOpen, Headphones, Play } from 'lucide-react';
 import { VIDEO_READING_CONNECTIONS } from '@/data/videoLearningConnections';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
@@ -9,6 +9,15 @@ export default function LessonMediaOptions({ path, readHref = '#lesson-reading' 
   const { episodes } = useGrowthShow();
   const [selected, setSelected] = useState(null);
   const connections = VIDEO_READING_CONNECTIONS.filter(connection => connection.href === path);
+  const { hash } = useLocation();
+  useEffect(() => {
+    if ((hash !== '#listen' && hash !== '#watch') || !connections.length) return;
+    const connection = connections[0];
+    if (hash === '#listen' && !connection.audioReady) return;
+    setSelected({ mode: hash.slice(1), connection });
+    const frame = requestAnimationFrame(() => document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' }));
+    return () => cancelAnimationFrame(frame);
+  }, [hash, path]);
   if (!connections.length) return null;
   const selectedEpisode = selected && episodes.find(e => e.youtubeVideoId === selected.connection.videoId);
   const selectedAudio = selected?.connection?.audioReady ? selected.connection : selectedEpisode;
