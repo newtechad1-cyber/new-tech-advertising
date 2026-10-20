@@ -132,6 +132,61 @@ export const DUPLICATE_GROUPS = [
 // available even before Base44 contains its first JournalIssue record.
 export const SEED_JOURNAL_ENTRIES = [
 {
+  "subtitle": "Representation or Deception? Using AI Without Misleading People",
+  "estimated_reading_time": "3 min read",
+  "introduction_headline": "Representation or Deception?",
+  "closing_message": "Read the complete lesson: [Representation or Deception? Using AI Without Misleading People](https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people).\n\nThe Growth Show conversation is in production; we'll add the verified video when it is released.",
+  "editor_signature": "Rick Hesse",
+  "selected_articles": [
+    {
+      "source_type": "KnowledgeLibrary",
+      "source_id": "truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people",
+      "title": "Representation or Deception? Using AI Without Misleading People",
+      "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people",
+      "excerpt": "The difference between truthful AI representation and misleading claims.",
+      "reading_time": "6 min read",
+      "featured_image_url": null,
+      "is_lead": true,
+      "display_order": 1
+    }
+  ],
+  "issue_number": 12,
+  "volume": 1,
+  "title": "When Does AI Help You Tell the Truth—and When Does It Mislead?",
+  "slug": "issue-12-representation-or-deception",
+  "date": "2026-10-20",
+  "status": "Published",
+  "scheduled_time": "07:00",
+  "from_ricks_desk": "I've been thinking about something that comes up whenever people see a video, image, or article made with AI.\n\n**Does using AI make it dishonest?**\n\nI don't think so. I use AI to help develop my own thoughts and show my work. I read it, correct it, and decide what I am willing to put my name on.\n\nBut there's another side to that. If I create a testimonial from a customer who doesn't exist, or make an illustration look like footage of something that never happened, I'm not simply using a tool. I'm giving people a reason to believe something false.\n\nThat's the difference I want us to understand.\n\nBefore I publish, I try to ask three things:\n\n- What did I mean?\n- What did I actually show?\n- What will someone reasonably believe when they see it?\n\nThe last question matters. I can intend to be honest and still leave a misleading impression.\n\nMy approach is simple: show the work, tell the truth about what it is, and keep a human being responsible for the result.\n\nThat's the lesson we're exploring this week in the Knowledge Library: **Representation or Deception? Using AI Without Misleading People.**\n\nYou don't need to reject AI to work honestly. You need to know what you're saying, what you're showing, and what you're asking people to believe.\n\n— Rick Hesse",
+  "what_we_learned": "**Intention, expression, and perception** can differ. A good intention doesn't prevent a misleading impression.",
+  "what_it_means_for_your_business": "Before publishing AI-assisted material, check the claims, make clear what is illustrative, and ask what a customer could reasonably believe.",
+  "this_weeks_challenge": "If a customer asked you, **“Is this real?”**, could you give a clear and honest answer?",
+  "summary": "Rick Hesse explains how AI can truthfully represent ideas without inventing evidence, and why human review must consider the audience's understanding.",
+  "category": "AI & Technology",
+  "series": "NTA Journal",
+  "tags": [
+    "AI representation",
+    "trust",
+    "truthful marketing",
+    "NTA Point of View"
+  ],
+  "related_article_ids": [],
+  "related_video_ids": [],
+  "related_learning_lesson_ids": [
+    "truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people"
+  ],
+  "related_service_slugs": [],
+  "newsletter_sent": false,
+  "newsletter_subject": "When Does AI Help You Tell the Truth—and When Does It Mislead?",
+  "subscriber_count": 0,
+  "views": 0,
+  "shares": 0,
+  "author": "Rick Hesse",
+  "featured": false,
+  "cta_text": "Read the full Knowledge Library lesson",
+  "cta_url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people"
+},
+{
   "issue_number": 11,
   "volume": 1,
   "title": "Show Me Before You Sell Me",
