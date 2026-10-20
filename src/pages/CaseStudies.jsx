@@ -6,6 +6,15 @@ import SEOHead from '@/components/shared/SEOHead';
 
 const caseStudies = [
   {
+    title: 'Appliance Outlet Super Center — Building a Digital Growth Office Around the Business',
+    description: 'From an approved video-first marketing relationship to role-based dashboards, simple onboarding, and Speak or Type requests. A real implementation still in progress.',
+    href: '/case-studies/appliance-outlet',
+    label: 'Active Client · Implementation Underway',
+    location: 'North Iowa',
+    icon: Building2,
+    accent: 'cyan',
+  },
+  {
     title: 'Johnson Heating & AC — 14 Years of Consistent Growth',
     description: 'How a long-term relationship grew from traditional advertising into a connected website, local visibility, content, and business-support system.',
     href: '/case-studies/johnson-heating',
