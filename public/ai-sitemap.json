@@ -1761,6 +1761,42 @@
   ],
   "journalIssues": [
     {
+      "issueNumber": 12,
+      "title": "When Does AI Help You Tell the Truth—and When Does It Mislead?",
+      "subtitle": "Representation or Deception? Using AI Without Misleading People",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-12-representation-or-deception",
+      "contentType": "Newsletter",
+      "description": "Rick Hesse explains how AI can truthfully represent ideas without inventing evidence, and why human review must consider the audience's understanding.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-10-20",
+      "estimatedReadingTime": "3 min read",
+      "sections": [
+        {
+          "heading": "From Rick's Desk",
+          "body": "I've been thinking about something that comes up whenever people see a video, image, or article made with AI.\n\n**Does using AI make it dishonest?**\n\nI don't think so. I use AI to help develop my own thoughts and show my work. I read it, correct it, and decide what I am willing to put my name on.\n\nBut there's another side to that. If I create a testimonial from a customer who doesn't exist, or make an illustration look like footage of something that never happened, I'm not simply using a tool. I'm giving people a reason to believe something false.\n\nThat's the difference I want us to understand.\n\nBefore I publish, I try to ask three things:\n\n- What did I mean?\n- What did I actually show?\n- What will someone reasonably believe when they see it?\n\nThe last question matters. I can intend to be honest and still leave a misleading impression.\n\nMy approach is simple: show the work, tell the truth about what it is, and keep a human being responsible for the result.\n\nThat's the lesson we're exploring this week in the Knowledge Library: **Representation or Deception? Using AI Without Misleading People.**\n\nYou don't need to reject AI to work honestly. You need to know what you're saying, what you're showing, and what you're asking people to believe.\n\n— Rick Hesse"
+        },
+        {
+          "heading": "What We Learned",
+          "body": "**Intention, expression, and perception** can differ. A good intention doesn't prevent a misleading impression."
+        },
+        {
+          "heading": "What It Means for Your Business",
+          "body": "Before publishing AI-assisted material, check the claims, make clear what is illustrative, and ask what a customer could reasonably believe."
+        },
+        {
+          "heading": "This Week's Challenge",
+          "body": "If a customer asked you, **“Is this real?”**, could you give a clear and honest answer?"
+        }
+      ],
+      "cta": {
+        "text": "Read the full Knowledge Library lesson",
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people"
+      },
+      "closingMessage": "Read the complete lesson: [Representation or Deception? Using AI Without Misleading People](https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people).\n\nThe Growth Show conversation is in production; we'll add the verified video when it is released."
+    },
+    {
       "issueNumber": 11,
       "title": "Show Me Before You Sell Me",
       "subtitle": "What the Appliance Outlet proposal process helped me see",
