@@ -7,6 +7,7 @@ import { lesson6 } from './truthAboutBusinessGrowthLesson6';
 import { lesson7 } from './truthAboutBusinessGrowthLesson7';
 import { lesson8 } from './truthAboutBusinessGrowthLesson8';
 import { lesson9 } from './truthAboutBusinessGrowthLesson9';
+import { lesson10 } from './truthAboutBusinessGrowthLesson10';
 
 export const truthAboutBusinessGrowthLessons = [
   lesson1,
@@ -17,5 +18,6 @@ export const truthAboutBusinessGrowthLessons = [
   lesson6,
   lesson7,
   lesson8,
-  lesson9
+  lesson9,
+  lesson10
 ];
