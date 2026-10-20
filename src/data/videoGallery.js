@@ -6,6 +6,14 @@ export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
 {
+  "youtubeId": "uKf9f_JFju8",
+  "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12",
+  "publishedAt": "2026-10-20",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/representation-or-deception",
+  "summary": "Rick Hesse and the Free AI Guy discuss how AI can represent real ideas without inventing evidence or misleading customers."
+},
+{
   "youtubeId": "ZWxTY-ajwc8",
   "title": "AI Needs Context Before It Can Be Helpful | Why Generic AI Answers Happen",
   "publishedAt": "2026-10-13",

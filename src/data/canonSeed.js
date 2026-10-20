@@ -135,7 +135,7 @@ export const SEED_JOURNAL_ENTRIES = [
   "subtitle": "Representation or Deception? Using AI Without Misleading People",
   "estimated_reading_time": "3 min read",
   "introduction_headline": "Representation or Deception?",
-  "closing_message": "Read the complete lesson: [Representation or Deception? Using AI Without Misleading People](https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people).\n\nThe Growth Show conversation is in production; we'll add the verified video when it is released.",
+  "closing_message": "Read the complete lesson: https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people\n\nWatch the Growth Show Episode 12: https://youtu.be/uKf9f_JFju8\n\nRead the Journal: https://newtechadvertising.com/journal/issue-12-representation-or-deception",
   "editor_signature": "Rick Hesse",
   "selected_articles": [
     {
@@ -184,7 +184,14 @@ export const SEED_JOURNAL_ENTRIES = [
   "author": "Rick Hesse",
   "featured": false,
   "cta_text": "Read the full Knowledge Library lesson",
-  "cta_url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people"
+  "cta_url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people",
+  "featured_video": {
+    "url": "https://youtu.be/uKf9f_JFju8",
+    "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12",
+    "source_id": "uKf9f_JFju8"
+  },
+  "related_video_url": "https://youtu.be/uKf9f_JFju8",
+  "related_video_title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12"
 },
 {
   "issue_number": 11,

@@ -4,7 +4,26 @@ import { flagshipArticleToolsVsSystem } from './flagshipArticles.js';
  * Explicit public episodes that remain available before Base44 data migration.
  * A Base44 record with the same YouTube ID replaces the seed record.
  */
-export const SEED_GROWTH_SHOW_EPISODES = [{
+export const SEED_GROWTH_SHOW_EPISODES = [
+{
+  "episode_number": 12,
+  "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12",
+  "slug": "representation-or-deception",
+  "summary": "Rick Hesse and the Free AI Guy discuss how AI can represent real ideas without inventing evidence or misleading customers.",
+  "status": "Published",
+  "featured": true,
+  "youtube_video_id": "uKf9f_JFju8",
+  "published_date": "2026-10-20",
+  "thumbnail_url": "https://i.ytimg.com/vi/uKf9f_JFju8/hqdefault.jpg",
+  "source_article_slug": "representation-or-deception-using-ai-without-misleading-people",
+  "related_journal_issue_ids": [
+    "issue-12-representation-or-deception"
+  ],
+  "playlist_slug": "nta-growth-show",
+  "cta_text": "Read the full lesson",
+  "cta_url": "/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people",
+  "notes": "Rick supplied completed YouTube Episode 12 on 2026-10-20. YouTube oEmbed verified official NTA channel and actual title. Separate podcast audio pending verification."
+},{
   "episode_number": 11,
   "title": "Show Me Before You Sell Me | NTA Growth Show — Episode 11",
   "slug": "show-me-before-you-sell-me",
