@@ -5,6 +5,12 @@ export const VIDEO_GALLERY_PATH = '/learning-center/videos';
 // Editorial topic connections, not claims that a video is a word-for-word
 // recording of the lesson. Add only verified public videos and existing pages.
 export const VIDEO_READING_CONNECTIONS = [
+  { videoId: 'cEJxS-o_wIg', title: 'AI Can Assist Judgment—It Cannot Own It | Why Human Decisions Still Matter', href: '/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it' },
+  { videoId: '0EHGfsZuEt0', title: 'I See Artificial Intelligence Differently | Start With People, Not Technology', href: '/knowledge/ai-foundations/i-see-artificial-intelligence-differently' },
+  { videoId: 'ELS81dF-bVU', title: "Use the Model That Gets the Job Done | You Don't Always Need the Most Powerful AI", href: '/knowledge/ai-foundations/use-the-model-that-gets-the-job-done' },
+  { videoId: 'QGlUpAO-kJ0', title: 'AI Gives Small Business Its Speed Back | Big-Company Capability Without the Bloat', href: '/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back' },
+  { videoId: 'pGVRBhvhTbg', title: 'I Was Afraid AI Would Take My Voice. It Helped Me Find It.', href: '/knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it' },
+  { videoId: 'JnFtBwRDYCk', title: 'Customer Questions Reveal What Your Business Should Teach', href: '/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach' },
   {"videoId": "uKf9f_JFju8", "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12", "href": "/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people", "audioReady": true, "audioUrl": "https://newtechadvertising.com/audio/growth-show/uKf9f_JFju8.mp3", "audioContentType": "audio/mpeg", "audioDurationSeconds": 421.46},
   {
     videoId: 'ZWxTY-ajwc8',
