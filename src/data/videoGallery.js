@@ -1,10 +1,52 @@
 // Public YouTube feed and channel-owned oEmbed metadata verified on 2026-09-17.
 // This selection remains available if the live feed is temporarily unavailable.
 // Do not add draft, private, unlisted, or unverified videos here.
-export const VIDEO_GALLERY_VERIFIED_AT = '2026-10-13';
+export const VIDEO_GALLERY_VERIFIED_AT = '2026-10-24';
 export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
+{
+  "youtubeId": "cEJxS-o_wIg",
+  "title": "AI Can Assist Judgment—It Cannot Own It | Why Human Decisions Still Matter",
+  "galleryCategory": "Knowledge Library",
+  "relatedUrl": "/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it",
+  "summary": "Rick Hesse explains why AI can help organize information and suggest options while human beings still own important decisions, consequences, and responsibility."
+},
+{
+  "youtubeId": "0EHGfsZuEt0",
+  "title": "I See Artificial Intelligence Differently | Start With People, Not Technology",
+  "galleryCategory": "Knowledge Library",
+  "relatedUrl": "/knowledge/ai-foundations/i-see-artificial-intelligence-differently",
+  "summary": "Rick Hesse shares an NTA point of view that begins with people, trust, useful problems, and lasting principles before choosing technology."
+},
+{
+  "youtubeId": "ELS81dF-bVU",
+  "title": "Use the Model That Gets the Job Done | You Don't Always Need the Most Powerful AI",
+  "galleryCategory": "Knowledge Library",
+  "relatedUrl": "/knowledge/ai-foundations/use-the-model-that-gets-the-job-done",
+  "summary": "A practical lesson about matching AI capability and cost to the work instead of automatically choosing the newest or most powerful model."
+},
+{
+  "youtubeId": "QGlUpAO-kJ0",
+  "title": "AI Gives Small Business Its Speed Back | Big-Company Capability Without the Bloat",
+  "galleryCategory": "Knowledge Library",
+  "relatedUrl": "/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back",
+  "summary": "Rick Hesse explains how small businesses can gain useful capabilities while preserving the speed, flexibility, and human judgment that make them different."
+},
+{
+  "youtubeId": "pGVRBhvhTbg",
+  "title": "I Was Afraid AI Would Take My Voice. It Helped Me Find It.",
+  "galleryCategory": "Knowledge Library",
+  "relatedUrl": "/knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it",
+  "summary": "Rick Hesse reflects on using AI through conversation and correction to hear and express his own experience more clearly rather than hand his voice away."
+},
+{
+  "youtubeId": "JnFtBwRDYCk",
+  "title": "Customer Questions Reveal What Your Business Should Teach",
+  "galleryCategory": "Knowledge Library",
+  "relatedUrl": "/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach",
+  "summary": "Rick Hesse shows how repeated customer questions reveal gaps in understanding and can become useful lessons, explanations, and reusable business knowledge."
+},
 {
   "youtubeId": "uKf9f_JFju8",
   "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12",
