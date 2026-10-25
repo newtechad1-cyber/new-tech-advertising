@@ -132,6 +132,57 @@ export const DUPLICATE_GROUPS = [
 // available even before Base44 contains its first JournalIssue record.
 export const SEED_JOURNAL_ENTRIES = [
 {
+  "issue_number": 13,
+  "volume": 1,
+  "title": "From Ideas to Finished Work",
+  "subtitle": "What I’m learning about putting AI to work",
+  "slug": "issue-13-from-ideas-to-finished-work",
+  "date": "2026-10-25",
+  "status": "Published",
+  "summary": "A practical lesson from Rick’s own work: preserve ideas, agree on useful tasks, make progress visible, and check what actually got finished.",
+  "category": "AI & Technology",
+  "series": "NTA Journal",
+  "tags": [
+    "practical AI",
+    "business workflow",
+    "human judgment",
+    "NTA Point of View"
+  ],
+  "author": "Rick Hesse",
+  "editor_signature": "Rick Hesse",
+  "introduction_headline": "From Ideas to Finished Work",
+  "estimated_reading_time": "3 min read",
+  "newsletter_subject": "When AI helps you think, what helps the work get finished?",
+  "newsletter_sent": false,
+  "featured": false,
+  "cta_text": "Read the full lesson: From Ideas to Finished Work",
+  "cta_url": "https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work",
+  "closing_message": "Read the complete lesson, [From Ideas to Finished Work](https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work).\n\n[Explore the NTA Knowledge Library](https://newtechadvertising.com/knowledge).",
+  "related_learning_lesson_ids": [
+    "ai-foundations/from-ideas-to-finished-work"
+  ],
+  "related_article_ids": [],
+  "related_video_ids": [],
+  "related_service_slugs": [],
+  "selected_articles": [
+    {
+      "source_type": "KnowledgeLibrary",
+      "source_id": "ai-foundations/from-ideas-to-finished-work",
+      "title": "From Ideas to Finished Work",
+      "url": "https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work",
+      "excerpt": "Rick Hesse shares what babysitting tabs and chasing approvals taught him about carrying ideas into useful, finished work.",
+      "reading_time": "6 min read",
+      "is_lead": true,
+      "display_order": 1
+    }
+  ],
+  "from_ricks_desk": "I want to keep pouring in my ideas. I also want the work that comes out of those conversations to get finished.\n\nThat has become a very practical question for me. I have been working across open tabs, going back and forth, responding to approval requests, and checking whether the next step actually happened.\n\nI find myself babysitting the tabs.\n\nI teach by doing, and this is part of the lesson I am learning: a useful conversation needs a dependable way to carry the agreed work forward.",
+  "what_we_built": "My Working Brain is the place I want to preserve my thinking and connect it to decisions, projects, and work. I want to be able to speak an idea while it is fresh and come back to it with its meaning intact.\n\nSome thoughts need time to develop. Others lead to a task we decide to carry out. The process needs to respect both.\n\nWhen something becomes a task, I want one place to see what we agreed to do, where it stands, and what it needs next. That remains something I am building and testing in my own work.",
+  "what_we_learned": "The phrase “Let’s work on that” leaves plenty of room for misunderstanding.\n\nSuppose an owner wants a short article answering a common customer question. A clearer agreement would identify the approved information to use, where to save the article, and when to bring it back for review.\n\nNow we can recognize a completed drafting task. Publishing the article remains another step unless it was also authorized.\n\nThis is what I mean by approving the flow: understanding the work, agreeing on its boundaries, and allowing the preparation to proceed. Some access and confirmation prompts still interrupt that process today. I want to be honest about what remains unfinished.",
+  "what_it_means_for_your_business": "Start with the work your business needs to get done. Where does it lose momentum? What keeps coming back to you because the next step is unclear?\n\nYou may need a better handoff, a clear review point, or one place to find the result.\n\nAsk what finished would look like for that task. A draft prepared, an email sent, a page published, and a customer response are different outcomes. The record should say which one actually happened.\n\nThat is part of the Digital Growth Office I am building toward: business knowledge, people, tools, and work connected well enough to serve the business together.",
+  "this_weeks_challenge": "Choose one small task that already matters to your business.\n\nWrite down the result you want, the information to use, the work you are authorizing, where the result belongs, and when you need to review it. Give that task one place to be tracked.\n\nThen follow it through. Could you find the result? Was it clear when you needed to decide something? Did you spend less time chasing the work?\n\nThat is the test I care about in my own business: can I keep contributing ideas, make the decisions that need my judgment, and reliably see the agreed work reach completion?"
+},
+{
   "subtitle": "Representation or Deception? Using AI Without Misleading People",
   "estimated_reading_time": "3 min read",
   "introduction_headline": "Representation or Deception?",

@@ -103,10 +103,23 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
-        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="current-lesson-heading">
+        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="ideas-to-work-heading">
           <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
             <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">This week's lesson · NTA Point of View</p>
-            <h2 id="current-lesson-heading" className="mt-3 text-3xl font-black text-white">Representation or Deception? Using AI Without Misleading People</h2>
+            <h2 id="ideas-to-work-heading" className="mt-3 text-3xl font-black text-white">From Ideas to Finished Work</h2>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">What helps a useful conversation become finished work? Rick shares what he is learning about clear tasks, approvals, visible progress, and checking the result.</p>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link to="/knowledge/ai-foundations/from-ideas-to-finished-work" className="inline-flex min-h-12 items-center rounded-xl bg-cyan-300 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-200">Read the lesson</Link>
+              <Link to="/journal/issue-13-from-ideas-to-finished-work" className="inline-flex min-h-12 items-center rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-cyan-300">Read Journal Issue 13</Link>
+              <span className="inline-flex min-h-12 items-center rounded-xl border border-slate-700 px-4 py-3 text-sm text-slate-300">Watch / Listen · recording in progress</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="previous-week-lesson-heading">
+          <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
+            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">This week's lesson · NTA Point of View</p>
+            <h2 id="previous-week-lesson-heading" className="mt-3 text-3xl font-black text-white">Representation or Deception? Using AI Without Misleading People</h2>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">Explore how businesses can use AI to represent real ideas without misleading customers, and why truth, clarity, and human review matter.</p>
             <div className="mt-6 flex flex-wrap gap-4">
               <Link to="/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people" className="rounded-xl bg-cyan-300 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-200">Read the lesson</Link>

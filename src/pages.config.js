@@ -1,4 +1,6 @@
 import AIConfusionLesson from './pages/knowledge/ai-foundations/is-using-ai-cheating';
+import IdeasToFinishedWorkLesson from './pages/knowledge/ai-foundations/from-ideas-to-finished-work';
+import JournalIssue13 from './pages/journal/issue-13-from-ideas-to-finished-work';
 import NativeGrowthEpisode11 from './pages/growth-show/show-me-before-you-sell-me';
 import NativeGrowthEpisode12 from './pages/growth-show/representation-or-deception';
 import NativeGrowthEpisodeSearch3 from './pages/growth-show/i-didnt-set-out-to-build-an-ai-team';
@@ -250,6 +252,8 @@ import __Layout from './Layout.jsx';
 
 const PAGES = {
   'knowledge/ai-foundations/is-using-ai-cheating': AIConfusionLesson,
+  'knowledge/ai-foundations/from-ideas-to-finished-work': IdeasToFinishedWorkLesson,
+  'journal/issue-13-from-ideas-to-finished-work': JournalIssue13,
   'growth-show/show-me-before-you-sell-me': NativeGrowthEpisode11,
   'growth-show/representation-or-deception': NativeGrowthEpisode12,
   "Home": Home,

@@ -1,4 +1,6 @@
 import AIConfusionLesson from '@/pages/knowledge/ai-foundations/is-using-ai-cheating';
+import IdeasToFinishedWorkLesson from '@/pages/knowledge/ai-foundations/from-ideas-to-finished-work';
+import JournalIssue13 from '@/pages/journal/issue-13-from-ideas-to-finished-work';
 import Podcasts from '@/pages/Podcasts';
 /**
  * Canonical public URL aliases.
@@ -194,6 +196,8 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/knowledge/playbook', NTAPlaybook),
   alias('/knowledge/articles/:slug', FlagshipArticle),
   alias('/knowledge/ai-foundations/is-using-ai-cheating', AIConfusionLesson),
+  alias('/knowledge/ai-foundations/from-ideas-to-finished-work', IdeasToFinishedWorkLesson),
+  alias('/journal/issue-13-from-ideas-to-finished-work', JournalIssue13),
   alias('/knowledge/:collectionSlug/:lessonSlug', KnowledgeLesson),
   alias('/knowledge/:collectionSlug', KnowledgeCollection),
   alias('/books', Books),
