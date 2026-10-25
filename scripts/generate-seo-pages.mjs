@@ -1128,6 +1128,7 @@ function approvedLessonMarkup(markdown) {
 
 function approvedLessonStaticBody(pathname) {
   const approvedPaths = {
+    "/knowledge/ai-foundations/from-ideas-to-finished-work": ["ai-foundations", "from-ideas-to-finished-work"],
     "/knowledge/ai-foundations/is-using-ai-cheating": ["ai-foundations", "is-using-ai-cheating"],
     "/knowledge/truth-about-business-growth/show-me-before-you-sell-me": ["truth-about-business-growth", "show-me-before-you-sell-me"],
     "/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business": ["ai-foundations", "how-do-you-put-ai-to-work-in-a-real-business"],
