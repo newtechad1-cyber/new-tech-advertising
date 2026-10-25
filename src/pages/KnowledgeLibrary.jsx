@@ -118,7 +118,7 @@ export default function KnowledgeLibrary() {
 
         <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="previous-week-lesson-heading">
           <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
-            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">This week's lesson · NTA Point of View</p>
+            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">Previous lesson · NTA Point of View</p>
             <h2 id="previous-week-lesson-heading" className="mt-3 text-3xl font-black text-white">Representation or Deception? Using AI Without Misleading People</h2>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">Explore how businesses can use AI to represent real ideas without misleading customers, and why truth, clarity, and human review matter.</p>
             <div className="mt-6 flex flex-wrap gap-4">

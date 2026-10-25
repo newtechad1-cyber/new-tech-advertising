@@ -611,6 +611,8 @@ const PRIVATE_PREFIXES = [
 // components. Other unknown paths must not become indexable merely because
 // their first segment resembles a public content family.
 const PUBLISHED_JOURNAL_PATHS = [
+  "/journal/issue-13-from-ideas-to-finished-work",
+  "/journal/issue-12-representation-or-deception",
   "/journal/issue-11-show-me-before-you-sell-me",
   "/journal/issue-1-the-system-behind-the-work",
   "/journal/issue-2-what-i-learned-while-rebuilding-nta",
