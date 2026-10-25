@@ -1441,7 +1441,7 @@
       "description": "A practical, hype-free introduction to using artificial intelligence in a local business.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-10-13",
+      "lastModified": "2026-10-25",
       "lessons": [
         {
           "title": "AI Isn't Magic Either",
@@ -1612,6 +1612,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-10-13"
+        },
+        {
+          "title": "From Ideas to Finished Work",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work",
+          "contentType": "LearningResource",
+          "description": "Turn useful AI conversations into clearly agreed tasks, visible progress and verified completion, while keeping human judgment and review connected.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-10-25"
         }
       ]
     },

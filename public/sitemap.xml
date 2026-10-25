@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -572,7 +572,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge/ai-foundations</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1435,4 +1435,10 @@
     <priority>0.7</priority>
   </url>
   <url><loc>https://newtechadvertising.com/growth-show/representation-or-deception</loc><lastmod>2026-10-20</lastmod></url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
