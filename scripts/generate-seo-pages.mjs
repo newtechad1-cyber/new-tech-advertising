@@ -1116,7 +1116,7 @@ function approvedLessonMarkup(markdown) {
   return String(markdown || "").trim().split(/\n\s*\n/).map(block => {
     const lines = block.trim().split("\n");
     if (lines.length === 1 && /^###? /.test(lines[0])) {
-      const sourceAnchor = lines[0] === '## Sources and further reading' ? ' id="lesson-sources"' : '';
+      const sourceAnchor = ['## Sources and further reading', '## Source note'].includes(lines[0]) ? ' id="lesson-sources"' : '';
       return "<h2" + sourceAnchor + ">" + approvedLessonInline(lines[0].replace(/^###? /, "")) + "</h2>";
     }
     if (lines.every(line => /^- /.test(line))) {
