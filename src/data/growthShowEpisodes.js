@@ -6,6 +6,28 @@ import { flagshipArticleToolsVsSystem } from './flagshipArticles.js';
  */
 export const SEED_GROWTH_SHOW_EPISODES = [
 {
+  "episode_number": 13,
+  "title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
+  "slug": "from-ideas-to-finished-work",
+  "summary": "Rick Hesse and the Free AI Guy discuss preserving ideas, agreeing on useful tasks, making progress visible, and verifying that the work is finished.",
+  "status": "Published",
+  "featured": true,
+  "youtube_video_id": "wFRRiJu-DHs",
+  "published_date": "2026-10-26",
+  "thumbnail_url": "https://i.ytimg.com/vi/wFRRiJu-DHs/hqdefault.jpg",
+  "source_article_slug": "from-ideas-to-finished-work",
+  "related_journal_issue_ids": [
+    "6ade0878c60a1eccf8c023e2",
+    "issue-13-from-ideas-to-finished-work"
+  ],
+  "playlist_slug": "nta-growth-show",
+  "cta_text": "Read the full lesson",
+  "cta_url": "/knowledge/ai-foundations/from-ideas-to-finished-work",
+  "audio_status": "Missing",
+  "notes": "Rick supplied the completed YouTube upload October 26, 2026. YouTube oEmbed verified the actual title, @RickHesse channel, thumbnail, and embed URL. Full playback could not be checked from sandbox due to YouTube bot protection. Separate podcast audio remains pending. Subscriber email not sent.",
+  "youtube_knowledge_id": "6adf5286b5d2d79c6784d173"
+},
+{
   "episode_number": 12,
   "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12",
   "slug": "representation-or-deception",
@@ -123,7 +145,8 @@ export const SEED_GROWTH_SHOW_EPISODES = [
  * The flagship article remains authoritative in flagshipArticles.js. This
  * adapter makes that source available to the relationship graph.
  */
-export const GROWTH_SHOW_SOURCE_ARTICLES = [{"id":"6acd387d74b52b52094b74aa","canon_id":"6acd387d74b52b52094b74aa","slug":"show-me-before-you-sell-me","title":"Show Me Before You Sell Me","summary":"Rick Hesse and the Free AI Guy follow the Appliance Outlet proposal process from business discovery and demonstration to clear scope, costs, acceptance, and onboarding.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me","status":"Published","related_lesson_ids":[]},
+export const GROWTH_SHOW_SOURCE_ARTICLES = [{"id":"lesson-from-ideas-to-finished-work","slug":"from-ideas-to-finished-work","title":"From Ideas to Finished Work","summary":"Rick Hesse and the Free AI Guy discuss preserving ideas, agreeing on useful tasks, making progress visible, and verifying that the work is finished.","canonical_url":"https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work","status":"Published","related_lesson_ids":[]},
+{"id":"6acd387d74b52b52094b74aa","canon_id":"6acd387d74b52b52094b74aa","slug":"show-me-before-you-sell-me","title":"Show Me Before You Sell Me","summary":"Rick Hesse and the Free AI Guy follow the Appliance Outlet proposal process from business discovery and demonstration to clear scope, costs, acceptance, and onboarding.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me","status":"Published","related_lesson_ids":[]},
 {"id":"6ac38ae01da8b49dc1015856","canon_id":"6ac38ae01da8b49dc1015856","slug":"business-owners-are-tired-of-being-sold","title":"Business Owners Are Tired of Being Sold","summary":"Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold","status":"Published","related_lesson_ids":[]}, {
   ...flagshipArticleToolsVsSystem,
   canon_id: flagshipArticleToolsVsSystem.id,
