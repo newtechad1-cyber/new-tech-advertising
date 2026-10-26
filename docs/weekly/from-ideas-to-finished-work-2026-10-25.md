@@ -24,3 +24,13 @@ Rick approved the Knowledge Library lesson, Journal teaching and all three Growt
 Before-change public checkpoint: 6ade06c729cf8fb95ad33dd8, commit 79377dd86c4cec37e1e934a150ef4e845095464c.
 Before-change Core checkpoint: 6ade06caf80bdfc484489816, commit 431ea04a9b923ae142f5cce9cfe4a55371952bfc.
 Do not delete or overwrite the historical public Journal record numbered 13 with slug digital-risks; it is a legacy article, not this weekly edition. Canonical weekly identity is issue-13-from-ideas-to-finished-work. Do not resend Issue 12; its Core delivery state is already sent.
+
+## October 26 — Episode 13 uploaded and connected
+
+Rick supplied https://youtu.be/wFRRiJu-DHs after approving the complete teaching package. YouTube oEmbed confirms the actual episode title and @RickHesse channel. Public episode record 6adf52a1987fff35ce9595ba and video record 6adf5286b5d2d79c6784d173 are saved. Journal record 6ade0878c60a1eccf8c023e2 now links the video; Core Journal 6ade0879513423da3bdcb9c0 has the matching featured_video for eventual subscriber delivery. newsletter_sent remains false; no email or automation was sent/scheduled.
+
+Verified live: /growth-show/from-ideas-to-finished-work displays Episode 13 and the correct YouTube embed. Journal Issue 13 displays the uploaded video link on desktop/mobile. Full YouTube playback could not be checked due bot protection; oEmbed verified title/channel/embed metadata.
+
+Prepared code: native lesson Read/Watch controls, video gallery selection, episode and source-lesson adapters, Journal fallback, and library Watch Episode 13 link. Build, scoped ESLint, and nine podcast/route tests pass. Direct relationship check confirms lesson/Journal/video identity and pending-audio gating. Built lesson Watch control tested at 1365 and 390 widths with the correct youtube-nocookie ID, no horizontal overflow. Built library mobile displays Watch Episode 13. Local built dynamic episode route did not render under localhost checks; production episode renders correctly. No unrelated routing changes made.
+
+Remaining: Rick clicks Publish → Publish App in New Tech Advertising public app 691f41a18de4a7f498c8f884 for lesson/library source changes and episode resource adapter; live pages still show the prior pending recording text there. After Publish, verify the updated lesson Watch control and reciprocal lesson link on the episode page. Original full podcast audio/RSS remains pending; no synthetic substitute generated. Tuesday October 27 8 a.m. Central remains a target, not an active schedule; subscriber test/send remains outstanding.
