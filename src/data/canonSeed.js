@@ -157,7 +157,7 @@ export const SEED_JOURNAL_ENTRIES = [
   "featured": false,
   "cta_text": "Read the full lesson: From Ideas to Finished Work",
   "cta_url": "https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work",
-  "closing_message": "Read the complete lesson, [From Ideas to Finished Work](https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work).\n\n[Explore the NTA Knowledge Library](https://newtechadvertising.com/knowledge).",
+  "closing_message": "Read the complete lesson, [From Ideas to Finished Work](https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work).\n\n[Watch Growth Show 13](https://newtechadvertising.com/growth-show/from-ideas-to-finished-work#watch) · [Listen to the complete podcast](https://newtechadvertising.com/growth-show/from-ideas-to-finished-work#listen)\n\n[Explore the NTA Knowledge Library](https://newtechadvertising.com/knowledge).",
   "related_learning_lesson_ids": [
     "ai-foundations/from-ideas-to-finished-work"
   ],
