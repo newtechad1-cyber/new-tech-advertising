@@ -5,6 +5,7 @@ export const VIDEO_GALLERY_PATH = '/learning-center/videos';
 // Editorial topic connections, not claims that a video is a word-for-word
 // recording of the lesson. Add only verified public videos and existing pages.
 export const VIDEO_READING_CONNECTIONS = [
+  { videoId: 'wFRRiJu-DHs', title: 'From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13', href: '/knowledge/ai-foundations/from-ideas-to-finished-work' },
   { videoId: 'cEJxS-o_wIg', title: 'AI Can Assist Judgment—It Cannot Own It | Why Human Decisions Still Matter', href: '/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it' },
   { videoId: '0EHGfsZuEt0', title: 'I See Artificial Intelligence Differently | Start With People, Not Technology', href: '/knowledge/ai-foundations/i-see-artificial-intelligence-differently' },
   { videoId: 'ELS81dF-bVU', title: "Use the Model That Gets the Job Done | You Don't Always Need the Most Powerful AI", href: '/knowledge/ai-foundations/use-the-model-that-gets-the-job-done' },
