@@ -1,19 +1,19 @@
 // Verified audio metadata keyed by existing episode identity.
 export const GROWTH_SHOW_AUDIO = {
   "uKf9f_JFju8": {
-  "audio_status": "Ready",
-  "audio_url": "https://newtechadvertising.com/audio/growth-show/uKf9f_JFju8.mp3",
-  "audio_content_type": "audio/mpeg",
-  "audio_byte_length": 6744620,
-  "audio_duration_seconds": 421.46,
-  "audio_source_url": "https://www.youtube.com/watch?v=uKf9f_JFju8",
-  "audio_verified_at": "2026-10-20T16:58:56.518837+00:00",
-  "audio_complete": true,
-  "audio_sound_checked": true,
-  "audio_seek_checked": true,
-  "audio_verification_method": "Complete original 422-second YouTube program downloaded and converted to MP3; full FFmpeg decode duration matched within 1 second, beginning/end non-silent. Byte-range seek to be confirmed on preview and live deployment; human listening remains with owner.",
-  "audio_sha256": "e145c0d9789bf4e1efe58f8a0e928a476aba5dbd8b4d66891dbf30cd74570964"
-},
+    "audio_status": "Ready",
+    "audio_url": "https://newtechadvertising.com/audio/growth-show/uKf9f_JFju8.mp3",
+    "audio_content_type": "audio/mpeg",
+    "audio_byte_length": 6744620,
+    "audio_duration_seconds": 421.46,
+    "audio_source_url": "https://www.youtube.com/watch?v=uKf9f_JFju8",
+    "audio_verified_at": "2026-10-20T16:58:56.518837+00:00",
+    "audio_complete": true,
+    "audio_sound_checked": true,
+    "audio_seek_checked": true,
+    "audio_verification_method": "Complete original 422-second YouTube program downloaded and converted to MP3; full FFmpeg decode duration matched within 1 second, beginning/end non-silent. Byte-range seek to be confirmed on preview and live deployment; human listening remains with owner.",
+    "audio_sha256": "e145c0d9789bf4e1efe58f8a0e928a476aba5dbd8b4d66891dbf30cd74570964"
+  },
   "6lhiYFHFsCQ": {
     "audio_status": "Ready",
     "audio_url": "https://newtechadvertising.com/audio/growth-show/6lhiYFHFsCQ.mp3",
@@ -139,5 +139,19 @@ export const GROWTH_SHOW_AUDIO = {
     "audio_seek_checked": true,
     "audio_verification_method": "Original final YouTube cut approved by Rick; full original audio extracted without regeneration; full codec decode, complete source duration match, and beginning/end non-silent signal verified. Human listening review remains with owner. Vite preview returned audio/mpeg and HTTP 206 with the correct 1000-byte range and full file length.",
     "audio_verified_at": "2026-10-13T13:22:55.345Z"
+  },
+  "wFRRiJu-DHs": {
+    "audio_status": "Ready",
+    "audio_url": "https://newtechadvertising.com/audio/growth-show/wFRRiJu-DHs.mp3",
+    "audio_source_url": "https://www.youtube.com/watch?v=wFRRiJu-DHs",
+    "audio_content_type": "audio/mpeg",
+    "audio_byte_length": 5006555,
+    "audio_duration_seconds": 312.868571,
+    "audio_sha256": "205eabb5a43ff5883b7f29419a4fc0f85c176a9ca1d2c6d692c701f30c015a9d",
+    "audio_complete": true,
+    "audio_sound_checked": true,
+    "audio_seek_checked": true,
+    "audio_verified_at": "2026-10-26T14:42:55.724740+00:00",
+    "audio_verification_method": "Full original owner-uploaded From Ideas to Finished Work.mp4 (SHA256 cf64b2119c24b7fca1d5dd6c035ec89b8ff9e0cbca286a6af063dcb9d096cb07), no regenerated audio. Master 312.820 sec; MP3 312.869 sec. Complete FFmpeg decode passed; first/last 12 sec non-silent. Base44 app audio asset returned audio/mpeg and HTTP 206, correct byte range and matching bytes. Browser playback/seeking checked separately. Human whole-program listening not claimed."
   }
 };
