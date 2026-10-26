@@ -24,7 +24,7 @@ const optionalId = id.nullable().optional();
 const timestamp = z.string().datetime({ offset: true });
 const optionalTimestamp = timestamp.nullable().optional();
 const nonEmptyText = z.string().trim().min(1);
-const metadata = z.record(z.unknown()).default({});
+const metadata = z.record(z.string(), z.unknown()).default({});
 
 export const discoverySessionSchema = z.object({
   id: optionalId,
