@@ -13,11 +13,11 @@ export default function LessonMediaOptions({ path, readHref = '#lesson-reading' 
   useEffect(() => {
     if ((hash !== '#listen' && hash !== '#watch') || !connections.length) return;
     const connection = connections[0];
-    if (hash === '#listen' && !connection.audioReady) return;
+    if (hash === '#listen' && !connection.audioReady && !episodes.some(episode => episode.youtubeVideoId === connection.videoId && episode.audioReady)) return;
     setSelected({ mode: hash.slice(1), connection });
     const frame = requestAnimationFrame(() => document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' }));
     return () => cancelAnimationFrame(frame);
-  }, [hash, path]);
+  }, [hash, path, episodes]);
   if (!connections.length) return null;
   const selectedEpisode = selected && episodes.find(e => e.youtubeVideoId === selected.connection.videoId);
   const selectedAudio = selected?.connection?.audioReady ? selected.connection : selectedEpisode;

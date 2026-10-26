@@ -112,7 +112,7 @@ export default function KnowledgeLibrary() {
               <Link to="/knowledge/ai-foundations/from-ideas-to-finished-work" className="inline-flex min-h-12 items-center rounded-xl bg-cyan-300 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-200">Read the lesson</Link>
               <Link to="/journal/issue-13-from-ideas-to-finished-work" className="inline-flex min-h-12 items-center rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-cyan-300">Read Journal Issue 13</Link>
               <Link to="/growth-show/from-ideas-to-finished-work#watch" className="inline-flex min-h-12 items-center rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-cyan-300">Watch Episode 13</Link>
-              <span className="inline-flex min-h-12 items-center rounded-xl border border-slate-700 px-4 py-3 text-sm text-slate-300">Podcast audio coming soon</span>
+              <Link to="/growth-show/from-ideas-to-finished-work#listen" className="inline-flex min-h-12 items-center rounded-xl border border-cyan-500/60 px-5 py-3 font-bold text-cyan-200 hover:bg-cyan-950/40">Listen to Episode 13</Link>
             </div>
           </div>
         </section>

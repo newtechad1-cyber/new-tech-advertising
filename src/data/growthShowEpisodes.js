@@ -23,7 +23,7 @@ export const SEED_GROWTH_SHOW_EPISODES = [
   "playlist_slug": "nta-growth-show",
   "cta_text": "Read the full lesson",
   "cta_url": "/knowledge/ai-foundations/from-ideas-to-finished-work",
-  "audio_status": "Missing",
+  "audio_status": "Ready",
   "notes": "Rick supplied the completed YouTube upload October 26, 2026. YouTube oEmbed verified the actual title, @RickHesse channel, thumbnail, and embed URL. Full playback could not be checked from sandbox due to YouTube bot protection. Separate podcast audio remains pending. Subscriber email not sent.",
   "youtube_knowledge_id": "6adf5286b5d2d79c6784d173"
 },
