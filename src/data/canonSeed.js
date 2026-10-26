@@ -162,7 +162,9 @@ export const SEED_JOURNAL_ENTRIES = [
     "ai-foundations/from-ideas-to-finished-work"
   ],
   "related_article_ids": [],
-  "related_video_ids": [],
+  "related_video_ids": ["6adf5286b5d2d79c6784d173"],
+  "related_video_url": "https://www.youtube.com/watch?v=wFRRiJu-DHs",
+  "related_video_title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
   "related_service_slugs": [],
   "selected_articles": [
     {

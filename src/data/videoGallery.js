@@ -6,6 +6,14 @@ export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
 {
+  "youtubeId": "wFRRiJu-DHs",
+  "title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
+  "publishedAt": "2026-10-26",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/from-ideas-to-finished-work",
+  "summary": "Rick Hesse and the Free AI Guy discuss preserving ideas, agreeing on useful tasks, making progress visible, and verifying that the work is finished."
+},
+{
   "youtubeId": "cEJxS-o_wIg",
   "title": "AI Can Assist Judgment—It Cannot Own It | Why Human Decisions Still Matter",
   "galleryCategory": "Knowledge Library",
