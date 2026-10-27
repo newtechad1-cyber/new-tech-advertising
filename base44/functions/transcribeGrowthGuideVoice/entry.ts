@@ -103,20 +103,98 @@ const transcriptionFailure = (status: number, providerMessage = '') => {
   );
 };
 
+// Turnstile verification is public visitor proof, not account authentication.
+// Origin and Referer are routing hints only — never authorization.
+const NTA_VERIFIED_HOSTS = new Set([
+  'newtechadvertising.com', 'www.newtechadvertising.com',
+  'app.newtechadvertising.com', 'new-tech-advertising.base44.app',
+]);
+const SITEVERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+
+function verificationSettings() {
+  const siteKey = String(Deno.env.get('NTA_TURNSTILE_SITE_KEY') || '').trim();
+  const secret = String(Deno.env.get('NTA_TURNSTILE_SECRET_KEY') || '').trim();
+  const isTestKey = (value: string) => /^[123]x0{8,}/.test(value);
+  return siteKey.length >= 20 && secret.length >= 20 && !isTestKey(siteKey) && !isTestKey(secret)
+    ? { siteKey, secret }
+    : null;
+}
+
+function publicVerificationConfig(action: string) {
+  const settings = verificationSettings();
+  if (!settings) {
+    return voiceError('Voice verification is temporarily unavailable. Please call or text 641-420-8816.', 'VERIFICATION_UNAVAILABLE');
+  }
+  return Response.json({ site_key: settings.siteKey, action }, {
+    headers: { 'Cache-Control': 'no-store' },
+  });
+}
+
+async function verifyPublicRequest(req: Request, token: unknown, action: string) {
+  if (typeof token !== 'string' || !token.trim() || token.length > 2048) {
+    return Response.json({ error: 'Please complete the verification and try again.', code: 'VERIFICATION_REQUIRED' }, { status: 403 });
+  }
+  const settings = verificationSettings();
+  if (!settings) {
+    return voiceError('Voice verification is temporarily unavailable. Please call or text 641-420-8816.', 'VERIFICATION_UNAVAILABLE');
+  }
+
+  let expectedHostname: string;
+  try {
+    const origin = new URL(req.headers.get('origin') || req.headers.get('referer') || '');
+    if (origin.protocol !== 'https:' || !NTA_VERIFIED_HOSTS.has(origin.hostname)) throw new Error('Untrusted host');
+    expectedHostname = origin.hostname;
+  } catch {
+    return Response.json({ error: 'Request verification failed.' }, { status: 403 });
+  }
+
+  try {
+    const response = await fetch(SITEVERIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret: settings.secret, response: token }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok) throw new Error('Verification provider unavailable');
+    const result = await response.json();
+    const issuedAt = Date.parse(result.challenge_ts);
+    const age = Date.now() - issuedAt;
+    if (
+      result.success !== true || result.action !== action ||
+      result.hostname !== expectedHostname ||
+      !Number.isFinite(issuedAt) || age < -30_000 || age > 300_000
+    ) {
+      return Response.json({ error: 'Verification expired or could not be confirmed. Please try again.', code: 'VERIFICATION_FAILED' }, { status: 403 });
+    }
+    return null;
+  } catch {
+    return Response.json({ error: 'Verification could not be completed. Please try again shortly.' }, { status: 503 });
+  }
+}
+
 Deno.serve(async (req: Request): Promise<Response> => {
   if (req.method !== 'POST') return Response.json({ error: 'Method not allowed' }, { status: 405 });
   const base44 = createClientFromRequest(req);
   const user = await base44.auth.me().catch(() => null);
   const trustedService = user?.role === 'admin' || user?.is_service === true;
   if (!trustedService && !isTrustedPublicOrigin(req)) return Response.json({ error: 'Untrusted request origin' }, { status: 403 });
-  if (!trustedService) {
-    const retryAfter = rateLimit(req);
-    if (retryAfter) return Response.json({ error: 'Too many transcription requests' }, { status: 429, headers: { 'Retry-After': String(retryAfter) } });
-  }
+
   let stage: FailureStage = 'REQUEST_DECODING';
 
   try {
     const body = await req.json();
+
+    if (body?.verification_config === true) {
+      return publicVerificationConfig('transcribe_guide_voice');
+    }
+
+    if (!trustedService) {
+      const retryAfter = rateLimit(req);
+      if (retryAfter) return Response.json({ error: 'Too many transcription requests' }, { status: 429, headers: { 'Retry-After': String(retryAfter) } });
+      const verificationError = await verifyPublicRequest(req, body?.verification_token, 'transcribe_guide_voice');
+      if (verificationError) return verificationError;
+    }
+
     const audioBase64 = typeof body?.audio_base64 === 'string' ? body.audio_base64 : '';
     const mimeType = String(body?.mime_type || '').split(';')[0].toLowerCase();
     const extension = ALLOWED_AUDIO_TYPES[mimeType];

@@ -7,6 +7,8 @@ const ACTIONS = {
   startDiscoverySession: 'start_discovery_session',
   submitPublicTrialSignup: 'trial_signup',
   submitRecruitingApplication: 'recruiting_application',
+  speakGrowthGuideAnswer: 'speak_guide_answer',
+  transcribeGrowthGuideVoice: 'transcribe_guide_voice',
 };
 let scriptPromise;
 let verificationQueue = Promise.resolve();
@@ -157,12 +159,16 @@ async function requestVisitorToken(config) {
 
 // Get a fresh, single-use provider token for every submission. Never store it
 // in localStorage or retry a mutation automatically after an uncertain result.
-export async function invokeVerifiedPublicFunction(name, payload) {
+export async function getVisitorVerificationToken(name) {
   if (!ACTIONS[name]) throw new Error('Unsupported public function');
   const config = await getVerificationConfig(name);
   const pending = verificationQueue.then(() => requestVisitorToken(config));
   verificationQueue = pending.catch(() => {});
-  const token = await pending;
+  return pending;
+}
+
+export async function invokeVerifiedPublicFunction(name, payload) {
+  const token = await getVisitorVerificationToken(name);
   const response = await base44.functions.invoke(name, { ...payload, verification_token: token });
   const result = response?.data ?? response;
   if (result?.success === false || result?.accepted === false) {

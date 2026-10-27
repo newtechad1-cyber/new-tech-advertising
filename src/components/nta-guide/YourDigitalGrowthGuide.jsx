@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
-import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
+import { invokeVerifiedPublicFunction, getVisitorVerificationToken } from '@/lib/publicVerification';
 import { contentContext, followUpPath, guideQuestion } from '@/lib/contentJourney';
 import { appParams } from '@/lib/app-params';
 import { X, Send, Loader2, AlertCircle, Zap, ChevronRight, Brain, Mic, MicOff, RotateCcw, Phone, MessageSquare, Mail, Volume2, VolumeX, Minimize2, Maximize2 } from 'lucide-react';
@@ -421,7 +421,7 @@ export default function YourDigitalGrowthGuide() {
     stopGuideVoice();
     setVoicePlaybackError('');
     try {
-      const response = await base44.functions.invoke('speakGrowthGuideAnswer', { text });
+      const response = await invokeVerifiedPublicFunction('speakGrowthGuideAnswer', { text });
       const result = response?.data ?? response;
       if (!result?.audio_url) throw new Error(result?.error || 'No audio was returned');
 
@@ -560,9 +560,11 @@ export default function YourDigitalGrowthGuide() {
         setIsTranscribing(true);
         setVoiceStatus('transcribing');
         try {
+          const verificationToken = await getVisitorVerificationToken('transcribeGrowthGuideVoice');
           const payload = {
             audio_base64: await blobToBase64(audio),
-            mime_type: audio.type
+            mime_type: audio.type,
+            verification_token: verificationToken
           };
 
           // Use the current site first so normal requests stay same-origin.
