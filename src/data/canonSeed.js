@@ -161,10 +161,18 @@ export const SEED_JOURNAL_ENTRIES = [
   "related_learning_lesson_ids": [
     "ai-foundations/from-ideas-to-finished-work"
   ],
-  "related_article_ids": [],
+  "related_article_ids": ["6ae0a32e0231f55b1dadbe90"],
   "related_video_ids": ["6adf5286b5d2d79c6784d173"],
   "related_video_url": "https://www.youtube.com/watch?v=wFRRiJu-DHs",
   "related_video_title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
+  "featured_video": {
+    "source_id": "wFRRiJu-DHs",
+    "source_type": "YouTube",
+    "title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
+    "url": "https://www.youtube.com/watch?v=wFRRiJu-DHs",
+    "description": "Rick Hesse and the Free AI Guy discuss preserving ideas, agreeing on useful tasks, making progress visible, and verifying that the work is finished.",
+    "cta_text": "Watch Growth Show 13"
+  },
   "related_service_slugs": [],
   "selected_articles": [
     {
