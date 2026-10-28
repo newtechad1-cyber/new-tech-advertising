@@ -1,3 +1,4 @@
+import { isVideoPublicationTimestamp } from '@/lib/videoPublication';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
 import GrowthShowAudioPlayer from '@/components/video/GrowthShowAudioPlayer';
 import React, { useEffect } from 'react';
@@ -27,7 +28,7 @@ export default function LCVideoDetail() {
       }
 
       // Inject VideoObject Schema for SEO
-      if (video.youtubeId) {
+      if (video.youtubeId && isVideoPublicationTimestamp(video.publishedAt)) {
         const schema = {
           "@context": "https://schema.org",
           "@type": "VideoObject",
