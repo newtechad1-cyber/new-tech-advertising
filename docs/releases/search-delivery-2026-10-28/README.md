@@ -17,7 +17,7 @@ Status: source repairs prepared in Base44; final Publish belongs to Rick. Initia
 - 35 focused tests passed: public boundary, route governance, generated SEO output, search delivery, video gallery and video publication.
 - All 37 original URLs have page-specific generated initial HTML, their intended canonical, an H1 and indexable metadata. All 232 prepared sitemap URLs remain indexable; existing private, administrative, retired and unknown-path cleanup checks passed. No global noindex removal or SEO-settings changes were made.
 - Generated video schemas and sitemap publication dates match their verified video source. Original Episode 2 timestamp: 2026-08-10T14:00:57-07:00; Representation or Deception: 2026-10-20T06:07:17-07:00; Show Me Before You Sell Me: 2026-10-13T05:47:50-07:00.
-- Preview browser checks confirmed representative flagged pages and video metadata. YouTube embed playback produced Error 153 in the test browser; successful playback is not claimed.
+- Preview browser checks confirmed representative flagged pages and video metadata. A separate full-artifact read checked all 232 titles, H1s, intended canonicals and indexing directives. YouTube embed playback produced Error 153 in the test browser; successful playback is not claimed.
 
 ## What is verified live
 
@@ -25,7 +25,7 @@ The public site has not been published during this work. Live results below are 
 
 The first full Googlebot pass checked 231 sitemap URLs: all returned 200, none had noindex, and 228 had the expected canonical. Two Business Planning Guide question responses fell back to the homepage; one additional Journal URL returned /journal as its canonical.
 
-A separate dual-agent recheck covered all 37 initially flagged URLs plus four controls. All 37 returned their own canonicals for Googlebot. All 37 ordinary requests still received homepage HTML before JavaScript. The additional Journal URL still returned its hub canonical for Googlebot. These results demonstrate request-dependent and changing delivery, not a count of Google exclusions or proof of indexing.
+A separate dual-agent recheck covered all 37 initially flagged URLs plus four controls. All 37 returned their own canonicals for Googlebot. All 37 ordinary requests still received homepage HTML before JavaScript. The additional Journal URL still returned its hub canonical for Googlebot. These results demonstrate request-dependent and changing delivery, not a count of Google exclusions or proof of indexing. A further live directive check retained noindex on /AdminMetaSetup but found /agency/AgencyClientCMS and an unknown URL receiving an indexable homepage fallback. Their prepared cleanup/unknown-path metadata remains noindex; live serving must respect it. The retired service URL correctly redirects to its public replacement.
 
 Evidence: live-all-231-googlebot.json and live-37-and-controls-dual-agent.json. Keep first responses and rechecks separate.
 

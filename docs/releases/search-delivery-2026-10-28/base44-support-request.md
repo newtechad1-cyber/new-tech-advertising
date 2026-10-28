@@ -54,3 +54,5 @@ Additional live canonical mismatch observed outside that list:
 https://newtechadvertising.com/journal/the-free-ai-guy-comes-to-life (returned https://newtechadvertising.com/journal for Googlebot).
 
 Expected acceptance: repeated initial HTTP requests with Googlebot and ordinary user agents return each URL’s own title, heading and intended canonical; directives remain appropriate. Explicit HTML variants must keep the clean URL canonical.
+
+Additional directive evidence: /AdminMetaSetup correctly returned noindex. /agency/AgencyClientCMS and /definitely-not-a-real-page returned an indexable homepage fallback, despite source cleanup/unknown-path metadata being noindex. Please preserve those source directives in the initial response; do not solve the public canonical issue by removing noindex globally. Evidence: live-private-and-retired-directives.json.
