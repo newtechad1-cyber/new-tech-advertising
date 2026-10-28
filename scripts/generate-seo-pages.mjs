@@ -1422,6 +1422,20 @@ function syncVideoPublicationDates() {
 syncKnowledgeIndexes();
 syncJournalIssueRoutes();
 syncVideoPublicationDates();
+// A published native episode must not depend on hand-editing the sitemap to
+// receive initial HTML. Preserve existing entries and add only public records.
+{
+  let xml = fs.readFileSync(sourceSitemap, 'utf8');
+  for (const episode of SEED_GROWTH_SHOW_EPISODES.filter(item => item.status === 'Published')) {
+    const route = '/growth-show/' + episode.slug;
+    if (getSeoMetadata(route).noIndex) throw new Error('Published episode is not public: ' + route);
+    if (!xml.includes('<loc>' + SITE_ORIGIN + route + '</loc>')) {
+      const entry = renderSitemapUrl(route, getVideoPublicationTimestamp(episode.youtube_video_id), 'monthly', '0.7');
+      xml = xml.replace('</urlset>', entry + '\n</urlset>');
+    }
+  }
+  fs.writeFileSync(sourceSitemap, xml);
+}
 contentByCanonical = getContentByCanonical();
 
 fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));

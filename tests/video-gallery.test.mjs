@@ -88,7 +88,8 @@ test('feed errors remain explicit so the frontend can show the verified selectio
 });
 
 test('new uploads merge with the verified archive, deduplicate, and sort by publication date', () => {
-  const latest = { youtubeId: 'NEWvideo123', title: 'New public video', publishedAt: '2026-09-17T12:00:00Z' };
+  const newestArchivedTime = Math.max(...VERIFIED_VIDEO_SELECTION.map(video => Date.parse(video.publishedAt) || 0));
+  const latest = { youtubeId: 'NEWvideo123', title: 'New public video', publishedAt: new Date(newestArchivedTime + 86400000).toISOString() };
   const duplicate = { ...VERIFIED_VIDEO_SELECTION[0], title: 'Updated title from YouTube' };
   const videos = mergeGalleryVideos([latest, duplicate], VERIFIED_VIDEO_SELECTION);
   assert.equal(videos.length, VERIFIED_VIDEO_SELECTION.length + 1);
