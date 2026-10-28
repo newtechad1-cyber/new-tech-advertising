@@ -12,11 +12,11 @@ const DESCRIPTION = "A 25-second business profile introducing Johnson Heating an
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/Wkm8FfpxBl0";
 const VIDEO_URL = "https://www.youtube.com/watch?v=Wkm8FfpxBl0";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/Wkm8FfpxBl0?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('Wkm8FfpxBl0');
+const VERIFIED_VIDEO = getVideoWatchById("Wkm8FfpxBl0");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage12() {
+export default function NativeVideoPage15() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);

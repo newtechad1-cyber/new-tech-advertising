@@ -12,11 +12,11 @@ const DESCRIPTION = "Watch AI isn’t a business strategy. It’s a tool from Ne
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/CbNxn-P74D8";
 const VIDEO_URL = "https://www.youtube.com/watch?v=CbNxn-P74D8";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/CbNxn-P74D8?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('CbNxn-P74D8');
+const VERIFIED_VIDEO = getVideoWatchById("CbNxn-P74D8");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage05() {
+export default function NativeVideoPage08() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);

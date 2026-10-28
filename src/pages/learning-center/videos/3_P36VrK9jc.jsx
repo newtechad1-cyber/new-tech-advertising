@@ -12,11 +12,11 @@ const DESCRIPTION = "Watch Video Storytelling Builds Confidence from New Tech Ad
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/3_P36VrK9jc";
 const VIDEO_URL = "https://www.youtube.com/watch?v=3_P36VrK9jc";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/3_P36VrK9jc?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('3_P36VrK9jc');
+const VERIFIED_VIDEO = getVideoWatchById("3_P36VrK9jc");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage09() {
+export default function NativeVideoPage12() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);

@@ -12,11 +12,11 @@ const DESCRIPTION = "Watch Websites as Salespeople from New Tech Advertising, th
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/elcnGAfYdgk";
 const VIDEO_URL = "https://www.youtube.com/watch?v=elcnGAfYdgk";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/elcnGAfYdgk?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('elcnGAfYdgk');
+const VERIFIED_VIDEO = getVideoWatchById("elcnGAfYdgk");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage10() {
+export default function NativeVideoPage13() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);

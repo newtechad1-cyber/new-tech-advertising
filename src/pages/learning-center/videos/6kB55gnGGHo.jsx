@@ -12,11 +12,11 @@ const DESCRIPTION = "Watch Growth Systems vs  Campaigns from New Tech Advertisin
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/6kB55gnGGHo";
 const VIDEO_URL = "https://www.youtube.com/watch?v=6kB55gnGGHo";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/6kB55gnGGHo?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('6kB55gnGGHo');
+const VERIFIED_VIDEO = getVideoWatchById("6kB55gnGGHo");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage07() {
+export default function NativeVideoPage10() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);

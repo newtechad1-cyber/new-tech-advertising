@@ -12,11 +12,11 @@ const DESCRIPTION = "A 25-second business profile introducing Monson's work in N
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/odp74hcdjEA";
 const VIDEO_URL = "https://www.youtube.com/watch?v=odp74hcdjEA";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/odp74hcdjEA?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('odp74hcdjEA');
+const VERIFIED_VIDEO = getVideoWatchById("odp74hcdjEA");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage11() {
+export default function NativeVideoPage14() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);

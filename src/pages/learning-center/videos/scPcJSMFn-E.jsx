@@ -12,11 +12,11 @@ const DESCRIPTION = "Watch The Role of AI in Local Marketing from New Tech Adver
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/scPcJSMFn-E";
 const VIDEO_URL = "https://www.youtube.com/watch?v=scPcJSMFn-E";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/scPcJSMFn-E?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('scPcJSMFn-E');
+const VERIFIED_VIDEO = getVideoWatchById("scPcJSMFn-E");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage06() {
+export default function NativeVideoPage09() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);

@@ -12,11 +12,11 @@ const DESCRIPTION = "A 41-second brand message from NTA's public Johnson Heating
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/tmpy20Xz1vU";
 const VIDEO_URL = "https://www.youtube.com/watch?v=tmpy20Xz1vU";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/tmpy20Xz1vU?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('tmpy20Xz1vU');
+const VERIFIED_VIDEO = getVideoWatchById("tmpy20Xz1vU");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage13() {
+export default function NativeVideoPage16() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);

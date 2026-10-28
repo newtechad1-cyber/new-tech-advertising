@@ -12,11 +12,11 @@ const DESCRIPTION = "Watch My Journey  Why I Built North Iowa's First AI Agency 
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/MsiyOAZrCNo";
 const VIDEO_URL = "https://www.youtube.com/watch?v=MsiyOAZrCNo";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/MsiyOAZrCNo?rel=0";
-const VERIFIED_VIDEO = getVideoWatchById('MsiyOAZrCNo');
+const VERIFIED_VIDEO = getVideoWatchById("MsiyOAZrCNo");
 const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
-export default function NativeVideoPage08() {
+export default function NativeVideoPage11() {
   useEffect(() => {
     document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
   }, []);
