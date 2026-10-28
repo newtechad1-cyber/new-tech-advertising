@@ -1,3 +1,4 @@
+import { isVideoPublicationTimestamp } from '@/lib/videoPublication';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getSeoMetadata } from '@/config/seoMetadata';
@@ -298,7 +299,7 @@ export default function SEOHead({
     }
 
     // ── 9. VIDEO SCHEMA (when videoData is provided) ──────────────────────
-    if (videoData) {
+    if (videoData && isVideoPublicationTimestamp(videoData.uploadDate)) {
       const videoSchema = {
         "@context": "https://schema.org",
         "@type": "VideoObject",

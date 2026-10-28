@@ -8,13 +8,14 @@ export const VERIFIED_VIDEO_SELECTION = [
 {
   "youtubeId": "wFRRiJu-DHs",
   "title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
-  "publishedAt": "2026-10-26",
+  "publishedAt": "2026-10-26T06:11:14-07:00",
   "galleryCategory": "Growth Show",
   "relatedUrl": "/growth-show/from-ideas-to-finished-work",
   "summary": "Rick Hesse and the Free AI Guy discuss preserving ideas, agreeing on useful tasks, making progress visible, and verifying that the work is finished."
 },
 {
   "youtubeId": "cEJxS-o_wIg",
+  "publishedAt": "2026-10-24T05:20:47-07:00",
   "title": "AI Can Assist Judgment—It Cannot Own It | Why Human Decisions Still Matter",
   "galleryCategory": "Knowledge Library",
   "relatedUrl": "/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it",
@@ -22,6 +23,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 },
 {
   "youtubeId": "0EHGfsZuEt0",
+  "publishedAt": "2026-10-24T05:50:06-07:00",
   "title": "I See Artificial Intelligence Differently | Start With People, Not Technology",
   "galleryCategory": "Knowledge Library",
   "relatedUrl": "/knowledge/ai-foundations/i-see-artificial-intelligence-differently",
@@ -29,6 +31,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 },
 {
   "youtubeId": "ELS81dF-bVU",
+  "publishedAt": "2026-10-24T06:03:13-07:00",
   "title": "Use the Model That Gets the Job Done | You Don't Always Need the Most Powerful AI",
   "galleryCategory": "Knowledge Library",
   "relatedUrl": "/knowledge/ai-foundations/use-the-model-that-gets-the-job-done",
@@ -36,6 +39,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 },
 {
   "youtubeId": "QGlUpAO-kJ0",
+  "publishedAt": "2026-10-24T06:07:05-07:00",
   "title": "AI Gives Small Business Its Speed Back | Big-Company Capability Without the Bloat",
   "galleryCategory": "Knowledge Library",
   "relatedUrl": "/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back",
@@ -43,6 +47,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 },
 {
   "youtubeId": "pGVRBhvhTbg",
+  "publishedAt": "2026-10-24T06:17:44-07:00",
   "title": "I Was Afraid AI Would Take My Voice. It Helped Me Find It.",
   "galleryCategory": "Knowledge Library",
   "relatedUrl": "/knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it",
@@ -50,6 +55,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 },
 {
   "youtubeId": "JnFtBwRDYCk",
+  "publishedAt": "2026-10-24T05:25:18-07:00",
   "title": "Customer Questions Reveal What Your Business Should Teach",
   "galleryCategory": "Knowledge Library",
   "relatedUrl": "/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach",
@@ -58,7 +64,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 {
   "youtubeId": "uKf9f_JFju8",
   "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12",
-  "publishedAt": "2026-10-20",
+  "publishedAt": "2026-10-20T06:07:17-07:00",
   "galleryCategory": "Growth Show",
   "relatedUrl": "/growth-show/representation-or-deception",
   "summary": "Rick Hesse and the Free AI Guy discuss how AI can represent real ideas without inventing evidence or misleading customers."
@@ -66,7 +72,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 {
   "youtubeId": "ZWxTY-ajwc8",
   "title": "AI Needs Context Before It Can Be Helpful | Why Generic AI Answers Happen",
-  "publishedAt": "2026-10-13",
+  "publishedAt": "2026-10-13T15:57:21-07:00",
   "galleryCategory": "Knowledge Library",
   "relatedUrl": "/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful",
   "summary": "Rick Hesse explains why useful AI depends on context about the business, customer, voice, boundaries, examples, and goals instead of relying on generic prompts alone."
@@ -74,7 +80,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 {
   "youtubeId": "gtksRYVq3VE",
   "title": "AI Does Not Have to Be a Monster | A Practical Way to Understand AI",
-  "publishedAt": "2026-10-13",
+  "publishedAt": "2026-10-13T13:16:11-07:00",
   "galleryCategory": "Knowledge Library",
   "relatedUrl": "/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster",
   "summary": "Rick Hesse offers a calm, practical way to approach artificial intelligence without hype or fear, beginning with one useful problem and keeping human judgment in control."
@@ -82,7 +88,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 {
   "youtubeId": "HHFhZ-WJuaw",
   "title": "Show Me Before You Sell Me | NTA Growth Show — Episode 11",
-  "publishedAt": "2026-10-13",
+  "publishedAt": "2026-10-13T05:47:50-07:00",
   "galleryCategory": "Growth Show",
   "relatedUrl": "/growth-show/show-me-before-you-sell-me",
   "summary": "Rick Hesse and the Free AI Guy follow the Appliance Outlet proposal process from business discovery and demonstration to clear scope, costs, acceptance, and onboarding."
@@ -90,7 +96,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 {
   "youtubeId": "814-k8Tl-LE",
   "title": "Business Owners Are Tired of Being Sold | NTA Growth Show — Episode 10",
-  "publishedAt": "2026-10-05T00:00:00Z",
+  "publishedAt": "2026-10-05T15:33:41-07:00",
   "galleryCategory": "Growth Show",
   "relatedUrl": "/growth-show/business-owners-are-tired-of-being-sold",
   "summary": "Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide."
@@ -98,7 +104,7 @@ export const VERIFIED_VIDEO_SELECTION = [
 {
   "youtubeId": "bRuUdNZZzwQ",
   "title": "They Sold Me the Tools. They Didn't Give Me a System.",
-  "publishedAt": "2026-07-25T00:00:00Z",
+  "publishedAt": "2026-07-15T08:17:59-07:00",
   "galleryCategory": "Growth Show",
   "relatedUrl": "/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system",
   "summary": "Rick Hesse and the NTA Growth Guide explore why access to advertising and AI tools is not the same as having a connected business growth system."
@@ -207,7 +213,7 @@ export const VERIFIED_VIDEO_SELECTION = [
     "youtubeId": "Wz9Gqshyk3o",
     "title": "The NTA Growth Show — Episode 2 | Practical Digital Growth for Small Businesses",
     "galleryCategory": "Growth Show",
-    "publishedAt": "2026-08-10",
+    "publishedAt": "2026-08-10T14:00:57-07:00",
     "relatedUrl": "/growth-show/nta-growth-show-episode-2"
   },
   {
