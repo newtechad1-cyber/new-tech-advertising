@@ -62,8 +62,9 @@ export const startupQuestions = [
   }
 ];
 
-export default function StartingBusinessQuestion() {
-  const { slug } = useParams();
+export default function StartingBusinessQuestion({ initialSlug = null }) {
+  const { slug: routeSlug } = useParams();
+  const slug = routeSlug || initialSlug;
   const article = startupQuestions.find(item => item.slug === slug);
   if (!article) return <div className="min-h-screen bg-slate-950 text-white"><MarketingNav /><main className="mx-auto max-w-3xl px-6 pt-36"><h1 className="text-3xl font-bold">Question not found</h1><Link to="/business-planning-guide" className="mt-6 inline-block text-blue-300">Return to the Business Planning Guide</Link></main><SiteFooter /></div>;
   return <div className="min-h-screen bg-slate-950 text-slate-200">
