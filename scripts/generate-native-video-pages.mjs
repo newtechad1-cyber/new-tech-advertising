@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { requireVideoPublicationTimestamp } from '../src/lib/videoPublication.js';
 import { VIDEO_WATCH_PAGES } from '../src/data/videoSeo.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const pagesRoot = path.join(root, 'src/pages');
 const q = JSON.stringify;
-if (VIDEO_WATCH_PAGES.length !== 13) throw new Error('Review the video page list before generating new routes.');
+if (new Set(VIDEO_WATCH_PAGES.map(video => video.path)).size !== VIDEO_WATCH_PAGES.length) throw new Error('Duplicate video watch routes');
 
 const extras = {
   'PmXSEkj03ak': [
@@ -25,7 +26,7 @@ const testimonial = {
 };
 
 function generate(video, index) {
-  if (!video.publishedAt) throw new Error('Missing verified upload date: ' + video.path);
+  requireVideoPublicationTimestamp(video.publishedAt, video.path);
   const canonical = 'https://newtechadvertising.com' + video.path;
   const parent = video.category === 'Growth Show' ? '/growth-show' : '/learning-center/videos';
   const parentLabel = video.category === 'Growth Show' ? 'The NTA Growth Show' : 'NTA Video Gallery';

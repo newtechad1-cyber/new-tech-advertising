@@ -3,7 +3,7 @@ import { SEED_GROWTH_SHOW_EPISODES } from "../src/data/growthShowEpisodes.js";
 import { GROWTH_SHOW_AUDIO } from "../src/data/growthShowAudio.js";
 import { VERIFIED_VIDEO_SELECTION, NTA_YOUTUBE_CHANNEL_URL } from "../src/data/videoGallery.js";
 import { BOOK_PAGES, getBookByPath, bookSchemaFor } from "../src/data/bookSeo.js";
-import { VIDEO_WATCH_PAGES, getVideoWatchById, getVideoWatchByPath, videoSchemaFor } from "../src/data/videoSeo.js";
+import { VIDEO_WATCH_PAGES, getVideoWatchById, getVideoWatchByPath, videoSchemaFor, getVideoPublicationTimestamp } from "../src/data/videoSeo.js";
 import { READ_WATCH_TOPICS, VIDEO_WORK_EXAMPLES, readingForVideo, videoWatchPath } from "../src/data/videoLearningConnections.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -1039,7 +1039,7 @@ function videoSchemaMarkup(pathname) {
     '@context': 'https://schema.org', '@type': 'VideoObject',
     name: episode.title, description: episode.summary,
     thumbnailUrl: episode.thumbnail_url,
-    ...(episode.published_date ? { uploadDate: episode.published_date } : {}),
+    uploadDate: getVideoPublicationTimestamp(episode.youtube_video_id),
     embedUrl: 'https://www.youtube-nocookie.com/embed/' + episode.youtube_video_id + '?rel=0',
     url: SITE_ORIGIN + pathname,
   } : videoSchemaFor(getVideoWatchByPath(pathname));
@@ -1406,8 +1406,22 @@ function getPrerenderMetadata(pathname, publicPathSet) {
   return metadata;
 }
 
+// Keep existing video sitemap entries tied to the same verified source as JSON-LD.
+function syncVideoPublicationDates() {
+  const xml = fs.readFileSync(sourceSitemap, 'utf8').replace(/<video:video>[\s\S]*?<\/video:video>/g, block => {
+    const id = block.match(/<video:player_loc>[^<]*\/embed\/([A-Za-z0-9_-]+)/)?.[1];
+    if (!id) throw new Error('Video sitemap entry has no YouTube ID');
+    const tag = '<video:publication_date>' + getVideoPublicationTimestamp(id) + '</video:publication_date>';
+    return /<video:publication_date>/.test(block)
+      ? block.replace(/<video:publication_date>[^<]*<\/video:publication_date>/, tag)
+      : block.replace('</video:video>', '  ' + tag + '\n    </video:video>');
+  });
+  fs.writeFileSync(sourceSitemap, xml);
+}
+
 syncKnowledgeIndexes();
 syncJournalIssueRoutes();
+syncVideoPublicationDates();
 contentByCanonical = getContentByCanonical();
 
 fs.copyFileSync(sourceSitemap, path.join(distDir, "sitemap.xml"));
