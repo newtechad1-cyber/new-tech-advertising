@@ -1,6 +1,7 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
 import { useEffect } from 'react';
+import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -11,22 +12,9 @@ const DESCRIPTION = "A 25-second business profile introducing Johnson Heating an
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/Wkm8FfpxBl0";
 const VIDEO_URL = "https://www.youtube.com/watch?v=Wkm8FfpxBl0";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/Wkm8FfpxBl0?rel=0";
-const UPLOAD_DATE = "2026-06-07T03:23:29-07:00";
-const VIDEO_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "Johnson Heating & AC LLC | HVAC Contractor Mason City, Iowa | Business Profile",
-  "description": "A 25-second business profile introducing Johnson Heating and Air Conditioning.",
-  "thumbnailUrl": "https://i.ytimg.com/vi/Wkm8FfpxBl0/hqdefault.jpg",
-  "uploadDate": "2026-06-07T03:23:29-07:00",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/Wkm8FfpxBl0?rel=0",
-  "url": "https://newtechadvertising.com/learning-center/videos/Wkm8FfpxBl0",
-  "publisher": {
-    "@type": "Organization",
-    "name": "New Tech Advertising",
-    "url": "https://newtechadvertising.com"
-  }
-};
+const VERIFIED_VIDEO = getVideoWatchById('Wkm8FfpxBl0');
+const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
+const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage12() {
   useEffect(() => {
