@@ -1,6 +1,7 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
 import { useEffect } from 'react';
+import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -15,22 +16,9 @@ const DESCRIPTION = "Rick shares how working alongside AI helps him organize ide
 const CANONICAL = "https://newtechadvertising.com/growth-show/ai-finally-taught-me-how-to-multitask";
 const VIDEO_URL = "https://www.youtube.com/watch?v=6lhiYFHFsCQ";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/6lhiYFHFsCQ?rel=0";
-const UPLOAD_DATE = "2026-09-08T12:02:02+00:00";
-const VIDEO_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "AI Finally Taught Me How to Multitask | NTA Growth Show Episode 5",
-  "description": "Rick shares how working alongside AI helps him organize ideas and move several pieces of work forward.",
-  "thumbnailUrl": "https://i.ytimg.com/vi/6lhiYFHFsCQ/hqdefault.jpg",
-  "uploadDate": "2026-09-08T12:02:02+00:00",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/6lhiYFHFsCQ?rel=0",
-  "url": "https://newtechadvertising.com/growth-show/ai-finally-taught-me-how-to-multitask",
-  "publisher": {
-    "@type": "Organization",
-    "name": "New Tech Advertising",
-    "url": "https://newtechadvertising.com"
-  }
-};
+const VERIFIED_VIDEO = getVideoWatchById('6lhiYFHFsCQ');
+const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
+const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage02() {
   const { episodes } = useGrowthShow();
