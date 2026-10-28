@@ -40,3 +40,14 @@ test('generated video schema and sitemap use the same original timestamps', () =
     assert.equal(videos[0].uploadDate,getVideoPublicationTimestamp(id),route);
   }
 });
+
+test('all 37 initially flagged pages have their own initial HTML and canonical', () => {
+  const urls=JSON.parse(fs.readFileSync('docs/releases/search-delivery-2026-10-28/initially-flagged-urls.json'));
+  for (const url of urls) {
+    const html=fs.readFileSync('dist'+new URL(url).pathname+'.html','utf8');
+    assert.ok(html.includes('<link rel="canonical" href="'+url+'"'),url);
+    assert.match(html, /<h1[ >]/,url);
+    assert.doesNotMatch(html, /<h1>Advertise Better|<title>Advertise Better/,url);
+    assert.doesNotMatch(html, /name="robots" content="[^"]*noindex/,url);
+  }
+});

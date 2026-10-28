@@ -1434,6 +1434,20 @@ syncVideoPublicationDates();
       xml = xml.replace('</urlset>', entry + '\n</urlset>');
     }
   }
+  xml = xml.replace(/<url>[\s\S]*?<\/url>/g, block => {
+    if (block.includes('<video:video>')) return block;
+    const episode = SEED_GROWTH_SHOW_EPISODES.find(item => item.status === 'Published'
+      && block.includes('<loc>' + SITE_ORIGIN + '/growth-show/' + item.slug + '</loc>'));
+    if (!episode) return block;
+    const video = '<video:video>\n'
+      + '      <video:thumbnail_loc>' + escapeHtml(episode.thumbnail_url) + '</video:thumbnail_loc>\n'
+      + '      <video:title>' + escapeHtml(episode.title) + '</video:title>\n'
+      + '      <video:description>' + escapeHtml(episode.summary) + '</video:description>\n'
+      + '      <video:player_loc>https://www.youtube-nocookie.com/embed/' + episode.youtube_video_id + '</video:player_loc>\n'
+      + '      <video:publication_date>' + getVideoPublicationTimestamp(episode.youtube_video_id) + '</video:publication_date>\n'
+      + '    </video:video>\n  </url>';
+    return block.replace('</url>', video);
+  });
   fs.writeFileSync(sourceSitemap, xml);
 }
 contentByCanonical = getContentByCanonical();

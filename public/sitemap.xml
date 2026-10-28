@@ -1340,10 +1340,38 @@
     <priority>0.7</priority>
   </url>
   <url><loc>https://newtechadvertising.com/podcasts</loc><lastmod>2026-10-06</lastmod></url>
-  <url><loc>https://newtechadvertising.com/growth-show/business-owners-are-tired-of-being-sold</loc><lastmod>2026-10-05</lastmod></url>
-  <url><loc>https://newtechadvertising.com/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system</loc><lastmod>2026-07-25</lastmod></url>
-  <url><loc>https://newtechadvertising.com/growth-show/automation-is-the-last-step-not-the-first</loc><lastmod>2026-09-22</lastmod></url>
-  <url><loc>https://newtechadvertising.com/growth-show/i-didnt-set-out-to-build-an-ai-team</loc><lastmod>2026-09-29</lastmod></url>
+  <url><loc>https://newtechadvertising.com/growth-show/business-owners-are-tired-of-being-sold</loc><lastmod>2026-10-05</lastmod><video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/814-k8Tl-LE/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>Business Owners Are Tired of Being Sold | NTA Growth Show — Episode 10</video:title>
+      <video:description>Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/814-k8Tl-LE</video:player_loc>
+      <video:publication_date>2026-10-05T15:33:41-07:00</video:publication_date>
+    </video:video>
+  </url>
+  <url><loc>https://newtechadvertising.com/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system</loc><lastmod>2026-07-25</lastmod><video:video>
+      <video:thumbnail_loc></video:thumbnail_loc>
+      <video:title>They Sold Me the Tools. They Didn&#39;t Give Me a System.</video:title>
+      <video:description>Rick Hesse and the NTA Growth Guide explore why access to advertising and AI tools is not the same as having a connected business growth system.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/bRuUdNZZzwQ</video:player_loc>
+      <video:publication_date>2026-07-15T08:17:59-07:00</video:publication_date>
+    </video:video>
+  </url>
+  <url><loc>https://newtechadvertising.com/growth-show/automation-is-the-last-step-not-the-first</loc><lastmod>2026-09-22</lastmod><video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/T4fPojz2RmI/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>Automation Is the Last Step, Not the First</video:title>
+      <video:description>Rick Hesse and the AI Guy discuss why a business should understand its people, knowledge, workflow and problems before automating them.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/T4fPojz2RmI</video:player_loc>
+      <video:publication_date>2026-09-22T13:23:22Z</video:publication_date>
+    </video:video>
+  </url>
+  <url><loc>https://newtechadvertising.com/growth-show/i-didnt-set-out-to-build-an-ai-team</loc><lastmod>2026-09-29</lastmod><video:video>
+      <video:thumbnail_loc></video:thumbnail_loc>
+      <video:title>I Didn&#39;t Set Out to Build an AI Team</video:title>
+      <video:description>Rick Hesse and the Free AI Guy explore how an ongoing conversation, business experience, and clear handoffs can give AI useful jobs in a real small business.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/rbqIiynd1zo</video:player_loc>
+      <video:publication_date>2026-09-29T14:10:47Z</video:publication_date>
+    </video:video>
+  </url>
   <url>
     <loc>https://newtechadvertising.com/journal/issue-10-a-better-way-to-buy-advertising</loc>
     <lastmod>2026-10-06</lastmod>
@@ -1379,6 +1407,13 @@
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/HHFhZ-WJuaw/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>Show Me Before You Sell Me | NTA Growth Show — Episode 11</video:title>
+      <video:description>Rick Hesse and the Free AI Guy follow the Appliance Outlet proposal process from business discovery and demonstration to clear scope, costs, acceptance, and onboarding.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/HHFhZ-WJuaw</video:player_loc>
+      <video:publication_date>2026-10-13T05:47:50-07:00</video:publication_date>
+    </video:video>
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge/ai-foundations/is-using-ai-cheating</loc>
@@ -1434,7 +1469,14 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url><loc>https://newtechadvertising.com/growth-show/representation-or-deception</loc><lastmod>2026-10-20</lastmod></url>
+  <url><loc>https://newtechadvertising.com/growth-show/representation-or-deception</loc><lastmod>2026-10-20</lastmod><video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/uKf9f_JFju8/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12</video:title>
+      <video:description>Rick Hesse and the Free AI Guy discuss how AI can represent real ideas without inventing evidence or misleading customers.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/uKf9f_JFju8</video:player_loc>
+      <video:publication_date>2026-10-20T06:07:17-07:00</video:publication_date>
+    </video:video>
+  </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work</loc>
     <lastmod>2026-10-25</lastmod>
@@ -1452,5 +1494,12 @@
     <lastmod>2026-10-26T06:11:14-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/wFRRiJu-DHs/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13</video:title>
+      <video:description>Rick Hesse and the Free AI Guy discuss preserving ideas, agreeing on useful tasks, making progress visible, and verifying that the work is finished.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/wFRRiJu-DHs</video:player_loc>
+      <video:publication_date>2026-10-26T06:11:14-07:00</video:publication_date>
+    </video:video>
   </url>
 </urlset>
