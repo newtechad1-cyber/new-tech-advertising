@@ -1,6 +1,7 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
 import { useEffect } from 'react';
+import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -11,22 +12,9 @@ const DESCRIPTION = "Watch My Journey  Why I Built North Iowa's First AI Agency 
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/MsiyOAZrCNo";
 const VIDEO_URL = "https://www.youtube.com/watch?v=MsiyOAZrCNo";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/MsiyOAZrCNo?rel=0";
-const UPLOAD_DATE = "2026-05-21T06:16:54-07:00";
-const VIDEO_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "My Journey  Why I Built North Iowa's First AI Agency",
-  "description": "Watch My Journey  Why I Built North Iowa's First AI Agency from New Tech Advertising, then explore related practical business and AI learning.",
-  "thumbnailUrl": "https://i.ytimg.com/vi/MsiyOAZrCNo/hqdefault.jpg",
-  "uploadDate": "2026-05-21T06:16:54-07:00",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/MsiyOAZrCNo?rel=0",
-  "url": "https://newtechadvertising.com/learning-center/videos/MsiyOAZrCNo",
-  "publisher": {
-    "@type": "Organization",
-    "name": "New Tech Advertising",
-    "url": "https://newtechadvertising.com"
-  }
-};
+const VERIFIED_VIDEO = getVideoWatchById('MsiyOAZrCNo');
+const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
+const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage08() {
   useEffect(() => {
