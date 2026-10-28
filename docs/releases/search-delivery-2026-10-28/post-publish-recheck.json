@@ -1,0 +1,3960 @@
+[
+  {
+    "name": "nta-post-publish-recheck.json",
+    "checkedAt": "2026-10-28T19:32:55.563046+00:00",
+    "results": [
+      {
+        "url": "https://newtechadvertising.com",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/about",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/about"
+        ],
+        "title": "Practical AI for Small Business Owners | About Rick Hesse & NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/services",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/services"
+        ],
+        "title": "AI and Digital Growth Services for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-system",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-system"
+        ],
+        "title": "How NTA Helps Your Business Work Better Together | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/industries",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/industries"
+        ],
+        "title": "Industry Marketing Systems for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ai-marketing-platform",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ai-marketing-platform"
+        ],
+        "title": "How Can AI Help My Small Business? | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/restaurants",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/restaurants"
+        ],
+        "title": "Restaurant Growth, Team Building & Digital Growth Roadmaps | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/streaming-tv-advertising",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/streaming-tv-advertising"
+        ],
+        "title": "Should My Business Use Streaming TV Advertising? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ada-website-compliance",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ada-website-compliance"
+        ],
+        "title": "Website Accessibility Review and Improvements | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/contact",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/contact"
+        ],
+        "title": "Contact NTA | Practical AI for Small Business",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/pricing",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/pricing"
+        ],
+        "title": "Practical AI and Small Business Growth Options | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center"
+        ],
+        "title": "AI Learning Center for Small Business Owners | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge"
+        ],
+        "title": "AI Lessons for Small Business Owners | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ai-visibility-basics",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ai-visibility-basics"
+        ],
+        "title": "How to Get Found in AI Search | AI Visibility Basics",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ai-seo",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ai-seo"
+        ],
+        "title": "AI Search Optimization for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ai-social-media",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ai-social-media"
+        ],
+        "title": "AI Social Media Content for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ai-websites",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ai-websites"
+        ],
+        "title": "Do I Need a Better Business Website? | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ai-advertising",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ai-advertising"
+        ],
+        "title": "AI Advertising Strategy for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ai-videos",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ai-videos"
+        ],
+        "title": "AI Video Marketing for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/operating-system",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/operating-system"
+        ],
+        "title": "Digital Growth Office for Small Business | NTA Operating System",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/work-with-nta",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/work-with-nta"
+        ],
+        "title": "Work With New Tech Advertising | Digital Growth Office",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/point-of-view",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/point-of-view"
+        ],
+        "title": "NTA Point of View: Practical AI and Small Business Growth",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/canon",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/canon"
+        ],
+        "title": "Small Business Growth, AI, and Digital Trust | NTA Point of View",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/canon/collection/nta-principles",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/canon/collection/nta-principles"
+        ],
+        "title": "NTA Principles for Small Business Growth and Practical AI",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/canon/the-work-you-dont-see-why-setup-matters",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/canon/the-work-you-dont-see-why-setup-matters"
+        ],
+        "title": "Why Setup Matters: The Work Behind Useful AI Systems",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/books",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/books"
+        ],
+        "title": "Practical AI and Business Books for Small Business Owners | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/better-business-book",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/better-business-book"
+        ],
+        "title": "The Better Business Building Book | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/practical-ai-for-small-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/practical-ai-for-small-business"
+        ],
+        "title": "Practical AI for Small Business Owners | Free Guide",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal"
+        ],
+        "title": "NTA Journal: Practical AI and Small Business Growth Lessons",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show"
+        ],
+        "title": "The NTA Growth Show: Practical AI and Small Business Growth",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-guide",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-guide"
+        ],
+        "title": "Free Small Business Growth Guide | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-conversation",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-conversation"
+        ],
+        "title": "Small Business Growth Conversation | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/free-audit",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/free-audit"
+        ],
+        "title": "Free Small Business Marketing and AI Gap Audit | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/book-call",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/book-call"
+        ],
+        "title": "Book a Small Business Growth Conversation | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/why-nta",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/why-nta"
+        ],
+        "title": "Why NTA Teaches Practical AI for Small Business Owners",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/our-story",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/our-story"
+        ],
+        "title": "Our Story: Practical AI Education for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/our-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/our-work"
+        ],
+        "title": "Small Business Growth Work and Connected Systems | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/community-partner",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/community-partner"
+        ],
+        "title": "Community Partner Opportunity | Free AI Education & Residual Income | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/community-growth-conversation",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/community-growth-conversation"
+        ],
+        "title": "Community Growth Conversation | Free AI Education Partnership | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/account-manager",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/account-manager"
+        ],
+        "title": "NTA Account Manager Opportunity | Free AI Education & Residual Income",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/digital-growth-advisor",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/digital-growth-advisor"
+        ],
+        "title": "Digital Growth Advisor Program | Learn. Earn. Build. | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/local-lead-systems",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/local-lead-systems"
+        ],
+        "title": "Local Lead Generation Systems for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/ai-video-marketing",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/ai-video-marketing"
+        ],
+        "title": "Video Production & Business Storytelling | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/back-office-solutions",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/back-office-solutions"
+        ],
+        "title": "Back-Office Systems and Practical AI for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/accessibility",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/accessibility"
+        ],
+        "title": "Accessibility at New Tech Advertising | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/accessible-websites",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/accessible-websites"
+        ],
+        "title": "Accessible Websites for Small Business | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/web-accessibility-trust",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/web-accessibility-trust"
+        ],
+        "title": "Website Accessibility and Digital Trust for Small Business",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/digital-risks",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/digital-risks"
+        ],
+        "title": "Digital Risks Small Business Owners Should Understand | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/reputation-is-now-a-growth-engine",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/reputation-is-now-a-growth-engine"
+        ],
+        "title": "Why Online Reputation Drives Small Business Growth",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-systems-vs-campaigns",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-systems-vs-campaigns"
+        ],
+        "title": "Growth Systems vs. Marketing Campaigns for Small Business",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/hvac-marketing-north-iowa",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/hvac-marketing-north-iowa"
+        ],
+        "title": "HVAC Marketing in North Iowa | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/small-businesses-nationwide",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/small-businesses-nationwide"
+        ],
+        "title": "Practical AI and Digital Growth for Small Businesses Nationwide",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/case-studies",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/case-studies"
+        ],
+        "title": "Small Business Growth Case Studies | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/privacy-policy",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/privacy-policy"
+        ],
+        "title": "Privacy Policy | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/terms-of-service",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/terms-of-service"
+        ],
+        "title": "Terms of Service | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations"
+        ],
+        "title": "Business Foundations for Small Business Owners | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/why-nta-exists",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/why-nta-exists"
+        ],
+        "title": "Why Practical AI Education Matters for Small Business Owners | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/how-businesses-really-grow",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/how-businesses-really-grow"
+        ],
+        "title": "How Small Businesses Really Grow: From Activity to Momentum | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/marketing-isnt-magic",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/marketing-isnt-magic"
+        ],
+        "title": "Why Small Business Marketing Is Not Magic | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/every-system-produces-exactly-what-it-was-designed-to-produce",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/every-system-produces-exactly-what-it-was-designed-to-produce"
+        ],
+        "title": "Why Small Business Results Reflect the System Behind Them | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/understanding-before-spending",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/understanding-before-spending"
+        ],
+        "title": "What to Understand Before Spending on Small Business Marketing | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/ai-is-my-team-not-my-replacement",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/ai-is-my-team-not-my-replacement"
+        ],
+        "title": "How AI Can Support a Small Business Team Without Replacing People | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/why-trust-comes-before-marketing",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/why-trust-comes-before-marketing"
+        ],
+        "title": "Why Customer Trust Comes Before Small Business Marketing | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me"
+        ],
+        "title": "Why Your Website Needs a Front Office and Back Office | NTA | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth"
+        ],
+        "title": "The Truth About Small Business Growth | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/businesses-dont-need-more-marketing-they-need-a-better-growth-system"
+        ],
+        "title": "Why More Marketing Does Not Fix a Weak Small Business Growth System | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/marketing-doesnt-create-great-businesses",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/marketing-doesnt-create-great-businesses"
+        ],
+        "title": "Why Marketing Alone Does Not Create Small Business Growth | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/every-business-is-already-perfectly-designed",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/every-business-is-already-perfectly-designed"
+        ],
+        "title": "How a Small Business System Shapes Its Results | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/the-difference-between-activity-and-progress",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/the-difference-between-activity-and-progress"
+        ],
+        "title": "Small Business Activity vs. Progress: What Creates Growth? | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/why-growth-is-a-system",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/why-growth-is-a-system"
+        ],
+        "title": "Why Small Business Growth Is a System | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/what-business-owners-really-buy",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/what-business-owners-really-buy"
+        ],
+        "title": "What Small Business Owners Really Buy | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/why-understanding-comes-before-advertising",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/why-understanding-comes-before-advertising"
+        ],
+        "title": "Why Understanding Comes Before Small Business Advertising | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust"
+        ],
+        "title": "How Customers Decide Whether to Trust a Small Business | NTA Knowledge\u2026",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-begins-before-the-first-conversation",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-begins-before-the-first-conversation"
+        ],
+        "title": "How Customers Decide Whether to Trust a Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-trust-what-they-can-understand",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-trust-what-they-can-understand"
+        ],
+        "title": "Why Customers Trust What They Can Understand | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/customers-trust-evidence-more-than-claims",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/customers-trust-evidence-more-than-claims"
+        ],
+        "title": "Why Customer Evidence Matters More Than Marketing Claims | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-is-built-through-kept-promises",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-is-built-through-kept-promises"
+        ],
+        "title": "How Small Businesses Build Trust by Keeping Promises | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-remember-how-a-business-made-them-feel",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-remember-how-a-business-made-them-feel"
+        ],
+        "title": "Why Customer Experience Matters to Small Business Growth | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-means-putting-the-relationship-before-the-transaction",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-means-putting-the-relationship-before-the-transaction"
+        ],
+        "title": "Why Relationships Matter More Than the Transaction | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships"
+        ],
+        "title": "How Small Businesses Build Lasting Customer Relationships | NTA\u2026",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-sale-is-the-beginning-not-the-end",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-sale-is-the-beginning-not-the-end"
+        ],
+        "title": "How to Turn Small Business Customers Into Long-Term Relationships | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/staying-connected-without-always-selling",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/staying-connected-without-always-selling"
+        ],
+        "title": "How to Stay Connected With Customers Without Always Selling | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/a-business-should-remember-its-customers",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/a-business-should-remember-its-customers"
+        ],
+        "title": "Why Small Businesses Should Remember Their Customers | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/every-customer-relationship-should-teach-the-business-something",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/every-customer-relationship-should-teach-the-business-something"
+        ],
+        "title": "How Customer Relationships Improve a Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/customer-feedback-should-change-the-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/customer-feedback-should-change-the-business"
+        ],
+        "title": "How Customer Feedback Should Change a Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/customers-become-loyal-when-they-help-shape-the-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/customers-become-loyal-when-they-help-shape-the-business"
+        ],
+        "title": "How Customer Participation Builds Small Business Loyalty | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-strongest-growth-comes-from-relationships-that-create-more-relationships",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships/the-strongest-growth-comes-from-relationships-that-create-more-relationships"
+        ],
+        "title": "How Relationships Create Sustainable Small Business Growth | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset"
+        ],
+        "title": "How to Turn Small Business Knowledge Into an Asset | NTA Knowledge\u2026",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented"
+        ],
+        "title": "How to Turn Small Business Knowledge Into a Business Asset | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-usually-lives-in-the-owners-head",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-usually-lives-in-the-owners-head"
+        ],
+        "title": "Why the Owner's Knowledge Is a Small Business Asset | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach"
+        ],
+        "title": "How Customer Questions Reveal What a Business Should Teach | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/stories-turn-experience-into-understanding",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/stories-turn-experience-into-understanding"
+        ],
+        "title": "How Stories Turn Small Business Experience Into Understanding | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable"
+        ],
+        "title": "How to Document a Small Business Process So It Can Be Repeated | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business"
+        ],
+        "title": "Why AI Works Better When It Learns From the Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/knowledge-becomes-an-asset-when-it-can-keep-working-without-you",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/knowledge-becomes-an-asset-when-it-can-keep-working-without-you"
+        ],
+        "title": "How to Make Small Business Knowledge Keep Working Without the Owner | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations"
+        ],
+        "title": "Practical AI Foundations for Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/ai-isnt-magic-either",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/ai-isnt-magic-either"
+        ],
+        "title": "Is AI Magic? A Practical Introduction for Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/start-with-the-work-not-the-tool",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/start-with-the-work-not-the-tool"
+        ],
+        "title": "How to Start Using AI in a Small Business: Begin With the Work | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful"
+        ],
+        "title": "Why AI Needs Business Context to Be Useful | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it"
+        ],
+        "title": "Using AI for Business Decisions Without Giving Up Human Judgment | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation"
+        ],
+        "title": "Why AI Sometimes Gives You the Wrong Answer | NTA | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/automation-comes-after-understanding",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/automation-comes-after-understanding"
+        ],
+        "title": "When to Automate a Small Business Process: Start With Understanding | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/building-your-first-ai-teammate",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/building-your-first-ai-teammate"
+        ],
+        "title": "How to Build Your First AI Teammate for Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/when-ai-tells-you-youre-different",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/when-ai-tells-you-youre-different"
+        ],
+        "title": "How AI Can Help a Small Business Find Its Difference | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/the-team-i-spent-my-life-trying-to-build",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/the-team-i-spent-my-life-trying-to-build"
+        ],
+        "title": "What AI Changes About Building a Small Business Team | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/ai-makes-complicated-work-easier",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/ai-makes-complicated-work-easier"
+        ],
+        "title": "How to Turn AI Conversations Into a Working Business System | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/i-see-artificial-intelligence-differently",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/i-see-artificial-intelligence-differently"
+        ],
+        "title": "A Practical Way to Think About AI for Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster"
+        ],
+        "title": "How to Use AI Without Fear or Hype in a Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/you-can-do-what-i-do-but-you-dont-have-to"
+        ],
+        "title": "How Small Businesses Benefit from AI Without Learning Every Technology | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/use-the-model-that-gets-the-job-done",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/use-the-model-that-gets-the-job-done"
+        ],
+        "title": "How to Choose the Right AI Model for the Work | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-is-digital-trust"
+        ],
+        "title": "What Is Digital Trust for a Small Business? | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/what-is-digital-trust",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-is-digital-trust/what-is-digital-trust"
+        ],
+        "title": "What Is Digital Trust for a Small Business? | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website"
+        ],
+        "title": "Why a Small Business Website Is More Than a Brochure | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough"
+        ],
+        "title": "Why Traditional Marketing Is No Longer Enough for Small Business | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/digital-assets-keep-working",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-is-digital-trust/digital-assets-keep-working"
+        ],
+        "title": "How Owned Digital Assets Support Small Business Growth | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-is-digital-trust/ai-is-changing-how-customers-find-businesses"
+        ],
+        "title": "How AI Is Changing How Customers Find Small Businesses | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-is-digital-trust/relationships-are-your-greatest-competitive-advantage"
+        ],
+        "title": "Why Relationships Are a Small Business Competitive Advantage | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/the-connected-business-is-the-future",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-is-digital-trust/the-connected-business-is-the-future"
+        ],
+        "title": "What a Connected Small Business Looks Like | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/the-right-decision-should-make-sense",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/business-foundations/the-right-decision-should-make-sense"
+        ],
+        "title": "Why the Right Small Business Growth Decision Should Make Sense | NTA | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-humanity",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-humanity"
+        ],
+        "title": "AI, Humanity & Responsibility | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-humanity/ai-is-a-mirror-not-a-god",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-humanity/ai-is-a-mirror-not-a-god"
+        ],
+        "title": "AI Is a Mirror, Not a God | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/building-a-small-business-with-ai",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/building-a-small-business-with-ai"
+        ],
+        "title": "Building a Small Business With AI | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/the-problems-we-learn-to-live-with"
+        ],
+        "title": "The Problems Small Businesses Learn to Live With | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/ai-gives-small-business-its-speed-back"
+        ],
+        "title": "How AI Gives Small Business Its Speed Back | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/building-a-small-business-with-ai/you-dont-have-to-become-an-ai-expert"
+        ],
+        "title": "Use AI Without Learning Every Technology | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-5-build-with-the-budget-you-have",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-5-build-with-the-budget-you-have"
+        ],
+        "title": "Build With the Budget You Have \u2014 NTA Journal #5",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions"
+        ],
+        "title": "Small Business Questions About AI, Marketing, and Growth | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-a-small-business-use-ai",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-a-small-business-use-ai"
+        ],
+        "title": "How Can AI Help My Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/where-should-i-start-with-ai",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/where-should-i-start-with-ai"
+        ],
+        "title": "How Do I Use AI in My Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/what-can-chatgpt-do-for-a-small-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/what-can-chatgpt-do-for-a-small-business"
+        ],
+        "title": "How Can I Use ChatGPT for My Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/do-i-need-a-perfect-prompt",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/do-i-need-a-perfect-prompt"
+        ],
+        "title": "Do I Need a Perfect Prompt to Use AI? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/why-does-ai-give-bad-answers",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/why-does-ai-give-bad-answers"
+        ],
+        "title": "Why Does AI Give Bad Answers? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/what-ai-tools-does-a-small-business-really-need",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/what-ai-tools-does-a-small-business-really-need"
+        ],
+        "title": "What Are the Best AI Tools for Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-employees-use-ai-at-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-employees-use-ai-at-work"
+        ],
+        "title": "Will AI Replace Employees in a Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-much-should-a-small-business-spend-on-marketing",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-much-should-a-small-business-spend-on-marketing"
+        ],
+        "title": "How Much Should a Small Business Spend on Marketing? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/what-should-i-do-with-my-first-500-marketing-budget",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/what-should-i-do-with-my-first-500-marketing-budget"
+        ],
+        "title": "What Should I Do With My First $500 Marketing Budget? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/why-does-marketing-require-ongoing-spending",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/why-does-marketing-require-ongoing-spending"
+        ],
+        "title": "Why Does Marketing Require Ongoing Spending? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-know-whether-my-marketing-is-working",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-do-i-know-whether-my-marketing-is-working"
+        ],
+        "title": "How Do I Know Whether My Marketing Is Working? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/why-isnt-my-website-generating-leads",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/why-isnt-my-website-generating-leads"
+        ],
+        "title": "Why Isn\u2019t My Website Generating Leads? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-build-customer-trust",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-do-i-build-customer-trust"
+        ],
+        "title": "How Do I Build Customer Trust? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-market-a-local-service-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-do-i-market-a-local-service-business"
+        ],
+        "title": "How Do I Market a Local Service Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/is-social-media-enough-for-a-small-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/is-social-media-enough-for-a-small-business"
+        ],
+        "title": "Is Social Media Enough for a Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/should-a-small-business-still-advertise-on-tv",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/should-a-small-business-still-advertise-on-tv"
+        ],
+        "title": "Should a Small Business Still Advertise on TV? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-ai-use-knowledge-already-inside-my-company",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-ai-use-knowledge-already-inside-my-company"
+        ],
+        "title": "How Can AI Use Knowledge Already Inside My Company? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/ai-finally-taught-me-how-to-multitask"
+        ],
+        "title": "AI Finally Taught Me How to Multitask | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-with-customer-follow-up",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-with-customer-follow-up"
+        ],
+        "title": "How Can AI Help With Customer Follow-Up? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-market-my-small-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-market-my-small-business"
+        ],
+        "title": "How Can AI Help Me Market My Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-me-get-more-customers",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-me-get-more-customers"
+        ],
+        "title": "How Can AI Help Me Get More Customers? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-ai-save-me-time-in-my-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-ai-save-me-time-in-my-business"
+        ],
+        "title": "How Can AI Save Me Time in My Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-with-social-media-for-my-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-with-social-media-for-my-business"
+        ],
+        "title": "How Can AI Help With Social Media for My Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-my-small-business-website",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-my-small-business-website"
+        ],
+        "title": "How Can AI Help My Small-Business Website? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-my-business-show-up-in-chatgpt-and-ai-search",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-my-business-show-up-in-chatgpt-and-ai-search"
+        ],
+        "title": "How Can My Business Show Up in ChatGPT and AI Search? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/what-should-i-automate-in-my-small-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/what-should-i-automate-in-my-small-business"
+        ],
+        "title": "What Should I Automate in My Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/is-ai-safe-for-my-small-business-and-customer-data",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/is-ai-safe-for-my-small-business-and-customer-data"
+        ],
+        "title": "Is AI Safe for My Small Business and Customer Data? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/is-ai-worth-it-for-a-small-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/is-ai-worth-it-for-a-small-business"
+        ],
+        "title": "Is AI Worth It for a Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-7-are-you-building-a-business-or-just-a-website",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-7-are-you-building-a-business-or-just-a-website"
+        ],
+        "title": "Are You Building a Business\u2014or Just a Website? \u2014 NTA Journal #7",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos"
+        ],
+        "title": "Video Gallery | NTA Growth Show, AI & Business Videos",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me"
+        ],
+        "title": "What a Lifetime in Business Taught Me | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-learned-business-by-watching-people"
+        ],
+        "title": "I Learned Business by Watching People | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-tried-a-lot-of-businesses",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-tried-a-lot-of-businesses"
+        ],
+        "title": "I Tried a Lot of Businesses | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/the-gold-is-in-the-niche-the-business-is-in-the-connections",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/the-gold-is-in-the-niche-the-business-is-in-the-connections"
+        ],
+        "title": "The Gold Is in the Niche. The Business Is in the Connections. | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/free-is-free",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/free-is-free"
+        ],
+        "title": "Free Is Free | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/ai-didnt-give-me-my-experience",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/ai-didnt-give-me-my-experience"
+        ],
+        "title": "AI Didn't Give Me My Experience | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it"
+        ],
+        "title": "I Was Afraid AI Would Take My Voice. It Helped Me Find It. | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-1-the-system-behind-the-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-1-the-system-behind-the-work"
+        ],
+        "title": "The System Behind the Work \u2014 NTA Journal #1",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-2-what-i-learned-while-rebuilding-nta",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-2-what-i-learned-while-rebuilding-nta"
+        ],
+        "title": "What I Learned While Rebuilding NTA \u2014 NTA Journal #2",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-3-what-i-learned-about-making-complicated-things-simple",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-3-what-i-learned-about-making-complicated-things-simple"
+        ],
+        "title": "What I Learned About Making Complicated Things Simple \u2014 NTA Journal #3",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/the-free-ai-guy-comes-to-life",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal"
+        ],
+        "title": "NTA Journal: Practical AI and Small Business Growth Lessons",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-6-ai-finally-taught-me-how-to-multitask",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-6-ai-finally-taught-me-how-to-multitask"
+        ],
+        "title": "AI Finally Taught Me How to Multitask \u2014 NTA Journal #6",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-9-start-with-the-work-then-choose-the-ai",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-9-start-with-the-work-then-choose-the-ai"
+        ],
+        "title": "Start With the Work, Then Choose the AI \u2014 NTA Journal #9",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-8-your-business-already-knows-more-than-you-think",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-8-your-business-already-knows-more-than-you-think"
+        ],
+        "title": "Your Business Already Knows More Than You Think \u2014 NTA Journal #8",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/before-you-add-ai-understand-your-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/before-you-add-ai-understand-your-business"
+        ],
+        "title": "Your Business Comes First. Technology Comes Second. | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-09-15T14:00:49+00:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/ai-finally-taught-me-how-to-multitask",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/ai-finally-taught-me-how-to-multitask"
+        ],
+        "title": "AI Finally Taught Me How to Multitask | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-09-08T12:02:02+00:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/you-dont-need-more-marketing-connected-system",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/you-dont-need-more-marketing-connected-system"
+        ],
+        "title": "You Don\u2019t Need More Marketing\u2014You Need a Connected System | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-08-24T02:56:02+00:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/nta-growth-show-episode-2",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/nta-growth-show-episode-2"
+        ],
+        "title": "The NTA Growth Show \u2014 Episode 2 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-08-10T14:00:57-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/CbNxn-P74D8",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/CbNxn-P74D8"
+        ],
+        "title": "AI isn\u2019t a business strategy. It\u2019s a tool | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-08-26T14:09:05+00:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/scPcJSMFn-E",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/scPcJSMFn-E"
+        ],
+        "title": "The Role of AI in Local Marketing | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-05-12T16:13:21-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/6kB55gnGGHo",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/6kB55gnGGHo"
+        ],
+        "title": "Growth Systems vs Campaigns | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-05-12T13:00:08-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/MsiyOAZrCNo",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/MsiyOAZrCNo"
+        ],
+        "title": "My Journey Why I Built North Iowa's First AI Agency | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-05-21T06:16:54-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/3_P36VrK9jc",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/3_P36VrK9jc"
+        ],
+        "title": "Video Storytelling Builds Confidence | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-05-13T11:30:40-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/elcnGAfYdgk",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/elcnGAfYdgk"
+        ],
+        "title": "Websites as Salespeople | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-05-13T15:33:14-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/odp74hcdjEA",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/odp74hcdjEA"
+        ],
+        "title": "Monson Plumbing, Boiler & Excavating | Clear Lake, Iowa | Business Profile |\u2026",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-06-07T03:23:31-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/Wkm8FfpxBl0",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/Wkm8FfpxBl0"
+        ],
+        "title": "Johnson Heating & AC LLC | HVAC Contractor Mason City, Iowa | Business Profile\u2026",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-06-07T03:23:29-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/tmpy20Xz1vU",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/learning-center/videos/tmpy20Xz1vU"
+        ],
+        "title": "Johnson Heating & AC \u2014 Brand Showcase #17 | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-05-10T13:02:16-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/how-do-you-put-ai-to-work-in-a-real-business"
+        ],
+        "title": "How Do You Put AI to Work in a Real Business? | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/why-should-a-business-listen-before-selling",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/why-should-a-business-listen-before-selling"
+        ],
+        "title": "Why should a business listen before trying to sell? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/what-can-customer-questions-teach-my-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/what-can-customer-questions-teach-my-business"
+        ],
+        "title": "What can customer questions teach my business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/why-do-customers-say-one-thing-and-do-another",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/why-do-customers-say-one-thing-and-do-another"
+        ],
+        "title": "Why do customers sometimes say one thing and do another? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-know-what-my-customers-really-need",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-do-i-know-what-my-customers-really-need"
+        ],
+        "title": "How do I know what my customers really need? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/what-should-happen-before-i-add-ai-to-my-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/what-should-happen-before-i-add-ai-to-my-business"
+        ],
+        "title": "What should happen before I add AI to my business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/can-ai-turn-my-business-ideas-into-useful-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/can-ai-turn-my-business-ideas-into-useful-work"
+        ],
+        "title": "Can AI help turn my business ideas into useful work? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/why-does-ai-need-to-understand-my-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/why-does-ai-need-to-understand-my-business"
+        ],
+        "title": "Why does AI need to understand how my business works? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-give-different-ai-tools-different-jobs",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-do-i-give-different-ai-tools-different-jobs"
+        ],
+        "title": "How do I give different AI tools different jobs? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/which-business-decisions-should-ai-not-make",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/which-business-decisions-should-ai-not-make"
+        ],
+        "title": "Which business decisions should AI not make for me? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/can-ai-find-gaps-in-my-website-and-social-media",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/can-ai-find-gaps-in-my-website-and-social-media"
+        ],
+        "title": "Can AI find gaps in my website and social media? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-me-keep-track-of-several-projects",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-can-ai-help-me-keep-track-of-several-projects"
+        ],
+        "title": "How can AI help me keep track of several projects? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/what-if-a-new-idea-interrupts-my-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/what-if-a-new-idea-interrupts-my-work"
+        ],
+        "title": "What if a new idea interrupts the work I am doing? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/can-ai-help-me-stop-starting-over-every-day",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/can-ai-help-me-stop-starting-over-every-day"
+        ],
+        "title": "Can AI help me stop starting over every day? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/is-using-ai-the-same-as-multitasking",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/is-using-ai-the-same-as-multitasking"
+        ],
+        "title": "Is using AI the same as multitasking? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/what-should-i-save-when-i-pause-ai-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/what-should-i-save-when-i-pause-ai-work"
+        ],
+        "title": "What should I save when I pause work with AI? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-stay-in-control-when-ai-helps-with-many-projects",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-do-i-stay-in-control-when-ai-helps-with-many-projects"
+        ],
+        "title": "How do I stay in control when AI helps with many projects? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/do-i-need-the-newest-ai-model-for-my-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/do-i-need-the-newest-ai-model-for-my-business"
+        ],
+        "title": "Do I need the newest AI model for my business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/when-is-a-cheaper-ai-model-good-enough",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/when-is-a-cheaper-ai-model-good-enough"
+        ],
+        "title": "When is a cheaper AI model good enough? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-compare-ai-cost-with-business-value",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-do-i-compare-ai-cost-with-business-value"
+        ],
+        "title": "How do I compare AI cost with business value? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/when-should-i-pay-for-a-stronger-ai-model",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/when-should-i-pay-for-a-stronger-ai-model"
+        ],
+        "title": "When should I pay for a stronger AI model? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/am-i-paying-for-too-many-ai-tools",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/am-i-paying-for-too-many-ai-tools"
+        ],
+        "title": "Am I paying for too many AI tools? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-test-an-ai-model-on-real-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/questions/how-do-i-test-an-ai-model-on-real-work"
+        ],
+        "title": "How do I test an AI model on real business work? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold"
+        ],
+        "title": "Business Owners Are Tired of Being Sold | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/podcasts",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/podcasts"
+        ],
+        "title": "Listen to NTA Podcasts | The NTA Growth Show",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/business-owners-are-tired-of-being-sold",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/business-owners-are-tired-of-being-sold"
+        ],
+        "title": "Business Owners Are Tired of Being Sold | NTA Growth Show \u2014 Episode 10 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-10-05T15:33:41-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/they-sold-me-the-tools-they-didnt-give-me-a-system"
+        ],
+        "title": "They Sold Me the Tools. They Didn't Give Me a System. | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/automation-is-the-last-step-not-the-first",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/automation-is-the-last-step-not-the-first"
+        ],
+        "title": "Automation Is the Last Step, Not the First | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-09-22T13:23:22Z"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/i-didnt-set-out-to-build-an-ai-team",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/i-didnt-set-out-to-build-an-ai-team"
+        ],
+        "title": "I Didn't Set Out to Build an AI Team | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-09-29T14:10:47Z"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-10-a-better-way-to-buy-advertising",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-10-a-better-way-to-buy-advertising"
+        ],
+        "title": "A Better Way to Buy Advertising \u2014 NTA Journal #10",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/rebuild-intake",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/rebuild-intake"
+        ],
+        "title": "Website Rebuild Request | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/hidden-cost-of-outdated-marketing",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/hidden-cost-of-outdated-marketing"
+        ],
+        "title": "The Hidden Cost of Outdated Marketing | New Tech Advertising",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me"
+        ],
+        "title": "Show Me Before You Sell Me | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-11-show-me-before-you-sell-me",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-11-show-me-before-you-sell-me"
+        ],
+        "title": "Show Me Before You Sell Me \u2014 NTA Journal #11",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/show-me-before-you-sell-me",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/show-me-before-you-sell-me"
+        ],
+        "title": "Show Me Before You Sell Me | NTA Growth Show \u2014 Episode 11 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-10-13"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/is-using-ai-cheating",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/is-using-ai-cheating"
+        ],
+        "title": "AI Confusion: Is Using AI Cheating? | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/business-planning-guide"
+        ],
+        "title": "Free AI Business Planning Guide | 50 Years of Experience | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/is-my-business-idea-worth-pursuing",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/business-planning-guide/questions/is-my-business-idea-worth-pursuing"
+        ],
+        "title": "How Do I Know If My Business Idea Is Worth Pursuing? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/start-a-business-while-working-full-time",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/business-planning-guide/questions/start-a-business-while-working-full-time"
+        ],
+        "title": "Can I Start a Business While Working Full-Time? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/how-much-money-to-start-small-business",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/business-planning-guide/questions/how-much-money-to-start-small-business"
+        ],
+        "title": "How Much Money Do I Need to Start a Small Business? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/borrow-money-or-start-small",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/business-planning-guide/questions/borrow-money-or-start-small"
+        ],
+        "title": "Should I Borrow Money to Start a Business or Start Small? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/start-business-without-running-one-before",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/business-planning-guide/questions/start-business-without-running-one-before"
+        ],
+        "title": "How Do I Start a Business Without Experience Running One? | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/truth-about-business-growth/representation-or-deception-using-ai-without-misleading-people"
+        ],
+        "title": "Representation or Deception? Using AI Without Misleading People | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-12-representation-or-deception",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-12-representation-or-deception"
+        ],
+        "title": "When Does AI Help You Tell the Truth\u2014and When Does It Mislead? \u2014 NTA Journal #12",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/representation-or-deception",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/representation-or-deception"
+        ],
+        "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-10-20T06:07:17-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work"
+        ],
+        "title": "From Ideas to Finished Work | NTA Knowledge Library",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/issue-13-from-ideas-to-finished-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal/issue-13-from-ideas-to-finished-work"
+        ],
+        "title": "From Ideas to Finished Work \u2014 NTA Journal #13",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/from-ideas-to-finished-work",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/from-ideas-to-finished-work"
+        ],
+        "title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-10-26T06:11:14-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/accessibility",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/borrow-money-or-start-small",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/how-much-money-to-start-small-business",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/is-my-business-idea-worth-pursuing",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/start-a-business-while-working-full-time",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/business-planning-guide/questions/start-business-without-running-one-before",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/nta-growth-show-episode-2",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-systems-vs-campaigns",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/ai-does-not-have-to-be-a-monster",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/i-see-artificial-intelligence-differently",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/business-foundations/what-building-my-own-digital-growth-office-taught-me",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-businesses-turn-trust-into-lasting-relationships",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/people-trust-what-they-can-understand",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/how-customers-decide-who-to-trust/trust-means-putting-the-relationship-before-the-transaction",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/am-i-paying-for-too-many-ai-tools",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/can-ai-help-me-stop-starting-over-every-day",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/do-i-need-a-perfect-prompt",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/do-i-need-the-newest-ai-model-for-my-business",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-can-employees-use-ai-at-work",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-compare-ai-cost-with-business-value",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-give-different-ai-tools-different-jobs",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/how-do-i-know-what-my-customers-really-need",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/is-social-media-enough-for-a-small-business",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/is-using-ai-the-same-as-multitasking",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/should-a-small-business-still-advertise-on-tv",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/which-business-decisions-should-ai-not-make",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/why-do-customers-say-one-thing-and-do-another",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/questions/why-should-a-business-listen-before-selling",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/customer-questions-reveal-what-the-business-should-teach",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/turning-what-a-business-knows-into-an-asset/your-business-knows-more-than-it-has-documented",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/what-is-digital-trust",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/knowledge/what-is-digital-trust/why-traditional-marketing-is-no-longer-enough",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/learning-center/videos/MsiyOAZrCNo",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/our-story",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/our-work",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/web-accessibility-trust",
+        "request": "ordinary",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      }
+    ]
+  },
+  {
+    "name": "nta-post-publish-controls.json",
+    "checkedAt": null,
+    "results": [
+      {
+        "url": "https://newtechadvertising.com/growth-show/nta-growth-show-episode-2.html",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/nta-growth-show-episode-2"
+        ],
+        "title": "The NTA Growth Show \u2014 Episode 2 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-08-10T14:00:57-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/representation-or-deception.html",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/representation-or-deception"
+        ],
+        "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-10-20T06:07:17-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/show-me-before-you-sell-me.html",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/show-me-before-you-sell-me"
+        ],
+        "title": "Show Me Before You Sell Me | NTA Growth Show \u2014 Episode 11 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-10-13T05:47:50-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/AdminMetaSetup",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "noindex, nofollow"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/agency/AgencyClientCMS",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      },
+      {
+        "url": "https://newtechadvertising.com/definitely-not-a-real-page",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com"
+        ],
+        "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      }
+    ]
+  },
+  {
+    "name": "nta-post-publish-second-check.json",
+    "checkedAt": null,
+    "results": [
+      {
+        "url": "https://newtechadvertising.com/growth-show/show-me-before-you-sell-me",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/show-me-before-you-sell-me"
+        ],
+        "title": "Show Me Before You Sell Me | NTA Growth Show \u2014 Episode 11 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-10-13"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/growth-show/representation-or-deception",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/growth-show/representation-or-deception"
+        ],
+        "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12 | NTA",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": [
+          "2026-10-20T06:07:17-07:00"
+        ]
+      },
+      {
+        "url": "https://newtechadvertising.com/journal/the-free-ai-guy-comes-to-life",
+        "request": "googlebot",
+        "status": 200,
+        "canonical": [
+          "https://newtechadvertising.com/journal"
+        ],
+        "title": "NTA Journal: Practical AI and Small Business Growth Lessons",
+        "robots": [
+          "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        ],
+        "error": null,
+        "videoDates": []
+      }
+    ]
+  }
+]

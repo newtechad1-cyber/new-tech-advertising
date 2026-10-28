@@ -1,3 +1,5 @@
+POST-PUBLISH UPDATE: Rick published. See POST-PUBLISH.md and post-publish-recheck.json for verified live results and remaining platform defects. Earlier preparation notes below are retained as history.
+
 # Search delivery and video metadata — October 28, 2026
 
 Status: source repairs prepared in Base44; final Publish belongs to Rick. Initial-response delivery remains a platform issue and is not declared fixed.
