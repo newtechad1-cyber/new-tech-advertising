@@ -300,6 +300,7 @@ export default function SEOHead({
 
     // ── 9. VIDEO SCHEMA (when videoData is provided) ──────────────────────
     if (videoData && isVideoPublicationTimestamp(videoData.uploadDate)) {
+      document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
       const videoSchema = {
         "@context": "https://schema.org",
         "@type": "VideoObject",

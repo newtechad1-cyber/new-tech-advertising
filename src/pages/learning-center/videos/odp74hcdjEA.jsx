@@ -1,6 +1,7 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
 import { useEffect } from 'react';
+import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -11,22 +12,9 @@ const DESCRIPTION = "A 25-second business profile introducing Monson's work in N
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/odp74hcdjEA";
 const VIDEO_URL = "https://www.youtube.com/watch?v=odp74hcdjEA";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/odp74hcdjEA?rel=0";
-const UPLOAD_DATE = "2026-06-07T03:23:31-07:00";
-const VIDEO_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "Monson Plumbing, Boiler & Excavating | Clear Lake, Iowa | Business Profile",
-  "description": "A 25-second business profile introducing Monson's work in North Iowa.",
-  "thumbnailUrl": "https://i.ytimg.com/vi/odp74hcdjEA/hqdefault.jpg",
-  "uploadDate": "2026-06-07T03:23:31-07:00",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/odp74hcdjEA?rel=0",
-  "url": "https://newtechadvertising.com/learning-center/videos/odp74hcdjEA",
-  "publisher": {
-    "@type": "Organization",
-    "name": "New Tech Advertising",
-    "url": "https://newtechadvertising.com"
-  }
-};
+const VERIFIED_VIDEO = getVideoWatchById('odp74hcdjEA');
+const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
+const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage11() {
   useEffect(() => {

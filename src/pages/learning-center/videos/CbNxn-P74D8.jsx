@@ -1,6 +1,7 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
 import { useEffect } from 'react';
+import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -11,22 +12,9 @@ const DESCRIPTION = "Watch AI isn’t a business strategy. It’s a tool from Ne
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/CbNxn-P74D8";
 const VIDEO_URL = "https://www.youtube.com/watch?v=CbNxn-P74D8";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/CbNxn-P74D8?rel=0";
-const UPLOAD_DATE = "2026-08-26T14:09:05+00:00";
-const VIDEO_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "AI isn’t a business strategy. It’s a tool",
-  "description": "Watch AI isn’t a business strategy. It’s a tool from New Tech Advertising, then explore related practical business and AI learning.",
-  "thumbnailUrl": "https://i.ytimg.com/vi/CbNxn-P74D8/hqdefault.jpg",
-  "uploadDate": "2026-08-26T14:09:05+00:00",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/CbNxn-P74D8?rel=0",
-  "url": "https://newtechadvertising.com/learning-center/videos/CbNxn-P74D8",
-  "publisher": {
-    "@type": "Organization",
-    "name": "New Tech Advertising",
-    "url": "https://newtechadvertising.com"
-  }
-};
+const VERIFIED_VIDEO = getVideoWatchById('CbNxn-P74D8');
+const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
+const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage05() {
   useEffect(() => {
