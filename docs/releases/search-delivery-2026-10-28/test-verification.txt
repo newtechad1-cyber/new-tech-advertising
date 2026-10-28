@@ -1,0 +1,61 @@
+(node:5380) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./scripts/resolve-extensionless-modules.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ question-first knowledge resources are in every intentional discovery surface (16.547458ms)
+✔ historical route variants can never inherit generic indexable metadata (3214.79106ms)
+✔ retired public URLs have canonical cleanup HTML instead of homepage metadata (8.111618ms)
+✔ website rebuild intake has its own preferred URL and metadata (0.993304ms)
+(node:5381) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./scripts/resolve-extensionless-modules.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ public router is fail-closed and does not import private page registries (6.877182ms)
+✔ public compatibility aliases cover legacy links without exposing private prefixes (2.13821ms)
+✔ canonical helpers and public demo/article links stay on public routes (2.333231ms)
+✔ the public Journal page does not advertise an unimplemented RSS endpoint (1.216556ms)
+✔ SEO cleanup prerendering covers private SPA fallbacks and public legacy equity (5.282895ms)
+✔ question-first Knowledge Library routes are specific and fail closed (113.560941ms)
+(node:5384) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./scripts/resolve-extensionless-modules.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ dynamic route overrides match real parameter values (2.530872ms)
+✔ static public routes remain public and case-insensitive (1.016715ms)
+✔ approved knowledge questions are public while unknown question slugs fail closed (20.960008ms)
+✔ prefix rules use path boundaries and unknown routes fail closed (3.306035ms)
+✔ auto-generated page keys cannot bypass page access governance (0.285611ms)
+✔ top-level client and workspace entry points remain outside the public search boundary (3.694857ms)
+(node:5408) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./scripts/resolve-extensionless-modules.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ every published Growth Show episode has its own initial content and native route (13.047571ms)
+✔ podcast initial content and error output are distinct from the homepage (2.779813ms)
+✔ clean public routes have matching directory indexes for exact-path hosting (224.832521ms)
+✔ lesson metadata uses approved lesson information (0.343312ms)
+✔ every sitemap page stays indexable in route metadata and generated HTML (187.369966ms)
+✔ unknown content paths cannot inherit public indexing permission (0.347452ms)
+✔ newest published Journal retains its approved content and public route (1.472227ms)
+(node:5416) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./scripts/resolve-extensionless-modules.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ YouTube Atom parsing works without browser DOMParser and decodes text (58.291073ms)
+✔ feed parser rejects malformed, oversized, and entity-declaration payloads (10.239608ms)
+✔ public feed keeps origin and method checks before outbound requests (10.65559ms)
+✔ anonymous website visitors receive only fixed public YouTube metadata with caching and rate limits (13.098621ms)
+✔ feed errors remain explicit so the frontend can show the verified selection (7.905497ms)
+✔ new uploads merge with the verified archive, deduplicate, and sort by publication date (5.715997ms)
+✔ gallery contains no placeholders or private videos and does not trust supplied external destinations (0.289301ms)
+✔ every verified video is reachable through its topic and search intersects the topic (0.842634ms)
+(node:5425) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./scripts/resolve-extensionless-modules.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ publication times retain verified YouTube originals (0.879224ms)
+✔ date-only and timezone-free values cannot become video schema dates (0.344012ms)
+✔ generated video schema and sitemap use the same original timestamps (8.708811ms)
+✔ all 37 initially flagged pages have their own initial HTML and canonical (10.064197ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3367.821395
