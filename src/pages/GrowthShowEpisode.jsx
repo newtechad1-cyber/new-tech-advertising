@@ -1,3 +1,4 @@
+import { getVideoPublicationTimestamp } from '@/data/videoSeo';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, Download, ExternalLink, Headphones, Loader2, Newspaper, Play, Quote, Share2 } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
@@ -58,18 +59,20 @@ export default function GrowthShowEpisode({ initialVideo = null, initialSlug = n
   }
 
   const primaryLesson = episode.lessons[0] || episode.article;
+  const publicationTimestamp = episode.youtubeVideoId
+    ? getVideoPublicationTimestamp(episode.youtubeVideoId, false) : null;
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300">
       <SEOHead
         title={`${episode.title} | The NTA Growth Show`}
         description={episode.summary}
-        videoData={initialVideo?.publishedAt ? {
-          name: initialVideo.title,
-          description: initialVideo.description,
-          thumbnailUrl: initialVideo.thumbnailUrl,
-          uploadDate: initialVideo.publishedAt,
-          embedUrl: initialVideo.embedUrl,
+        videoData={publicationTimestamp ? {
+          name: episode.title,
+          description: episode.summary,
+          thumbnailUrl: episode.thumbnailUrl,
+          uploadDate: publicationTimestamp,
+          embedUrl: 'https://www.youtube-nocookie.com/embed/' + episode.youtubeVideoId + '?rel=0',
         } : null}
       />
       <MarketingNav />
