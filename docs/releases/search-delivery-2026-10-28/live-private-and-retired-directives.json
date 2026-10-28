@@ -1,0 +1,82 @@
+[
+  {
+    "url": "https://newtechadvertising.com/AdminMetaSetup",
+    "request": "googlebot",
+    "checkedAt": "2026-10-28T19:23:22.882363+00:00",
+    "status": 200,
+    "finalUrl": "https://newtechadvertising.com/AdminMetaSetup",
+    "contentType": "text/html; charset=utf-8",
+    "canonical": [
+      "https://newtechadvertising.com"
+    ],
+    "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+    "h1": "Advertise Better.",
+    "robots": [
+      "noindex, nofollow"
+    ],
+    "xRobotsTag": "",
+    "snapshot": false,
+    "videoSchemas": [],
+    "pass": false
+  },
+  {
+    "url": "https://newtechadvertising.com/agency/AgencyClientCMS",
+    "request": "googlebot",
+    "checkedAt": "2026-10-28T19:23:22.883247+00:00",
+    "status": 200,
+    "finalUrl": "https://newtechadvertising.com/agency/AgencyClientCMS",
+    "contentType": "text/html; charset=utf-8",
+    "canonical": [
+      "https://newtechadvertising.com"
+    ],
+    "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+    "h1": "Advertise Better.",
+    "robots": [
+      "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    ],
+    "xRobotsTag": "",
+    "snapshot": false,
+    "videoSchemas": [],
+    "pass": false
+  },
+  {
+    "url": "https://newtechadvertising.com/services/ai-managed-marketing",
+    "request": "googlebot",
+    "checkedAt": "2026-10-28T19:23:22.883776+00:00",
+    "status": 200,
+    "finalUrl": "https://newtechadvertising.com/ai-marketing-platform",
+    "contentType": "text/html; charset=utf-8",
+    "canonical": [
+      "https://newtechadvertising.com/ai-marketing-platform"
+    ],
+    "title": "How Can AI Help My Small Business? | New Tech Advertising",
+    "h1": "\u201cHow can AI actually help my business?\u201d Start with the work\u2014not the tool.",
+    "robots": [
+      "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    ],
+    "xRobotsTag": "",
+    "snapshot": false,
+    "videoSchemas": [],
+    "pass": false
+  },
+  {
+    "url": "https://newtechadvertising.com/definitely-not-a-real-page",
+    "request": "googlebot",
+    "checkedAt": "2026-10-28T19:23:22.884269+00:00",
+    "status": 200,
+    "finalUrl": "https://newtechadvertising.com/definitely-not-a-real-page",
+    "contentType": "text/html; charset=utf-8",
+    "canonical": [
+      "https://newtechadvertising.com"
+    ],
+    "title": "Advertise Better | Small Business Advertising Strategy | NTA",
+    "h1": "Advertise Better.",
+    "robots": [
+      "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    ],
+    "xRobotsTag": "",
+    "snapshot": false,
+    "videoSchemas": [],
+    "pass": false
+  }
+]
