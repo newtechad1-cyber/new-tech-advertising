@@ -33,21 +33,11 @@ function generate(video, index) {
   const publishedLabel = new Date(video.publishedAt).toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
   });
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'VideoObject',
-    name: video.title,
-    description: video.description,
-    thumbnailUrl: video.thumbnailUrl,
-    uploadDate: video.publishedAt,
-    embedUrl: video.embedUrl,
-    url: canonical,
-    publisher: { '@type': 'Organization', name: 'New Tech Advertising', url: 'https://newtechadvertising.com' },
-  };
   const lines = [
     '// Generated native video page. Source: verified public selection in src/data/videoGallery.js.',
     '// The title, description, watch URL, upload date, and video markup live in this route file.',
     "import { useEffect } from 'react';",
+    "import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';",
     "import { Link } from 'react-router-dom';",
     "import MarketingNav from '@/components/nav/MarketingNav';",
     "import SiteFooter from '@/components/marketing/SiteFooter';",
@@ -61,8 +51,9 @@ function generate(video, index) {
     'const CANONICAL = ' + q(canonical) + ';',
     'const VIDEO_URL = ' + q(video.youtubeUrl) + ';',
     'const EMBED_URL = ' + q(video.embedUrl) + ';',
-    'const UPLOAD_DATE = ' + q(video.publishedAt) + ';',
-    'const VIDEO_SCHEMA = ' + q(schema, null, 2) + ';',
+    'const VERIFIED_VIDEO = getVideoWatchById(' + q(video.id) + ');',
+    'const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;',
+    'const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);',
     '',
     'export default function NativeVideoPage' + String(index).padStart(2, '0') + '() {',
     '  useEffect(() => {',

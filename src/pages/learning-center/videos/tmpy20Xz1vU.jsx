@@ -1,6 +1,7 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
 import { useEffect } from 'react';
+import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -11,22 +12,9 @@ const DESCRIPTION = "A 41-second brand message from NTA's public Johnson Heating
 const CANONICAL = "https://newtechadvertising.com/learning-center/videos/tmpy20Xz1vU";
 const VIDEO_URL = "https://www.youtube.com/watch?v=tmpy20Xz1vU";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/tmpy20Xz1vU?rel=0";
-const UPLOAD_DATE = "2026-05-10T13:02:16-07:00";
-const VIDEO_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "Johnson Heating & AC — Brand Showcase #17",
-  "description": "A 41-second brand message from NTA's public Johnson Heating showcase series.",
-  "thumbnailUrl": "https://i.ytimg.com/vi/tmpy20Xz1vU/hqdefault.jpg",
-  "uploadDate": "2026-05-10T13:02:16-07:00",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/tmpy20Xz1vU?rel=0",
-  "url": "https://newtechadvertising.com/learning-center/videos/tmpy20Xz1vU",
-  "publisher": {
-    "@type": "Organization",
-    "name": "New Tech Advertising",
-    "url": "https://newtechadvertising.com"
-  }
-};
+const VERIFIED_VIDEO = getVideoWatchById('tmpy20Xz1vU');
+const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
+const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage13() {
   useEffect(() => {
