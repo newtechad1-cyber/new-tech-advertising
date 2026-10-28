@@ -1,4 +1,5 @@
 import { VERIFIED_VIDEO_SELECTION } from './videoGallery.js';
+import { isVideoPublicationTimestamp, requireVideoPublicationTimestamp } from '../lib/videoPublication.js';
 import { readingForVideo } from './videoLearningConnections.js';
 
 // Only videos with a useful, distinct on-site watch experience belong here.
@@ -43,6 +44,12 @@ export function getVideoWatchByPath(pathname) {
   return videosByPath.get(String(pathname || '').replace(/\/+$/, '').toLowerCase()) || null;
 }
 
+export function getVideoPublicationTimestamp(id, required = true) {
+  const video = VERIFIED_VIDEO_SELECTION.find(item => item.youtubeId === id);
+  if (!required && !isVideoPublicationTimestamp(video?.publishedAt)) return null;
+  return requireVideoPublicationTimestamp(video?.publishedAt, id);
+}
+
 export function videoSchemaFor(video) {
   // Google requires the real upload date. Never substitute a site build date.
   if (!video?.publishedAt) return null;
@@ -52,7 +59,7 @@ export function videoSchemaFor(video) {
     name: video.title,
     description: video.description,
     thumbnailUrl: video.thumbnailUrl,
-    uploadDate: video.publishedAt,
+    uploadDate: requireVideoPublicationTimestamp(video.publishedAt, video.id || video.path),
     embedUrl: video.embedUrl,
     url: 'https://newtechadvertising.com' + video.path,
     publisher: { '@type': 'Organization', name: 'New Tech Advertising', url: 'https://newtechadvertising.com' },
