@@ -1,6 +1,7 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
 import { useEffect } from 'react';
+import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -15,22 +16,9 @@ const DESCRIPTION = "Watch The NTA Growth Show — Episode 2 | Practical Digital
 const CANONICAL = "https://newtechadvertising.com/growth-show/nta-growth-show-episode-2";
 const VIDEO_URL = "https://www.youtube.com/watch?v=Wz9Gqshyk3o";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/Wz9Gqshyk3o?rel=0";
-const UPLOAD_DATE = "2026-08-10";
-const VIDEO_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "The NTA Growth Show — Episode 2 | Practical Digital Growth for Small Businesses",
-  "description": "Watch The NTA Growth Show — Episode 2 | Practical Digital Growth for Small Businesses from New Tech Advertising, then explore related practical business and AI learning.",
-  "thumbnailUrl": "https://i.ytimg.com/vi/Wz9Gqshyk3o/hqdefault.jpg",
-  "uploadDate": "2026-08-10",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/Wz9Gqshyk3o?rel=0",
-  "url": "https://newtechadvertising.com/growth-show/nta-growth-show-episode-2",
-  "publisher": {
-    "@type": "Organization",
-    "name": "New Tech Advertising",
-    "url": "https://newtechadvertising.com"
-  }
-};
+const VERIFIED_VIDEO = getVideoWatchById('Wz9Gqshyk3o');
+const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
+const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage04() {
   const { episodes } = useGrowthShow();

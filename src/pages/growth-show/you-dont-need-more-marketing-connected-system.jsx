@@ -1,6 +1,7 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
 import { useEffect } from 'react';
+import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -15,22 +16,9 @@ const DESCRIPTION = "Watch You Don’t Need More Marketing—You Need a Connecte
 const CANONICAL = "https://newtechadvertising.com/growth-show/you-dont-need-more-marketing-connected-system";
 const VIDEO_URL = "https://www.youtube.com/watch?v=S-hRkzo6_3M";
 const EMBED_URL = "https://www.youtube-nocookie.com/embed/S-hRkzo6_3M?rel=0";
-const UPLOAD_DATE = "2026-08-24T02:56:02+00:00";
-const VIDEO_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": "You Don’t Need More Marketing—You Need a Connected System | NTA Growth Show",
-  "description": "Watch You Don’t Need More Marketing—You Need a Connected System | NTA Growth Show from New Tech Advertising, then explore related practical business and AI learning.",
-  "thumbnailUrl": "https://i.ytimg.com/vi/S-hRkzo6_3M/hqdefault.jpg",
-  "uploadDate": "2026-08-24T02:56:02+00:00",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/S-hRkzo6_3M?rel=0",
-  "url": "https://newtechadvertising.com/growth-show/you-dont-need-more-marketing-connected-system",
-  "publisher": {
-    "@type": "Organization",
-    "name": "New Tech Advertising",
-    "url": "https://newtechadvertising.com"
-  }
-};
+const VERIFIED_VIDEO = getVideoWatchById('S-hRkzo6_3M');
+const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
+const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage03() {
   const { episodes } = useGrowthShow();
