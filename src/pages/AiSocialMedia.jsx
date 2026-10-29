@@ -14,7 +14,7 @@ const ideas = [
 export default function AiSocialMedia() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
-      <SEOHead title="What Should My Business Post on Social Media? | NTA" description="A practical approach to business social media built from customer questions, team knowledge and a connected Digital Growth Roadmap." />
+      <SEOHead title="What Should My Business Post on Social Media? | NTA" description="A practical approach to business social media built from customer questions, team knowledge and a connected Digital Growth Roadmap." serviceData={{name:'Social Media Content and Communication Guidance',serviceType:'Social media content planning and connected business communication for small business',description:'NTA helps small businesses turn real customer questions, employee knowledge, approved offers, and useful business information into coordinated social content.',areaServed:'United States',audience:'Small-business owners and local businesses'}} learningData={{name:'What a Small Business Should Post on Social Media',description:'A practical guide to building social content from real business knowledge instead of starting from a blank page.',educationalLevel:'Beginner',learningResourceType:'Practical guide'}} />
       <MarketingNav />
       <main>
         <section className="relative overflow-hidden border-b border-slate-800">
@@ -22,7 +22,7 @@ export default function AiSocialMedia() {
           <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-sm font-semibold text-indigo-300"><MessageCircle className="h-4 w-4" /> Social media & business communication</div>
             <h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">“What are we supposed to post?” <span className="text-indigo-400">Start with what your business already knows.</span></h1>
-            <p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">The goal is not to feed a content machine. Social media is one way a business can stay useful, visible and connected. The strongest material often comes from everyday questions, employee knowledge, customer conversations and the work already happening.</p>
+            <p className="speakable mt-7 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">The goal is not to feed a content machine. Social media is one way a business can stay useful, visible and connected. The strongest material often comes from everyday questions, employee knowledge, customer conversations and the work already happening.</p>
             <Link to="/start" className="mt-9 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-7 py-4 font-bold text-white transition hover:bg-indigo-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5" /></Link>
           </div>
         </section>
