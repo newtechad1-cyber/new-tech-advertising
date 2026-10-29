@@ -906,6 +906,20 @@ function knowledgeQuestionSchemaMarkup(pathname, metadata) {
     },
     {
       "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "@id": canonical + "#learning-resource",
+      "name": question.question,
+      "description": question.description,
+      "url": canonical,
+      "learningResourceType": "Q&A lesson",
+      "educationalLevel": "Beginner",
+      "isAccessibleForFree": true,
+      "inLanguage": "en-US",
+      "provider": { "@id": SITE_ORIGIN + "/#organization" },
+      "author": { "@id": SITE_ORIGIN + "/#rick-hesse" },
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
         {
