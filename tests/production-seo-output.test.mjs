@@ -79,7 +79,7 @@ test('question-first knowledge resources are in every intentional discovery surf
   assert.match(llms, /How can AI help my small business\?/);
 
   const homepage = readOutputForRoute('/');
-  assert.match(homepage, /<h1>Advertise Better\.<\/h1>/);
+  assert.match(homepage, /<h1>Start With What Your Business Needs\.<\/h1>/);
   assert.match(homepage, /Ask Your Digital Growth Guide™/);
 
   const answerPage = readOutputForRoute('/knowledge/questions/how-can-a-small-business-use-ai');
