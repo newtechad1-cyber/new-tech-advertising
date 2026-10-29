@@ -315,6 +315,14 @@ const STATIC_SEO = {
     title: "Small Business Growth Case Studies | New Tech Advertising",
     description: "Explore examples of websites, marketing, visibility, and connected growth work for local and small businesses.",
   },
+  "/case-studies/appliance-outlet": {
+    title: "Appliance Outlet Super Center | Case Study in Progress | NTA",
+    description: "The real story of how NTA listened, demonstrated, revised proposals and began a video-first marketing relationship with Appliance Outlet Super Center.",
+  },
+  "/case-studies/how-nta-became-a-digital-growth-office": {
+    title: "How NTA Became a Digital Growth Office | Case Study",
+    description: "How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into NTA's connected Digital Growth Office.",
+  },
   "/privacy-policy": {
     title: "Privacy Policy | New Tech Advertising",
     description: "Read the New Tech Advertising privacy policy.",
