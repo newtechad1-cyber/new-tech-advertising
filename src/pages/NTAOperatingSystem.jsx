@@ -8,6 +8,33 @@ import SEOHead from '@/components/shared/SEOHead';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 
+const DIGITAL_GROWTH_OFFICE_FAQS = [
+  {
+    question: "What is a Digital Growth Office?",
+    answer: "A Digital Growth Office is a connected working system that brings together a small business's website, visibility, customer relationships, follow-up, business knowledge, practical AI, and internal work so the pieces support one another instead of operating as disconnected tools."
+  },
+  {
+    question: "How can a Digital Growth Office help a small business?",
+    answer: "It helps a business see what is already working, identify gaps, connect information and follow-up, reduce repeated work where appropriate, and give people a clearer way to use AI without handing important judgment or customer promises to technology."
+  },
+  {
+    question: "Does every business need the same Digital Growth Office?",
+    answer: "No. NTA starts by understanding how the business actually works, what the owner and team already use, and what problem deserves attention first. The system is built in the order that makes sense for that business rather than from a fixed package of tools."
+  },
+  {
+    question: "Where does AI fit in a Digital Growth Office?",
+    answer: "AI can help organize information, prepare content and follow-up, identify patterns, monitor work, and support repeated tasks. People remain responsible for direction, approvals, relationships, promises, and consequential decisions."
+  }
+];
+
+const DIGITAL_GROWTH_OFFICE_SERVICE = {
+  name: "NTA Digital Growth Office",
+  serviceType: "Practical AI and connected digital growth system for small business",
+  description: "NTA helps small-business owners connect website, visibility, customer relationships, follow-up, business knowledge, practical AI, and operations into one understandable working system.",
+  areaServed: "United States",
+  audience: "Small-business owners and owner-led teams"
+};
+
 export default function NTAOperatingSystem() {
   const fadeIn = {
     hidden: { opacity: 0, y: 30 },
@@ -89,6 +116,8 @@ export default function NTAOperatingSystem() {
       <SEOHead 
         title="NTA Digital Growth Office™ | One Connected Business Growth System"
         description="The NTA Digital Growth Office connects your website, marketing, customer relationships, AI, business knowledge, and operations into one practical growth system."
+        faqs={DIGITAL_GROWTH_OFFICE_FAQS}
+        serviceData={DIGITAL_GROWTH_OFFICE_SERVICE}
       />
       <MarketingNav />
 
@@ -118,16 +147,20 @@ export default function NTAOperatingSystem() {
             One Connected System to Help You Run and Grow Your Business
           </motion.h1>
           
-          <motion.p 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-slate-300 font-light mb-12 max-w-4xl mx-auto leading-relaxed"
+            className="mb-12 max-w-4xl mx-auto"
           >
-            Most business owners have accumulated websites, social platforms, advertising accounts, customer lists, software, and AI tools. The problem is not a lack of tools. The problem is that the tools do not work together as one system.
-            <br/><br/>
-            NTA helps organize what you already have, identify what is missing, and build a practical Digital Growth Office around the way your business actually works.
-          </motion.p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">What is a Digital Growth Office?</h2>
+            <p className="speakable text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
+              A Digital Growth Office is a connected working system that brings together your website, visibility, customer relationships, follow-up, business knowledge, practical AI, and internal work so the pieces support one another instead of operating as disconnected tools.
+            </p>
+            <p className="text-lg md:text-xl text-slate-400 mt-6 leading-relaxed">
+              NTA starts with the way your business actually works, organizes what you already have, identifies what is missing, and builds the next useful connection in the right order.
+            </p>
+          </motion.div>
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -429,6 +462,24 @@ export default function NTAOperatingSystem() {
                 <span className="text-slate-200 font-medium group-hover:text-white transition-colors">{tool.name}</span>
                 <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
               </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Frequently asked questions — visible content matches FAQ structured data */}
+      <section className="py-24 relative border-t border-slate-800/50 bg-slate-900/20">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-400 mb-3">Questions business owners ask</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white">Digital Growth Office FAQs</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {DIGITAL_GROWTH_OFFICE_FAQS.map((faq) => (
+              <article key={faq.question} className="rounded-2xl border border-slate-700 bg-slate-900/70 p-7">
+                <h3 className="text-xl font-bold text-white mb-3">{faq.question}</h3>
+                <p className="text-slate-300 leading-relaxed">{faq.answer}</p>
+              </article>
             ))}
           </div>
         </div>
