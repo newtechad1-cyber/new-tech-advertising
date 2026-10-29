@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
+import SEOHead from '@/components/shared/SEOHead';
 import PillarSection from '@/components/templates/PillarSection';
 import {
   Users,
@@ -106,6 +107,23 @@ const LEARNING_RESOURCES = [
 export default function GrowthSystem() {
   return (
     <div className="bg-slate-950 min-h-screen">
+      <SEOHead
+        title="Digital Growth Office for Small Business | New Tech Advertising"
+        description="See how NTA connects people, business knowledge, customer relationships, visibility, follow-up, practical AI, and everyday work through a Digital Growth Office."
+        serviceData={{
+          name: 'Digital Growth Office',
+          serviceType: 'Connected business growth and practical AI system for small business',
+          description: 'NTA helps small-business owners connect people, business knowledge, customer experience, visibility, follow-up, practical AI, and operations into one understandable working system.',
+          areaServed: 'United States',
+          audience: 'Small-business owners and owner-led teams'
+        }}
+        learningData={{
+          name: 'How a Digital Growth Office Works',
+          description: 'A practical explanation of how a small business can connect its people, knowledge, customer relationships, visibility, follow-up, and AI without surrendering human judgment.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Business system guide'
+        }}
+      />
       <MarketingNav />
 
       {/* Hero */}
@@ -118,6 +136,8 @@ export default function GrowthSystem() {
             Your business works better when the people and information inside it work together.
           </h1>
           <div className="max-w-2xl mx-auto space-y-5 text-slate-400 text-lg leading-relaxed">
+            <h2 className="text-2xl font-bold text-white">What is a Digital Growth Office for a small business?</h2>
+            <p className="speakable text-slate-200">A Digital Growth Office is a connected way to capture what the business knows, understand what customers and employees are experiencing, decide what deserves attention, use AI where it genuinely helps, and keep the work moving without losing human judgment.</p>
             <p>A business already contains enormous knowledge.</p>
             <p>
               Owners know things. Employees know things. Customers ask questions and provide
