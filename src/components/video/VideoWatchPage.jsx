@@ -20,7 +20,17 @@ export default function VideoWatchPage({ video }) {
   const parent = video.category === 'Growth Show' ? '/growth-show' : '/learning-center/videos';
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300">
-      <SEOHead title={video.title + ' | New Tech Advertising'} description={video.description} canonical={'https://newtechadvertising.com' + video.path} />
+      <SEOHead
+        title={video.title + ' | New Tech Advertising'}
+        description={video.description}
+        canonical={'https://newtechadvertising.com' + video.path}
+        learningData={{
+          name: video.title,
+          description: video.description,
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Educational video'
+        }}
+      />
       {schema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }} />}
       <MarketingNav />
       <main className="mx-auto max-w-5xl px-6 pb-20 pt-28">
@@ -29,7 +39,8 @@ export default function VideoWatchPage({ video }) {
         </nav>
         <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">{video.category}</p>
         <h1 className="mt-3 max-w-4xl text-3xl font-black leading-tight text-white md:text-5xl">{video.title}</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">{video.description}</p>
+        <h2 className="mt-6 max-w-3xl text-2xl font-bold text-white">What will you learn from this video?</h2>
+        <p className="speakable mt-3 max-w-3xl text-lg leading-relaxed text-slate-300">{video.description}</p>
         {video.publishedAt && <p className="mt-3 text-sm text-slate-400">Published <time dateTime={video.publishedAt}>{new Date(video.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time></p>}
         {episode?.audioReady && <GrowthShowAudioPlayer episode={episode} />}
         <div id="watch" className="mt-9 aspect-video scroll-mt-24 overflow-hidden rounded-2xl border border-slate-700 bg-black">
