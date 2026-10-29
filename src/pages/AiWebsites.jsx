@@ -63,6 +63,19 @@ export default function AiWebsites() {
       <SEOHead
         title="Do I Need a Better Business Website? | New Tech Advertising"
         description="Understand what your website should do for your shop, online store, restaurant, or service business. Connect customer needs, advertising, and everyday work."
+        serviceData={{
+          name: 'Business Website Improvement and Rebuild Guidance',
+          serviceType: 'Website improvement, rebuild, and connected customer-experience guidance for small business',
+          description: 'NTA helps small businesses understand what their website needs to do, improve what already works, and rebuild only when the business need justifies it.',
+          areaServed: 'United States',
+          audience: 'Small-business owners, retailers, restaurants, and service businesses'
+        }}
+        learningData={{
+          name: 'What a Useful Business Website Should Do',
+          description: 'A practical guide to deciding whether a small business needs a website improvement, rebuild, or better connection to customer questions and everyday work.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Practical guide'
+        }}
       />
       <MarketingNav />
 
@@ -96,7 +109,7 @@ export default function AiWebsites() {
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600">Start with the question</p>
                 <h2 className="mt-3 text-3xl font-black md:text-4xl">What should a useful business website actually do?</h2>
-                <p className="mt-5 text-lg leading-relaxed text-slate-600">A useful website helps people understand the business, answers real questions, builds confidence, and gives someone a sensible next step. It should also help the business learn—not just sit online unchanged.</p>
+                <p className="speakable mt-5 text-lg leading-relaxed text-slate-600">A useful website helps people understand the business, answers real questions, builds confidence, and gives someone a sensible next step. It should also help the business learn—not just sit online unchanged.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 {questions.map((question) => (
