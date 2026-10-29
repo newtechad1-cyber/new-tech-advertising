@@ -53,6 +53,18 @@ export default function AIFoundationsCollection() {
       <SEOHead 
         title="Learning to Work With AI | NTA Knowledge Library"
         description="A practical learning path built from real experience: conversation, context, correction, human judgment, and using AI without giving up control."
+        learningData={{
+          name: 'Learning to Work With AI',
+          description: 'A practical learning path for small-business owners built around context, conversation, correction, human judgment, and using AI without giving up control.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Learning collection'
+        }}
+        collectionData={{
+          name: 'Learning to Work With AI',
+          description: 'NTA AI Foundations lessons for small-business owners learning to use AI practically and responsibly.',
+          numberOfItems: aiFoundationsLessons.length,
+          hasPart: aiFoundationsLessons.map((lesson) => ({ name: lesson.title, url: `/knowledge/ai-foundations/${lesson.slug}` }))
+        }}
       />
       <MarketingNav />
       
@@ -69,8 +81,12 @@ export default function AIFoundationsCollection() {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
             Learning to Work With AI
           </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
-            Start with what you already know. Learn how to give AI context, work through mistakes and mismatched focus, judge the output, and turn your experience into something useful—without surrendering your judgment or control.
+          <h2 className="text-2xl font-bold text-white mb-4">How should a small-business owner learn to work with AI?</h2>
+          <p className="speakable text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-4">
+            Start with work you already understand. Give AI enough business context to be useful, treat the first response as a starting point, correct what it misses, verify what matters, and keep a person responsible for the result.
+          </p>
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
+            This collection teaches context, conversation, correction, human judgment, and practical use without asking you to surrender control.
           </p>
           
           <div className="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
