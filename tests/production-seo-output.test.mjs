@@ -92,10 +92,11 @@ test('question-first knowledge resources are in every intentional discovery surf
   assert.match(answerPage, /Ask Your Digital Growth Guide™/);
   assert.match(answerPage, new RegExp('<time datetime="' + KNOWLEDGE_QUESTION_LAST_UPDATED + '">Updated ' + KNOWLEDGE_QUESTION_LAST_UPDATED + '<\\/time>'));
   assert.match(answerPage, new RegExp('\\\"dateModified\\\":\\\"' + KNOWLEDGE_QUESTION_LAST_UPDATED + '\\\"'));
-  assert.equal((answerPage.match(/data-seo-static-question-schema="true"/g) || []).length, 3);
+  assert.equal((answerPage.match(/data-seo-static-question-schema="true"/g) || []).length, 4);
   assert.match(answerPage, /\"@type\":\"Article\"/);
   assert.match(answerPage, /\"@type\":\"FAQPage\"/);
   assert.match(answerPage, /\"@type\":\"BreadcrumbList\"/);
+  assert.match(answerPage, /\"@type\":\"LearningResource\"/);
 });
 
 test('historical route variants can never inherit generic indexable metadata', () => {
