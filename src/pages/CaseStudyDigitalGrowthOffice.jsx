@@ -46,6 +46,21 @@ export default function CaseStudyDigitalGrowthOffice() {
       <SEOHead
         title="How NTA Became a Digital Growth Office | Case Study"
         description="How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into NTA's connected Digital Growth Office."
+        canonical="https://newtechadvertising.com/case-studies/how-nta-became-a-digital-growth-office"
+        articleData={{
+          title: 'How NTA Became a Digital Growth Office',
+          description: "How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into NTA's connected Digital Growth Office.",
+          author: 'Rick Hesse',
+          datePublished: '2026-10-20',
+          dateModified: '2026-10-29',
+          slug: '/case-studies/how-nta-became-a-digital-growth-office'
+        }}
+        learningData={{
+          name: 'How NTA Became a Digital Growth Office',
+          description: 'A case study showing how NTA connected business experience, knowledge, public education, discovery, client work, and practical AI into a Digital Growth Office.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Case study'
+        }}
       />
       <MarketingNav />
 
