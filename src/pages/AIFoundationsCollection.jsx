@@ -112,6 +112,19 @@ export default function AIFoundationsCollection() {
               </Link>
             </div>
           </div>
+          <div className="mx-auto mt-8 grid max-w-3xl gap-4 md:grid-cols-2">
+            <Link to="/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search" className="rounded-2xl border border-cyan-500/40 bg-cyan-950/20 p-5 text-left hover:border-cyan-300">
+              <span className="text-xs font-bold uppercase tracking-widest text-cyan-300">Newest · AI Search</span>
+              <span className="mt-2 block font-bold text-white">What Is GEO? Getting Your Business Ready for AI Search</span>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-cyan-200">Read lesson <ChevronRight className="h-4 w-4" /></span>
+            </Link>
+            <Link to="/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough" className="rounded-2xl border border-blue-500/40 bg-blue-950/20 p-5 text-left hover:border-blue-300">
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-300">Newest · AI & Judgment</span>
+              <span className="mt-2 block font-bold text-white">I Asked AI to SEO My Website. Why Wasn’t That Enough?</span>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-blue-200">Read lesson <ChevronRight className="h-4 w-4" /></span>
+            </Link>
+          </div>
+
           <Link to="/knowledge/ai-foundations/from-ideas-to-finished-work" className="mx-auto mt-7 flex max-w-2xl items-center justify-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-950/20 p-5 font-semibold text-cyan-200 hover:border-cyan-300 hover:text-white">
             New lesson: From Ideas to Finished Work <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
           </Link>
