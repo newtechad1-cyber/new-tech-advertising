@@ -1049,17 +1049,39 @@ function videoWatchStaticBody(pathname) {
 
 function videoSchemaMarkup(pathname) {
   const episode = SEED_GROWTH_SHOW_EPISODES.find(e => e.status === 'Published' && pathname === '/growth-show/' + e.slug);
-  const schema = episode ? {
+  const watchVideo = getVideoWatchByPath(pathname);
+  const videoSchema = episode ? {
     '@context': 'https://schema.org', '@type': 'VideoObject',
     name: episode.title, description: episode.summary,
     thumbnailUrl: episode.thumbnail_url,
     uploadDate: getVideoPublicationTimestamp(episode.youtube_video_id),
     embedUrl: 'https://www.youtube-nocookie.com/embed/' + episode.youtube_video_id + '?rel=0',
     url: SITE_ORIGIN + pathname,
-  } : videoSchemaFor(getVideoWatchByPath(pathname));
-  return schema
-    ? '<script type="application/ld+json" data-seo-static-video-schema="true">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>'
-    : '';
+  } : videoSchemaFor(watchVideo);
+
+  if (!videoSchema) return '';
+  const schemas = [videoSchema];
+  const isEducational = Boolean(episode || watchVideo?.reading);
+  if (isEducational) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      '@id': SITE_ORIGIN + pathname + '#learning-resource',
+      name: episode?.title || watchVideo.title,
+      description: episode?.summary || watchVideo.description,
+      url: SITE_ORIGIN + pathname,
+      learningResourceType: episode ? 'Educational video episode' : 'Educational video',
+      educationalLevel: 'Beginner',
+      isAccessibleForFree: true,
+      inLanguage: 'en-US',
+      provider: { '@id': SITE_ORIGIN + '/#organization' },
+      author: { '@id': SITE_ORIGIN + '/#rick-hesse' },
+    });
+  }
+
+  return schemas.map((schema) =>
+    '<script type="application/ld+json" data-seo-static-video-schema="true">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>'
+  ).join('\n');
 }
 
 function bookStaticBody(pathname) {
