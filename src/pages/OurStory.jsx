@@ -51,8 +51,8 @@ export default function OurStory() {
     },
     {
       id: 5,
-      title: 'Building The Business Score™',
-      desc: 'To remove subjectivity, we developed a proprietary scoring algorithm. It objectively measures a company\'s maturity across crucial digital pillars—giving owners a clear, undeniable baseline of where they stand.',
+      title: 'Building a Clear Starting Point',
+      desc: 'We needed a way to organize what we were learning without pretending a single score could explain the whole business. Assessments can help surface visible gaps and questions, but the owner’s context, team knowledge, customer experience, and real evidence still matter.',
       icon: Target,
       color: 'text-amber-400',
       bg: 'bg-amber-500/10',
@@ -60,8 +60,8 @@ export default function OurStory() {
     },
     {
       id: 6,
-      title: 'Building The Growth Roadmap™',
-      desc: 'A score means nothing without a plan. We engineered the system to automatically generate a step-by-step roadmap, prioritizing actions that bridge the gap between their current reality and their revenue goals.',
+      title: 'Building The Digital Growth Roadmap™',
+      desc: 'Discovery needs to lead somewhere useful. The Digital Growth Roadmap helps organize what deserves attention now, what can wait, and what evidence or work is needed next. AI can help prepare and organize the roadmap; the owner and NTA still use judgment to decide what belongs in it.',
       icon: Map,
       color: 'text-purple-400',
       bg: 'bg-purple-500/10',
@@ -69,8 +69,8 @@ export default function OurStory() {
     },
     {
       id: 7,
-      title: 'Building The Operating System™',
-      desc: 'We tied it all together into a central, unified dashboard. A private workspace where clients can track progress, approve content, review analytics, and access educational resources in one place.',
+      title: 'Building The Digital Growth Office™',
+      desc: 'The public learning and discovery experience needed a private place for the work itself. The Digital Growth Office can organize conversations, files, approvals, projects, reporting, and connected business knowledge without asking the owner to learn another pile of disconnected tools.',
       icon: LayoutDashboard,
       color: 'text-cyan-400',
       bg: 'bg-cyan-500/10',
@@ -87,8 +87,8 @@ export default function OurStory() {
     },
     {
       id: 9,
-      title: 'Why Clients Benefit',
-      desc: 'Because we built this to solve our own operational headaches first, our clients inherit a battle-tested, proven infrastructure. They skip the growing pains and tap directly into a mature growth engine.',
+      title: 'Why Testing It Ourselves Matters',
+      desc: 'NTA uses its own systems before asking a client to rely on them. That does not mean every workflow is finished or every client needs the same setup. It means we can learn from our own use, show what is working, be honest about what is still developing, and adapt the work to the business in front of us.',
       icon: Users,
       color: 'text-blue-400',
       bg: 'bg-blue-500/10',
