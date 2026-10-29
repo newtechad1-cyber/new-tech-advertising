@@ -1126,6 +1126,58 @@ function bookSchemaMarkup(pathname) {
     JSON.stringify(item).replace(/</g, '\\u003c') + '</script>').join('\n');
 }
 
+function caseStudySchemaMarkup(pathname, metadata) {
+  const cases = {
+    '/case-studies/appliance-outlet': {
+      headline: 'Appliance Outlet Super Center — Building a Digital Growth Office Around the Business',
+      description: 'The real story of how NTA listened, demonstrated, revised proposals and began a video-first marketing relationship with Appliance Outlet Super Center.',
+      datePublished: '2026-10-20',
+      dateModified: '2026-10-20',
+      learning: false,
+    },
+    '/case-studies/how-nta-became-a-digital-growth-office': {
+      headline: 'How NTA Became a Digital Growth Office',
+      description: "How Rick Hesse organized more than 45 years of business, advertising, sales, and client-service experience into NTA's connected Digital Growth Office.",
+      datePublished: '2026-10-20',
+      dateModified: '2026-10-29',
+      learning: true,
+    },
+  };
+  const item = cases[pathname];
+  if (!item || metadata.noIndex) return '';
+  const canonical = metadata.canonical;
+  const schemas = [{
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': canonical + '#article',
+    headline: item.headline,
+    description: item.description,
+    url: canonical,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    author: { '@type': 'Person', '@id': SITE_ORIGIN + '/#rick-hesse', name: 'Rick Hesse' },
+    publisher: { '@id': SITE_ORIGIN + '/#organization' },
+    datePublished: item.datePublished,
+    dateModified: item.dateModified,
+  }];
+  if (item.learning) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      '@id': canonical + '#learning-resource',
+      name: item.headline,
+      description: item.description,
+      url: canonical,
+      learningResourceType: 'Case study',
+      educationalLevel: 'Beginner',
+      isAccessibleForFree: true,
+      inLanguage: 'en-US',
+      provider: { '@id': SITE_ORIGIN + '/#organization' },
+      author: { '@id': SITE_ORIGIN + '/#rick-hesse', name: 'Rick Hesse' },
+    });
+  }
+  return schemas.map((schema) => '<script type="application/ld+json" data-seo-static-case-study="true">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>').join('\n');
+}
+
 function accessibilityStaticBody(pathname) {
   const content = {
     '/accessible-websites': {
@@ -1301,7 +1353,7 @@ function renderHtml(template, metadata, pathname) {
       .seo-shell article { border-radius: 1rem; }
     }
   </style>`;
-  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + aiContentSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
+  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + aiContentSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) + caseStudySchemaMarkup(pathname, metadata) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
   html = html.replace('<div id="root"></div>', '<div id="root">' + shell.body + '</div>');
   return html;
 }
