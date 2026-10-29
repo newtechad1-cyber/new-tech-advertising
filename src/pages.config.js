@@ -6,6 +6,8 @@ import NativeBusinessQuestion5 from './pages/business-planning-guide/questions/s
 import NativeGrowthEpisode13 from './pages/growth-show/from-ideas-to-finished-work';
 import AIConfusionLesson from './pages/knowledge/ai-foundations/is-using-ai-cheating';
 import IdeasToFinishedWorkLesson from './pages/knowledge/ai-foundations/from-ideas-to-finished-work';
+import WhatIsGeoLesson from './pages/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search';
+import AskedAiToSeoLesson from './pages/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import JournalIssue13 from './pages/journal/issue-13-from-ideas-to-finished-work';
 import NativeGrowthEpisode11 from './pages/growth-show/show-me-before-you-sell-me';
 import NativeGrowthEpisode12 from './pages/growth-show/representation-or-deception';
@@ -265,6 +267,8 @@ const PAGES = {
   'business-planning-guide/questions/start-business-without-running-one-before': NativeBusinessQuestion5,
   'growth-show/from-ideas-to-finished-work': NativeGrowthEpisode13,
   'knowledge/ai-foundations/from-ideas-to-finished-work': IdeasToFinishedWorkLesson,
+  'knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search': WhatIsGeoLesson,
+  'knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough': AskedAiToSeoLesson,
   'journal/issue-13-from-ideas-to-finished-work': JournalIssue13,
   'growth-show/show-me-before-you-sell-me': NativeGrowthEpisode11,
   'growth-show/representation-or-deception': NativeGrowthEpisode12,
