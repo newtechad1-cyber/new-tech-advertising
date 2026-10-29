@@ -1263,7 +1263,7 @@ function renderHtml(template, metadata, pathname) {
       .seo-shell article { border-radius: 1rem; }
     }
   </style>`;
-  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
+  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + aiContentSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
   html = html.replace('<div id="root"></div>', '<div id="root">' + shell.body + '</div>');
   return html;
 }
@@ -1404,6 +1404,73 @@ function routeMetadata(pathname) {
   return content && content.description
     ? { ...metadata, description: content.description }
     : metadata;
+}
+
+function aiContentSchemaMarkup(pathname, metadata) {
+  if (metadata.noIndex || pathname.startsWith('/knowledge/questions/')) return '';
+  const content = contentByCanonical.get(metadata.canonical);
+  if (!content) return '';
+
+  const canonical = metadata.canonical;
+  const schemas = [];
+
+  if (content.contentType === 'LearningResource') {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      '@id': canonical + '#learning-resource',
+      name: content.title || metadata.title,
+      description: content.description || metadata.description,
+      url: canonical,
+      learningResourceType: 'Lesson',
+      educationalLevel: 'Beginner',
+      isAccessibleForFree: true,
+      inLanguage: 'en-US',
+      provider: { '@id': SITE_ORIGIN + '/#organization' },
+      ...(content.author ? { author: { '@type': 'Person', '@id': SITE_ORIGIN + '/#rick-hesse', name: content.author } } : {}),
+      ...(content.lastModified ? { dateModified: content.lastModified } : {}),
+    });
+
+    if (pathname.startsWith('/knowledge/')) {
+      schemas.push({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': canonical + '#article',
+        headline: content.title || metadata.title,
+        description: content.description || metadata.description,
+        url: canonical,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+        publisher: { '@id': SITE_ORIGIN + '/#organization' },
+        ...(content.author ? { author: { '@type': 'Person', '@id': SITE_ORIGIN + '/#rick-hesse', name: content.author } } : {}),
+        ...(content.lastModified ? { dateModified: content.lastModified } : {}),
+      });
+    }
+  }
+
+  if (content.contentType === 'LearningCollection') {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      '@id': canonical + '#collection',
+      name: content.title || metadata.title,
+      description: content.description || metadata.description,
+      url: canonical,
+      publisher: { '@id': SITE_ORIGIN + '/#organization' },
+      ...(content.author ? { author: { '@type': 'Person', '@id': SITE_ORIGIN + '/#rick-hesse', name: content.author } } : {}),
+      ...(content.lastModified ? { dateModified: content.lastModified } : {}),
+      ...(Array.isArray(content.lessons) && content.lessons.length ? {
+        hasPart: content.lessons.map((lesson) => ({
+          '@type': 'LearningResource',
+          name: lesson.title,
+          url: lesson.canonicalUrl,
+        }))
+      } : {}),
+    });
+  }
+
+  return schemas
+    .map((schema) => '<script type="application/ld+json" data-seo-static-ai-content="true">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>')
+    .join('\n');
 }
 
 function getPrerenderMetadata(pathname, publicPathSet) {
