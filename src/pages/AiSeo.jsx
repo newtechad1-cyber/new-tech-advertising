@@ -4,6 +4,33 @@ import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 
+const AI_SEARCH_FAQS = [
+  {
+    question: 'How can my business show up in ChatGPT and AI search?',
+    answer: 'Start by making the business easy to understand: use clear service and location information, answer real customer questions, keep facts consistent across the web, earn trustworthy reviews and references, and publish useful source material that AI systems can retrieve and cite.'
+  },
+  {
+    question: 'Is AI search visibility different from traditional SEO?',
+    answer: 'They overlap, but they are not identical. Traditional SEO focuses heavily on search-engine rankings. AI visibility also depends on whether answer engines can understand the business, retrieve useful evidence, connect the brand to a topic, and choose the site or other trusted sources when forming an answer.'
+  },
+  {
+    question: 'Can anyone guarantee that ChatGPT or another AI will recommend my business?',
+    answer: 'No. AI answers vary by model, prompt, location, available sources, and timing. NTA focuses on improving the clarity, usefulness, structure, and authority signals that give a business a better chance to be understood and cited.'
+  },
+  {
+    question: 'What should I improve first for AI visibility?',
+    answer: 'Begin with accurate business facts and a useful website, then strengthen the pages that answer the questions customers actually ask. Technical crawl access matters, but useful source material, clear authorship, structured data, reviews, and outside references also help build authority.'
+  }
+];
+
+const AI_SEARCH_SERVICE = {
+  name: 'AI Search Visibility and SEO Guidance',
+  serviceType: 'AI search visibility, SEO, and digital authority guidance for small business',
+  description: 'NTA helps small businesses make their services, knowledge, locations, and trustworthy evidence easier for Google and AI answer engines to understand.',
+  areaServed: 'United States',
+  audience: 'Small-business owners and local service businesses'
+};
+
 const questions = [
   'What are customers actually searching or asking for?',
   'Can Google and AI systems clearly understand what your business does?',
@@ -16,7 +43,18 @@ const questions = [
 export default function AiSeo() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
-      <SEOHead title="How Can Customers Find My Business Online? | New Tech Advertising" description="Understand SEO, Google visibility and AI search as part of a practical Digital Growth Roadmap for your business." />
+      <SEOHead
+        title="How Can Customers Find My Business Online? | New Tech Advertising"
+        description="Understand SEO, Google visibility and AI search as part of a practical Digital Growth Roadmap for your business."
+        faqs={AI_SEARCH_FAQS}
+        serviceData={AI_SEARCH_SERVICE}
+        learningData={{
+          name: 'AI Search Visibility for Small Business',
+          description: 'A practical introduction to how small businesses can become easier for search engines and AI answer systems to understand and cite.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Practical guide'
+        }}
+      />
       <MarketingNav />
       <main>
         <section className="relative overflow-hidden border-b border-slate-800">
@@ -24,7 +62,11 @@ export default function AiSeo() {
           <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm font-semibold text-emerald-300"><Search className="h-4 w-4" /> Search, Google & AI visibility</div>
             <h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">“Why can’t people find my business?” <span className="text-emerald-400">Start with what they need to find.</span></h1>
-            <p className="mt-7 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">SEO is not simply a race for rankings. It is the work of making your business understandable and useful when people are looking for answers. Sometimes the gap is technical. Sometimes it is content, reviews, Google Business Profile information, website structure, or simply that the business has never captured what its people already know.</p>
+            <div className="mt-7 max-w-3xl">
+              <h2 className="text-2xl font-bold text-white">How can a business become easier to find in Google and AI search?</h2>
+              <p className="speakable mt-3 text-lg leading-relaxed text-slate-300 md:text-xl">Make the business easy to understand and useful to cite: keep services, locations, and contact information clear; answer real customer questions; publish trustworthy source material; strengthen reviews and outside references; and make sure search and AI crawlers can reach the site.</p>
+              <p className="mt-4 text-base leading-relaxed text-slate-400">SEO is not simply a race for rankings. Sometimes the gap is technical. Sometimes it is content, reviews, Google Business Profile information, website structure, or simply that the business has never captured what its people already know.</p>
+            </div>
             <Link to="/start" className="mt-9 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-7 py-4 font-bold text-white transition hover:bg-emerald-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5" /></Link>
           </div>
         </section>
@@ -57,6 +99,14 @@ export default function AiSeo() {
           </div>
         </section>
 
+        <section className="border-y border-slate-800 bg-slate-900/35 py-20">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="mb-10 text-center"><p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-400">Questions business owners ask</p><h2 className="mt-3 text-3xl font-black text-white md:text-4xl">AI Search Visibility FAQs</h2></div>
+            <div className="grid gap-5 md:grid-cols-2">
+              {AI_SEARCH_FAQS.map((faq) => <article key={faq.question} className="rounded-2xl border border-slate-800 bg-slate-950/70 p-6"><h3 className="text-xl font-bold text-white">{faq.question}</h3><p className="mt-3 leading-relaxed text-slate-400">{faq.answer}</p></article>)}
+            </div>
+          </div>
+        </section>
         <section className="bg-emerald-950/30 py-20 text-center">
           <div className="mx-auto max-w-4xl px-6"><h2 className="text-3xl font-black text-white md:text-4xl">You do not need to diagnose the search problem before we talk.</h2><p className="mx-auto mt-5 max-w-2xl text-lg text-slate-300">Bring the question: “Why aren’t people finding us?” We can start there, understand the larger business, and decide what belongs on the Roadmap.</p><Link to="/start" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-8 py-4 font-bold text-white transition hover:bg-emerald-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5" /></Link></div>
         </section>
