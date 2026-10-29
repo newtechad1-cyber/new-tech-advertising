@@ -90,8 +90,10 @@ const STATIC_SEO = {
     noIndex: false,
   },
   "/ai-videos": {
-    title: "AI Video Marketing for Small Business | NTA",
-    description: "Practical video marketing guidance for small-business owners who want to explain their work, build trust, and stay visible.",
+    title: "Video Production & Business Storytelling | NTA",
+    description: "See NTA video examples and explore short business profiles, brand messages, educational videos, and stories that help people understand your work.",
+    canonical: "https://newtechadvertising.com/ai-video-marketing",
+    noIndex: true,
   },
   "/operating-system": {
     title: "Digital Growth Office for Small Business | NTA Operating System",
