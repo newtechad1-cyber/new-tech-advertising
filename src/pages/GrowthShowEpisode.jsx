@@ -72,8 +72,15 @@ export default function GrowthShowEpisode({ initialVideo = null, initialSlug = n
           description: episode.summary,
           thumbnailUrl: episode.thumbnailUrl,
           uploadDate: publicationTimestamp,
+          contentUrl: episode.youtubeUrl,
           embedUrl: 'https://www.youtube-nocookie.com/embed/' + episode.youtubeVideoId + '?rel=0',
         } : null}
+        learningData={{
+          name: episode.title,
+          description: episode.summary,
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Educational video episode'
+        }}
       />
       <MarketingNav />
 
@@ -87,7 +94,8 @@ export default function GrowthShowEpisode({ initialVideo = null, initialSlug = n
               {episode.episodeNumber ? `Episode ${episode.episodeNumber}` : 'NTA Growth Show episode'}
             </p>
             <h1 className="mt-3 max-w-4xl text-4xl font-black leading-tight text-white md:text-6xl">{episode.title}</h1>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-400">{episode.summary}</p>
+            <h2 className="mt-6 max-w-3xl text-2xl font-bold text-white">What is this episode about?</h2>
+            <p className="speakable mt-3 max-w-3xl text-lg leading-8 text-slate-300">{episode.summary}</p>
           </div>
         </header>
 
