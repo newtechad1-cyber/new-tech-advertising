@@ -15,7 +15,7 @@ import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 const HOMEPAGE_FAQS = [
   {
     question: 'What is New Tech Advertising now?',
-    answer: 'New Tech Advertising helps small businesses advertise better by starting with the customer rather than an advertising product. NTA helps owners understand who they need to reach, what matters to those customers, where to reach them, and how websites, search, social, video, content, AI, follow-up, and other channels can work together as one connected growth system.',
+    answer: 'New Tech Advertising is a practical AI education and Digital Growth Office partner for small-business owners. NTA starts with what the business actually needs, then helps connect people, business knowledge, visibility, customer follow-up, websites, marketing, and useful AI into one understandable growth system.',
   },
   {
     question: 'What happens when I work with NTA?',
@@ -63,9 +63,15 @@ export default function Home() {
   return (
     <div className="bg-slate-950 min-h-screen">
       <SEOHead
-        title="Advertise Better | Small Business Advertising Strategy | NTA"
-        description="Connect advertising, customer experience, and everyday work. Practical growth help for small shops, online stores, restaurants, and service businesses."
+        title="Practical AI for Small Business | Digital Growth Office | NTA"
+        description="New Tech Advertising helps small-business owners understand practical AI, preserve business knowledge, improve visibility and follow-up, and connect useful work through a Digital Growth Office."
         faqs={HOMEPAGE_FAQS}
+        learningData={{
+          name: 'Practical AI and Digital Growth for Small Business',
+          description: 'A public starting point for small-business owners who want to understand AI, identify what their business needs, and connect useful digital growth work without unnecessary complexity.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Business education hub'
+        }}
       />
       <MarketingNav />
 
