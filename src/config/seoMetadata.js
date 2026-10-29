@@ -22,8 +22,8 @@ const STATIC_SEO = {
   "/business-planning-guide/questions/start-business-without-running-one-before": { title: "How Do I Start a Business Without Experience Running One? | NTA", description: "Learn the difference between doing the work and running a business, from pricing and bookkeeping to customer service and cash flow." },
   "/": {
     ...DEFAULT_SEO,
-    title: "Advertise Better | Small Business Advertising Strategy | NTA",
-    description: "Connect advertising, customer experience, and everyday work. Practical growth help for small shops, online stores, restaurants, and service businesses.",
+    title: "Practical AI for Small Business | Digital Growth Office | NTA",
+    description: "New Tech Advertising helps small-business owners understand practical AI, preserve business knowledge, improve visibility and follow-up, and connect useful work through a Digital Growth Office.",
   },
   "/about": {
     title: "Practical AI for Small Business Owners | About Rick Hesse & NTA",
