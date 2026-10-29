@@ -1237,6 +1237,31 @@ const SERVICE_PAGE_CONTENT = {
   },
 };
 
+function aiContentStaticBody(pathname, metadata) {
+  if (pathname.startsWith('/knowledge/questions/')) return '';
+  const content = contentByCanonical.get(metadata.canonical);
+  if (!content || !['LearningResource', 'LearningCollection'].includes(content.contentType)) return '';
+
+  if (content.contentType === 'LearningCollection') {
+    const lessons = Array.isArray(content.lessons) ? content.lessons : [];
+    return '<main data-prerendered="true" class="seo-shell"><article>' +
+      '<p class="seo-kicker">NTA Knowledge Library</p><h1>' + escapeHtml(content.title || metadata.title) + '</h1>' +
+      '<p>' + escapeHtml(content.description || metadata.description) + '</p>' +
+      (content.author ? '<p>By ' + escapeHtml(content.author) + '</p>' : '') +
+      (content.lastModified ? '<p>Updated ' + escapeHtml(content.lastModified) + '</p>' : '') +
+      (lessons.length ? '<h2>Lessons in this collection</h2><ul>' + lessons.map(lesson => '<li><a href="' + escapeHtml(cleanPath(lesson.canonicalUrl)) + '">' + escapeHtml(lesson.title) + '</a></li>').join('') + '</ul>' : '') +
+      '<nav aria-label="Knowledge Library links"><a href="/knowledge">Knowledge Library</a><a href="/growth-system">Digital Growth Office</a></nav></article></main>';
+  }
+
+  return '<main data-prerendered="true" class="seo-shell"><article>' +
+    '<p class="seo-kicker">NTA Knowledge Library</p><h1>' + escapeHtml(content.title || metadata.title) + '</h1>' +
+    '<p class="speakable">' + escapeHtml(content.description || metadata.description) + '</p>' +
+    (content.author ? '<p>By ' + escapeHtml(content.author) + '</p>' : '') +
+    (content.lastModified ? '<p>Updated ' + escapeHtml(content.lastModified) + '</p>' : '') +
+    '<h2>Why this matters</h2><p>This lesson is part of NTA’s practical business and AI education. The full page keeps the deeper teaching, examples, and related learning connected to the same source idea.</p>' +
+    '<nav aria-label="Knowledge Library links"><a href="/knowledge">Knowledge Library</a><a href="/growth-system">Digital Growth Office</a></nav></article></main>';
+}
+
 function servicePageStaticBody(pathname) {
   const item = SERVICE_PAGE_CONTENT[pathname];
   if (!item) return '';
@@ -1379,6 +1404,7 @@ function shellMarkup(metadata, pathname) {
   const body = growthShowStaticBody(pathname)
     || podcastStaticBody(pathname)
     || approvedLessonStaticBody(pathname)
+    || aiContentStaticBody(pathname, metadata)
     || servicePageStaticBody(pathname)
     || accessibilityStaticBody(pathname)
     || videoWatchStaticBody(pathname)
