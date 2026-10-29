@@ -1181,6 +1181,20 @@ function caseStudySchemaMarkup(pathname, metadata) {
 }
 
 const SERVICE_PAGE_CONTENT = {
+  '/growth-system': {
+    heading: 'What is a Digital Growth Office for a small business?',
+    answer: 'A Digital Growth Office is a connected way to capture what the business knows, understand what customers and employees are experiencing, decide what deserves attention, use AI where it genuinely helps, and keep the work moving without losing human judgment.',
+    serviceName: 'Digital Growth Office',
+    serviceType: 'Connected business growth and practical AI system for small business',
+    audience: 'Small-business owners and owner-led teams',
+  },
+  '/operating-system': {
+    heading: 'What is an NTA Digital Growth Office?',
+    answer: 'The NTA Digital Growth Office connects business knowledge, customer relationships, visibility, content, projects, approvals, reporting, and practical AI so the owner can see what matters and keep human judgment in control.',
+    serviceName: 'NTA Digital Growth Office',
+    serviceType: 'Practical AI and connected digital growth system for small business',
+    audience: 'Small-business owners and owner-led teams',
+  },
   '/ai-marketing-platform': {
     heading: 'How can AI actually help my business?',
     answer: 'AI can help a small business capture knowledge, organize information, prepare follow-up, draft approved content, find patterns, and reduce repeated work. It is most useful when it supports a clear business need and people remain responsible for judgment and decisions.',
