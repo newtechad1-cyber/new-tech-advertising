@@ -8,8 +8,11 @@ import {
 } from "@/components/ui/accordion";
 import { ArrowRight, HelpCircle } from 'lucide-react';
 
-export default function FAQSection() {
-  const faqs = [
+export const HOMEPAGE_FAQS = [
+  {
+    question: "What is New Tech Advertising now?",
+    answer: "New Tech Advertising is a practical AI education and Digital Growth Office partner for small-business owners. NTA starts with what the business actually needs, then helps connect people, business knowledge, visibility, customer follow-up, websites, marketing, and useful AI into one understandable growth system."
+  },
     {
       question: "What is the NTA Growth Conversation?",
       answer: "The Growth Conversation is a free discovery process that helps us understand what is happening in your business, what you want to change, and what may need attention first. We confirm what we heard before recommending a next step."
@@ -35,6 +38,9 @@ export default function FAQSection() {
       answer: "NTA works with small retailers, including specialty and variety shops, ecommerce businesses, restaurants, contractors, and other service businesses. We adapt to how your customers shop, dine, order, ask for help, and return. A store visit, a meal, an online purchase, and a service inquiry are different paths—not one lead-generation formula."
     }
   ];
+
+export default function FAQSection() {
+  const faqs = HOMEPAGE_FAQS;
 
   return (
     <section className="py-20 bg-slate-950 relative border-t border-slate-900 overflow-hidden">
