@@ -1237,6 +1237,105 @@ const SERVICE_PAGE_CONTENT = {
   },
 };
 
+const AUTHORITY_PAGE_CONTENT = {
+  '/about': {
+    kicker: 'About New Tech Advertising',
+    heading: 'More than 45 years of business experience. Practical AI that keeps the owner in authority.',
+    answer: 'Rick Hesse built New Tech Advertising from decades of hands-on business, advertising, sales, technology, and client-service experience. AI did not replace that experience; it gave NTA another way to capture, organize, and use it while keeping human judgment in charge.',
+  },
+  '/services': {
+    kicker: 'Solutions built around your business',
+    heading: 'Solve the right problem before adding another tool.',
+    answer: 'NTA starts with what is happening in the business: customers cannot find you, buying feels harder than it should, information gets lost, customer relationships fade, or too much work depends on the owner. We listen before recommending a tool, campaign, or package.',
+  },
+  '/growth-system': {
+    kicker: 'Digital Growth Office',
+    heading: 'What is a Digital Growth Office for a small business?',
+    answer: 'A Digital Growth Office is a connected way to capture what the business knows, understand what customers and employees are experiencing, decide what deserves attention, use AI where it genuinely helps, and keep the work moving without losing human judgment.',
+  },
+  '/industries': {
+    kicker: 'Industry doorways',
+    heading: 'Every industry is different. The starting point is the business.',
+    answer: 'NTA does not begin with a preset industry package. We begin with the people, customers, knowledge, systems, and goals already inside the business, then build a practical Digital Growth Roadmap.',
+  },
+  '/learning-center': {
+    kicker: 'NTA Learning Center',
+    heading: 'Learn practical AI and business growth from connected lessons.',
+    answer: 'The NTA Learning Center connects business foundations, practical AI, visibility, trust, relationships, and growth systems so small-business owners can understand the ideas before deciding what to change.',
+  },
+  '/operating-system': {
+    kicker: 'NTA Digital Growth Office',
+    heading: 'One connected business growth system.',
+    answer: 'NTA connects business knowledge, customer relationships, visibility, content, projects, approvals, reporting, and practical AI inside a Digital Growth Office so the owner can see what matters and keep human judgment in control.',
+  },
+  '/work-with-nta': {
+    kicker: 'Work with New Tech Advertising',
+    heading: 'What happens when you work with NTA?',
+    answer: 'NTA begins by understanding the business, involves the people closest to the work with the owner’s permission, identifies the right order of operations, connects the useful pieces, and keeps the owner informed and in control before paid scope or costs are approved.',
+  },
+  '/growth-show': {
+    kicker: 'The NTA Growth Show',
+    heading: 'Watch the show. Listen to the podcast. Continue the idea.',
+    answer: 'The NTA Growth Show turns practical business conversations into connected learning. Each episode can lead into related Knowledge Library lessons, Journal material, books, and useful next steps instead of ending as a stand-alone video.',
+  },
+  '/growth-guide': {
+    kicker: 'Your Digital Growth Guide',
+    heading: 'Start with the question you have now.',
+    answer: 'Your Digital Growth Guide helps you understand where the business is today and guides you toward a useful next step. It begins with your situation and can connect what the owner, team, and customers already know to NTA’s learning and discovery system.',
+  },
+  '/growth-conversation': {
+    kicker: 'NTA Growth Conversation',
+    heading: 'A free guided starting point for understanding what your business needs next.',
+    answer: 'The Growth Conversation asks about the business’s current focus, online presence, and 12-month goal, then organizes that starting information so NTA can confirm what it heard and discuss a practical next step.',
+  },
+  '/free-audit': {
+    kicker: 'Free Business Gap Audit',
+    heading: 'What deserves attention first in your business?',
+    answer: 'The free Business Gap Audit reviews what you want to change, what is happening now, where time or opportunities are getting stuck, what tools and processes you already use, and what appears to deserve attention first. A deeper paid diagnostic is separate and only recommended when more evidence would help.',
+  },
+  '/why-nta': {
+    kicker: 'Why NTA',
+    heading: 'Why does NTA start with the business before the technology?',
+    answer: 'Because a tool is only useful when it serves a real purpose. NTA begins with the people, the work, the customer, the knowledge already inside the business, and the result the owner is trying to achieve before recommending AI, automation, websites, advertising, or software.',
+  },
+  '/our-story': {
+    kicker: 'The NTA story',
+    heading: 'From marketing agency to practical AI education and a Digital Growth Office.',
+    answer: 'New Tech Advertising shifted from leading with disconnected marketing services to teaching first, understanding the business before prescribing solutions, and connecting discovery, learning, planning, client work, and practical AI into one system.',
+  },
+  '/case-studies': {
+    kicker: 'Real work. Honest lessons.',
+    heading: 'NTA case studies explain the work without hiding what is unfinished.',
+    answer: 'NTA case studies describe the business situation, what was done, what changed, what remains unfinished, and what another owner can learn. They are evidence pages, not promises that every client will receive the same result.',
+  },
+  '/case-studies/appliance-outlet': {
+    kicker: 'Active client · Case study in progress',
+    heading: 'Appliance Outlet Super Center — Building a Digital Growth Office Around the Business',
+    answer: 'The Appliance Outlet relationship began by listening, demonstrating possibilities, revising an overbuilt first proposal, and returning to a video-first marketing need the client was ready to approve. The broader workspace and connected system remain an active implementation.',
+  },
+  '/case-studies/how-nta-became-a-digital-growth-office': {
+    kicker: 'NTA’s own case study',
+    heading: 'How NTA Became a Digital Growth Office',
+    answer: 'Rick Hesse organized decades of business, advertising, sales, client-service, success, failure, and hands-on learning into a public Knowledge Library, guided discovery, a Growth Roadmap, educational media, and a private Digital Growth Office.',
+  },
+  '/business-planning-guide': {
+    kicker: 'Free AI Business Planning Guide',
+    heading: 'Use AI to help think through a business idea without giving up your judgment.',
+    answer: 'The NTA Business Planning Guide helps people explore a business idea through guided questions grounded in Rick Hesse’s business experience. AI supports the conversation and organization; the person remains responsible for the decisions.',
+  },
+};
+
+function authorityPageStaticBody(pathname) {
+  const item = AUTHORITY_PAGE_CONTENT[pathname];
+  if (!item) return '';
+  return '<main data-prerendered="true" class="seo-shell"><article>' +
+    '<p class="seo-kicker">' + escapeHtml(item.kicker) + '</p>' +
+    '<h1>' + escapeHtml(item.heading) + '</h1>' +
+    '<p class="speakable">' + escapeHtml(item.answer) + '</p>' +
+    '<h2>Continue with NTA</h2><nav aria-label="Related NTA resources"><a href="/knowledge">Knowledge Library</a><a href="/growth-system">Digital Growth Office</a><a href="/start">Start a Growth Conversation</a></nav>' +
+    '</article></main>';
+}
+
 function aiContentStaticBody(pathname, metadata) {
   if (pathname.startsWith('/knowledge/questions/')) return '';
   const content = contentByCanonical.get(metadata.canonical);
@@ -1403,6 +1502,7 @@ function shellMarkup(metadata, pathname) {
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
   const body = growthShowStaticBody(pathname)
     || podcastStaticBody(pathname)
+    || authorityPageStaticBody(pathname)
     || approvedLessonStaticBody(pathname)
     || aiContentStaticBody(pathname, metadata)
     || servicePageStaticBody(pathname)
