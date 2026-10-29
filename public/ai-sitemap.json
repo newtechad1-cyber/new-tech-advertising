@@ -1441,7 +1441,7 @@
       "description": "A practical, hype-free introduction to using artificial intelligence in a local business.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-10-25",
+      "lastModified": "2026-10-29",
       "lessons": [
         {
           "title": "AI Isn't Magic Either",
@@ -1622,6 +1622,26 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-10-25"
+        },
+        {
+          "title": "What Is GEO? Getting Your Business Ready for AI Search",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search",
+          "contentType": "LearningResource",
+          "description": "Learn what Generative Engine Optimization means for small businesses, how it builds on SEO, and why AI search visibility depends on content, technical structure, trust, and verification.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-10-29"
+        },
+        {
+          "title": "I Asked AI to SEO My Website. Why Wasn't That Enough?",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+          "contentType": "LearningResource",
+          "description": "Why asking ChatGPT to SEO a website is not enough by itself. Rick Hesse explains how better questions, verification, experience and human judgment change the quality of AI-assisted work.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-10-29"
         }
       ]
     },

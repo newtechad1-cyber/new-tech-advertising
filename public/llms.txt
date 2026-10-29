@@ -342,6 +342,10 @@ A practical, hype-free introduction to using artificial intelligence in a local 
 
 - [From Ideas to Finished Work](https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work): Turn useful AI conversations into clearly agreed tasks, visible progress and verified completion, while keeping human judgment and review connected.
 
+- [What Is GEO? Getting Your Business Ready for AI Search](https://newtechadvertising.com/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search): Learn what Generative Engine Optimization means for small businesses, how it builds on SEO, and why AI search visibility depends on content, technical structure, trust, and verification.
+
+- [I Asked AI to SEO My Website. Why Wasn't That Enough?](https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough): Why asking ChatGPT to SEO a website is not enough by itself. Rick Hesse explains how better questions, verification, experience and human judgment change the quality of AI-assisted work.
+
 ### [AI, Humanity & Responsibility](https://newtechadvertising.com/knowledge/ai-humanity)
 
 Artificial intelligence is more than a new business tool. It reflects the knowledge, contradictions, hopes, fears, wisdom, and brokenness of the people who created it. This collection explores how we can understand AI without worshiping it, fearing it blindly, or surrendering our responsibility to think.
