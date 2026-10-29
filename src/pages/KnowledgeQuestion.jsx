@@ -67,6 +67,12 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
           dateModified: updatedDate,
           slug: questionPath
         }}
+        learningData={{
+          name: question.question,
+          description: question.description,
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Q&A lesson'
+        }}
       />
       <MarketingNav />
 
