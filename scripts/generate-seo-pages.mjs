@@ -742,11 +742,13 @@ function homeStaticBody(pathname) {
 
   return `<main data-prerendered="true" class="seo-shell">
     <article>
-      <p class="seo-kicker">New Tech Advertising</p>
-      <h1>Advertise Better.</h1>
-      <p>Start with your customer. Not the advertising product.</p>
-      <p>New Tech Advertising helps small-business owners connect their advertising, customer experience, and everyday operations—so people can find them, understand what they offer, buy with confidence, and come back.</p>
-      <p>You do not need to know which tool or service to ask for. Tell us what is happening in your business. We listen to you and your team, look at how customers find, choose, and buy from you, and agree on the next useful improvement. Your Digital Growth Roadmap™ keeps that work connected to the whole business. Advertising, websites, AI, and other tools serve the work—not the other way around.</p>
+      <p class="seo-kicker">Practical AI for small business</p>
+      <h1>Start With What Your Business Needs.</h1>
+      <h2>How can AI and digital tools actually help a small business?</h2>
+      <p class="speakable">Start with the business problem, the people involved, and the result you need. Then use AI, websites, marketing, follow-up, and automation only where they genuinely help.</p>
+      <p>New Tech Advertising helps small-business owners connect people, business knowledge, customer experience, visibility, follow-up, and practical AI so the pieces work together instead of becoming another pile of disconnected tools.</p>
+      <p>You do not need to know which tool or service to ask for. Tell us what is happening in your business. We listen to you and your team, look at what customers and employees are experiencing, and agree on the next useful improvement. Your Digital Growth Roadmap™ keeps that work connected to the larger Digital Growth Office™.</p>
+      <p><strong>Understanding comes before technology.</strong></p>
       <p>A <a href="/ai-websites#retail-and-online-stores">small shop or online store</a>, a <a href="/restaurants">restaurant</a>, and a service business need different customer paths. We start with how your customers shop, dine, order, or ask for help.</p>
       <h2>Start with the question that fits</h2>
       <ul>${paths.map(item => '<li><a href="' + escapeHtml(item.href) + '"><strong>' + escapeHtml(item.label) + '</strong></a>: ' + escapeHtml(item.description) + '</li>').join("")}</ul>
