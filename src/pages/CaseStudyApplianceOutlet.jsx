@@ -5,7 +5,19 @@ import SEOHead from '@/components/shared/SEOHead';
 
 export default function CaseStudyApplianceOutlet() {
   return <div className="min-h-screen bg-slate-950 text-slate-300">
-    <SEOHead title="Appliance Outlet Super Center | Case Study in Progress | NTA" description="The real story of how NTA listened, demonstrated, revised proposals and began a video-first marketing relationship with Appliance Outlet Super Center." canonical="/case-studies/appliance-outlet" />
+    <SEOHead
+      title="Appliance Outlet Super Center | Case Study in Progress | NTA"
+      description="The real story of how NTA listened, demonstrated, revised proposals and began a video-first marketing relationship with Appliance Outlet Super Center."
+      canonical="https://newtechadvertising.com/case-studies/appliance-outlet"
+      articleData={{
+        title: 'Appliance Outlet Super Center — Building a Digital Growth Office Around the Business',
+        description: 'The real story of how NTA listened, demonstrated, revised proposals and began a video-first marketing relationship with Appliance Outlet Super Center.',
+        author: 'Rick Hesse',
+        datePublished: '2026-10-20',
+        dateModified: '2026-10-20',
+        slug: '/case-studies/appliance-outlet'
+      }}
+    />
     <MarketingNav />
     <main className="mx-auto max-w-4xl px-6 pb-20 pt-28">
       <Link to="/case-studies" className="text-cyan-300 hover:text-white">← All NTA Case Studies</Link>
