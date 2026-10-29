@@ -73,16 +73,16 @@ const STATIC_SEO = {
     description: "Learn the practical foundations of AI search visibility, clear business information, useful content, and trustworthy online signals.",
   },
   "/ai-social-media": {
-    title: "AI Social Media Content for Small Business | NTA",
-    description: "Use practical AI support to plan, write, and organize social media content while keeping the business owner's voice and judgment in control.",
+    title: "What Should My Business Post on Social Media? | NTA",
+    description: "Build useful small-business social content from customer questions, employee knowledge, approved offers, and the work already happening.",
   },
   "/ai-websites": {
     title: "Do I Need a Better Business Website? | New Tech Advertising",
     description: "Understand what your website should do for your shop, online store, restaurant, or service business. Connect customer needs, advertising, and everyday work.",
   },
   "/ai-advertising": {
-    title: "AI Advertising Strategy for Small Business | NTA",
-    description: "Understand where AI can support advertising and customer growth without replacing business strategy, human judgment, or trust.",
+    title: "Should My Small Business Use Digital Advertising? | NTA",
+    description: "Understand where Google, social, display, and video advertising may fit in a small-business Digital Growth Roadmap before spending more money.",
   },
   "/video-advertising-management": {
     title: "Video Advertising Management for Small Businesses | New Tech Advertising",
@@ -96,8 +96,8 @@ const STATIC_SEO = {
     noIndex: true,
   },
   "/operating-system": {
-    title: "Digital Growth Office for Small Business | NTA Operating System",
-    description: "See how NTA connects website, visibility, customer relationships, business knowledge, and practical AI into one Digital Growth Office.",
+    title: "Digital Growth Office for Small Business | New Tech Advertising",
+    description: "See how NTA connects business knowledge, customer relationships, visibility, content, projects, approvals, reporting, and practical AI inside a Digital Growth Office.",
   },
   "/work-with-nta": {
     title: "Work With New Tech Advertising | Digital Growth Office",
@@ -150,8 +150,8 @@ const STATIC_SEO = {
     description: "Listen, watch and learn with Rick Hesse about practical AI, digital growth, customer trust, and the real work of building a stronger small business.",
   },
   "/growth-guide": {
-    title: "Free Small Business Growth Guide | NTA",
-    description: "Use the NTA Growth Guide to clarify where your business is now, what you want to improve, and which practical next step makes sense.",
+    title: "Your Digital Growth Guide™ | Start With Your Business Question | NTA",
+    description: "Start with the business question you have now. Your Digital Growth Guide™ helps clarify the situation and connect you to a useful next step.",
   },
   "/growth-conversation": {
     title: "Small Business Growth Conversation | New Tech Advertising",
@@ -163,7 +163,7 @@ const STATIC_SEO = {
   },
   "/hidden-cost-of-outdated-marketing": {
     title: "The Hidden Cost of Outdated Marketing | New Tech Advertising",
-    description: "What outdated marketing is really costing your small business. The hidden expenses of not adopting AI-powered marketing.",
+    description: "Understand how outdated information, disconnected customer paths, weak follow-up, and marketing that no longer fits the business can quietly create lost opportunities.",
   },
   "/rebuild-intake": {
     title: "Website Rebuild Request | New Tech Advertising",
