@@ -104,6 +104,8 @@ export default function SEOHead({
   collectionData = null,  // { name, description, numberOfItems, hasPart: [{name, url}] }
   // R0.7 — HowTo schema props
   howToData = null,        // { name, description, steps: [{name, text}] }
+  // GEO — page-level Service schema props
+  serviceData = null,      // { name, description, serviceType, areaServed, audience }
 }) {
   const location = useLocation();
   const routeMetadata = getSeoMetadata(location.pathname, { publishedJournal });
@@ -388,7 +390,34 @@ export default function SEOHead({
       elements.push(addSchema(howToSchema));
     }
 
-    // ── 13. FAQ SCHEMA ────────────────────────────────────────────────────
+    // ── 13. SERVICE SCHEMA ────────────────────────────────────────────────
+    if (serviceData) {
+      const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": `${resolvedCanonical}#service`,
+        "name": serviceData.name || resolvedTitle,
+        "description": serviceData.description || resolvedDescription,
+        "serviceType": serviceData.serviceType || serviceData.name || resolvedTitle,
+        "provider": {
+          "@type": "Organization",
+          "@id": `${SITE_ORIGIN}/#organization`,
+          "name": SITE_NAME,
+          "url": SITE_ORIGIN
+        },
+        "url": resolvedCanonical,
+        ...(serviceData.areaServed ? { "areaServed": serviceData.areaServed } : {}),
+        ...(serviceData.audience ? {
+          "audience": {
+            "@type": "Audience",
+            "audienceType": serviceData.audience
+          }
+        } : {})
+      };
+      elements.push(addSchema(serviceSchema));
+    }
+
+    // ── 14. FAQ SCHEMA ────────────────────────────────────────────────────
     // Emit FAQ structured data only when the page supplies matching, visible FAQs.
     // This prevents stale legacy pricing, service, and performance claims from
     // being repeated across pages that do not have page-specific FAQ content.
@@ -409,7 +438,7 @@ export default function SEOHead({
       elements.push(addSchema(faqSchema));
     }
 
-    // ── 14. BREADCRUMB SCHEMA ─────────────────────────────────────────────
+    // ── 15. BREADCRUMB SCHEMA ─────────────────────────────────────────────
     const pathParts = window.location.pathname.split('/').filter(Boolean);
     let breadcrumbUrl = window.location.origin;
     const breadcrumbItems = [
@@ -447,7 +476,7 @@ export default function SEOHead({
         }
       });
     };
-  }, [resolvedTitle, resolvedDescription, resolvedCanonical, resolvedNoIndex, faqs, articleData, videoData, learningData, collectionData, howToData]);
+  }, [resolvedTitle, resolvedDescription, resolvedCanonical, resolvedNoIndex, faqs, articleData, videoData, learningData, collectionData, howToData, serviceData]);
 
   return null;
 }
