@@ -7,12 +7,34 @@ import BookStructuredData from '@/components/books/BookStructuredData';
 import { getBookByPath } from '@/data/bookSeo.js';
 import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
 
+const PRACTICAL_AI_GUIDE_FAQS = [
+  {
+    question: 'Where should a small-business owner start with AI?',
+    answer: 'Start with a real business need, not a list of tools. Look at where time, knowledge, communication, follow-up, or repeated work is being lost, then test one practical use of AI while keeping human judgment in control.'
+  },
+  {
+    question: 'Do I need to understand AI technically before I can use it?',
+    answer: 'No. A small-business owner needs enough understanding to ask useful questions, provide business context, review the work, and decide where AI belongs. The goal is practical use, not becoming an AI engineer.'
+  },
+  {
+    question: 'How do I avoid wasting money on AI tools?',
+    answer: 'Understand the business problem first, decide what result you need, and only then choose a tool. If the process is unclear, adding automation or another subscription usually adds complexity instead of value.'
+  }
+];
+
 export default function PracticalAI() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
         title="Practical AI for Small Business Owners | Free Guide"
         description="A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion."
+        faqs={PRACTICAL_AI_GUIDE_FAQS}
+        learningData={{
+          name: 'Practical AI for Small Business',
+          description: 'A plainspoken practical-AI guide for small-business owners who want useful understanding without hype, jargon, or replacing human judgment.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Guide and book'
+        }}
       />
       <BookStructuredData book={getBookByPath('/practical-ai-for-small-business')} />
       <MarketingNav />
@@ -30,8 +52,12 @@ export default function PracticalAI() {
                 <p className="mt-5 text-2xl font-medium leading-relaxed text-indigo-100">
                   A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion.
                 </p>
-                <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
-                  AI can help a small business when it serves a real business purpose. This revised edition includes Rick Hesse's experience working with AI, why an AI website needs the owner's knowledge and feedback, and how to check that the finished work does what the business needs.
+                <h2 className="mt-7 text-2xl font-bold text-white">Where should a small-business owner start with AI?</h2>
+                <p className="speakable mt-3 max-w-3xl text-lg leading-8 text-slate-300">
+                  Start with a real business need, not a list of tools. Look at where time, knowledge, communication, follow-up, or repeated work is being lost, then test one practical use of AI while keeping human judgment in control.
+                </p>
+                <p className="mt-4 max-w-3xl text-base leading-7 text-slate-400">
+                  This revised guide includes Rick Hesse's experience working with AI, why an AI website needs the owner's knowledge and feedback, and how to check that finished work does what the business needs.
                 </p>
                 <p className="mt-5 text-lg font-semibold text-indigo-300">
                   People Always. AI Where It Genuinely Helps.
@@ -116,6 +142,15 @@ export default function PracticalAI() {
             <p className="mt-6 text-lg leading-8 text-slate-300">
               This guide is for owners, entrepreneurs, startups, local businesses, and service companies who know AI matters but do not want to get lost in technical language or online hype. It is for people who want practical understanding, not another confusing sales pitch.
             </p>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-800 px-6 py-20">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-10 text-center"><p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Questions business owners ask</p><h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Practical AI FAQs</h2></div>
+            <div className="grid gap-5 md:grid-cols-3">
+              {PRACTICAL_AI_GUIDE_FAQS.map((faq) => <article key={faq.question} className="rounded-2xl border border-slate-800 bg-slate-900/65 p-6"><h3 className="text-lg font-bold text-white">{faq.question}</h3><p className="mt-3 leading-7 text-slate-400">{faq.answer}</p></article>)}
+            </div>
           </div>
         </section>
 
