@@ -63,6 +63,25 @@ Rick Hesse and NTA help owners connect customer understanding, team knowledge, u
 - [Practical AI and Digital Growth for Small Businesses Nationwide](https://newtechadvertising.com/small-businesses-nationwide): NTA helps small-business owners across the United States understand practical AI and build clearer, connected growth systems.
 - [Small Business Growth Case Studies](https://newtechadvertising.com/case-studies): Explore examples of websites, marketing, visibility, and connected growth work for local and small businesses.
 
+## Crawler-readable static views
+
+For crawlers and audit tools that do not execute the public React app, NTA publishes route-specific static HTML views. Each static view contains the page-specific content and structured data and declares the clean public URL as its canonical.
+
+- [Digital Growth Office — static view](https://newtechadvertising.com/growth-system.html)
+- [Practical AI for Small Business — static view](https://newtechadvertising.com/ai-marketing-platform.html)
+- [AI Search Visibility — static view](https://newtechadvertising.com/ai-seo.html)
+- [AI Visibility Basics — static view](https://newtechadvertising.com/ai-visibility-basics.html)
+- [NTA Digital Growth Office — static view](https://newtechadvertising.com/operating-system.html)
+- [Work With NTA — static view](https://newtechadvertising.com/work-with-nta.html)
+- [Why NTA — static view](https://newtechadvertising.com/why-nta.html)
+- [Practical AI Guide — static view](https://newtechadvertising.com/practical-ai-for-small-business.html)
+- [How can AI help my small business? — static view](https://newtechadvertising.com/knowledge/questions/how-can-a-small-business-use-ai.html)
+- [How can my business show up in ChatGPT and AI search? — static view](https://newtechadvertising.com/knowledge/questions/how-can-my-business-show-up-in-chatgpt-and-ai-search.html)
+- [What should I automate in my small business? — static view](https://newtechadvertising.com/knowledge/questions/what-should-i-automate-in-my-small-business.html)
+- [How can AI use knowledge already inside my company? — static view](https://newtechadvertising.com/knowledge/questions/how-can-ai-use-knowledge-already-inside-my-company.html)
+- [Digital Growth Office case study — static view](https://newtechadvertising.com/case-studies/how-nta-became-a-digital-growth-office.html)
+- [From Ideas to Finished Work — static video page](https://newtechadvertising.com/growth-show/from-ideas-to-finished-work.html)
+
 ## Knowledge Library
 
 The NTA Knowledge Library is a connected set of practical lessons about small-business growth, trust, relationships, business knowledge, AI, and digital trust.
