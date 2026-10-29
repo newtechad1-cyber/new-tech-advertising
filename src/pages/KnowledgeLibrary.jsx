@@ -103,6 +103,30 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800 bg-slate-900/35 px-6 py-10" aria-labelledby="new-ai-search-lessons-heading">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-7 text-center">
+              <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">New in the Knowledge Library · AI Search & GEO</p>
+              <h2 id="new-ai-search-lessons-heading" className="mt-3 text-3xl font-black text-white md:text-4xl">Two new lessons from what I learned working on AI search</h2>
+              <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-300">Search is changing, and so is the way we have to think about SEO. These two connected lessons explain what GEO is and why simply asking AI to “SEO my website” was not enough.</p>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-2">
+              <Link to="/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search" className="group rounded-3xl border border-cyan-500/35 bg-cyan-950/15 p-7 transition-colors hover:border-cyan-300">
+                <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">Start here · Lesson 1</p>
+                <h3 className="mt-3 text-2xl font-black text-white">What Is GEO? Getting Your Business Ready for AI Search</h3>
+                <p className="mt-4 leading-7 text-slate-300">A plainspoken look at Generative Engine Optimization, why SEO still matters, and what it takes for AI systems to understand a business well enough to use its information.</p>
+                <span className="mt-6 inline-flex items-center gap-2 font-bold text-cyan-200 group-hover:text-white">Read the GEO lesson <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+              <Link to="/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough" className="group rounded-3xl border border-blue-500/35 bg-blue-950/15 p-7 transition-colors hover:border-blue-300">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-300">Then continue · Lesson 2</p>
+                <h3 className="mt-3 text-2xl font-black text-white">I Asked AI to SEO My Website. Why Wasn’t That Enough?</h3>
+                <p className="mt-4 leading-7 text-slate-300">What repeated SEO work taught me about better questions, technical understanding, verification, and why AI access does not replace human judgment.</p>
+                <span className="mt-6 inline-flex items-center gap-2 font-bold text-blue-200 group-hover:text-white">Read the second lesson <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="ideas-to-work-heading">
           <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
             <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">This week's lesson · NTA Point of View</p>
