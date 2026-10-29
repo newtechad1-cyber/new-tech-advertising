@@ -13,13 +13,19 @@ export default function AIVisibilityBasics() {
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead 
         title="How to Get Found in AI Search | AI Visibility Basics"
-        description="Learn how Google AI Overviews, ChatGPT, and other answer engines understand and recommend local businesses."
+        description="Learn practical ways to make a small business easier for search engines and AI answer systems to understand, verify, and cite."
+        learningData={{
+          name: 'AI Visibility Basics',
+          description: 'A practical introduction to clear business information, useful content, structured data, consistent public facts, and outside evidence for AI and search visibility.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'Practical guide'
+        }}
       />
       <MarketingNav />
       <div className="flex-grow">
       <LCHeader 
         title="AI Visibility Basics"
-        subtitle="How ChatGPT, Gemini, and Google's AI Overview choose which local businesses to recommend."
+        subtitle="What can help search engines and AI answer systems understand, verify, and cite a local business."
         breadcrumbs={[
           { label: "Knowledge Library", link: "/learning-center" },
           { label: "AI Visibility Basics" }
@@ -32,33 +38,33 @@ export default function AIVisibilityBasics() {
       <main className="max-w-4xl mx-auto px-6 py-12">
         <TrackProgress trackName="I'm New to AI" currentStep={2} totalSteps={5} color="emerald" />
         <article className="prose prose-invert prose-lg max-w-none prose-a:text-blue-400 hover:prose-a:text-blue-300">
-          <p className="text-xl leading-relaxed text-slate-200">
-            For years, search engines relied on keywords. If someone typed "plumber near me," the search engine looked for websites with the word "plumber." Today, AI models don't just look for words; they look for entities, context, and trust.
+          <p className="speakable text-xl leading-relaxed text-slate-200">
+            Search visibility is no longer only about repeating the right phrase on a page. Modern search and AI answer systems can use many signals—page content, links, structured data, business listings, reviews, and other public sources—to understand what a business is, what it does, and whether the information is useful for a question.
           </p>
 
           <LCInsightBlock type="business_insight" title="The Shift in Search">
-            Instead of matching keywords to text, AI reads your website, your reviews, your social media, and third-party directories to build a "mental model" of your business. It asks: "Is this the best answer to the user's specific problem?"
+            Public information from your website and other sources can help search and AI systems connect facts about your business. No single page, review, directory, or schema block guarantees that an AI assistant will mention or recommend you.
           </LCInsightBlock>
 
           <h2 className="text-3xl font-bold text-slate-50 mt-12 mb-6">How AI Evaluates Your Business</h2>
           
-          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">1. Structured Data is Your Translator</h3>
+          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">1. Structured Data Gives Machines Explicit Labels</h3>
           <p>
-            AI doesn't have eyes. It reads data. Structured data (like Schema Markup) is the language AI speaks. It explicitly tells the AI: "This is our business name, these are our services, here is our service area, and these are our reviews." 
+            Structured data can label facts such as a business name, service, author, article, video, or location in a machine-readable format. It can reduce ambiguity and support search understanding, but it works best when it matches the visible page and the underlying facts.
           </p>
 
-          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">2. Topical Authority beats Thin Content</h3>
+          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">2. Useful Depth Is Better Than Thin Claims</h3>
           <p>
-            A five-page website with a single "Services" page doesn't signal authority to an AI. To be recommended for "tankless water heater repair," you need dedicated, in-depth content specifically addressing that topic, common issues, and your expertise.
+            A generic services list gives people and machines less context than useful pages that answer real questions about the work. Specific explanations, examples, limitations, and evidence can make a subject easier to understand and cite.
           </p>
 
           <LCInsightBlock type="ai_tip" title="AI Search Optimization">
-            AI prioritizes detail. If a competitor has a dedicated page explaining exactly how they install a specific type of roof, the AI will recommend them over a roofer whose website just says "We do roofs."
+            Build content because it answers a real customer question well—not because you are trying to manufacture hundreds of keyword pages. Depth, clarity, originality, and useful evidence create a stronger source than a thin page that simply repeats a service name.
           </LCInsightBlock>
 
-          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">3. Consensus Across the Web</h3>
+          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">3. Consistent Public Facts Reduce Ambiguity</h3>
           <p>
-            AI cross-references your claims. If your website says you're open 24/7, but your Google Business Profile says you close at 5 PM, the AI loses trust and drops your visibility. Consistency across Yelp, Facebook, Google, and your website is mandatory.
+            If your website, business profile, directories, and other public sources disagree about basic facts such as hours, location, services, or contact information, people and machines have a harder time knowing which version is current. Keeping important facts consistent is a practical trust and visibility habit.
           </p>
 
           <LCInsightBlock type="nta_found" title="What NTA Has Found">
@@ -91,7 +97,7 @@ export default function AIVisibilityBasics() {
             {
               tag: "Strategy",
               title: "SEO vs AI Search",
-              description: "Why traditional SEO is dying and how AI Search Optimization replaces it.",
+              description: "See where traditional SEO and AI search visibility overlap, where they differ, and why useful source content still matters.",
               link: "/seo-vs-ai-search",
               date: "Guide"
             }
