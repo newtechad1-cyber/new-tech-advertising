@@ -66,7 +66,7 @@ const STATIC_SEO = {
   },
   "/ai-visibility-basics": {
     title: "How to Get Found in AI Search | AI Visibility Basics",
-    description: "Learn how Google AI Overviews, ChatGPT, and other answer engines understand and recommend local businesses.",
+    description: "Learn practical ways to make a small business easier for search engines and AI answer systems to understand, verify, and cite.",
   },
   "/ai-seo": {
     title: "AI Search Optimization for Small Business | NTA",
