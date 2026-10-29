@@ -1323,6 +1323,36 @@ const AUTHORITY_PAGE_CONTENT = {
     heading: 'Use AI to help think through a business idea without giving up your judgment.',
     answer: 'The NTA Business Planning Guide helps people explore a business idea through guided questions grounded in Rick Hesse’s business experience. AI supports the conversation and organization; the person remains responsible for the decisions.',
   },
+  '/ai-visibility-basics': {
+    kicker: 'AI Visibility Basics',
+    heading: 'What helps search engines and AI answer systems understand a small business?',
+    answer: 'Clear business facts, useful source content, machine-readable structure, consistent public information, and trustworthy outside evidence can make a business easier to understand and cite. No single schema block, page, review, or directory guarantees an AI mention or recommendation.',
+  },
+  '/point-of-view': {
+    kicker: 'The NTA Point of View',
+    heading: 'Practical principles from business experience, not technology hype.',
+    answer: 'The NTA Point of View connects Rick Hesse’s lived business experience with practical AI, trust, customer relationships, business knowledge, and connected growth. The purpose is to explain how NTA thinks before asking an owner to buy anything.',
+  },
+  '/canon': {
+    kicker: 'The Rick Hesse Canon',
+    heading: 'Decades of business knowledge, organized and connected.',
+    answer: 'The NTA canon brings together published articles, lessons, case studies, and curated reading journeys so the ideas behind New Tech Advertising have a public source of truth instead of living only in conversations or sales material.',
+  },
+  '/canon/collection/nta-principles': {
+    kicker: 'NTA Principles',
+    heading: 'A connected collection of the principles behind NTA.',
+    answer: 'The NTA Principles collection organizes Rick Hesse’s recurring ideas about understanding before spending, trust before pressure, business knowledge, human judgment, practical AI, and connected growth.',
+  },
+  '/canon/the-work-you-dont-see-why-setup-matters': {
+    kicker: 'NTA Point of View',
+    heading: 'The work you do not see is often what makes a useful system possible.',
+    answer: 'Discovery, setup, permissions, source information, testing, connections, and review are part of the work behind a system that eventually feels simple to the business owner. Good setup reduces avoidable confusion later.',
+  },
+  '/journal': {
+    kicker: 'The NTA Journal',
+    heading: 'Complete editions of NTA’s weekly practical business publication.',
+    answer: 'The NTA Journal preserves Rick Hesse’s current lessons, observations, and work in a readable archive connected to the Knowledge Library, Growth Show, books, and other NTA teaching.',
+  },
 };
 
 function authorityPageStaticBody(pathname) {
