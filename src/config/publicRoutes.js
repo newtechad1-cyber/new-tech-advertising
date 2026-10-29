@@ -156,7 +156,6 @@ import AiAdvertising from '@/pages/AiAdvertising';
 import VideoAdvertisingManagement from '@/pages/VideoAdvertisingManagement';
 import AiSeo from '@/pages/AiSeo';
 import AiSocialMedia from '@/pages/AiSocialMedia';
-import AiVideos from '@/pages/AiVideos';
 import AiWebsites from '@/pages/AiWebsites';
 import AiVisibilityBasics from '@/pages/AIVisibilityBasics';
 
