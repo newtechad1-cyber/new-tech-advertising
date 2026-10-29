@@ -35,6 +35,12 @@ export default function WhyNTA() {
       <SEOHead
         title="Why NTA Teaches Practical AI for Small Business Owners"
         description="Meet Rick Hesse and understand the human-centered philosophy connecting New Tech Advertising, practical AI, trust, and lifelong learning."
+        learningData={{
+          name: 'Why NTA Starts With the Business Before the Technology',
+          description: 'Rick Hesse explains the human-centered principles behind New Tech Advertising, practical AI, trust, business understanding, and responsible technology use.',
+          educationalLevel: 'Beginner',
+          learningResourceType: 'NTA Point of View'
+        }}
       />
 
       <MarketingNav />
@@ -47,8 +53,12 @@ export default function WhyNTA() {
             <Compass className="h-4 w-4" /> The person behind the work
           </div>
           <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-white md:text-6xl">Why I Do This Work</h1>
-          <p className="mt-7 max-w-3xl text-xl leading-relaxed text-slate-300">
-            New Tech Advertising is more than a collection of marketing and AI services. It is the practical expression of a lifetime spent studying how businesses grow, how people build trust, why systems fail, and how complicated ideas can become useful.
+          <h2 className="mt-7 max-w-3xl text-2xl font-bold text-white">Why does NTA start with the business before the technology?</h2>
+          <p className="speakable mt-3 max-w-3xl text-xl leading-relaxed text-slate-300">
+            Because a tool is only useful when it serves a real purpose. NTA begins with the people, the work, the customer, the knowledge already inside the business, and the result the owner is trying to achieve before recommending AI, automation, websites, advertising, or software.
+          </p>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-400">
+            New Tech Advertising is the practical expression of a lifetime spent studying how businesses grow, how people build trust, why systems fail, and how complicated ideas can become useful.
           </p>
         </motion.div>
       </section>
