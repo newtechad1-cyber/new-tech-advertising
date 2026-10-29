@@ -1178,6 +1178,106 @@ function caseStudySchemaMarkup(pathname, metadata) {
   return schemas.map((schema) => '<script type="application/ld+json" data-seo-static-case-study="true">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>').join('\n');
 }
 
+const SERVICE_PAGE_CONTENT = {
+  '/ai-marketing-platform': {
+    heading: 'How can AI actually help my business?',
+    answer: 'AI can help a small business capture knowledge, organize information, prepare follow-up, draft approved content, find patterns, and reduce repeated work. It is most useful when it supports a clear business need and people remain responsible for judgment and decisions.',
+    serviceName: 'Practical AI Guidance for Small Business',
+    serviceType: 'Practical AI education and implementation guidance for small business',
+    audience: 'Small-business owners and owner-led teams',
+  },
+  '/ai-seo': {
+    heading: 'How can a business become easier to find in Google and AI search?',
+    answer: 'Make the business easy to understand and useful to cite: keep services, locations, and contact information clear; answer real customer questions; publish trustworthy source material; strengthen reviews and outside references; and make sure search and AI crawlers can reach the site.',
+    serviceName: 'AI Search Visibility and SEO Guidance',
+    serviceType: 'AI search visibility, SEO, and digital authority guidance for small business',
+    audience: 'Small-business owners and local service businesses',
+  },
+  '/ai-websites': {
+    heading: 'What should a useful business website actually do?',
+    answer: 'A useful website helps people understand the business, answers real questions, builds confidence, and gives someone a sensible next step. It should also help the business learn instead of sitting online unchanged.',
+    serviceName: 'Business Website Improvement and Rebuild Guidance',
+    serviceType: 'Website improvement, rebuild, and connected customer-experience guidance for small business',
+    audience: 'Small-business owners, retailers, restaurants, and service businesses',
+  },
+  '/ai-social-media': {
+    heading: 'What should a small business post on social media?',
+    answer: 'Start with what the business already knows. Customer questions, employee knowledge, approved offers, useful explanations, and the work already happening are stronger source material than inventing posts just to fill a calendar.',
+    serviceName: 'Social Media Content and Communication Guidance',
+    serviceType: 'Social media content planning and connected business communication for small business',
+    audience: 'Small-business owners and local businesses',
+  },
+  '/ai-advertising': {
+    heading: 'What should happen before you spend more on digital advertising?',
+    answer: 'Clarify the audience, the message, the destination, the budget, and what result would make the campaign useful. AI and platform automation can assist with bidding, targeting, reporting, and creative preparation, but they do not replace the business decisions behind the campaign.',
+    serviceName: 'Digital Advertising Planning and Management',
+    serviceType: 'Digital advertising strategy, campaign planning, and management for small business',
+    audience: 'Small-business owners and local or regional businesses',
+  },
+  '/ai-video-marketing': {
+    heading: 'What should a business video do?',
+    answer: 'Help someone understand one useful thing about the business. A video can explain a service, introduce the people behind it, answer a customer question, or show how the work happens. Start with the message, then choose the format.',
+    serviceName: 'Business Video Production and Storytelling',
+    serviceType: 'Business video production, educational video, and brand storytelling for small business',
+    audience: 'Small-business owners and local businesses',
+  },
+  '/back-office-solutions': {
+    heading: 'What is making the work harder than it needs to be?',
+    answer: 'The useful clues are usually in the everyday work: what gets written down, retyped, forgotten, searched for, handed off, or explained again. Follow those handoffs before deciding that new software is the answer.',
+    serviceName: 'Back-Office Workflow and Operations Guidance',
+    serviceType: 'Back-office workflow, process, and business-operations improvement for small business',
+    audience: 'Small-business owners and owner-led teams',
+  },
+  '/streaming-tv-advertising': {
+    heading: 'Should a small business use streaming TV advertising?',
+    answer: 'Maybe. Streaming TV can create reach, but it belongs in the plan only when the audience, message, destination, budget, and follow-up make sense together. The Digital Growth Roadmap determines whether it belongs now, later, or not at all.',
+    serviceName: 'Streaming TV and Connected TV Advertising Guidance',
+    serviceType: 'Streaming TV and connected TV advertising planning for small business',
+    audience: 'Small-business owners and local or regional businesses',
+  },
+};
+
+function servicePageStaticBody(pathname) {
+  const item = SERVICE_PAGE_CONTENT[pathname];
+  if (!item) return '';
+  return '<main data-prerendered="true" class="seo-shell"><article><p class="seo-kicker">New Tech Advertising · Digital Growth Office</p>' +
+    '<h1>' + escapeHtml(item.heading) + '</h1><p class="speakable">' + escapeHtml(item.answer) + '</p>' +
+    '<h2>Start with the business need</h2><p>NTA begins by understanding the people, customers, knowledge, systems, goals, and work already inside the business. Technology and advertising are chosen only when they serve that larger need.</p>' +
+    '<nav aria-label="Related NTA resources"><a href="/start">Start a Growth Conversation</a><a href="/growth-system">Digital Growth Office</a><a href="/knowledge">Knowledge Library</a></nav></article></main>';
+}
+
+function servicePageSchemaMarkup(pathname, metadata) {
+  const item = SERVICE_PAGE_CONTENT[pathname];
+  if (!item || metadata.noIndex) return '';
+  const canonical = metadata.canonical;
+  const schemas = [{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': canonical + '#service',
+    name: item.serviceName,
+    serviceType: item.serviceType,
+    description: metadata.description,
+    url: canonical,
+    provider: { '@id': SITE_ORIGIN + '/#organization' },
+    areaServed: 'United States',
+    audience: { '@type': 'Audience', audienceType: item.audience },
+  }, {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    '@id': canonical + '#learning-resource',
+    name: item.heading,
+    description: item.answer,
+    url: canonical,
+    learningResourceType: 'Practical guide',
+    educationalLevel: 'Beginner',
+    isAccessibleForFree: true,
+    inLanguage: 'en-US',
+    provider: { '@id': SITE_ORIGIN + '/#organization' },
+    author: { '@id': SITE_ORIGIN + '/#rick-hesse', name: 'Rick Hesse' },
+  }];
+  return schemas.map((schema) => '<script type="application/ld+json" data-seo-static-service="true">' + JSON.stringify(schema).replace(/</g, '\\u003c') + '</script>').join('\n');
+}
+
 function accessibilityStaticBody(pathname) {
   const content = {
     '/accessible-websites': {
@@ -1279,6 +1379,7 @@ function shellMarkup(metadata, pathname) {
   const body = growthShowStaticBody(pathname)
     || podcastStaticBody(pathname)
     || approvedLessonStaticBody(pathname)
+    || servicePageStaticBody(pathname)
     || accessibilityStaticBody(pathname)
     || videoWatchStaticBody(pathname)
     || bookStaticBody(pathname)
@@ -1353,7 +1454,7 @@ function renderHtml(template, metadata, pathname) {
       .seo-shell article { border-radius: 1rem; }
     }
   </style>`;
-  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + aiContentSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) + caseStudySchemaMarkup(pathname, metadata) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
+  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + aiContentSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) + caseStudySchemaMarkup(pathname, metadata) + servicePageSchemaMarkup(pathname, metadata) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
   html = html.replace('<div id="root"></div>', '<div id="root">' + shell.body + '</div>');
   return html;
 }
