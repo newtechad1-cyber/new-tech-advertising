@@ -59,7 +59,7 @@ export default function LearningCenter() {
     {
       id: 'digital-visibility',
       title: 'Digital Visibility',
-      description: 'Understanding zero-click searches, AI overviews, and how to get found today.',
+      description: 'Understand how search, AI answer systems, useful content, and clear business information affect how people find you today.',
       icon: Compass,
       color: 'purple',
       path: '/what-changed-online',
@@ -71,7 +71,7 @@ export default function LearningCenter() {
     {
       id: 'growth-systems',
       title: 'Growth Systems',
-      description: 'Why traditional campaigns fail and how to build automated lead generation machines.',
+      description: 'Learn why disconnected activity is not the same as growth and how connected systems can support steadier improvement over time.',
       icon: TrendingUp,
       color: 'orange',
       path: '/growth-systems-vs-campaigns',
@@ -83,7 +83,7 @@ export default function LearningCenter() {
     {
       id: 'trust-relationships',
       title: 'Trust & Relationships',
-      description: 'Using reputation, reviews, and accessibility as your primary growth engines.',
+      description: 'Understand how trust, reviews, relationships, accessibility, and kept promises influence customer decisions and long-term growth.',
       icon: ShieldCheck,
       color: 'indigo',
       path: '/building-digital-trust',
