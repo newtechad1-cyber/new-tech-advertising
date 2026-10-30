@@ -128,8 +128,8 @@ const STATIC_SEO = {
     description: "A practical business book for owners who want clearer decisions, stronger relationships, and growth that is built on more than constant advertising.",
   },
   "/practical-ai-for-small-business": {
-    title: "Practical AI for Small Business Owners | Free Guide",
-    description: "A plainspoken guide to using AI in a real small business without hype, jargon, or giving up human judgment.",
+    title: "Practical AI for Small Business | New Tech Advertising",
+    description: "NTA's practical AI authority hub for small-business owners: clear answers, human judgment, connected lessons, working examples, AI search visibility, and the free Practical AI guide.",
   },
   "/ai-curious": {
     title: "AI Curious? - A First Look at AI for Everyday People | New Tech Advertising",
