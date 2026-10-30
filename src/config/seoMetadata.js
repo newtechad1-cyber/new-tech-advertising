@@ -69,8 +69,8 @@ const STATIC_SEO = {
     description: "Learn practical ways to make a small business easier for search engines and AI answer systems to understand, verify, and cite.",
   },
   "/ai-seo": {
-    title: "AI Search Optimization for Small Business | NTA",
-    description: "Learn the practical foundations of AI search visibility, clear business information, useful content, and trustworthy online signals.",
+    title: "AI Search Visibility & GEO for Small Business | NTA",
+    description: "Learn how NTA helps small businesses improve AI Search Visibility and GEO through clear answers, trustworthy evidence, crawler-ready pages, structured data, and repeatable measurement.",
   },
   "/ai-social-media": {
     title: "What Should My Business Post on Social Media? | NTA",
