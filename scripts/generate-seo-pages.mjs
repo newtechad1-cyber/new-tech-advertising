@@ -236,7 +236,7 @@ function buildLlmsKnowledgeSection(knowledgeCollections, questions) {
   const lines = [
     "## Knowledge Library",
     "",
-    "The NTA Knowledge Library is a connected set of practical lessons about small-business growth, trust, relationships, business knowledge, AI, and digital trust.",
+    "The NTA Knowledge Library is the approved public knowledge source behind the NTA Authority System. It connects Rick Hesse's practical AI and business teaching with questions, lessons, videos, evidence, AI Search Visibility, the Digital Growth Office, and Your Digital Growth Guide.",
     "",
     "### [Start with a business question](" + SITE_ORIGIN + "/knowledge/questions)",
     "",
