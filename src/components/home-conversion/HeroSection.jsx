@@ -1,43 +1,28 @@
-import { ArrowRight, BookOpen, CircleHelp, Clock, Globe, MessageCircle, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, CircleHelp, Link2, MessageCircle, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { trackJourneyEvent } from '@/lib/journeyAnalytics';
-import RickMissionStatement from './RickMissionStatement';
 
 const BUSINESS_PATHS = [
   {
-    title: 'I need more customers',
-    description: 'Help people discover what you offer, choose with confidence, and come back—to shop, dine, order online, or use your services.',
-    to: '/knowledge/questions/how-can-ai-help-me-get-more-customers',
-    icon: Users,
-    step: 'more_customers'
-  },
-  {
-    title: 'I want to save time',
-    description: 'See where AI can help prepare, organize, and reduce repeated setup without taking over the work.',
-    to: '/knowledge/questions/how-can-ai-save-me-time-in-my-business',
-    icon: Clock,
-    step: 'save_time'
-  },
-  {
-    title: "My website isn't working",
-    description: 'Start with what your website needs to do: help people shop, plan a meal, order, find answers, or begin a service conversation.',
-    to: '/ai-websites',
-    icon: Globe,
-    step: 'website_not_working'
-  },
-  {
-    title: "I'm trying to understand AI",
-    description: 'Get a plainspoken explanation of where AI fits in a real small business and where it does not.',
-    to: '/knowledge/questions/how-can-a-small-business-use-ai',
+    title: 'Learn',
+    description: 'Understand practical AI and business growth in plain language before deciding what to change.',
+    to: '/knowledge',
     icon: BookOpen,
-    step: 'understand_ai'
+    step: 'learn'
   },
   {
-    title: 'I want customers to stay connected',
-    description: 'Make useful follow-up, customer help, and reasons to return part of the relationship—not just the first purchase or visit.',
-    to: '/knowledge/questions/how-can-ai-help-with-customer-follow-up',
-    icon: MessageCircle,
-    step: 'customer_follow_up'
+    title: 'Get Found',
+    description: 'See how your business can become easier for Google and AI answer systems to understand and find.',
+    to: '/ai-seo',
+    icon: Search,
+    step: 'get_found'
+  },
+  {
+    title: 'Get Things Connected',
+    description: 'Bring business knowledge, customers, follow-up, projects, approvals, tracking, and practical AI into one working system.',
+    to: '/operating-system',
+    icon: Link2,
+    step: 'get_connected'
   }
 ];
 
@@ -70,41 +55,22 @@ export default function HeroSection() {
       </div>
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
-        <RickMissionStatement />
         <div className="mx-auto max-w-4xl text-center">
-          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-            Practical AI for small business
-          </p>
-          <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-            Start With What Your Business Needs.
-          </h1>
+          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Practical AI and business guidance for small business</p>
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">What are you trying to figure out in your business?</h1>
           <div className="mx-auto mt-7 max-w-3xl space-y-4 text-lg leading-relaxed text-slate-300 md:text-xl">
-            <h2 className="text-2xl font-bold text-white md:text-3xl">How can AI and digital tools actually help a small business?</h2>
-            <p className="speakable font-semibold text-white">
-              Start with the business problem, the people involved, and the result you need. Then use AI, websites, marketing, follow-up, and automation only where they genuinely help.
-            </p>
-            <p>
-              New Tech Advertising helps small-business owners connect <strong className="text-white">people, business knowledge, customer experience, visibility, follow-up, and practical AI</strong> so the pieces work together instead of becoming another pile of disconnected tools.
-            </p>
-            <p>
-              You do not need to know which tool or service to ask for. Tell us what is happening in your business. We listen to you and your team, look at what customers and employees are experiencing, and agree on the next useful improvement. Your <strong className="text-white">Digital Growth Roadmap™</strong> keeps that work connected to the larger <strong className="text-white">Digital Growth Office™</strong>.
-            </p>
-            <p className="font-semibold text-blue-200">
-              Understanding comes before technology.
-            </p>
-            <p className="text-base text-slate-300">
-              A <Link to="/ai-websites#retail-and-online-stores" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">small shop or online store</Link>, a <Link to="/restaurants" className="font-semibold text-cyan-200 underline underline-offset-4 hover:text-white">restaurant</Link>, and a service business need different customer paths. We start with how your customers shop, dine, order, or ask for help.
-            </p>
+            <p className="speakable font-semibold text-white">Start with the question, frustration, or opportunity already on your mind. You do not need to know which tool, service, or technology to ask for first.</p>
+            <p>New Tech Advertising helps small-business owners understand practical AI, improve visibility, connect useful business knowledge, and turn the right ideas into working improvements.</p>
+          </div>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <button type="button" onClick={() => openGrowthGuide('homepage_primary')} className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500"><MessageCircle className="h-5 w-5" /> What would you like to talk through?</button>
+            <Link to="/growth-conversation" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 font-bold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">Talk with Rick <ArrowRight className="h-5 w-5" /></Link>
           </div>
         </div>
 
         <div className="mx-auto mt-10 max-w-2xl text-center md:mt-12">
-          <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
-            Start where you are.
-          </h2>
-          <p className="mt-3 text-base leading-relaxed text-slate-300 md:text-lg">
-            What would you like help with? Choose the statement below that sounds most like your situation. You don’t need to know the solution yet.
-          </p>
+          <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl">Or choose a simple direction.</h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-300 md:text-lg">You can learn first, work on being found, or start connecting the business. The deeper NTA system stays behind these simple entrances.</p>
         </div>
 
         <div className="mx-auto mt-6 grid max-w-6xl gap-4 md:mt-8 md:grid-cols-2 lg:grid-cols-3">
@@ -142,25 +108,7 @@ export default function HeroSection() {
           </button>
         </div>
 
-        <div className="mx-auto mt-10 max-w-5xl rounded-3xl border border-slate-700/80 bg-slate-900/75 p-6 shadow-2xl shadow-cyan-950/15 backdrop-blur-sm md:flex md:items-center md:justify-between md:gap-8 md:p-8">
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">A simple place to start</p>
-            <h2 className="mt-3 text-2xl font-bold text-white">Start with what is happening in your business.</h2>
-            <p className="mt-3 leading-relaxed text-slate-300">You do not need to know the right question yet. Describe a familiar frustration or something you would like to improve. Your Digital Growth Guide™ can help you explore it, or you can talk with a real person at NTA.</p>
-          </div>
-          <div className="mt-6 flex shrink-0 flex-col gap-3 sm:flex-row md:mt-0 md:flex-col">
-            <button type="button" onClick={() => openGrowthGuide()} className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-colors hover:bg-blue-500">
-              <MessageCircle className="h-5 w-5" /> Ask Your Digital Growth Guide™
-            </button>
-            <Link to="/knowledge/questions" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-950/50 px-6 py-3.5 font-bold text-slate-100 transition-colors hover:border-slate-400 hover:bg-slate-800">
-              Browse all questions <ArrowRight className="h-5 w-5" />
-            </Link>
-          </div>
-        </div>
-
-        <p className="mx-auto mt-7 max-w-3xl text-center text-sm leading-relaxed text-slate-500">
-          Prefer to learn before changing anything? The Free AI Guy remains part of the free NTA learning experience, but you do not have to understand any branded system before getting a useful answer.
-        </p>
+        <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-slate-500">Understanding comes before technology. You can explore without pressure, and you do not have to understand any NTA system before getting a useful answer.</p>
       </div>
     </section>
   );
