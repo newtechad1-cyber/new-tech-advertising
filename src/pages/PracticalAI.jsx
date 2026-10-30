@@ -26,8 +26,8 @@ export default function PracticalAI() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
       <SEOHead
-        title="Practical AI for Small Business Owners | Free Guide"
-        description="A plainspoken guide for business owners who want to understand AI without the hype, jargon, or confusion."
+        title="Practical AI for Small Business | New Tech Advertising"
+        description="Learn practical AI for small business through NTA's connected authority system: clear answers, real business experience, human judgment, lessons, tools, and working examples."
         faqs={PRACTICAL_AI_GUIDE_FAQS}
         learningData={{
           name: 'Practical AI for Small Business',
@@ -57,7 +57,7 @@ export default function PracticalAI() {
                   Start with a real business need, not a list of tools. Look at where time, knowledge, communication, follow-up, or repeated work is being lost, then test one practical use of AI while keeping human judgment in control.
                 </p>
                 <p className="mt-4 max-w-3xl text-base leading-7 text-slate-400">
-                  This revised guide includes Rick Hesse's experience working with AI, why an AI website needs the owner's knowledge and feedback, and how to check that finished work does what the business needs.
+                  This page is the central NTA hub for practical AI for small business. The free guide is one part of a larger body of lessons, questions, videos, examples, and working systems built from Rick Hesse's experience using AI in real business work.
                 </p>
                 <p className="mt-5 text-lg font-semibold text-indigo-300">
                   People Always. AI Where It Genuinely Helps.
@@ -78,6 +78,36 @@ export default function PracticalAI() {
                 />
               </div>
 
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-800 bg-slate-900/50 px-6 py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-4xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">The NTA Authority System</p>
+              <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Authority is built by connecting what we know, teach, show, and verify.</h2>
+              <p className="mt-5 text-lg leading-8 text-slate-300">
+                NTA is not trying to become known for repeating AI news or promoting the newest tool. The goal is to build a trustworthy body of practical knowledge around the questions small-business owners are actually asking, then connect that knowledge across the website so people, search engines, and AI answer systems can understand what NTA genuinely knows.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              <Link to="/practical-ai-for-small-business" className="rounded-2xl border border-indigo-400/20 bg-indigo-500/5 p-6 hover:border-indigo-300/50">
+                <h3 className="text-xl font-bold text-white">Practical AI</h3>
+                <p className="mt-3 leading-7 text-slate-400">Plainspoken teaching about where AI helps a real business and where human judgment still belongs.</p>
+              </Link>
+              <Link to="/ai-seo" className="rounded-2xl border border-emerald-400/20 bg-emerald-500/5 p-6 hover:border-emerald-300/50">
+                <h3 className="text-xl font-bold text-white">AI Search Visibility</h3>
+                <p className="mt-3 leading-7 text-slate-400">Helping Google and AI answer systems understand, retrieve, and cite useful business information.</p>
+              </Link>
+              <Link to="/operating-system" className="rounded-2xl border border-sky-400/20 bg-sky-500/5 p-6 hover:border-sky-300/50">
+                <h3 className="text-xl font-bold text-white">Digital Growth Office</h3>
+                <p className="mt-3 leading-7 text-slate-400">Connecting business knowledge, customer relationships, projects, content, approvals, and practical AI into one working system.</p>
+              </Link>
+              <Link to="/knowledge" className="rounded-2xl border border-amber-400/20 bg-amber-500/5 p-6 hover:border-amber-300/50">
+                <h3 className="text-xl font-bold text-white">Knowledge Library</h3>
+                <p className="mt-3 leading-7 text-slate-400">The reviewed lessons, questions, and ideas that turn lived experience into reusable business knowledge.</p>
+              </Link>
             </div>
           </div>
         </section>
@@ -130,6 +160,22 @@ export default function PracticalAI() {
               <h3 className="text-2xl font-bold text-indigo-300 lg:text-3xl">
                 People Always. AI Where It Genuinely Helps.
               </h3>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-800 px-6 py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Keep learning from the same source</p>
+              <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">Practical AI should connect to deeper answers, not end on one page.</h2>
+              <p className="mt-5 text-lg leading-8 text-slate-300">The strongest authority comes from a connected body of useful material. These are the next places to continue depending on what you are trying to understand or accomplish.</p>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              <Link to="/knowledge/ai-foundations" className="rounded-2xl border border-slate-800 bg-slate-900/60 p-7 hover:border-indigo-400/40"><h3 className="text-xl font-bold text-white">AI Foundations</h3><p className="mt-3 leading-7 text-slate-400">Start with the lessons that explain AI, conversation, tools, systems, automation, GEO, and how the pieces fit together.</p></Link>
+              <Link to="/knowledge/questions" className="rounded-2xl border border-slate-800 bg-slate-900/60 p-7 hover:border-indigo-400/40"><h3 className="text-xl font-bold text-white">Small-Business Questions</h3><p className="mt-3 leading-7 text-slate-400">Begin with the question you already have and move from a short answer into the deeper NTA teaching behind it.</p></Link>
+              <Link to="/growth-show" className="rounded-2xl border border-slate-800 bg-slate-900/60 p-7 hover:border-indigo-400/40"><h3 className="text-xl font-bold text-white">NTA Growth Show</h3><p className="mt-3 leading-7 text-slate-400">Watch or listen to Rick work through practical AI and business ideas in a more conversational format.</p></Link>
+              <Link to="/growth-guide" className="rounded-2xl border border-slate-800 bg-slate-900/60 p-7 hover:border-indigo-400/40"><h3 className="text-xl font-bold text-white">Your Digital Growth Guide™</h3><p className="mt-3 leading-7 text-slate-400">Talk through your own business situation instead of trying to figure out which tool, service, or page you are supposed to choose.</p></Link>
             </div>
           </div>
         </section>
