@@ -997,7 +997,7 @@ export default function YourDigitalGrowthGuide() {
                   <button
                     type="button"
                     onClick={openGuide}
-                    aria-label="Open Talk to My Office"
+                    aria-label="Open Your Digital Growth Guide"
                     className="h-16 w-14 rounded-2xl border border-slate-700/80 bg-slate-950/90 p-1 shadow-[0_12px_24px_rgba(0,0,0,0.38)] transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
                   >
                     <video
@@ -1015,23 +1015,23 @@ export default function YourDigitalGrowthGuide() {
                     type="button"
                     onPointerDown={(event) => event.stopPropagation()}
                     onClick={() => setIsAvatarMinimized(false)}
-                    aria-label="Restore the larger Talk to My Office guide"
+                    aria-label="Restore the larger Digital Growth Guide"
                     className="absolute -left-2 -top-1 rounded-full border border-slate-600 bg-slate-900 p-1.5 text-slate-200 shadow-lg transition-colors hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
                   >
                     <Maximize2 className="h-3.5 w-3.5" />
                   </button>
-                  <span className="mt-1 pr-1 text-[10px] font-semibold tracking-wide text-slate-100 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Talk to My Office™</span>
-                  <span className="max-w-[8rem] pr-1 text-right text-[9px] leading-tight text-slate-300 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Call, text, email, or start a conversation</span>
+                  <span className="mt-1 max-w-[9rem] pr-1 text-right text-[10px] font-semibold leading-tight text-slate-100 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">What would you like to talk through?</span>
+                  <span className="max-w-[9rem] pr-1 text-right text-[9px] leading-tight text-slate-300 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Start with whatever is on your mind.</span>
                 </div>
               ) : (
                 <div className="flex flex-col items-end">
-                  <span className="mb-1 pr-2 text-xs font-semibold tracking-wide text-slate-100 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Talk to My Office™</span>
-                  <span className="mb-1 max-w-[11rem] pr-2 text-right text-[10px] leading-tight text-slate-300 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Call, text, email, or start a conversation</span>
+                  <span className="mb-1 max-w-[13rem] pr-2 text-right text-sm font-semibold leading-tight text-slate-100 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">What would you like to talk through?</span>
+                  <span className="mb-1 max-w-[13rem] pr-2 text-right text-[10px] leading-tight text-slate-300 drop-shadow-[0_2px_3px_rgba(0,0,0,0.95)]">Start with whatever is on your mind.</span>
                   <div className="relative">
                     <button
                       type="button"
                       onClick={openGuide}
-                      aria-label="Open Talk to My Office"
+                      aria-label="Open Your Digital Growth Guide"
                       className={cn(
                         "overflow-visible bg-transparent text-left transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 cursor-grab active:cursor-grabbing",
                         showHomeWelcome && location.pathname === '/'
@@ -1054,7 +1054,7 @@ export default function YourDigitalGrowthGuide() {
                       type="button"
                       onPointerDown={(event) => event.stopPropagation()}
                       onClick={() => setIsAvatarMinimized(true)}
-                      aria-label="Minimize the Talk to My Office guide"
+                      aria-label="Minimize the Digital Growth Guide"
                       className="absolute right-0 top-0 rounded-full border border-slate-600 bg-slate-900/95 p-2 text-slate-200 shadow-lg transition-colors hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
                     >
                       <Minimize2 className="h-4 w-4" />
@@ -1125,7 +1125,7 @@ export default function YourDigitalGrowthGuide() {
                 <button
                   type="button"
                   onClick={() => { stopGuideVoice(); cancelVoiceInput(); setIsAvatarMinimized(true); setIsOpen(false); }}
-                  aria-label="Minimize Talk to My Office"
+                  aria-label="Minimize Your Digital Growth Guide"
                   className="text-slate-300 hover:text-white transition-colors bg-slate-800/70 px-3 py-2 rounded-xl flex items-center gap-2 text-xs font-medium"
                 >
                   <Minimize2 className="w-4 h-4" />
@@ -1134,7 +1134,7 @@ export default function YourDigitalGrowthGuide() {
                 <button
                   type="button"
                   onClick={() => { stopGuideVoice(); cancelVoiceInput(); setIsOpen(false); }}
-                  aria-label="Close Talk to My Office"
+                  aria-label="Close Your Digital Growth Guide"
                   className="text-slate-400 hover:text-white transition-colors bg-slate-800/50 p-2 rounded-full"
                 >
                   <X className="w-5 h-5" />
