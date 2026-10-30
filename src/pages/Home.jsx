@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import MarketingNav from '../components/nav/MarketingNav';
 import SiteFooter from '../components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -36,6 +37,18 @@ export default function Home() {
         <HeroSection />
         <BuildTeamSection />
         <ConnectBusinessSection />
+        <section className="border-y border-slate-800 bg-slate-900/70 py-16">
+          <div className="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-[1.4fr_0.6fr] md:items-center">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-400">AI Search Visibility</p>
+              <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">Can people find your business when they ask AI?</h2>
+              <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-300">Search is changing. NTA helps businesses become easier for Google and AI answer systems to understand by connecting clear business facts, useful answers, trustworthy evidence, crawler-ready pages, and ongoing measurement.</p>
+            </div>
+            <div className="md:text-right">
+              <Link to="/ai-seo" className="inline-flex rounded-xl bg-emerald-600 px-6 py-3 font-bold text-white transition hover:bg-emerald-500">Learn about AI Search Visibility</Link>
+            </div>
+          </div>
+        </section>
         <CustomerExperienceSection />
         <SeeWhatToWorkOnSection />
         <PublicationsSection />
