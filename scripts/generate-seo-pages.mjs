@@ -1283,9 +1283,9 @@ const AUTHORITY_PAGE_CONTENT = {
     answer: 'The NTA Learning Center connects business foundations, practical AI, visibility, trust, relationships, and growth systems so small-business owners can understand the ideas before deciding what to change.',
   },
   '/operating-system': {
-    kicker: 'NTA Digital Growth Office',
-    heading: 'One connected business growth system.',
-    answer: 'NTA connects business knowledge, customer relationships, visibility, content, projects, approvals, reporting, and practical AI inside a Digital Growth Office so the owner can see what matters and keep human judgment in control.',
+    kicker: 'NTA Digital Growth Office · Authority System',
+    heading: 'Where useful knowledge becomes connected business action.',
+    answer: 'The Digital Growth Office is the operational center of the NTA Authority System. It connects business knowledge, customer relationships, visibility, content, projects, approvals, tracking, reporting, and practical AI so the owner can see what matters, act on approved priorities, retain what was learned, and keep human judgment in control.',
   },
   '/work-with-nta': {
     kicker: 'Work with New Tech Advertising',
