@@ -61,11 +61,12 @@ export default function AiSeo() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.16),_transparent_42%)]" />
           <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm font-semibold text-emerald-300"><Search className="h-4 w-4" /> Search, Google & AI visibility</div>
-            <h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">“Why can’t people find my business?” <span className="text-emerald-400">Start with what they need to find.</span></h1>
+            <h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">Can people find your business <span className="text-emerald-400">when they ask AI?</span></h1>
             <div className="mt-7 max-w-3xl">
               <h2 className="text-2xl font-bold text-white">How can a business become easier to find in Google and AI search?</h2>
               <p className="speakable mt-3 text-lg leading-relaxed text-slate-300 md:text-xl">Make the business easy to understand and useful to cite: keep services, locations, and contact information clear; answer real customer questions; publish trustworthy source material; strengthen reviews and outside references; and make sure search and AI crawlers can reach the site.</p>
               <p className="mt-4 text-base leading-relaxed text-slate-400">SEO is not simply a race for rankings. Sometimes the gap is technical. Sometimes it is content, reviews, Google Business Profile information, website structure, or simply that the business has never captured what its people already know.</p>
+              <p className="mt-4 text-base leading-relaxed text-slate-400">You may hear this work called <strong className="text-slate-200">GEO — Generative Engine Optimization</strong>. NTA uses the plainer term <strong className="text-slate-200">AI Search Visibility</strong>: helping search engines and AI answer systems understand what your business does, what it knows, and when its information may be useful to someone asking a question.</p>
             </div>
             <Link to="/start" className="mt-9 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-7 py-4 font-bold text-white transition hover:bg-emerald-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5" /></Link>
           </div>
@@ -99,6 +100,31 @@ export default function AiSeo() {
           </div>
         </section>
 
+        <section className="bg-slate-950 py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-400">How NTA approaches AI Search Visibility</p>
+              <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">Baseline → Diagnose → Improve → Verify → Monitor</h2>
+              <p className="mt-5 text-lg leading-relaxed text-slate-400">The goal is not to chase a score or promise that an AI system will recommend a business. We begin by seeing what search and AI systems can find today, identify the gaps, improve the strongest existing pages and business signals, then repeat the same questions so we can see what changed.</p>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-5">
+              {[
+                ['1', 'Baseline', 'Record where the business appears now using a consistent set of real customer questions.'],
+                ['2', 'Diagnose', 'Check content, crawl access, structure, business facts, authority signals and missing answers.'],
+                ['3', 'Improve', 'Strengthen useful existing pages before creating more content. Add clear answers, evidence and structured data where appropriate.'],
+                ['4', 'Verify', 'Confirm the important content is visible to people and available in crawler-ready HTML.'],
+                ['5', 'Monitor', 'Repeat the same benchmark and watch whether the business becomes better understood and cited over time.'],
+              ].map(([number, title, copy]) => (
+                <article key={title} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
+                  <div className="text-sm font-black text-emerald-400">{number}</div>
+                  <h3 className="mt-2 text-lg font-bold text-white">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="border-y border-slate-800 bg-slate-900/35 py-20">
           <div className="mx-auto max-w-5xl px-6">
             <div className="mb-10 text-center"><p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-400">Questions business owners ask</p><h2 className="mt-3 text-3xl font-black text-white md:text-4xl">AI Search Visibility FAQs</h2></div>
@@ -107,6 +133,29 @@ export default function AiSeo() {
             </div>
           </div>
         </section>
+        <section className="bg-white py-20 text-slate-900">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-700">Learn before you buy</p>
+              <h2 className="mt-3 text-3xl font-black md:text-4xl">Two lessons explain what changed and why ordinary SEO work is not enough by itself.</h2>
+            </div>
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              <Link to="/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search" className="group rounded-2xl border border-slate-200 bg-slate-50 p-7 transition hover:border-emerald-300 hover:shadow-lg">
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-700">GEO lesson</p>
+                <h3 className="mt-3 text-2xl font-black">What Is GEO? Getting Your Business Ready for AI Search</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">A plainspoken introduction to Generative Engine Optimization and what a business needs to become easier for AI systems to understand.</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-bold text-emerald-700">Read the lesson <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+              <Link to="/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough" className="group rounded-2xl border border-slate-200 bg-slate-50 p-7 transition hover:border-emerald-300 hover:shadow-lg">
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-700">NTA experience</p>
+                <h3 className="mt-3 text-2xl font-black">I Asked AI to SEO My Website. Why Wasn’t That Enough?</h3>
+                <p className="mt-3 leading-relaxed text-slate-600">Why a technically optimized site can still be difficult for AI systems to understand, retrieve and cite—and what deeper work changes that.</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-bold text-emerald-700">Read the lesson <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="bg-emerald-950/30 py-20 text-center">
           <div className="mx-auto max-w-4xl px-6"><h2 className="text-3xl font-black text-white md:text-4xl">You do not need to diagnose the search problem before we talk.</h2><p className="mx-auto mt-5 max-w-2xl text-lg text-slate-300">Bring the question: “Why aren’t people finding us?” We can start there, understand the larger business, and decide what belongs on the Roadmap.</p><Link to="/start" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-8 py-4 font-bold text-white transition hover:bg-emerald-500">Start a Free Growth Conversation <ArrowRight className="h-5 w-5" /></Link></div>
         </section>
