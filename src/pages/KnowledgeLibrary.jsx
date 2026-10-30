@@ -29,11 +29,11 @@ export default function KnowledgeLibrary() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 font-sans flex flex-col">
       <SEOHead
-        title="AI Lessons for Small Business Owners | NTA Knowledge Library"
-        description="A connected library of practical AI, small-business growth, customer trust, and business-system lessons from Rick Hesse."
+        title="NTA Knowledge Library | Source of the NTA Authority System"
+        description="The approved public knowledge source behind the NTA Authority System: practical AI, business growth, customer trust, business systems, Q&A, videos, and connected lessons from Rick Hesse."
         collectionData={{
           name: "NTA Knowledge Library",
-          description: "A connected library of practical AI, small-business growth, customer trust, and business-system lessons from Rick Hesse.",
+          description: "The approved public knowledge source behind the NTA Authority System, connecting practical AI, business growth, customer trust, business systems, Q&A, videos, and lessons from Rick Hesse.",
           numberOfItems: collectionsOrder.length,
           hasPart: collectionsOrder.map(col => ({
             name: col.title,
@@ -59,8 +59,11 @@ export default function KnowledgeLibrary() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Really Grow</span>
             </h1>
 
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
-              The NTA Knowledge Library is a connected learning journey for business owners. These are not ordinary blog posts. Each lesson helps you understand one important principle about growth, trust, relationships, advertising, artificial intelligence, and building a business that can keep learning. Several lessons focus on the knowledge already living across a business—owners, employees, and customers—and how AI can help a team remember, organize, and use it while people keep making the decisions.
+            <p className="speakable text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed mb-5">
+              The NTA Knowledge Library is the approved public knowledge source behind the NTA Authority System. It turns Rick Hesse's experience, lessons, questions, videos, and working observations into connected knowledge that can be learned from, reused, verified, and carried into real business work.
+            </p>
+            <p className="text-base text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8">
+              These are not ordinary blog posts. Each lesson helps explain one important principle about growth, trust, relationships, advertising, artificial intelligence, and building a business that can keep learning. Related questions, videos, Journal issues, case studies, and business systems point back to the same source ideas instead of becoming separate content piles.
             </p>
 
             <p className="text-sm text-slate-500 mb-10 max-w-xl mx-auto">
@@ -100,6 +103,40 @@ export default function KnowledgeLibrary() {
                 </div>
               </div>
             )}
+          </div>
+        </section>
+
+        <section className="border-b border-slate-800 bg-slate-900/55 px-6 py-16" aria-labelledby="authority-system-knowledge-heading">
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-4xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">The knowledge center of the NTA Authority System</p>
+              <h2 id="authority-system-knowledge-heading" className="mt-3 text-3xl font-black text-white md:text-4xl">Capture it once. Connect it. Keep improving it.</h2>
+              <p className="mt-5 text-lg leading-8 text-slate-300">
+                Useful authority grows when the same approved idea can support a lesson, answer a customer question, guide a conversation, strengthen AI Search Visibility, inform the Digital Growth Office, and help someone make a better decision. The Knowledge Library is where those ideas stay organized and connected to their source.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              <Link to="/knowledge/questions" className="rounded-2xl border border-slate-700 bg-slate-950/70 p-6 transition hover:border-blue-400/50">
+                <h3 className="text-xl font-bold text-white">Questions</h3>
+                <p className="mt-3 leading-7 text-slate-400">Start with the question a business owner is actually asking and connect the short answer to deeper NTA teaching.</p>
+              </Link>
+              <Link to="/practical-ai-for-small-business" className="rounded-2xl border border-slate-700 bg-slate-950/70 p-6 transition hover:border-indigo-400/50">
+                <h3 className="text-xl font-bold text-white">Practical AI</h3>
+                <p className="mt-3 leading-7 text-slate-400">Turn approved knowledge into plainspoken guidance about where AI helps and where human judgment remains essential.</p>
+              </Link>
+              <Link to="/ai-seo" className="rounded-2xl border border-slate-700 bg-slate-950/70 p-6 transition hover:border-emerald-400/50">
+                <h3 className="text-xl font-bold text-white">AI Search Visibility</h3>
+                <p className="mt-3 leading-7 text-slate-400">Give search and AI systems clear, trustworthy source material they can understand, retrieve, and connect.</p>
+              </Link>
+              <Link to="/operating-system" className="rounded-2xl border border-slate-700 bg-slate-950/70 p-6 transition hover:border-cyan-400/50">
+                <h3 className="text-xl font-bold text-white">Digital Growth Office</h3>
+                <p className="mt-3 leading-7 text-slate-400">Carry useful knowledge into approved work, tracking, results, retained evidence, and the next improvement.</p>
+              </Link>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link to="/growth-guide" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">Ask Your Digital Growth Guide™ <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/knowledge/questions" className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-blue-300">Start with a business question</Link>
+            </div>
           </div>
         </section>
 
