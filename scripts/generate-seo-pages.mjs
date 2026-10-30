@@ -714,62 +714,41 @@ function homeStaticBody(pathname) {
 
   const paths = [
     {
-      label: "I need more customers",
-      description: "Help people discover what you offer, choose with confidence, and come back—to shop, dine, order online, or use your services.",
-      href: "/knowledge/questions/how-can-ai-help-me-get-more-customers",
+      label: "Learn",
+      description: "Understand practical AI and business growth in plain language before deciding what to change.",
+      href: "/knowledge",
     },
     {
-      label: "I want to save time",
-      description: "See where AI can help prepare, organize, and reduce repeated setup without taking over the work.",
-      href: "/knowledge/questions/how-can-ai-save-me-time-in-my-business",
+      label: "Get Found",
+      description: "See how your business can become easier for Google and AI answer systems to understand and find.",
+      href: "/ai-seo",
     },
     {
-      label: "My website isn't working",
-      description: "Start with what your website needs to do: help people shop, plan a meal, order, find answers, or begin a service conversation.",
-      href: "/ai-websites",
-    },
-    {
-      label: "I'm trying to understand AI",
-      description: "Get a plainspoken explanation of where AI fits in a real small business and where it does not.",
-      href: "/knowledge/questions/how-can-a-small-business-use-ai",
-    },
-    {
-      label: "I want customers to stay connected",
-      description: "Make useful follow-up, customer help, and reasons to return part of the relationship—not just the first purchase or visit.",
-      href: "/knowledge/questions/how-can-ai-help-with-customer-follow-up",
+      label: "Get Things Connected",
+      description: "Bring business knowledge, customers, follow-up, projects, approvals, tracking, and practical AI into one working system.",
+      href: "/operating-system",
     },
   ];
 
   return `<main data-prerendered="true" class="seo-shell">
     <article>
-      <p class="seo-kicker">Practical AI for small business</p>
-      <h1>Start With What Your Business Needs.</h1>
-      <h2>How can AI and digital tools actually help a small business?</h2>
-      <p class="speakable">Start with the business problem, the people involved, and the result you need. Then use AI, websites, marketing, follow-up, and automation only where they genuinely help.</p>
-      <p>New Tech Advertising helps small-business owners connect people, business knowledge, customer experience, visibility, follow-up, and practical AI so the pieces work together instead of becoming another pile of disconnected tools.</p>
-      <p>You do not need to know which tool or service to ask for. Tell us what is happening in your business. We listen to you and your team, look at what customers and employees are experiencing, and agree on the next useful improvement. Your Digital Growth Roadmap™ keeps that work connected to the larger Digital Growth Office™.</p>
-      <p><strong>Understanding comes before technology.</strong></p>
-      <p>A <a href="/ai-websites#retail-and-online-stores">small shop or online store</a>, a <a href="/restaurants">restaurant</a>, and a service business need different customer paths. We start with how your customers shop, dine, order, or ask for help.</p>
-      <h2>Start with the question that fits</h2>
+      <p class="seo-kicker">Practical AI and business guidance for small business</p>
+      <h1>What are you trying to figure out in your business?</h1>
+      <p class="speakable">Start with the question, frustration, or opportunity already on your mind. You do not need to know which tool, service, or technology to ask for first.</p>
+      <p>New Tech Advertising helps small-business owners understand practical AI, improve visibility, connect useful business knowledge, and turn the right ideas into working improvements.</p>
+      <nav aria-label="Start a conversation"><a href="/growth-guide">Your Digital Growth Guide™</a> · <a href="/growth-conversation">Talk with Rick</a></nav>
+      <h2>Choose a simple direction</h2>
       <ul>${paths.map(item => '<li><a href="' + escapeHtml(item.href) + '"><strong>' + escapeHtml(item.label) + '</strong></a>: ' + escapeHtml(item.description) + '</li>').join("")}</ul>
-      <h2>Not sure how to name the problem?</h2>
-      <p>You do not need to know the right question yet. Describe a familiar frustration or something you would like to improve. Your Digital Growth Guide™ can help you explore it, or you can talk with a real person at NTA.</p>
-      <h2>Put the next useful improvement to work</h2>
-      <p>We help put the agreed improvement to work, show the team how to use it, and test it in a real customer situation. Then we review what happened and adjust. That might mean easier shopping, clearer menus and smoother restaurant service, better customer conversations, or less repeated work.</p>
-      <p>Follow the work with Pete and Janine at <a href="/restaurants?section=cattlemans-case-study">Cattleman&rsquo;s Dining</a>—a Restaurant Growth Roadmap in progress, not a finished success story.</p>
-      <nav aria-label="Homepage next steps">
-        <a href="/growth-guide">Ask Your Digital Growth Guide™</a>
-        <a href="/knowledge/questions">Browse small-business questions</a>
-        <a href="/growth-conversation">Talk to My Office™</a>
-      </nav>
-      <h2>Continue learning</h2>
-      <nav aria-label="NTA learning">
-        <a href="/knowledge">Knowledge Library</a>
-        <a href="/learning-center/videos">Video Gallery</a>
-        <a href="/growth-show">NTA Growth Show</a>
-        <a href="/journal">NTA Journal</a>
-        <a href="/case-studies">Case studies</a>
-      </nav>
+      <h2>Why NTA works this way</h2>
+      <p>Start with the business. Teach before selling. Keep people in control. AI, websites, search, content, automation, and marketing are useful only when they help solve the right problem.</p>
+      <h2>See the work, not just the claims</h2>
+      <p>NTA case studies show how discovery, websites, content, connected systems, and ongoing client work develop in practice, including what is finished, what is still being built, and what has actually been learned.</p>
+      <p><a href="/case-studies">Explore case studies</a> · <a href="/work-with-nta">See how NTA works</a></p>
+      <h2>My mission</h2>
+      <blockquote><p>My mission is to help everyday people and small-business owners understand AI—to clear up the confusion, make it less intimidating, and help them see where it can be useful in their own lives. I want people to have a place to ask their questions and get explanations they can understand, without pressure, judgment, or hype.</p><footer>— Rick Hesse</footer></blockquote>
+      <h2>Start with the question you have. We’ll go from there.</h2>
+      <p>You can explore the site, ask Your Digital Growth Guide™ to help you think something through, or start a conversation with Rick when that feels useful.</p>
+      <nav aria-label="Homepage next steps"><a href="/growth-guide">Your Digital Growth Guide™</a> · <a href="/growth-conversation">Talk with Rick</a> · <a href="/knowledge">Knowledge Library</a></nav>
     </article>
   </main>`;
 }
