@@ -96,8 +96,8 @@ const STATIC_SEO = {
     noIndex: true,
   },
   "/operating-system": {
-    title: "Digital Growth Office for Small Business | New Tech Advertising",
-    description: "See how NTA connects business knowledge, customer relationships, visibility, content, projects, approvals, reporting, and practical AI inside a Digital Growth Office.",
+    title: "Digital Growth Office for Small Business | NTA Authority System",
+    description: "The operational center of the NTA Authority System: connect business knowledge, customers, visibility, projects, approvals, tracking, reporting, and practical AI inside one Digital Growth Office.",
   },
   "/work-with-nta": {
     title: "Work With New Tech Advertising | Digital Growth Office",
