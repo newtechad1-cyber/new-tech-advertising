@@ -150,8 +150,8 @@ const STATIC_SEO = {
     description: "Listen, watch and learn with Rick Hesse about practical AI, digital growth, customer trust, and the real work of building a stronger small business.",
   },
   "/growth-guide": {
-    title: "Your Digital Growth Guide™ | Start With Your Business Question | NTA",
-    description: "Start with the business question you have now. Your Digital Growth Guide™ helps clarify the situation and connect you to a useful next step.",
+    title: "Your Digital Growth Guide™ | Conversational Entry to NTA",
+    description: "Start with the question, frustration, or opportunity on your mind. Your Digital Growth Guide™ connects your business context to NTA knowledge, the Authority System, and the next useful action.",
   },
   "/growth-conversation": {
     title: "Small Business Growth Conversation | New Tech Advertising",
