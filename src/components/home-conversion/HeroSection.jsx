@@ -63,7 +63,7 @@ export default function HeroSection() {
             <p>New Tech Advertising helps small-business owners understand practical AI, improve visibility, connect useful business knowledge, and turn the right ideas into working improvements.</p>
           </div>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <button type="button" onClick={() => openGrowthGuide('homepage_primary')} className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500"><MessageCircle className="h-5 w-5" /> What would you like to talk through?</button>
+            <Link to="/growth-guide?start=fresh" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500"><MessageCircle className="h-5 w-5" /> What would you like to talk through?</Link>
             <Link to="/growth-conversation" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 font-bold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">Talk with Rick <ArrowRight className="h-5 w-5" /></Link>
           </div>
         </div>
