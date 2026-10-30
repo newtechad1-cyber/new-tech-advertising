@@ -1110,20 +1110,23 @@ function bookSchemaMarkup(pathname) {
   const book = getBookByPath(pathname);
   const schema = bookSchemaFor(book);
   if (!schema) return '';
-  const schemas = [schema, {
-    '@context': 'https://schema.org',
-    '@type': 'LearningResource',
-    '@id': SITE_ORIGIN + book.path + '#learning-resource',
-    name: book.title,
-    description: book.description,
-    url: SITE_ORIGIN + book.path,
-    learningResourceType: 'Book and practical guide',
-    educationalLevel: 'Beginner',
-    isAccessibleForFree: true,
-    inLanguage: 'en-US',
-    provider: { '@id': SITE_ORIGIN + '/#organization' },
-    author: { '@id': SITE_ORIGIN + '/#rick-hesse', name: 'Rick Hesse' },
-  }];
+  const schemas = [schema];
+  if (book.path !== '/practical-ai-for-small-business') {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      '@id': SITE_ORIGIN + book.path + '#learning-resource',
+      name: book.title,
+      description: book.description,
+      url: SITE_ORIGIN + book.path,
+      learningResourceType: 'Book and practical guide',
+      educationalLevel: 'Beginner',
+      isAccessibleForFree: true,
+      inLanguage: 'en-US',
+      provider: { '@id': SITE_ORIGIN + '/#organization' },
+      author: { '@id': SITE_ORIGIN + '/#rick-hesse', name: 'Rick Hesse' },
+    });
+  }
   return schemas.map((item) => '<script type="application/ld+json" data-seo-static-book-schema="true">' +
     JSON.stringify(item).replace(/</g, '\\u003c') + '</script>').join('\n');
 }
