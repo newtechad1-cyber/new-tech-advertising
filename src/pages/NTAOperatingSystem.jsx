@@ -158,7 +158,7 @@ export default function NTAOperatingSystem() {
               A Digital Growth Office is a connected working system that brings together your website, visibility, customer relationships, follow-up, business knowledge, practical AI, and internal work so the pieces support one another instead of operating as disconnected tools.
             </p>
             <p className="text-lg md:text-xl text-slate-400 mt-6 leading-relaxed">
-              NTA starts with the way your business actually works, organizes what you already have, identifies what is missing, and builds the next useful connection in the right order.
+              NTA starts with the way your business actually works, organizes what you already have, identifies what is missing, and builds the next useful connection in the right order. Inside the NTA Authority System, the Digital Growth Office is where knowledge becomes working decisions, approved actions, tracked progress, and retained business intelligence instead of remaining disconnected content.
             </p>
           </motion.div>
           
@@ -194,6 +194,32 @@ export default function NTAOperatingSystem() {
               See the client process <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
+        </div>
+      </section>
+
+      <section className="py-20 relative border-t border-slate-800/50 bg-blue-950/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-400 mb-3">The operational center of the NTA Authority System</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Authority becomes useful when the business can act on it.</h2>
+            <p className="text-xl text-slate-300 leading-relaxed">
+              The Knowledge Library preserves what NTA knows. Practical AI explains where AI genuinely helps. AI Search Visibility helps that knowledge become easier to understand and find. The Digital Growth Office connects those ideas to the actual business—its customers, projects, approvals, follow-up, reporting, and next actions.
+            </p>
+          </div>
+          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { title: 'Knowledge', text: 'Capture and preserve what the owner, team, customers, and NTA learn.', link: '/knowledge' },
+              { title: 'Understanding', text: 'Turn that knowledge into practical teaching, answers, and better decisions.', link: '/practical-ai-for-small-business' },
+              { title: 'Visibility', text: 'Make useful knowledge easier for people, search engines, and AI systems to understand and retrieve.', link: '/ai-seo' },
+              { title: 'Action', text: 'Move approved priorities into real work, track what happened, and improve from the evidence.', link: '/work-with-nta' }
+            ].map((item) => (
+              <Link key={item.title} to={item.link} className="rounded-2xl border border-slate-700 bg-slate-900/70 p-6 transition hover:border-blue-400/50">
+                <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                <p className="mt-3 text-slate-400 leading-relaxed">{item.text}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-400">Explore <ArrowRight className="w-4 h-4" /></span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -259,6 +285,8 @@ export default function NTAOperatingSystem() {
                   "Lead follow-up",
                   "AI and automation",
                   "Business knowledge",
+                  "Approvals and next actions",
+                  "Tracking, results, and retained evidence",
                   "Reporting and priorities",
                   "Client, team, and NTA collaboration when useful"
                 ].map((item, i) => (
