@@ -87,7 +87,7 @@ function DropdownMenu({ items, onClose, id }) {
           className="flex flex-col px-4 py-3 transition-colors hover:bg-slate-50"
         >
           <span className="text-sm font-semibold text-slate-900">{item.label}</span>
-          {item.desc && <span className="mt-0.5 text-xs text-slate-400">{item.desc}</span>}
+          {item.desc && <span className="mt-1 text-[13px] leading-snug text-slate-600">{item.desc}</span>}
         </Link>
       ))}
     </div>
@@ -274,7 +274,7 @@ export default function MarketingNav() {
                           {link.children.map((child) => (
                             <Link key={child.label} to={child.href} onClick={closeMobile} className="block rounded-lg px-3 py-2.5 hover:bg-slate-800">
                               <div className="text-sm font-medium text-white">{child.label}</div>
-                              {child.desc && <div className="mt-0.5 text-xs text-slate-400">{child.desc}</div>}
+                              {child.desc && <div className="mt-1 text-[13px] leading-snug text-slate-300">{child.desc}</div>}
                             </Link>
                           ))}
                         </div>
