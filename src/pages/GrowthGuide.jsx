@@ -9,23 +9,42 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 export default function GrowthGuide() {
   const navigate = useNavigate();
   
-  // State is preserved via Journey Memory™ layer
+  // State is preserved via Journey Memory™ layer, but a saved step is only
+  // resumed when the information required for that step actually exists.
   const [state, setState] = useState(() => {
     const memory = getJourneyMemory();
-    
-    // Migrate from old local storage key if it exists
+
+    const normalizeState = (candidate = {}) => {
+      const name = candidate.name || '';
+      const audience = candidate.audience || '';
+      const challenge = candidate.challenge || '';
+      const requestedStep = Number(candidate.step) || 0;
+
+      let safeStep = requestedStep;
+      if (safeStep >= 4 && (!name.trim() || !audience || !challenge)) safeStep = 0;
+      else if (safeStep >= 3 && (!name.trim() || !audience)) safeStep = 0;
+      else if (safeStep >= 2 && !name.trim()) safeStep = 0;
+
+      return { step: safeStep, name, audience, challenge };
+    };
+
+    // Migrate from old local storage only when it contains a complete,
+    // internally consistent journey. Otherwise start fresh.
     const legacySaved = localStorage.getItem('nta_growth_guide_state');
     if (legacySaved && memory.guideState.step === 0 && !memory.visitor.name) {
-       const legacyData = JSON.parse(legacySaved);
-       return legacyData;
+      try {
+        return normalizeState(JSON.parse(legacySaved));
+      } catch {
+        return { step: 0, name: '', audience: '', challenge: '' };
+      }
     }
 
-    return { 
-      step: memory.guideState.step || 0, 
-      name: memory.visitor.name || '', 
-      audience: memory.visitor.role || '', 
-      challenge: memory.visitor.focus || '' 
-    };
+    return normalizeState({
+      step: memory.guideState.step || 0,
+      name: memory.visitor.name || '',
+      audience: memory.visitor.role || '',
+      challenge: memory.visitor.focus || ''
+    });
   });
 
   useEffect(() => {
