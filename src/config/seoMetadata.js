@@ -57,8 +57,8 @@ const STATIC_SEO = {
     noIndex: false,
   },
   "/knowledge": {
-    title: "AI Lessons for Small Business Owners | NTA Knowledge Library",
-    description: "Read practical business and AI lessons or watch related NTA videos. Explore the Knowledge Library, Growth Show, and examples of how NTA works.",
+    title: "NTA Knowledge Library | Source of the NTA Authority System",
+    description: "The approved public knowledge source behind the NTA Authority System: practical AI, business growth, customer trust, Q&A, videos, evidence, and connected lessons from Rick Hesse.",
   },
   "/knowledge/questions": {
     title: "Small Business Questions About AI, Marketing, and Growth | NTA",
