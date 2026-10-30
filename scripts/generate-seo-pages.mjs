@@ -1203,10 +1203,10 @@ const SERVICE_PAGE_CONTENT = {
     audience: 'Small-business owners and owner-led teams',
   },
   '/ai-seo': {
-    heading: 'How can a business become easier to find in Google and AI search?',
-    answer: 'Make the business easy to understand and useful to cite: keep services, locations, and contact information clear; answer real customer questions; publish trustworthy source material; strengthen reviews and outside references; and make sure search and AI crawlers can reach the site.',
-    serviceName: 'AI Search Visibility and SEO Guidance',
-    serviceType: 'AI search visibility, SEO, and digital authority guidance for small business',
+    heading: 'Can people find your business when they ask AI?',
+    answer: 'AI Search Visibility, sometimes called GEO or Generative Engine Optimization, helps search engines and AI answer systems understand what a business does, what it knows, and when its information may be useful. NTA strengthens clear business facts, direct answers, trustworthy evidence, crawler-ready pages, structured data, and repeatable measurement without promising a particular ranking or AI citation.',
+    serviceName: 'AI Search Visibility and GEO Guidance',
+    serviceType: 'AI search visibility, GEO, SEO, and digital authority guidance for small business',
     audience: 'Small-business owners and local service businesses',
   },
   '/ai-websites': {
