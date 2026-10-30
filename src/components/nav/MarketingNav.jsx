@@ -46,7 +46,7 @@ const NAV_LINKS = [
       { label: 'Websites', href: '/ai-websites', desc: 'Understand what your website should accomplish' },
       { label: 'Retail & Online Stores', href: '/ai-websites#retail-and-online-stores', desc: 'Connect shopping, purchases, and repeat customers' },
       { label: 'Marketing', href: '/ai-social-media', desc: 'Turn business knowledge into useful communication' },
-      { label: 'SEO', href: '/ai-seo', desc: 'Help people find useful answers from your business' },
+      { label: 'AI Search Visibility', href: '/ai-seo', desc: 'Help Google and AI systems understand and cite useful answers from your business' },
       { label: 'Industry Solutions', href: '/industries', desc: 'See how the Growth Roadmap fits your industry' },
       { label: 'Restaurant Solutions', href: '/restaurants', desc: 'Build a stronger restaurant with your whole team' },
       { label: 'HVAC', href: '/hvac-marketing-north-iowa', desc: 'Practical growth ideas for HVAC businesses' },
