@@ -73,7 +73,7 @@ export default function HeroSection() {
           <p className="mt-3 text-base leading-relaxed text-slate-300 md:text-lg">You can learn first, work on being found, or start connecting the business. The deeper NTA system stays behind these simple entrances.</p>
         </div>
 
-        <div className="mx-auto mt-6 grid max-w-6xl gap-4 md:mt-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-6 grid max-w-5xl gap-4 md:mt-8 md:grid-cols-2">
           {BUSINESS_PATHS.map(({ title, description, to, icon: Icon, step }) => (
             <Link
               key={step}
