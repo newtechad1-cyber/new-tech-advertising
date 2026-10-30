@@ -1298,9 +1298,9 @@ const AUTHORITY_PAGE_CONTENT = {
     answer: 'The NTA Growth Show turns practical business conversations into connected learning. Each episode can lead into related Knowledge Library lessons, Journal material, books, and useful next steps instead of ending as a stand-alone video.',
   },
   '/growth-guide': {
-    kicker: 'Your Digital Growth Guide',
-    heading: 'Start with the question you have now.',
-    answer: 'Your Digital Growth Guide helps you understand where the business is today and guides you toward a useful next step. It begins with your situation and can connect what the owner, team, and customers already know to NTA’s learning and discovery system.',
+    kicker: 'Your Digital Growth Guide · NTA Authority System',
+    heading: 'Start with the question, frustration, or opportunity on your mind.',
+    answer: 'Your Digital Growth Guide is the conversational doorway into the NTA Authority System. It begins with your situation, preserves useful business context, connects you to the right NTA knowledge, and helps move you toward a Growth Roadmap, the Digital Growth Office, or a human conversation when action is needed.',
   },
   '/growth-conversation': {
     kicker: 'NTA Growth Conversation',
