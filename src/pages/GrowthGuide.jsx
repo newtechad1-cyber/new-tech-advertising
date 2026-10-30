@@ -104,12 +104,15 @@ export default function GrowthGuide() {
               Welcome to Your <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Digital Growth Guide™</span>
             </h1>
-            <p className="text-xl text-slate-300 mb-12 leading-relaxed max-w-2xl">
-              I'm here to help you understand where your business is today and guide you toward your next right step. That includes the knowledge already living across your team and customers—not just the owner.
+            <p className="text-xl text-slate-300 mb-6 leading-relaxed max-w-2xl">
+              I'm here to help you start with the question, frustration, or opportunity already on your mind. We can connect that situation to the knowledge already living across your business, the NTA Authority System, and the next useful step without making you figure out which tool or service to ask for first.
+            </p>
+            <p className="text-base text-slate-400 mb-12 leading-relaxed max-w-2xl">
+              Your Digital Growth Guide™ is the conversational doorway into NTA: understand the situation, find the right knowledge, preserve useful context, and move toward the Digital Growth Office or a human conversation when action is needed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button onClick={() => updateState({step: 1})} className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group shadow-lg shadow-blue-900/20">
-                <span>Start My Guided Journey</span>
+                <span>Start With My Question</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               <button onClick={() => navigate('/operating-system')} className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-medium transition-all text-center">
@@ -185,8 +188,8 @@ export default function GrowthGuide() {
             exit={{ opacity: 0, y: -20 }}
             className="max-w-4xl w-full"
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">What is the primary challenge you're facing right now?</h2>
-            <p className="text-xl text-slate-400 mb-10">This helps me recommend the most relevant tools for you.</p>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">What is the main question, frustration, or opportunity on your mind right now?</h2>
+            <p className="text-xl text-slate-400 mb-10">This helps connect your situation to the most useful NTA knowledge and next step.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {challengeOptions.map(opt => (
                 <div 
@@ -210,8 +213,8 @@ export default function GrowthGuide() {
             exit={{ opacity: 0, y: -20 }}
             className="max-w-5xl w-full"
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">Here is your recommended path forward.</h2>
-            <p className="text-xl text-slate-400 mb-10">Based on what you've shared, I've organized the most valuable modules for you to explore.</p>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">Here is a useful path forward.</h2>
+            <p className="text-xl text-slate-400 mb-10">Based on what you've shared, the Guide can connect you to learning, discovery, planning, and the Digital Growth Office without treating your situation like a one-size-fits-all package.</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
               <RecommendationCard 
@@ -221,20 +224,20 @@ export default function GrowthGuide() {
                 path={state.audience === 'community' ? "/community-growth-conversation" : "/growth-conversation"}
               />
               <RecommendationCard 
-                title="NTA Business Score™"
-                description="Evaluate your current operations across six categories and uncover blind spots."
+                title="Knowledge Library"
+                description="Start with reviewed NTA lessons and answers that can help you understand the issue before deciding what to change."
                 icon={Activity}
-                path="/business-score"
+                path="/knowledge"
               />
               <RecommendationCard 
-                title="Growth Roadmap Generator™"
-                description="Create a step-by-step personalized digital strategy document for your business."
+                title="Growth Roadmap"
+                description="Organize what matters now, what can wait, and which improvements belong together in the right order."
                 icon={Map}
                 path="/growth-roadmap-generator"
               />
               <RecommendationCard 
-                title="NTA Operating System™"
-                description="Access your central command center to monitor, learn, and deploy resources."
+                title="Digital Growth Office™"
+                description="Move approved priorities into connected work with context, approvals, tracking, evidence, and human judgment preserved."
                 icon={LayoutDashboard}
                 path="/operating-system"
               />
