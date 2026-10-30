@@ -13,6 +13,7 @@ export default function GrowthGuide() {
   // resumed when the information required for that step actually exists.
   const [state, setState] = useState(() => {
     const memory = getJourneyMemory();
+    const startFresh = new URLSearchParams(window.location.search).get('start') === 'fresh';
 
     const normalizeState = (candidate = {}) => {
       const name = candidate.name || '';
@@ -27,6 +28,10 @@ export default function GrowthGuide() {
 
       return { step: safeStep, name, audience, challenge };
     };
+
+    if (startFresh) {
+      return { step: 0, name: '', audience: '', challenge: '' };
+    }
 
     // Migrate from old local storage only when it contains a complete,
     // internally consistent journey. Otherwise start fresh.
