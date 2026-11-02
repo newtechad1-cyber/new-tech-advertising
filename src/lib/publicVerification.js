@@ -1,4 +1,5 @@
 import { base44 } from '@/api/base44Client';
+import { withVisitorAttribution } from '@/lib/visitorAttribution';
 
 const ACTIONS = {
   growthGuideChat: 'growth_guide_chat',
@@ -46,6 +47,27 @@ function trackConfirmedInquiry(name, payload, result) {
   } catch { /* Analytics is optional. */ }
 }
 
+
+const trackedJournalSubscriberIds = new Set();
+
+function trackConfirmedJournalSubscription(name, payload, result) {
+  if (name !== 'publicationSignup' || payload?.publication_tag !== 'nta-journal' ||
+      result?.success !== true || result?.accepted === false ||
+      typeof result?.subscriber_id !== 'string' || !result.subscriber_id.trim() ||
+      !['newtechadvertising.com', 'www.newtechadvertising.com'].includes(globalThis.location?.hostname)) return;
+  if (trackedJournalSubscriberIds.has(result.subscriber_id)) return;
+  if (trackedJournalSubscriberIds.size >= 500) trackedJournalSubscriberIds.clear();
+  trackedJournalSubscriberIds.add(result.subscriber_id);
+  const properties = { publication: 'nta-journal', site_surface: 'public' };
+  try {
+    Promise.resolve(base44.analytics.track({ eventName: 'journal_subscription_saved', properties })).catch(() => {});
+  } catch { /* The subscription is already saved. */ }
+  try {
+    if (typeof globalThis.gtag === 'function') {
+      Promise.resolve(globalThis.gtag('event', 'journal_subscription_saved', properties)).catch(() => {});
+    }
+  } catch { /* Keep analytics independent of the saved subscription. */ }
+}
 
 function loadVerificationScript() {
   if (window.turnstile) return Promise.resolve(window.turnstile);
@@ -168,12 +190,15 @@ export async function getVisitorVerificationToken(name) {
 }
 
 export async function invokeVerifiedPublicFunction(name, payload) {
+  const preparedPayload = ['ntaUnifiedIntake', 'publicationSignup'].includes(name)
+    ? withVisitorAttribution(payload) : payload;
   const token = await getVisitorVerificationToken(name);
-  const response = await base44.functions.invoke(name, { ...payload, verification_token: token });
+  const response = await base44.functions.invoke(name, { ...preparedPayload, verification_token: token });
   const result = response?.data ?? response;
   if (result?.success === false || result?.accepted === false) {
     throw new Error(result.error || 'Your request was not accepted. Please try again or call or text 641-420-8816.');
   }
-  trackConfirmedInquiry(name, payload, result);
+  trackConfirmedInquiry(name, preparedPayload, result);
+  trackConfirmedJournalSubscription(name, preparedPayload, result);
   return response;
 }

@@ -375,6 +375,11 @@ Deno.serve(async (req) => {
           source: value(payload.source, 200),
           source_page: sourcePage,
           source_url: value(payload.source_url, 1500),
+          source_campaign: value(payload.source_campaign, 120),
+          raw_payload: Object.fromEntries([
+            'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+            'landing_page', 'referrer', 'attribution_captured_at', 'attribution_method',
+          ].map(key => [key, value(payload.raw_payload?.[key], key === 'landing_page' ? 700 : 200)])),
           publication_title: publicationTitle, publication_tag: publicationTag,
           consent: true, consent_context: value(payload.consent_context, 1000),
           anti_spam: { honeypot: value(antiSpam.honeypot, 200), form_started_at: formStartedAt || undefined },

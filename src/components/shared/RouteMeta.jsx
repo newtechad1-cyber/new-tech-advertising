@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getSeoMetadata } from "@/config/seoMetadata";
+import { installPublicIntentTracking, trackPublicPageView } from "@/lib/publicTracking";
 
 function upsertMeta(name, content) {
   if (!content) return;
@@ -37,19 +38,18 @@ export default function RouteMeta() {
   }, [location.pathname, metadata.title, metadata.description, metadata.noIndex, metadata.canonical]);
 
   useEffect(() => {
-    // GA4 automatic page views are disabled in index.html. Record page views
-    // only after this client-side route has been identified as a genuine
-    // public, indexable page. This keeps redirect-only and internal legacy
-    // URLs from contaminating public-site reporting.
-    if (metadata.noIndex || typeof globalThis.gtag !== "function") return;
-
-    globalThis.gtag("event", "page_view", {
-      page_title: metadata.title,
-      page_location: globalThis.location?.href || "",
-      page_path: location.pathname,
-      site_surface: "public",
+    trackPublicPageView({
+      navigationKey: location.key,
+      pathname: location.pathname,
+      title: metadata.title,
+      noIndex: metadata.noIndex,
     });
-  }, [location.pathname, metadata.title, metadata.noIndex]);
+  }, [location.key, location.pathname, location.search, metadata.title, metadata.noIndex]);
+
+  useEffect(() => {
+    if (metadata.noIndex) return undefined;
+    return installPublicIntentTracking();
+  }, [metadata.noIndex]);
 
   return null;
 }

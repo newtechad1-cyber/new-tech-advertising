@@ -1,4 +1,5 @@
 import { base44 } from '@/api/base44Client';
+import { isPublicTrackingHost, safeCampaignValue, safePublicPageUrl } from '@/lib/visitorAttribution';
 
 function getJourneySessionId() {
   try {
@@ -25,17 +26,22 @@ export function trackJourneyEvent(eventName, details = {}) {
 
   // Measurement must never interrupt the customer journey.
   try {
-    base44.analytics.track({ eventName, properties: payload });
+    Promise.resolve(base44.analytics.track({ eventName, properties: payload })).catch(() => {});
   } catch (error) {
     console.warn('[journeyAnalytics] Event not recorded:', error?.message || error);
   }
 
-  if (typeof globalThis.gtag === 'function') {
-    globalThis.gtag('event', eventName, {
-      page_path: payload.route,
-      journey_step: payload.step,
-      journey_source: payload.source,
-      site_surface: payload.site_surface,
-    });
+  // RouteMeta is the sole GA4 page_view owner. Keep these internal journey
+  // records without counting the homepage and recruiting route a second time.
+  if (eventName !== 'page_view' && isPublicTrackingHost() && typeof globalThis.gtag === 'function') {
+    try {
+      Promise.resolve(globalThis.gtag('event', eventName, {
+        page_path: payload.route,
+        page_location: safePublicPageUrl(),
+        journey_step: safeCampaignValue(payload.step),
+        journey_source: safeCampaignValue(payload.source),
+        site_surface: payload.site_surface,
+      })).catch(() => {});
+    } catch { /* Google measurement must not interrupt the visitor either. */ }
   }
 }
