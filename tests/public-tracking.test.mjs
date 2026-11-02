@@ -14,7 +14,7 @@ function fixture(options = {}) {
     exports: {}, URL, URLSearchParams, Date, console: { warn() {} },
     location: { hostname: url.hostname, href: url.href, pathname: url.pathname },
     document: {
-      referrer: options.referrer || 'https://www.facebook.com/?private=hidden',
+      referrer: options.referrer ?? 'https://www.facebook.com/?private=hidden',
       addEventListener(name, handler) { listeners.set(name, handler); },
       removeEventListener(name, handler) { if (listeners.get(name) === handler) listeners.delete(name); },
     },
@@ -199,4 +199,12 @@ test('all custom GA event paths receive sanitized location and referrer context'
     assert.equal(event[2].page_referrer, 'https://search.example');
   }
   assert.doesNotMatch(JSON.stringify(f.google), /private|email=/);
+});
+
+test('direct first visits keep an empty referrer and path normalization never changes the public origin', () => {
+  const f = fixture({ href: 'https://newtechadvertising.com/contact', referrer: '' });
+  f.tracking.trackPublicPageView({ navigationKey: 'direct', pathname: '/contact', title: 'Contact' });
+  assert.equal(f.google[0][2].page_referrer, '');
+  assert.equal(f.attribution.safePublicPageUrl(''), '');
+  assert.equal(f.attribution.safePublicPageUrl('https://newtechadvertising.com//example.com/path'), 'https://newtechadvertising.com//example.com/path');
 });

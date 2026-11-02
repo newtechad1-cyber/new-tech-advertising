@@ -41,10 +41,12 @@ export function safeReferrerOrigin(value) {
 }
 
 export function safePublicPageUrl(value = globalThis.location?.href) {
+  if (typeof value !== 'string' || !value.trim()) return '';
   try {
     const url = new URL(value, 'https://newtechadvertising.com');
     if (!PUBLIC_HOSTS.has(url.hostname)) return '';
-    const safe = new URL(safePath(url.pathname), url.origin);
+    const safe = new URL(url.origin);
+    safe.pathname = safePath(url.pathname);
     for (const [key, label] of Object.entries(campaignFromUrl(url))) safe.searchParams.set(key, label);
     return safe.toString();
   } catch {
