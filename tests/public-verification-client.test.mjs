@@ -23,6 +23,7 @@ function setup(mode = 'success', options = {}) {
     focus() {}
   }
   const document = {
+    referrer: options.referrer || '',
     activeElement: new Element('button'), body: new Element('body'), head: new Element('head'),
     createElement(tag) { return new Element(tag); },
   };
@@ -40,11 +41,11 @@ function setup(mode = 'success', options = {}) {
   const source = readFileSync('src/lib/publicVerification.js', 'utf8')
     .replace(/^import[^\n]*\n/gm, '');
   const exports = {};
-  vm.runInNewContext(ts.transpileModule(source, {
-    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
-  }).outputText, {
-    exports, document, window: { turnstile, setTimeout, clearTimeout },
-    location: { hostname: options.hostname || 'newtechadvertising.com' },
+  const stored = new Map();
+  const context = vm.createContext({
+    exports: {}, URL, URLSearchParams, document, window: { turnstile, setTimeout, clearTimeout },
+    sessionStorage: { getItem: key => stored.get(key) || null, setItem: (key, value) => stored.set(key, value) },
+    location: { hostname: options.hostname || 'newtechadvertising.com', href: options.href || 'https://newtechadvertising.com/contact' },
     gtag: (...args) => { google.push(args); if (options.googleThrows) throw new Error('Unavailable'); },
     base44: { analytics: { track(event) {
       analytics.push(event);
@@ -62,6 +63,12 @@ function setup(mode = 'success', options = {}) {
       return { data: options.result ?? (mode === 'not_accepted' ? { success: true, accepted: false } : { success: true }) };
     } } },
   });
+  const compile = code => ts.transpileModule(code, {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
+  }).outputText;
+  vm.runInContext(compile(readFileSync('src/lib/visitorAttribution.js', 'utf8')), context);
+  context.exports = exports;
+  vm.runInContext(compile(source), context);
   return { invoke: exports.invokeVerifiedPublicFunction, requests, dialogs, widgets, analytics, google };
 }
 
@@ -203,4 +210,56 @@ test('public client never shows success when the server declines a submission', 
   const fixture = setup('not_accepted');
   await assert.rejects(fixture.invoke('ntaUnifiedIntake', {}), /not accepted/);
   assert.equal(fixture.requests.filter(r => !r.payload.verification_config).length, 1);
+});
+
+test('Journal subscription counts only a confirmed subscriber once and never includes personal details', async () => {
+  const fixture = setup('success', { result: { success: true, subscriber_id: 'subscriber-1' } });
+  const payload = { publication_tag: 'nta-journal', consent: true, email: 'private@example.invalid', name: 'Private Name' };
+  await fixture.invoke('publicationSignup', payload);
+  await fixture.invoke('publicationSignup', payload);
+  assert.equal(fixture.google.length, 1);
+  assert.equal(fixture.analytics.length, 1);
+  assert.deepEqual(JSON.parse(JSON.stringify(fixture.google[0])), [
+    'event', 'journal_subscription_saved', { publication: 'nta-journal', site_surface: 'public' },
+  ]);
+  assert.doesNotMatch(JSON.stringify(fixture.google), /subscriber-1|Private|private@/);
+});
+
+test('uncertain, rejected, duplicate and non-Journal publication responses never count a new Journal subscription', async () => {
+  for (const result of [
+    { success: true }, { subscriber_id: 'subscriber-1' },
+    { success: true, subscriber_id: '' }, { success: true, accepted: false, subscriber_id: 'subscriber-1' },
+    { success: false, status: 'already_subscribed', subscriber_id: 'subscriber-1' },
+  ]) {
+    const fixture = setup('success', { result });
+    await fixture.invoke('publicationSignup', { publication_tag: 'nta-journal' }).catch(() => {});
+    assert.equal(fixture.google.length, 0);
+  }
+  const book = setup('success', { result: { success: true, subscriber_id: 'subscriber-1' } });
+  await book.invoke('publicationSignup', { publication_tag: 'practical-ai' });
+  assert.equal(book.google.length, 0);
+  const preview = setup('success', { hostname: 'preview.example', result: { success: true, subscriber_id: 'subscriber-1' } });
+  await preview.invoke('publicationSignup', { publication_tag: 'nta-journal' });
+  assert.equal(preview.google.length, 0);
+});
+
+test('shared verified wrapper carries safe source information for both intake and publication requests', async () => {
+  for (const name of ['ntaUnifiedIntake', 'publicationSignup']) {
+    const fixture = setup('success', { href: 'https://newtechadvertising.com/contact?utm_source=facebook&utm_campaign=november&email=private@example.invalid', referrer: 'https://www.facebook.com/?private=hidden' });
+    await fixture.invoke(name, { email: 'private@example.invalid', notes: 'Private inquiry' });
+    const sent = fixture.requests.find(request => !request.payload.verification_config).payload;
+    assert.equal(sent.source_campaign, 'november');
+    assert.equal(sent.raw_payload.utm_source, 'facebook');
+    assert.equal(sent.raw_payload.referrer, 'https://www.facebook.com');
+    assert.doesNotMatch(sent.source_url, /private|email=/);
+    assert.equal(sent.email, 'private@example.invalid', 'Private contact details remain in the actual submission, not analytics');
+  }
+});
+
+test('Journal analytics failures do not turn a saved subscription into a failed submission', async () => {
+  const fixture = setup('success', { analyticsThrows: true, googleThrows: true, result: { success: true, subscriber_id: 'subscriber-1' } });
+  const result = await fixture.invoke('publicationSignup', { publication_tag: 'nta-journal' });
+  assert.equal(result.data.success, true);
+  assert.equal(fixture.analytics.length, 1);
+  assert.equal(fixture.google.length, 1);
 });

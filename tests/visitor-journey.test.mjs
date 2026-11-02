@@ -30,16 +30,18 @@ test('important visitor links resolve to an explicit public route', () => {
 });
 
 test('visitor measurement cannot reach a privileged function or interrupt a journey', () => {
-  const source = read('src/lib/journeyAnalytics.js').replace(/^import[^\n]*\n/gm, '');
+  const source = read('src/lib/visitorAttribution.js') + '\n' + read('src/lib/journeyAnalytics.js').replace(/^import[^\n]*\n/gm, '');
   for (const throws of [false, true]) {
     const events = [];
-    const context = { exports: {}, console: { warn() {} }, sessionStorage: { getItem() { return 'test-session'; } }, location: { pathname: '/free-audit' },
+    const context = { exports: {}, URL, URLSearchParams, console: { warn() {} }, sessionStorage: { getItem() { return 'test-session'; } }, location: { hostname: 'newtechadvertising.com', href: 'https://newtechadvertising.com/free-audit', pathname: '/free-audit' },
       base44: { analytics: { track(event) { if (throws) throw new Error('unavailable'); events.push(event); } }, functions: { invoke() { assert.fail('No custom backend write for page measurement'); } } },
       gtag(...args) { events.push(args); },
     };
     vm.runInNewContext(ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, context);
     assert.doesNotThrow(() => context.exports.trackJourneyEvent('page_view'));
-    assert.ok(events.length > 0);
+    assert.equal(events.filter(Array.isArray).length, 0, 'Journey records must not duplicate RouteMeta GA4 page views');
+    assert.doesNotThrow(() => context.exports.trackJourneyEvent('question_path_opened', { source: 'homepage' }));
+    assert.equal(events.filter(Array.isArray).length, 1, 'Google custom events survive a Base44 analytics failure');
   }
 });
 
