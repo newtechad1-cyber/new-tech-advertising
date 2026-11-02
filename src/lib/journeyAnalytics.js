@@ -1,5 +1,5 @@
 import { base44 } from '@/api/base44Client';
-import { isPublicTrackingHost, safeCampaignValue, safePublicPageUrl } from '@/lib/visitorAttribution';
+import { isPublicTrackingHost, publicMeasurementContext, safeCampaignValue } from '@/lib/visitorAttribution';
 
 function getJourneySessionId() {
   try {
@@ -36,8 +36,8 @@ export function trackJourneyEvent(eventName, details = {}) {
   if (eventName !== 'page_view' && isPublicTrackingHost() && typeof globalThis.gtag === 'function') {
     try {
       Promise.resolve(globalThis.gtag('event', eventName, {
+        ...publicMeasurementContext(),
         page_path: payload.route,
-        page_location: safePublicPageUrl(),
         journey_step: safeCampaignValue(payload.step),
         journey_source: safeCampaignValue(payload.source),
         site_surface: payload.site_surface,

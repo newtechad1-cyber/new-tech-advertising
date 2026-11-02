@@ -42,6 +42,7 @@ function setup(mode = 'success', options = {}) {
     .replace(/^import[^\n]*\n/gm, '');
   const exports = {};
   const stored = new Map();
+  if (options.attributionRecord) stored.set('nta_public_attribution_v1', JSON.stringify(options.attributionRecord));
   const context = vm.createContext({
     exports: {}, URL, URLSearchParams, document, window: { turnstile, setTimeout, clearTimeout },
     sessionStorage: { getItem: key => stored.get(key) || null, setItem: (key, value) => stored.set(key, value) },
@@ -162,7 +163,7 @@ test('saved inquiry measurement excludes customer details and deduplicates confi
     eventName: 'inquiry_saved', properties: { form_type: 'contact', site_surface: 'public' },
   });
   assert.deepEqual(JSON.parse(JSON.stringify(fixture.google[0])), [
-    'event', 'inquiry_saved', { form_type: 'contact', site_surface: 'public' },
+    'event', 'inquiry_saved', { page_location: 'https://newtechadvertising.com/contact', page_referrer: '', form_type: 'contact', site_surface: 'public' },
   ]);
 });
 
@@ -220,7 +221,7 @@ test('Journal subscription counts only a confirmed subscriber once and never inc
   assert.equal(fixture.google.length, 1);
   assert.equal(fixture.analytics.length, 1);
   assert.deepEqual(JSON.parse(JSON.stringify(fixture.google[0])), [
-    'event', 'journal_subscription_saved', { publication: 'nta-journal', site_surface: 'public' },
+    'event', 'journal_subscription_saved', { page_location: 'https://newtechadvertising.com/contact', page_referrer: '', publication: 'nta-journal', site_surface: 'public' },
   ]);
   assert.doesNotMatch(JSON.stringify(fixture.google), /subscriber-1|Private|private@/);
 });
@@ -262,4 +263,26 @@ test('Journal analytics failures do not turn a saved subscription into a failed 
   assert.equal(result.data.success, true);
   assert.equal(fixture.analytics.length, 1);
   assert.equal(fixture.google.length, 1);
+});
+
+test('saved inquiry and Journal events never fall back to unsanitized page/referrer defaults', async () => {
+  for (const [name, payload, result] of [
+    ['ntaUnifiedIntake', { submission_type: 'contact' }, { success: true, submission_id: 'submission-privacy' }],
+    ['publicationSignup', { publication_tag: 'nta-journal' }, { success: true, subscriber_id: 'subscriber-privacy' }],
+  ]) {
+    const fixture = setup('success', { result, href: 'https://newtechadvertising.com/contact?email=private@example.invalid', referrer: 'https://search.example/?q=private_message' });
+    await fixture.invoke(name, payload);
+    assert.equal(fixture.google[0][2].page_location, 'https://newtechadvertising.com/contact');
+    assert.equal(fixture.google[0][2].page_referrer, 'https://search.example');
+    assert.doesNotMatch(JSON.stringify(fixture.google), /private|email=/);
+  }
+});
+
+test('a corrupt stored attribution date cannot block an inquiry or Journal subscription', async () => {
+  for (const name of ['ntaUnifiedIntake', 'publicationSignup']) {
+    const fixture = setup('success', { attributionRecord: { version: 1, updated_at: Date.now(), captured_at: 1e100, landing_page: 'https://newtechadvertising.com/', referrer: '' } });
+    const response = await fixture.invoke(name, { email: 'unit-test@example.invalid', consent: true });
+    assert.equal(response.data.success, true);
+    assert.equal(fixture.requests.filter(request => !request.payload.verification_config).length, 1);
+  }
 });

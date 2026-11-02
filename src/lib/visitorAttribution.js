@@ -3,6 +3,7 @@ const MAX_IDLE_MS = 30 * 60 * 1000;
 const CAMPAIGN_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 const PUBLIC_HOSTS = new Set(['newtechadvertising.com', 'www.newtechadvertising.com']);
 let memoryAttribution = null;
+let measurementReferrer = null;
 
 export function isPublicTrackingHost() {
   return PUBLIC_HOSTS.has(globalThis.location?.hostname);
@@ -61,7 +62,8 @@ function readStoredAttribution(now) {
       now - stored.updated_at > MAX_IDLE_MS || now < stored.updated_at) return null;
   const safe = {
     version: 1,
-    captured_at: Number.isFinite(stored.captured_at) ? stored.captured_at : now,
+    captured_at: Number.isFinite(stored.captured_at) && stored.captured_at >= 0 && stored.captured_at <= now
+      ? stored.captured_at : now,
     updated_at: stored.updated_at,
     landing_page: safePublicPageUrl(stored.landing_page).split('?')[0],
     referrer: safeReferrerOrigin(stored.referrer),
@@ -101,7 +103,7 @@ export function captureVisitorAttribution(now = Date.now()) {
   }
 }
 
-export function withVisitorAttribution(payload = {}) {
+function enrichVisitorAttribution(payload = {}) {
   const attribution = captureVisitorAttribution();
   if (!attribution.version) return payload;
   const original = payload.raw_payload && typeof payload.raw_payload === 'object' && !Array.isArray(payload.raw_payload)
@@ -120,5 +122,26 @@ export function withVisitorAttribution(payload = {}) {
     source_url: safePublicPageUrl(payload.source_url || globalThis.location?.href),
     source_campaign: safeCampaignValue(payload.source_campaign) || metadata.utm_campaign,
     raw_payload: metadata,
+  };
+}
+
+export function withVisitorAttribution(payload = {}) {
+  try {
+    return enrichVisitorAttribution(payload);
+  } catch {
+    // Attribution is optional; malformed storage must never prevent a request.
+    return payload;
+  }
+}
+
+export function setPublicMeasurementReferrer(value) {
+  measurementReferrer = safePublicPageUrl(value) || safeReferrerOrigin(value);
+}
+
+export function publicMeasurementContext() {
+  return {
+    page_location: safePublicPageUrl(),
+    page_referrer: measurementReferrer ?? safeReferrerOrigin(globalThis.document?.referrer),
+    site_surface: 'public',
   };
 }

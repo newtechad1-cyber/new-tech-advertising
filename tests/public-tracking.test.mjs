@@ -175,3 +175,28 @@ test('analytics failures never prevent navigation or another destination from re
     assert.doesNotThrow(() => f.journey.trackJourneyEvent('question_path_opened', { source: 'homepage' }));
   }
 });
+
+test('Back to the same public history key after an excluded route records a fresh visit', () => {
+  const f = fixture();
+  const home = { navigationKey: 'home-1', pathname: '/', title: 'NTA' };
+  f.tracking.trackPublicPageView(home);
+  f.go('https://newtechadvertising.com/missing-page');
+  f.tracking.trackPublicPageView({ navigationKey: 'missing-1', pathname: '/missing-page', title: 'Not found', noIndex: true });
+  assert.equal(f.google.length, 1);
+  f.go('https://newtechadvertising.com/');
+  assert.equal(f.tracking.trackPublicPageView(home), true);
+  assert.equal(f.google.length, 2);
+});
+
+test('all custom GA event paths receive sanitized location and referrer context', () => {
+  const f = fixture({ href: 'https://newtechadvertising.com/contact?email=private@example.invalid&utm_source=facebook', referrer: 'https://search.example/?q=private_message' });
+  f.tracking.trackPublicPageView({ navigationKey: 'a', pathname: '/contact', title: 'Contact' });
+  f.journey.trackJourneyEvent('question_path_opened', { source: 'homepage' });
+  f.tracking.installPublicIntentTracking();
+  f.listeners.get('click')({ target: { closest() { return { getAttribute() { return 'mailto:info@newtechadvertising.com?subject=private_message'; } }; } } });
+  for (const event of f.google) {
+    assert.equal(event[2].page_location, 'https://newtechadvertising.com/contact?utm_source=facebook');
+    assert.equal(event[2].page_referrer, 'https://search.example');
+  }
+  assert.doesNotMatch(JSON.stringify(f.google), /private|email=/);
+});

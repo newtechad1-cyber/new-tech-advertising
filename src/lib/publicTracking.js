@@ -1,5 +1,5 @@
 import { base44 } from '@/api/base44Client';
-import { captureVisitorAttribution, isPublicTrackingHost, safePublicPageUrl, safeReferrerOrigin } from '@/lib/visitorAttribution';
+import { captureVisitorAttribution, isPublicTrackingHost, publicMeasurementContext, safePublicPageUrl, safeReferrerOrigin, setPublicMeasurementReferrer } from '@/lib/visitorAttribution';
 
 let lastNavigationKey = null;
 let previousPageUrl = '';
@@ -19,14 +19,17 @@ function googleEvent(eventName, properties) {
 // The GA4 stream's enhanced history-pageview setting must also be off.
 export function trackPublicPageView({ navigationKey, pathname, title, noIndex = false }) {
   captureVisitorAttribution();
-  if (noIndex || !isPublicTrackingHost()) return false;
+  if (noIndex || !isPublicTrackingHost()) {
+    lastNavigationKey = null;
+    return false;
+  }
   const pageUrl = safePublicPageUrl();
   const key = navigationKey || pageUrl;
   if (!pageUrl || key === lastNavigationKey) return false;
+  setPublicMeasurementReferrer(previousPageUrl || safeReferrerOrigin(globalThis.document?.referrer));
   const tracked = googleEvent('page_view', {
+    ...publicMeasurementContext(),
     page_title: title,
-    page_location: pageUrl,
-    page_referrer: previousPageUrl || safeReferrerOrigin(globalThis.document?.referrer),
     page_path: pathname,
     site_surface: 'public',
   });
@@ -65,10 +68,10 @@ export function installPublicIntentTracking(doc = globalThis.document) {
     if (!intent) return;
     const { eventName, ...details } = intent;
     const properties = {
+      ...publicMeasurementContext(),
       ...details,
       interaction: 'intent',
       page_path: globalThis.location?.pathname || '/',
-      page_location: safePublicPageUrl(),
       site_surface: 'public',
     };
     try {

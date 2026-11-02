@@ -1,5 +1,5 @@
 import { base44 } from '@/api/base44Client';
-import { withVisitorAttribution } from '@/lib/visitorAttribution';
+import { publicMeasurementContext, withVisitorAttribution } from '@/lib/visitorAttribution';
 
 const ACTIONS = {
   growthGuideChat: 'growth_guide_chat',
@@ -42,7 +42,7 @@ function trackConfirmedInquiry(name, payload, result) {
   } catch { /* Analytics is optional. */ }
   try {
     if (typeof globalThis.gtag === 'function') {
-      Promise.resolve(globalThis.gtag('event', 'inquiry_saved', properties)).catch(() => {});
+      Promise.resolve(globalThis.gtag('event', 'inquiry_saved', { ...publicMeasurementContext(), ...properties })).catch(() => {});
     }
   } catch { /* Analytics is optional. */ }
 }
@@ -64,7 +64,7 @@ function trackConfirmedJournalSubscription(name, payload, result) {
   } catch { /* The subscription is already saved. */ }
   try {
     if (typeof globalThis.gtag === 'function') {
-      Promise.resolve(globalThis.gtag('event', 'journal_subscription_saved', properties)).catch(() => {});
+      Promise.resolve(globalThis.gtag('event', 'journal_subscription_saved', { ...publicMeasurementContext(), ...properties })).catch(() => {});
     }
   } catch { /* Keep analytics independent of the saved subscription. */ }
 }
