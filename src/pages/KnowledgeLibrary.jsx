@@ -106,6 +106,39 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800 bg-slate-900/30 px-6 py-12" aria-labelledby="explore-library-heading">
+          <div className="mx-auto max-w-6xl">
+            <div className="text-center">
+              <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">Explore the Knowledge Library</p>
+              <h2 id="explore-library-heading" className="mt-3 text-3xl font-black text-white md:text-4xl">Find the lesson you need in the way that makes sense to you.</h2>
+              <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-400">Start with a practical question, follow a guided learning path, or search the complete catalog of {totalLessons} lessons.</p>
+            </div>
+
+            <div className="mt-8 grid gap-5 md:grid-cols-3">
+              <Link to="/knowledge/questions" className="group rounded-2xl border border-slate-700 bg-slate-950/70 p-6 transition hover:border-cyan-400/60">
+                <p className="text-sm font-bold uppercase tracking-wider text-cyan-300">Start with a question</p>
+                <h3 className="mt-3 text-xl font-bold text-white">I need an answer now.</h3>
+                <p className="mt-3 leading-7 text-slate-400">Begin with the business question in front of you, then follow the related NTA teaching when you want to go deeper.</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-bold text-cyan-300 group-hover:text-white">Browse questions <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+
+              <a href="#collections" className="group rounded-2xl border border-slate-700 bg-slate-950/70 p-6 transition hover:border-blue-400/60">
+                <p className="text-sm font-bold uppercase tracking-wider text-blue-300">Follow a learning path</p>
+                <h3 className="mt-3 text-xl font-bold text-white">Teach me the whole idea.</h3>
+                <p className="mt-3 leading-7 text-slate-400">Move through one of the connected collections in sequence when you want the ideas to build on each other.</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-bold text-blue-300 group-hover:text-white">View learning paths <ArrowRight className="h-4 w-4" /></span>
+              </a>
+
+              <Link to="/knowledge/all" className="group rounded-2xl border border-slate-700 bg-slate-950/70 p-6 transition hover:border-indigo-400/60">
+                <p className="text-sm font-bold uppercase tracking-wider text-indigo-300">Browse all {totalLessons} lessons</p>
+                <h3 className="mt-3 text-xl font-bold text-white">Show me everything.</h3>
+                <p className="mt-3 leading-7 text-slate-400">Search every lesson, filter by topic or level, and find something you remember without having to know which collection it belongs to.</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-bold text-indigo-300 group-hover:text-white">Open the catalog <ArrowRight className="h-4 w-4" /></span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800 bg-slate-900/55 px-6 py-16" aria-labelledby="authority-system-knowledge-heading">
           <div className="mx-auto max-w-6xl">
             <div className="max-w-4xl">
