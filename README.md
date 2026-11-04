@@ -19,8 +19,9 @@ candidate build, public boundary/SEO/search/video/journey/tracking/reporting tes
 Core bridge tests, and the local Core rollout-record check. The build precedes
 all tests that inspect its generated output. The rollout-record check is not
 proof that the live connection works. The first F3 batch appends
-`npm run test:discovery` after that unchanged chain. `check:release` remains an
-alias for `check:ci`.
+`npm run test:discovery` after that unchanged chain. The second F3 batch appends
+`npm run test:content-follow-up` after discovery, preserving the full PR #107
+chain byte-for-byte. `check:release` remains an alias for `check:ci`.
 
 The necessary F2 build separation is explicit: `build:ci` runs the normal Vite
 production lifecycle with `NTA_PODCAST_BUILD_MODE=candidate-offline` in its child
@@ -44,7 +45,7 @@ provide OS-level isolation: review tests and use an isolated workspace without
 production credentials. The dependency-free safeguards mock network/subprocess
 operations. The real candidate gate must pass in GitHub before readiness is assessed.
 
-### F3: discovery batch one; remaining coverage is still open
+### F3: discovery and content follow-up; remaining coverage is still open
 
 `npm run test:discovery` runs the three existing discovery-input-mode,
 discovery-question-selection and discovery-trigger-routing test files. They
@@ -53,8 +54,20 @@ unchanged. The two question-selection cases execute the selector; the other
 nine cases inspect source structure. Passing is not proof of microphone access,
 consent enforcement in production, interpretation delivery or a complete journey.
 
+`npm run test:content-follow-up` runs the existing content-journey (five cases)
+and content-follow-up-form (four cases) suites, unchanged. The first executes
+the real content-context, safe-link and follow-up helpers. The second executes
+Contact.jsx in a controlled harness with simulated hooks and submission results.
+It covers reply preference, one in-flight submission, retained questions after
+failure, confirmed-save feedback and an editable Guide draft that is not sent
+automatically. It uses TypeScript and React from the committed lockfile.
+These are runtime checks, not a real browser, Turnstile, Core or delivery test.
+They do not prove browser field validation, mailbox receipt or live consent.
+No real inquiry, email, text or call is made.
+
 The [F3 inventory](docs/testing/f3-inventory-2026-11-04.md) records the 16 test
-files outside the pre-batch gate: three selected here and 13 still ungated,
+files outside the original gate: three covered by PR #107, two selected in this
+batch, and 11 still ungated if this batch is merged,
 including the separate podcast suite. No test is retired or silently skipped.
 This does NOT claim all-repository coverage. Review failures against approved
 behavior/content; do not change website copy merely to satisfy an old assertion.
@@ -88,7 +101,8 @@ PR #105's explicit-key fix, notification workflow, and both hosted key files
 remain unchanged. Its notification still runs on qualifying pushes to main;
 post-publication timing is a separate decision. Candidate CI never runs --submit.
 
-The F2 separation is retained; F3 batch one adds discovery-test wiring only.
+The F2 separation and discovery batch are retained; batch two adds only the
+existing content-journey and content-follow-up-form suites to automatic checks.
 F3 is not complete, and F4-F7 remain separate. This changes no application handlers,
 permissions, customer data, dependency versions, lockfile, branch protection,
 page content or IndexNow timing. Proposed changes stay on the review branch
