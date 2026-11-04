@@ -14,11 +14,11 @@ Deno.serve(async (req) => {
 
     const now = new Date().toISOString();
 
-    // Find due posts with publish_mode=api on FB/IG
+    // Find due posts with publish_mode=api on supported connected channels
     const scheduledPosts = await base44.asServiceRole.entities.ScheduledPost.filter({ status: 'scheduled', publish_mode: 'api' });
     const due = scheduledPosts.filter(p =>
       p.scheduled_for && p.scheduled_for <= now &&
-      (p.platform === 'facebook' || p.platform === 'instagram')
+      (p.platform === 'facebook' || p.platform === 'instagram' || p.platform === 'linkedin')
     ).slice(0, 10); // max 10 per run
 
     let published = 0;
@@ -29,7 +29,10 @@ Deno.serve(async (req) => {
       // Set status to publishing to prevent double-runs
       await base44.asServiceRole.entities.ScheduledPost.update(post.id, { status: 'publishing' });
 
-      const res = await base44.asServiceRole.functions.invoke('publishScheduledPostMeta', {
+      const publisher = post.platform === 'linkedin'
+        ? 'publishScheduledPostLinkedIn'
+        : 'publishScheduledPostMeta';
+      const res = await base44.asServiceRole.functions.invoke(publisher, {
         scheduledPostId: post.id,
       });
 
