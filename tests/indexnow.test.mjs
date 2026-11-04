@@ -177,5 +177,5 @@ test('both workflows run the offline regression; only main may submit via the sh
   assert.ok(notify.includes('run: node scripts/submit-indexnow.mjs --all --submit'));
   assert.doesNotMatch(notify, /readdirSync|keyFiles/);
   assert.ok(notify.indexOf(testCommand) < notify.indexOf('--all --submit'));
-  assert.ok(release.includes('run: npm run check:release'), 'preserve existing release checks; F2 is a separate change');
+  assert.ok(release.includes('npm run check:ci'), 'candidate checks are separate from explicit post-publish checks');
 });
