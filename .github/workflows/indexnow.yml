@@ -12,6 +12,8 @@ on:
       - "index.html"
       - "src/**"
       - "scripts/generate-seo-pages.mjs"
+      - "scripts/submit-indexnow.mjs"
+      - "tests/indexnow.test.mjs"
       - "base44/functions/listPages/entry.ts"
       - ".github/workflows/indexnow.yml"
   workflow_dispatch:
@@ -21,72 +23,15 @@ permissions:
 
 jobs:
   notify:
+    # A manual run on a review branch must not notify search engines.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: IndexNow offline regression tests
+        run: node --test tests/indexnow.test.mjs
       - name: Submit public sitemap URLs to IndexNow
-        env:
-          INDEXNOW_ENDPOINT: https://api.indexnow.org/indexnow
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from "node:fs";
-          import path from "node:path";
-
-          const sitemap = fs.readFileSync("public/sitemap.xml", "utf8");
-          const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)]
-            .map(([, url]) => url.trim())
-            .filter(Boolean);
-
-          if (urls.length === 0) {
-            throw new Error("No URLs found in public/sitemap.xml");
-          }
-
-          const host = new URL(urls[0]).host;
-          if (host !== "newtechadvertising.com") {
-            throw new Error(`Unexpected sitemap host: ${host}`);
-          }
-
-          for (const url of urls) {
-            if (new URL(url).host !== host) {
-              throw new Error(`Sitemap contains a URL outside ${host}: ${url}`);
-            }
-          }
-
-          const candidates = fs.readdirSync("public")
-            .filter(name => /^[A-Za-z0-9-]{8,128}\.txt$/.test(name));
-          const keyFiles = candidates.filter(name => {
-            const keyName = name.slice(0, -4);
-            const fileKey = fs.readFileSync(path.join("public", name), "utf8").trim();
-            return fileKey === keyName;
-          });
-
-          if (keyFiles.length !== 1) {
-            throw new Error(`Expected one IndexNow key file; found ${keyFiles.length}`);
-          }
-
-          const keyFile = keyFiles[0];
-          const key = keyFile.slice(0, -4);
-          const payload = {
-            host,
-            key,
-            keyLocation: `https://${host}/${key}.txt`,
-            urlList: [...new Set(urls)]
-          };
-
-          const response = await fetch(process.env.INDEXNOW_ENDPOINT, {
-            method: "POST",
-            headers: {
-              "content-type": "application/json; charset=utf-8"
-            },
-            body: JSON.stringify(payload)
-          });
-          const responseBody = await response.text();
-
-          console.log(`IndexNow submission: ${response.status} (${payload.urlList.length} URLs)`);
-          if (responseBody) console.log(responseBody);
-
-          if (![200, 202].includes(response.status)) {
-            process.exit(1);
-          }
-          NODE
+        run: node scripts/submit-indexnow.mjs --all --submit

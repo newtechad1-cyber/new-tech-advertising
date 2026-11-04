@@ -30,7 +30,7 @@ function normalizeUrl(value) {
 
 function sitemapUrls() {
   const xml = fs.readFileSync(sitemapPath, "utf8");
-  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => normalizeUrl(match[1]));
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => normalizeUrl(match[1].trim()));
 }
 
 const args = process.argv.slice(2);
@@ -45,6 +45,15 @@ const urls = [...new Set(
       ? sitemapUrls()
       : DEFAULT_CHANGED_PATHS.map(normalizeUrl)
 )];
+
+// Select one explicit key; other hosted keys are valid and must not affect it.
+const keyPath = path.join(root, "public", INDEXNOW_KEY + ".txt");
+if (fs.readFileSync(keyPath, "utf8").trim() !== INDEXNOW_KEY) {
+  throw new Error("Configured IndexNow key file does not match INDEXNOW_KEY.");
+}
+if (urls.length === 0 || urls.length > 10000) {
+  throw new Error("IndexNow requires between 1 and 10000 URLs per submission.");
+}
 
 const payload = {
   host: new URL(SITE_ORIGIN).host,
@@ -61,15 +70,29 @@ if (!submit) {
   process.exit(0);
 }
 
+// Only an explicit --submit may contact the network. Verify the published key
+// before notifying IndexNow; a saved repository file is not proof it is live.
+const keyResponse = await fetch(KEY_LOCATION, {
+  method: "GET",
+  redirect: "error",
+  signal: AbortSignal.timeout(15000),
+});
+if (keyResponse.status !== 200 || (await keyResponse.text()).trim() !== INDEXNOW_KEY) {
+  throw new Error("Published IndexNow key could not be verified; no URLs were submitted.");
+}
+
 const response = await fetch("https://api.indexnow.org/indexnow", {
   method: "POST",
   headers: { "Content-Type": "application/json; charset=utf-8" },
   body: JSON.stringify(payload),
+  redirect: "error",
+  signal: AbortSignal.timeout(30000),
 });
 
 const responseText = await response.text();
-if (!response.ok) {
+if (![200, 202].includes(response.status)) {
   throw new Error("IndexNow submission failed (" + response.status + "): " + responseText);
 }
 
-console.log("IndexNow accepted " + urls.length + " URL(s). HTTP " + response.status + ".");
+console.log("IndexNow received " + urls.length + " URL(s). HTTP " + response.status + ".");
+if (response.status === 202) console.log("IndexNow key validation is pending.");
