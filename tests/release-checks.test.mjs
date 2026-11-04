@@ -25,7 +25,7 @@ function expanded(name, active = new Set()) {
 }
 
 test('F2 preserves every previously gated test command and its order', () => {
-  assert.equal(scripts['check:ci'], baseline + ' && npm run test:discovery && npm run test:content-follow-up && npm run test:video-library');
+  assert.equal(scripts['check:ci'], baseline + ' && npm run test:discovery && npm run test:content-follow-up && npm run test:video-library && npm run test:podcast');
   assert.equal(scripts['test:backend-auth'], 'node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs');
   assert.equal(scripts['test:growth-guide'], 'node --test src/lib/growth-guide/*.test.js');
   assert.equal(scripts['test:route-governance'], 'node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/route-governance.test.mjs');
@@ -42,6 +42,10 @@ test('F3 content follow-up batch runs both existing suites without suppressing f
 
 test('F3 video library batch runs all three existing suites without suppressing failures', () => {
   assert.equal(scripts['test:video-library'], 'node --test tests/growth-show.test.mjs tests/video-gallery.test.mjs tests/youtube-learning-identity.test.mjs');
+});
+
+test('F3 podcast batch runs the existing suite without suppressing failures', () => {
+  assert.equal(scripts['test:podcast'], 'node --test tests/growth-show-podcast.test.mjs');
 });
 
 test('CI and compatibility aliases exclude live diagnostics and submissions', () => {

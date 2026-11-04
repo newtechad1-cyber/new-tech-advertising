@@ -23,6 +23,8 @@ proof that the live connection works. The first F3 batch appends
 `npm run test:content-follow-up` after discovery, preserving the full PR #107
 chain byte-for-byte. The third F3 batch appends `npm run test:video-library`
 after content follow-up, preserving the full PR #108 chain byte-for-byte.
+The fourth F3 batch appends the existing `npm run test:podcast` command after
+video library, preserving the full PR #109 chain byte-for-byte.
 `check:release` remains an alias for `check:ci`.
 
 The necessary F2 build separation is explicit: `build:ci` runs the normal Vite
@@ -47,7 +49,7 @@ provide OS-level isolation: review tests and use an isolated workspace without
 production credentials. The dependency-free safeguards mock network/subprocess
 operations. The real candidate gate must pass in GitHub before readiness is assessed.
 
-### F3: discovery, content follow-up and video library; coverage is still open
+### F3: discovery, content follow-up, video library and podcast; coverage is still open
 
 `npm run test:discovery` runs the three existing discovery-input-mode,
 discovery-question-selection and discovery-trigger-routing test files. They
@@ -79,12 +81,30 @@ request guards/caching/rate limits in the simulated handler, archive merging,
 filtering and stable lesson identity. They do not verify actual YouTube access,
 current public/private video status, real playback, browser rendering, live
 rate limiting, or the deployed Base44 function. No real YouTube request is made.
-The separate `test:podcast` suite remains ungated.
+
+`npm run test:podcast` runs the existing growth-show-podcast suite unchanged.
+Its three cases execute the real readiness, RSS and episode helpers and read
+local files. They check eight incomplete-metadata variants; XML validity,
+escaped teaching text, stable identity, deduplication and draft exclusion; and
+local feed counts, unique GUIDs, declared MIME type and enclosure file sizes.
+It uses the already locked fast-xml-parser package and checked-in audio files.
+In `check:ci` it runs after the existing candidate build has generated the
+seed-based feed. The standalone command only reads the feed already on disk.
+
+Despite the third test's title, it does not decode or listen to MP3s, compare
+audio hashes, verify sound quality/completeness, or check HTTP playback/seeking.
+Readiness booleans are stored assertions, not a new listening review. The count
+and GUID checks are not an exact comparison of every expected episode identity.
+No feed is fetched from the published site and no podcast directory is contacted.
+The generator, public XML, audio metadata and media files are unchanged by this
+batch. Passing does not establish live-feed freshness or fix the tracked-feed
+candidate-output risk described below.
 
 The [F3 inventory](docs/testing/f3-inventory-2026-11-04.md) records the 16 test
 files outside the original gate: three covered by PR #107, two by PR #108,
-and three proposed in this batch, leaving eight ungated after its approval,
-including the separate podcast suite. No test is retired or silently skipped.
+three by PR #109, and the podcast suite proposed in this fourth batch, leaving
+seven ungated after its approval (eight on main until then). No test is retired
+or silently skipped.
 This does NOT claim all-repository coverage. Review failures against approved
 behavior/content; do not change website copy merely to satisfy an old assertion.
 
@@ -117,9 +137,8 @@ PR #105's explicit-key fix, notification workflow, and both hosted key files
 remain unchanged. Its notification still runs on qualifying pushes to main;
 post-publication timing is a separate decision. Candidate CI never runs --submit.
 
-The F2 separation, discovery and content follow-up batches are retained. Batch
-three adds only the existing Growth Show, video-gallery and YouTube identity
-suites to automatic checks.
+The F2 separation, discovery, content follow-up and video-library batches are
+retained. Batch four adds only the existing podcast suite to automatic checks.
 F3 is not complete, and F4-F7 remain separate. This changes no application handlers,
 permissions, customer data, dependency versions, lockfile, branch protection,
 page content or IndexNow timing. Proposed changes stay on the review branch
