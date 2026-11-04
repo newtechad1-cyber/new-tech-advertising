@@ -5,11 +5,22 @@ import { GROWTH_SHOW_AUDIO } from '../src/data/growthShowAudio.js';
 import { createPodcastRss, isPodcastAudioReady } from '../src/lib/growthShowPodcast.js';
 // One existing episode record drives the website and feed. No directory submission.
 const byId = new Map(SEED_GROWTH_SHOW_EPISODES.map(r => [r.youtube_video_id || r.id, r]));
-const response = await fetch('https://base44.app/api/apps/691f41a18de4a7f498c8f884/entities/GrowthShowEpisode', { signal: AbortSignal.timeout(20000) });
-if (!response.ok) throw new Error('Cannot refresh existing GrowthShowEpisode records: ' + response.status);
-const body = await response.json();
-const records = Array.isArray(body) ? body : body.items || body.entities;
-if (!Array.isArray(records)) throw new Error('Unexpected episode response');
+// Only the explicitly selected candidate build uses checked-in episode records.
+// Normal publication still refreshes live records and fails if that refresh fails.
+const buildMode = process.env.NTA_PODCAST_BUILD_MODE || 'live';
+if (!['live', 'candidate-offline'].includes(buildMode)) {
+  throw new Error('Invalid NTA_PODCAST_BUILD_MODE: ' + buildMode);
+}
+let records = [];
+if (buildMode === 'candidate-offline') {
+  console.log('CI candidate podcast: checked-in records only; not a publication artifact.');
+} else {
+  const response = await fetch('https://base44.app/api/apps/691f41a18de4a7f498c8f884/entities/GrowthShowEpisode', { signal: AbortSignal.timeout(20000) });
+  if (!response.ok) throw new Error('Cannot refresh existing GrowthShowEpisode records: ' + response.status);
+  const body = await response.json();
+  records = Array.isArray(body) ? body : body.items || body.entities;
+  if (!Array.isArray(records)) throw new Error('Unexpected episode response');
+}
 for (const record of records) byId.set(record.youtube_video_id || record.id, record);
 const episodes = [...byId.values()].map(r => {
   const audio = GROWTH_SHOW_AUDIO[r.youtube_video_id];

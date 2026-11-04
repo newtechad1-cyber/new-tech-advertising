@@ -26,7 +26,7 @@ The reported failed attempt did not create a new Core Submission at triage; the 
 - Exact public intake metadata {"connection_check":true} requests only the three fixed Core receivers' authenticated connection-check responses. No caller payload or contact details are forwarded.
 - The three Core receivers return their authenticated metadata before entity access, LLMs, notifications or email.
 - The readiness check coalesces concurrent requests, caches the result briefly and has a timeout.
-- npm run check:core-bridge-live now verifies an actual authenticated connection to all three receivers, and is included in check:release.
+- npm run check:core-bridge-live verifies an actual authenticated connection to all three receivers. Since the November 4 F2 separation, run it via check:release-live only after publication with explicit authorization; it is not included in check:ci or check:release.
 - Both temporary checkCoreBridgeTransport diagnostics were retired and verified to return HTTP 410.
 
 ## Verification

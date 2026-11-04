@@ -9,64 +9,74 @@ verification are different results; neither authorizes a merge or publication.
 
 ```sh
 npm ci --ignore-scripts --no-audit --no-fund
+node --test tests/indexnow.test.mjs tests/release-checks.test.mjs
 npm run check:ci
 ```
 
-`check:ci` runs the existing strict source security audit, builds the candidate,
-runs every `*.test.js`, `*.test.mjs` and `*.test.cjs` under `tests/` and
-`src/lib/growth-guide/` (recursively), then checks the local Core bridge rollout
-record. The rollout-record check is not proof that the live connection works.
-The build must precede the tests because some tests inspect generated HTML/RSS.
-No test is skipped or quarantined by this change. The runner prints the exact
-inventory and propagates failures, timeouts and missing test roots.
+`check:ci` retains the pre-PR-106 strict source security audit and named tests,
+in their existing order: backend authentication, Growth Guide, route governance,
+candidate build, public boundary/SEO/search/video/journey/tracking/reporting tests,
+Core bridge tests, and the local Core rollout-record check. The build precedes
+all tests that inspect its generated output. The rollout-record check is not
+proof that the live connection works. `check:release` is an alias for `check:ci`.
 
-`npm run check:release` is a backward-compatible alias for `check:ci`. It no
-longer calls the published website. Existing targeted test commands remain.
-To inspect the complete file inventory without executing tests:
+The necessary F2 build separation is explicit: `build:ci` runs the normal Vite
+production lifecycle with `NTA_PODCAST_BUILD_MODE=candidate-offline` in its child
+process only. The podcast generator uses the existing checked-in episode and
+verified-audio records without refreshing the live GrowthShowEpisode entity.
+The same generator, audio size/hash checks and SEO output generation still run.
+There is no network-error fallback and no skipped build. This candidate-only
+output is NOT for publication and does not prove that live episode data is current.
+The workflow neither uploads nor deploys it.
 
-```sh
-node scripts/run-ci-tests.mjs --list
-```
+Normal `npm run build` and Base44's direct Vite invocation remain unchanged:
+without that explicitly selected mode the podcast generator refreshes live
+records and fails on refresh errors, rather than silently publishing seed data.
+Do not set NTA_PODCAST_BUILD_MODE=candidate-offline in a publishing environment.
 
 GitHub installs dependencies first, without lifecycle scripts. It then runs
-candidate code checks in a Linux network namespace with no external network,
-as the unprivileged runner user and without the GitHub/production environment.
-There is no fallback to a network-enabled check if isolation fails. The
-standalone npm command does not provide this OS-level isolation by itself;
-review new tests before running it locally and use an isolated workspace with
-no production credentials. Tests must mock external services.
+candidate checks in a Linux network namespace with no external network, as the
+unprivileged runner user and without the GitHub/production environment. There is
+no network-enabled fallback if isolation fails. Standalone npm commands do not
+provide OS-level isolation: review tests and use an isolated workspace without
+production credentials. The dependency-free safeguards mock network/subprocess
+operations. The real candidate gate must pass in GitHub before readiness is assessed.
 
-The draft also measures `npm run lint` and `npm run typecheck` explicitly. These
-steps must report their real outcomes: no `continue-on-error`, ignored failures
-or relaxed assertions. `typecheck` uses `--noEmit` so it cannot rewrite source
-files. Baseline results and any existing failures are recorded in the PR; do
-not call this change ready for merge until its results have been reviewed.
+### F3 is separate and still open
 
-### After Rick publishes, with explicit authorization
+This narrow F2 repair does NOT claim every test file is wired into CI. The
+unwired-test inventory and the previously ungated lint/typecheck backlog remain
+separate work. No existing application test or assertion is removed to get green
+CI, and no application copy is changed to match a stale expectation. Review each
+failure against approved behavior/content before updating a test or the application.
+The experimental discovery runner and its inventory tests remain recoverable at
+PR #106's initial commit 4c47b89; they are not part of this narrowed change.
+`npm run lint` and `npm run typecheck` remain available; typecheck uses --noEmit.
+Bring them into required CI only after an honest, reviewed baseline is established.
+
+### After publication, with explicit authorization
 
 ```sh
 npm run check:release-live
 ```
 
-This separate command invokes the existing `check:core-bridge-live` diagnostic.
-It makes a real request to the published NTA intake endpoint and checks three
-fixed Core connection receivers. It is not part of push/PR CI. Do not run it
-during an independent read-only code review. Its success is only connection
-readiness, not proof of lead capture, mailbox receipt or business results.
+This invokes the existing `check:core-bridge-live` diagnostic and makes a real
+request to the published NTA intake endpoint. It checks three fixed Core
+connection receivers, not the candidate. It is not part of push/PR CI. Do not
+run it during a read-only review. Passing establishes connection readiness,
+not lead capture, mailbox receipt, indexing or business results.
 
-Record candidate commit, checks run, Rick's approval, publication/checkpoint
-when applicable, live diagnostic result and any remaining verification gaps.
-Rick remains the Base44 publisher. This CI-only change does not publish pages.
+Record the exact candidate, performed checks, review findings, Rick's approval,
+publication/checkpoint when applicable, and outstanding verification gaps.
+Rick remains the merge approver and Base44 publisher.
 
 ### IndexNow and scope
 
-The PR #105 explicit-key fix and both hosted key files remain unchanged.
-Its notification still runs on qualifying pushes to `main`; changing that to
-post-publication timing is a separate decision. CI never runs `--submit`.
-A successful notification does not prove indexing.
+PR #105's explicit-key fix, notification workflow, and both hosted key files
+remain unchanged. Its notification still runs on qualifying pushes to main;
+post-publication timing is a separate decision. Candidate CI never runs --submit.
 
-This pass addresses F2 and evaluates F3 from the November 4 independent review.
-It does not alter application handlers, permissions, customer data, dependencies,
-branch protection, IndexNow timing, or findings F4-F7. No new scheduled service
-or paid model review is configured. Proposed changes remain on a review branch
+This pass addresses F2, not F3 or F4-F7. It changes no application handlers,
+permissions, customer data, dependency versions, lockfile, branch protection,
+page content or IndexNow timing. Proposed changes stay on the review branch
 until Rick explicitly approves their merge.
