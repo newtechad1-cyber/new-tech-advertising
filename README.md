@@ -21,7 +21,9 @@ all tests that inspect its generated output. The rollout-record check is not
 proof that the live connection works. The first F3 batch appends
 `npm run test:discovery` after that unchanged chain. The second F3 batch appends
 `npm run test:content-follow-up` after discovery, preserving the full PR #107
-chain byte-for-byte. `check:release` remains an alias for `check:ci`.
+chain byte-for-byte. The third F3 batch appends `npm run test:video-library`
+after content follow-up, preserving the full PR #108 chain byte-for-byte.
+`check:release` remains an alias for `check:ci`.
 
 The necessary F2 build separation is explicit: `build:ci` runs the normal Vite
 production lifecycle with `NTA_PODCAST_BUILD_MODE=candidate-offline` in its child
@@ -45,7 +47,7 @@ provide OS-level isolation: review tests and use an isolated workspace without
 production credentials. The dependency-free safeguards mock network/subprocess
 operations. The real candidate gate must pass in GitHub before readiness is assessed.
 
-### F3: discovery and content follow-up; remaining coverage is still open
+### F3: discovery, content follow-up and video library; coverage is still open
 
 `npm run test:discovery` runs the three existing discovery-input-mode,
 discovery-question-selection and discovery-trigger-routing test files. They
@@ -65,9 +67,23 @@ These are runtime checks, not a real browser, Turnstile, Core or delivery test.
 They do not prove browser field validation, mailbox receipt or live consent.
 No real inquiry, email, text or call is made.
 
+`npm run test:video-library` runs three existing suites unchanged: growth-show
+(six cases), video-gallery (eight), and youtube-learning-identity (five).
+The Growth Show and identity suites call real helpers with fixture records.
+The gallery suite has three helper cases and five cases that execute the real
+playlist parser/handler in a VM, with Base44 identity, environment and fetch
+replaced by test doubles. TypeScript and fast-xml-parser are already committed
+dependencies; this batch does not add or upgrade packages. These 19 runtime
+cases cover episode relationships/classification, parsing and rejected input,
+request guards/caching/rate limits in the simulated handler, archive merging,
+filtering and stable lesson identity. They do not verify actual YouTube access,
+current public/private video status, real playback, browser rendering, live
+rate limiting, or the deployed Base44 function. No real YouTube request is made.
+The separate `test:podcast` suite remains ungated.
+
 The [F3 inventory](docs/testing/f3-inventory-2026-11-04.md) records the 16 test
-files outside the original gate: three covered by PR #107, two selected in this
-batch, and 11 still ungated if this batch is merged,
+files outside the original gate: three covered by PR #107, two by PR #108,
+and three proposed in this batch, leaving eight ungated after its approval,
 including the separate podcast suite. No test is retired or silently skipped.
 This does NOT claim all-repository coverage. Review failures against approved
 behavior/content; do not change website copy merely to satisfy an old assertion.
@@ -101,8 +117,9 @@ PR #105's explicit-key fix, notification workflow, and both hosted key files
 remain unchanged. Its notification still runs on qualifying pushes to main;
 post-publication timing is a separate decision. Candidate CI never runs --submit.
 
-The F2 separation and discovery batch are retained; batch two adds only the
-existing content-journey and content-follow-up-form suites to automatic checks.
+The F2 separation, discovery and content follow-up batches are retained. Batch
+three adds only the existing Growth Show, video-gallery and YouTube identity
+suites to automatic checks.
 F3 is not complete, and F4-F7 remain separate. This changes no application handlers,
 permissions, customer data, dependency versions, lockfile, branch protection,
 page content or IndexNow timing. Proposed changes stay on the review branch
