@@ -48,6 +48,13 @@ Deno.serve(async (req) => {
       if (connections?.[0]?.status === 'connected') {
         publishMode = 'api';
       }
+    } else if (platform === 'linkedin') {
+      try {
+        const connection = await base44.asServiceRole.connectors.getConnection('linkedin');
+        if (connection?.accessToken) publishMode = 'api';
+      } catch {
+        publishMode = 'manual';
+      }
     }
 
     if (record) {
