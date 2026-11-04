@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -578,7 +578,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge/ai-foundations</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1517,6 +1517,12 @@
   <url>
     <loc>https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough</loc>
     <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/ai-foundations/the-ai-bubble-isnt-what-you-think</loc>
+    <lastmod>2026-11-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

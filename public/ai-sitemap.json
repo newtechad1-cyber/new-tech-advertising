@@ -1441,7 +1441,7 @@
       "description": "A practical, hype-free introduction to using artificial intelligence in a local business.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-10-29",
+      "lastModified": "2026-11-04",
       "lessons": [
         {
           "title": "AI Isn't Magic Either",
@@ -1642,6 +1642,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-10-29"
+        },
+        {
+          "title": "The AI Bubble Isn't What You Think",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/the-ai-bubble-isnt-what-you-think",
+          "contentType": "LearningResource",
+          "description": "Is AI a bubble? Rick Hesse explains why AI companies may fail while AI itself becomes cheaper, more common and more deeply embedded in everyday business and life.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-11-04"
         }
       ]
     },
