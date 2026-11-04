@@ -25,7 +25,7 @@ function expanded(name, active = new Set()) {
 }
 
 test('F2 preserves every previously gated test command and its order', () => {
-  assert.equal(scripts['check:ci'], baseline + ' && npm run test:discovery');
+  assert.equal(scripts['check:ci'], baseline + ' && npm run test:discovery && npm run test:content-follow-up');
   assert.equal(scripts['test:backend-auth'], 'node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs');
   assert.equal(scripts['test:growth-guide'], 'node --test src/lib/growth-guide/*.test.js');
   assert.equal(scripts['test:route-governance'], 'node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/route-governance.test.mjs');
@@ -34,6 +34,10 @@ test('F2 preserves every previously gated test command and its order', () => {
 
 test('F3 discovery batch runs all three existing suites without suppressing failures', () => {
   assert.equal(scripts['test:discovery'], 'node --test tests/discovery-input-mode.test.mjs tests/discovery-question-selection.test.mjs tests/discovery-trigger-routing.test.mjs');
+});
+
+test('F3 content follow-up batch runs both existing suites without suppressing failures', () => {
+  assert.equal(scripts['test:content-follow-up'], 'node --test tests/content-journey.test.mjs tests/content-follow-up-form.test.mjs');
 });
 
 test('CI and compatibility aliases exclude live diagnostics and submissions', () => {
