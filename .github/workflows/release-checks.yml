@@ -18,5 +18,7 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+      - name: IndexNow offline regression tests
+        run: node --test tests/indexnow.test.mjs
       - run: npm ci
       - run: npm run check:release
