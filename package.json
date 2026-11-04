@@ -13,16 +13,19 @@
     "test:route-governance": "node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/route-governance.test.mjs",
     "test:public-seo": "npm run build && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs tests/search-delivery.test.mjs tests/video-publication.test.mjs",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc -p ./jsconfig.json",
+    "typecheck": "tsc --noEmit -p ./jsconfig.json",
     "preview": "vite preview",
     "test:backend-auth": "node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs",
     "test:tracking": "node --test tests/public-tracking.test.mjs tests/public-verification-client.test.mjs",
     "test:analytics-reporting": "node --test tests/analytics-reporting.test.mjs",
-    "check:release": "npm run audit:security -- --strict && npm run test:backend-auth && npm run test:growth-guide && npm run test:route-governance && npm run build && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs tests/search-delivery.test.mjs tests/video-publication.test.mjs tests/visitor-journey.test.mjs tests/public-tracking.test.mjs tests/analytics-reporting.test.mjs && npm run test:core-bridge && npm run check:core-bridge && npm run check:core-bridge-live",
+    "check:release": "npm run check:ci",
     "test:core-bridge": "node --test tests/core-bridge-boundaries.test.mjs tests/core-bridge-runtime.test.mjs",
     "check:core-bridge": "node scripts/check-core-bridge-readiness.mjs",
     "check:core-bridge-live": "node scripts/check-core-bridge-live.mjs",
-    "test:podcast": "node --test tests/growth-show-podcast.test.mjs"
+    "test:podcast": "node --test tests/growth-show-podcast.test.mjs",
+    "test:ci": "node scripts/run-ci-tests.mjs",
+    "check:ci": "npm run audit:security -- --strict && npm run build && npm run test:ci && npm run check:core-bridge",
+    "check:release-live": "npm run check:core-bridge-live"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.59",
