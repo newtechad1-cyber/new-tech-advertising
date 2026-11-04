@@ -18,7 +18,9 @@ in their existing order: backend authentication, Growth Guide, route governance,
 candidate build, public boundary/SEO/search/video/journey/tracking/reporting tests,
 Core bridge tests, and the local Core rollout-record check. The build precedes
 all tests that inspect its generated output. The rollout-record check is not
-proof that the live connection works. `check:release` is an alias for `check:ci`.
+proof that the live connection works. The first F3 batch appends
+`npm run test:discovery` after that unchanged chain. `check:release` remains an
+alias for `check:ci`.
 
 The necessary F2 build separation is explicit: `build:ci` runs the normal Vite
 production lifecycle with `NTA_PODCAST_BUILD_MODE=candidate-offline` in its child
@@ -42,17 +44,27 @@ provide OS-level isolation: review tests and use an isolated workspace without
 production credentials. The dependency-free safeguards mock network/subprocess
 operations. The real candidate gate must pass in GitHub before readiness is assessed.
 
-### F3 is separate and still open
+### F3: discovery batch one; remaining coverage is still open
 
-This narrow F2 repair does NOT claim every test file is wired into CI. The
-unwired-test inventory and the previously ungated lint/typecheck backlog remain
-separate work. No existing application test or assertion is removed to get green
-CI, and no application copy is changed to match a stale expectation. Review each
-failure against approved behavior/content before updating a test or the application.
-The experimental discovery runner and its inventory tests remain recoverable at
-PR #106's initial commit 4c47b89; they are not part of this narrowed change.
-`npm run lint` and `npm run typecheck` remain available; typecheck uses --noEmit.
+`npm run test:discovery` runs the three existing discovery-input-mode,
+discovery-question-selection and discovery-trigger-routing test files. They
+are also required by `check:ci`. Their assertions and application source are
+unchanged. The two question-selection cases execute the selector; the other
+nine cases inspect source structure. Passing is not proof of microphone access,
+consent enforcement in production, interpretation delivery or a complete journey.
+
+The [F3 inventory](docs/testing/f3-inventory-2026-11-04.md) records the 16 test
+files outside the pre-batch gate: three selected here and 13 still ungated,
+including the separate podcast suite. No test is retired or silently skipped.
+This does NOT claim all-repository coverage. Review failures against approved
+behavior/content; do not change website copy merely to satisfy an old assertion.
+
+The experimental all-test runner remains recoverable at PR #106's initial
+commit 4c47b89; it is not enabled by this batch. `npm run lint` and
+`npm run typecheck` remain available and ungated; typecheck uses --noEmit.
 Bring them into required CI only after an honest, reviewed baseline is established.
+Use disposable checkouts: candidate builds may rewrite tracked generated files,
+including public/growth-show.xml. Do not commit or publish that generated output.
 
 ### After publication, with explicit authorization
 
@@ -76,7 +88,8 @@ PR #105's explicit-key fix, notification workflow, and both hosted key files
 remain unchanged. Its notification still runs on qualifying pushes to main;
 post-publication timing is a separate decision. Candidate CI never runs --submit.
 
-This pass addresses F2, not F3 or F4-F7. It changes no application handlers,
+The F2 separation is retained; F3 batch one adds discovery-test wiring only.
+F3 is not complete, and F4-F7 remain separate. This changes no application handlers,
 permissions, customer data, dependency versions, lockfile, branch protection,
 page content or IndexNow timing. Proposed changes stay on the review branch
 until Rick explicitly approves their merge.

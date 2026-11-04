@@ -13,7 +13,7 @@ const workflow = fs.readFileSync(path.join(root, '.github/workflows/release-chec
 const generator = fs.readFileSync(path.join(root, 'scripts/generate-podcast-feed.mjs'), 'utf8');
 
 // Exact pre-106 gate at 9ddda50, minus its live check and using build:ci.
-// Do not shrink the baseline while separating F2 from F3.
+// F3 may append a reviewed batch, but must not shrink or reorder this baseline.
 const baseline = 'npm run audit:security -- --strict && npm run test:backend-auth && npm run test:growth-guide && npm run test:route-governance && npm run build:ci && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs tests/search-delivery.test.mjs tests/video-publication.test.mjs tests/visitor-journey.test.mjs tests/public-tracking.test.mjs tests/analytics-reporting.test.mjs && npm run test:core-bridge && npm run check:core-bridge';
 
 function expanded(name, active = new Set()) {
@@ -25,11 +25,15 @@ function expanded(name, active = new Set()) {
 }
 
 test('F2 preserves every previously gated test command and its order', () => {
-  assert.equal(scripts['check:ci'], baseline);
+  assert.equal(scripts['check:ci'], baseline + ' && npm run test:discovery');
   assert.equal(scripts['test:backend-auth'], 'node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs');
   assert.equal(scripts['test:growth-guide'], 'node --test src/lib/growth-guide/*.test.js');
   assert.equal(scripts['test:route-governance'], 'node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/route-governance.test.mjs');
   assert.equal(scripts['test:core-bridge'], 'node --test tests/core-bridge-boundaries.test.mjs tests/core-bridge-runtime.test.mjs');
+});
+
+test('F3 discovery batch runs all three existing suites without suppressing failures', () => {
+  assert.equal(scripts['test:discovery'], 'node --test tests/discovery-input-mode.test.mjs tests/discovery-question-selection.test.mjs tests/discovery-trigger-routing.test.mjs');
 });
 
 test('CI and compatibility aliases exclude live diagnostics and submissions', () => {
