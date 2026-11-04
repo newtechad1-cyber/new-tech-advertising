@@ -14,6 +14,7 @@ import { lesson17 as aiFoundationsLesson17 } from './aiFoundationsLesson17';
 import { lesson18 as aiFoundationsLesson18 } from './aiFoundationsLesson18';
 import { lesson19 as aiFoundationsLesson19 } from './aiFoundationsLesson19';
 import { lesson20 as aiFoundationsLesson20 } from './aiFoundationsLesson20';
+import { lesson21 as aiFoundationsLesson21 } from './aiFoundationsLesson21';
 import { whatIsDigitalTrustLessons } from './whatIsDigitalTrust';
 import { buildingSmallBusinessAiSeriesLessons } from './buildingSmallBusinessAiSeries';
 import { lifetimeBusinessLessons } from './lifetimeBusiness';
@@ -36,7 +37,8 @@ const completeAiFoundationsLessons = [
   aiFoundationsLesson17,
   aiFoundationsLesson18,
   aiFoundationsLesson19,
-  aiFoundationsLesson20
+  aiFoundationsLesson20,
+  aiFoundationsLesson21
 ];
 
 
@@ -209,6 +211,10 @@ const contextualLessonLinks = Object.freeze({
   [lessonKey('ai-foundations', 'a-prompt-is-the-beginning-of-a-conversation')]: [
     lessonKey('ai-foundations', 'ai-needs-context-before-it-can-be-helpful'),
     lessonKey('ai-foundations', 'ai-can-assist-judgment-it-cannot-own-it')
+  ],
+  [lessonKey('ai-foundations', 'the-ai-bubble-isnt-what-you-think')]: [
+    lessonKey('ai-foundations', 'i-asked-ai-to-seo-my-website-why-wasnt-that-enough'),
+    lessonKey('ai-foundations', 'use-the-model-that-gets-the-job-done')
   ],
   [lessonKey('ai-foundations', 'automation-comes-after-understanding')]: [
     lessonKey('business-foundations', 'every-system-produces-exactly-what-it-was-designed-to-produce'),
