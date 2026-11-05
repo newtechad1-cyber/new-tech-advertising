@@ -7,7 +7,7 @@ import ts from 'typescript';
 const KEY = 'isolated-test-credential-never-used-in-production';
 const CORE = '6a7215451eb90dc843a94546';
 const RECEIVERS = ['ntaUnifiedIntake', 'submitRecruitingApplication', 'trackBookEvent'];
-function setup({ secret = KEY, rejectReceiver = '', wrongResponse = false, hangReceiver = '' } = {}) {
+function setup({ secret = KEY, rejectReceiver = '', wrongResponse = false, hangReceiver = '', user = null } = {}) {
   let handler;
   const calls = [];
   const source = readFileSync('base44/functions/ntaUnifiedIntake/entry.ts', 'utf8');
@@ -22,7 +22,7 @@ function setup({ secret = KEY, rejectReceiver = '', wrongResponse = false, hangR
     console: { log() {}, error() {}, warn() {} },
     Deno: { serve(fn) { handler = fn; }, env: { get(name) { return name === 'NTA_CORE_BRIDGE_SECRET' ? secret : undefined; } } },
     createClientFromRequest() {
-      return { auth: { async me() { return null; } },
+      return { auth: { async me() { return user; } },
         get asServiceRole() { assert.fail('Readiness must not use local service-role data'); } };
     },
     createClient(options) {
@@ -41,9 +41,9 @@ function setup({ secret = KEY, rejectReceiver = '', wrongResponse = false, hangR
     },
     fetch() { assert.fail('Readiness must not call Turnstile, email or LLM providers'); },
   });
-  const request = (body = { connection_check: true }, { method = 'POST', origin = 'https://newtechadvertising.com' } = {}) =>
+  const request = (body = { connection_check: true }, { method = 'POST', origin = 'https://newtechadvertising.com', ip = '203.0.113.4' } = {}) =>
     handler(new Request('https://example.invalid/ntaUnifiedIntake', {
-      method, headers: { 'Content-Type': 'application/json', Origin: origin },
+      method, headers: { 'Content-Type': 'application/json', Origin: origin, 'CF-Connecting-IP': ip },
       ...(method === 'GET' ? {} : { body: JSON.stringify(body) }),
     }));
   return { request, calls };
@@ -120,4 +120,44 @@ test('readiness requires POST and a permitted origin', async () => {
   assert.equal((await fixture.request({}, { method: 'GET' })).status, 405);
   assert.equal((await fixture.request(undefined, { origin: 'https://example.invalid' })).status, 403);
   assert.equal(fixture.calls.length, 0);
+});
+
+
+test('public connection readiness has a separate quota before Core calls', async () => {
+  const fixture = setup();
+  for (let i = 0; i < 60; i++) {
+    const response = await fixture.request();
+    assert.equal(response.status, 200, 'readiness request ' + (i + 1));
+  }
+  assert.equal(fixture.calls.length, 3, 'cached readiness should not probe Core repeatedly');
+
+  const blocked = await fixture.request();
+  assert.equal(blocked.status, 429);
+  assert.equal((await blocked.json()).code, 'NTA_STATUS_RATE_LIMITED');
+  assert.ok(Number(blocked.headers.get('Retry-After')) >= 1);
+  assert.equal(blocked.headers.get('Cache-Control'), 'no-store');
+  assert.equal(fixture.calls.length, 3, 'rate-limited request must never reach Core');
+
+  // Health checks must not exhaust the 12 genuine public form attempts.
+  const regularRequest = await fixture.request({ name: 'Test Visitor', email: 'visitor@example.invalid' });
+  assert.equal(regularRequest.status, 403);
+  assert.equal(fixture.calls.length, 3);
+});
+
+test('connection readiness quota is per client and protects only status metadata', async () => {
+  const fixture = setup();
+  for (let i = 0; i < 60; i++) {
+    assert.equal((await fixture.request()).status, 200);
+  }
+  assert.equal((await fixture.request()).status, 429);
+
+  const anotherClient = await fixture.request(undefined, { ip: '203.0.113.5' });
+  assert.equal(anotherClient.status, 200);
+  assert.equal(fixture.calls.length, 3);
+});
+
+test('trusted admins can read no-data connection readiness without public quota', async () => {
+  const fixture = setup({ user: { role: 'admin', id: 'verified-admin' } });
+  for (let i = 0; i < 62; i++) assert.equal((await fixture.request()).status, 200);
+  assert.equal(fixture.calls.length, 3);
 });
