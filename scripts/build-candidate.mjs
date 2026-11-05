@@ -22,8 +22,8 @@ export function generatedSourceStatus({ spawn = spawnSync } = {}) {
 // selection. This does not provide OS-level network isolation; CI does that.
 // Guard both sides of the build: changes to tracked SEO source files must be
 // reviewed and committed deliberately, never left as a hidden build side effect.
-export function buildCandidate({ spawn = spawnSync, env = process.env } = {}) {
-  const prior = generatedSourceStatus({ spawn });
+export function buildCandidate({ spawn = spawnSync, gitSpawn = spawnSync, env = process.env } = {}) {
+  const prior = generatedSourceStatus({ spawn: gitSpawn });
   if (prior) {
     throw new Error('Generated SEO source files are already modified before the build. Review and commit these changes first:\n' + prior);
   }
@@ -37,7 +37,7 @@ export function buildCandidate({ spawn = spawnSync, env = process.env } = {}) {
 
   // Check even when the build itself fails. Never silently clean or discard
   // generated files; the developer must inspect them and update source truth.
-  const unexpected = generatedSourceStatus({ spawn });
+  const unexpected = generatedSourceStatus({ spawn: gitSpawn });
   if (unexpected) {
     throw new Error('The build unexpectedly changed tracked SEO source files. Review the generator and commit approved changes before merging:\n' + unexpected);
   }
