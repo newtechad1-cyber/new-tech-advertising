@@ -26,7 +26,7 @@ const validPayloads = {
   },
   ntaUnifiedIntake: { email: 'unit-test@example.invalid', name: 'Test Visitor', submission_type: 'contact' },
 };
-function setup(name, { env = settings, user = null, result = {}, networkError = false, authError = false, intakeError = false, crossAppError = null } = {}) {
+function setup(name, { env = settings, user = null, result = {}, networkError = false, authError = false, intakeError = false, crossAppError = null, crossAppErrorData = null, crossAppErrorMessage = 'Unauthorized' } = {}) {
   const source = readFileSync(path.join(root, 'base44/functions', name, 'entry.ts'), 'utf8')
     .replace(/^import[^\n]*\n/gm, '');
   const output = ts.transpileModule(source, {
@@ -35,7 +35,7 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
   });
   assert.equal((output.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
   let handler;
-  const stats = { effects: 0, provider: 0, serviceCalls: [], crossAppCalls: [] };
+  const stats = { effects: 0, provider: 0, serviceCalls: [], crossAppCalls: [], errorLogs: [] };
   const used = new Set();
   let discovery = {};
   let categories = [];
@@ -66,7 +66,7 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
   };
   vm.runInNewContext(output.outputText, {
     exports: {}, Request, Response, Headers, URL, AbortSignal, TextEncoder, TextDecoder, crypto: webcrypto,
-    console: { log() {}, warn() {}, error() {} },
+    console: { log() {}, warn() {}, error(...args) { stats.errorLogs.push(args.map(String).join(' ')); } },
     Deno: { serve(fn) { handler = fn; }, env: { get(key) { return env[key]; } } },
     createClientFromRequest() { return { auth: { async me() { if (authError) throw new Error('Invalid caller session'); return user; } }, asServiceRole: service }; },
     createClient(options) {
@@ -74,7 +74,7 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
       return { functions: { async invoke(name, payload) {
       stats.effects++;
       stats.crossAppCalls.push({ appId: options.appId, name, payload });
-      if (crossAppError) throw Object.assign(new Error('Unauthorized'), { response: { status: crossAppError, data: { error: 'Unauthorized.' } } });
+      if (crossAppError) throw Object.assign(new Error(crossAppErrorMessage), { response: { status: crossAppError, data: crossAppErrorData ?? { error: 'Unauthorized.' } } });
       return { data: { success: true } };
     } } }; },
     async fetch(url, options) {
@@ -320,3 +320,66 @@ for (const name of ['ntaUnifiedIntake', 'submitRecruitingApplication']) {
     });
   }
 }
+
+
+test('ntaUnifiedIntake: Core 4xx errors expose only allowlisted visitor messages, never upstream details', async () => {
+  const sensitive = {
+    error: 'Internal CRM URL https://internal.example/api/v1, database password & customer 555-0188',
+    trace_id: 'internal-correlation-id-0001',
+    debug: { bearer: 'test-secret-value-must-not-leak' },
+  };
+  const statusCases = [
+    [400, 400, 'NTA_INPUT_INVALID'],
+    [409, 409, 'NTA_REQUEST_CONFLICT'],
+    [413, 413, 'NTA_REQUEST_TOO_LARGE'],
+    [422, 422, 'NTA_INPUT_INVALID'],
+    [429, 429, 'NTA_REQUEST_LIMITED'],
+    [404, 502, 'NTA_INTAKE_UNAVAILABLE'],
+    [418, 502, 'NTA_INTAKE_UNAVAILABLE'],
+    [500, 502, 'NTA_INTAKE_UNAVAILABLE'],
+  ];
+
+  for (const [coreStatus, expectedHttp, expectedCode] of statusCases) {
+    const fixture = setup('ntaUnifiedIntake', {
+      crossAppError: coreStatus,
+      crossAppErrorData: sensitive,
+      crossAppErrorMessage: 'Internal database failure test-secret-value-must-not-leak',
+    });
+    const response = await fixture.request({
+      ...validPayloads.ntaUnifiedIntake,
+      verification_token: 'isolated-proof-' + coreStatus,
+    });
+    assert.equal(response.status, expectedHttp, 'Core status ' + coreStatus);
+    const body = await response.json();
+    assert.equal(body.code, expectedCode);
+    assert.equal(typeof body.error, 'string');
+    assert.deepEqual(Object.keys(body).sort(), ['code', 'error']);
+    const publicBody = JSON.stringify(body);
+    for (const forbidden of ['internal.example', 'database', '555-0188', 'test-secret-value', 'trace_id', 'debug']) {
+      assert.ok(!publicBody.includes(forbidden), 'public Core ' + coreStatus + ' leaked ' + forbidden);
+      assert.ok(!fixture.stats.errorLogs.join(' ').includes(forbidden), 'log Core ' + coreStatus + ' leaked ' + forbidden);
+    }
+    assert.equal(fixture.stats.crossAppCalls.length, 1);
+    assert.equal(fixture.stats.provider, 1);
+  }
+});
+
+test('ntaUnifiedIntake: local form validation and accepted Core responses remain intact', async () => {
+  const fixture = setup('ntaUnifiedIntake');
+  const invalid = await fixture.request({
+    name: 'No contact method',
+    verification_token: 'isolated-no-contact',
+    submission_type: 'contact',
+  });
+  assert.equal(invalid.status, 400);
+  assert.match((await invalid.json()).error, /email address or phone number/);
+  assert.equal(fixture.stats.crossAppCalls.length, 0);
+
+  const successful = await fixture.request({
+    ...validPayloads.ntaUnifiedIntake,
+    verification_token: 'isolated-success',
+  });
+  assert.equal(successful.status, 200);
+  assert.equal((await successful.json()).success, true);
+  assert.equal(fixture.stats.crossAppCalls.length, 1);
+});

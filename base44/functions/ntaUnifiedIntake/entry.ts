@@ -146,6 +146,16 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
   'https://app.newtechadvertising.com',
   'https://new-tech-advertising.base44.app',
 ]);
+// Only fixed, visitor-safe Core errors may cross the public intake boundary.
+// Never forward upstream response.data, error.message, diagnostic IDs or headers.
+const PUBLIC_CORE_REJECTIONS: Record<number, { code: string; error: string }> = {
+  400: { code: 'NTA_INPUT_INVALID', error: 'Please check your information and try again.' },
+  409: { code: 'NTA_REQUEST_CONFLICT', error: 'This request could not be completed. Please review your details or contact us for help.' },
+  413: { code: 'NTA_REQUEST_TOO_LARGE', error: 'Your message is too long. Please shorten it and try again.' },
+  422: { code: 'NTA_INPUT_INVALID', error: 'Please check your information and try again.' },
+  429: { code: 'NTA_REQUEST_LIMITED', error: 'Too many requests right now. Please try again later.' },
+};
+
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 12;
 const requestBuckets = new Map();
@@ -392,12 +402,17 @@ Deno.serve(async (req) => {
         code: 'NTA_CONNECTION_UNAVAILABLE',
       }, { status: 503 });
     }
-    const status = upstreamStatus >= 400 && upstreamStatus < 500 ? upstreamStatus : 502;
-    const detail = status < 500
-      ? (error?.response?.data || { error: error?.message || 'Unable to submit your request.' })
-      : { error: 'Unable to submit your request right now.' };
+    // Preserve only known, intentional visitor actions. Unknown Core errors
+    // are connection failures, not public diagnostic or resource details.
+    const safeRejection = PUBLIC_CORE_REJECTIONS[upstreamStatus];
+    console.error('[public ntaUnifiedIntake] Office intake failed; upstream status:', upstreamStatus || 'unknown');
+    if (safeRejection) {
+      return Response.json(safeRejection, { status: upstreamStatus });
+    }
 
-    console.error('[public ntaUnifiedIntake] Office intake failed:', error?.message || detail);
-    return Response.json(detail, { status });
+    return Response.json({
+      error: 'Unable to submit your request right now.',
+      code: 'NTA_INTAKE_UNAVAILABLE',
+    }, { status: 502 });
   }
 });
