@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import test from 'node:test';
+import ts from 'typescript';
 
 const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
@@ -112,4 +113,115 @@ test('the approved confirmation reminder appears beside the primary Guide entran
   assert.equal(hero.split(reminder).length - 1, 1);
   assert.match(home, /Owners and responsible people still approve important decisions and promises/);
   assert.match(faq, /We confirm what we heard before recommending a next step/);
+});
+
+
+// Exercise the actual voice handler in a network-free VM. Admin identity here is
+// simulated so these checks never use a live Turnstile token or provider account.
+function voiceFixture({ providerStatus = 200, providerBody = { text: 'A clear recorded thought.' }, configured = true } = {}) {
+  const file = 'base44/functions/transcribeGrowthGuideVoice/entry.ts';
+  const script = ts.transpileModule(voiceSource, {
+    fileName: file,
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
+  }).outputText;
+  let handler;
+  let providerCalls = 0;
+  class VoiceTestFile extends Blob {
+    constructor(parts, name, options) { super(parts, options); this.name = name; }
+  }
+  const context = {
+    exports: {}, Request, Response, Headers, URL, AbortSignal, Blob, File: VoiceTestFile,
+    FormData, Uint8Array, TextDecoder, ReadableStream, atob,
+    console: { error() {}, log() {} },
+    createClientFromRequest() { return { auth: { async me() { return { role: 'admin' }; } } }; },
+    Deno: {
+      serve(fn) { handler = fn; },
+      env: { get(name) { return name === 'OPENAI_API_KEY' && configured ? 'unit-test-provider-key-not-real' : undefined; } },
+    },
+    async fetch(url) {
+      assert.equal(url, 'https://api.openai.com/v1/audio/transcriptions');
+      providerCalls += 1;
+      return Response.json(providerBody, { status: providerStatus });
+    },
+  };
+  vm.runInNewContext(script, context);
+  assert.equal(typeof handler, 'function');
+  const audio = Buffer.alloc(1300, 7).toString('base64');
+  const request = (payload = { audio_base64: audio, mime_type: 'audio/webm' }, headers = {}) =>
+    new Request('https://newtechadvertising.com/api/voice', {
+      method: 'POST',
+      headers: { Origin: 'https://newtechadvertising.com', 'Content-Type': 'application/json', ...headers },
+      body: JSON.stringify(payload),
+    });
+  return { handler, request, providerCalls: () => providerCalls };
+}
+const voiceSource = await read('base44/functions/transcribeGrowthGuideVoice/entry.ts');
+
+test('voice handler rejects oversized declared request before reading or provider use', async () => {
+  const fixture = voiceFixture();
+  const response = await fixture.handler(fixture.request({}, { 'Content-Length': '9000000' }));
+  const payload = await response.json();
+  assert.equal(payload.diagnostic_code, 'AUDIO_TOO_LARGE');
+  assert.equal(fixture.providerCalls(), 0);
+  assert.ok(!('provider_message' in payload));
+});
+
+test('voice handler rejects a headerless streamed over-limit body before JSON parsing', async () => {
+  const fixture = voiceFixture();
+  const stream = new ReadableStream({
+    start(controller) { controller.enqueue(new Uint8Array(8_016_385)); controller.close(); },
+  });
+  const request = new Request('https://newtechadvertising.com/api/voice', {
+    method: 'POST',
+    headers: { Origin: 'https://newtechadvertising.com', 'Content-Type': 'application/json' },
+    body: stream, duplex: 'half',
+  });
+  const response = await fixture.handler(request);
+  assert.equal((await response.json()).diagnostic_code, 'AUDIO_TOO_LARGE');
+  assert.equal(fixture.providerCalls(), 0);
+});
+
+test('voice handler never reveals provider errors, account state or internal messages', async () => {
+  const sensitive = 'Internal provider debug sk-unit-test-only SECRET TRACE; Bearer not-for-public';
+  for (const [status, expectedCode] of [[400, 'OPENAI_AUDIO_REJECTED'], [401, 'OPENAI_AUTH_FAILED'], [429, 'OPENAI_RATE_LIMITED'], [500, 'OPENAI_HTTP_500']]) {
+    const fixture = voiceFixture({ providerStatus: status, providerBody: { error: { message: sensitive }, trace: sensitive } });
+    const response = await fixture.handler(fixture.request());
+    assert.equal(response.status, 200, 'existing voice envelope should remain stable');
+    const body = await response.json();
+    assert.equal(body.diagnostic_code, expectedCode);
+    assert.equal(typeof body.error, 'string');
+    assert.ok(!('provider_message' in body));
+    assert.doesNotMatch(JSON.stringify(body), /Internal provider debug|TRACE|Bearer|SECRET|Base44 secret|sk-unit/);
+    assert.equal(fixture.providerCalls(), 1);
+  }
+});
+
+test('voice handler keeps transcript success and public-safe unconfigured response', async () => {
+  const normal = voiceFixture();
+  const response = await normal.handler(normal.request());
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.transcript, 'A clear recorded thought.');
+  assert.equal(normal.providerCalls(), 1);
+
+  const missing = voiceFixture({ configured: false });
+  const missingResponse = await missing.handler(missing.request());
+  const unavailable = await missingResponse.json();
+  assert.equal(unavailable.diagnostic_code, 'OPENAI_KEY_MISSING');
+  assert.doesNotMatch(JSON.stringify(unavailable), /OPENAI_API_KEY|Add the|Base44 secret/);
+  assert.equal(missing.providerCalls(), 0);
+});
+
+test('voice handler responds safely to invalid JSON and unsupported audio', async () => {
+  const fixture = voiceFixture();
+  const raw = new Request('https://newtechadvertising.com/api/voice', {
+    method: 'POST',
+    headers: { Origin: 'https://newtechadvertising.com' },
+    body: 'not-json',
+  });
+  const invalid = await fixture.handler(raw);
+  assert.equal((await invalid.json()).diagnostic_code, 'REQUEST_DECODING_FAILED');
+  const unsupported = await fixture.handler(fixture.request({ audio_base64: '1234', mime_type: 'application/octet-stream' }));
+  assert.equal((await unsupported.json()).diagnostic_code, 'AUDIO_FORMAT_UNSUPPORTED');
+  assert.equal(fixture.providerCalls(), 0);
 });
