@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
-import { useQuery } from '@tanstack/react-query';
 import {
-  CheckCircle2, AlertTriangle, XCircle, ChevronDown, ChevronRight,
+  CheckCircle2, AlertTriangle, ChevronDown, ChevronRight,
   ArrowLeft, Globe, Youtube, Facebook, Instagram, Tv
 } from 'lucide-react';
 
@@ -210,28 +208,6 @@ function PlatformSection({ platform, isOpen, onToggle }) {
 export default function ChannelHelpCenter() {
   const [openPlatform, setOpenPlatform] = useState('google_business');
 
-  const { data: connections = [] } = useQuery({
-    queryKey: ['channel-connections-help'],
-    queryFn: () => base44.entities.ChannelConnection.list(),
-  });
-
-  const getStatus = (platformId) => {
-    const conn = connections.find(c => c.platform === platformId);
-    if (!conn) return 'not_connected';
-    return conn.status;
-  };
-
-  const connectedCount = PLATFORMS.filter(p => getStatus(p.id) === 'connected').length;
-  const attentionCount = PLATFORMS.filter(p => ['error', 'disconnected', 'needs_attention'].includes(getStatus(p.id))).length;
-  const notConnectedCount = PLATFORMS.filter(p => getStatus(p.id) === 'not_connected').length;
-
-  const statusIcon = (id) => {
-    const s = getStatus(id);
-    if (s === 'connected') return <CheckCircle2 className="w-4 h-4 text-green-400" />;
-    if (['error', 'disconnected', 'needs_attention'].includes(s)) return <AlertTriangle className="w-4 h-4 text-amber-400" />;
-    return <XCircle className="w-4 h-4 text-slate-600" />;
-  };
-
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       {/* Header */}
@@ -254,33 +230,27 @@ export default function ChannelHelpCenter() {
 
       <div className="max-w-4xl mx-auto px-4 py-10 space-y-8">
 
-        {/* Status Summary Block */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-green-900/20 border border-green-800 rounded-2xl p-5 text-center">
-            <CheckCircle2 className="w-8 h-8 text-green-400 mx-auto mb-2" />
-            <p className="text-3xl font-black text-white">{connectedCount}</p>
-            <p className="text-green-400 font-semibold text-sm mt-1">Connected</p>
-          </div>
-          <div className="bg-amber-900/20 border border-amber-800 rounded-2xl p-5 text-center">
-            <AlertTriangle className="w-8 h-8 text-amber-400 mx-auto mb-2" />
-            <p className="text-3xl font-black text-white">{attentionCount}</p>
-            <p className="text-amber-400 font-semibold text-sm mt-1">Needs Attention</p>
-          </div>
-          <div className="bg-slate-800/50 border border-slate-700 rounded-2xl p-5 text-center">
-            <XCircle className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-            <p className="text-3xl font-black text-white">{notConnectedCount}</p>
-            <p className="text-slate-400 font-semibold text-sm mt-1">Not Connected</p>
-          </div>
+        {/* Live channel status belongs in the authenticated Channel Hub.
+            This public guide never loads ChannelConnection credentials. */}
+        <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6">
+          <h2 className="text-lg font-bold text-white">Check your connection status</h2>
+          <p className="text-sm text-slate-300 mt-2 mb-4">
+            This page explains how to connect each platform. For the actual status of your
+            own accounts, sign in and check the Channel Hub. This public guide does not show live connection results.
+          </p>
+          <Link to="/nta/channels" className="inline-flex items-center gap-2 text-sm font-bold text-blue-300 hover:text-blue-200">
+            Open Channel Hub <ChevronRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        {/* Per-platform quick status bar */}
+        {/* Guide navigation, not account-specific status */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl px-6 py-4">
-          <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">Platform Status</p>
+          <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">Platform setup guides</p>
           <div className="flex flex-wrap gap-3">
             {PLATFORMS.map(p => (
               <button key={p.id} onClick={() => setOpenPlatform(openPlatform === p.id ? null : p.id)}
                 className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-2 rounded-lg text-sm transition-colors">
-                {statusIcon(p.id)}
+                <ChevronRight className="w-4 h-4 text-slate-500" />
                 <span className="text-slate-200 font-medium">{p.name}</span>
               </button>
             ))}
