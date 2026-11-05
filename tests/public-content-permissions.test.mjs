@@ -48,3 +48,9 @@ test('video-story public route requests only published rows', () => {
   assert.match(source, /WebsiteVideoStory\.filter\(\{\s*slug,\s*publish_status:\s*['"]published['"]\s*\}\)/);
   assert.doesNotMatch(source, /WebsiteVideoStory\.filter\(\{\s*slug\s*\}\)/);
 });
+
+
+test('CaseStudy schema excludes unsupported uniqueness keyword before Base44 policy migration', () => {
+  const schema = readSchema('CaseStudy');
+  assert.equal(Object.hasOwn(schema.properties.slug, 'unique'), false);
+});
