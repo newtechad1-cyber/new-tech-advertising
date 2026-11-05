@@ -34,7 +34,7 @@ test('draft-capable content entities require published status for anonymous read
   }
 });
 
-test('editorial drafts and private fields are not returned in public records', () => {
+test('editorial fields declare admin-only read rules in entity schemas', () => {
   for (const [entity, fields] of Object.entries(RESTRICTED_FIELDS)) {
     const schema = readSchema(entity);
     for (const field of fields) {
