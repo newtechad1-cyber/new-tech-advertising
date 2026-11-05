@@ -3,6 +3,9 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.38';
 // Deployment stamp for the registered production transcription service.
 const FUNCTION_VERSION = 'v1-direct-2026-08-05-production-sync-r3';
 const MAX_BASE64_LENGTH = 8_000_000;
+// Include a small allowance for JSON metadata; never buffer an unbounded request.
+const MAX_JSON_BODY_BYTES = MAX_BASE64_LENGTH + 16_384;
+class RequestTooLarge extends Error {}
 const OPENAI_TIMEOUT_MS = 25_000;
 const ALLOWED_AUDIO_TYPES: Record<string, string> = {
   'audio/webm': 'webm',
@@ -58,49 +61,25 @@ const decodeBase64 = (value: string) => {
 };
 
 // Base44's client wraps non-2xx function responses in an opaque exception.
-// Keep expected operational failures in a 200 JSON envelope so the visitor
-// always receives the actual, safe diagnostic rather than a generic error.
-const voiceError = (error: string, diagnosticCode: string, providerMessage = '') => {
-  const safeProviderMessage = providerMessage
-    .replace(/sk-[A-Za-z0-9_-]+/g, '[redacted-key]')
-    .replace(/Bearer\s+\S+/gi, 'Bearer [redacted]')
-    .slice(0, 240);
+// Preserve the established 200 envelope with fixed, public-safe diagnostic codes.
+// Never send provider response bodies, account configuration or authentication details.
+const voiceError = (error: string, diagnosticCode: string) => Response.json({
+  error,
+  diagnostic_code: diagnosticCode,
+  function_version: FUNCTION_VERSION,
+});
 
-  return Response.json({
-    error,
-    diagnostic_code: diagnosticCode,
-    provider_message: safeProviderMessage || undefined,
-    function_version: FUNCTION_VERSION
-  });
-};
-
-const transcriptionFailure = (status: number, providerMessage = '') => {
+const transcriptionFailure = (status: number) => {
   if (status === 401 || status === 403) {
-    return voiceError(
-      'Voice transcription could not authenticate with OpenAI. The configured Base44 secret was rejected.',
-      'OPENAI_AUTH_FAILED',
-      providerMessage
-    );
+    return voiceError('Voice transcription is temporarily unavailable. Please try again or type your message.', 'OPENAI_AUTH_FAILED');
   }
   if (status === 429) {
-    return voiceError(
-      'Voice transcription is temporarily unavailable because OpenAI is rate-limited or billing is unavailable.',
-      'OPENAI_RATE_LIMITED',
-      providerMessage
-    );
+    return voiceError('Voice transcription is busy right now. Please try again shortly or type your message.', 'OPENAI_RATE_LIMITED');
   }
   if (status === 400 || status === 415 || status === 422) {
-    return voiceError(
-      'OpenAI could not read this recording format. Please record again or type your message.',
-      'OPENAI_AUDIO_REJECTED',
-      providerMessage
-    );
+    return voiceError('The recording could not be read. Please record again or type your message.', 'OPENAI_AUDIO_REJECTED');
   }
-  return voiceError(
-    'OpenAI did not complete the transcription.',
-    `OPENAI_HTTP_${status}`,
-    providerMessage
-  );
+  return voiceError('Voice transcription could not be completed. Please try again or type your message.', `OPENAI_HTTP_${status}`);
 };
 
 // Turnstile verification is public visitor proof, not account authentication.
@@ -172,6 +151,42 @@ async function verifyPublicRequest(req: Request, token: unknown, action: string)
   }
 }
 
+// Read a request with an actual byte ceiling before JSON parsing. Content-Length
+// is advisory only; chunked requests must also be checked while streaming.
+async function parseBoundedJson(req: Request): Promise<unknown> {
+  const declared = req.headers.get('content-length');
+  if (declared !== null) {
+    const size = Number(declared);
+    if (!Number.isFinite(size) || size < 0 || size > MAX_JSON_BODY_BYTES) throw new RequestTooLarge();
+  }
+  if (!req.body) throw new SyntaxError('Missing JSON body');
+
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > MAX_JSON_BODY_BYTES) {
+        await reader.cancel().catch(() => {});
+        throw new RequestTooLarge();
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(total);
+  let position = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, position);
+    position += chunk.byteLength;
+  }
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+
 Deno.serve(async (req: Request): Promise<Response> => {
   if (req.method !== 'POST') return Response.json({ error: 'Method not allowed' }, { status: 405 });
   const base44 = createClientFromRequest(req);
@@ -182,7 +197,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   let stage: FailureStage = 'REQUEST_DECODING';
 
   try {
-    const body = await req.json();
+    const body = await parseBoundedJson(req);
 
     if (body?.verification_config === true) {
       return publicVerificationConfig('transcribe_guide_voice');
@@ -210,7 +225,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     const apiKey = Deno.env.get('OPENAI_API_KEY') || Deno.env.get('OpenAI') || '';
     if (!apiKey) {
       return voiceError(
-        'Voice transcription is not configured. Add the OPENAI_API_KEY secret in Base44.',
+        'Voice transcription is temporarily unavailable. Please try again or type your message.',
         'OPENAI_KEY_MISSING'
       );
     }
@@ -261,20 +276,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
 
     if (!openAIResponse.ok) {
-      console.error('OpenAI transcription request failed', {
-        status: openAIResponse.status,
-        requestId: openAIResponse.headers.get('x-request-id')
-      });
-      let providerMessage = '';
-      try {
-        const providerError = await openAIResponse.clone().json();
-        providerMessage = typeof providerError?.error?.message === 'string'
-          ? providerError.error.message
-          : '';
-      } catch {
-        // Preserve the stable diagnostic when OpenAI does not return JSON.
-      }
-      return transcriptionFailure(openAIResponse.status, providerMessage);
+      // Do not parse or copy untrusted provider error bodies into public output.
+      console.error('OpenAI transcription request failed', { status: openAIResponse.status });
+      return transcriptionFailure(openAIResponse.status);
     }
 
     stage = 'OPENAI_RESPONSE';
@@ -287,6 +291,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
     return Response.json({ transcript, function_version: FUNCTION_VERSION });
   } catch (error) {
+    if (error instanceof RequestTooLarge) {
+      return voiceError('The recording is too long. Please keep it under one minute.', 'AUDIO_TOO_LARGE');
+    }
     console.error('transcribeGrowthGuideVoice failed', {
       stage,
       name: error instanceof Error ? error.name : 'UnknownError'
