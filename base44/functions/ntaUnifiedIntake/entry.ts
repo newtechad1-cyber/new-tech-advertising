@@ -148,7 +148,7 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
 ]);
 // Only fixed, visitor-safe Core errors may cross the public intake boundary.
 // Never forward upstream response.data, error.message, diagnostic IDs or headers.
-const PUBLIC_CORE_REJECTIONS = {
+const PUBLIC_CORE_REJECTIONS: Record<number, { code: string; error: string }> = {
   400: { code: 'NTA_INPUT_INVALID', error: 'Please check your information and try again.' },
   409: { code: 'NTA_REQUEST_CONFLICT', error: 'This request could not be completed. Please review your details or contact us for help.' },
   413: { code: 'NTA_REQUEST_TOO_LARGE', error: 'Your message is too long. Please shorten it and try again.' },
