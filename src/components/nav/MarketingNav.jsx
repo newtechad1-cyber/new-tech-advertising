@@ -232,11 +232,11 @@ export default function MarketingNav() {
             <button
               type="button"
               onClick={() => openGrowthGuide('main_navigation')}
-              aria-label="Talk to My Office: call, text, email, or start a conversation"
-              title="Call, text, email, or start a conversation"
+              aria-label="Ask the Guide: open Your Digital Growth Guide"
+              title="Open Your Digital Growth Guide"
               className="whitespace-nowrap rounded-lg bg-blue-600 px-3 py-2 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-500"
             >
-              Talk to My Office™
+              Ask the Guide
             </button>
           </div>
 
@@ -299,9 +299,10 @@ export default function MarketingNav() {
                   closeMobile();
                   openGrowthGuide('mobile_navigation');
                 }}
+                aria-label="Ask the Guide: open Your Digital Growth Guide"
                 className="flex w-full items-center justify-center rounded-xl bg-blue-600 py-3 font-bold text-white transition-colors hover:bg-blue-500"
               >
-                Talk to My Office™
+                Ask the Guide
               </button>
               <div className="flex justify-center gap-6 border-t border-slate-800 pt-4 text-sm text-slate-400">
                 <a href="tel:6414208816" className="transition-colors hover:text-slate-300">641-420-8816</a>

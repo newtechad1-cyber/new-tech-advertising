@@ -25,7 +25,7 @@ function expanded(name, active = new Set()) {
 }
 
 test('F2 preserves every previously gated test command and its order', () => {
-  assert.equal(scripts['check:ci'], baseline + ' && npm run test:discovery && npm run test:content-follow-up && npm run test:video-library && npm run test:podcast && npm run test:lesson-content');
+  assert.equal(scripts['check:ci'], baseline + ' && npm run test:discovery && npm run test:content-follow-up && npm run test:video-library && npm run test:podcast && npm run test:lesson-content && npm run test:homepage');
   assert.equal(scripts['test:backend-auth'], 'node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs');
   assert.equal(scripts['test:growth-guide'], 'node --test src/lib/growth-guide/*.test.js');
   assert.equal(scripts['test:route-governance'], 'node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/route-governance.test.mjs');
@@ -50,6 +50,10 @@ test('F3 podcast batch runs the existing suite without suppressing failures', ()
 
 test('F3 lesson batch runs all three reviewed suites without suppressing failures', () => {
   assert.equal(scripts['test:lesson-content'], 'node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/ai-confusion-lesson.test.mjs tests/ai-foundations-conversation-lesson.test.mjs tests/ai-foundations-editorial.test.mjs');
+});
+
+test('F3 homepage batch runs all four reviewed suites without suppressing failures', () => {
+  assert.equal(scripts['test:homepage'], 'node --test tests/brand-positioning.test.mjs tests/homepage-business-audiences.test.mjs tests/homepage-live-review.test.mjs tests/talk-to-my-office-homepage.test.mjs');
 });
 
 test('CI and compatibility aliases exclude live diagnostics and submissions', () => {
