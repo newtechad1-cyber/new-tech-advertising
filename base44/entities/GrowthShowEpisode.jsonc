@@ -133,7 +133,8 @@
     },
     "notes": {
       "type": "string",
-      "description": "Internal publishing notes"
+      "description": "Internal publishing notes",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "audio_url": {
       "type": "string"
@@ -190,7 +191,7 @@
         "role": "admin"
       }
     },
-    "read": true,
+    "read": {"$or":[{"user_condition":{"role":"admin"}},{"data.status":"Published"}]},
     "update": {
       "user_condition": {
         "role": "admin"
