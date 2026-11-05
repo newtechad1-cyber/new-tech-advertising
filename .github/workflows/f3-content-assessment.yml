@@ -1,0 +1,47 @@
+name: F3 content assessment - diagnostic only
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/f3-content-assessment.yml'
+      - 'docs/testing/f3-content-assessment-2026-11-04.md'
+permissions:
+  contents: read
+jobs:
+  assess:
+    if: github.head_ref == 'review/f3-content-assessment-2026-11-04'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - name: Confirm assessed source is unchanged from merged PR 110
+        run: |
+          git log -1 --format='%H %s'
+          git cat-file -e '721b967571447d328729d8f8ea9a9c55947e9ecb^{commit}'
+          git diff --exit-code 721b967571447d328729d8f8ea9a9c55947e9ecb HEAD -- package.json package-lock.json tests src base44 scripts public index.html vite.config.js .github/workflows/release-checks.yml .github/workflows/indexnow.yml
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Preserve full existing gate and generate candidate-only artifacts offline
+        run: |
+          sudo unshare --net -- setpriv --reuid="$(id -u)" --regid="$(id -g)" --init-groups \
+            env -i PATH="$PATH" HOME="$HOME" CI=true npm run check:ci
+      - name: Assess seven unchanged legacy suites - nonzero is diagnostic evidence
+        run: |
+          sudo unshare --net -- setpriv --reuid="$(id -u)" --regid="$(id -g)" --init-groups \
+            env -i PATH="$PATH" HOME="$HOME" CI=true \
+            node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test \
+              tests/ai-confusion-lesson.test.mjs \
+              tests/ai-foundations-conversation-lesson.test.mjs \
+              tests/ai-foundations-editorial.test.mjs \
+              tests/brand-positioning.test.mjs \
+              tests/homepage-business-audiences.test.mjs \
+              tests/homepage-live-review.test.mjs \
+              tests/talk-to-my-office-homepage.test.mjs
+      # Diagnostic draft only: do not merge this workflow, publish artifacts,
+      # suppress failures, change the required gate, or contact production.
