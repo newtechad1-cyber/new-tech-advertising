@@ -15,15 +15,23 @@ const primaryPublicFiles = [
   'src/components/shared/SEOHead.jsx',
 ];
 
-test('primary search and AI-readable surfaces use the practical AI education identity', () => {
-  for (const path of primaryPublicFiles) {
-    const content = read(path);
-    assert.match(
-      content,
-      /practical AI education/i,
-      `${path} should describe NTA through practical AI education`,
-    );
+// Rick approved the current education AND Digital Growth Office positioning.
+// These are content/source tripwires, not proof of rendered or indexed output.
+test('public surfaces retain practical AI education and the connected business identity', () => {
+  for (const path of primaryPublicFiles.filter(path => !['src/pages/Home.jsx', 'src/pages/About.jsx'].includes(path))) {
+    assert.match(read(path), /practical AI education/i, `${path} should retain the education identity`);
   }
+  const home = read('src/pages/Home.jsx');
+  assert.match(home, /import FAQSection, \{ HOMEPAGE_FAQS \} from ['"]\.\.\/components\/home-conversion\/FAQSection['"]/);
+  assert.match(home, /<FAQSection\s*\/>/);
+  assert.match(home, /<HeroSection\s*\/>/);
+  assert.match(home, /Digital Growth Office/);
+  assert.match(read('src/components/home-conversion/FAQSection.jsx'), /practical AI education and Digital Growth Office partner/);
+  assert.match(read('src/components/home-conversion/HeroSection.jsx'), /Understand practical AI and business growth/);
+  const about = read('src/pages/About.jsx');
+  assert.match(about, /Help small-business owners understand AI and use it wisely in the real world/);
+  assert.match(about, /Owner in Authority/);
+  assert.match(about, /people keep making the decisions/);
 });
 
 test('primary public identity no longer describes NTA as an AI marketing agency', () => {
@@ -37,10 +45,10 @@ test('primary public identity no longer describes NTA as an AI marketing agency'
   }
 });
 
-test('AI sitemap declares one unambiguous primary topic', () => {
+test('AI sitemap declares the approved education and digital-growth primary topic', () => {
   const sitemap = JSON.parse(read('public/ai-sitemap.json'));
   assert.equal(
     sitemap.organization.primaryTopic,
-    'Practical AI education for small-business owners',
+    'Practical AI education and digital growth systems for small-business owners',
   );
 });

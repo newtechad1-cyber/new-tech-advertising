@@ -66,6 +66,7 @@ export default function HeroSection() {
             <Link to="/growth-guide?start=fresh" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-4 font-bold text-white transition-colors hover:bg-blue-500"><MessageCircle className="h-5 w-5" /> What would you like to talk through?</Link>
             <Link to="/growth-conversation" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-slate-900/60 px-7 py-4 font-bold text-white transition-colors hover:border-slate-400 hover:bg-slate-800">Talk with Rick <ArrowRight className="h-5 w-5" /></Link>
           </div>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-300">We’ll confirm what we heard before recommending a next step. You stay in control of important decisions.</p>
         </div>
 
         <div className="mx-auto mt-10 max-w-2xl text-center md:mt-12">
