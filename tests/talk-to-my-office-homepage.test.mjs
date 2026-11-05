@@ -120,7 +120,7 @@ test('the approved confirmation reminder appears beside the primary Guide entran
 // simulated so these checks never use a live Turnstile token or provider account.
 function voiceFixture({ providerStatus = 200, providerBody = { text: 'A clear recorded thought.' }, configured = true } = {}) {
   const file = 'base44/functions/transcribeGrowthGuideVoice/entry.ts';
-  const script = ts.transpileModule(voiceSource, {
+  const script = ts.transpileModule(voiceSource.replace(/^import[^\n]*\n/gm, ''), {
     fileName: file,
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
   }).outputText;
