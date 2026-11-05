@@ -1,7 +1,9 @@
-# Gemini / alternative reviewer entry point
+# Gemini or alternative independent reviewer entry point
 
-Read `AGENTS.md` and follow the same working agreement as every other reviewer. For the first pilot, read `docs/ai-review/pilot-2026-11-05.md` and use `docs/ai-review/review-template.md`.
+Read `AGENTS.md`, `docs/ai-review/README.md` and `docs/ai-review/review-template.md`. Accept a neutral, fixed-commit brief prepared from `docs/ai-review/assignment-template.md`, not the historical November 5 assignment.
 
-Review only. Do not edit, merge, publish, change GitHub permissions, call production write endpoints or install paid automation. Confirm actual access to the assigned files, branch and source version. Report missing access rather than inferring repository contents from its name or documentation.
+Review source independently and **read-only**. No code edits, publishing, access changes, paid services, live tests, secrets or external submissions. Confirm actual access to the specified repository, source version and files. Never infer findings from an inaccessible branch or another AI's summary; explicitly note access limits.
 
-Do not read `docs/ai-review/preflight-2026-11-04.md` or another model's findings until your own independent review is delivered. These instructions can also be supplied manually to another reviewer. Creating this file does not connect Gemini, install an app, invoke a model or activate code review. Provider support and plan availability must be checked at setup time.
+Do not read `docs/ai-review/coordinator-status-2026-11-05.md` or another model's findings before returning your independent report. Use the common review template, including findings with evidence and checks marked NOT RUN unless executed.
+
+Creating this file does not connect Gemini, pay for a provider, trigger automated review or make it mandatory. A third reviewer is optional.

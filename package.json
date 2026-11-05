@@ -23,13 +23,14 @@
     "check:core-bridge": "node scripts/check-core-bridge-readiness.mjs",
     "check:core-bridge-live": "node scripts/check-core-bridge-live.mjs",
     "test:podcast": "node --test tests/growth-show-podcast.test.mjs",
-    "check:ci": "npm run audit:security -- --strict && npm run test:backend-auth && npm run test:growth-guide && npm run test:route-governance && npm run build:ci && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs tests/search-delivery.test.mjs tests/video-publication.test.mjs tests/visitor-journey.test.mjs tests/public-tracking.test.mjs tests/analytics-reporting.test.mjs && npm run test:core-bridge && npm run check:core-bridge && npm run test:discovery && npm run test:content-follow-up && npm run test:video-library && npm run test:podcast && npm run test:lesson-content && npm run test:homepage",
+    "check:ci": "npm run audit:security -- --strict && npm run test:backend-auth && npm run test:growth-guide && npm run test:route-governance && npm run build:ci && node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/public-boundary.test.mjs tests/production-seo-output.test.mjs tests/search-delivery.test.mjs tests/video-publication.test.mjs tests/visitor-journey.test.mjs tests/public-tracking.test.mjs tests/analytics-reporting.test.mjs && npm run test:core-bridge && npm run check:core-bridge && npm run test:discovery && npm run test:content-follow-up && npm run test:video-library && npm run test:podcast && npm run test:lesson-content && npm run test:public-content-permissions && npm run test:homepage",
     "check:release-live": "npm run check:core-bridge-live",
     "build:ci": "node scripts/build-candidate.mjs",
     "test:discovery": "node --test tests/discovery-input-mode.test.mjs tests/discovery-question-selection.test.mjs tests/discovery-trigger-routing.test.mjs",
     "test:content-follow-up": "node --test tests/content-journey.test.mjs tests/content-follow-up-form.test.mjs",
     "test:video-library": "node --test tests/growth-show.test.mjs tests/video-gallery.test.mjs tests/youtube-learning-identity.test.mjs",
     "test:lesson-content": "node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/ai-confusion-lesson.test.mjs tests/ai-foundations-conversation-lesson.test.mjs tests/ai-foundations-editorial.test.mjs",
+    "test:public-content-permissions": "node --test tests/public-content-permissions.test.mjs",
     "test:homepage": "node --test tests/brand-positioning.test.mjs tests/homepage-business-audiences.test.mjs tests/homepage-live-review.test.mjs tests/talk-to-my-office-homepage.test.mjs"
   },
   "dependencies": {

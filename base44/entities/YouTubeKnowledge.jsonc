@@ -28,7 +28,8 @@
     },
     "thumbnail_prompt": {
       "type": "string",
-      "description": "AI prompt for generating the thumbnail"
+      "description": "AI prompt for generating the thumbnail",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "playlist": {
       "type": "string",
@@ -102,16 +103,19 @@
     "video_script_long": {
       "type": "string",
       "format": "markdown",
-      "description": "Full long-form video script (5-15 min)"
+      "description": "Full long-form video script (5-15 min)",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "video_script_short": {
       "type": "string",
       "format": "markdown",
-      "description": "YouTube Shorts script (< 60 sec)"
+      "description": "YouTube Shorts script (< 60 sec)",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "shorts_hook": {
       "type": "string",
-      "description": "Opening hook for the Shorts version"
+      "description": "Opening hook for the Shorts version",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "related_journal_id": {
       "type": "string",
@@ -188,7 +192,8 @@
       "format": "date"
     },
     "notes": {
-      "type": "string"
+      "type": "string",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     }
   },
   "required": [
@@ -197,7 +202,7 @@
   ],
   "rls": {
     "create": { "user_condition": { "role": "admin" } },
-    "read": true,
+    "read": {"$or":[{"user_condition":{"role":"admin"}},{"$and":[{"data.publish_status":"Published"},{"data.visibility":"Public"}]}]},
     "update": { "user_condition": { "role": "admin" } },
     "delete": { "user_condition": { "role": "admin" } }
   }

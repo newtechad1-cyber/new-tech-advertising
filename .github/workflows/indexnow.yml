@@ -1,21 +1,8 @@
 name: Notify IndexNow
 
+# Manual post-publication notification only. A GitHub merge is not Base44 Publish.
+# Rick starts this workflow after the live site is verified.
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "public/sitemap.xml"
-      - "public/ai-sitemap.json"
-      - "public/robots.txt"
-      - "public/*.txt"
-      - "index.html"
-      - "src/**"
-      - "scripts/generate-seo-pages.mjs"
-      - "scripts/submit-indexnow.mjs"
-      - "tests/indexnow.test.mjs"
-      - "base44/functions/listPages/entry.ts"
-      - ".github/workflows/indexnow.yml"
   workflow_dispatch:
 
 permissions:

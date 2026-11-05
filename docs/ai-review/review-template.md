@@ -9,6 +9,8 @@ Review mode: static only / isolated tests / other approved checks
 Scope:
 Files actually inspected:
 Files / systems not accessible:
+Independence declaration: I did / did not read other models' findings or coordinator status before preparing this report.
+Credentials, private data and production endpoints: NOT ACCESSED, or clearly describe any approved exception.
 
 ## Findings
 
@@ -38,7 +40,7 @@ State what this review does not establish: production behavior, visual rendering
 
 ## Recommendation
 
-Single highest-value next improvement:
+Single highest-value next improvement (with verified source commit):
 Risks that should block an affected release:
 Changes that can wait:
 

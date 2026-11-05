@@ -4,6 +4,7 @@ What user problem does this solve? What approved request does it implement?
 
 ## Scope and source version
 
+- Change type: docs only / application / entity schema / workflow / other
 - Base commit:
 - Head commit:
 - Implementation owner:
@@ -31,6 +32,14 @@ Record commands, results and evidence links. Mark unperformed checks NOT RUN.
 - Tracking and downstream delivery where affected:
 - Base44 and GitHub synchronization:
 - Production checks (separate from preview):
+
+## GitHub / Base44 / publication are separate states
+
+- GitHub merge status and approved reviewer:
+- Base44 code version and sync status (if app code or schema changed):
+- Preview, checkpoint and Rick's Publish status (if applicable):
+- Live verification and route(s) checked (if applicable):
+- Post-publish IndexNow notification status (only when relevant; never triggered merely by merging):
 
 ## Release control
 
