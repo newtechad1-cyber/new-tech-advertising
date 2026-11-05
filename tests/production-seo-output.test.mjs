@@ -185,26 +185,26 @@ function candidateHarness({ before = '', after = '', buildStatus = 0, gitStatus 
 
 test('offline candidate build preserves reviewed SEO source state', () => {
   const mock = candidateHarness();
-  assert.equal(buildCandidate({ spawn: mock.spawn, env: {} }), 0);
+  assert.equal(buildCandidate({ spawn: mock.spawn, gitSpawn: mock.spawn, env: {} }), 0);
   assert.deepEqual(mock.calls.map(call => call.command), ['git', process.execPath, 'git']);
   assert.deepEqual(mock.calls[0].args.slice(-3), ['public/sitemap.xml', 'public/ai-sitemap.json', 'public/llms.txt']);
 });
 
 test('candidate build refuses already dirty tracked SEO source files before spawning Vite', () => {
   const mock = candidateHarness({ before: ' M public/sitemap.xml' });
-  assert.throws(() => buildCandidate({ spawn: mock.spawn, env: {} }), /already modified before the build/);
+  assert.throws(() => buildCandidate({ spawn: mock.spawn, gitSpawn: mock.spawn, env: {} }), /already modified before the build/);
   assert.deepEqual(mock.calls.map(call => call.command), ['git']);
 });
 
 test('candidate build fails closed when SEO generation changes a tracked source', () => {
   const mock = candidateHarness({ after: ' M public/ai-sitemap.json\\n M public/llms.txt' });
-  assert.throws(() => buildCandidate({ spawn: mock.spawn, env: {} }), /unexpectedly changed tracked SEO source files/);
+  assert.throws(() => buildCandidate({ spawn: mock.spawn, gitSpawn: mock.spawn, env: {} }), /unexpectedly changed tracked SEO source files/);
   assert.deepEqual(mock.calls.map(call => call.command), ['git', process.execPath, 'git']);
 });
 
 test('candidate build preserves the Vite failure status when tracked SEO sources are unchanged', () => {
   const mock = candidateHarness({ buildStatus: 23 });
-  assert.equal(buildCandidate({ spawn: mock.spawn, env: {} }), 23);
+  assert.equal(buildCandidate({ spawn: mock.spawn, gitSpawn: mock.spawn, env: {} }), 23);
 });
 
 test('candidate build never assumes SEO state is clean when git inspection fails', () => {
