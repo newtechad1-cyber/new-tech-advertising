@@ -171,6 +171,8 @@ test('both workflows run the offline regression; only main may submit via the sh
   const notify = fs.readFileSync(path.join(root, '.github/workflows/indexnow.yml'), 'utf8');
   const release = fs.readFileSync(path.join(root, '.github/workflows/release-checks.yml'), 'utf8');
   const testCommand = 'node --test tests/indexnow.test.mjs';
+  assert.match(notify, /^on:\s*\n\s+workflow_dispatch:/m, 'IndexNow must be manual-only after Base44 Publish');
+  assert.doesNotMatch(notify, /^\s{2}push:/m, 'IndexNow cannot notify on GitHub merges');
   assert.ok(notify.includes(testCommand));
   assert.ok(release.includes(testCommand));
   assert.ok(notify.includes("if: github.ref == 'refs/heads/main'"));
