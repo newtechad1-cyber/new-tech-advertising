@@ -159,6 +159,10 @@ const PUBLIC_CORE_REJECTIONS: Record<number, { code: string; error: string }> = 
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 12;
 const requestBuckets = new Map();
+// A separate, generous budget protects public no-data Core health checks
+// without consuming the visitor's actual form-submission allowance.
+const CONNECTION_CHECK_LIMIT = 60;
+const connectionCheckBuckets = new Map();
 
 function cleanText(value, maxLength = 500) {
   return String(value || '').trim().slice(0, maxLength);
@@ -206,6 +210,29 @@ function isRateLimited(req) {
     }
   }
 
+  return 0;
+}
+
+function isConnectionCheckRateLimited(req) {
+  const now = Date.now();
+  const key = requestClientIdentity(req);
+  let bucket = connectionCheckBuckets.get(key);
+
+  if (!bucket || now >= bucket.resetAt) {
+    bucket = { count: 0, resetAt: now + REQUEST_WINDOW_MS };
+    connectionCheckBuckets.set(key, bucket);
+  }
+
+  if (bucket.count >= CONNECTION_CHECK_LIMIT) {
+    return Math.max(1, Math.ceil((bucket.resetAt - now) / 1000));
+  }
+
+  bucket.count += 1;
+  if (connectionCheckBuckets.size > 3000) {
+    for (const [bucketKey, entry] of connectionCheckBuckets) {
+      if (entry.resetAt <= now) connectionCheckBuckets.delete(bucketKey);
+    }
+  }
   return 0;
 }
 
@@ -349,8 +376,18 @@ Deno.serve(async (req) => {
       return publicVerificationConfig('nta_unified_intake');
     }
 
-    // Exact no-data metadata only; any added field still requires visitor proof.
+    // Public status-only check: rate limit before any remote Core probes.
+    // This has its own budget; checking readiness must not exhaust form submissions.
     if (incoming.connection_check === true && Object.keys(incoming).length === 1) {
+      if (!trustedService) {
+        const retryAfterSeconds = isConnectionCheckRateLimited(req);
+        if (retryAfterSeconds) {
+          return Response.json(
+            { error: 'Connection status has been checked too often. Please try again shortly.', code: 'NTA_STATUS_RATE_LIMITED' },
+            { status: 429, headers: { 'Retry-After': String(retryAfterSeconds), 'Cache-Control': 'no-store' } },
+          );
+        }
+      }
       return publicCoreConnectionStatus();
     }
 
