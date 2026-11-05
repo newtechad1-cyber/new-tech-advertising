@@ -15,7 +15,9 @@ const primaryPublicFiles = [
   'src/components/shared/SEOHead.jsx',
 ];
 
-// Rick approved the current education AND Digital Growth Office positioning.
+// On 2026-11-05, after independent review finding F-B, Rick explicitly approved
+// retaining the combined positioning and exact primaryTopic checked below.
+// Approval and boundaries: docs/testing/f3-homepage-approved-2026-11-05.md.
 // These are content/source tripwires, not proof of rendered or indexed output.
 test('public surfaces retain practical AI education and the connected business identity', () => {
   for (const path of primaryPublicFiles.filter(path => !['src/pages/Home.jsx', 'src/pages/About.jsx'].includes(path))) {

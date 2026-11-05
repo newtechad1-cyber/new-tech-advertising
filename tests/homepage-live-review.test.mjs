@@ -42,7 +42,21 @@ test('public Guide retains its current identity and assets with both approved na
   assert.match(guide, /<h3[^>]*>Your Digital Growth Guide™<\/h3>/);
   assert.match(guide, /Open Your Digital Growth Guide/);
   assert.equal((nav.match(/>\s*Ask the Guide\s*<\/button>/g) || []).length, 2);
-  assert.equal((nav.match(/aria-label="Open Your Digital Growth Guide"/g) || []).length, 2);
+  assert.equal((nav.match(/aria-label="Ask the Guide: open Your Digital Growth Guide"/g) || []).length, 2);
+  // Check each actual Guide-opening button, not two unrelated string counts.
+  // This is a source contract, not a browser accessible-name computation.
+  const buttonBlocks = nav.match(/<button\b[\s\S]*?<\/button>/g) || [];
+  for (const source of ['main_navigation', 'mobile_navigation']) {
+    const buttons = buttonBlocks.filter(button => button.includes(`openGrowthGuide('${source}')`));
+    assert.equal(buttons.length, 1, `${source} must have exactly one Guide button`);
+    const button = buttons[0];
+    const visibleLabel = button.match(/>\s*([^<>]+?)\s*<\/button>$/)?.[1]?.trim();
+    const accessibleLabel = button.match(/\baria-label="([^"]+)"/)?.[1];
+    assert.equal(visibleLabel, 'Ask the Guide', `${source} visible label`);
+    assert.equal(accessibleLabel, 'Ask the Guide: open Your Digital Growth Guide', `${source} accessible label`);
+    assert.ok(accessibleLabel.startsWith(visibleLabel), `${source} accessible name must start with its visible label`);
+    assert.doesNotMatch(button, /\baria-labelledby\s*=/, `${source} must not override the approved accessible name`);
+  }
   assert.doesNotMatch(nav, /Talk to My Office/);
 });
 

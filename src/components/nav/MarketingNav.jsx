@@ -232,7 +232,7 @@ export default function MarketingNav() {
             <button
               type="button"
               onClick={() => openGrowthGuide('main_navigation')}
-              aria-label="Open Your Digital Growth Guide"
+              aria-label="Ask the Guide: open Your Digital Growth Guide"
               title="Open Your Digital Growth Guide"
               className="whitespace-nowrap rounded-lg bg-blue-600 px-3 py-2 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-500"
             >
@@ -299,7 +299,7 @@ export default function MarketingNav() {
                   closeMobile();
                   openGrowthGuide('mobile_navigation');
                 }}
-                aria-label="Open Your Digital Growth Guide"
+                aria-label="Ask the Guide: open Your Digital Growth Guide"
                 className="flex w-full items-center justify-center rounded-xl bg-blue-600 py-3 font-bold text-white transition-colors hover:bg-blue-500"
               >
                 Ask the Guide
