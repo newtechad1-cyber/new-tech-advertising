@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import { runTvCommercialScriptRequest, tvScriptErrorMessage } from '../src/lib/tv-commercial-script-request.mjs';
+
 
 const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
@@ -145,4 +147,86 @@ test('public channel help does not fetch private channel credentials or invent s
   assert.doesNotMatch(source, /useQuery|channel-connections-help|connectedCount|attentionCount|notConnectedCount|statusIcon/);
   assert.match(source, /Check your connection status/);
   assert.match(source, /Open Channel Hub/);
+});
+
+const validTvScriptForm = {
+  businessName: 'Example Heating',
+  industry: 'HVAC',
+  serviceArea: 'Northern Iowa',
+  offer: '',
+  duration: '30 seconds',
+  tone: 'Professional',
+};
+
+function scriptRequestProbe(invoke, form = validTvScriptForm) {
+  const loading = [];
+  const scripts = [];
+  const errors = [];
+  return {
+    loading,
+    scripts,
+    errors,
+    run: () => runTvCommercialScriptRequest({
+      form,
+      invoke,
+      onLoading: value => loading.push(value),
+      onScript: value => scripts.push(value),
+      onError: value => errors.push(value),
+    }),
+  };
+}
+
+test('public TV script generator succeeds and exits loading state', async () => {
+  let called;
+  const probe = scriptRequestProbe(async (name, payload) => {
+    called = { name, payload };
+    return { data: { script: 'A 30-second script' } };
+  });
+  assert.equal(await probe.run(), true);
+  assert.deepEqual(probe.loading, [true, false]);
+  assert.deepEqual(probe.scripts, ['', 'A 30-second script']);
+  assert.deepEqual(probe.errors, ['']);
+  assert.equal(called.name, 'generateTvCommercialScript');
+  assert.equal(called.payload.businessName, 'Example Heating');
+});
+
+test('public TV script generator handles authentication rejection without spinning forever', async () => {
+  const probe = scriptRequestProbe(async () => {
+    const error = new Error('Backend details should not be shown');
+    error.response = { status: 401 };
+    throw error;
+  });
+  assert.equal(await probe.run(), false);
+  assert.deepEqual(probe.loading, [true, false]);
+  assert.match(probe.errors.at(-1), /Please sign in/);
+  assert.doesNotMatch(probe.errors.at(-1), /Backend details/);
+  assert.equal(tvScriptErrorMessage({ status: 429 }).includes('try again later'), true);
+});
+
+test('public TV script generator recovers from empty responses and allows retry', async () => {
+  let requests = 0;
+  const probe = scriptRequestProbe(async () => {
+    requests += 1;
+    return requests === 1 ? { data: {} } : { data: { script: 'Recovered script' } };
+  });
+  assert.equal(await probe.run(), false);
+  assert.deepEqual(probe.loading, [true, false]);
+  assert.match(probe.errors.at(-1), /could not generate/);
+  assert.equal(await probe.run(), true);
+  assert.deepEqual(probe.loading, [true, false, true, false]);
+  assert.deepEqual(probe.scripts.slice(-2), ['', 'Recovered script']);
+  assert.equal(requests, 2);
+});
+
+test('public TV script generator skips incomplete input without an API request', async () => {
+  const probe = scriptRequestProbe(async () => { throw new Error('Unexpected call'); }, { ...validTvScriptForm, businessName: '  ' });
+  assert.equal(await probe.run(), false);
+  assert.deepEqual(probe.loading, []);
+});
+
+test('public TV script form displays a user-facing error message', async () => {
+  const source = await read('src/pages/TvCommercialScriptGenerator.jsx');
+  assert.match(source, /runTvCommercialScriptRequest/);
+  assert.match(source, /role="alert"/);
+  assert.match(source, /generationError/);
 });

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
+import { runTvCommercialScriptRequest } from '@/lib/tv-commercial-script-request.mjs';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import PillarHero from '@/components/templates/PillarHero';
@@ -21,23 +22,16 @@ export default function TvCommercialScriptGenerator() {
   const [form, setForm] = useState({ businessName: '', industry: '', serviceArea: '', offer: '', duration: '30 seconds', tone: 'Professional' });
   const [script, setScript] = useState('');
   const [loading, setLoading] = useState(false);
+  const [generationError, setGenerationError] = useState('');
   const [copied, setCopied] = useState(false);
 
-  const handleGenerate = async () => {
-    if (!form.businessName || !form.industry || !form.serviceArea) return;
-    setLoading(true);
-    setScript('');
-    const res = await base44.functions.invoke('generateTvCommercialScript', {
-      businessName: form.businessName,
-      industry: form.industry,
-      serviceArea: form.serviceArea,
-      offer: form.offer,
-      duration: form.duration,
-      tone: form.tone,
-    });
-    setScript(res.data.script);
-    setLoading(false);
-  };
+  const handleGenerate = () => runTvCommercialScriptRequest({
+    form,
+    invoke: (name, payload) => base44.functions.invoke(name, payload),
+    onLoading: setLoading,
+    onScript: setScript,
+    onError: setGenerationError,
+  });
 
   const handleCopy = () => {
     navigator.clipboard.writeText(script);
@@ -45,7 +39,7 @@ export default function TvCommercialScriptGenerator() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const ready = form.businessName && form.industry && form.serviceArea;
+  const ready = form.businessName.trim() && form.industry.trim() && form.serviceArea.trim();
 
   return (
     <div className="bg-slate-950 min-h-screen">
@@ -153,6 +147,11 @@ export default function TvCommercialScriptGenerator() {
               >
                 {loading ? <><RefreshCw className="w-4 h-4 animate-spin" /> Generating your script...</> : <><Tv className="w-4 h-4" /> Generate My TV Script</>}
               </button>
+              {generationError && (
+                <p role="alert" aria-live="polite" className="rounded-lg border border-amber-600/50 bg-amber-950/30 px-3 py-2 text-amber-200 text-sm">
+                  {generationError}
+                </p>
+              )}
             </div>
 
             {/* Output */}
