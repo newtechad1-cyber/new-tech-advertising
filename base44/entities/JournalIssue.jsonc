@@ -95,11 +95,13 @@
     },
     "scheduled_date": {
       "type": "string",
-      "format": "date"
+      "format": "date",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "scheduled_time": {
       "type": "string",
-      "default": "07:00"
+      "default": "07:00",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "from_ricks_desk": {
       "type": "string",
@@ -134,7 +136,8 @@
       "type": "string"
     },
     "featured_image_prompt": {
-      "type": "string"
+      "type": "string",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "category": {
       "type": "string",
@@ -206,14 +209,17 @@
     },
     "newsletter_sent": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "newsletter_subject": {
-      "type": "string"
+      "type": "string",
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "subscriber_count": {
       "type": "integer",
-      "default": 0
+      "default": 0,
+      "rls": { "read": { "user_condition": { "role": "admin" } } }
     },
     "views": {
       "type": "integer",
@@ -249,7 +255,7 @@
   ],
   "rls": {
     "create": { "user_condition": { "role": "admin" } },
-    "read": true,
+    "read": {"$or":[{"user_condition":{"role":"admin"}},{"data.status":"Published"}]},
     "update": { "user_condition": { "role": "admin" } },
     "delete": { "user_condition": { "role": "admin" } }
   }

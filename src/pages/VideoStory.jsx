@@ -17,7 +17,7 @@ export default function VideoStory() {
     const load = async () => {
       try {
         const stories = slug
-          ? await base44.entities.WebsiteVideoStory.filter({ slug })
+          ? await base44.entities.WebsiteVideoStory.filter({ slug, publish_status: 'published' })
           : [];
         if (active) setStory(stories[0] || null);
       } catch (error) {

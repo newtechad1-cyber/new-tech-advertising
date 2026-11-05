@@ -7,8 +7,7 @@
     },
     "slug": {
       "type": "string",
-      "description": "URL slug e.g. dallas-hvac-streaming-tv-ads",
-      "unique": true
+      "description": "URL slug e.g. dallas-hvac-streaming-tv-ads"
     },
     "industry": {
       "type": "string"
@@ -44,14 +43,35 @@
       "description": "JSON: [{label, value}]"
     },
     "video_script": {
-      "type": "string"
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
     },
     "blog_article": {
-      "type": "string"
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
     },
     "social_posts": {
       "type": "string",
-      "description": "JSON: [{caption, image_prompt, video_prompt}]"
+      "description": "JSON: [{caption, image_prompt, video_prompt}]",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
     },
     "seo_title": {
       "type": "string"
@@ -78,7 +98,14 @@
     "description": {
       "type": "string",
       "maxLength": 1000,
-      "description": "Optional notes or description"
+      "description": "Optional notes or description",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
     }
   },
   "required": [
@@ -90,9 +117,32 @@
     "service_used"
   ],
   "rls": {
-    "create": { "user_condition": { "role": "admin" } },
-    "read": true,
-    "update": { "user_condition": { "role": "admin" } },
-    "delete": { "user_condition": { "role": "admin" } }
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.status": "published"
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
   }
 }
