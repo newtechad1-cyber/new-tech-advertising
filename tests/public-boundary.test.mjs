@@ -137,3 +137,12 @@ test('question-first Knowledge Library routes are specific and fail closed', asy
   assert.equal(retiredBlogHub.noIndex, true);
   assert.equal(retiredBlogArticle.noIndex, true);
 });
+
+
+test('public channel help does not fetch private channel credentials or invent status counts', async () => {
+  const source = await read('src/pages/ChannelHelpCenter.jsx');
+  assert.doesNotMatch(source, /base44\.entities\.ChannelConnection\.(list|filter|get)\s*\(/);
+  assert.doesNotMatch(source, /useQuery|channel-connections-help|connectedCount|attentionCount|notConnectedCount|statusIcon/);
+  assert.match(source, /Check your connection status/);
+  assert.match(source, /Open Channel Hub/);
+});
