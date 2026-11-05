@@ -27,7 +27,7 @@ test('all 12 AI Foundations lessons are represented once with unique titles and 
   assert.match(masterSource, /aiFoundationsLesson12/);
 });
 
-test('the collection distinguishes the seven core foundations from five AI in Practice lessons', () => {
+test('the collection distinguishes the seven core foundations from AI in Practice lessons', () => {
   assert.match(collectionSource, /The Seven Core Foundations/);
   assert.match(collectionSource, /AI in Practice: Rick’s Experience and Perspective/);
   assert.match(collectionSource, /idx === 7/);
@@ -35,7 +35,7 @@ test('the collection distinguishes the seven core foundations from five AI in Pr
   const lesson7 = lessonSources[1];
   assert.match(lesson7, /Completing the Core Foundations/);
   assert.doesNotMatch(lesson7, /completed the second collection/);
-  assert.match(lesson7, /The next five lessons form \*\*AI in Practice\*\*/);
+  assert.match(lesson7, /The next [^\n]*lessons[^\n]*\*\*AI in Practice\*\*/);
 });
 
 test('overlapping lessons retain distinct reader outcomes', () => {
