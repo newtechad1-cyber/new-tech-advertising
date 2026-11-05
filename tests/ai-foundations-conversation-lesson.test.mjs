@@ -56,8 +56,12 @@ test('publishing package and discoverability records point to the established ca
   const canonicalPath = `/knowledge/ai-foundations/${lessonSlug}`;
   assert.match(lesson, new RegExp(canonicalPath));
 
-  const aiSitemap = fs.readFileSync(new URL('../public/ai-sitemap.json', import.meta.url), 'utf8');
+  const aiSitemap = JSON.parse(fs.readFileSync(new URL('../public/ai-sitemap.json', import.meta.url), 'utf8'));
   const xmlSitemap = fs.readFileSync(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
-  assert.equal(aiSitemap.match(new RegExp(`"slug": "${lessonSlug}"`, 'g'))?.length, 1);
+  const canonicalUrl = `https://newtechadvertising.com${canonicalPath}`;
+  const matchingLessons = aiSitemap.knowledgeCollections
+    .flatMap(collection => collection.lessons)
+    .filter(entry => entry.canonicalUrl === canonicalUrl);
+  assert.equal(matchingLessons.length, 1);
   assert.equal(xmlSitemap.match(new RegExp(canonicalPath, 'g'))?.length, 1);
 });

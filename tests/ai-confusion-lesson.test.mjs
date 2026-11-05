@@ -13,7 +13,9 @@ test('one governing lesson is registered with real previous and related lessons'
   assert.equal(matches.length, 1);
   assert.equal(matches[0].content, lesson17.content);
   assert.equal(matches[0].previousLessonSlug, 'how-do-you-put-ai-to-work-in-a-real-business');
-  assert.equal(collection.lessons.at(-2).nextLessonSlug, lesson17.slug);
+  const predecessor = collection.lessons.find(lesson => lesson.slug === 'how-do-you-put-ai-to-work-in-a-real-business');
+  assert.ok(predecessor, 'The established predecessor must remain in the curriculum');
+  assert.equal(predecessor.nextLessonSlug, lesson17.slug);
   assert.equal(getRelatedLessons('ai-foundations', lesson17.slug).length, 3);
 });
 
