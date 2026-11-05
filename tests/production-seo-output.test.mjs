@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
+import { buildCandidate, generatedSourceStatus } from '../scripts/build-candidate.mjs';
+
 import {
   KNOWLEDGE_QUESTION_LAST_UPDATED,
   knowledgeQuestions,
@@ -159,4 +161,54 @@ test('website rebuild intake has its own preferred URL and metadata', () => {
   const html = readOutputForRoute('/rebuild-intake');
   assert.match(html, /Website Rebuild Request/);
   assert.ok(html.includes('rel="canonical" href="https://newtechadvertising.com/rebuild-intake"'));
+});
+
+
+// The candidate guard is tested with process stubs; no git writes, subprocesses
+// or actual SEO regeneration occur inside these unit tests.
+function candidateHarness({ before = '', after = '', buildStatus = 0, gitStatus = 0 } = {}) {
+  const calls = [];
+  let inspections = 0;
+  const spawn = (command, args, options) => {
+    calls.push({ command, args, options });
+    if (command === 'git') {
+      const value = inspections++ === 0 ? before : after;
+      return { status: gitStatus, stdout: value, stderr: '' };
+    }
+    assert.equal(command, process.execPath);
+    assert.deepEqual(args.slice(-1), ['build']);
+    assert.equal(options.env.NTA_PODCAST_BUILD_MODE, 'candidate-offline');
+    return { status: buildStatus };
+  };
+  return { spawn, calls };
+}
+
+test('offline candidate build preserves reviewed SEO source state', () => {
+  const mock = candidateHarness();
+  assert.equal(buildCandidate({ spawn: mock.spawn, env: {} }), 0);
+  assert.deepEqual(mock.calls.map(call => call.command), ['git', process.execPath, 'git']);
+  assert.deepEqual(mock.calls[0].args.slice(-3), ['public/sitemap.xml', 'public/ai-sitemap.json', 'public/llms.txt']);
+});
+
+test('candidate build refuses already dirty tracked SEO source files before spawning Vite', () => {
+  const mock = candidateHarness({ before: ' M public/sitemap.xml' });
+  assert.throws(() => buildCandidate({ spawn: mock.spawn, env: {} }), /already modified before the build/);
+  assert.deepEqual(mock.calls.map(call => call.command), ['git']);
+});
+
+test('candidate build fails closed when SEO generation changes a tracked source', () => {
+  const mock = candidateHarness({ after: ' M public/ai-sitemap.json\\n M public/llms.txt' });
+  assert.throws(() => buildCandidate({ spawn: mock.spawn, env: {} }), /unexpectedly changed tracked SEO source files/);
+  assert.deepEqual(mock.calls.map(call => call.command), ['git', process.execPath, 'git']);
+});
+
+test('candidate build preserves the Vite failure status when tracked SEO sources are unchanged', () => {
+  const mock = candidateHarness({ buildStatus: 23 });
+  assert.equal(buildCandidate({ spawn: mock.spawn, env: {} }), 23);
+});
+
+test('candidate build never assumes SEO state is clean when git inspection fails', () => {
+  const mock = candidateHarness({ gitStatus: 128 });
+  assert.throws(() => generatedSourceStatus({ spawn: mock.spawn }), /Could not verify generated SEO source/);
+  assert.deepEqual(mock.calls.map(call => call.command), ['git']);
 });
