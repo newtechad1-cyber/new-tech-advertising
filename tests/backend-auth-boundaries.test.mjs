@@ -165,3 +165,77 @@ test('accessibility scan rejects redirects to a private target', async () => {
   await assert.rejects(context.fetchPublicUrl('https://example.com'));
   assert.equal(fetches, 1);
 });
+
+
+test('security audit follows lazy imports, forwarded calls and fetch URL variables without inventing callers', async () => {
+  const fs = await import('node:fs');
+  const os = await import('node:os');
+  const { spawnSync } = await import('node:child_process');
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'nta-security-audit-fixture-'));
+  const write = (relative, content) => {
+    const file = path.join(temp, relative);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, content);
+  };
+  try {
+    write('src/App.jsx', [
+      "import('./lazy.js');",
+      "import './alias.js';",
+      "import './fetch.js';",
+      "base44.functions.invoke('directSdk', {});",
+      "// import('./not-really-loaded.js');",
+    ].join('\n'));
+    write('src/pages.config.js', '');
+    write('src/config/publicRoutes.js', '');
+    write('src/lazy.js', "base44.functions.invoke('dynamicFn', {});");
+    write('src/not-really-loaded.js', "base44.functions.invoke('commentFn', {});");
+    write('src/alias.js', [
+      'const invoke = (name, data) => base44.functions.invoke(name, { ...data }).then(unwrap);',
+      "invoke('aliasFn', {});",
+    ].join('\n'));
+    const tick = String.fromCharCode(96);
+    const dollar = String.fromCharCode(36);
+    write('src/fetch.js', [
+      'const gateway = ' + tick + '/api/apps/' + dollar + '{appId}/functions/fetchFn' + tick + ';',
+      "const fallback = 'https://example.invalid/functions/fallbackFn';",
+      'let target = gateway;',
+      'fetch(target);',
+      'target = fallback;',
+      'fetch(target);',
+      "fetch('/api/apps/test/functions/directFn');",
+      "const uncalled = '/api/apps/test/functions/unusedFn';",
+      '// const invoke = (name, data) => base44.functions.invoke(name, data);',
+      "invoke('unusedFn', {});",
+    ].join('\n'));
+    fs.mkdirSync(path.join(temp, 'base44/entities'), { recursive: true });
+    const names = ['directSdk', 'dynamicFn', 'aliasFn', 'fetchFn', 'fallbackFn', 'directFn', 'unusedFn', 'commentFn'];
+    for (const name of names) {
+      write('base44/functions/' + name + '/entry.ts', [
+        'Deno.serve(async (req) => {',
+        '  const user = await base44.auth.me();',
+        '  await base44.asServiceRole.entities.Sample.create({});',
+        "  return new Response('ok');",
+        '});',
+      ].join('\n'));
+    }
+    const audit = path.resolve(candidateRoot, 'scripts/security-audit.mjs');
+    const result = spawnSync(process.execPath, [audit, '--strict', '--json'], {
+      cwd: temp,
+      encoding: 'utf8',
+      env: { PATH: process.env.PATH || '' },
+      timeout: 30000,
+    });
+    assert.equal(result.status, 1, 'strict audit must reject unsafe fixture endpoints');
+    assert.equal(result.stderr, '');
+    const report = JSON.parse(result.stdout);
+    const called = report.findings
+      .filter(item => item.code === 'PUBLIC_SERVICE_ROLE_ENDPOINT_WITHOUT_BOUNDARY')
+      .map(item => item.subject).sort();
+    assert.deepEqual(called, ['aliasFn', 'directFn', 'directSdk', 'dynamicFn', 'fallbackFn', 'fetchFn']);
+    assert.equal(report.summary.publicFunctionCalls, 6);
+    assert.ok(!called.includes('unusedFn'), 'unfetched URL or commented wrapper must not invent a caller');
+    assert.ok(!called.includes('commentFn'), 'commented dynamic import must not be followed');
+  } finally {
+    fs.rmSync(temp, { recursive: true, force: true });
+  }
+});
