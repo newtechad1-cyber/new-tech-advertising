@@ -22,6 +22,7 @@ function harness(path, { width = 1024, invoke = async () => { throw new Error('U
   let cursor = 0;
   let timerId = 0;
   const focusHistory = [];
+  const dragStarts = [];
   const focusable = label => ({
     isConnected: true,
     focus() { focusHistory.push(label); document.activeElement = this; },
@@ -82,7 +83,7 @@ function harness(path, { width = 1024, invoke = async () => { throw new Error('U
       if (name === '@radix-ui/react-dialog') return Dialog;
       if (name === 'framer-motion') return {
         motion: new Proxy({}, { get: (_, key) => String(key) }),
-        AnimatePresence: 'AnimatePresence', useDragControls: () => ({ start() {} }),
+        AnimatePresence: 'AnimatePresence', useDragControls: () => ({ start: event => dragStarts.push(event) }),
       };
       if (name === 'react-router-dom') return { useLocation: () => ({ pathname: '/contact' }), useNavigate: () => () => {} };
       if (name === '@/lib/publicVerification') return { invokeVerifiedPublicFunction: invoke };
@@ -104,7 +105,7 @@ function harness(path, { width = 1024, invoke = async () => { throw new Error('U
       while (pendingEffects.length) pendingEffects.shift()();
       return tree;
     },
-    document, listeners, timers, storage, focusHistory, focusable,
+    document, listeners, timers, storage, focusHistory, focusable, dragStarts,
   };
 }
 function nodes(node) {
@@ -191,6 +192,16 @@ test('Guide minimizes to its launcher when the original opener has unmounted, re
   assert.equal(find(h.render(), n => n.type === 'input' && n.props['aria-label']).props.value, 'Keep this question');
 });
 
+test('Guide header controls do not start a pointer drag', () => {
+  const h = harness(guidePath);
+  const tree = openGuide(h);
+  const header = find(tree, n => n.props?.className?.includes('cursor-move'));
+  header.props.onPointerDown({ target: { closest: () => ({ tagName: 'BUTTON' }) } });
+  assert.equal(h.dragStarts.length, 0);
+  header.props.onPointerDown({ target: { closest: () => null } });
+  assert.equal(h.dragStarts.length, 1);
+});
+
 test('Newsletter uses a named modal with visible, associated labels and a hidden honeypot', () => {
   const h = harness(newsletterPath);
   const tree = openNewsletter(h);
@@ -201,6 +212,7 @@ test('Newsletter uses a named modal with visible, associated labels and a hidden
   for (const type of ['text', 'email']) {
     const input = find(tree, n => n.type === 'input' && n.props.type === type && n.props.tabIndex !== -1);
     assert.ok(input.props.id, 'input needs a stable label target');
+    assert.match(input.props.className, /bg-white/, 'popup fields need an explicit light background');
     const label = find(tree, n => n.type === 'label' && n.props.htmlFor === input.props.id);
     assert.ok(label && text(label).trim());
   }
