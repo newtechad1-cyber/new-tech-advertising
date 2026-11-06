@@ -26,7 +26,6 @@ const sourceLlms = path.join(root, "public", "llms.txt");
 
 
 const SITE_ORIGIN = "https://newtechadvertising.com";
-const TODAY = new Date().toISOString().slice(0, 10);
 const KNOWLEDGE_AUTHOR = "Rick Hesse";
 const KNOWLEDGE_PUBLISHER = "New Tech Advertising";
 const AI_HUMANITY_LAST_UPDATED = "2026-09-02";
@@ -43,6 +42,7 @@ function getPublishedJournalIssues() {
     )
     .map(issue => ({
       ...issue,
+      lastModified: requireEditorialDate(issue.lastModified, issue.canonicalUrl),
       pathname: new URL(issue.canonicalUrl).pathname.replace(/\/+$/, "")
     }));
 }
@@ -82,11 +82,23 @@ const FEATURED_KNOWLEDGE_COLLECTION = {
   ]
 };
 
-function latestDate(values, fallback = TODAY) {
+// A build timestamp does not establish when the content changed. Keep saved
+// editorial dates, and identify missing metadata before rewriting public files.
+function requireEditorialDate(value, canonicalUrl) {
+  const isDate = /^\d{4}-\d{2}-\d{2}$/.test(value || "");
+  const parsed = isDate ? new Date(value + "T00:00:00Z") : null;
+  if (!isDate || !Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) {
+    throw new Error("SEO generation requires a saved YYYY-MM-DD content date for " + canonicalUrl
+      + ". Add an editorial modification/publication date or restore lastModified; build time is not a content date.");
+  }
+  return value;
+}
+
+function latestDate(values, canonicalUrl) {
   const dates = values
     .filter(value => /^\d{4}-\d{2}-\d{2}$/.test(value || ""))
     .sort();
-  return dates[dates.length - 1] || fallback;
+  return requireEditorialDate(dates[dates.length - 1], canonicalUrl);
 }
 
 function buildKnowledgeCollection(collection, existingCollection) {
@@ -107,7 +119,10 @@ function buildKnowledgeCollection(collection, existingCollection) {
       author: KNOWLEDGE_AUTHOR,
       publisher: KNOWLEDGE_PUBLISHER,
       publicStatus: "published",
-      lastModified: lesson.modifiedDate || lesson.publishedDate || existingLesson.lastModified || TODAY
+      lastModified: requireEditorialDate(
+        lesson.modifiedDate || lesson.publishedDate || existingLesson.lastModified,
+        canonicalUrl
+      )
     };
   });
 
@@ -122,7 +137,7 @@ function buildKnowledgeCollection(collection, existingCollection) {
     lastModified: latestDate([
       ...lessons.map(lesson => lesson.lastModified),
       existingCollection?.lastModified
-    ]),
+    ], SITE_ORIGIN + "/knowledge/" + collection.slug),
     lessons
   };
 }
@@ -295,6 +310,12 @@ function syncLlmsKnowledgeIndex(knowledgeCollections, questions) {
 function syncKnowledgeIndexes() {
   const aiSitemap = JSON.parse(fs.readFileSync(sourceAiSitemap, "utf8"));
   const knowledgeCollections = buildKnowledgeCollections(aiSitemap);
+  for (const collection of knowledgeCollections) {
+    requireEditorialDate(collection.lastModified, collection.canonicalUrl);
+    for (const lesson of collection.lessons || []) {
+      requireEditorialDate(lesson.lastModified || collection.lastModified, lesson.canonicalUrl);
+    }
+  }
   const questionPages = buildKnowledgeQuestionPages(aiSitemap.publicPages || []);
   const managedQuestionCanonicals = new Set(questionPages.map(page => page.canonicalUrl));
   const publicPages = [
@@ -310,7 +331,7 @@ function syncKnowledgeIndexes() {
   const knowledgeLibraryLastModified = latestDate([
     ...knowledgeCollections.map(collection => collection.lastModified),
     KNOWLEDGE_QUESTION_LAST_UPDATED,
-  ]);
+  ], SITE_ORIGIN + "/knowledge");
   const generatedRoutes = new Map();
   generatedRoutes.set(
     "/knowledge",
@@ -333,14 +354,14 @@ function syncKnowledgeIndexes() {
     const collectionPath = new URL(collection.canonicalUrl).pathname.replace(/\/+$/, "");
     generatedRoutes.set(
       collectionPath,
-      renderSitemapUrl(collectionPath, collection.lastModified || TODAY, "monthly", "0.8")
+      renderSitemapUrl(collectionPath, collection.lastModified, "monthly", "0.8")
     );
 
     for (const lesson of collection.lessons || []) {
       const lessonPath = new URL(lesson.canonicalUrl).pathname.replace(/\/+$/, "");
       generatedRoutes.set(
         lessonPath,
-        renderSitemapUrl(lessonPath, lesson.lastModified || collection.lastModified || TODAY, "monthly", "0.7")
+        renderSitemapUrl(lessonPath, lesson.lastModified || collection.lastModified, "monthly", "0.7")
       );
     }
   }
@@ -378,7 +399,7 @@ function syncJournalIssueRoutes() {
   const generatedRoutes = new Map(
     PUBLISHED_JOURNAL_ISSUES.map(issue => [
       issue.pathname,
-      renderSitemapUrl(issue.pathname, issue.lastModified || TODAY, "weekly", "0.7")
+      renderSitemapUrl(issue.pathname, issue.lastModified, "weekly", "0.7")
     ])
   );
 
