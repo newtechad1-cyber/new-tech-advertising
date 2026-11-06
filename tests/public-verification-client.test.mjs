@@ -286,3 +286,137 @@ test('a corrupt stored attribution date cannot block an inquiry or Journal subsc
     assert.equal(fixture.requests.filter(request => !request.payload.verification_config).length, 1);
   }
 });
+
+
+// Exercise the real app-params module in a browser-like context. Replacing only
+// the build-time import.meta.env syntax lets us test exact URL/storage behavior
+// without touching Base44, a browser profile, or production sessions.
+function appParamsFixture({
+  hostname = 'newtechadvertising.com',
+  query = '',
+  persisted = {},
+  backendUrl = 'https://trusted-base44-api.example',
+  configuredAppId = 'editor-build-app',
+} = {}) {
+  const storage = new Map(Object.entries(persisted));
+  const historyCalls = [];
+  const location = {
+    hostname, pathname: '/contact', hash: '#contact', search: query,
+    href: 'https://' + hostname + '/contact' + query + '#contact',
+  };
+  const window = {
+    location,
+    localStorage: {
+      getItem(key) { return storage.get(key) || null; },
+      setItem(key, value) { storage.set(key, String(value)); },
+      removeItem(key) { storage.delete(key); },
+    },
+    history: {
+      replaceState(state, title, next) {
+        historyCalls.push(next);
+        const url = new URL(next, location.href);
+        location.hostname = url.hostname;
+        location.pathname = url.pathname;
+        location.hash = url.hash;
+        location.search = url.search;
+        location.href = url.href;
+      },
+    },
+  };
+  const context = vm.createContext({
+    window,
+    document: { title: 'NTA' },
+    URL, URLSearchParams,
+    testEnv: { VITE_BASE44_APP_ID: configuredAppId, VITE_BASE44_BACKEND_URL: backendUrl },
+  });
+  const source = readFileSync('src/lib/app-params.js', 'utf8')
+    .replaceAll('import.meta.env', 'testEnv')
+    .replace('export const appParams =', 'const appParams =')
+    + '\nthis.testAppParams = appParams;';
+  vm.runInContext(source, context);
+  return { params: context.testAppParams, storage, historyCalls, location };
+}
+
+for (const hostname of ['newtechadvertising.com', 'www.newtechadvertising.com', 'new-tech-advertising.base44.app']) {
+  test('public app config on ' + hostname + ' ignores URL and stored API identity overrides', () => {
+    const fixture = appParamsFixture({
+      hostname,
+      query: '?app_id=evil-app&server_url=https%3A%2F%2Fevil.example&functions_version=evil-v&ctx=valid-handle&utm_source=facebook',
+      persisted: {
+        base44_app_id: 'stored-evil',
+        base44_server_url: 'https://stored-evil.example',
+        base44_access_token: 'stored-token',
+        base44_functions_version: 'stored-v',
+      },
+    });
+    assert.equal(fixture.params.appId, '691f41a18de4a7f498c8f884');
+    assert.equal(fixture.params.serverUrl, 'https://trusted-base44-api.example');
+    assert.equal(fixture.params.token, 'stored-token', 'legitimate SDK session retained');
+    assert.equal(fixture.params.functionsVersion, null);
+    for (const key of ['base44_app_id', 'base44_server_url', 'base44_functions_version']) {
+      assert.equal(fixture.storage.has(key), false, 'legacy override not cleared: ' + key);
+    }
+    for (const key of ['app_id', 'server_url', 'functions_version']) {
+      assert.equal(new URLSearchParams(fixture.location.search).has(key), false, 'unsafe public URL param persisted: ' + key);
+    }
+    assert.equal(new URLSearchParams(fixture.location.search).get('ctx'), 'valid-handle');
+    assert.equal(new URLSearchParams(fixture.location.search).get('utm_source'), 'facebook');
+    assert.equal(fixture.historyCalls.length, 1);
+  });
+}
+
+test('public site ignores legacy poisoned storage even without suspicious URL fields', () => {
+  const fixture = appParamsFixture({
+    query: '?utm_campaign=november',
+    persisted: {
+      base44_app_id: 'bad-app', base44_server_url: 'https://evil.example',
+      base44_access_token: 'bad-token', base44_functions_version: 'bad-v',
+    },
+    configuredAppId: undefined,
+    backendUrl: undefined,
+  });
+  assert.equal(fixture.params.appId, '691f41a18de4a7f498c8f884');
+  assert.equal(fixture.params.serverUrl, undefined, 'SDK default is allowed when build URL is absent');
+  assert.equal(fixture.params.token, 'bad-token', 'server still validates SDK bearer token');
+  assert.equal(fixture.params.functionsVersion, null);
+  assert.equal(fixture.historyCalls.length, 0);
+  assert.equal(fixture.storage.has('base44_access_token'), true, 'existing SDK login is not deleted');
+});
+
+
+test('public login callback is accepted only for the pinned Base44 app and its URL token is scrubbed', () => {
+  const f = appParamsFixture({
+    hostname: 'newtechadvertising.com',
+    query: '?access_token=returned-by-base44&server_url=https%3A%2F%2Fevil.example&app_id=evil-app&ctx=valid-handle',
+  });
+  assert.equal(f.params.appId, '691f41a18de4a7f498c8f884');
+  assert.equal(f.params.serverUrl, 'https://trusted-base44-api.example');
+  assert.equal(f.params.token, 'returned-by-base44', 'existing platform sign-in callback preserved');
+  assert.equal(f.storage.get('base44_access_token'), 'returned-by-base44');
+  assert.equal(f.params.functionsVersion, null);
+  assert.equal(new URLSearchParams(f.location.search).has('access_token'), false, 'bearer removed from address');
+  assert.equal(new URLSearchParams(f.location.search).has('server_url'), false);
+  assert.equal(new URLSearchParams(f.location.search).get('ctx'), 'valid-handle');
+});
+
+test('Base44 editor and sandbox preview preserve intentional version and app parameters', () => {
+  const preview = appParamsFixture({
+    hostname: 'preview.base44.dev',
+    query: '?app_id=preview-id&server_url=https%3A%2F%2Fpreview-api.example&access_token=preview-token&functions_version=branch-v',
+  });
+  assert.equal(preview.params.appId, 'preview-id');
+  assert.equal(preview.params.serverUrl, 'https://preview-api.example');
+  assert.equal(preview.params.token, 'preview-token');
+  assert.equal(preview.params.functionsVersion, 'branch-v');
+  assert.equal(preview.storage.get('base44_access_token'), 'preview-token');
+  assert.equal(new URLSearchParams(preview.location.search).has('access_token'), false, 'legacy URL secret stripping preserved');
+
+  const core = appParamsFixture({ hostname: 'app.newtechadvertising.com', query: '?app_id=separate-core-id' });
+  assert.equal(core.params.appId, 'separate-core-id', 'never rebind an unrelated Core app');
+});
+
+test('the public SDK client still uses the locked app-params module', () => {
+  const sdk = readFileSync('src/api/base44Client.js', 'utf8');
+  assert.match(sdk, /from ['"]@\/lib\/app-params['"]/);
+  assert.match(sdk, /createClient\(\{\s*appId,\s*serverUrl,\s*token,\s*functionsVersion,/);
+});
