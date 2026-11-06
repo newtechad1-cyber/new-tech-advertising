@@ -214,6 +214,176 @@ test('candidate build never assumes SEO state is clean when git inspection fails
 });
 
 
+
+import vm from 'node:vm';
+import { createRequire } from 'node:module';
+import ts from 'typescript';
+import * as schemaManager from '../src/lib/seoSchema.js';
+import { getSeoMetadata } from '../src/config/seoMetadata.js';
+import * as socialLinks from '../src/config/socialLinks.js';
+import * as videoPublication from '../src/lib/videoPublication.js';
+
+// A small head-only DOM for executing the actual SEOHead and RouteMeta effects.
+// It cannot fetch, submit, invoke a provider, or read a signed-in browser.
+function schemaHead(html = '') {
+  class HeadElement {
+    constructor(tag) { this.tagName = tag; this.attributes = new Map(); this.textContent = ''; this.parentNode = null; }
+    getAttribute(name) { return this.attributes.get(name) ?? null; }
+    setAttribute(name, value) { this.attributes.set(name, String(value)); }
+    set type(value) { this.setAttribute('type', value); }
+    set className(value) { this.setAttribute('class', value); }
+    set text(value) { this.textContent = value; }
+    remove() { this.parentNode?.removeChild(this); }
+  }
+  const children = [];
+  const matches = (node, selector) => {
+    const match = selector.match(/^([a-z]+)(?:\[([^=\]]+)(?:="([^"]*)")?\])?$/);
+    assert.ok(match, 'Unsupported head selector: ' + selector);
+    return node.tagName === match[1] && (!match[2] ||
+      (match[3] === undefined ? node.getAttribute(match[2]) !== null : node.getAttribute(match[2]) === match[3]));
+  };
+  const head = {
+    appendChild(node) { children.push(node); node.parentNode = head; return node; },
+    removeChild(node) { const index = children.indexOf(node); if (index !== -1) children.splice(index, 1); node.parentNode = null; },
+    querySelectorAll(selector) { return children.filter(node => matches(node, selector)); },
+    querySelector(selector) { return this.querySelectorAll(selector)[0] ?? null; },
+  };
+  const doc = { head, title: '', createElement: tag => new HeadElement(tag) };
+  for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+    if (!match[1].includes('application/ld+json')) continue;
+    const node = doc.createElement('script');
+    for (const attr of match[1].matchAll(/([\w-]+)="([^"]*)"/g)) node.setAttribute(attr[1], attr[2]);
+    node.textContent = match[2];
+    head.appendChild(node);
+  }
+  return doc;
+}
+const schemaNodes = doc => doc.head.querySelectorAll('script[type="application/ld+json"]')
+  .flatMap(script => { const value = JSON.parse(script.textContent); return value['@graph'] || [value]; });
+const schemasOfType = (doc, type) => schemaNodes(doc).filter(node => [node['@type']].flat().includes(type));
+
+function headEffects(doc, pathname, componentPath = 'src/components/shared/SEOHead.jsx') {
+  const effects = [];
+  const exports = {};
+  const context = {
+    exports, URL, document: doc,
+    window: { location: { pathname, origin: 'https://preview.example.test' } },
+    require(id) {
+      if (id === 'react') return { useEffect: effect => effects.push(effect), useLayoutEffect: effect => effects.push(effect) };
+      if (id === 'react-router-dom') return { useLocation: () => ({ pathname }) };
+      if (id === '@/config/seoMetadata') return { getSeoMetadata };
+      if (id === '@/config/socialLinks') return socialLinks;
+      if (id === '@/lib/videoPublication') return videoPublication;
+      if (id === '@/lib/seoSchema') return schemaManager;
+      if (id === '@/lib/publicTracking') return { trackPublicPageView() {}, installPublicIntentTracking() {} };
+      throw new Error('Unexpected module: ' + id);
+    },
+  };
+  const compiled = ts.transpileModule(fs.readFileSync(path.join(root, componentPath), 'utf8'), {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX },
+    reportDiagnostics: true,
+  });
+  assert.equal(compiled.diagnostics?.filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
+  vm.runInNewContext(compiled.outputText, context);
+  return props => {
+    exports.default(props);
+    const cleanups = effects.splice(0).map(effect => effect()).filter(fn => typeof fn === 'function');
+    return () => cleanups.forEach(cleanup => cleanup());
+  };
+}
+
+test('initial production schema has one site graph and no repeated entity IDs on every sitemap page', () => {
+  const sitemap = fs.readFileSync(path.join(root, 'public/sitemap.xml'), 'utf8');
+  for (const match of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    const route = new URL(match[1]).pathname;
+    const doc = schemaHead(readOutputForRoute(route));
+    const ids = schemaNodes(doc).map(node => node['@id']).filter(Boolean);
+    assert.equal(ids.length, new Set(ids).size, route + ' contains duplicate entity definitions');
+    assert.equal(doc.head.querySelectorAll('script[data-seo-site-schema="true"]').length, 1, route);
+    for (const script of doc.head.querySelectorAll('script[data-seo-canonical]')) {
+      assert.equal(script.getAttribute('data-seo-canonical'), getSeoMetadata(route).canonical, route);
+    }
+  }
+});
+
+test('the actual homepage SEO effect adopts the site graph without losing the initial logo or founding date', () => {
+  const doc = schemaHead(readOutputForRoute('/'));
+  const before = schemasOfType(doc, 'Organization')[0];
+  const cleanup = headEffects(doc, '/')({});
+  for (const type of ['Organization', 'Person', 'WebSite']) assert.equal(schemasOfType(doc, type).length, 1, type);
+  const after = schemasOfType(doc, 'Organization')[0];
+  assert.equal(after.logo, before.logo);
+  assert.equal(after.foundingDate, before.foundingDate);
+  cleanup();
+  for (const type of ['Organization', 'Person', 'WebSite']) assert.equal(schemasOfType(doc, type).length, 1, type);
+});
+
+test('lesson hydration adopts rich static Article and LearningResource nodes and preserves editorial dates', () => {
+  const route = '/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
+  const doc = schemaHead(readOutputForRoute(route));
+  const before = schemasOfType(doc, 'Article')[0];
+  assert.ok(before.dateModified);
+  const cleanup = headEffects(doc, route)({
+    articleData: { title: before.headline }, learningData: { name: before.headline },
+  });
+  assert.equal(schemasOfType(doc, 'Article').length, 1);
+  assert.equal(schemasOfType(doc, 'LearningResource').length, 1);
+  assert.equal(schemasOfType(doc, 'Article')[0].dateModified, before.dateModified);
+  cleanup();
+  assert.equal(schemasOfType(doc, 'Article')[0].dateModified, before.dateModified);
+});
+
+test('actual RouteMeta navigation retires all old page schemas while preserving site and unrelated schema', () => {
+  const oldRoute = '/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
+  const doc = schemaHead(readOutputForRoute(oldRoute));
+  const unrelated = doc.createElement('script');
+  unrelated.type = 'application/ld+json';
+  unrelated.textContent = JSON.stringify({ '@type': 'Dataset', name: 'Unrelated owner' });
+  doc.head.appendChild(unrelated);
+  const cleanup = headEffects(doc, oldRoute)({ articleData: { title: 'Lesson' } });
+  headEffects(doc, '/contact', 'src/components/shared/RouteMeta.jsx')();
+  cleanup();
+  assert.equal(doc.head.querySelectorAll('script[data-seo-canonical]').length, 0);
+  assert.equal(schemasOfType(doc, 'Dataset').length, 1);
+  assert.equal(schemasOfType(doc, 'Organization').length, 1);
+  assert.equal(doc.head.querySelector('link[rel="canonical"]').getAttribute('href'), getSeoMetadata('/contact').canonical);
+});
+
+test('canonical breadcrumbs follow the preferred route on preview hosts and legacy aliases', () => {
+  const doc = schemaHead(fs.readFileSync(path.join(root, 'index.html'), 'utf8'));
+  headEffects(doc, '/SocialMediaRochesterMN')({});
+  const canonical = getSeoMetadata('/SocialMediaRochesterMN').canonical;
+  const breadcrumb = schemasOfType(doc, 'BreadcrumbList')[0].itemListElement;
+  assert.equal(breadcrumb[0].item, 'https://newtechadvertising.com/');
+  assert.equal(breadcrumb.at(-1).item, canonical);
+  assert.ok(breadcrumb.every(item => !item.item.includes('preview.example.test')));
+  assert.equal(schemaManager.canonicalPageUrl('https://www.newtechadvertising.com/contact/?source=test#part'), 'https://newtechadvertising.com/contact');
+});
+
+test('valid video hydration preserves the original upload date and never duplicates the video', () => {
+  const route = '/learning-center/videos/uKf9f_JFju8';
+  const doc = schemaHead(readOutputForRoute(route));
+  const video = schemasOfType(doc, 'VideoObject')[0];
+  assert.ok(video?.uploadDate);
+  headEffects(doc, route)({ videoData: video });
+  assert.equal(schemasOfType(doc, 'VideoObject').length, 1);
+  assert.equal(schemasOfType(doc, 'VideoObject')[0].uploadDate, video.uploadDate);
+});
+
+test('distinct videos remain separate and schema text cannot break out of its script', () => {
+  const canonical = 'https://newtechadvertising.com/example';
+  const makeVideo = id => ({ '@type': 'VideoObject', name: '</script><p>text', embedUrl: 'https://www.youtube-nocookie.com/embed/' + id });
+  const markup = schemaManager.pageSchemaMarkup([makeVideo('one'), makeVideo('two')].map(video =>
+    '<script type="application/ld+json">' + JSON.stringify(video).replace(/</g, '\\u003c') + '</script>').join(''), canonical);
+  const doc = schemaHead(markup);
+  const cleanup = schemaManager.addPageSchema(doc, makeVideo('one'), canonical);
+  assert.equal(schemasOfType(doc, 'VideoObject').length, 2);
+  assert.doesNotMatch(markup, /<p>text/);
+  cleanup();
+  schemaManager.clearStalePageSchemas(doc, 'https://newtechadvertising.com/contact');
+  assert.equal(schemasOfType(doc, 'VideoObject').length, 0);
+});
+
 test('production text assets do not ship the retired client proposal', () => {
   const assets = path.join(distDir, 'assets');
   const javascript = fs.readdirSync(assets).filter(file => /\.(?:js|map)$/.test(file));
