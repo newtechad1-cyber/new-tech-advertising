@@ -1539,4 +1539,16 @@
       <video:publication_date>2026-11-06T14:45:37+00:00</video:publication_date>
     </video:video>
   </url>
+  <url>
+    <loc>https://newtechadvertising.com/journal/issue-15-ai-seo-growth-show-video</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
