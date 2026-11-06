@@ -2,7 +2,6 @@ import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { base44 } from '@/api/base44Client';
 import { ArrowRight, CheckCircle, Building2, Mail, Phone, User, Globe, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -50,7 +49,6 @@ export default function RebuildIntake() {
     }
 
     setSubmitting(true);
-    console.log('[REBUILD INTAKE FORM SUBMIT HIT]', form);
 
     try {
       // Save one canonical CRM submission and let the backend send the Gmail notification.
@@ -99,8 +97,8 @@ export default function RebuildIntake() {
 
       console.log('[RebuildIntake] Success — showing confirmation.');
       setStep(2);
-    } catch (err) {
-      console.error('[RebuildIntake] Submit failed:', err?.message || err);
+    } catch {
+      console.error('[RebuildIntake] Submit failed.');
       toast.error('Something went wrong sending your request. Please try again or call us at 641-420-8816.');
     } finally {
       setSubmitting(false);

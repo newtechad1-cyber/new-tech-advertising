@@ -420,3 +420,140 @@ test('the public SDK client still uses the locked app-params module', () => {
   assert.match(sdk, /from ['"]@\/lib\/app-params['"]/);
   assert.match(sdk, /createClient\(\{\s*appId,\s*serverUrl,\s*token,\s*functionsVersion,/);
 });
+
+
+// Exercise the real rebuild form handler with fictional data and a mocked intake.
+// The synthetic visitor details must never reach the browser console, even when
+// an upstream exception includes one of those details.
+function rebuildIntakeFixture(mode = 'success', overrides = {}) {
+  const visitor = {
+    name: 'Synthetic Privacy Visitor',
+    email: 'privacy-check@example.invalid',
+    phone: '555-010-9384',
+    business_name: 'Synthetic Privacy Company',
+    website: 'https://privacy-check.example.invalid',
+    city: 'Testville',
+    state: 'IA',
+    industry: 'Synthetic industry',
+    service_type: 'website_rebuild',
+    page_count: '11–20',
+    notes: 'Synthetic confidential project details',
+    ...overrides,
+  };
+  const requests = [];
+  const logs = [];
+  const notices = [];
+  const changes = [];
+  let stateIndex = 0;
+  const useState = initial => {
+    const index = stateIndex++;
+    const value = index === 2 ? visitor : typeof initial === 'function' ? initial() : initial;
+    return [value, next => changes.push({ index, value: next })];
+  };
+  const node = (type, props) => ({ type, props: props || {} });
+  const generic = new Proxy({ __esModule: true, default: 'Stub' }, {
+    get(target, key) { return key in target ? target[key] : 'Stub'; },
+  });
+  const requireStub = id => {
+    if (id === 'react/jsx-runtime') return { jsx: node, jsxs: node, Fragment: 'Fragment' };
+    if (id === 'react') return { useState };
+    if (id === 'react-router-dom') return { Link: 'Link' };
+    if (id === '@/utils') return { createPageUrl: () => '/' };
+    if (id === 'sonner') return { toast: { error: text => notices.push(text) } };
+    if (id === '@/lib/publicVerification') return {
+      async invokeVerifiedPublicFunction(name, payload) {
+        requests.push({ name, payload });
+        if (mode === 'exception') throw new Error('Upstream issue for ' + visitor.email);
+        if (mode === 'failure') return { data: { success: false, error: 'Failure for ' + visitor.email } };
+        return { data: { success: true } };
+      },
+    };
+    return generic;
+  };
+  const source = readFileSync('src/pages/Rebuild-Intake.jsx', 'utf8');
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: {
+      target: ts.ScriptTarget.ES2022,
+      module: ts.ModuleKind.CommonJS,
+      jsx: ts.JsxEmit.ReactJSX,
+    },
+    reportDiagnostics: true,
+  });
+  assert.equal((compiled.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
+  const exports = {};
+  vm.runInNewContext(compiled.outputText, {
+    exports, require: requireStub, URLSearchParams,
+    window: { location: { search: '?source=synthetic-test', href: 'https://example.invalid/rebuild-intake?source=synthetic-test' } },
+    console: Object.fromEntries(['log', 'warn', 'error', 'info', 'debug'].map(level => [
+      level, (...args) => logs.push(args),
+    ])),
+  });
+  function findForm(value) {
+    if (!value) return null;
+    if (Array.isArray(value)) {
+      for (const child of value) {
+        const found = findForm(child);
+        if (found) return found;
+      }
+      return null;
+    }
+    if (typeof value !== 'object') return null;
+    if (value.type === 'form') return value;
+    return findForm(value.props?.children);
+  }
+  const formElement = findForm(exports.default());
+  assert.ok(formElement && typeof formElement.props.onSubmit === 'function');
+  const submit = async () => formElement.props.onSubmit({ preventDefault() {} });
+  const logText = () => logs.flat().map(value => {
+    if (value instanceof Error) return value.message;
+    if (typeof value === 'object') return JSON.stringify(value);
+    return String(value);
+  }).join(' ');
+  return { visitor, requests, logs, notices, changes, submit, logText };
+}
+
+function assertRebuildVisitorNotLogged(fixture) {
+  const output = fixture.logText();
+  for (const field of ['name', 'email', 'phone', 'business_name', 'website', 'notes']) {
+    if (fixture.visitor[field]) assert.equal(output.includes(fixture.visitor[field]), false, field + ' reached browser console');
+  }
+}
+
+test('rebuild form sends the expected request and keeps visitor details out of console on success', async () => {
+  const fixture = rebuildIntakeFixture();
+  await fixture.submit();
+  assert.equal(fixture.requests.length, 1);
+  assert.equal(fixture.requests[0].name, 'ntaUnifiedIntake');
+  assert.equal(fixture.requests[0].payload.name, fixture.visitor.name);
+  assert.equal(fixture.requests[0].payload.email, fixture.visitor.email);
+  assert.equal(fixture.requests[0].payload.phone, fixture.visitor.phone);
+  assert.equal(fixture.requests[0].payload.business_name, fixture.visitor.business_name);
+  assert.ok(fixture.requests[0].payload.notes.includes(fixture.visitor.notes));
+  assert.equal(fixture.requests[0].payload.source_page, 'synthetic-test');
+  assert.ok(fixture.changes.some(change => change.index === 0 && change.value === 2));
+  assert.deepEqual(fixture.changes.filter(change => change.index === 1).map(change => change.value), [true, false]);
+  assert.equal(fixture.notices.length, 0);
+  assertRebuildVisitorNotLogged(fixture);
+});
+
+for (const mode of ['exception', 'failure']) {
+  test('rebuild form handles ' + mode + ' without exposing visitor details in console', async () => {
+    const fixture = rebuildIntakeFixture(mode);
+    await fixture.submit();
+    assert.equal(fixture.requests.length, 1);
+    assert.equal(fixture.notices.length, 1);
+    assert.match(fixture.notices[0], /Something went wrong/);
+    assert.equal(fixture.changes.some(change => change.index === 0 && change.value === 2), false);
+    assert.deepEqual(fixture.changes.filter(change => change.index === 1).map(change => change.value), [true, false]);
+    assertRebuildVisitorNotLogged(fixture);
+  });
+}
+
+test('rebuild form still rejects an incomplete request before sending', async () => {
+  const fixture = rebuildIntakeFixture('success', { phone: '' });
+  await fixture.submit();
+  assert.equal(fixture.requests.length, 0);
+  assert.equal(fixture.notices.length, 1);
+  assert.match(fixture.notices[0], /required fields/);
+  assertRebuildVisitorNotLogged(fixture);
+});
