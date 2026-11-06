@@ -269,8 +269,8 @@ test('retired client proposal follows the contact redirect and has no public sou
   vm.runInNewContext(compiled.outputText + '\nexports.publicRoutesForTest = PublicRoutes;', {
     exports, require: requireStub, console,
   });
-  renderToString(React.createElement(router.MemoryRouter, {
-    initialEntries: ['/appliance-outlet-campaign-proposal'],
+  renderToString(React.createElement(router.StaticRouter, {
+    location: '/appliance-outlet-campaign-proposal',
   }, React.createElement(exports.publicRoutesForTest)));
   assert.deepEqual(redirects, ['/contact']);
   assert.doesNotMatch(source, /import\s+ApplianceOutletCampaignProposal/);
