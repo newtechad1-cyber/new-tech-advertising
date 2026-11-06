@@ -1096,18 +1096,6 @@ export default function YourDigitalGrowthGuide() {
 
       <AnimatePresence>
         {isOpen && (
-          <DialogPrimitive.Content
-            asChild
-            forceMount
-            id="nta-growth-guide-dialog"
-            aria-describedby={undefined}
-            onInteractOutside={event => event.preventDefault()}
-            onOpenAutoFocus={event => {
-              event.preventDefault();
-              guideCloseRef.current?.focus({ preventScroll: true });
-            }}
-            onCloseAutoFocus={restoreGuideFocus}
-          >
           <motion.div
             drag
             dragControls={dragControls}
@@ -1118,6 +1106,19 @@ export default function YourDigitalGrowthGuide() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed inset-2 z-[110] flex flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-950 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:inset-auto sm:bottom-5 sm:right-5 sm:h-[min(760px,calc(100vh-2.5rem))] sm:w-[min(680px,calc(100vw-2.5rem))] sm:rounded-3xl"
           >
+          <DialogPrimitive.Content
+            className="flex h-full min-h-0 w-full flex-col overflow-hidden"
+            forceMount
+            id="nta-growth-guide-dialog"
+            aria-describedby={undefined}
+            onInteractOutside={event => event.preventDefault()}
+            onOpenAutoFocus={event => {
+              event.preventDefault();
+              guideCloseRef.current?.focus({ preventScroll: true });
+            }}
+            onCloseAutoFocus={restoreGuideFocus}
+          >
+
             {/* Header */}
             <div 
               onPointerDown={event => {
@@ -1532,8 +1533,8 @@ export default function YourDigitalGrowthGuide() {
                     <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
                 </div>
             )}
-          </motion.div>
           </DialogPrimitive.Content>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
