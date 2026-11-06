@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getSeoMetadata } from "@/config/seoMetadata";
+import { clearStalePageSchemas } from "@/lib/seoSchema";
 import { installPublicIntentTracking, trackPublicPageView } from "@/lib/publicTracking";
 
 function upsertMeta(name, content) {
@@ -19,6 +20,7 @@ export default function RouteMeta() {
   const metadata = getSeoMetadata(location.pathname);
 
   useLayoutEffect(() => {
+    clearStalePageSchemas(document, metadata.canonical);
     document.title = metadata.title;
     upsertMeta("description", metadata.description);
     upsertMeta(
