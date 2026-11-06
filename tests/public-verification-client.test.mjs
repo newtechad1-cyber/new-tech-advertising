@@ -365,19 +365,19 @@ for (const hostname of ['newtechadvertising.com', 'www.newtechadvertising.com', 
   });
 }
 
-test('public site ignores legacy poisoned storage even without suspicious URL fields', () => {
+test('public site ignores legacy routing overrides even without suspicious URL fields', () => {
   const fixture = appParamsFixture({
     query: '?utm_campaign=november',
     persisted: {
       base44_app_id: 'bad-app', base44_server_url: 'https://evil.example',
-      base44_access_token: 'bad-token', base44_functions_version: 'bad-v',
+      base44_access_token: 'existing-login-token', base44_functions_version: 'bad-v',
     },
     configuredAppId: undefined,
-    backendUrl: undefined,
+    backendUrl: '',
   });
   assert.equal(fixture.params.appId, '691f41a18de4a7f498c8f884');
   assert.equal(fixture.params.serverUrl, undefined, 'SDK default is allowed when build URL is absent');
-  assert.equal(fixture.params.token, 'bad-token', 'server still validates SDK bearer token');
+  assert.equal(fixture.params.token, 'existing-login-token', 'legitimate session remains intact');
   assert.equal(fixture.params.functionsVersion, null);
   assert.equal(fixture.historyCalls.length, 0);
   assert.equal(fixture.storage.has('base44_access_token'), true, 'existing SDK login is not deleted');
