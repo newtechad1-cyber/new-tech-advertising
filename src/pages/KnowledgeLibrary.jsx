@@ -197,9 +197,23 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
+        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="ai-seo-show-heading">
+          <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
+            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">The Growth Show is ready · NTA Point of View</p>
+            <h2 id="ai-seo-show-heading" className="mt-3 text-3xl font-black text-white">I Asked AI to SEO My Website. Why Wasn’t That Enough?</h2>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">Rick and the Free AI Guy talk through better questions, human judgment, and checking whether AI-assisted work actually did what we expected.</p>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link to="/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough" className="inline-flex min-h-12 items-center rounded-xl bg-cyan-300 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-200">Read the lesson</Link>
+              <Link to="/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough#watch" className="inline-flex min-h-12 items-center rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-cyan-300">Watch Episode 14</Link>
+              <Link to="/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough" className="inline-flex min-h-12 items-center rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-cyan-300">Read Journal Issue 14</Link>
+              <span className="inline-flex min-h-12 items-center rounded-xl border border-slate-600 px-5 py-3 text-sm text-slate-300">Listen · audio being prepared</span>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="ideas-to-work-heading">
           <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/25 bg-cyan-950/15 p-7 md:p-9">
-            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">This week's lesson · NTA Point of View</p>
+            <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">Previous lesson · NTA Point of View</p>
             <h2 id="ideas-to-work-heading" className="mt-3 text-3xl font-black text-white">From Ideas to Finished Work</h2>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">What helps a useful conversation become finished work? Rick shares what he is learning about clear tasks, approvals, visible progress, and checking the result.</p>
             <div className="mt-6 flex flex-wrap gap-4">
