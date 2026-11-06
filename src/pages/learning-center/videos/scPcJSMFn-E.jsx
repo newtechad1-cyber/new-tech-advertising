@@ -1,6 +1,5 @@
 // Generated native video page. Source: verified public selection in src/data/videoGallery.js.
 // The title, description, watch URL, upload date, and video markup live in this route file.
-import { useEffect } from 'react';
 import { getVideoWatchById, videoSchemaFor } from '@/data/videoSeo';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
@@ -17,13 +16,9 @@ const UPLOAD_DATE = VERIFIED_VIDEO.publishedAt;
 const VIDEO_SCHEMA = videoSchemaFor(VERIFIED_VIDEO);
 
 export default function NativeVideoPage09() {
-  useEffect(() => {
-    document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
-  }, []);
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300">
-      <SEOHead title={TITLE + " | New Tech Advertising"} description={DESCRIPTION} canonical={CANONICAL} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(VIDEO_SCHEMA).replace(/</g, "\\u003c") }} />
+      <SEOHead title={TITLE + " | New Tech Advertising"} description={DESCRIPTION} canonical={CANONICAL} videoData={VIDEO_SCHEMA} />
       <MarketingNav />
       <main className="mx-auto max-w-5xl px-6 pb-20 pt-28">
         <nav aria-label="Breadcrumb" className="mb-7 text-sm">
