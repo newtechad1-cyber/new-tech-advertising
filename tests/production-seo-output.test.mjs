@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
+import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { collectionsOrder } from '../src/data/masterCurriculum.js';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
@@ -214,6 +218,97 @@ test('candidate build never assumes SEO state is clean when git inspection fails
 });
 
 
+
+
+// Run the real SEO generator in throwaway snapshots. No tracked source,
+// browser session, visitor submission or provider call is used.
+const SEO_DATE_SOURCES = ['public/ai-sitemap.json', 'public/sitemap.xml', 'public/llms.txt'];
+
+function seoDateFixture(date, missingDate = '') {
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'nta-seo-date-test-'));
+  try {
+    for (const entry of ['scripts', 'src', 'package.json', 'index.html']) {
+      fs.cpSync(path.join(root, entry), path.join(temporary, entry), { recursive: true });
+    }
+    fs.mkdirSync(path.join(temporary, 'public'));
+    for (const file of SEO_DATE_SOURCES) {
+      fs.copyFileSync(path.join(root, file), path.join(temporary, file));
+    }
+    fs.symlinkSync(path.join(root, 'node_modules'), path.join(temporary, 'node_modules'), 'dir');
+    fs.mkdirSync(path.join(temporary, 'dist'));
+    fs.copyFileSync(path.join(root, 'index.html'), path.join(temporary, 'dist', 'index.html'));
+
+    const sitemapFile = path.join(temporary, 'public', 'ai-sitemap.json');
+    const data = JSON.parse(fs.readFileSync(sitemapFile, 'utf8'));
+    let canonicalUrl;
+    if (missingDate === 'journal') {
+      const issue = data.journalIssues.find(item => item.publicStatus === 'published');
+      assert.ok(issue, 'The fixture needs a published Journal issue');
+      canonicalUrl = issue.canonicalUrl;
+      delete issue.lastModified;
+    } else if (missingDate === 'lesson') {
+      const collection = collectionsOrder.find(item => item.lessons?.length);
+      canonicalUrl = 'https://newtechadvertising.com/knowledge/' + collection.slug + '/' + collection.lessons[0].slug;
+      const lesson = data.knowledgeCollections.flatMap(item => item.lessons || [])
+        .find(item => item.canonicalUrl === canonicalUrl);
+      assert.ok(lesson, 'The fixture needs an indexed lesson');
+      delete lesson.lastModified;
+    }
+    if (missingDate) fs.writeFileSync(sitemapFile, JSON.stringify(data, null, 2) + '\n');
+
+    const fingerprints = () => Object.fromEntries(SEO_DATE_SOURCES.map(file => [
+      file, createHash('sha256').update(fs.readFileSync(path.join(temporary, file))).digest('hex'),
+    ]));
+    const before = fingerprints();
+    const bootstrap = [
+      "import { collectionsOrder } from './src/data/masterCurriculum.js';",
+      "const NativeDate = Date;",
+      'const frozen = NativeDate.parse(' + JSON.stringify(date + 'T12:00:00Z') + ');',
+      'globalThis.Date = class extends NativeDate { constructor(...args) { super(...(args.length ? args : [frozen])); } static now() { return frozen; } };',
+      "globalThis.fetch = () => { throw new Error('Network disabled for the SEO date regression'); };",
+      'if (' + JSON.stringify(missingDate) + " === 'lesson') {",
+      '  const lesson = collectionsOrder.find(item => item.lessons?.length).lessons[0];',
+      '  delete lesson.modifiedDate;',
+      '  delete lesson.publishedDate;',
+      '}',
+      "await import('./scripts/generate-seo-pages.mjs');",
+    ].join('\n');
+    const bootstrapFile = path.join(temporary, 'simulate-editorial-date.mjs');
+    fs.writeFileSync(bootstrapFile, bootstrap);
+    const result = spawnSync(process.execPath, [
+      '--experimental-loader=./scripts/resolve-extensionless-modules.mjs', bootstrapFile,
+    ], {
+      cwd: temporary, encoding: 'utf8', timeout: 30_000,
+      env: { ...process.env, NTA_PODCAST_BUILD_MODE: 'candidate-offline' },
+    });
+    if (result.error) throw result.error;
+    return { status: result.status, stderr: result.stderr, before, after: fingerprints(), canonicalUrl };
+  } finally {
+    fs.rmSync(temporary, { recursive: true, force: true });
+  }
+}
+
+test('SEO generation keeps reviewed content dates unchanged across build days', () => {
+  const first = seoDateFixture('2026-11-06');
+  const second = seoDateFixture('2026-11-07');
+  assert.equal(first.status, 0, first.stderr);
+  assert.equal(second.status, 0, second.stderr);
+  assert.deepEqual(first.after, first.before, 'A build must preserve reviewed SEO source');
+  assert.deepEqual(second.after, second.before, 'A later build must preserve the same source');
+  assert.deepEqual(first.after, second.after, 'The build clock cannot change content dates');
+});
+
+for (const missingDate of ['journal', 'lesson']) {
+  test('SEO generation refuses an undated ' + missingDate + ' before rewriting source', () => {
+    for (const date of ['2026-11-06', '2026-11-07']) {
+      const result = seoDateFixture(date, missingDate);
+      assert.notEqual(result.status, 0, 'Unknown content dates must not become the build day');
+      assert.match(result.stderr, /requires a saved YYYY-MM-DD content date/);
+      assert.ok(result.stderr.includes(result.canonicalUrl), 'Identify the content that needs a date');
+      assert.deepEqual(result.after, result.before, 'Reject missing dates before changing source');
+    }
+  });
+}
 
 import vm from 'node:vm';
 import { createRequire } from 'node:module';
