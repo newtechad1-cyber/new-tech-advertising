@@ -166,7 +166,8 @@ export default function SEOHead({
     canonicalLink.setAttribute('rel', 'canonical');
     canonicalLink.setAttribute('href', resolvedCanonical);
     document.head.appendChild(canonicalLink);
-    elements.push(canonicalLink);
+    // RouteMeta keeps this document-level link current during navigation;
+    // an old page's passive cleanup must not remove its successor's canonical.
 
     // ── 2. OPEN GRAPH ─────────────────────────────────────────────────────
     elements.push(setMeta('og:type', articleData ? 'article' : 'website', true));
