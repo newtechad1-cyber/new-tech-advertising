@@ -32,8 +32,9 @@ test('Guide source stays visitor-opened and preserves reachable named close and 
   assert.match(guide, /\[showHomeWelcome, setShowHomeWelcome\] = useState\(false\)/);
   assert.match(guide, /setShowHomeWelcome\(false\)/);
   assert.match(guide, /sm:w-\[min\(680px,calc\(100vw-2\.5rem\)\)\]/);
-  assert.match(guide, /onClick=\{\(\) => \{ stopGuideVoice\(\); cancelVoiceInput\(\); setIsOpen\(false\); \}\}[\s\S]*?aria-label="Close Your Digital Growth Guide"/);
-  assert.match(guide, /onClick=\{\(\) => \{ stopGuideVoice\(\); cancelVoiceInput\(\); setIsAvatarMinimized\(true\); setIsOpen\(false\); \}\}[\s\S]*?aria-label="Minimize Your Digital Growth Guide"/);
+  assert.match(guide, /const closeGuide = \(minimize = false\) => \{\s*stopGuideVoice\(\);\s*cancelVoiceInput\(\);\s*if \(minimize\) setIsAvatarMinimized\(true\);\s*setIsOpen\(false\);/);
+  assert.match(guide, /onClick=\{\(\) => closeGuide\(\)\}[\s\S]*?aria-label="Close Your Digital Growth Guide"/);
+  assert.match(guide, /onClick=\{\(\) => closeGuide\(true\)\}[\s\S]*?aria-label="Minimize Your Digital Growth Guide"/);
 });
 
 test('mobile menu source retains keyboard exits and its actual scroll effect releases the lock', async () => {
