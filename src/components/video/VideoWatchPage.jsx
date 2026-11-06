@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -11,10 +10,6 @@ export default function VideoWatchPage({ video }) {
   const { episodes } = useGrowthShow();
   const episode = episodes.find(e => e.youtubeVideoId === video?.id);
   const schema = videoSchemaFor(video);
-  useEffect(() => {
-    // The route-aware production HTML has its own initial structured data.
-    document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
-  }, []);
 
   if (!video) return null;
   const parent = video.category === 'Growth Show' ? '/growth-show' : '/learning-center/videos';
@@ -24,6 +19,7 @@ export default function VideoWatchPage({ video }) {
         title={video.title + ' | New Tech Advertising'}
         description={video.description}
         canonical={'https://newtechadvertising.com' + video.path}
+        videoData={schema}
         learningData={{
           name: video.title,
           description: video.description,
@@ -31,7 +27,6 @@ export default function VideoWatchPage({ video }) {
           learningResourceType: 'Educational video'
         }}
       />
-      {schema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }} />}
       <MarketingNav />
       <main className="mx-auto max-w-5xl px-6 pb-20 pt-28">
         <nav aria-label="Breadcrumb" className="mb-7 text-sm">
