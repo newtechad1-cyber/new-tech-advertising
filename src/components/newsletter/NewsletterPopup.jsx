@@ -121,6 +121,8 @@ export default function NewsletterPopup() {
       <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className="fixed inset-0 z-[120] bg-black/50 transition-opacity duration-300" />
       <DialogPrimitive.Content
+        aria-modal="true"
+        style={{ colorScheme: 'light' }}
         onCloseAutoFocus={event => {
           event.preventDefault();
           if (previousFocusRef.current?.isConnected) previousFocusRef.current.focus({ preventScroll: true });
@@ -167,7 +169,7 @@ export default function NewsletterPopup() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="First name"
                 required
-                className="w-full rounded-lg border border-slate-200 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
               />
             </div>
             <div>
@@ -181,7 +183,7 @@ export default function NewsletterPopup() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@yourbusiness.com"
                 required
-                className="w-full rounded-lg border border-slate-200 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
               />
             </div>
             <label className="flex items-start gap-2 text-xs leading-5 text-slate-500">
