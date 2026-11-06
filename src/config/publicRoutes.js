@@ -2,7 +2,7 @@ import AIConfusionLesson from '@/pages/knowledge/ai-foundations/is-using-ai-chea
 import IdeasToFinishedWorkLesson from '@/pages/knowledge/ai-foundations/from-ideas-to-finished-work';
 import NativeGrowthEpisode14 from '@/pages/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import JournalIssue14 from '@/pages/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
-import JournalIssue15 from '@/pages/journal/issue-15-ai-seo-growth-show-video';
+import JournalIssue14FollowUp from '@/pages/journal/issue-14-ai-seo-growth-show-video-follow-up';
 import JournalIssue13 from '@/pages/journal/issue-13-from-ideas-to-finished-work';
 import Podcasts from '@/pages/Podcasts';
 /**
@@ -201,7 +201,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/knowledge/ai-foundations/from-ideas-to-finished-work', IdeasToFinishedWorkLesson),
   alias('/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough', NativeGrowthEpisode14),
   alias('/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough', JournalIssue14),
-  alias('/journal/issue-15-ai-seo-growth-show-video', JournalIssue15),
+  alias('/journal/issue-14-ai-seo-growth-show-video-follow-up', JournalIssue14FollowUp),
   alias('/journal/issue-13-from-ideas-to-finished-work', JournalIssue13),
   alias('/knowledge/:collectionSlug/:lessonSlug', KnowledgeLesson),
   alias('/knowledge/:collectionSlug', KnowledgeCollection),

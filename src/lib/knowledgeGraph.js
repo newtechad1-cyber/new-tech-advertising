@@ -22,6 +22,7 @@ import {
   SEED_JOURNAL_ENTRIES,
 } from '@/data/canonSeed';
 import { getCanonicalVideosForArticle } from '@/lib/youtubeLearningIdentity';
+import { mergePublicJournalIssues as mergeJournalIssues } from '@/lib/journalIssueIdentity';
 
 // ─── Cache Layer ────────────────────────────────────────────────────────────
 // Prevents redundant entity fetches within a session.
@@ -41,39 +42,6 @@ export function invalidateCache() {
 // the public Knowledge Library, Journal, and Collections are immediately usable.
 function withSeedFallback(entities, seedData) {
   return (entities && entities.length > 0) ? entities : seedData;
-}
-
-function isCompleteJournalIssue(issue) {
-  return Boolean(
-    issue?.from_ricks_desk ||
-    issue?.what_we_built ||
-    issue?.what_we_learned ||
-    issue?.what_it_means_for_your_business ||
-    issue?.this_weeks_challenge
-  );
-}
-
-function mergeJournalIssues(entities, seedData) {
-  const byIssue = new Map(seedData.map(issue => [issue.issue_number, issue]));
-
-  for (const issue of (entities || [])) {
-    // Older migrations created "Journal" records by aliasing ordinary
-    // articles. Only complete weekly editions belong in the public archive.
-    if (!isCompleteJournalIssue(issue)) continue;
-
-    const existing = byIssue.get(issue.issue_number);
-    const issueTime = Date.parse(issue.date || issue.created_date || '1970-01-01');
-    const existingTime = Date.parse(existing?.date || existing?.created_date || '1970-01-01');
-
-    // Multiple historical records may share an old issue number. Prefer the
-    // newest published edition so a current Journal link never resolves to
-    // a stale legacy record.
-    if (!existing || (issue.status === 'Published' && issueTime >= existingTime)) {
-      byIssue.set(issue.issue_number, issue);
-    }
-  }
-
-  return Array.from(byIssue.values());
 }
 
 // ─── Data Loader ────────────────────────────────────────────────────────────
