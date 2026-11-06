@@ -6,6 +6,30 @@ import { flagshipArticleToolsVsSystem } from './flagshipArticles.js';
  */
 export const SEED_GROWTH_SHOW_EPISODES = [
 {
+  "episode_number": 14,
+  "title": "I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show",
+  "slug": "i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+  "summary": "Rick Hesse and the Free AI Guy discuss what repeated SEO work taught Rick about asking better questions, understanding the problem, and checking whether a change actually worked.",
+  "status": "Published",
+  "featured": true,
+  "youtube_video_id": "wIRtYpEMyD4",
+  "published_date": "2026-11-06",
+  "thumbnail_url": "https://i.ytimg.com/vi/wIRtYpEMyD4/hqdefault.jpg",
+  "youtube_knowledge_id": "6ae9f639fbb037c64632066d",
+  "publishing_article_id": "6ae9f626931f38b579f4586c",
+  "source_article_slug": "i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+  "related_journal_issue_ids": [
+    "6ae9f6952bee65ae0bebec36",
+    "issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+    "issue-15-ai-seo-growth-show-video"
+  ],
+  "playlist_slug": "nta-growth-show",
+  "cta_text": "Read the full lesson",
+  "cta_url": "https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+  "audio_status": "Review",
+  "notes": "Rick supplied final assembled YouTube upload November 6, 2026. Public status, NTA Growth Show playlist, 4:50 duration and exact title verified in the signed-in owner Studio; @RickHesse oEmbed and official channel feed verified. Actual publication timestamp 2026-11-06T14:45:37+00:00. Website source prepared for Rick’s Publish. Complete original podcast audio retrieval remains pending; no replacement narration or partial segment used. Original Journal Issue 14 already sent November 3 (verified separately); a distinct video follow-up is prepared, not sent."
+},
+{
   "episode_number": 13,
   "title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
   "slug": "from-ideas-to-finished-work",
