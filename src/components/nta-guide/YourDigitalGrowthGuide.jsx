@@ -1025,6 +1025,7 @@ export default function YourDigitalGrowthGuide() {
                   >
                     <video
                       src={RICK_WELCOME_VIDEO_URL}
+                      tabIndex={-1}
                       preload="metadata"
                       muted
                       autoPlay
@@ -1068,6 +1069,7 @@ export default function YourDigitalGrowthGuide() {
                     >
                       <video
                         src={RICK_WELCOME_VIDEO_URL}
+                      tabIndex={-1}
                         preload="metadata"
                         muted
                         autoPlay
@@ -1195,6 +1197,7 @@ export default function YourDigitalGrowthGuide() {
                     <video
                       ref={guideWelcomeVideoRef}
                       src={RICK_WELCOME_VIDEO_URL}
+                      tabIndex={-1}
                       preload="metadata"
                       muted={!isRickWelcomePlaying}
                       autoPlay={false}
