@@ -98,9 +98,9 @@ function harness(path, { width = 1024, invoke = async () => { throw new Error('U
   });
   vm.runInNewContext(compiled.outputText, context);
   return {
-    render() {
+    render(props = {}) {
       cursor = 0;
-      const tree = context.exports.default();
+      const tree = context.exports.default(props);
       while (pendingEffects.length) pendingEffects.shift()();
       return tree;
     },
@@ -144,6 +144,18 @@ test('Guide has one container, a named nonmodal dialog and named message control
   assert.equal(find(tree, n => n.type === Dialog.Content).props.id, 'nta-growth-guide-dialog');
   assert.ok(find(tree, n => n.type === 'input' && n.props['aria-label']));
   assert.ok(find(tree, n => n.type === 'button' && n.props['aria-label'] === 'Send your message'));
+});
+
+test('Guide videos stay outside keyboard navigation while playback buttons remain reachable', () => {
+  const h = harness(guidePath);
+  const closed = h.render();
+  const tree = openGuide(h);
+  for (const node of [...nodes(closed), ...nodes(tree)].filter(n => n.type === 'video')) {
+    assert.equal(node.props.tabIndex, -1);
+  }
+  const avatar = harness('src/components/nta-guide/RickGrowthGuideAvatar.jsx').render({ decorative: true });
+  assert.equal(find(avatar, n => n.type === 'video').props.tabIndex, -1);
+  assert.ok(find(tree, n => n.type === 'button' && /Hear Rick/.test(text(n))));
 });
 
 test('Guide opening focuses Close and closing returns focus to the original opener', () => {
