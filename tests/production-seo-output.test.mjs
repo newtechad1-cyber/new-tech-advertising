@@ -223,6 +223,7 @@ import { getSeoMetadata } from '../src/config/seoMetadata.js';
 import * as socialLinks from '../src/config/socialLinks.js';
 import * as videoPublication from '../src/lib/videoPublication.js';
 import { VIDEO_WATCH_PAGES } from '../src/data/videoSeo.js';
+import * as bookSeo from '../src/data/bookSeo.js';
 
 // A small head-only DOM for executing the actual SEOHead and RouteMeta effects.
 // It cannot fetch, submit, invoke a provider, or read a signed-in browser.
@@ -276,6 +277,7 @@ function headEffects(doc, pathname, componentPath = 'src/components/shared/SEOHe
       if (id === '@/config/socialLinks') return socialLinks;
       if (id === '@/lib/videoPublication') return videoPublication;
       if (id === '@/lib/seoSchema') return schemaManager;
+      if (id === '@/data/bookSeo.js') return bookSeo;
       if (id === '@/lib/publicTracking') return { trackPublicPageView() {}, installPublicIntentTracking() {} };
       throw new Error('Unexpected module: ' + id);
     },
@@ -373,6 +375,35 @@ test('valid video hydration preserves the original upload date and never duplica
   assert.equal(schemasOfType(doc, 'VideoObject').length, 1);
   assert.equal(schemasOfType(doc, 'VideoObject')[0].uploadDate, video.uploadDate);
   }
+});
+
+test('the actual book wrapper adopts Book schema without deleting its learning metadata', () => {
+  const book = bookSeo.BOOK_PAGES[0];
+  const doc = schemaHead(readOutputForRoute(book.path));
+  const before = JSON.stringify(schemasOfType(doc, 'LearningResource'));
+  const cleanup = headEffects(doc, book.path, 'src/components/books/BookStructuredData.jsx')({ book });
+  assert.equal(schemasOfType(doc, 'Book').length, 1);
+  assert.equal(JSON.stringify(schemasOfType(doc, 'LearningResource')), before);
+  assert.equal(schemasOfType(doc, 'Book')[0].datePublished, undefined);
+  cleanup();
+  assert.equal(schemasOfType(doc, 'Book').length, 1);
+});
+
+test('native video pages and their generator delegate schema without deleting the static learning records', () => {
+  const files = VIDEO_WATCH_PAGES.map(video => path.join(root, 'src/pages', video.path + '.jsx'));
+  let native = 0;
+  for (const file of files) {
+    const source = fs.readFileSync(file, 'utf8');
+    if (!source.includes('const VIDEO_SCHEMA')) continue;
+    native++;
+    assert.match(source, /videoData=\{VIDEO_SCHEMA\}/, file);
+    assert.doesNotMatch(source, /querySelectorAll\('script\[data-seo-static-video-schema/, file);
+    assert.doesNotMatch(source, /<script type="application\/ld\+json"/, file);
+  }
+  assert.equal(native, 13);
+  const generator = fs.readFileSync(path.join(root, 'scripts/generate-native-video-pages.mjs'), 'utf8');
+  assert.ok(generator.includes('videoData={VIDEO_SCHEMA}'));
+  assert.equal(generator.includes('data-seo-static-video-schema'), false);
 });
 
 test('distinct videos remain separate and schema text cannot break out of its script', () => {
