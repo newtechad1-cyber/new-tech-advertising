@@ -31,7 +31,7 @@
     "test:video-library": "node --test tests/growth-show.test.mjs tests/video-gallery.test.mjs tests/youtube-learning-identity.test.mjs",
     "test:lesson-content": "node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/ai-confusion-lesson.test.mjs tests/ai-foundations-conversation-lesson.test.mjs tests/ai-foundations-editorial.test.mjs",
     "test:public-content-permissions": "node --test tests/public-content-permissions.test.mjs",
-    "test:homepage": "node --test tests/brand-positioning.test.mjs tests/homepage-business-audiences.test.mjs tests/homepage-live-review.test.mjs tests/talk-to-my-office-homepage.test.mjs"
+    "test:homepage": "node --test tests/brand-positioning.test.mjs tests/homepage-business-audiences.test.mjs tests/homepage-live-review.test.mjs tests/talk-to-my-office-homepage.test.mjs tests/guide-newsletter-accessibility.test.mjs"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.59",
