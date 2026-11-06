@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { invokeVerifiedPublicFunction, getVisitorVerificationToken } from '@/lib/publicVerification';
@@ -239,6 +240,9 @@ export default function YourDigitalGrowthGuide() {
   const guideWelcomeVideoRef = useRef(null);
   const recordingStartTextRef = useRef('');
   const inputRef = useRef('');
+  const guideLauncherRef = useRef(null);
+  const guideCloseRef = useRef(null);
+  const guidePreviousFocusRef = useRef(null);
   const messagesEndRef = useRef(null);
   const scrollContainerRef = useRef(null);
   const [autoScroll, setAutoScroll] = useState(true);
@@ -266,6 +270,7 @@ export default function YourDigitalGrowthGuide() {
   };
 
   const openGuide = (event) => {
+    if (!isOpen) guidePreviousFocusRef.current = document.activeElement;
     const detail = event?.detail;
     const context = contentContext({
       title: detail?.title || detail?.question,
@@ -287,7 +292,7 @@ export default function YourDigitalGrowthGuide() {
   useEffect(() => {
     window.addEventListener('nta:open-growth-guide', openGuide);
     return () => window.removeEventListener('nta:open-growth-guide', openGuide);
-  }, [discoveryMode]);
+  }, [discoveryMode, isOpen]);
 
   useEffect(() => {
     setReadingContext(null);
@@ -358,6 +363,20 @@ export default function YourDigitalGrowthGuide() {
     setIsRickWelcomePlaying(false);
     setSpeakingMessageId(null);
     playAvatarMotion('idle');
+  };
+
+  const closeGuide = (minimize = false) => {
+    stopGuideVoice();
+    cancelVoiceInput();
+    if (minimize) setIsAvatarMinimized(true);
+    setIsOpen(false);
+  };
+
+  const restoreGuideFocus = (event) => {
+    event.preventDefault();
+    const previous = guidePreviousFocusRef.current;
+    const target = previous?.isConnected && previous !== document.body ? previous : guideLauncherRef.current;
+    target?.focus({ preventScroll: true });
   };
 
   const playRickWelcomeVideo = async () => {
@@ -933,6 +952,7 @@ export default function YourDigitalGrowthGuide() {
   };
 
   return (
+    <DialogPrimitive.Root open={isOpen} modal={false} onOpenChange={open => { if (!open) closeGuide(); }}>
     <div id="nta-guide-container">
       <AnimatePresence>
         {!isOpen && (
@@ -942,7 +962,6 @@ export default function YourDigitalGrowthGuide() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            id="nta-guide-container"
             className={cn(
               "fixed z-50",
               showHomeWelcome && location.pathname === '/'
@@ -996,12 +1015,17 @@ export default function YourDigitalGrowthGuide() {
                 <div className="relative flex flex-col items-end">
                   <button
                     type="button"
+                    ref={guideLauncherRef}
                     onClick={openGuide}
+                    aria-haspopup="dialog"
+                    aria-expanded={isOpen}
+                    aria-controls="nta-growth-guide-dialog"
                     aria-label="Open Your Digital Growth Guide"
                     className="h-16 w-14 rounded-2xl border border-slate-700/80 bg-slate-950/90 p-1 shadow-[0_12px_24px_rgba(0,0,0,0.38)] transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
                   >
                     <video
                       src={RICK_WELCOME_VIDEO_URL}
+                      tabIndex={-1}
                       preload="metadata"
                       muted
                       autoPlay
@@ -1030,7 +1054,11 @@ export default function YourDigitalGrowthGuide() {
                   <div className="relative">
                     <button
                       type="button"
+                      ref={guideLauncherRef}
                       onClick={openGuide}
+                      aria-haspopup="dialog"
+                      aria-expanded={isOpen}
+                      aria-controls="nta-growth-guide-dialog"
                       aria-label="Open Your Digital Growth Guide"
                       className={cn(
                         "overflow-visible bg-transparent text-left transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 cursor-grab active:cursor-grabbing",
@@ -1041,6 +1069,7 @@ export default function YourDigitalGrowthGuide() {
                     >
                       <video
                         src={RICK_WELCOME_VIDEO_URL}
+                      tabIndex={-1}
                         preload="metadata"
                         muted
                         autoPlay
@@ -1079,9 +1108,25 @@ export default function YourDigitalGrowthGuide() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed inset-2 z-[110] flex flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-950 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:inset-auto sm:bottom-5 sm:right-5 sm:h-[min(760px,calc(100vh-2.5rem))] sm:w-[min(680px,calc(100vw-2.5rem))] sm:rounded-3xl"
           >
+          <DialogPrimitive.Content
+            className="flex h-full min-h-0 w-full flex-col overflow-hidden"
+            forceMount
+            id="nta-growth-guide-dialog"
+            aria-describedby={undefined}
+            onInteractOutside={event => event.preventDefault()}
+            onOpenAutoFocus={event => {
+              event.preventDefault();
+              guideCloseRef.current?.focus({ preventScroll: true });
+            }}
+            onCloseAutoFocus={restoreGuideFocus}
+          >
+
             {/* Header */}
             <div 
-              onPointerDown={(e) => dragControls.start(e)}
+              onPointerDown={event => {
+                // Header controls must remain clickable instead of starting a drag.
+                if (!event.target.closest('button, a, input, textarea, select')) dragControls.start(event);
+              }}
               className="bg-slate-900 border-b border-slate-800 p-2.5 sm:p-3 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
@@ -1098,7 +1143,9 @@ export default function YourDigitalGrowthGuide() {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <h3 className="truncate text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
+                  <DialogPrimitive.Title asChild>
+                    <h3 className="truncate text-white font-bold tracking-wide">Your Digital Growth Guide™</h3>
+                  </DialogPrimitive.Title>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></span>
                     <span className="text-slate-300 text-xs font-medium">Ready to assist</span>
@@ -1124,7 +1171,7 @@ export default function YourDigitalGrowthGuide() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => { stopGuideVoice(); cancelVoiceInput(); setIsAvatarMinimized(true); setIsOpen(false); }}
+                  onClick={() => closeGuide(true)}
                   aria-label="Minimize Your Digital Growth Guide"
                   className="text-slate-300 hover:text-white transition-colors bg-slate-800/70 px-3 py-2 rounded-xl flex items-center gap-2 text-xs font-medium"
                 >
@@ -1133,7 +1180,8 @@ export default function YourDigitalGrowthGuide() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => { stopGuideVoice(); cancelVoiceInput(); setIsOpen(false); }}
+                  ref={guideCloseRef}
+                  onClick={() => closeGuide()}
                   aria-label="Close Your Digital Growth Guide"
                   className="text-slate-400 hover:text-white transition-colors bg-slate-800/50 p-2 rounded-full"
                 >
@@ -1149,6 +1197,7 @@ export default function YourDigitalGrowthGuide() {
                     <video
                       ref={guideWelcomeVideoRef}
                       src={RICK_WELCOME_VIDEO_URL}
+                      tabIndex={-1}
                       preload="metadata"
                       muted={!isRickWelcomePlaying}
                       autoPlay={false}
@@ -1409,6 +1458,7 @@ export default function YourDigitalGrowthGuide() {
                           )}
                           <form onSubmit={(e) => handleSend(e)} className="relative">
                             <Input
+                                aria-label={discoveryMode ? "Your answer to the audit question" : "Your question for Your Digital Growth Guide"}
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 placeholder={discoveryMode ? "Answer the next audit question..." : "Ask about growth, websites, AI, trust, or your next step…"}
@@ -1436,6 +1486,7 @@ export default function YourDigitalGrowthGuide() {
                             <Button
                                 type="submit"
                                 size="icon"
+                                aria-label="Send your message"
                                 disabled={!input.trim() || isListening || isTranscribing || isLoading || pendingSubmission || Boolean(failedSubmission) || Boolean(pendingAIResponse)}
                                 className="absolute right-2 top-2 bottom-2 h-auto w-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white disabled:bg-slate-700 disabled:text-slate-500 shadow-md transition-colors"
                             >
@@ -1485,9 +1536,11 @@ export default function YourDigitalGrowthGuide() {
                     <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
                 </div>
             )}
+          </DialogPrimitive.Content>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
+    </DialogPrimitive.Root>
   );
 }

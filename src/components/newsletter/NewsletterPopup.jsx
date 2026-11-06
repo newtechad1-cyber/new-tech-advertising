@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId, useRef } from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
 
 function getFunctionError(error, fallback) {
@@ -7,6 +8,11 @@ function getFunctionError(error, fallback) {
 
 export default function NewsletterPopup() {
   const [show, setShow] = useState(false);
+  const newsletterId = useId();
+  const previousFocusRef = useRef(null);
+  const nameId = `${newsletterId}-name`;
+  const emailId = `${newsletterId}-email`;
+  const honeypotId = `${newsletterId}-company-url`;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
@@ -27,11 +33,15 @@ export default function NewsletterPopup() {
       if (Date.now() - parseInt(dismissedAt) < threeDays) return;
     }
 
+    const openPopup = () => {
+      previousFocusRef.current = document.activeElement;
+      setShow(true);
+    };
     let timeoutId;
     const handleMouseLeave = (e) => {
       // Show on exit intent (mouse leaving viewport top)
       if (e.clientY <= 0) {
-        setShow(true);
+        openPopup();
         document.removeEventListener('mouseleave', handleMouseLeave);
         clearTimeout(timeoutId);
       }
@@ -40,7 +50,7 @@ export default function NewsletterPopup() {
     const isMobile = window.innerWidth <= 768;
     if (isMobile) {
       timeoutId = setTimeout(() => {
-        setShow(true);
+        openPopup();
       }, 20000);
     } else {
       document.addEventListener('mouseleave', handleMouseLeave);
@@ -107,53 +117,73 @@ export default function NewsletterPopup() {
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 transition-opacity duration-300">
-      <div className="relative w-full max-w-[440px] animate-in fade-in zoom-in-95 rounded-xl bg-white p-8 shadow-2xl duration-300">
+    <DialogPrimitive.Root open={show} onOpenChange={open => { if (!open) handleClose(); }}>
+      <DialogPrimitive.Portal>
+      <DialogPrimitive.Overlay className="fixed inset-0 z-[120] bg-black/50 transition-opacity duration-300" />
+      <DialogPrimitive.Content
+        aria-modal="true"
+        style={{ colorScheme: 'light' }}
+        onCloseAutoFocus={event => {
+          event.preventDefault();
+          if (previousFocusRef.current?.isConnected) previousFocusRef.current.focus({ preventScroll: true });
+        }}
+        className="fixed left-1/2 top-1/2 z-[121] max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-[440px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl bg-white p-8 shadow-2xl focus:outline-none"
+      >
+        <DialogPrimitive.Close asChild>
         <button
-          onClick={handleClose}
+          type="button"
           className="absolute right-4 top-4 text-slate-400 hover:text-slate-600 transition-colors"
-          aria-label="Close"
+          aria-label="Close newsletter signup"
         >
           ✕
         </button>
+        </DialogPrimitive.Close>
 
         <div className="text-center mb-6">
           <div className="text-5xl mb-4">📬</div>
-          <h2 className="text-2xl font-bold text-[#0B1120] mb-2">Get Smarter Growth Tips Every Tuesday Morning</h2>
-          <p className="text-sm text-slate-600">
+          <DialogPrimitive.Title className="text-2xl font-bold text-[#0B1120] mb-2">Get Smarter Growth Tips Every Tuesday Morning</DialogPrimitive.Title>
+          <DialogPrimitive.Description className="text-sm text-slate-600">
             Join local business owners getting one short, actionable AI &amp; marketing tip every week. Free forever.
-          </p>
+          </DialogPrimitive.Description>
         </div>
 
         {status === 'success' ? (
-          <div className="flex items-center justify-center gap-2 text-[#10B981] font-medium py-6 bg-emerald-50 rounded-lg">
+          <div role="status" aria-live="polite" className="flex items-center justify-center gap-2 text-[#10B981] font-medium py-6 bg-emerald-50 rounded-lg">
             <span>🎉</span> You're in! The NTA Journal arrives by email every Tuesday morning.
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} aria-busy={status === 'loading'} className="space-y-4">
             {/* Anti-spam honeypot — hidden from real users */}
             <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
-              <label htmlFor="nl_company_url">Company URL</label>
-              <input id="nl_company_url" name="company_url" type="text" tabIndex={-1} autoComplete="off" value={_hp} onChange={e => setHp(e.target.value)} />
+              <label htmlFor={honeypotId}>Company URL</label>
+              <input id={honeypotId} name="company_url" type="text" tabIndex={-1} autoComplete="off" value={_hp} onChange={e => setHp(e.target.value)} />
             </div>
             <div>
+              <label htmlFor={nameId} className="mb-1 block text-sm font-medium text-slate-700">First name</label>
               <input
+                id={nameId}
+                name="given_name"
+                autoComplete="given-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="First name"
                 required
-                className="w-full rounded-lg border border-slate-200 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
               />
             </div>
             <div>
+              <label htmlFor={emailId} className="mb-1 block text-sm font-medium text-slate-700">Email address</label>
               <input
+                id={emailId}
+                name="email"
+                autoComplete="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@yourbusiness.com"
                 required
-                className="w-full rounded-lg border border-slate-200 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-[#10B981] focus:outline-none focus:ring-1 focus:ring-[#10B981]"
               />
             </div>
             <label className="flex items-start gap-2 text-xs leading-5 text-slate-500">
@@ -169,7 +199,7 @@ export default function NewsletterPopup() {
               </span>
             </label>
             {status === 'error' && (
-              <p className="text-red-500 text-sm text-center">{errorMessage || 'Something went wrong — please try again.'}</p>
+              <p role="alert" className="text-red-500 text-sm text-center">{errorMessage || 'Something went wrong — please try again.'}</p>
             )}
             <button
               type="submit"
@@ -177,7 +207,10 @@ export default function NewsletterPopup() {
               className="w-full rounded-lg bg-[#10B981] px-4 py-3 font-semibold text-white transition-colors hover:bg-emerald-600 disabled:opacity-70 flex justify-center items-center h-12"
             >
               {status === 'loading' ? (
-                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                <>
+                  <div aria-hidden="true" className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  <span className="sr-only">Subscribing…</span>
+                </>
               ) : (
                 "Subscribe — It's Free →"
               )}
@@ -187,7 +220,8 @@ export default function NewsletterPopup() {
             </p>
           </form>
         )}
-      </div>
-    </div>
+      </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   );
 }
