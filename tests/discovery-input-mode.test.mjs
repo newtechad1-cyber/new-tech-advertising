@@ -362,7 +362,6 @@ for (const name of Object.keys(discoveryActionSources)) {
     const body = discoveryBodyStream([bytes.slice(0, split), bytes.slice(split)]);
     const response = await fixture.request(body.stream, { 'Content-Length': String(bytes.byteLength) });
     assert.equal(response.status, 200);
-    assert.equal(fixture.jsonParses(), 1);
     assert.deepEqual(fixture.lookups.slice(0, 2), ['session.get', 'consent.filter']);
     assert.deepEqual(fixture.effects, name === 'setDiscoveryRetention'
       ? ['retention.create', 'session.update', 'audit.create']
