@@ -35,7 +35,7 @@ const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl =
 }
 
 // The public website has one approved Base44 identity. URL query strings and
-// persisted browser values must never redirect visitor submissions or auth
+// persisted browser routing values must never redirect visitor submissions or auth
 // activity to an attacker-selected API. Editor/preview hosts retain Base44's
 // original configurable behavior.
 const NTA_PUBLIC_APP_ID = '691f41a18de4a7f498c8f884';
@@ -44,7 +44,7 @@ const NTA_PUBLIC_HOSTS = new Set([
   'www.newtechadvertising.com',
   'new-tech-advertising.base44.app',
 ]);
-const SENSITIVE_APP_PARAMS = ['app_id', 'server_url', 'access_token', 'functions_version'];
+const SENSITIVE_APP_PARAMS = ['app_id', 'server_url', 'functions_version'];
 
 const isNtaPublicHost = !isNode && NTA_PUBLIC_HOSTS.has(
   String(window.location.hostname || '').toLowerCase()
@@ -62,7 +62,7 @@ function getPublicAppParams() {
       window.location.pathname + (query ? '?' + query : '') + window.location.hash);
   }
 
-  // Old site visits may have saved hostile settings. Never reuse them.
+  // Old site visits may have saved hostile routing settings. Never reuse them.
   for (const name of SENSITIVE_APP_PARAMS) {
     try { storage.removeItem('base44_' + name); } catch { /* Storage is optional. */ }
   }
@@ -70,7 +70,10 @@ function getPublicAppParams() {
   return {
     appId: NTA_PUBLIC_APP_ID,
     serverUrl: import.meta.env.VITE_BASE44_BACKEND_URL || undefined,
-    token: null,
+    // Base44 returns a one-time access_token URL parameter after real sign-in.
+    // Keep that established callback and its URL cleanup, but send any bearer
+    // token only to the pinned app/backend above, never a URL-chosen server.
+    token: getAppParamValue('access_token', { removeFromUrl: true }),
     fromUrl: getAppParamValue('from_url', { defaultValue: window.location.href }),
     functionsVersion: null,
   };
