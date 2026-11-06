@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { pageSchemaMarkup } from "../src/lib/seoSchema.js";
 import { SEED_GROWTH_SHOW_EPISODES } from "../src/data/growthShowEpisodes.js";
 import { GROWTH_SHOW_AUDIO } from "../src/data/growthShowAudio.js";
 import { VERIFIED_VIDEO_SELECTION, NTA_YOUTUBE_CHANNEL_URL } from "../src/data/videoGallery.js";
@@ -1601,7 +1602,13 @@ function renderHtml(template, metadata, pathname) {
       .seo-shell article { border-radius: 1rem; }
     }
   </style>`;
-  html = html.replace("</head>", criticalStyles + opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) + aiContentSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) + caseStudySchemaMarkup(pathname, metadata) + servicePageSchemaMarkup(pathname, metadata) + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
+  const pageSchemas = pageSchemaMarkup(
+    opportunitySchemaMarkup(pathname, metadata) + knowledgeQuestionSchemaMarkup(pathname, metadata) +
+    aiContentSchemaMarkup(pathname, metadata) + videoSchemaMarkup(pathname) + bookSchemaMarkup(pathname) +
+    caseStudySchemaMarkup(pathname, metadata) + servicePageSchemaMarkup(pathname, metadata),
+    metadata.canonical
+  );
+  html = html.replace("</head>", criticalStyles + pageSchemas + '<meta name="robots" content="' + shell.robots + '" />\n    <meta property="og:title" content="' + shell.title + '" />\n    <meta property="og:description" content="' + shell.description + '" />\n    <meta property="og:url" content="' + shell.canonical + '" />\n  </head>');
   html = html.replace('<div id="root"></div>', '<div id="root">' + shell.body + '</div>');
   return html;
 }

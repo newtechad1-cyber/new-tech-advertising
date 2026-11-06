@@ -1,4 +1,5 @@
 import { isVideoPublicationTimestamp } from '@/lib/videoPublication';
+import { canonicalPageUrl, updateSiteSchemas, addPageSchema } from '@/lib/seoSchema';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getSeoMetadata } from '@/config/seoMetadata';
@@ -112,7 +113,7 @@ export default function SEOHead({
   const preferRouteMetadata = routeMetadata.routeSpecific === true;
   const resolvedTitle = preferRouteMetadata ? routeMetadata.title : (title || routeMetadata.title);
   const resolvedDescription = preferRouteMetadata ? routeMetadata.description : (description || routeMetadata.description);
-  const resolvedCanonical = new URL(canonical || routeMetadata.canonical || buildCanonical(location.pathname), SITE_ORIGIN).href;
+  const resolvedCanonical = canonicalPageUrl(canonical || routeMetadata.canonical || buildCanonical(location.pathname));
   const resolvedNoIndex = noIndex || routeMetadata.noIndex;
 
   useEffect(() => {
@@ -129,23 +130,13 @@ export default function SEOHead({
       return meta;
     };
 
-    const addSchema = (schemaObj) => {
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.text = JSON.stringify(schemaObj);
-      script.className = 'seo-schema';
-      document.head.appendChild(script);
-      return script;
-    };
+    const addSchema = schemaObj => addPageSchema(document, schemaObj, resolvedCanonical);
 
     const elements = [];
 
-    // Pre-rendered question pages provide crawler-readable schema. Once JavaScript
-    // runs, replace only that marked static set so the browser has one current
-    // Article, FAQ, and breadcrumb representation instead of duplicates.
-    document.head.querySelectorAll('script[data-seo-static-question-schema="true"]').forEach((script) => {
-      script.remove();
-    });
+    // The generator tags its page schemas with their canonical owner. Adopt
+    // those nodes (including data-seo-static-question-schema) rather than adding
+    // duplicates or dropping crawler-only metadata such as verified dates.
 
     // ── 1. META TAGS ──────────────────────────────────────────────────────
     document.title = resolvedTitle;
@@ -175,7 +166,8 @@ export default function SEOHead({
     canonicalLink.setAttribute('rel', 'canonical');
     canonicalLink.setAttribute('href', resolvedCanonical);
     document.head.appendChild(canonicalLink);
-    elements.push(canonicalLink);
+    // RouteMeta keeps this document-level link current during navigation;
+    // an old page's passive cleanup must not remove its successor's canonical.
 
     // ── 2. OPEN GRAPH ─────────────────────────────────────────────────────
     elements.push(setMeta('og:type', articleData ? 'article' : 'website', true));
@@ -200,7 +192,7 @@ export default function SEOHead({
     elements.push(setMeta('twitter:image', `${SITE_ORIGIN}/og-image.png`));
 
     // ── 4. WEBSITE + SEARCH ACTION SCHEMA (sitewide) ──────────────────────
-    elements.push(addSchema(WEBSITE_SCHEMA));
+    // Sitewide definitions share the marked graph from index.html.
 
     // ── 5. EDUCATION PLATFORM + PROFESSIONAL SERVICE SCHEMA ───────────────
     const localBusinessSchema = {
@@ -250,10 +242,10 @@ export default function SEOHead({
         ]
       }
     };
-    elements.push(addSchema(localBusinessSchema));
+
 
     // ── 6. PERSON SCHEMA (Rick Hesse — founder authority) ─────────────────
-    elements.push(addSchema(PERSON_SCHEMA));
+    updateSiteSchemas(document, [WEBSITE_SCHEMA, localBusinessSchema, PERSON_SCHEMA]);
 
     // ── 7. SPEAKABLE SCHEMA ───────────────────────────────────────────────
     const speakableSchema = {
@@ -302,10 +294,10 @@ export default function SEOHead({
 
     // ── 9. VIDEO SCHEMA (when videoData is provided) ──────────────────────
     if (videoData && isVideoPublicationTimestamp(videoData.uploadDate)) {
-      document.head.querySelectorAll('script[data-seo-static-video-schema="true"]').forEach(script => script.remove());
       const videoSchema = {
         "@context": "https://schema.org",
         "@type": "VideoObject",
+        "url": resolvedCanonical,
         "name": videoData.name || resolvedTitle,
         "description": videoData.description || resolvedDescription,
         ...(videoData.thumbnailUrl ? { "thumbnailUrl": videoData.thumbnailUrl } : {}),
@@ -439,14 +431,14 @@ export default function SEOHead({
     }
 
     // ── 15. BREADCRUMB SCHEMA ─────────────────────────────────────────────
-    const pathParts = window.location.pathname.split('/').filter(Boolean);
-    let breadcrumbUrl = window.location.origin;
+    const pathParts = new URL(resolvedCanonical).pathname.split('/').filter(Boolean);
+    let breadcrumbUrl = SITE_ORIGIN;
     const breadcrumbItems = [
       {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": breadcrumbUrl
+        "item": SITE_ORIGIN + "/"
       }
     ];
 
@@ -471,6 +463,7 @@ export default function SEOHead({
     // Cleanup
     return () => {
       elements.forEach(el => {
+        if (typeof el === 'function') { el(); return; }
         if (el && el.parentNode) {
           el.parentNode.removeChild(el);
         }
