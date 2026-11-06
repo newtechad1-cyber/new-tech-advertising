@@ -11,7 +11,6 @@ const REQUEST_LIMIT = 24;
 const MAX_JSON_BODY_BYTES = 64 * 1024;
 const requestBuckets = new Map<string, { count: number; resetAt: number }>();
 
-
 class RequestTooLarge extends Error {}
 
 // These actions carry small session/consent fields, never transcripts or media.
