@@ -293,7 +293,7 @@ export const ROUTE_OVERRIDES = {
   '/growth-show':                'public',
   '/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough': 'public',
   '/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough': 'public',
-  '/journal/issue-15-ai-seo-growth-show-video': 'public',
+  '/journal/issue-14-ai-seo-growth-show-video-follow-up': 'public',
   '/growth-show/:slug':          'public',
   '/growth-show/show-me-before-you-sell-me': 'public',
   '/what-changed-online':        'public',
