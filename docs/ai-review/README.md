@@ -1,6 +1,6 @@
 # New Tech Advertising — independent AI code-review working agreement
 
-**Status as of November 6, 2026:** the manual Claude round and subsequent Gemini follow-up have produced verified, merged fixes; the nine main Gemini corrective PRs are included in published main. A final two-handler Discovery request-size fix is now a review candidate. See [November 6 coordinator status](coordinator-status-2026-11-06.md) **only after** delivering an independent first report. This is a repeatable manual process, **not an active bot, GitHub enforcement rule or automatic Claude/Gemini integration**.
+**Status as of November 6, 2026:** the manual Claude round and Gemini follow-up have produced verified, merged and published corrections. PR #134's two request-size guards are published and their oversized-body rejection was verified live. The supplied [Gemini follow-up report](reports/gemini-follow-up-2026-11-06.md) and [coordinator closeout](coordinator-status-2026-11-06.md) record the source, evidence, minor notes and remaining verification limits. Read coordinator conclusions **only after** delivering an independent first report. This remains a manual process, **not an active bot, GitHub enforcement rule or automatic Claude/Gemini integration**.
 
 ## Why we do this
 NTA is a Digital Growth Office and AI education platform. The goal is to catch consequential website, data and release problems early without replacing approved wording, damaging visitor journeys or multiplying AI subscriptions and noise.
@@ -17,7 +17,7 @@ NTA is a Digital Growth Office and AI education platform. The goal is to catch c
 
 ## Current technical guardrails
 - Public NTA repo: `newtechad1-cyber/new-tech-advertising`; public Base44 app: `691f41a18de4a7f498c8f884`.
-- Published baseline for this follow-up: `48fb433e5e09102b445b6fc860b44b7370b55ce9`. The request-size candidate starts from that source. **Freeze a fresh commit for each future assignment; do not assume this stays current.**
+- Published application source at this closeout: `4defd67942f072522154a2dec01f507e663b8549`. The original Gemini report reviewed `eff17b32af5369cdf00b7187ace61da30c21c41e`; the request-size fix started from prior published source `48fb433e5e09102b445b6fc860b44b7370b55ce9`. **Freeze a fresh commit for each future assignment; do not assume this stays current.**
 - `npm run check:ci` is the CI/offline candidate chain. `npm run check:release` aliases it. `npm run check:release-live` calls the production Core check and is **not suitable for read-only review**.
 - `npm run lint` and `npm run typecheck` are separate commands, not automatic proof from CI. Run/report them only with an appropriate approved scope.
 - `.github/workflows/release-checks.yml` runs candidate-only checks. `.github/workflows/indexnow.yml` runs on manual `workflow_dispatch`, and its `--submit` step is a live search-engine notification.
