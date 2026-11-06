@@ -1801,6 +1801,119 @@
   ],
   "journalIssues": [
     {
+      "issueNumber": 15,
+      "title": "The Growth Show Is Ready: I Asked AI to SEO My Website",
+      "subtitle": "The video companion to this week’s lesson",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-15-ai-seo-growth-show-video",
+      "contentType": "Newsletter",
+      "description": "The video companion to this week’s lesson is ready. Rick and the Free AI Guy discuss better questions, human judgment, and checking AI-assisted work.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-11-06",
+      "datePublished": "2026-11-06",
+      "estimatedReadingTime": "3 min read",
+      "sections": [
+        {
+          "heading": "From Rick’s Desk",
+          "body": "I’m a little late getting this week’s Growth Show finished, but the video is ready now.\n\nThe Free AI Guy and I talk through what I learned after asking AI to work on my website’s SEO several times. Real work was being done. But I was still learning what questions to ask and how to check whether the changes actually worked.\n\nIf you read this week’s lesson, this is the conversation that goes with it. If you haven’t, you can start with the video and follow the link to the full lesson."
+        },
+        {
+          "heading": "What We Learned",
+          "body": "AI can help us investigate, compare approaches, and understand things we haven’t understood before. We still need to ask whether we’re solving the right problem and whether the result does what we expected.\n\n**Do the work. Then check the work.**"
+        },
+        {
+          "heading": "This Week’s Challenge",
+          "body": "Take one thing you’ve asked AI to help you with. Look at the result and ask: **What have we actually checked?** Let the answer guide your next question."
+        }
+      ],
+      "primaryArticle": {
+        "source_type": "KnowledgeLibrary",
+        "source_id": "ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+        "title": "I Asked AI to SEO My Website. Why Wasn’t That Enough?",
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+        "excerpt": "The full lesson behind this Growth Show conversation.",
+        "reading_time": "8–10 min read",
+        "is_lead": true,
+        "display_order": 1
+      },
+      "featuredVideo": {
+        "source_id": "wIRtYpEMyD4",
+        "source_type": "YouTube",
+        "title": "I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show",
+        "url": "https://youtu.be/wIRtYpEMyD4",
+        "duration": "4:50",
+        "description": "Rick Hesse and the Free AI Guy discuss what repeated SEO work taught Rick about asking better questions, understanding the problem, and checking whether a change actually worked.",
+        "cta_text": "Watch the episode"
+      },
+      "cta": {
+        "text": "Watch the Growth Show",
+        "url": "https://newtechadvertising.com/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough#watch"
+      },
+      "closingMessage": "[Watch the Growth Show](https://newtechadvertising.com/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough#watch) · [Read the full lesson](https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough)\n\nHave a question about using AI in your business? Reply to this email.\n\nRick Hesse\nNew Tech Advertising"
+    },
+    {
+      "issueNumber": 14,
+      "title": "I Asked AI to SEO My Website. Why Wasn't That Enough?",
+      "subtitle": "What one year of working with AI taught me about better questions and human judgment",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+      "contentType": "Newsletter",
+      "description": "Rick Hesse shares what deeper SEO and GEO work taught him about AI: getting an answer is not the same as understanding the problem, and better results come from better questions, human judgment, and verification.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-11-06",
+      "datePublished": "2026-11-03",
+      "estimatedReadingTime": "4 min read",
+      "sections": [
+        {
+          "heading": "From Rick’s Desk",
+          "body": "Over the last year, I've probably asked ChatGPT at least half a dozen times to SEO my website.\n\nAnd we did things. We changed titles, worked on descriptions, improved content, looked at keywords, dealt with indexing, and fixed pages.\n\nSo I could have reasonably assumed: **We've already done the SEO.**\n\nThen I started digging deeper into AI search and GEO, and I discovered something that taught me a much bigger lesson about AI: we hadn't finished the job.\n\nI don't think the useful conclusion is that AI failed. ChatGPT was helping me solve the problem I gave it. The bigger issue was that I didn't completely understand the problem yet.\n\nThat's what I want to share this week."
+        },
+        {
+          "heading": "What We Built",
+          "body": "This week, I went deeper into what search engines and AI systems actually receive from a website—not just what the page looks like to a person.\n\nThat meant looking at things like crawler behavior, redirects, real 404 responses, initial HTML, structured information, and how lessons, articles, videos, and services reinforce one another.\n\nThe work reminded me that saying \"SEO my website\" can cover a hundred different questions. The quality of the result depends partly on whether we know which questions still need to be asked."
+        },
+        {
+          "heading": "What We Learned",
+          "body": "A prompt is limited by what we understand well enough to ask about.\n\nIf I don't know a technical issue exists, I probably won't put it in my prompt. If I don't know something should be verified, I may accept the first answer. If I don't understand how the pieces fit together, I may optimize one piece while missing the system around it.\n\nAI can help accelerate learning and expertise. But it doesn't remove the need for judgment.\n\nOne of the most useful rules I'm learning is simple: **Do the work. Then check the work.**"
+        },
+        {
+          "heading": "What It Means for Your Business",
+          "body": "You do not have to become an expert in every technical detail before using AI.\n\nStart with a real business problem. Let AI help you investigate, explain, compare, and work through it. But don't confuse receiving an answer with fully understanding the problem.\n\nAsk what changed. Ask what was verified. Ask what may still be missing. As your understanding improves, your questions improve too.\n\nThat is where AI becomes more useful—not just because it gives better answers, but because it helps you learn what question to ask next."
+        },
+        {
+          "heading": "This Week’s Challenge",
+          "body": "Take one thing you've recently asked AI to help you with.\n\nLook at the result and ask: **What have we actually checked?**\n\nIf you can't answer that yet, you've found a useful next question.\n\nDo the work. Then check the work. Let what you learn guide the next step."
+        }
+      ],
+      "primaryArticle": {
+        "source_type": "KnowledgeLibrary",
+        "source_id": "ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+        "title": "I Asked AI to SEO My Website. Why Wasn't That Enough?",
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+        "excerpt": "Why asking AI to optimize a website is not enough by itself—and how better questions, verification, experience, and human judgment improve the work.",
+        "reading_time": "8–10 min read",
+        "featured_image_url": null,
+        "is_lead": true,
+        "display_order": 1
+      },
+      "featuredVideo": {
+        "source_id": "wIRtYpEMyD4",
+        "source_type": "YouTube",
+        "title": "I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show",
+        "url": "https://youtu.be/wIRtYpEMyD4",
+        "duration": "4:50",
+        "description": "Rick Hesse and the Free AI Guy discuss what repeated SEO work taught Rick about asking better questions, understanding the problem, and checking whether a change actually worked.",
+        "cta_text": "Watch the Growth Show"
+      },
+      "cta": {
+        "text": "Read the full lesson",
+        "url": "https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough"
+      },
+      "closingMessage": "Read the complete lesson: [I Asked AI to SEO My Website. Why Wasn’t That Enough?](https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough).\n\n[Watch the finished Growth Show episode](https://newtechadvertising.com/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough#watch).\n\n[Explore the NTA Knowledge Library](https://newtechadvertising.com/knowledge)."
+    },
+    {
       "issueNumber": 13,
       "title": "From Ideas to Finished Work",
       "subtitle": "What I’m learning about putting AI to work",
@@ -2328,6 +2441,17 @@
     }
   ],
   "videos": [
+    {
+      "title": "I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show",
+      "canonicalUrl": "https://newtechadvertising.com/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+      "contentType": "VideoObject",
+      "description": "Rick Hesse and the Free AI Guy discuss what repeated SEO work taught Rick about asking better questions, understanding the problem, and checking whether a change actually worked.",
+      "youtubeUrl": "https://www.youtube.com/watch?v=wIRtYpEMyD4",
+      "thumbnailUrl": "https://i.ytimg.com/vi/wIRtYpEMyD4/hqdefault.jpg",
+      "uploadDate": "2026-11-06T14:45:37+00:00",
+      "relatedLesson": "https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+      "lastModified": "2026-11-06"
+    },
     {
       "title": "Representation or Deception? Using AI Without Misleading People | Growth Show Ep. 12",
       "canonicalUrl": "https://newtechadvertising.com/growth-show/representation-or-deception",
