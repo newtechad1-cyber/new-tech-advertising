@@ -212,3 +212,15 @@ test('candidate build never assumes SEO state is clean when git inspection fails
   assert.throws(() => generatedSourceStatus({ spawn: mock.spawn }), /Could not verify generated SEO source/);
   assert.deepEqual(mock.calls.map(call => call.command), ['git']);
 });
+
+
+test('production text assets do not ship the retired client proposal', () => {
+  const assets = path.join(distDir, 'assets');
+  const javascript = fs.readdirSync(assets).filter(file => /\.(?:js|map)$/.test(file));
+  assert.ok(javascript.length > 0, 'Expected built public JavaScript');
+  for (const file of javascript) {
+    const body = fs.readFileSync(path.join(assets, file), 'utf8');
+    assert.equal(body.includes('Introductory discussion proposal'), false, 'retired proposal prose in ' + file);
+    assert.equal(body.includes('ApplianceOutletCampaignProposal'), false, 'retired source module in ' + file);
+  }
+});
