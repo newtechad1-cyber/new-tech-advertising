@@ -128,6 +128,28 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+
+    // Summary drafts and confirmations process the owner's Discovery answers.
+    // A session key proves ownership, but does not replace active permission.
+    // Check again on each action in case consent was declined or withdrawn
+    // after earlier answers or a draft were saved.
+    const processingConsents = await base44.asServiceRole.entities.DiscoveryConsent.filter({
+      session_id,
+      consent_type: 'discovery_processing'
+    });
+    const processingConsent = processingConsents[0];
+    if (
+      !processingConsent ||
+      processingConsent.state !== 'granted' ||
+      processingConsent.affirmative_action !== true ||
+      Boolean(processingConsent.withdrawn_at)
+    ) {
+      return Response.json({
+        error: 'Discovery processing consent required',
+        code: 'DISCOVERY_CONSENT_REQUIRED'
+      }, { status: 403 });
+    }
+
     const now = new Date().toISOString();
 
     // 2. Action: create_draft
