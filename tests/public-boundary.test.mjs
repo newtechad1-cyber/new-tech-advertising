@@ -230,3 +230,60 @@ test('public TV script form displays a user-facing error message', async () => {
   assert.match(source, /role="alert"/);
   assert.match(source, /generationError/);
 });
+
+
+test('retired client proposal follows the contact redirect and has no public source module', async () => {
+  const React = (await import('react')).default;
+  const { renderToString } = await import('react-dom/server');
+  const router = await import('react-router-dom');
+  const ts = (await import('typescript')).default;
+  const vm = (await import('node:vm')).default;
+  const redirects = [];
+  const blank = () => null;
+  const generic = new Proxy({ __esModule: true, default: blank }, {
+    get(target, key) { return key in target ? target[key] : blank; },
+  });
+  const requireStub = id => {
+    if (id === 'react') return { ...React, __esModule: true, default: React };
+    if (id === 'react/jsx-runtime') return {
+      jsx: (type, props) => React.createElement(type, props),
+      jsxs: (type, props) => React.createElement(type, props),
+      Fragment: React.Fragment,
+    };
+    if (id === 'react-router-dom') return {
+      ...router,
+      Navigate: props => { redirects.push(props.to); return null; },
+    };
+    if (id === './pages.config') return { pagesConfig: { Pages: { Home: blank }, Layout: null, mainPage: 'Home' } };
+    if (id === '@/config/publicRoutes') return { PUBLIC_ROUTE_ALIASES: [] };
+    if (id === '@/config/seoMetadata') return { getSeoMetadata: () => ({}) };
+    return generic;
+  };
+  const source = await read('src/App.jsx');
+  const compiled = ts.transpileModule(source, {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX },
+    reportDiagnostics: true,
+  });
+  assert.equal((compiled.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
+  const exports = {};
+  vm.runInNewContext(compiled.outputText + '\nexports.publicRoutesForTest = PublicRoutes;', {
+    exports, require: requireStub, console,
+  });
+  renderToString(React.createElement(router.StaticRouter, {
+    location: '/appliance-outlet-campaign-proposal',
+  }, React.createElement(exports.publicRoutesForTest)));
+  assert.deepEqual(redirects, ['/contact']);
+  assert.doesNotMatch(source, /import\s+ApplianceOutletCampaignProposal/);
+  await assert.rejects(read('src/pages/ApplianceOutletCampaignProposal.jsx'), { code: 'ENOENT' });
+});
+
+test('public client stories retain the teaching without private monthly fee amounts or a proposal link', async () => {
+  const caseStudy = await read('src/pages/CaseStudyApplianceOutlet.jsx');
+  const lesson = await read('src/pages/ShowMeBeforeYouSellMe.jsx');
+  const monthlyFee = /\$\s*\d[\d,]*(?:-per-month|\s+monthly)/;
+  assert.doesNotMatch(caseStudy, monthlyFee);
+  assert.doesNotMatch(lesson, monthlyFee);
+  assert.doesNotMatch(caseStudy, /to=["']\/appliance-outlet-campaign-proposal["']/);
+  assert.match(caseStudy, /video-first marketing/);
+  assert.match(lesson, /video-first marketing/);
+});
