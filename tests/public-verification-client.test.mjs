@@ -341,7 +341,7 @@ for (const hostname of ['newtechadvertising.com', 'www.newtechadvertising.com', 
   test('public app config on ' + hostname + ' ignores URL and stored API identity overrides', () => {
     const fixture = appParamsFixture({
       hostname,
-      query: '?app_id=evil-app&server_url=https%3A%2F%2Fevil.example&access_token=evil-jwt&functions_version=evil-v&ctx=valid-handle&utm_source=facebook',
+      query: '?app_id=evil-app&server_url=https%3A%2F%2Fevil.example&functions_version=evil-v&ctx=valid-handle&utm_source=facebook',
       persisted: {
         base44_app_id: 'stored-evil',
         base44_server_url: 'https://stored-evil.example',
@@ -351,12 +351,12 @@ for (const hostname of ['newtechadvertising.com', 'www.newtechadvertising.com', 
     });
     assert.equal(fixture.params.appId, '691f41a18de4a7f498c8f884');
     assert.equal(fixture.params.serverUrl, 'https://trusted-base44-api.example');
-    assert.equal(fixture.params.token, null);
+    assert.equal(fixture.params.token, 'stored-token', 'legitimate SDK session retained');
     assert.equal(fixture.params.functionsVersion, null);
-    for (const key of ['base44_app_id', 'base44_server_url', 'base44_access_token', 'base44_functions_version']) {
+    for (const key of ['base44_app_id', 'base44_server_url', 'base44_functions_version']) {
       assert.equal(fixture.storage.has(key), false, 'legacy override not cleared: ' + key);
     }
-    for (const key of ['app_id', 'server_url', 'access_token', 'functions_version']) {
+    for (const key of ['app_id', 'server_url', 'functions_version']) {
       assert.equal(new URLSearchParams(fixture.location.search).has(key), false, 'unsafe public URL param persisted: ' + key);
     }
     assert.equal(new URLSearchParams(fixture.location.search).get('ctx'), 'valid-handle');
@@ -377,10 +377,26 @@ test('public site ignores legacy poisoned storage even without suspicious URL fi
   });
   assert.equal(fixture.params.appId, '691f41a18de4a7f498c8f884');
   assert.equal(fixture.params.serverUrl, undefined, 'SDK default is allowed when build URL is absent');
-  assert.equal(fixture.params.token, null);
+  assert.equal(fixture.params.token, 'bad-token', 'server still validates SDK bearer token');
   assert.equal(fixture.params.functionsVersion, null);
   assert.equal(fixture.historyCalls.length, 0);
-  assert.equal(fixture.storage.has('base44_access_token'), false);
+  assert.equal(fixture.storage.has('base44_access_token'), true, 'existing SDK login is not deleted');
+});
+
+
+test('public login callback is accepted only for the pinned Base44 app and its URL token is scrubbed', () => {
+  const f = appParamsFixture({
+    hostname: 'newtechadvertising.com',
+    query: '?access_token=returned-by-base44&server_url=https%3A%2F%2Fevil.example&app_id=evil-app&ctx=valid-handle',
+  });
+  assert.equal(f.params.appId, '691f41a18de4a7f498c8f884');
+  assert.equal(f.params.serverUrl, 'https://trusted-base44-api.example');
+  assert.equal(f.params.token, 'returned-by-base44', 'existing platform sign-in callback preserved');
+  assert.equal(f.storage.get('base44_access_token'), 'returned-by-base44');
+  assert.equal(f.params.functionsVersion, null);
+  assert.equal(new URLSearchParams(f.location.search).has('access_token'), false, 'bearer removed from address');
+  assert.equal(new URLSearchParams(f.location.search).has('server_url'), false);
+  assert.equal(new URLSearchParams(f.location.search).get('ctx'), 'valid-handle');
 });
 
 test('Base44 editor and sandbox preview preserve intentional version and app parameters', () => {
