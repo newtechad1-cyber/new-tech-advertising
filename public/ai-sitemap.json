@@ -1801,30 +1801,22 @@
   ],
   "journalIssues": [
     {
-      "issueNumber": 15,
-      "title": "The Growth Show Is Ready: I Asked AI to SEO My Website",
-      "subtitle": "The video companion to this week’s lesson",
-      "canonicalUrl": "https://newtechadvertising.com/journal/issue-15-ai-seo-growth-show-video",
+      "issueNumber": 14,
+      "title": "Issue 14 Follow-up: The Growth Show Is Ready",
+      "subtitle": "The video that goes with Tuesday’s Journal",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-14-ai-seo-growth-show-video-follow-up",
       "contentType": "Newsletter",
-      "description": "The video companion to this week’s lesson is ready. Rick and the Free AI Guy discuss better questions, human judgment, and checking AI-assisted work.",
+      "description": "A follow-up to NTA Journal Issue 14: apologies for the delayed video. The Growth Show conversation that goes with Tuesday’s lesson is ready to watch.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
       "publicStatus": "published",
       "lastModified": "2026-11-06",
       "datePublished": "2026-11-06",
-      "estimatedReadingTime": "3 min read",
+      "estimatedReadingTime": "2 min read",
       "sections": [
         {
           "heading": "From Rick’s Desk",
-          "body": "I’m a little late getting this week’s Growth Show finished, but the video is ready now.\n\nThe Free AI Guy and I talk through what I learned after asking AI to work on my website’s SEO several times. Real work was being done. But I was still learning what questions to ask and how to check whether the changes actually worked.\n\nIf you read this week’s lesson, this is the conversation that goes with it. If you haven’t, you can start with the video and follow the link to the full lesson."
-        },
-        {
-          "heading": "What We Learned",
-          "body": "AI can help us investigate, compare approaches, and understand things we haven’t understood before. We still need to ask whether we’re solving the right problem and whether the result does what we expected.\n\n**Do the work. Then check the work.**"
-        },
-        {
-          "heading": "This Week’s Challenge",
-          "body": "Take one thing you’ve asked AI to help you with. Look at the result and ask: **What have we actually checked?** Let the answer guide your next question."
+          "body": "I’m sorry I didn’t have the Growth Show video ready to include when I sent Issue 14 on Tuesday.\n\nIt’s ready now. In “I Asked AI to SEO My Website. Why Wasn’t That Enough?” the Free AI Guy and I talk through what I learned about asking better questions, understanding the problem, and checking whether the work actually did what we expected.\n\nThis is the video that goes with Tuesday’s lesson. You can watch the conversation below, or read the full lesson on the website."
         }
       ],
       "primaryArticle": {
