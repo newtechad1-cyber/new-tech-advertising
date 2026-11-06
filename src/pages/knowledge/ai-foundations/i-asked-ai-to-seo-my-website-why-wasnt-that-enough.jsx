@@ -66,6 +66,7 @@ export default function AskedAiToSeoLesson() {
 
         <div className="mx-auto max-w-3xl px-6 py-12">
           <LessonMediaOptions path={LESSON_PATH} />
+          <p className="mb-8 text-sm"><Link to="/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough" className="font-semibold text-cyan-300 underline underline-offset-4">Read the related NTA Journal →</Link></p>
           {!VIDEO_READING_CONNECTIONS.some(connection => connection.href === LESSON_PATH) && <section aria-label="Available lesson formats" className="mb-10 rounded-2xl border border-cyan-400/25 bg-slate-900 p-5">
             <p className="text-sm font-bold text-cyan-200">Read / Watch / Listen</p>
             <div className="mt-4 flex flex-wrap gap-3">
