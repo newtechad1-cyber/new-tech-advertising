@@ -26,7 +26,7 @@ const validPayloads = {
   },
   ntaUnifiedIntake: { email: 'unit-test@example.invalid', name: 'Test Visitor', submission_type: 'contact' },
 };
-function setup(name, { env = settings, user = null, result = {}, networkError = false, authError = false, intakeError = false, crossAppError = null, crossAppErrorData = null, crossAppErrorMessage = 'Unauthorized' } = {}) {
+function setup(name, { env = settings, user = null, result = {}, networkError = false, authError = false, intakeError = false, crossAppError = null, crossAppErrorData = null, crossAppErrorMessage = 'Unauthorized', crossAppResult = { success: true } } = {}) {
   const source = readFileSync(path.join(root, 'base44/functions', name, 'entry.ts'), 'utf8')
     .replace(/^import[^\n]*\n/gm, '');
   const output = ts.transpileModule(source, {
@@ -75,7 +75,7 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
       stats.effects++;
       stats.crossAppCalls.push({ appId: options.appId, name, payload });
       if (crossAppError) throw Object.assign(new Error(crossAppErrorMessage), { response: { status: crossAppError, data: crossAppErrorData ?? { error: 'Unauthorized.' } } });
-      return { data: { success: true } };
+      return { data: crossAppResult };
     } } }; },
     async fetch(url, options) {
       assert.equal(url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
@@ -382,4 +382,67 @@ test('ntaUnifiedIntake: local form validation and accepted Core responses remain
   assert.equal(successful.status, 200);
   assert.equal((await successful.json()).success, true);
   assert.equal(fixture.stats.crossAppCalls.length, 1);
+});
+
+
+test('Gemini F5: recruiting Core 4xx/5xx errors never expose upstream diagnostics', async () => {
+  const secrets = { error: 'Secret at https://core.internal.invalid', trace_id: 'private-trace-id', debug: { token: 'fake-unit-secret' } };
+  const samples = [[400,400,'NTA_INPUT_INVALID'],[409,409,'NTA_REQUEST_CONFLICT'],[413,413,'NTA_REQUEST_TOO_LARGE'],[422,422,'NTA_INPUT_INVALID'],[429,429,'NTA_REQUEST_LIMITED'],[404,502,'NTA_RECRUITING_UNAVAILABLE'],[500,502,'NTA_RECRUITING_UNAVAILABLE']];
+  for (const [upstream,http,code] of samples) {
+    const f = setup('submitRecruitingApplication', {
+      crossAppError: upstream, crossAppErrorData: secrets, crossAppErrorMessage: 'Core fake-unit-secret',
+    });
+    const r = await f.request({ ...validPayloads.submitRecruitingApplication, verification_token: 'recruit-proof-'+upstream });
+    const data = await r.json();
+    assert.equal(r.status,http);assert.equal(data.code,code);
+    assert.deepEqual(Object.keys(data).sort(),['code','error']);
+    for (const hidden of ['core.internal','fake-unit-secret','private-trace-id','debug']) {
+      assert.ok(!JSON.stringify(data).includes(hidden));
+      assert.ok(!f.stats.errorLogs.join(' ').includes(hidden));
+    }
+    assert.equal(f.stats.crossAppCalls.length,1);
+    assert.equal(f.stats.provider,1);
+  }
+});
+
+test('Gemini F5: recruiting unsuccessful body is masked and accepted application response survives', async () => {
+  const f = setup('submitRecruitingApplication', { crossAppResult: { success: false, error:'private database credential' } });
+  const declined = await f.request({ ...validPayloads.submitRecruitingApplication,verification_token:'declined-core' });
+  assert.equal(declined.status,502);
+  assert.equal((await declined.json()).code,'NTA_RECRUITING_UNAVAILABLE');
+  const ok = setup('submitRecruitingApplication', { crossAppResult: {
+    success:true,accepted:true,candidate_id:'test-applicant-123',duplicate:false,
+    email_delivery:{internal:'queued',applicant:'queued'},
+  }});
+  const saved = await ok.request({ ...validPayloads.submitRecruitingApplication, verification_token:'accepted-core' });
+  assert.equal(saved.status,200);
+  assert.equal((await saved.json()).candidate_id,'test-applicant-123');
+});
+
+test('Gemini F5: trackBookEvent masks Core diagnostic content and preserves safe HTTP outcomes', async () => {
+  const secrets = { error:'Secret at https://core.internal.invalid',trace_id:'private-trace-id', token:'fake-unit-secret' };
+  const req = { book_key:'better-business-book',event_type:'download_click' };
+  const samples = [[400,400,'NTA_INPUT_INVALID'],[409,409,'NTA_REQUEST_CONFLICT'],[413,413,'NTA_REQUEST_TOO_LARGE'],[422,422,'NTA_INPUT_INVALID'],[429,429,'NTA_REQUEST_LIMITED'],[401,503,'NTA_CONNECTION_UNAVAILABLE'],[403,503,'NTA_CONNECTION_UNAVAILABLE'],[404,502,'NTA_BOOK_EVENT_UNAVAILABLE'],[500,502,'NTA_BOOK_EVENT_UNAVAILABLE']];
+  for (const [upstream,http,code] of samples) {
+    const f = setup('trackBookEvent', { user:{role:'admin',id:'unit-test-admin'},crossAppError:upstream,crossAppErrorData:secrets,crossAppErrorMessage:'Core fake-unit-secret' });
+    const r = await f.request(req);const data = await r.json();
+    assert.equal(r.status,http);assert.equal(data.code,code);
+    assert.deepEqual(Object.keys(data).sort(),['code','error']);
+    for(const hidden of ['core.internal','fake-unit-secret','private-trace-id']) {
+      assert.ok(!JSON.stringify(data).includes(hidden));
+      assert.ok(!f.stats.errorLogs.join(' ').includes(hidden));
+    }
+    assert.equal(f.stats.crossAppCalls.length,1);
+    assert.equal(f.stats.provider,0);
+  }
+});
+
+test('Gemini F5: trackBookEvent masks error in a success envelope but retains a valid tracking result', async () => {
+  const payload = { book_key:'practical-ai-for-small-business',event_type:'read_online_click' };
+  const bad=setup('trackBookEvent',{ user:{role:'admin'},crossAppResult:{error:'Private Core DB secret'} });
+  const res=await bad.request(payload);
+  assert.equal(res.status,502);assert.equal((await res.json()).code,'NTA_BOOK_EVENT_UNAVAILABLE');
+  const ok=setup('trackBookEvent',{user:{role:'admin'},crossAppResult:{success:true,recorded:true}});
+  const saved=await ok.request(payload);
+  assert.equal(saved.status,200);assert.equal((await saved.json()).recorded,true);
 });

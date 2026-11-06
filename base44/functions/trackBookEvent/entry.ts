@@ -1,5 +1,15 @@
 import { createClient, createClientFromRequest } from 'npm:@base44/sdk@0.8.48';
 
+// Never return Core error bodies, exception messages or internal diagnostics.
+// Only fixed, visitor-safe rejection reasons may cross this public endpoint.
+const PUBLIC_CORE_REJECTIONS: Record<number, { code: string; error: string }> = {
+  400: { code: 'NTA_INPUT_INVALID', error: 'Please check your information and try again.' },
+  409: { code: 'NTA_REQUEST_CONFLICT', error: 'This request could not be completed. Please review your details or contact us for help.' },
+  413: { code: 'NTA_REQUEST_TOO_LARGE', error: 'Your message is too long. Please shorten it and try again.' },
+  422: { code: 'NTA_INPUT_INVALID', error: 'Please check your information and try again.' },
+  429: { code: 'NTA_REQUEST_LIMITED', error: 'Too many requests right now. Please try again later.' },
+};
+
 const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
 
 function createCoreClient() {
@@ -113,11 +123,21 @@ Deno.serve(async (req) => {
     }
     const office = createCoreClient();
     const response = await office.functions.invoke('trackBookEvent', payload);
-    return Response.json(response?.data ?? response);
+    const data = response?.data ?? response;
+    if (!data || typeof data !== 'object' || data.error || data.success === false) {
+      console.error('[public trackBookEvent] Core returned an unsuccessful tracking response.');
+      return Response.json({ error: 'Book activity could not be recorded right now. Please try again later.', code: 'NTA_BOOK_EVENT_UNAVAILABLE' }, { status: 502 });
+    }
+    return Response.json(data);
   } catch (error) {
-    const status = error?.response?.status || 500;
-    const detail = error?.response?.data || { error: error?.message || 'Book activity could not be recorded.' };
-    console.error('[public trackBookEvent] Office tracking failed:', detail);
-    return Response.json(detail, { status });
+    const upstreamStatus = Number(error?.response?.status || 0);
+    if (upstreamStatus === 401 || upstreamStatus === 403) {
+      console.error('[public trackBookEvent] Core connection rejected:', upstreamStatus);
+      return Response.json({ error: 'Book activity could not be recorded because the connection is temporarily unavailable.', code: 'NTA_CONNECTION_UNAVAILABLE' }, { status: 503 });
+    }
+    const safeRejection = PUBLIC_CORE_REJECTIONS[upstreamStatus];
+    console.error('[public trackBookEvent] Core request failed; upstream status:', upstreamStatus || 'unknown');
+    if (safeRejection) return Response.json(safeRejection, { status: upstreamStatus });
+    return Response.json({ error: 'Book activity could not be recorded right now. Please try again later.', code: 'NTA_BOOK_EVENT_UNAVAILABLE' }, { status: 502 });
   }
 });

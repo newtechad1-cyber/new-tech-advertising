@@ -71,6 +71,16 @@ async function verifyPublicRequest(req, token, action) {
   }
 }
 
+// Never return Core error bodies, exception messages or internal diagnostics.
+// Only fixed, visitor-safe rejection reasons may cross this public endpoint.
+const PUBLIC_CORE_REJECTIONS: Record<number, { code: string; error: string }> = {
+  400: { code: 'NTA_INPUT_INVALID', error: 'Please check your information and try again.' },
+  409: { code: 'NTA_REQUEST_CONFLICT', error: 'This request could not be completed. Please review your details or contact us for help.' },
+  413: { code: 'NTA_REQUEST_TOO_LARGE', error: 'Your message is too long. Please shorten it and try again.' },
+  422: { code: 'NTA_INPUT_INVALID', error: 'Please check your information and try again.' },
+  429: { code: 'NTA_REQUEST_LIMITED', error: 'Too many requests right now. Please try again later.' },
+};
+
 const OFFICE_APP_ID = '6a7215451eb90dc843a94546';
 
 function createCoreClient() {
@@ -266,7 +276,7 @@ Deno.serve(async (req) => {
     const data = response?.data ?? response;
 
     if (data?.error || data?.success !== true || data?.accepted === false) {
-      return Response.json({ error: data?.error || 'The application was not accepted. Please try again or call or text 641-420-8816.' }, { status: 502 });
+      return Response.json({ error: 'The application was not accepted. Please try again or call or text 641-420-8816.', code: 'NTA_RECRUITING_UNAVAILABLE' }, { status: 502 });
     }
 
     return Response.json({
@@ -288,12 +298,12 @@ Deno.serve(async (req) => {
         code: 'NTA_CONNECTION_UNAVAILABLE',
       }, { status: 503 });
     }
-    const status = upstreamStatus >= 400 && upstreamStatus < 500 ? upstreamStatus : 502;
-    const detail = status < 500
-      ? (error?.response?.data || { error: error?.message || 'Unable to save your inquiry.' })
-      : { error: 'Unable to save your inquiry right now.' };
-
-    console.error('submitRecruitingApplication intake error:', error?.message || detail);
-    return Response.json(detail, { status });
+    const safeRejection = PUBLIC_CORE_REJECTIONS[upstreamStatus];
+    console.error('[public submitRecruitingApplication] Core failed; upstream status:', upstreamStatus || 'unknown');
+    if (safeRejection) return Response.json(safeRejection, { status: upstreamStatus });
+    return Response.json({
+      error: 'Unable to save your application right now. Please try again or call or text 641-420-8816.',
+      code: 'NTA_RECRUITING_UNAVAILABLE',
+    }, { status: 502 });
   }
 });
