@@ -26,6 +26,7 @@ export default function RickGrowthGuideAvatar({
       {!decorative && <span className="sr-only">{label}</span>}
       <motion.video
         src={RICK_WELCOME_VIDEO_URL}
+        tabIndex={-1}
         muted
         autoPlay
         loop

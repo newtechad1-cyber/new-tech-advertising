@@ -56,8 +56,8 @@ test('public content permissions regression is wired into CI', () => {
   assert.equal(scripts['test:public-content-permissions'], 'node --test tests/public-content-permissions.test.mjs');
 });
 
-test('F3 homepage batch runs all four reviewed suites without suppressing failures', () => {
-  assert.equal(scripts['test:homepage'], 'node --test tests/brand-positioning.test.mjs tests/homepage-business-audiences.test.mjs tests/homepage-live-review.test.mjs tests/talk-to-my-office-homepage.test.mjs');
+test('F3 homepage batch preserves all four reviewed suites and runs accessibility regressions', () => {
+  assert.equal(scripts['test:homepage'], 'node --test tests/brand-positioning.test.mjs tests/homepage-business-audiences.test.mjs tests/homepage-live-review.test.mjs tests/talk-to-my-office-homepage.test.mjs tests/guide-newsletter-accessibility.test.mjs');
 });
 
 test('CI and compatibility aliases exclude live diagnostics and submissions', () => {
