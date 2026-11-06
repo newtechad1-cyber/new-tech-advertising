@@ -185,6 +185,7 @@ test('Newsletter uses a named modal with visible, associated labels and a hidden
   assert.ok(find(tree, n => n.type === Dialog.Root));
   assert.ok(find(tree, n => n.type === Dialog.Title));
   assert.ok(find(tree, n => n.type === Dialog.Description));
+  assert.equal(find(tree, n => n.type === Dialog.Content).props['aria-modal'], 'true');
   for (const type of ['text', 'email']) {
     const input = find(tree, n => n.type === 'input' && n.props.type === type && n.props.tabIndex !== -1);
     assert.ok(input.props.id, 'input needs a stable label target');
@@ -207,7 +208,10 @@ test('Newsletter dialog dismissal records the existing cooldown and restores pri
   assert.equal(h.render(), null);
   find(tree, n => n.type === Dialog.Content).props.onCloseAutoFocus(preventedEvent());
   assert.deepEqual(h.focusHistory, ['previous']);
-  assert.equal(harness(newsletterPath, { width: 390 }).render(), null);
+  const mobile = harness(newsletterPath, { width: 390 });
+  assert.equal(mobile.render(), null);
+  for (const callback of mobile.timers.values()) callback();
+  assert.ok(find(mobile.render(), n => n.type === Dialog.Root), 'phone timer still opens the signup');
 });
 
 test('Newsletter errors and successful signup are announced; consent payload stays intact', async () => {
