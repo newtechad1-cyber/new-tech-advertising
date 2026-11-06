@@ -213,3 +213,208 @@ test('summary consent check does not replace separate save-and-return and Journa
   assert.match(journal, /consent_type: 'journal'/);
   assert.match(journal, /consent\.affirmative_action !== true/);
 });
+
+// The retention and optional Journal actions are tiny JSON RPCs. Run their
+// actual handlers with fake entities and streams; no live accounts or writes.
+const discoveryActionSources = Object.fromEntries(await Promise.all(
+  ['setDiscoveryRetention', 'subscribeDiscoveryJournal'].map(async name => [
+    name, await read(`base44/functions/${name}/entry.ts`),
+  ]),
+));
+const DISCOVERY_REQUEST_LIMIT = 64 * 1024;
+function discoveryActionFixture(name, {
+  consent = { state: 'granted', affirmative_action: true },
+  wrongSessionKey = false,
+  sessionStatus = 'started',
+  expiresAt = '2099-01-01T00:00:00.000Z',
+  existingSubscriber = false,
+  trustedService = false,
+} = {}) {
+  let handler;
+  let jsonParses = 0;
+  const lookups = [];
+  const effects = [];
+  const session = {
+    id: 'fictional-discovery-session',
+    public_session_key: 'a'.repeat(64),
+    expires_at: expiresAt,
+    status: sessionStatus,
+  };
+  const context = {
+    exports: {}, Request, Response, Headers, URL, Uint8Array, TextDecoder,
+    JSON: { parse(value) { jsonParses += 1; return JSON.parse(value); } },
+    Deno: { serve(fn) { handler = fn; } },
+    createClientFromRequest() {
+      return {
+        auth: { async me() { return trustedService ? { role: 'admin' } : null; } },
+        asServiceRole: { entities: {
+          DiscoverySession: {
+            async get(id) { lookups.push('session.get'); assert.equal(id, session.id); return session; },
+            async update(id, data) { effects.push('session.update'); assert.equal(id, session.id); return { ...session, ...data }; },
+          },
+          DiscoveryConsent: {
+            async filter(args) {
+              lookups.push('consent.filter');
+              assert.equal(args.session_id, session.id);
+              assert.equal(args.consent_type, name === 'setDiscoveryRetention' ? 'save_and_return' : 'journal');
+              return consent ? [{ id: 'fictional-consent', ...consent }] : [];
+            },
+          },
+          DiscoveryRetentionInstruction: {
+            async create(data) { effects.push('retention.create'); return { id: 'fictional-instruction', ...data }; },
+          },
+          Subscriber: {
+            async filter() { lookups.push('subscriber.filter'); return existingSubscriber ? [{ id: 'fictional-subscriber', first_name: 'Reader' }] : []; },
+            async create(data) { effects.push('subscriber.create'); return { id: 'fictional-subscriber', ...data }; },
+            async update(id, data) { effects.push('subscriber.update'); return { id, ...data }; },
+          },
+          DiscoveryAuditEvent: {
+            async create(data) { effects.push('audit.create'); return { id: 'fictional-audit', ...data }; },
+          },
+        } },
+      };
+    },
+  };
+  vm.runInNewContext(ts.transpileModule(discoveryActionSources[name].replace(/^import[^\n]*\n/gm, ''), {
+    fileName: `base44/functions/${name}/entry.ts`,
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
+  }).outputText, context);
+  assert.equal(typeof handler, 'function');
+  const payload = {
+    session_id: session.id,
+    public_session_key: wrongSessionKey ? 'b'.repeat(64) : session.public_session_key,
+    ...(name === 'setDiscoveryRetention'
+      ? { target: 'working_discovery', action: 'save' }
+      : { email: 'reader@example.test', first_name: 'Reader' }),
+  };
+  const request = (body = JSON.stringify(payload), headers = {}) => handler(new Request('https://newtechadvertising.com/api/discovery', {
+    method: 'POST',
+    headers: { Origin: 'https://newtechadvertising.com', 'Content-Type': 'application/json', ...headers },
+    body,
+    ...(body instanceof ReadableStream ? { duplex: 'half' } : {}),
+  }));
+  return { request, payload, effects, lookups, jsonParses: () => jsonParses };
+}
+function discoveryBodyStream(chunks) {
+  let reads = 0;
+  let cancelled = false;
+  const stream = new ReadableStream({
+    pull(controller) {
+      reads += 1;
+      if (chunks.length) controller.enqueue(chunks.shift());
+      else controller.close();
+    },
+    cancel() { cancelled = true; },
+  }, { highWaterMark: 0 });
+  return { stream, reads: () => reads, cancelled: () => cancelled };
+}
+
+for (const name of Object.keys(discoveryActionSources)) {
+  test(`${name}: rejects oversized Content-Length before reading or entity access`, async () => {
+    for (const trustedService of [false, true]) {
+      const fixture = discoveryActionFixture(name, { trustedService });
+      const body = discoveryBodyStream([new TextEncoder().encode(JSON.stringify(fixture.payload))]);
+      const response = await fixture.request(body.stream, { 'Content-Length': String(DISCOVERY_REQUEST_LIMIT + 1) });
+      assert.equal(response.status, 413);
+      assert.equal(body.reads(), 0);
+      assert.equal(fixture.jsonParses(), 0);
+      assert.deepEqual(fixture.lookups, []);
+      assert.deepEqual(fixture.effects, []);
+    }
+  });
+
+  test(`${name}: stops oversized streams by bytes even without an honest length header`, async () => {
+    for (const headers of [{}, { 'Content-Length': '1' }]) {
+      const fixture = discoveryActionFixture(name);
+      // The first chunk fits; the second crosses the limit. Never read the tail.
+      const body = discoveryBodyStream([
+        new Uint8Array(40_000),
+        new Uint8Array(DISCOVERY_REQUEST_LIMIT - 40_000 + 1),
+        new TextEncoder().encode('PRIVATE-TAIL-SHOULD-NOT-BE-READ'),
+      ]);
+      const response = await fixture.request(body.stream, headers);
+      assert.equal(response.status, 413);
+      assert.equal(body.reads(), 2);
+      assert.equal(body.cancelled(), true);
+      assert.equal(fixture.jsonParses(), 0);
+      assert.deepEqual(fixture.lookups, []);
+      assert.deepEqual(fixture.effects, []);
+      assert.doesNotMatch(await response.text(), /PRIVATE-TAIL/);
+    }
+    const fixture = discoveryActionFixture(name);
+    const multibyte = JSON.stringify({ ...fixture.payload, padding: 'é'.repeat(33_000) });
+    assert.ok(multibyte.length < DISCOVERY_REQUEST_LIMIT, 'character count alone would incorrectly allow this');
+    assert.ok(Buffer.byteLength(multibyte) > DISCOVERY_REQUEST_LIMIT);
+    const response = await fixture.request(multibyte);
+    assert.equal(response.status, 413);
+    assert.equal(fixture.jsonParses(), 0);
+    assert.deepEqual(fixture.lookups, []);
+    assert.deepEqual(fixture.effects, []);
+  });
+
+  test(`${name}: accepts a valid request exactly at the byte limit across UTF-8 chunks`, async () => {
+    const fixture = discoveryActionFixture(name);
+    const unpadded = JSON.stringify({ ...fixture.payload, marker: 'é', padding: '' });
+    const text = JSON.stringify({ ...fixture.payload, marker: 'é', padding: 'x'.repeat(DISCOVERY_REQUEST_LIMIT - Buffer.byteLength(unpadded)) });
+    const bytes = new TextEncoder().encode(text);
+    assert.equal(bytes.byteLength, DISCOVERY_REQUEST_LIMIT);
+    const split = bytes.indexOf(0xc3) + 1;
+    const body = discoveryBodyStream([bytes.slice(0, split), bytes.slice(split)]);
+    const response = await fixture.request(body.stream, { 'Content-Length': String(bytes.byteLength) });
+    assert.equal(response.status, 200);
+    assert.equal(fixture.jsonParses(), 1);
+    assert.deepEqual(fixture.lookups.slice(0, 2), ['session.get', 'consent.filter']);
+    assert.deepEqual(fixture.effects, name === 'setDiscoveryRetention'
+      ? ['retention.create', 'session.update', 'audit.create']
+      : ['subscriber.create', 'audit.create']);
+    const result = await response.json();
+    if (name === 'setDiscoveryRetention') assert.equal(result.session_updates.status, 'saved');
+    else assert.equal(result.subscribed, true);
+  });
+
+  test(`${name}: preserves consent and session checks for small requests`, async () => {
+    for (const consent of [null, { state: 'declined', affirmative_action: false }, { state: 'granted', affirmative_action: false }]) {
+      const fixture = discoveryActionFixture(name, { consent });
+      assert.equal((await fixture.request()).status, 403);
+      assert.deepEqual(fixture.effects, []);
+    }
+    for (const options of [{ wrongSessionKey: true }, { sessionStatus: 'deleted' }, { expiresAt: '2000-01-01T00:00:00.000Z' }]) {
+      const fixture = discoveryActionFixture(name, options);
+      assert.equal((await fixture.request()).status, 401);
+      assert.deepEqual(fixture.effects, []);
+      assert.equal(fixture.lookups.includes('consent.filter'), false);
+    }
+    const fixture = discoveryActionFixture(name);
+    assert.equal((await fixture.request(undefined, { Origin: 'https://untrusted.example.test' })).status, 403);
+    assert.deepEqual(fixture.lookups, []);
+    assert.deepEqual(fixture.effects, []);
+  });
+
+  test(`${name}: malformed or failed request streams keep a safe error and no writes`, async () => {
+    for (const body of ['PRIVATE-BROKEN-JSON', 'null']) {
+      const fixture = discoveryActionFixture(name);
+      const response = await fixture.request(body);
+      assert.equal(response.status, 401);
+      assert.doesNotMatch(await response.text(), /PRIVATE-BROKEN-JSON/);
+      assert.deepEqual(fixture.lookups, []);
+      assert.deepEqual(fixture.effects, []);
+    }
+    const fixture = discoveryActionFixture(name);
+    const body = new ReadableStream({
+      pull(controller) { controller.error(new Error('PRIVATE-STREAM-DETAILS')); },
+    }, { highWaterMark: 0 });
+    const response = await fixture.request(body);
+    assert.equal(response.status, 401);
+    assert.doesNotMatch(await response.text(), /PRIVATE-STREAM-DETAILS/);
+    assert.deepEqual(fixture.effects, []);
+  });
+}
+
+test('bounded Journal requests still update an existing subscriber rather than duplicating it', async () => {
+  const fixture = discoveryActionFixture('subscribeDiscoveryJournal', { existingSubscriber: true });
+  const response = await fixture.request();
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).subscriber_id, 'fictional-subscriber');
+  assert.deepEqual(fixture.effects, ['subscriber.update', 'audit.create']);
+});
+
