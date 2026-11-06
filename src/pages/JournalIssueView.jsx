@@ -11,6 +11,7 @@ import SEOHead from '@/components/shared/SEOHead';
 import ContentNextSteps from '@/components/knowledge/ContentNextSteps';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import { SEED_JOURNAL_ENTRIES } from '@/data/canonSeed';
+import { isJournalFollowUp } from '@/lib/journalIssueIdentity';
 import {
   Newspaper, ArrowLeft, ArrowRight, BookOpen, Clock, Calendar,
   ChevronRight, Mail, Pen, Hammer, Lightbulb, Target,
@@ -85,16 +86,18 @@ export default function JournalIssueView({ issueSlug }) {
     const exact = published.find(item => item.slug === slug);
     if (exact) return exact;
 
+    if (slug?.endsWith('-follow-up')) return null;
     const match = slug?.match(/^issue-(\d+)/);
     if (!match) return null;
     const issueNumber = Number.parseInt(match[1], 10);
-    return published.find(item => item.issue_number === issueNumber) || null;
+    return published.find(item => item.issue_number === issueNumber && !isJournalFollowUp(item)) || null;
   }, [published, slug]);
 
-  const issueIndex = issue ? published.indexOf(issue) : -1;
-  const nextIssue = issueIndex > 0 ? published[issueIndex - 1] : null;
-  const prevIssue = issueIndex >= 0 && issueIndex < published.length - 1
-    ? published[issueIndex + 1]
+  const weeklyIssues = published.filter(item => !isJournalFollowUp(item));
+  const issueIndex = issue ? weeklyIssues.indexOf(issue) : -1;
+  const nextIssue = issueIndex > 0 ? weeklyIssues[issueIndex - 1] : null;
+  const prevIssue = issueIndex >= 0 && issueIndex < weeklyIssues.length - 1
+    ? weeklyIssues[issueIndex + 1]
     : null;
 
   if (!loading && !issue) return <Navigate to="/journal" replace />;
@@ -318,7 +321,7 @@ export default function JournalIssueView({ issueSlug }) {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {published.map(archiveIssue => (
+                  {weeklyIssues.map(archiveIssue => (
                     <Link
                       key={archiveIssue.id || archiveIssue.issue_number}
                       to={`/journal/${archiveIssue.slug || `issue-${archiveIssue.issue_number}`}`}

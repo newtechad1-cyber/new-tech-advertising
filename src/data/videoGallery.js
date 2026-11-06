@@ -6,6 +6,14 @@ export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
 {
+  "youtubeId": "wIRtYpEMyD4",
+  "title": "I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show",
+  "publishedAt": "2026-11-06T14:45:37+00:00",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+  "summary": "Rick Hesse and the Free AI Guy discuss what repeated SEO work taught Rick about asking better questions, understanding the problem, and checking whether a change actually worked."
+},
+{
   "youtubeId": "wFRRiJu-DHs",
   "title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
   "publishedAt": "2026-10-26T06:11:14-07:00",

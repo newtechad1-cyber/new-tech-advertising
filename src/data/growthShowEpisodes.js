@@ -6,6 +6,30 @@ import { flagshipArticleToolsVsSystem } from './flagshipArticles.js';
  */
 export const SEED_GROWTH_SHOW_EPISODES = [
 {
+  "episode_number": 14,
+  "title": "I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show",
+  "slug": "i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+  "summary": "Rick Hesse and the Free AI Guy discuss what repeated SEO work taught Rick about asking better questions, understanding the problem, and checking whether a change actually worked.",
+  "status": "Published",
+  "featured": true,
+  "youtube_video_id": "wIRtYpEMyD4",
+  "published_date": "2026-11-06",
+  "thumbnail_url": "https://i.ytimg.com/vi/wIRtYpEMyD4/hqdefault.jpg",
+  "youtube_knowledge_id": "6ae9f639fbb037c64632066d",
+  "publishing_article_id": "6ae9f626931f38b579f4586c",
+  "source_article_slug": "i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+  "related_journal_issue_ids": [
+    "6ae9f6952bee65ae0bebec36",
+    "issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+    "issue-14-ai-seo-growth-show-video-follow-up"
+  ],
+  "playlist_slug": "nta-growth-show",
+  "cta_text": "Read the full lesson",
+  "cta_url": "https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
+  "audio_status": "Review",
+  "notes": "Rick supplied final assembled YouTube upload November 6, 2026. Public status, NTA Growth Show playlist, 4:50 duration and exact title verified in the signed-in owner Studio; @RickHesse oEmbed and official channel feed verified. Actual publication timestamp 2026-11-06T14:45:37+00:00. Website source prepared for Rick’s Publish. Complete original podcast audio retrieval remains pending; no replacement narration or partial segment used. Original Journal Issue 14 already sent November 3 (verified separately); a distinct video follow-up is prepared, not sent."
+},
+{
   "episode_number": 13,
   "title": "From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13",
   "slug": "from-ideas-to-finished-work",
@@ -145,7 +169,8 @@ export const SEED_GROWTH_SHOW_EPISODES = [
  * The flagship article remains authoritative in flagshipArticles.js. This
  * adapter makes that source available to the relationship graph.
  */
-export const GROWTH_SHOW_SOURCE_ARTICLES = [{"id":"lesson-from-ideas-to-finished-work","slug":"from-ideas-to-finished-work","title":"From Ideas to Finished Work","summary":"Rick Hesse and the Free AI Guy discuss preserving ideas, agreeing on useful tasks, making progress visible, and verifying that the work is finished.","canonical_url":"https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work","status":"Published","related_lesson_ids":[]},
+export const GROWTH_SHOW_SOURCE_ARTICLES = [{"id":"6ae9f626931f38b579f4586c","slug":"i-asked-ai-to-seo-my-website-why-wasnt-that-enough","title":"I Asked AI to SEO My Website. Why Wasn’t That Enough?","summary":"Rick Hesse and the Free AI Guy discuss what repeated SEO work taught Rick about asking better questions, understanding the problem, and checking whether a change actually worked.","canonical_url":"https://newtechadvertising.com/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough","status":"Published","related_lesson_ids":[]},
+{"id":"lesson-from-ideas-to-finished-work","slug":"from-ideas-to-finished-work","title":"From Ideas to Finished Work","summary":"Rick Hesse and the Free AI Guy discuss preserving ideas, agreeing on useful tasks, making progress visible, and verifying that the work is finished.","canonical_url":"https://newtechadvertising.com/knowledge/ai-foundations/from-ideas-to-finished-work","status":"Published","related_lesson_ids":[]},
 {"id":"6acd387d74b52b52094b74aa","canon_id":"6acd387d74b52b52094b74aa","slug":"show-me-before-you-sell-me","title":"Show Me Before You Sell Me","summary":"Rick Hesse and the Free AI Guy follow the Appliance Outlet proposal process from business discovery and demonstration to clear scope, costs, acceptance, and onboarding.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/show-me-before-you-sell-me","status":"Published","related_lesson_ids":[]},
 {"id":"6ac38ae01da8b49dc1015856","canon_id":"6ac38ae01da8b49dc1015856","slug":"business-owners-are-tired-of-being-sold","title":"Business Owners Are Tired of Being Sold","summary":"Rick Hesse draws on both sides of the advertising dollar to explain a better buying conversation: understand the business, ask five useful questions, and remain free to decide.","canonical_url":"https://newtechadvertising.com/knowledge/truth-about-business-growth/business-owners-are-tired-of-being-sold","status":"Published","related_lesson_ids":[]}, {
   ...flagshipArticleToolsVsSystem,
