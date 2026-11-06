@@ -222,6 +222,7 @@ import * as schemaManager from '../src/lib/seoSchema.js';
 import { getSeoMetadata } from '../src/config/seoMetadata.js';
 import * as socialLinks from '../src/config/socialLinks.js';
 import * as videoPublication from '../src/lib/videoPublication.js';
+import { VIDEO_WATCH_PAGES } from '../src/data/videoSeo.js';
 
 // A small head-only DOM for executing the actual SEOHead and RouteMeta effects.
 // It cannot fetch, submit, invoke a provider, or read a signed-in browser.
@@ -361,13 +362,17 @@ test('canonical breadcrumbs follow the preferred route on preview hosts and lega
 });
 
 test('valid video hydration preserves the original upload date and never duplicates the video', () => {
-  const route = '/learning-center/videos/uKf9f_JFju8';
+  for (const route of [
+    VIDEO_WATCH_PAGES.find(video => video.path.startsWith('/learning-center/videos/')).path,
+    VIDEO_WATCH_PAGES.find(video => video.category === 'Growth Show').path,
+  ]) {
   const doc = schemaHead(readOutputForRoute(route));
   const video = schemasOfType(doc, 'VideoObject')[0];
   assert.ok(video?.uploadDate);
   headEffects(doc, route)({ videoData: video });
   assert.equal(schemasOfType(doc, 'VideoObject').length, 1);
   assert.equal(schemasOfType(doc, 'VideoObject')[0].uploadDate, video.uploadDate);
+  }
 });
 
 test('distinct videos remain separate and schema text cannot break out of its script', () => {
@@ -376,7 +381,7 @@ test('distinct videos remain separate and schema text cannot break out of its sc
   const markup = schemaManager.pageSchemaMarkup([makeVideo('one'), makeVideo('two')].map(video =>
     '<script type="application/ld+json">' + JSON.stringify(video).replace(/</g, '\\u003c') + '</script>').join(''), canonical);
   const doc = schemaHead(markup);
-  const cleanup = schemaManager.addPageSchema(doc, makeVideo('one'), canonical);
+  const cleanup = schemaManager.addPageSchema(doc, { ...makeVideo('one'), embedUrl: 'https://www.youtube.com/embed/one?rel=0' }, canonical);
   assert.equal(schemasOfType(doc, 'VideoObject').length, 2);
   assert.doesNotMatch(markup, /<p>text/);
   cleanup();
