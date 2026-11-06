@@ -416,4 +416,3 @@ test('bounded Journal requests still update an existing subscriber rather than d
   assert.equal((await response.json()).subscriber_id, 'fictional-subscriber');
   assert.deepEqual(fixture.effects, ['subscriber.update', 'audit.create']);
 });
-
