@@ -14,6 +14,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import ts from 'typescript';
 
 const SOURCE_ROOT = 'src';
 const FUNCTIONS_ROOT = 'base44/functions';
@@ -85,7 +86,118 @@ function importedFiles(sourceFile) {
     if (resolved) imports.add(resolved);
   }
 
+
+  // Follow literal lazy imports as well as static imports. Parsing these files
+  // avoids treating a commented-out import() as a reachable module.
+  if (/\bimport\s*\(/.test(source)) {
+    function findLazyImports(node) {
+      if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword
+        && node.arguments.length && ts.isStringLiteralLike(node.arguments[0])) {
+        const resolved = resolveImport(sourceFile, node.arguments[0].text);
+        if (resolved) imports.add(resolved);
+      }
+      ts.forEachChild(node, findLazyImports);
+    }
+    findLazyImports(sourceTree(sourceFile, source));
+  }
   return imports;
+}
+
+const syntaxTrees = new Map();
+
+function sourceTree(sourceFile, source) {
+  const key = path.resolve(sourceFile);
+  if (!syntaxTrees.has(key)) {
+    const kind = sourceFile.endsWith('.tsx') ? ts.ScriptKind.TSX
+      : sourceFile.endsWith('.jsx') ? ts.ScriptKind.JSX
+      : sourceFile.endsWith('.ts') ? ts.ScriptKind.TS : ts.ScriptKind.JS;
+    syntaxTrees.set(key, ts.createSourceFile(sourceFile, source, ts.ScriptTarget.Latest, true, kind));
+  }
+  return syntaxTrees.get(key);
+}
+
+function functionNamesInAdditionalBrowserCalls(sourceFile, source) {
+  const mightForward = /\.functions\.invoke\s*\(/.test(source) && /=>|\bfunction\b/.test(source);
+  const mightFetch = /\/functions\//.test(source) && /\bfetch\s*\(/.test(source);
+  if (!mightForward && !mightFetch) return new Set();
+
+  const tree = sourceTree(sourceFile, source);
+  const wrappers = new Set();
+  const bindings = new Map();
+  const calls = [];
+  const addBinding = (name, value) => {
+    if (!bindings.has(name)) bindings.set(name, []);
+    bindings.get(name).push(value);
+  };
+  const isSdkInvoke = expression =>
+    ts.isPropertyAccessExpression(expression)
+    && expression.name.text === 'invoke'
+    && ts.isPropertyAccessExpression(expression.expression)
+    && expression.expression.name.text === 'functions'
+    && ts.isIdentifier(expression.expression.expression)
+    && ['base44', 'api'].includes(expression.expression.expression.text);
+
+  function collect(node) {
+    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer) {
+      addBinding(node.name.text, node.initializer);
+      const init = node.initializer;
+      if ((ts.isArrowFunction(init) || ts.isFunctionExpression(init))
+        && init.parameters.length && ts.isIdentifier(init.parameters[0].name)) {
+        const parameter = init.parameters[0].name.text;
+        let forwards = false;
+        function checkForwarding(inner) {
+          if (ts.isCallExpression(inner) && isSdkInvoke(inner.expression)
+            && inner.arguments.length && ts.isIdentifier(inner.arguments[0])
+            && inner.arguments[0].text === parameter) forwards = true;
+          ts.forEachChild(inner, checkForwarding);
+        }
+        checkForwarding(init.body);
+        if (forwards) wrappers.add(node.name.text);
+      }
+    }
+    if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken
+      && ts.isIdentifier(node.left)) addBinding(node.left.text, node.right);
+    if (ts.isCallExpression(node)) calls.push(node);
+    ts.forEachChild(node, collect);
+  }
+  collect(tree);
+
+  const names = new Set();
+  const inspectText = text => {
+    for (const match of text.matchAll(/\/functions\/([A-Za-z0-9_]+)(?=[/?#]|$)/g)) names.add(match[1]);
+  };
+  function inspectExpression(node, seen) {
+    if (ts.isIdentifier(node)) {
+      if (seen.has(node.text)) return;
+      const nextSeen = new Set(seen).add(node.text);
+      for (const value of bindings.get(node.text) || []) inspectExpression(value, nextSeen);
+      return;
+    }
+    if (ts.isStringLiteralLike(node)) {
+      inspectText(node.text);
+      return;
+    }
+    if (ts.isTemplateExpression(node)) {
+      inspectText(node.head.text);
+      for (const span of node.templateSpans) {
+        inspectExpression(span.expression, new Set(seen));
+        inspectText(span.literal.text);
+      }
+      return;
+    }
+    ts.forEachChild(node, child => { inspectExpression(child, new Set(seen)); });
+  }
+
+  for (const call of calls) {
+    if (!call.arguments.length) continue;
+    if (ts.isIdentifier(call.expression) && wrappers.has(call.expression.text)
+      && ts.isStringLiteralLike(call.arguments[0])) names.add(call.arguments[0].text);
+
+    const isFetch = (ts.isIdentifier(call.expression) && call.expression.text === 'fetch')
+      || (ts.isPropertyAccessExpression(call.expression) && call.expression.name.text === 'fetch');
+    if (isFetch) inspectExpression(call.arguments[0], new Set());
+  }
+  return names;
 }
 
 function publicSourceFiles() {
@@ -131,6 +243,16 @@ function collectBrowserReferences(files) {
     }
   }
 
+
+  // Also follow same-file forwarding wrappers and literal function URLs that
+  // actually flow to fetch. This is a conservative supplement to direct calls.
+  for (const file of files) {
+    const source = fs.readFileSync(file, 'utf8');
+    for (const fn of functionNamesInAdditionalBrowserCalls(file, source)) {
+      if (!functionFiles.has(fn)) functionFiles.set(fn, new Set());
+      functionFiles.get(fn).add(file);
+    }
+  }
   return { entityFiles, functionFiles };
 }
 
