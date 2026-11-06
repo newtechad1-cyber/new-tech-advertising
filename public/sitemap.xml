@@ -1526,4 +1526,17 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://newtechadvertising.com/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough</loc>
+    <lastmod>2026-11-06T14:45:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/wIRtYpEMyD4/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show</video:title>
+      <video:description>Rick Hesse and the Free AI Guy discuss what repeated SEO work taught Rick about asking better questions, understanding the problem, and checking whether a change actually worked.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/wIRtYpEMyD4</video:player_loc>
+      <video:publication_date>2026-11-06T14:45:37+00:00</video:publication_date>
+    </video:video>
+  </url>
 </urlset>
