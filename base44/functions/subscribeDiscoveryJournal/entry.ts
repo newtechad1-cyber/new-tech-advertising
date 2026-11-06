@@ -8,7 +8,46 @@ const TRUSTED_PUBLIC_ORIGINS = new Set([
 ]);
 const REQUEST_WINDOW_MS = 15 * 60 * 1000;
 const REQUEST_LIMIT = 24;
+const MAX_JSON_BODY_BYTES = 64 * 1024;
 const requestBuckets = new Map<string, { count: number; resetAt: number }>();
+
+class RequestTooLarge extends Error {}
+
+// These actions carry small session/consent fields, never transcripts or media.
+// Check real streamed bytes before parsing; Content-Length alone is not a limit.
+async function parseBoundedJson(req: Request) {
+  const declared = req.headers.get('content-length');
+  if (declared !== null) {
+    const size = Number(declared);
+    if (!Number.isFinite(size) || size < 0 || size > MAX_JSON_BODY_BYTES) throw new RequestTooLarge();
+  }
+  if (!req.body) throw new SyntaxError('Missing JSON body');
+
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > MAX_JSON_BODY_BYTES) {
+        await reader.cancel().catch(() => {});
+        throw new RequestTooLarge();
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(total);
+  let position = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, position);
+    position += chunk.byteLength;
+  }
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
 
 function isTrustedPublicOrigin(req: Request) {
   const rawOrigin = req.headers.get('origin') || req.headers.get('referer');
@@ -68,7 +107,7 @@ Deno.serve(async req => {
         );
       }
     }
-    const { session_id, public_session_key, email, first_name } = await req.json();
+    const { session_id, public_session_key, email, first_name } = await parseBoundedJson(req);
     if (typeof session_id !== 'string' || typeof public_session_key !== 'string' || typeof email !== 'string') return Response.json({ error: 'Unauthorized' }, { status: 401 });
     const normalizedEmail = email.trim().toLowerCase();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(normalizedEmail) || normalizedEmail.length > 255) return Response.json({ error: 'Invalid email' }, { status: 400 });
@@ -85,5 +124,10 @@ Deno.serve(async req => {
     else subscriber = await base44.asServiceRole.entities.Subscriber.create(data);
     await base44.asServiceRole.entities.DiscoveryAuditEvent.create({ session_id, event_type: 'created', actor_type: 'owner', actor_id: session.anonymous_visitor_id || 'anonymous_owner', occurred_at: new Date().toISOString(), target_record_type: 'Subscriber', target_record_id: subscriber.id, reason: 'Owner optionally subscribed to the NTA Journal', metadata: { consent_id: consent.id } });
     return Response.json({ subscribed: true, subscriber_id: subscriber.id });
-  } catch { return Response.json({ error: 'Unauthorized' }, { status: 401 }); }
+  } catch (error) {
+    if (error instanceof RequestTooLarge) {
+      return Response.json({ error: 'Request body too large' }, { status: 413 });
+    }
+    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 });
