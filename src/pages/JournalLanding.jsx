@@ -7,6 +7,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
+import { isJournalFollowUp } from '@/lib/journalIssueIdentity';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import {
@@ -100,6 +101,7 @@ export default function JournalLanding() {
       // articles/case studies that were historically stored in JournalIssue.
       .filter(i =>
         i.status === 'Published' &&
+        !isJournalFollowUp(i) &&
         i.issue_number >= 3 &&
         i.date >= '2026-08-17' &&
         Boolean(i.from_ricks_desk) &&

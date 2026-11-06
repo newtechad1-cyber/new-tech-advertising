@@ -21,7 +21,7 @@ export const SEED_GROWTH_SHOW_EPISODES = [
   "related_journal_issue_ids": [
     "6ae9f6952bee65ae0bebec36",
     "issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
-    "issue-15-ai-seo-growth-show-video"
+    "issue-14-ai-seo-growth-show-video-follow-up"
   ],
   "playlist_slug": "nta-growth-show",
   "cta_text": "Read the full lesson",
