@@ -297,6 +297,7 @@ export default function SEOHead({
       const videoSchema = {
         "@context": "https://schema.org",
         "@type": "VideoObject",
+        "url": resolvedCanonical,
         "name": videoData.name || resolvedTitle,
         "description": videoData.description || resolvedDescription,
         ...(videoData.thumbnailUrl ? { "thumbnailUrl": videoData.thumbnailUrl } : {}),
