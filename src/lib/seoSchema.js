@@ -20,7 +20,12 @@ export function schemaIdentity(schema, canonical) {
   if (type === 'VideoObject') {
     // Different videos on the same page must keep separate identities.
     const url = new URL(schema.embedUrl || schema.contentUrl || schema.url || canonical, canonical);
-    return canonical + '#video:' + url.origin + url.pathname;
+    const youtubeHosts = ['youtube.com', 'www.youtube.com', 'youtube-nocookie.com', 'www.youtube-nocookie.com', 'youtu.be'];
+    const videoId = youtubeHosts.includes(url.hostname) && (
+      url.pathname.match(/^\/embed\/([^/]+)/)?.[1] ||
+      (url.hostname === 'youtu.be' ? url.pathname.slice(1) : url.searchParams.get('v'))
+    );
+    return canonical + '#video:' + (videoId || url.origin + url.pathname);
   }
   return canonical + '#' + (suffixes[type] || type);
 }
