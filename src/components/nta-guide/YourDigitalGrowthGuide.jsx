@@ -1120,7 +1120,10 @@ export default function YourDigitalGrowthGuide() {
           >
             {/* Header */}
             <div 
-              onPointerDown={(e) => dragControls.start(e)}
+              onPointerDown={event => {
+                // Header controls must remain clickable instead of starting a drag.
+                if (!event.target.closest('button, a, input, textarea, select')) dragControls.start(event);
+              }}
               className="bg-slate-900 border-b border-slate-800 p-2.5 sm:p-3 flex items-center justify-between shadow-sm z-10 relative overflow-hidden cursor-move touch-none"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[50px] rounded-full pointer-events-none" />
