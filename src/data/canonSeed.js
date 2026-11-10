@@ -132,6 +132,54 @@ export const DUPLICATE_GROUPS = [
 // available even before Base44 contains its first JournalIssue record.
 export const SEED_JOURNAL_ENTRIES = [
 {
+  "id": "seed-journal-issue-15-geo",
+  "issue_number": 15,
+  "volume": 1,
+  "title": "Can AI Understand Your Business?",
+  "subtitle": "What GEO means, why your experience matters, and one useful place to start.",
+  "slug": "issue-15-can-ai-understand-your-business",
+  "date": "2026-11-10",
+  "status": "Published",
+  "author": "Rick Hesse",
+  "editor_signature": "Rick Hesse",
+  "summary": "Rick Hesse explains GEO in practical terms: make the business’s knowledge accessible, understandable, useful, trustworthy, and verifiable. Start with one real customer question, explain it from experience, and check whether people and search systems can reach the answer.",
+  "category": "AI & Technology",
+  "series": "NTA Journal",
+  "tags": [
+    "GEO",
+    "AI search",
+    "small business SEO",
+    "business knowledge",
+    "NTA Point of View"
+  ],
+  "from_ricks_desk": "I’ve been working through a question on my own New Tech Advertising website:\n\nWhen someone asks an AI system about something my business knows, sells, or does, can that system understand my information well enough to use it?\n\nThat’s the practical question behind GEO, or Generative Engine Optimization.\n\nPeople are asking search tools questions that sound like conversations. Who can help with this problem? What should I know before buying? What would work for a business like mine?\n\nThe system then tries to put together an answer.\n\nSEO still matters. Our websites still need to work, and our information still needs to be accessible and accurate. GEO adds another consideration: how clearly does the whole website explain the business and what it knows?",
+  "what_we_built": "On the NTA website, we have been building the information system behind that understanding—not merely adding another page or another acronym.\n\nWe worked from real customer questions and clear answers. We examined what happens when a page moves or does not exist. We looked at what a search crawler receives when it first reaches a page, which can differ from what I see after the website finishes loading in my browser.\n\nWe also connected authorship, dates, lessons, articles, videos, and services so they contribute to one understandable picture of the business. The GEO lesson, this Journal teaching, and this week’s Growth Show carry that same source idea. In the episode, the Free AI Guy and I talk through what it means for a small business.",
+  "what_we_learned": "Working on NTA helped me see that search visibility depends on the whole information system.\n\nThe words matter. The technology matters. The relationships among the pages matter. Then comes verification, because making a change does not tell us whether it worked.\n\nGEO is not a magic switch, and it does not make SEO unnecessary. It gives us another reason to make useful business knowledge accessible, understandable, trustworthy, and verifiable.",
+  "what_it_means_for_your_business": "Your own experience belongs in that system.\n\nThink about the questions customers keep asking you. The mistakes you’ve seen. The problems that return. The things you’ve learned by doing the work that do not appear in a product brochure.\n\nThat knowledge can help someone make a better decision. But people and search systems need a way to find and understand it.\n\nA conversation can be the starting point. Talk through a customer’s question, explain your answer, and give an example from your work. AI can help organize what you said. Then read it, correct it, and make sure it reflects your experience. Your judgment still matters.",
+  "this_weeks_challenge": "Choose one question a customer asks you regularly.\n\nExplain the answer as though that customer were sitting across the table. Include something you’ve learned from experience. If the answer depends on the situation, explain that too.\n\nNow look at your website. Could someone find that answer there? Would it make sense to a person who does not already know your business?\n\nThat gives you a practical place to begin. Once the information is there, the next step is checking that search systems can actually reach it and assessing how they use it.",
+  "closing_message": "Nobody can promise that an AI system will recommend a particular business. The systems and their answers change.\n\nWe can work on what we control: useful answers, accurate information, clear organization, and a website that works. Then we can check what happens and keep learning.\n\n[Read the full lesson: What Is GEO? Getting Your Business Ready for AI Search](https://newtechadvertising.com/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search)\n\n[Watch this week’s Growth Show: What Is GEO?](https://newtechadvertising.com/growth-show/what-is-geo-getting-your-business-ready-for-ai-search)",
+  "selected_articles": [
+    {
+      "source_type": "KnowledgeLibrary",
+      "source_id": "ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search",
+      "title": "What Is GEO? Getting Your Business Ready for AI Search",
+      "url": "https://newtechadvertising.com/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search",
+      "excerpt": "A plain-language lesson about making business knowledge accessible and understandable for people and AI-assisted search.",
+      "reading_time": "10 min read",
+      "featured_image_url": null,
+      "is_lead": true,
+      "display_order": 1
+    }
+  ],
+  "related_video_url": "https://youtu.be/8PQyPhqT_LE",
+  "related_video_title": "What Is GEO? Getting Your Business Ready for AI Search",
+  "related_learning_lesson_ids": [
+    "ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search"
+  ],
+  "cta_text": "Read the full GEO lesson",
+  "cta_url": "https://newtechadvertising.com/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search"
+},
+{
   "issue_number": 14,
   "volume": 1,
   "title": "Issue 14 Follow-up: The Growth Show Is Ready",

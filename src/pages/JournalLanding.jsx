@@ -104,8 +104,7 @@ export default function JournalLanding() {
         !isJournalFollowUp(i) &&
         i.issue_number >= 3 &&
         i.date >= '2026-08-17' &&
-        Boolean(i.from_ricks_desk) &&
-        Boolean(i.newsletter_subject)
+        Boolean(i.from_ricks_desk)
       )
       .sort((a, b) => {
         if ((b.issue_number || 0) !== (a.issue_number || 0)) return (b.issue_number || 0) - (a.issue_number || 0);
