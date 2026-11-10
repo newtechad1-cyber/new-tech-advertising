@@ -1551,4 +1551,17 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://newtechadvertising.com/growth-show/what-is-geo-getting-your-business-ready-for-ai-search</loc>
+    <lastmod>2026-11-10T18:46:46Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/8PQyPhqT_LE/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>What Is GEO? Getting Your Business Ready for AI Search</video:title>
+      <video:description>Rick Hesse and the Free AI Guy explain GEO, why SEO foundations still matter, and how clear customer answers, accessible information, and verification help a business prepare for AI search.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/8PQyPhqT_LE</video:player_loc>
+      <video:publication_date>2026-11-10T18:46:46Z</video:publication_date>
+    </video:video>
+  </url>
 </urlset>
