@@ -5,6 +5,7 @@ import { readingForVideo } from './videoLearningConnections.js';
 // Only videos with a useful, distinct on-site watch experience belong here.
 // Other verified uploads remain discoverable through the gallery and YouTube.
 export const VIDEO_WATCH_IDS = [
+  '8PQyPhqT_LE',
   'wIRtYpEMyD4',
   'wFRRiJu-DHs',
   'uKf9f_JFju8',

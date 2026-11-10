@@ -6,6 +6,14 @@ export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
 {
+  "youtubeId": "8PQyPhqT_LE",
+  "title": "What Is GEO? Getting Your Business Ready for AI Search",
+  "publishedAt": "2026-11-10T18:46:46Z",
+  "galleryCategory": "Growth Show",
+  "relatedUrl": "/growth-show/what-is-geo-getting-your-business-ready-for-ai-search",
+  "summary": "Rick Hesse and the Free AI Guy explain GEO, why SEO foundations still matter, and how clear customer answers, accessible information, and verification help a business prepare for AI search."
+},
+{
   "youtubeId": "wIRtYpEMyD4",
   "title": "I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show",
   "publishedAt": "2026-11-06T14:45:37+00:00",

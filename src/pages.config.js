@@ -3,6 +3,7 @@ import NativeBusinessQuestion2 from './pages/business-planning-guide/questions/h
 import NativeBusinessQuestion3 from './pages/business-planning-guide/questions/is-my-business-idea-worth-pursuing';
 import NativeBusinessQuestion4 from './pages/business-planning-guide/questions/start-a-business-while-working-full-time';
 import NativeBusinessQuestion5 from './pages/business-planning-guide/questions/start-business-without-running-one-before';
+import NativeGrowthEpisode15 from './pages/growth-show/what-is-geo-getting-your-business-ready-for-ai-search';
 import NativeGrowthEpisode14 from './pages/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import JournalIssue14 from './pages/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import JournalIssue14FollowUp from './pages/journal/issue-14-ai-seo-growth-show-video-follow-up';
@@ -270,6 +271,7 @@ const PAGES = {
   'business-planning-guide/questions/is-my-business-idea-worth-pursuing': NativeBusinessQuestion3,
   'business-planning-guide/questions/start-a-business-while-working-full-time': NativeBusinessQuestion4,
   'business-planning-guide/questions/start-business-without-running-one-before': NativeBusinessQuestion5,
+  'growth-show/what-is-geo-getting-your-business-ready-for-ai-search': NativeGrowthEpisode15,
   'growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough': NativeGrowthEpisode14,
   'journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough': JournalIssue14,
   'journal/issue-14-ai-seo-growth-show-video-follow-up': JournalIssue14FollowUp,

@@ -1,5 +1,6 @@
 import AIConfusionLesson from '@/pages/knowledge/ai-foundations/is-using-ai-cheating';
 import IdeasToFinishedWorkLesson from '@/pages/knowledge/ai-foundations/from-ideas-to-finished-work';
+import NativeGrowthEpisode15 from '@/pages/growth-show/what-is-geo-getting-your-business-ready-for-ai-search';
 import NativeGrowthEpisode14 from '@/pages/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import JournalIssue14 from '@/pages/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import JournalIssue14FollowUp from '@/pages/journal/issue-14-ai-seo-growth-show-video-follow-up';
@@ -199,6 +200,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/knowledge/articles/:slug', FlagshipArticle),
   alias('/knowledge/ai-foundations/is-using-ai-cheating', AIConfusionLesson),
   alias('/knowledge/ai-foundations/from-ideas-to-finished-work', IdeasToFinishedWorkLesson),
+  alias('/growth-show/what-is-geo-getting-your-business-ready-for-ai-search', NativeGrowthEpisode15),
   alias('/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough', NativeGrowthEpisode14),
   alias('/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough', JournalIssue14),
   alias('/journal/issue-14-ai-seo-growth-show-video-follow-up', JournalIssue14FollowUp),
