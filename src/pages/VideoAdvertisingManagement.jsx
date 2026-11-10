@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import {
   ArrowRight, ArrowDown, PlayCircle, Video, Package, Tag, HelpCircle,
   CheckCircle2, ClipboardList, FileText, Layers, CalendarClock, Repeat,
-  BarChart3, RefreshCw, MessageSquare, Building2,
+  BarChart3, RefreshCw, MessageSquare, Building2, Search, TrendingUp,
 } from 'lucide-react';
 import MarketingNav from '@/components/nav/MarketingNav';
 import SiteFooter from '@/components/marketing/SiteFooter';
@@ -49,6 +49,7 @@ const VIDEO_TYPES = [
 ];
 
 const MANAGED_ITEMS = [
+  { icon: Search, label: 'Audience and channel research' },
   { icon: ClipboardList, label: 'Advertising and content planning' },
   { icon: FileText, label: 'Video scripting' },
   { icon: Video, label: 'Templated video production' },
@@ -57,9 +58,13 @@ const MANAGED_ITEMS = [
   { icon: CalendarClock, label: 'Scheduling and publishing' },
   { icon: RefreshCw, label: 'Repurposing good content across appropriate channels' },
   { icon: BarChart3, label: 'Performance tracking' },
+  { icon: TrendingUp, label: 'Ongoing advertising improvements' },
 ];
 
-const PUBLISH_CHANNELS = ['Facebook', 'Instagram', 'Google Business Profile', 'YouTube'];
+const PUBLISH_CHANNELS = [
+  'Facebook', 'Instagram', 'TikTok', 'YouTube', 'LinkedIn',
+  'Google Business Profile', 'Pinterest', 'Threads', 'X (Twitter)', 'Bluesky',
+];
 
 const DISCOVERY_QUESTIONS = [
   'What do you need to promote?',
@@ -243,13 +248,13 @@ export default function VideoAdvertisingManagement() {
               Your team already has enough to do. NTA supports the ongoing advertising work that is
               easy to put off when the day-to-day business gets busy.
             </p>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
               {MANAGED_ITEMS.map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-start gap-3 rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                <div key={label} className="flex h-full flex-col items-center gap-3 rounded-2xl border border-slate-800 bg-slate-950 p-5 text-center">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500/15 text-blue-400">
                     <Icon className="h-5 w-5" />
                   </span>
-                  <p className="text-slate-200">{label}</p>
+                  <p className="text-sm font-medium leading-relaxed text-slate-200">{label}</p>
                 </div>
               ))}
             </div>
@@ -258,19 +263,25 @@ export default function VideoAdvertisingManagement() {
               <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
                 Publishing channels
               </p>
-              <div className="mt-4 flex flex-wrap gap-3">
+              <div className="mt-4 grid auto-rows-fr grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
                 {PUBLISH_CHANNELS.map((ch) => (
                   <span
                     key={ch}
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-200"
+                    className="flex min-h-[56px] items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-center text-sm font-medium text-slate-200"
                   >
-                    <PlayCircle className="h-4 w-4 text-blue-400" /> {ch}
+                    <PlayCircle className="h-4 w-4 shrink-0 text-blue-400" />
+                    <span>{ch}</span>
                   </span>
                 ))}
               </div>
-              <p className="mt-5 text-slate-400">
-                Channel mix depends on what is appropriate for the individual business. We do not
-                force every business onto every platform.
+              <p className="mt-5 max-w-4xl leading-relaxed text-slate-300">
+                We research where your customers spend time and which channels fit your business,
+                goals, content, and budget. We consider the channels you prefer, recommend a
+                practical mix, and use performance results to refine it over time.
+              </p>
+              <p className="mt-3 max-w-4xl text-sm leading-relaxed text-slate-400">
+                Your plan can include these and other suitable platforms. The right mix depends
+                on what will help your business reach the people you want to serve.
               </p>
             </div>
           </div>
