@@ -89,19 +89,21 @@ const WORKFLOW_STEPS = [
   },
 ];
 
-function FlowStep({ icon: Icon, label, isLast }) {
+function FlowStep({ icon: Icon, label, isLast, isRowEnd }) {
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 px-4 py-3">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/15 text-blue-400">
+    <div className="relative min-w-0">
+      <div className="flex h-full min-h-[72px] w-full items-center justify-center gap-3 rounded-xl border border-slate-800 bg-slate-900 px-4 py-3">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/15 text-blue-400">
           <Icon className="h-4 w-4" />
         </span>
         <span className="text-sm font-semibold text-white">{label}</span>
       </div>
       {!isLast && (
         <>
-          <ArrowRight className="hidden h-5 w-5 shrink-0 text-blue-500/60 md:block" aria-hidden="true" />
-          <ArrowDown className="h-5 w-5 shrink-0 text-blue-500/60 md:hidden" aria-hidden="true" />
+          {!isRowEnd && (
+            <ArrowRight className="absolute left-full top-1/2 ml-1.5 hidden h-5 w-5 -translate-y-1/2 text-blue-500/60 md:block" aria-hidden="true" />
+          )}
+          <ArrowDown className="absolute left-1/2 top-full mt-1.5 h-5 w-5 -translate-x-1/2 text-blue-500/60 md:hidden" aria-hidden="true" />
         </>
       )}
     </div>
@@ -173,9 +175,15 @@ export default function VideoAdvertisingManagement() {
             </p>
 
             <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-950 p-6 sm:p-8">
-              <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center">
+              <div className="grid auto-rows-fr grid-cols-1 gap-8 md:grid-cols-3">
                 {VIDEO_FLOW.map((step, i) => (
-                  <FlowStep key={step.label} icon={step.icon} label={step.label} isLast={i === VIDEO_FLOW.length - 1} />
+                  <FlowStep
+                    key={step.label}
+                    icon={step.icon}
+                    label={step.label}
+                    isLast={i === VIDEO_FLOW.length - 1}
+                    isRowEnd={(i + 1) % 3 === 0}
+                  />
                 ))}
               </div>
             </div>
