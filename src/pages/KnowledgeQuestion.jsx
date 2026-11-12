@@ -136,9 +136,39 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
                     <div key={example.title} className="rounded-2xl border border-slate-800 bg-slate-950/70 p-6">
                       <h3 className="font-bold text-white mb-2">{example.title}</h3>
                       <p className="leading-7 text-slate-400">{example.text}</p>
+                      {example.link && <Link to={example.link.path} className="mt-4 inline-flex items-center gap-2 font-semibold text-blue-300 underline underline-offset-4">{example.link.label}<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>}
                     </div>
                   ))}
                 </div>
+              </div>
+            </section>
+          )}
+
+          {experience?.worksheet && (
+            <section className="border-b border-slate-800 px-6 py-12" aria-labelledby="question-worksheet-heading">
+              <div className="max-w-4xl mx-auto">
+                <h2 id="question-worksheet-heading" className="text-2xl font-black text-white mb-4">{experience.worksheet.title}</h2>
+                <p className="leading-7 text-slate-300 mb-6">{experience.worksheet.introduction}</p>
+                <p className="mb-3 text-xs leading-5 text-slate-400 sm:hidden">Swipe across the table to compare both approaches.</p>
+                <div className="overflow-x-auto rounded-2xl border border-slate-700">
+                  <table className="w-full min-w-[36rem] text-left text-sm">
+                    <caption className="sr-only">{experience.worksheet.title}</caption>
+                    <thead className="bg-slate-800 text-white">
+                      <tr>
+                        {experience.worksheet.columns.map((column) => <th key={column} scope="col" className="px-4 py-3 font-bold">{column}</th>)}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {experience.worksheet.rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-700 even:bg-slate-900/60">
+                          <th scope="row" className="px-4 py-3 align-top font-semibold text-slate-200">{row[0]}</th>
+                          {row.slice(1).map((cell, index) => <td key={index} className="px-4 py-3 align-top leading-6 text-slate-300">{cell}</td>)}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mt-5 text-sm leading-7 text-slate-400">{experience.worksheet.note}</p>
               </div>
             </section>
           )}

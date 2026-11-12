@@ -822,8 +822,19 @@ function knowledgeQuestionStaticBody(pathname) {
     .join("");
   const exampleMarkup = experience?.examples?.length
     ? '<h2>Practical examples</h2><ul>' + experience.examples
-      .map(example => '<li><strong>' + escapeHtml(example.title) + '</strong>: ' + escapeHtml(example.text) + '</li>')
+      .map(example => '<li><strong>' + escapeHtml(example.title) + '</strong>: ' + escapeHtml(example.text)
+        + (example.link ? ' <a href="' + escapeHtml(example.link.path) + '">' + escapeHtml(example.link.label) + '</a>' : '') + '</li>')
       .join("") + '</ul>'
+    : "";
+  const worksheetMarkup = experience?.worksheet
+    ? '<section class="journal-static-card"><h2>' + escapeHtml(experience.worksheet.title) + '</h2>'
+      + '<p>' + escapeHtml(experience.worksheet.introduction) + '</p><div style="overflow-x:auto"><table>'
+      + '<caption>' + escapeHtml(experience.worksheet.title) + '</caption><thead><tr>'
+      + experience.worksheet.columns.map(column => '<th scope="col">' + escapeHtml(column) + '</th>').join("")
+      + '</tr></thead><tbody>'
+      + experience.worksheet.rows.map(row => '<tr><th scope="row">' + escapeHtml(row[0]) + '</th>'
+        + row.slice(1).map(cell => '<td>' + escapeHtml(cell) + '</td>').join("") + '</tr>').join("")
+      + '</tbody></table></div><p>' + escapeHtml(experience.worksheet.note) + '</p></section>'
     : "";
   const aiRoleMarkup = experience?.aiCanHelp || experience?.aiCannotHelp
     ? '<h2>What AI can and cannot help with</h2>'
@@ -856,6 +867,7 @@ function knowledgeQuestionStaticBody(pathname) {
       <h2>One useful next step</h2>
       <p>${escapeHtml(question.nextStep)}</p>
       ${exampleMarkup}
+      ${worksheetMarkup}
       ${aiRoleMarkup}
       <h2>Explore the teaching behind this answer</h2>
       <nav aria-label="Related NTA resources">${resourceLinks}</nav>

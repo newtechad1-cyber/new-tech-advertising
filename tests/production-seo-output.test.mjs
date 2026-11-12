@@ -525,3 +525,42 @@ test('production text assets do not ship the retired client proposal', () => {
     assert.equal(body.includes('ApplianceOutletCampaignProposal'), false, 'retired source module in ' + file);
   }
 });
+
+test('the six question follow-ons deliver worked examples without changing original publication dates', () => {
+  const slugs = [
+    'why-does-ai-give-bad-answers',
+    'what-should-i-automate-in-my-small-business',
+    'how-can-ai-use-knowledge-already-inside-my-company',
+    'how-can-ai-help-with-social-media-for-my-business',
+    'how-can-employees-use-ai-at-work',
+    'how-do-i-compare-ai-cost-with-business-value',
+  ];
+  for (const slug of slugs) {
+    const question = knowledgeQuestions.find(item => item.slug === slug);
+    assert.ok(question, 'Keep the existing question ' + slug);
+    const html = readOutputForRoute(getKnowledgeQuestionPath(question));
+    assert.match(html, /Illustrative|fictional/i, 'Identify the example honestly: ' + slug);
+    assert.ok(html.includes('"dateModified":"2026-11-12"'), 'Actual revision date: ' + slug);
+    const originalDate = slug === 'how-do-i-compare-ai-cost-with-business-value' ? '2026-09-29' : '2026-09-11';
+    assert.ok(html.includes('"datePublished":"' + originalDate + '"'), 'Original publication date: ' + slug);
+  }
+  const social = readOutputForRoute('/knowledge/questions/how-can-ai-help-with-social-media-for-my-business');
+  assert.ok(social.includes('href="/knowledge/ai-foundations/start-with-the-work-not-the-tool"'));
+  assert.ok(social.includes('href="/knowledge/questions/where-should-i-start-with-ai"'));
+  const visibility = readOutputForRoute('/knowledge/questions/how-can-my-business-show-up-in-chatgpt-and-ai-search');
+  assert.ok(visibility.includes('href="/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search"'));
+});
+
+test('the cost worksheet exposes the full comparison as a semantic table with qualified results', () => {
+  const html = readOutputForRoute('/knowledge/questions/how-do-i-compare-ai-cost-with-business-value');
+  assert.match(html, /<caption>Illustrative monthly cost worksheet<\/caption>/);
+  assert.match(html, /<th scope="col">Usual process<\/th>/);
+  assert.match(html, /<th scope="col">AI trial<\/th>/);
+  assert.match(html, /<th scope="row">One-time setup<\/th>/);
+  assert.ok(html.includes('$100 + $20 + $30 = $150'));
+  assert.ok(html.includes('$100 + $20 = $120'));
+  assert.ok(html.includes('including preparation, review, and corrections'));
+  assert.ok(html.includes('Time freed is capacity you can use elsewhere'));
+  assert.ok(html.includes('fictional figures'));
+});
+

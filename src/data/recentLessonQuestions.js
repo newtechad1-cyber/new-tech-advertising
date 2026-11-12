@@ -336,8 +336,9 @@ export const recentLessonQuestions = [
         "description": "Measure the cost of getting a useful result, not just the subscription price. Include usage, time spent reviewing, reliability, and the work the result saves",
         "answer": "Measure the cost of getting a useful result, not just the subscription price. Include usage, time spent reviewing, reliability, and the work the result saves or improves.",
         "context": "A free plan may have limits; a paid plan may still be wasteful if it does not improve the actual task. The business question is whether the result is worth its full cost.",
-        "nextStep": "For one repeated task, record what you pay, how often you use it, how long review takes, and what becomes easier or better.",
-        "updatedDate": "2026-09-29",
+        "nextStep": "Use the comparison worksheet below for one repeated task. Replace the fictional figures with your own subscription and usage costs, setup time, and complete working time, including review and corrections. Compare the first month separately from later months and check that the finished work meets the same standard.",
+        "publishedDate": "2026-09-29",
+        "updatedDate": "2026-11-12",
         "resources": [
           {
             "title": "Use the Model That Gets the Job Done",
