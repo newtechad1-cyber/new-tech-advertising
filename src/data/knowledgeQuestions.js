@@ -145,12 +145,14 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'why-does-ai-give-bad-answers',
+    publishedDate: '2026-09-11',
+    updatedDate: '2026-11-12',
     question: 'Why does AI give bad answers?',
     seoTitle: 'Why Does AI Give Bad Answers? | NTA',
     description: 'Learn why AI can sound confident while missing facts or context, and how a small business can correct it responsibly.',
     answer: 'AI can sound confident while missing context, making assumptions, or simply being wrong. Treat a polished answer as a starting point: question it, add the facts it lacks, and verify anything important.',
     context: 'AI predicts useful language; it does not own the business consequences of a bad answer. The person closest to the work still has to decide what is accurate, appropriate, and safe to use.',
-    nextStep: 'When an answer feels off, name the missing fact, rule, or example. Then ask AI to revise and show what it is still uncertain about.',
+    nextStep: "Try the worked example below with made-up information first. Put the approved facts beside the AI draft, mark every added claim, and ask for a revision that uses only the facts. Have the person who knows the work check the final answer and any unanswered question.",
     resources: [
       { title: 'Why AI Gives Wrong Answers and How to Correct It', path: '/knowledge/ai-foundations/a-prompt-is-the-beginning-of-a-conversation' },
       { title: 'Why AI Needs Business Context to Be Useful', path: '/knowledge/ai-foundations/ai-needs-context-before-it-can-be-helpful' },
@@ -179,12 +181,14 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'how-can-employees-use-ai-at-work',
+    publishedDate: '2026-09-11',
+    updatedDate: '2026-11-12',
     question: 'Will AI replace employees in a small business?',
     seoTitle: 'Will AI Replace Employees in a Small Business? | NTA',
     description: 'Use AI to support employees with practical approved uses, privacy boundaries, and human accountability—not to replace their judgment or relationships.',
     answer: 'AI can support employees, but it should not replace the judgment, relationships, and accountability people bring to a small business. Give the team approved uses, examples, privacy boundaries, and a person responsible for the final answer.',
     context: 'Good use at work is not about turning people loose with a new tool and hoping for the best. It is about helping people use it in ways that support customers, protect information, and keep responsibility clear.',
-    nextStep: 'Choose two or three approved uses your team can try. Pair each one with a simple rule about what must be checked before anything goes to a customer.',
+    nextStep: "Try the same customer-update task with and without AI. Let the employee check both versions against the original facts. Compare the complete time, corrections, and finished quality together, then agree on the next small improvement. Treat this as a work trial, not evidence about future staffing.",
     resources: [
       { title: 'How AI Can Support a Small Business Team Without Replacing People', path: '/knowledge/business-foundations/ai-is-my-team-not-my-replacement' },
       { title: 'Using AI for Business Decisions Without Giving Up Human Judgment', path: '/knowledge/ai-foundations/ai-can-assist-judgment-it-cannot-own-it' },
@@ -339,12 +343,14 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'how-can-ai-use-knowledge-already-inside-my-company',
+    publishedDate: '2026-09-11',
+    updatedDate: '2026-11-12',
     question: 'How can AI use knowledge already inside my company?',
     seoTitle: 'How Can AI Use Knowledge Already Inside My Company? | NTA',
     description: 'Capture and approve business knowledge first, then give AI trusted context to help people find, organize, and use it.',
     answer: 'Begin by capturing and approving the useful knowledge people already carry—customer questions, procedures, explanations, and hard-won lessons. Then give AI that trusted context so it can help people find, organize, and use it without inventing the business’s judgment.',
     context: 'The most valuable knowledge in a small business often lives in the owner’s head or in the habits of experienced people. AI becomes more useful when that knowledge is made clear enough for a person to review and improve.',
-    nextStep: 'Choose one recurring customer question or process. Write down the answer your best person would give, have the right people approve it, and use that as the first piece of trusted context.',
+    nextStep: "Start with one approved procedure and one recurring customer question. Give the source an owner and review date, limit access to the people who need it, and test whether AI can prepare an answer that stays inside those facts. Keep missing or conflicting information visible for a person to resolve.",
     resources: [
       { title: 'Why AI Works Better When It Learns From the Business', path: '/knowledge/turning-what-a-business-knows-into-an-asset/ai-becomes-more-valuable-when-it-learns-from-the-business' },
       { title: 'Why the Owner’s Knowledge Is a Small Business Asset', path: '/knowledge/turning-what-a-business-knows-into-an-asset/the-most-valuable-knowledge-usually-lives-in-the-owners-head' },
@@ -425,12 +431,14 @@ export const knowledgeQuestions = [
   {
     group: 'marketing-decisions',
     slug: 'how-can-ai-help-with-social-media-for-my-business',
+    publishedDate: '2026-09-11',
+    updatedDate: '2026-11-12',
     question: 'How can AI help with social media for my business?',
     seoTitle: 'How Can AI Help With Social Media for My Business? | NTA',
     description: 'Use AI to prepare and organize more useful social content from real customer questions while keeping the business voice, judgment, and customer path clear.',
     answer: 'AI can help turn real customer questions, service knowledge, and local moments into draft posts, captions, ideas, and a steadier plan. A person still needs to make the content true, useful, and connected to a clear next step.',
     context: 'Social media works best as one doorway in a larger customer path. It should help people understand the business and find useful information, not become a stream of generic activity.',
-    nextStep: 'Choose one question a customer asked this month. Turn the honest answer into a short post, then link interested people to the fuller explanation, proof, or next step on your website.',
+    nextStep: "Choose one approved lesson and one question it answers. Prepare a short post that gives a useful answer in the business’s own voice, then link to the fuller website explanation. Check the facts and destination before publishing, and record any useful questions or inquiries that come back.",
     resources: [
       { title: 'Why a Small Business Website Is More Than a Brochure', path: '/knowledge/what-is-digital-trust/your-website-is-no-longer-just-a-website' },
       { title: 'Start With the Work, Not the Tool', path: '/knowledge/ai-foundations/start-with-the-work-not-the-tool' },
@@ -458,7 +466,7 @@ export const knowledgeQuestions = [
     group: 'trust-and-visibility',
     slug: 'how-can-my-business-show-up-in-chatgpt-and-ai-search',
     publishedDate: '2026-09-11',
-    updatedDate: '2026-10-07',
+    updatedDate: '2026-11-12',
     question: 'How can my business show up in ChatGPT and AI search?',
     seoTitle: 'How Can My Business Show Up in ChatGPT and AI Search? | NTA',
     description: 'Help AI search systems understand a business with accurate, specific, consistent, and useful information across the website and public web—without chasing guarantees.',
@@ -466,6 +474,7 @@ export const knowledgeQuestions = [
     context: 'AI search systems depend on available information and can change their answers. A business improves its chances by clearly explaining services, location or service area, evidence, and customer answers—then keeping those details consistent and current.',
     nextStep: "Choose one important service and one question a customer asks about it. Make the answer publicly accessible, explain your service area, include genuine supporting evidence, and link it from related pages. Check that search systems can crawl the page and that public business details agree. Track relevant queries and inquiries over time; a single AI response is not a reliable visibility measurement.",
     resources: [
+      { title: 'What Is GEO? Getting Your Business Ready for AI Search', path: '/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search' },
       { title: 'AI Visibility Basics', path: '/ai-visibility-basics' },
       { title: 'What Changed Online', path: '/what-changed-online' },
       { title: 'How Owned Digital Assets Support Small Business Growth', path: '/knowledge/what-is-digital-trust/digital-assets-keep-working' }
@@ -475,12 +484,14 @@ export const knowledgeQuestions = [
   {
     group: 'practical-ai',
     slug: 'what-should-i-automate-in-my-small-business',
+    publishedDate: '2026-09-11',
+    updatedDate: '2026-11-12',
     question: 'What should I automate in my small business?',
     seoTitle: 'What Should I Automate in My Small Business? | NTA',
     description: 'Start small-business automation with a clear, repeated, low-risk task and a person accountable for what goes out to customers.',
     answer: 'Automate work that is repeated, clearly understood, and low risk when reviewed: reminders, status updates, organized notes, routine preparation, and handoffs. Keep people responsible for decisions, exceptions, promises, and sensitive customer situations.',
     context: 'Automation works after the business understands the work well enough to explain it. If the process is unclear or the outcome affects a customer in a meaningful way, fix the process and keep human review before automating more.',
-    nextStep: 'Make a two-column list: tasks that repeat the same way and tasks that require judgment. Start with one repeated task, write down its rules, and choose who checks the result.',
+    nextStep: "Choose one repeated process, such as preparing a reply to a new inquiry. Write down what starts it, what information it may use, what it may prepare, and who handles exceptions. Keep sending, prices, appointments, and promises with a person until you have separately approved and tested those actions.",
     resources: [
       { title: 'Automation Comes After Understanding', path: '/knowledge/ai-foundations/automation-comes-after-understanding' },
       { title: 'How to Document a Small Business Process So It Can Be Repeated', path: '/knowledge/turning-what-a-business-knows-into-an-asset/documenting-a-process-makes-knowledge-repeatable' },
