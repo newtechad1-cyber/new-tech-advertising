@@ -6,6 +6,99 @@
  * examples, healthy boundaries for AI, and the next related NTA door.
  */
 export const questionExperienceBySlug = {
+  "why-does-ai-give-bad-answers": {
+    "examples": [
+      {
+        "title": "Illustrative facts and a wrong draft",
+        "text": "Made-up approved facts: a customer requested a service visit; the office will call to arrange it; no date or price is confirmed. A draft saying “We’ll be there tomorrow for $99” has added two promises the facts do not support."
+      },
+      {
+        "title": "Correct it against the source",
+        "text": "Ask: “Use only the approved facts. Remove the invented appointment and price. Tell me what still needs confirmation.” A suitable revised draft would say: “We received your request. Our office will contact you to arrange the visit.”"
+      },
+      {
+        "title": "Check the revision yourself",
+        "text": "Compare the new draft with each source fact. A person still needs to confirm the appointment, price, and any other missing details before including them. A second AI answer can still be wrong, so the revision is not its own proof."
+      }
+    ],
+    "aiCanHelp": "AI can revise a draft, point out missing information, and help compare wording with an approved source.",
+    "aiCannotHelp": "It cannot make an unsupported price or appointment true. The person responsible for the work must verify the facts and the final message."
+  },
+  "how-do-i-compare-ai-cost-with-business-value": {
+    "examples": [
+      {
+        "title": "Use the same task and standard",
+        "text": "The worksheet uses a fictional task: 20 customer-update drafts in a month, each checked by an employee. Both approaches must meet the same factual and service standard before their costs are compared."
+      },
+      {
+        "title": "Count the whole job",
+        "text": "Include gathering information, prompting, review, corrections, and final preparation. Include the task’s share of subscription and usage costs. Record setup separately so the first month does not look the same as an established routine."
+      },
+      {
+        "title": "Give the result a practical meaning",
+        "text": "In this illustration, the first month costs the same under both approaches; a later month uses $30 less in combined time value and tool cost. That difference is an estimate for this example, not a promised saving, payroll reduction, or new revenue."
+      }
+    ],
+    "worksheet": {
+      "title": "Illustrative monthly cost worksheet",
+      "introduction": "Copy this comparison into your notes and replace the fictional figures with your own. The $30 hourly value is an example for valuing time, not a wage recommendation or a measured NTA result.",
+      "columns": [
+        "What to compare",
+        "Usual process",
+        "AI trial"
+      ],
+      "rows": [
+        [
+          "Finished work and quality",
+          "20 checked customer updates",
+          "20 checked customer updates, same standard"
+        ],
+        [
+          "Complete time per update",
+          "15 minutes",
+          "10 minutes, including preparation, review, and corrections"
+        ],
+        [
+          "Monthly working time",
+          "20 × 15 = 300 minutes",
+          "20 × 10 = 200 minutes"
+        ],
+        [
+          "Illustrative value of time",
+          "$30 per hour",
+          "$30 per hour"
+        ],
+        [
+          "Monthly time value",
+          "300 ÷ 60 × $30 = $150",
+          "200 ÷ 60 × $30 = $100"
+        ],
+        [
+          "Added subscription and usage cost",
+          "$0",
+          "$20 per month for this task"
+        ],
+        [
+          "One-time setup",
+          "$0",
+          "60 minutes × $30 per hour = $30"
+        ],
+        [
+          "First-month total",
+          "$150",
+          "$100 + $20 + $30 = $150"
+        ],
+        [
+          "Later-month total",
+          "$150",
+          "$100 + $20 = $120"
+        ]
+      ],
+      "note": "Use the actual time and costs from your trial. Time freed is capacity you can use elsewhere; it becomes a cash saving only if an actual expense falls. If quality drops or review takes longer, include that in the decision."
+    },
+    "aiCanHelp": "AI can help organize the comparison and explain differences after you provide checked inputs.",
+    "aiCannotHelp": "It cannot prove a business return from a fictional worksheet or decide whether the quality and risk fit your business."
+  },
   'how-can-a-small-business-use-ai': {
     examples: [
       {
@@ -86,16 +179,16 @@ export const questionExperienceBySlug = {
   'how-can-employees-use-ai-at-work': {
     examples: [
       {
-        title: 'Prepare, then review',
-        text: 'An employee can use AI to prepare a first draft, organize information, or create a checklist before a person checks it against the actual situation.'
+        "title": "Illustrative workflow: before AI",
+        "text": "An employee reads approved job notes, finds the relevant service details, writes a customer update, checks every fact, and sends it through the business’s usual process. This is a made-up workflow, not a reported client result."
       },
       {
-        title: 'Make approved knowledge easier to use',
-        text: 'A team can use AI to help find or organize trusted procedures and customer explanations instead of depending on one person’s memory.'
+        "title": "The same workflow with AI support",
+        "text": "The employee gives an approved tool only the information it needs and asks for a draft plus a list of missing facts. The employee compares it with the notes, corrects the wording, confirms any promise, and decides when it is ready to send."
       },
       {
-        title: 'Keep customer-facing responsibility clear',
-        text: 'Set simple rules about what must be checked before a message, recommendation, price, or commitment goes to a customer.'
+        "title": "Ask the person doing the work",
+        "text": "Compare complete working time, corrections, and whether the customer receives a clearer update. Ask the employee what became easier and what still caused friction. One trial can guide the next improvement; it does not predict jobs, headcount, or guaranteed time savings."
       }
     ],
     aiCanHelp: 'AI can give a small-business team more support around preparation, organization, and repeated communication.',
@@ -174,16 +267,16 @@ export const questionExperienceBySlug = {
   'how-can-ai-use-knowledge-already-inside-my-company': {
     examples: [
       {
-        title: 'Preserve a good customer answer',
-        text: 'Write down how your best person explains a recurring question, have the right people approve it, and reuse that knowledge instead of starting from scratch.'
+        "title": "Illustrative approved procedure",
+        "text": "Imagine a shop whose team has approved this rule: record the item a customer wants, have a staff member check current availability, and confirm delivery details before making a promise. These are fictional facts for this example, not a real shop’s policy."
       },
       {
-        title: 'Make a process easier to repeat',
-        text: 'Turn a person’s working method into a simple checklist or guide that the team can improve over time.'
+        "title": "Turn the procedure into a reusable answer",
+        "text": "Using only that rule, AI could prepare: “Tell us which item you’re considering. We’ll check availability and confirm the delivery details with you.” A staff member checks the wording against the procedure before adding it to the team’s approved answers."
       },
       {
-        title: 'Help the business remember',
-        text: 'Use trusted context to make customer details, decisions, and next steps easier for the right person to find and use.'
+        "title": "Keep the source and access clear",
+        "text": "Keep the approved procedure with its owner and review date. Give staff access according to their jobs, and share only the relevant approved facts with the AI tool. If a source is missing, out of date, or conflicts with another rule, stop and ask the responsible person."
       }
     ],
     aiCanHelp: 'AI can help people find, organize, and apply approved business knowledge once the business has made that knowledge clear enough to review.',
@@ -285,16 +378,24 @@ export const questionExperienceBySlug = {
   'how-can-ai-help-with-social-media-for-my-business': {
     examples: [
       {
-        title: 'Draft from a real customer question',
-        text: 'Use an approved answer to a customer question as the raw material for a short post, then check that it still sounds like the business and points somewhere useful.'
+        "title": "Begin with an approved lesson",
+        "text": "NTA’s “Start With the Work, Not the Tool” lesson answers a common starting question: where can AI be useful in this business? The lesson supplies the idea; the social post gives someone a short, useful way into it.",
+        "link": {
+          "label": "Read the source lesson",
+          "path": "/knowledge/ai-foundations/start-with-the-work-not-the-tool"
+        }
       },
       {
-        title: 'Plan a steady rhythm',
-        text: 'AI can help organize ideas around seasons, services, events, and recurring questions so the team does not start from zero every time.'
+        "title": "Illustrative post draft",
+        "text": "“AI feels less confusing when it has one clear job. Pick a repeated piece of work, give it the facts it needs, and check the result. What task would you start with? Here’s a practical place to begin.” This is a sample for review, not a published post.",
+        "link": {
+          "label": "Read the fuller answer the post would link to",
+          "path": "/knowledge/questions/where-should-i-start-with-ai"
+        }
       },
       {
-        title: 'Connect the post to the next answer',
-        text: 'Let a post lead to the fuller explanation, proof, service details, or contact path a person needs when they are ready to learn more.'
+        "title": "Follow the response back",
+        "text": "Check that the post and linked page agree. After an approved post is published, record the destination, meaningful questions, visits where available, and any inquiries you can actually trace. Use those responses to improve the next answer."
       }
     ],
     aiCanHelp: 'AI can help prepare and organize social content from real questions and approved information.',
@@ -350,16 +451,16 @@ export const questionExperienceBySlug = {
   'what-should-i-automate-in-my-small-business': {
     examples: [
       {
-        title: 'Routine reminder or handoff',
-        text: 'A clear reminder, status update, or task handoff can be a good early automation when the business knows exactly what should happen and who owns exceptions.'
+        "title": "Illustrative process: a new inquiry",
+        "text": "Imagine a new service request arriving through a website. A fixed rule can place it in the right queue. An AI assistant can help a person summarize it or draft a reply when asked. An agent can choose and carry out steps using tools it has been permitted to use. These are different levels of responsibility."
       },
       {
-        title: 'Organize a repeatable intake',
-        text: 'A simple intake can gather the same needed details each time and present them to the person who should decide what comes next.'
+        "title": "Give it a small, clear job",
+        "text": "In this fictional trial, the system may read the request and approved service facts, prepare an internal summary, and create a draft for review. It may not send the reply, set a price, confirm an appointment, or make a customer promise."
       },
       {
-        title: 'Prepare, rather than decide',
-        text: 'Automate the preparation of a draft, checklist, or summary while a person remains responsible for approval, exceptions, and customer commitments.'
+        "title": "Give exceptions a person",
+        "text": "Missing information, conflicting service details, or an unusual customer situation should go to the named owner with the original request attached. Record what happened and what still needs a decision. Test ordinary and exception cases before approving any wider action."
       }
     ],
     aiCanHelp: 'AI can help automate repeated preparation, organization, reminders, and handoffs after the business has made the process clear.',
