@@ -149,6 +149,7 @@ export default function KnowledgeQuestion({ questionSlugOverride }) {
               <div className="max-w-4xl mx-auto">
                 <h2 id="question-worksheet-heading" className="text-2xl font-black text-white mb-4">{experience.worksheet.title}</h2>
                 <p className="leading-7 text-slate-300 mb-6">{experience.worksheet.introduction}</p>
+                <p className="mb-3 text-xs leading-5 text-slate-400 sm:hidden">Swipe across the table to compare both approaches.</p>
                 <div className="overflow-x-auto rounded-2xl border border-slate-700">
                   <table className="w-full min-w-[36rem] text-left text-sm">
                     <caption className="sr-only">{experience.worksheet.title}</caption>
