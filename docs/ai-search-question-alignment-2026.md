@@ -65,3 +65,25 @@ All nine revised question URLs return 200, indexing-allowed robots directives, c
 The tested five-file source batch is retained in GitHub commit adc1a8002dee760f73e9022981a6033df9818143. Base44 working files contain the improvements, but edit_file reports BACKEND_ERROR/INVALID_ARGUMENT and repeated checkpoints still reference f854f20819f39184882709878921713f048a901d, the previous version. A checkpoint labeled with the new work must not be treated as a verified restore point for it. The attempted harmless save-trigger comment was removed; the working code was returned to the tested source. No new functional change or additional publication was performed in this verification round.
 
 Next priority: repair Base44's source-save and publication handoff, then confirm a changed live asset and all nine revised answers before asking Rick to publish more content. Do not toggle SEO settings again or call this an indexing delay; the current live build itself is still old.
+
+## November 12, 2026 — practical continuation prepared for review
+
+The October 7 record above is historical. Its publication blocker must not be treated as the current state without current evidence. The source now retains the original nine improvements and prepares all six documented follow-ons on branch `qa-practical-examples-2026-11-12`:
+
+- Bad answers: a fictional service-request draft adds an unsupported date and price, then is corrected against approved facts.
+- Automation: one fictional inquiry process distinguishes a fixed routing rule, assistance on request, and an agent's permitted steps, with clear exceptions and a human owner.
+- Company knowledge: a fictional approved procedure becomes a reusable answer, with ownership, review date, and access boundaries.
+- Social media: the approved Start With the Work lesson connects to an illustrative post and the fuller existing question answer.
+- Employees: the same customer-update workflow is compared before and with AI support, without promising staffing or time outcomes.
+- Cost and value: a labeled fictional worksheet includes total working time, review, setup, subscription/usage costs, and first-month versus later-month totals. Time value is distinguished from a cash saving.
+
+The existing AI-search question also links to the approved GEO lesson. No new question URL was introduced. Existing answer text and approved lesson text were preserved. These seven answers have a November 12 modification date; their earlier publication dates are retained.
+
+The example links and cost worksheet are rendered from the same data in the interactive page and generated HTML. The branch is prepared source, not a public release. Rick retains the merge/publication handoff.
+
+### Current delivery evidence
+
+On November 12, the starting-with-AI, AI-search visibility, and cost/value question URLs returned HTTP 200 with their own title, H1, canonical, and index-allowed robots directives to a simulated Googlebot request. Their ordinary initial responses returned the homepage shell and JavaScript bundle. Those observations do not by themselves establish browser rendering or Google indexing. Current Google index and performance data were not obtained in this source work.
+
+Source baseline: Base44 and GitHub main were identical at `07980014f29871dbd91ac805e185f96a486d375e`. Review this isolated continuation, validate its examples and generated output, and verify the public answer pages after Rick publishes. Keep the two proposed gap topics as proposals.
+
