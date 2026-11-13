@@ -25,6 +25,31 @@ export function mergeJournalEditions(seeds, records) {
   );
 }
 
+// Public readers do not receive editorial fields such as the email subject.
+// Identify complete weekly editions using their published, reader-facing content.
+export function getPublicJournalArchive(journals = []) {
+  const canonical = (journals || [])
+    .filter(issue =>
+      issue.status === 'Published' &&
+      !isJournalFollowUp(issue) &&
+      Number.isInteger(issue.issue_number) &&
+      issue.issue_number >= 1 &&
+      issue.date >= '2026-07-28' &&
+      Boolean(issue.from_ricks_desk?.trim())
+    )
+    .sort((a, b) => {
+      const numberOrder = b.issue_number - a.issue_number;
+      if (numberOrder) return numberOrder;
+      const aCanonical = a.slug?.startsWith(`issue-${a.issue_number}-`) ? 1 : 0;
+      const bCanonical = b.slug?.startsWith(`issue-${b.issue_number}-`) ? 1 : 0;
+      return bCanonical - aCanonical || (b.date || '').localeCompare(a.date || '');
+    });
+
+  return canonical.filter((issue, index, all) =>
+    all.findIndex(candidate => candidate.issue_number === issue.issue_number) === index
+  );
+}
+
 export function mergePublicJournalIssues(entities, seeds) {
   const byIssue = new Map(seeds.map(issue => [journalIssueKey(issue), issue]));
   for (const issue of entities || []) {
