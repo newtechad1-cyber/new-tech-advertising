@@ -49,6 +49,42 @@ function listRenderedHtml(directory = distDir) {
   return files;
 }
 
+test('Journal archive initial HTML links to all 15 weekly editions with the newest first', () => {
+  const html = readOutputForRoute('/journal');
+  const data = JSON.parse(fs.readFileSync(path.join(root, 'public', 'ai-sitemap.json'), 'utf8'));
+  const weekly = data.journalIssues.filter(issue =>
+    issue.publicStatus === 'published' && !issue.canonicalUrl.endsWith('-follow-up')
+  );
+  assert.equal(weekly.length, 15);
+  assert.match(html, /data-static-journal-archive="true"/);
+  assert.match(html, /15 published issues/);
+  for (const issue of weekly) {
+    const route = new URL(issue.canonicalUrl).pathname;
+    assert.ok(html.includes('href="' + route + '"'), route);
+    assert.ok(fs.existsSync(path.join(distDir, route.slice(1), 'index.html')), route);
+  }
+  const links = [...html.matchAll(/href="(\/journal\/[^"]+)"/g)].map(match => match[1]);
+  assert.equal(links.length, 15);
+  assert.equal(new Set(links).size, 15);
+  assert.equal(links[0], '/journal/issue-15-can-ai-understand-your-business');
+  assert.doesNotMatch(html, /First Issue Coming Soon|launches with Issue #1|video-follow-up/);
+});
+
+test('Issue 15 has indexable standalone HTML with its approved lesson and video', () => {
+  const route = '/journal/issue-15-can-ai-understand-your-business';
+  const html = readOutputForRoute(route);
+  assert.match(html, /data-static-journal="true"/);
+  assert.match(html, /<h1>Can AI Understand Your Business\?<\/h1>/);
+  assert.match(html, /2026-11-10/);
+  assert.match(html, /This Week’s Challenge/);
+  assert.ok(html.includes('https://youtu.be/8PQyPhqT_LE'));
+  assert.ok(html.includes('/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search'));
+  assert.ok(html.includes('<link rel="canonical" href="https://newtechadvertising.com' + route + '"'));
+  assert.doesNotMatch(html, /<meta name="robots" content="noindex/);
+  const sitemap = fs.readFileSync(path.join(root, 'public', 'sitemap.xml'), 'utf8');
+  assert.ok(sitemap.includes('<loc>https://newtechadvertising.com' + route + '</loc>'));
+});
+
 test('question-first knowledge resources are in every intentional discovery surface', () => {
   const sitemap = fs.readFileSync(path.join(root, 'public', 'sitemap.xml'), 'utf8');
   const aiSitemap = JSON.parse(fs.readFileSync(path.join(root, 'public', 'ai-sitemap.json'), 'utf8'));
