@@ -7,7 +7,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
-import { getPublicJournalArchive } from '@/lib/journalIssueIdentity';
+import { getPublicJournalArchive, getJournalLessonPath } from '@/lib/journalIssueIdentity';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import {
@@ -225,9 +225,9 @@ export default function JournalLanding() {
                         Read the issue <ArrowRight className="ml-1 inline h-3 w-3" />
                       </span>
                     </Link>
-                    {issue.cta_url?.startsWith('/canon/') && (
+                    {getJournalLessonPath(issue) && (
                       <Link
-                        to={issue.cta_url}
+                        to={getJournalLessonPath(issue)}
                         className="mt-4 flex items-center gap-1 border-t border-slate-800 pt-3 text-xs font-bold text-indigo-400 hover:text-indigo-300"
                       >
                         Related Knowledge Library lesson <ArrowRight className="h-3 w-3" />
