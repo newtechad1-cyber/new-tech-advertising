@@ -72,7 +72,9 @@ test('public lesson links accept NTA absolute and relative URLs and reject other
 test('archive UI uses public content and a recoverable load message', () => {
   const landing = readFileSync(new URL('../src/pages/JournalLanding.jsx', import.meta.url), 'utf8');
   const view = readFileSync(new URL('../src/pages/JournalIssueView.jsx', import.meta.url), 'utf8');
-  assert.match(landing, /getPublicJournalArchive\(kg\.journals\)/);
+  assert.match(landing, /getPublicJournalArchive\(sourceJournals\)/);
+  assert.match(landing, /kg\.journals\?\.length \? kg\.journals : SEED_JOURNAL_ENTRIES/);
+  assert.match(landing, /const loading = kg\.loading && !issues\.length/);
   for (const field of restricted) assert.ok(!landing.includes(field), field);
   assert.doesNotMatch(landing, /First Issue Coming Soon|launches with Issue #1/);
   assert.match(landing, /kg\.refresh\(\)/);
