@@ -50,6 +50,18 @@ export function getPublicJournalArchive(journals = []) {
   );
 }
 
+export function getJournalLessonPath(issue) {
+  if (!issue?.cta_url) return null;
+  try {
+    const url = new URL(issue.cta_url, 'https://newtechadvertising.com');
+    if (url.origin !== 'https://newtechadvertising.com' ||
+        !/^\/(?:canon|knowledge)\//.test(url.pathname)) return null;
+    return url.pathname + url.search + url.hash;
+  } catch {
+    return null;
+  }
+}
+
 export function mergePublicJournalIssues(entities, seeds) {
   const byIssue = new Map(seeds.map(issue => [journalIssueKey(issue), issue]));
   for (const issue of entities || []) {
