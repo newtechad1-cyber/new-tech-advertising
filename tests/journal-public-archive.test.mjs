@@ -6,7 +6,7 @@ import { getPublicJournalArchive, getJournalLessonPath, mergePublicJournalIssues
 
 // Use the production seed editions, with exactly the fields public RLS permits.
 const source = readFileSync(new URL('../src/data/canonSeed.js', import.meta.url), 'utf8');
-const seedContext = { YOUTUBE_PLAYLISTS: {} };
+const seedContext = { YOUTUBE_PLAYLISTS: [] };
 vm.runInNewContext(
   source.replace(/^import .*from .*;$/gm, '').replace(/export const /g, 'var ') +
     '\nthis.journals = SEED_JOURNAL_ENTRIES;',
