@@ -17,6 +17,7 @@ import {
   getKnowledgeQuestionPath,
 } from "../src/data/knowledgeQuestions.js";
 import { getQuestionExperience } from "../src/data/questionExperience.js";
+import { getPublicJournalArchive } from "../src/lib/journalIssueIdentity.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
@@ -678,6 +679,29 @@ function journalContentHtml(value) {
       return "<p>" + journalInline(lines.join(" ")) + "</p>";
     })
     .join("");
+}
+
+function journalArchiveStaticBody(pathname) {
+  if (pathname !== '/journal') return '';
+  const issues = getPublicJournalArchive(PUBLISHED_JOURNAL_ISSUES.map(issue => ({
+    ...issue,
+    issue_number: issue.issueNumber,
+    slug: issue.pathname.split('/').pop(),
+    date: issue.datePublished || issue.lastModified,
+    status: issue.publicStatus === 'published' ? 'Published' : 'Draft',
+    series: issue.pathname.endsWith('-follow-up') ? 'NTA Journal Follow-up' : '',
+    from_ricks_desk: issue.sections?.[0]?.body,
+  })));
+  return '<main data-prerendered="true" data-static-journal-archive="true" class="seo-shell"><article>' +
+    '<p class="seo-kicker">Journal Archive</p><h1>Complete editions of The NTA Journal</h1>' +
+    '<p>Read past issues of NTA’s free weekly publication for practical business thinking, useful AI guidance, and honest lessons from doing the work.</p>' +
+    '<p>' + issues.length + ' published issues · Every Tuesday morning CT</p>' +
+    '<p><a href="/nta-journal#subscribe">Learn about the Journal and subscribe</a></p>' +
+    '<h2>Published issues</h2><ol>' +
+    issues.map(issue => '<li><h3><a href="' + escapeHtml(issue.pathname) + '">Issue #' +
+      escapeHtml(issue.issueNumber) + ': ' + escapeHtml(issue.title) + '</a></h3>' +
+      '<p>' + escapeHtml(issue.description || '') + '</p></li>').join('') +
+    '</ol><p><a href="/knowledge">Explore the Knowledge Library</a></p></article></main>';
 }
 
 function journalStaticBody(pathname) {
@@ -1561,7 +1585,8 @@ function shellMarkup(metadata, pathname) {
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(metadata.canonical);
   const heading = escapeHtml(metadata.title.replace(/\s+\|\s+.*$/, ""));
-  const body = growthShowStaticBody(pathname)
+  const body = journalArchiveStaticBody(pathname)
+    || growthShowStaticBody(pathname)
     || podcastStaticBody(pathname)
     || authorityPageStaticBody(pathname)
     || approvedLessonStaticBody(pathname)

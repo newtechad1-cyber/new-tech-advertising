@@ -52,8 +52,8 @@ test('F3 lesson batch runs all three reviewed suites without suppressing failure
   assert.equal(scripts['test:lesson-content'], 'node --experimental-loader=./scripts/resolve-extensionless-modules.mjs --test tests/ai-confusion-lesson.test.mjs tests/ai-foundations-conversation-lesson.test.mjs tests/ai-foundations-editorial.test.mjs');
 });
 
-test('public content permissions regression is wired into CI', () => {
-  assert.equal(scripts['test:public-content-permissions'], 'node --test tests/public-content-permissions.test.mjs');
+test('public permissions and Journal regressions are wired into CI without dropping existing coverage', () => {
+  assert.equal(scripts['test:public-content-permissions'], 'node --test tests/public-content-permissions.test.mjs tests/journal-public-archive.test.mjs tests/journal-follow-up.test.mjs');
 });
 
 test('F3 homepage batch preserves all four reviewed suites and runs accessibility regressions', () => {
