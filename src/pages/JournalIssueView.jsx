@@ -70,7 +70,6 @@ export default function JournalIssueView({ issueSlug }) {
   const slug = issueSlug || routeSlug;
   const kg = useKnowledgeGraph();
   const sourceJournals = kg.journals?.length ? kg.journals : PUBLISHED_SEED_JOURNALS;
-  const loading = kg.loading && !sourceJournals.length;
   const published = useMemo(() =>
     sourceJournals
       .filter(item => item.status === 'Published')
@@ -92,6 +91,8 @@ export default function JournalIssueView({ issueSlug }) {
     const issueNumber = Number.parseInt(match[1], 10);
     return published.find(item => item.issue_number === issueNumber && !isJournalFollowUp(item)) || null;
   }, [published, slug]);
+
+  const loading = kg.loading && !issue;
 
   const weeklyIssues = published.filter(item => !isJournalFollowUp(item));
   const issueIndex = issue ? weeklyIssues.indexOf(issue) : -1;
