@@ -7,6 +7,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
+import { SEED_JOURNAL_ENTRIES } from '@/data/canonSeed';
 import { getPublicJournalArchive, getJournalLessonPath } from '@/lib/journalIssueIdentity';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
@@ -94,8 +95,9 @@ function IssueCard({ issue, featured = false }) {
 
 export default function JournalLanding() {
   const kg = useKnowledgeGraph();
-  const loading = kg.loading;
-  const issues = useMemo(() => getPublicJournalArchive(kg.journals), [kg.journals]);
+  const sourceJournals = kg.journals?.length ? kg.journals : SEED_JOURNAL_ENTRIES;
+  const issues = useMemo(() => getPublicJournalArchive(sourceJournals), [sourceJournals]);
+  const loading = kg.loading && !issues.length;
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState(null);
 
