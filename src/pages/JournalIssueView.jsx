@@ -11,19 +11,13 @@ import SEOHead from '@/components/shared/SEOHead';
 import ContentNextSteps from '@/components/knowledge/ContentNextSteps';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
 import { SEED_JOURNAL_ENTRIES } from '@/data/canonSeed';
-import { isJournalFollowUp } from '@/lib/journalIssueIdentity';
+import { isJournalFollowUp, getPublicJournalArchive, getJournalLessonPath } from '@/lib/journalIssueIdentity';
 import {
   Newspaper, ArrowLeft, ArrowRight, BookOpen, Clock, Calendar,
   ChevronRight, Mail, Pen, Hammer, Lightbulb, Target,
   Rocket, Eye, Tag, Loader2
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-
-// Issues 6 and 8 are publicly published in JournalIssue, while their archived seed statuses lag.
-// The seed is only an initial crawler-readable snapshot until live records load.
-const PUBLISHED_SEED_JOURNALS = SEED_JOURNAL_ENTRIES.map(issue =>
-  [6, 8].includes(issue.issue_number) ? { ...issue, status: 'Published' } : issue
-);
 
 const LucideIcons = { Pen, Hammer, Lightbulb, Target, Rocket, BookOpen };
 import {
@@ -69,7 +63,7 @@ export default function JournalIssueView({ issueSlug }) {
   const { slug: routeSlug } = useParams();
   const slug = issueSlug || routeSlug;
   const kg = useKnowledgeGraph();
-  const sourceJournals = kg.journals?.length ? kg.journals : PUBLISHED_SEED_JOURNALS;
+  const sourceJournals = kg.journals?.length ? kg.journals : SEED_JOURNAL_ENTRIES;
   const loading = kg.loading && !sourceJournals.length;
   const published = useMemo(() =>
     sourceJournals
@@ -93,7 +87,8 @@ export default function JournalIssueView({ issueSlug }) {
     return published.find(item => item.issue_number === issueNumber && !isJournalFollowUp(item)) || null;
   }, [published, slug]);
 
-  const weeklyIssues = published.filter(item => !isJournalFollowUp(item));
+  const weeklyIssues = getPublicJournalArchive(published);
+  const lessonPath = getJournalLessonPath(issue);
   const issueIndex = issue ? weeklyIssues.indexOf(issue) : -1;
   const nextIssue = issueIndex > 0 ? weeklyIssues[issueIndex - 1] : null;
   const prevIssue = issueIndex >= 0 && issueIndex < weeklyIssues.length - 1
@@ -167,13 +162,13 @@ export default function JournalIssueView({ issueSlug }) {
                   </div>
                 )}
 
-                {issue.cta_text && issue.cta_url && issue.cta_url.startsWith('/canon/') && (
+                {issue.cta_text && lessonPath && (
                   <div className="mt-8 mb-6 rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-5">
                     <p className="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-2">
                       Related Knowledge Library lesson
                     </p>
                     <Link
-                      to={issue.cta_url}
+                      to={lessonPath}
                       className="inline-flex items-center gap-2 text-base font-bold text-white hover:text-indigo-300 transition-colors"
                     >
                       {issue.cta_text}
@@ -193,7 +188,7 @@ export default function JournalIssueView({ issueSlug }) {
                       rel="noreferrer"
                       className="inline-flex items-center gap-2 text-base font-bold text-white hover:text-blue-300 transition-colors"
                     >
-                      {issue.related_video_title || 'Meet the Free AI Guy'}
+                      {issue.related_video_title || 'Watch the Growth Show for this issue'}
                       <ArrowRight className="w-4 h-4" />
                     </a>
                   </div>
@@ -271,7 +266,7 @@ export default function JournalIssueView({ issueSlug }) {
                 title={issue.title}
                 path={'/journal/' + (issue.slug || 'issue-' + issue.issue_number)}
                 resources={[
-                  ...(/^\/(?:canon|knowledge)\//.test(issue.cta_url || '') ? [{ title: issue.cta_text, path: issue.cta_url }] : []),
+                  ...(lessonPath ? [{ title: issue.cta_text || 'Read the related lesson', path: lessonPath }] : []),
                   ...(issue.related_video_url ? [{ title: issue.related_video_title || 'The video for this issue', href: issue.related_video_url, kind: 'video' }] : []),
                 ]}
               />
