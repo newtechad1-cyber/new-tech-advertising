@@ -7,7 +7,8 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import MarketingNav from '@/components/nav/MarketingNav';
 import { useKnowledgeGraph } from '@/lib/knowledgeGraph';
-import { isJournalFollowUp } from '@/lib/journalIssueIdentity';
+import { SEED_JOURNAL_ENTRIES } from '@/data/canonSeed';
+import { getPublicJournalArchive, getJournalLessonPath } from '@/lib/journalIssueIdentity';
 import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import {
@@ -94,31 +95,9 @@ function IssueCard({ issue, featured = false }) {
 
 export default function JournalLanding() {
   const kg = useKnowledgeGraph();
-  const loading = kg.loading;
-  const issues = useMemo(() => {
-    const canonical = (kg.journals || [])
-      // The public archive is the weekly NTA Journal, not legacy Knowledge Library
-      // articles/case studies that were historically stored in JournalIssue.
-      .filter(i =>
-        i.status === 'Published' &&
-        !isJournalFollowUp(i) &&
-        i.issue_number >= 3 &&
-        i.date >= '2026-08-17' &&
-        Boolean(i.from_ricks_desk) &&
-        Boolean(i.newsletter_subject)
-      )
-      .sort((a, b) => {
-        if ((b.issue_number || 0) !== (a.issue_number || 0)) return (b.issue_number || 0) - (a.issue_number || 0);
-        const aCanonical = a.slug?.startsWith(`issue-${a.issue_number}-`) ? 1 : 0;
-        const bCanonical = b.slug?.startsWith(`issue-${b.issue_number}-`) ? 1 : 0;
-        return bCanonical - aCanonical;
-      });
-
-    // Keep one canonical record per weekly issue number (there is legacy duplicate data).
-    return canonical.filter((issue, index, all) =>
-      all.findIndex(candidate => candidate.issue_number === issue.issue_number) === index
-    );
-  }, [kg.journals]);
+  const sourceJournals = kg.journals?.length ? kg.journals : SEED_JOURNAL_ENTRIES;
+  const issues = useMemo(() => getPublicJournalArchive(sourceJournals), [sourceJournals]);
+  const loading = kg.loading && !issues.length;
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState(null);
 
@@ -192,14 +171,15 @@ export default function JournalLanding() {
             <div className="max-w-xl mx-auto relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
               <input
-                type="text"
+                type="search"
+                aria-label="Search the Journal"
                 placeholder="Search the Journal..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-4 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 transition-all text-base"
               />
               {searchQuery && (
-                <button onClick={() => setSearchQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+                <button aria-label="Clear Journal search" onClick={() => setSearchQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
                   <X className="w-4 h-4" />
                 </button>
               )}
@@ -247,9 +227,9 @@ export default function JournalLanding() {
                         Read the issue <ArrowRight className="ml-1 inline h-3 w-3" />
                       </span>
                     </Link>
-                    {issue.cta_url?.startsWith('/canon/') && (
+                    {getJournalLessonPath(issue) && (
                       <Link
-                        to={issue.cta_url}
+                        to={getJournalLessonPath(issue)}
                         className="mt-4 flex items-center gap-1 border-t border-slate-800 pt-3 text-xs font-bold text-indigo-400 hover:text-indigo-300"
                       >
                         Related Knowledge Library lesson <ArrowRight className="h-3 w-3" />
@@ -267,6 +247,7 @@ export default function JournalLanding() {
           <div className="flex flex-wrap items-center gap-2 mb-8">
             <button
               onClick={() => setActiveCategory(null)}
+              aria-pressed={!activeCategory}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                 !activeCategory ? 'bg-indigo-500/20 border-indigo-500/30 text-indigo-400' : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:text-white'
               }`}
@@ -291,7 +272,7 @@ export default function JournalLanding() {
             })}
           </div>
           <p className="mt-3 text-xs text-slate-500">
-            Browse by topic. Existing lessons are available now, and future Journal issues will be added to these same topics.
+            Browse published Journal issues by topic, with related Knowledge Library lessons for further reading.
           </p>
 
           {activeCategoryGuide && (
@@ -341,10 +322,18 @@ export default function JournalLanding() {
           ) : issues.length === 0 ? (
             <div className="text-center py-20">
               <Newspaper className="w-16 h-16 text-slate-700 mx-auto mb-4" />
-              <h2 className="text-xl font-bold text-white mb-2">First Issue Coming Soon</h2>
+              <h2 className="text-xl font-bold text-white mb-2">The Journal archive is temporarily unavailable</h2>
               <p className="text-slate-500 max-w-md mx-auto">
-                The NTA Journal launches with Issue #1. Subscribe to be notified.
+                We couldn't load the published issues. Please try again, or explore the Knowledge Library.
               </p>
+              <div className="mt-5 flex flex-wrap justify-center gap-4">
+                <button onClick={() => kg.refresh()} className="rounded-lg bg-indigo-600 px-4 py-2 font-bold text-white hover:bg-indigo-500">
+                  Try again
+                </button>
+                <Link to="/knowledge" className="rounded-lg border border-slate-700 px-4 py-2 font-bold text-indigo-300 hover:text-white">
+                  Browse the Knowledge Library
+                </Link>
+              </div>
             </div>
           ) : (
             <>
@@ -407,7 +396,7 @@ export default function JournalLanding() {
             <h2 className="text-2xl font-bold text-white mb-3">Want the Journal in Your Inbox?</h2>
             <p className="text-slate-400 mb-6">
               Visit the Journal subscription page to see what each edition includes,
-              read the first issue, and join the free Tuesday morning email.
+              browse published issues, and join the free Tuesday morning email.
             </p>
             <Link
               to="/nta-journal#subscribe"
