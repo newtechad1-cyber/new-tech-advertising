@@ -6,6 +6,22 @@ import { flagshipArticleToolsVsSystem } from './flagshipArticles.js';
  */
 export const SEED_GROWTH_SHOW_EPISODES = [
 {
+  "episode_number": 16,
+  "title": "I Build With AI... AI Doesn't Build for Me | NTA Growth Show",
+  "slug": "i-build-with-ai-ai-doesnt-build-for-me",
+  "summary": "Rick Hesse and the Free AI Guy explore why AI makes building easier, while human experience, customer understanding and judgment determine what should be built.",
+  "status": "Published",
+  "featured": true,
+  "youtube_video_id": "UZb4zC5_g7A",
+  "published_date": "2026-11-15",
+  "thumbnail_url": "https://i.ytimg.com/vi/UZb4zC5_g7A/hqdefault.jpg",
+  "source_article_slug": "i-build-with-ai-ai-doesnt-build-for-me",
+  "playlist_slug": "nta-growth-show",
+  "cta_text": "Explore the Knowledge Library",
+  "cta_url": "/knowledge",
+  "audio_status": "Review"
+},
+{
   "id": "6af32a13096020e67edd098a",
   "episode_number": 15,
   "title": "What Is GEO? Getting Your Business Ready for AI Search",
