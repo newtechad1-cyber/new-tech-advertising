@@ -131,7 +131,14 @@ export default function NativeLessonPage014() {
             </div>
           </div>
         </section>
-        <section className="px-6 py-12"><div className="mx-auto max-w-3xl"><ContentNextSteps title={TITLE} path={LESSON_PATH} /></div></section>
+        <section className="px-6 py-12"><div className="mx-auto max-w-3xl"><ContentNextSteps
+          title={TITLE}
+          path={LESSON_PATH}
+          resources={[
+            { title: 'Watch Growth Show Episode 16', href: 'https://youtu.be/UZb4zC5_g7A', kind: 'video' },
+            { title: 'Read NTA Journal Issue 16', path: '/journal/issue-16-i-build-with-ai' },
+          ]}
+        /></div></section>
         <nav className="border-t border-slate-800 px-6 py-8" aria-label="Lesson navigation">
           <div className="mx-auto flex max-w-4xl flex-col justify-between gap-6 sm:flex-row">
             <Link to={PREVIOUS_PATH} className="flex items-center gap-3 rounded-xl p-4 font-bold text-slate-300 hover:bg-slate-900 hover:text-white"><ArrowLeft className="h-5 w-5" />{PREVIOUS_LABEL}</Link>
