@@ -63,8 +63,10 @@ export default function JournalIssueView({ issueSlug }) {
   const { slug: routeSlug } = useParams();
   const slug = issueSlug || routeSlug;
   const kg = useKnowledgeGraph();
-  const sourceJournals = kg.journals?.length ? kg.journals : SEED_JOURNAL_ENTRIES;
-  const loading = kg.loading && !sourceJournals.length;
+  const hasLoadedJournals = Boolean(kg.journals?.length);
+  const sourceJournals = hasLoadedJournals ? kg.journals : SEED_JOURNAL_ENTRIES;
+  // Do not redirect a new dynamic issue while the public Journal records are still loading.
+  const loading = kg.loading && !hasLoadedJournals;
   const published = useMemo(() =>
     sourceJournals
       .filter(item => item.status === 'Published')
