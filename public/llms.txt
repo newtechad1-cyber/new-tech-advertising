@@ -348,6 +348,8 @@ A practical, hype-free introduction to using artificial intelligence in a local 
 
 - [The AI Bubble Isn't What You Think](https://newtechadvertising.com/knowledge/ai-foundations/the-ai-bubble-isnt-what-you-think): Is AI a bubble? Rick Hesse explains why AI companies may fail while AI itself becomes cheaper, more common and more deeply embedded in everyday business and life.
 
+- [The Person Behind the AI Matters](https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters): Why does the person behind the AI matter? Rick Hesse explains how experience, judgment, and continued learning shape useful work, with Appliance Outlet as an example.
+
 ### [AI, Humanity & Responsibility](https://newtechadvertising.com/knowledge/ai-humanity)
 
 Artificial intelligence is more than a new business tool. It reflects the knowledge, contradictions, hopes, fears, wisdom, and brokenness of the people who created it. This collection explores how we can understand AI without worshiping it, fearing it blindly, or surrendering our responsibility to think.
