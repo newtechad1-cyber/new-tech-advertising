@@ -6,6 +6,9 @@ import SiteFooter from '@/components/marketing/SiteFooter';
 import SEOHead from '@/components/shared/SEOHead';
 import { getCollectionBySlug } from '@/data/masterCurriculum';
 import { getJourneyMemory } from '@/lib/journeyMemory';
+import { lesson22 as personBehindAiLesson } from '@/data/aiFoundationsLesson22';
+
+const personBehindAiPath = '/knowledge/ai-foundations/' + personBehindAiLesson.slug;
 
 const learningSections = {
   0: {
@@ -112,6 +115,12 @@ export default function AIFoundationsCollection() {
               </Link>
             </div>
           </div>
+          <Link to={personBehindAiPath} className="mx-auto mt-8 block max-w-3xl rounded-2xl border border-cyan-500/40 bg-cyan-950/20 p-6 text-left hover:border-cyan-300">
+            <span className="text-xs font-bold uppercase tracking-widest text-cyan-300">Latest lesson — Experience and judgment</span>
+            <span className="mt-3 block text-xl font-bold text-white">{personBehindAiLesson.title}</span>
+            <span className="mt-3 block leading-7 text-slate-300">{personBehindAiLesson.description}</span>
+            <span className="mt-4 inline-flex items-center gap-2 font-semibold text-cyan-200">Read the lesson <ChevronRight className="h-4 w-4" aria-hidden="true" /></span>
+          </Link>
           <div className="mx-auto mt-8 grid max-w-3xl gap-4 md:grid-cols-2">
             <Link to="/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search" className="rounded-2xl border border-cyan-500/40 bg-cyan-950/20 p-5 text-left hover:border-cyan-300">
               <span className="text-xs font-bold uppercase tracking-widest text-cyan-300">Newest · AI Search</span>
