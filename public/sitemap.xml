@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -578,7 +578,7 @@
   </url>
   <url>
     <loc>https://newtechadvertising.com/knowledge/ai-foundations</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1568,6 +1568,12 @@
     <loc>https://newtechadvertising.com/journal/issue-15-can-ai-understand-your-business</loc>
     <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 </urlset>
