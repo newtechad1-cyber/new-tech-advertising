@@ -1441,7 +1441,7 @@
       "description": "A practical, hype-free introduction to using artificial intelligence in a local business.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-11-04",
+      "lastModified": "2026-11-20",
       "lessons": [
         {
           "title": "AI Isn't Magic Either",
@@ -1652,6 +1652,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-11-04"
+        },
+        {
+          "title": "The Person Behind the AI Matters",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters",
+          "contentType": "LearningResource",
+          "description": "Why does the person behind the AI matter? Rick Hesse explains how experience, judgment, and continued learning shape useful work, with Appliance Outlet as an example.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-11-20"
         }
       ]
     },

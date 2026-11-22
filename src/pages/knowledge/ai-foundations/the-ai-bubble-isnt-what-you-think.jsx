@@ -102,7 +102,7 @@ export default function AiBubbleLesson() {
           </div>
           <nav aria-label="Lesson navigation" className="mt-10 flex flex-col justify-between gap-6 border-t border-slate-700 pt-7 sm:flex-row">
             <Link to={PREVIOUS_PATH} className="inline-flex items-center gap-2 text-blue-200 underline underline-offset-4"><ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />Previous lesson: I Asked AI to SEO My Website. Why Wasn't That Enough?</Link>
-            <Link to={COLLECTION_PATH} className="inline-flex items-center gap-2 text-blue-200 underline underline-offset-4">Back to AI Foundations<ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" /></Link>
+            <Link to={COLLECTION_PATH + '/the-person-behind-the-ai-matters'} className="inline-flex items-center gap-2 text-blue-200 underline underline-offset-4">Next lesson: The Person Behind the AI Matters<ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" /></Link>
           </nav>
         </div>
       </main>
