@@ -1,10 +1,30 @@
 import { flagshipArticleToolsVsSystem } from './flagshipArticles.js';
+import { lesson22 } from './aiFoundationsLesson22.js';
+
+const PERSON_BEHIND_AI_LESSON_PATH = '/knowledge/ai-foundations/' + lesson22.slug;
 
 /**
  * Explicit public episodes that remain available before Base44 data migration.
  * A Base44 record with the same YouTube ID replaces the seed record.
  */
 export const SEED_GROWTH_SHOW_EPISODES = [
+{
+  id: '6b02ee6faa06b5b7173b8d94',
+  episode_number: 17,
+  title: 'The Person Behind the AI Matters | NTA Growth Show 17',
+  slug: lesson22.slug,
+  summary: lesson22.description,
+  status: 'Published',
+  featured: true,
+  youtube_video_id: '0WvTalkYedk',
+  published_date: '2026-11-22',
+  thumbnail_url: 'https://i.ytimg.com/vi/0WvTalkYedk/hqdefault.jpg',
+  source_article_slug: lesson22.slug,
+  related_journal_issue_ids: [],
+  playlist_slug: 'nta-growth-show',
+  cta_text: 'Read the full lesson',
+  cta_url: PERSON_BEHIND_AI_LESSON_PATH,
+},
 {
   "id": "6af32a13096020e67edd098a",
   "episode_number": 15,
@@ -194,6 +214,15 @@ export const SEED_GROWTH_SHOW_EPISODES = [
  * adapter makes that source available to the relationship graph.
  */
 export const GROWTH_SHOW_SOURCE_ARTICLES = [
+{
+  id: 'lesson-' + lesson22.slug,
+  slug: lesson22.slug,
+  title: lesson22.title,
+  summary: lesson22.description,
+  canonical_url: 'https://newtechadvertising.com' + PERSON_BEHIND_AI_LESSON_PATH,
+  status: 'Published',
+  related_lesson_ids: [],
+},
 {
   "id": "6af329bfe0ca4d76044d8318",
   "slug": "what-is-geo-getting-your-business-ready-for-ai-search",

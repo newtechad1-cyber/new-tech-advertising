@@ -31,7 +31,7 @@ function resolveJournalLinks(overlay, journals, video) {
   const requested = new Set(overlay?.related_journal_issue_ids || []);
   const videoKeys = new Set([video.id, video.youtube_video_id].filter(Boolean));
 
-  return (journals || []).filter(issue => (
+  return (journals || []).filter(issue => issue.status === 'Published' && (
     requested.has(issue.id) ||
     requested.has(issue.slug) ||
     requested.has(String(issue.issue_number)) ||

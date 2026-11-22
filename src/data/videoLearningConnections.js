@@ -1,10 +1,17 @@
 import { VERIFIED_VIDEO_SELECTION } from './videoGallery.js';
+import { lesson22 } from './aiFoundationsLesson22.js';
 
 export const VIDEO_GALLERY_PATH = '/learning-center/videos';
 
 // Editorial topic connections, not claims that a video is a word-for-word
 // recording of the lesson. Add only verified public videos and existing pages.
 export const VIDEO_READING_CONNECTIONS = [
+  {
+    videoId: '0WvTalkYedk',
+    title: 'The Person Behind the AI Matters | NTA Growth Show 17',
+    href: '/knowledge/ai-foundations/' + lesson22.slug,
+    audioPending: true,
+  },
   {"videoId":"8PQyPhqT_LE","title":"What Is GEO? Getting Your Business Ready for AI Search","href":"/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search","audioPending":true},
   {"videoId":"wIRtYpEMyD4","title":"I Asked AI to SEO My Website. Why Wasn’t That Enough? | NTA Growth Show","href":"/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough","audioPending":true},
   { videoId: 'wFRRiJu-DHs', title: 'From Ideas to Finished Work | Putting AI to Work | NTA Growth Show 13', href: '/knowledge/ai-foundations/from-ideas-to-finished-work' },

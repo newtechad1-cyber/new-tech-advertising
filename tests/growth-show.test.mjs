@@ -128,3 +128,21 @@ test('episode lookup accepts canonical slug and YouTube ID', () => {
   assert.equal(findGrowthShowEpisode(episodes, 'a-better-way-to-grow')?.youtubeVideoId, 'abc123');
   assert.equal(findGrowthShowEpisode(episodes, 'abc123')?.slug, 'a-better-way-to-grow');
 });
+
+test('only published journals appear through editorial and video relationships', () => {
+  const episodeRecords = [{
+    status: 'Published',
+    youtube_video_id: video.youtube_video_id,
+    related_journal_issue_ids: ['draft-direct', 'published-direct'],
+  }];
+  const journals = [
+    { id: 'draft-direct', status: 'Draft' },
+    { id: 'draft-video', status: 'Draft', related_video_ids: [video.youtube_video_id] },
+    { id: 'published-direct', status: 'Published' },
+    { id: 'published-video', status: 'Published', related_video_ids: [video.id] },
+  ];
+  const [episode] = buildGrowthShowEpisodes({ videos: [video], episodeRecords, journals });
+
+  assert.deepEqual(episode.journals.map(issue => issue.id), ['published-direct', 'published-video']);
+  assert.deepEqual(episodeRecords[0].related_journal_issue_ids, ['draft-direct', 'published-direct']);
+});

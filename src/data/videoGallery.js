@@ -1,3 +1,5 @@
+import { lesson22 } from './aiFoundationsLesson22.js';
+
 // Public YouTube feed and channel-owned oEmbed metadata verified on 2026-09-17.
 // This selection remains available if the live feed is temporarily unavailable.
 // Do not add draft, private, unlisted, or unverified videos here.
@@ -5,6 +7,14 @@ export const VIDEO_GALLERY_VERIFIED_AT = '2026-10-24';
 export const NTA_YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@RickHesse';
 // Two additional Growth Show uploads verified from the official feed on 2026-09-29.
 export const VERIFIED_VIDEO_SELECTION = [
+{
+  youtubeId: '0WvTalkYedk',
+  title: 'The Person Behind the AI Matters | NTA Growth Show 17',
+  publishedAt: '2026-11-22T08:19:49-08:00',
+  galleryCategory: 'Growth Show',
+  relatedUrl: '/growth-show/' + lesson22.slug,
+  summary: lesson22.description,
+},
 {
   "youtubeId": "8PQyPhqT_LE",
   "title": "What Is GEO? Getting Your Business Ready for AI Search",
