@@ -132,6 +132,64 @@ export const DUPLICATE_GROUPS = [
 // available even before Base44 contains its first JournalIssue record.
 export const SEED_JOURNAL_ENTRIES = [
 {
+  "subtitle": "Experience, judgment, and seeing how everything fits together",
+  "estimated_reading_time": "3 min read",
+  "introduction_headline": null,
+  "introductory_message": null,
+  "closing_message": "You can [read the complete Knowledge Library lesson](https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters) or [watch the Growth Show conversation](https://www.youtube.com/watch?v=0WvTalkYedk). [Open the episode and related resources](https://newtechadvertising.com/growth-show/the-person-behind-the-ai-matters) to keep exploring the idea.",
+  "editor_signature": "Rick Hesse",
+  "selected_articles": [
+    {
+      "source_type": "KnowledgeLibrary",
+      "source_id": "ai-foundations/the-person-behind-the-ai-matters",
+      "title": "The Person Behind the AI Matters",
+      "url": "https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters",
+      "excerpt": "Experience, judgment, connections, and continued learning shape useful work with AI. The business owner’s knowledge belongs in that work.",
+      "reading_time": "7 min read",
+      "featured_image_url": null,
+      "is_lead": true,
+      "display_order": 1
+    }
+  ],
+  "issue_number": 17,
+  "volume": 1,
+  "title": "The Person Behind the AI Matters",
+  "slug": "issue-17-the-person-behind-the-ai-matters",
+  "date": "2026-11-23",
+  "status": "Published",
+  "from_ricks_desk": "A thought came to me as I was thinking about my work: “Nobody can build what I build because they are not me.”\n\nThe more I considered it, the more I understood what I meant. My experiences come into the work with me. So do the questions I ask, the connections I see, and what I’m continually learning.\n\nAnother person may see something I miss. I may recognize a possibility they haven’t considered. And when I work with a business owner, their experience becomes part of what we build together.\n\nThat is why the person behind the AI matters.",
+  "what_we_built": "The work we’re developing with Appliance Outlet is an example. We’re bringing together Scratch and the Appliance Guy, store footage, the phrase “Perfect is overpriced,” and a jingle. I’m thinking about how the personality, message, sound, and actual store can support a recognizable presence.\n\nI’m also thinking about what those pieces could make possible. A longer video can provide material for shorter pieces. A character can introduce an offer or explain a helpful tip. A campaign can send someone to the website for more information.\n\nThis project is still taking shape. Feedback about a voice, a movement, or the footage helps us improve the next version. The client brings knowledge of the store and its customers. I bring ideas about how to connect that knowledge with the possibilities I’m learning.",
+  "what_we_learned": "Years ago, I could see that building websites was becoming easier and more accessible. I started thinking about where my contribution would fit as the tools changed.\n\nI still ask that question. Keeping pace takes learning, trying things, finding limitations, and deciding what may be useful to the people I work with.\n\nSometimes that helps me recognize a need before an owner has put it into words. Then we talk about it. Their priorities, time, and resources help determine whether it deserves attention now.\n\nExperience helps me ask better questions. Continued learning gives us more possibilities to consider.",
+  "what_it_means_for_your_business": "Your experience belongs in the work, too. You know what customers ask, where your team gets stuck, what you’ve already tried, and what matters to you.\n\nBring that knowledge into the conversation when you use AI or work with someone who does. It helps you judge whether an idea fits your business.\n\nThe last Journal was called “I Build With AI. AI Doesn’t Build for Me.” This week, I’m looking more closely at what each of us brings to that work. I still need to understand the problem, provide context, check the result, and keep shaping the work with the client.\n\nEach addition should have a useful purpose and a clear connection to what the business needs.",
+  "this_weeks_challenge": "Choose one project or idea you’re considering. Before choosing another tool, write a few words in response to these questions:\n\n1. What do we need to improve for the customer or the business?\n2. How should this connect with what we already have?\n3. What would we look at to know whether it is helping?\n\nBring those answers into your next conversation about the project. They give you a starting point and a way to review what you build.\n\nI explore this further in the Knowledge Library lesson, [The Person Behind the AI Matters](https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters).\n\nWe bring what we know, learn what we need, and keep shaping the work together.\n\n—Rick",
+  "summary": "Your experience, your questions, and the connections you see help shape useful work. Rick Hesse uses the developing Appliance Outlet work to explore experience, continued learning, and the client’s own knowledge.",
+  "featured_image_url": "https://i.ytimg.com/vi/0WvTalkYedk/hqdefault.jpg",
+  "category": "Founder Reflections",
+  "series": null,
+  "tags": [
+    "AI",
+    "Experience",
+    "Human judgment",
+    "Client collaboration",
+    "Appliance Outlet"
+  ],
+  "related_article_ids": [],
+  "related_video_ids": [
+    "6b0319be9c162780d22420f4"
+  ],
+  "related_video_url": "https://www.youtube.com/watch?v=0WvTalkYedk",
+  "related_video_title": "The Person Behind the AI Matters | NTA Growth Show 17",
+  "related_learning_lesson_ids": [],
+  "related_service_slugs": [],
+  "publishing_article_id": null,
+  "canon_entry_id": null,
+  "author": "Rick Hesse",
+  "featured": true,
+  "cta_text": "Read the Knowledge Library lesson",
+  "cta_url": "https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters",
+  "id": "6b02ee5d06134954a6025290"
+},
+{
   "subtitle": "When building gets easier, experience and judgment matter more.",
   "estimated_reading_time": null,
   "introduction_headline": null,

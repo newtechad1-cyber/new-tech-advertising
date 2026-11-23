@@ -6,6 +6,7 @@ import NativeBusinessQuestion5 from './pages/business-planning-guide/questions/s
 import NativeGrowthEpisode17 from './pages/growth-show/the-person-behind-the-ai-matters';
 import NativeGrowthEpisode15 from './pages/growth-show/what-is-geo-getting-your-business-ready-for-ai-search';
 import NativeGrowthEpisode14 from './pages/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
+import JournalIssue17 from './pages/journal/issue-17-the-person-behind-the-ai-matters';
 import JournalIssue14 from './pages/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import JournalIssue14FollowUp from './pages/journal/issue-14-ai-seo-growth-show-video-follow-up';
 import NativeGrowthEpisode13 from './pages/growth-show/from-ideas-to-finished-work';
@@ -276,6 +277,7 @@ const PAGES = {
   'growth-show/the-person-behind-the-ai-matters': NativeGrowthEpisode17,
   'growth-show/what-is-geo-getting-your-business-ready-for-ai-search': NativeGrowthEpisode15,
   'growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough': NativeGrowthEpisode14,
+  'journal/issue-17-the-person-behind-the-ai-matters': JournalIssue17,
   'journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough': JournalIssue14,
   'journal/issue-14-ai-seo-growth-show-video-follow-up': JournalIssue14FollowUp,
   'growth-show/from-ideas-to-finished-work': NativeGrowthEpisode13,

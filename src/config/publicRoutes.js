@@ -3,6 +3,7 @@ import IdeasToFinishedWorkLesson from '@/pages/knowledge/ai-foundations/from-ide
 import NativeGrowthEpisode17 from '@/pages/growth-show/the-person-behind-the-ai-matters';
 import NativeGrowthEpisode15 from '@/pages/growth-show/what-is-geo-getting-your-business-ready-for-ai-search';
 import NativeGrowthEpisode14 from '@/pages/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
+import JournalIssue17 from '@/pages/journal/issue-17-the-person-behind-the-ai-matters';
 import JournalIssue14 from '@/pages/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import JournalIssue14FollowUp from '@/pages/journal/issue-14-ai-seo-growth-show-video-follow-up';
 import JournalIssue13 from '@/pages/journal/issue-13-from-ideas-to-finished-work';
@@ -204,6 +205,7 @@ export const PUBLIC_ROUTE_ALIASES = [
   alias('/growth-show/the-person-behind-the-ai-matters', NativeGrowthEpisode17),
   alias('/growth-show/what-is-geo-getting-your-business-ready-for-ai-search', NativeGrowthEpisode15),
   alias('/growth-show/i-asked-ai-to-seo-my-website-why-wasnt-that-enough', NativeGrowthEpisode14),
+  alias('/journal/issue-17-the-person-behind-the-ai-matters', JournalIssue17),
   alias('/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough', JournalIssue14),
   alias('/journal/issue-14-ai-seo-growth-show-video-follow-up', JournalIssue14FollowUp),
   alias('/journal/issue-13-from-ideas-to-finished-work', JournalIssue13),
