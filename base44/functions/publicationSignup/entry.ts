@@ -120,6 +120,11 @@ const PUBLICATIONS = Object.freeze({
     tags: [],
     delivery_url: '',
   },
+  'ai-curious': {
+    title: 'AI Curious?',
+    tags: ['free-book-download'],
+    delivery_url: 'https://drive.usercontent.google.com/download?id=1yDbAw76zJlNM0uLpfKnt6T_7YaQi7d_7&export=download',
+  },
   'better-business-book': {
     title: 'The Better Business Building Book',
     tags: ['free-book-download'],
