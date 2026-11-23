@@ -1589,4 +1589,16 @@
       <video:publication_date>2026-11-22T08:19:49-08:00</video:publication_date>
     </video:video>
   </url>
+  <url>
+    <loc>https://newtechadvertising.com/journal/issue-17-the-person-behind-the-ai-matters</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://newtechadvertising.com/journal/issue-16-i-build-with-ai</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
