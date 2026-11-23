@@ -8,20 +8,21 @@ import { getBookByPath } from '@/data/bookSeo.js';
 import PublicationSignupForm from '@/components/publishing/PublicationSignupForm';
 
 const CHAPTERS = [
-  { n: 1, title: 'Why "AI Curious" Instead of "AI Expert"', blurb: 'Curiosity comes first. You do not need to become a technician to start using AI well.' },
-  { n: 2, title: 'What AI Actually Is (Without the Jargon)', blurb: 'A plain description of what artificial intelligence is doing when you use it.' },
-  { n: 3, title: 'What AI Can and Cannot Do Today', blurb: 'Honest limits, so you know where to trust it and where to stay careful.' },
-  { n: 4, title: 'How to Talk to AI So It Actually Helps', blurb: 'The way you ask shapes the answer you get. A simple habit that changes everything.' },
-  { n: 5, title: 'Where AI Fits in an Ordinary Day', blurb: 'Practical examples of everyday tasks AI can support without taking over.' },
-  { n: 6, title: 'Asking Better Questions, Getting Better Answers', blurb: 'How to give AI the context it needs instead of hoping it guesses right.' },
-  { n: 7, title: 'Spotting When AI Is Wrong but Sounds Sure', blurb: 'Why AI can sound confident and still be mistaken, and how to check.' },
-  { n: 8, title: 'Letting AI Handle the Busywork', blurb: 'Which repetitive tasks are safe to hand off and which still need you.' },
-  { n: 9, title: 'Keeping Your Judgment in the Driver\u2019s Seat', blurb: 'AI can assist decisions. It should not own them. How to stay in charge.' },
-  { n: 10, title: 'Privacy, Trust, and What You Share', blurb: 'What to think about before you put personal or business information into AI.' },
-  { n: 11, title: 'Don\u2019t Buy Tools Before You Understand the Work', blurb: 'Why understanding the task first keeps you from spending on the wrong thing.' },
-  { n: 12, title: 'Using AI to Understand Your Own World Better', blurb: 'AI as a mirror that helps you see your work, customers, and ideas more clearly.' },
-  { n: 13, title: 'Small Experiments Before Big Commitments', blurb: 'A low-risk way to try AI on real tasks before you rely on it.' },
-  { n: 14, title: 'Staying Curious: A Simple Way to Keep Learning', blurb: 'How to keep growing with AI one honest question at a time.' },
+  { n: 1, title: "What Does Any of This Have to Do with Me?" },
+  { n: 2, title: "AI Without the Technical Lecture" },
+  { n: 3, title: "Your First Conversation" },
+  { n: 4, title: "That Isn't What I Meant" },
+  { n: 5, title: "Help Me Understand This" },
+  { n: 6, title: "Help Me Find the Words" },
+  { n: 7, title: "Help Me Sort Out My Thoughts" },
+  { n: 8, title: "Help Me Plan Everyday Life" },
+  { n: 9, title: "Help Me Preserve What Matters" },
+  { n: 10, title: "A Confident Answer Can Still Be Wrong" },
+  { n: 11, title: "What to Share and What to Keep Private" },
+  { n: 12, title: "You Are Still the One Who Decides" },
+  { n: 13, title: "Keep What Helps. Leave What Doesn't." },
+  { n: 14, title: "Don't Let Fear Make the Decision" },
+  { n: 15, title: "Stay Curious" },
 ];
 
 export default function AICurious() {
@@ -94,11 +95,11 @@ export default function AICurious() {
           </div>
         </section>
 
-        {/* 3. 14-chapter structure */}
+        {/* 3. Approved chapter structure */}
         <section className="border-t border-slate-800 bg-slate-900/40 px-6 py-20">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto mb-12 max-w-3xl text-center">
-              <h2 className="text-3xl font-bold text-white md:text-4xl">The 14 Chapters</h2>
+              <h2 className="text-3xl font-bold text-white md:text-4xl">The 15 Chapters</h2>
               <p className="mt-5 text-lg leading-8 text-slate-300">
                 Short, readable chapters that build one idea at a time. Read them in order or jump to the question
                 you are most curious about.
@@ -113,7 +114,6 @@ export default function AICurious() {
                     </span>
                     <h3 className="text-base font-bold leading-snug text-white">{ch.title}</h3>
                   </div>
-                  <p className="mt-3 text-sm leading-6 text-slate-400">{ch.blurb}</p>
                 </div>
               ))}
             </div>
