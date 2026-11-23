@@ -1871,6 +1871,55 @@
       "closingMessage": "You can [read the complete Knowledge Library lesson](https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters) or [watch the Growth Show conversation](https://www.youtube.com/watch?v=0WvTalkYedk). [Open the episode and related resources](https://newtechadvertising.com/growth-show/the-person-behind-the-ai-matters) to keep exploring the idea."
     },
     {
+      "issueNumber": 16,
+      "title": "I Build With AI. AI Doesn't Build for Me.",
+      "subtitle": "When building gets easier, experience and judgment matter more.",
+      "canonicalUrl": "https://newtechadvertising.com/journal/issue-16-i-build-with-ai",
+      "contentType": "Newsletter",
+      "description": "Rick Hesse explains why easier AI-assisted building increases the importance of experience, judgment and understanding a business's real needs.",
+      "author": "Rick Hesse",
+      "publisher": "New Tech Advertising",
+      "publicStatus": "published",
+      "lastModified": "2026-11-17",
+      "datePublished": "2026-11-17",
+      "sections": [
+        {
+          "heading": "From Rick's Desk",
+          "body": "I've been watching website building get easier for more than a decade. I knew the day was coming when almost anyone could put a website together. AI has accelerated that change. But I don't believe easier building means the thinking behind it has become less important. It means the opposite. I build with AI. AI doesn't build for me."
+        },
+        {
+          "heading": "What We Built",
+          "body": "This week I developed a lesson and Growth Show conversation about how I work with AI. The Free AI Guy and I talk about the difference between making something quickly and understanding what a business actually needs."
+        },
+        {
+          "heading": "What We Learned",
+          "body": "A website is not the business strategy. AI can help write code, organize content, and create pages. It cannot replace the years of experience, relationships, questions, and judgment that tell me what needs to be built and why."
+        },
+        {
+          "heading": "What It Means For Your Business",
+          "body": "Before asking AI to build a website or marketing system, ask what problem you're trying to solve. Who are you helping? What does a customer need to understand? How will you know the finished work is useful? Let AI help you build, but keep your judgment in the process."
+        },
+        {
+          "heading": "This Week's Challenge",
+          "body": "Think of one task you're asking AI to do. Can you explain why that task matters to your customer or business? If not, spend a little time on that question before generating another result."
+        }
+      ],
+      "featuredVideo": {
+        "source_id": "UZb4zC5_g7A",
+        "source_type": "YouTube",
+        "title": "I Build With AI... AI Doesn't Build for Me | NTA Growth Show",
+        "url": "https://youtu.be/UZb4zC5_g7A",
+        "duration": null,
+        "description": "Rick Hesse and the Free AI Guy discuss why AI-assisted production still needs human experience and judgment.",
+        "cta_text": "Watch Episode 16"
+      },
+      "cta": {
+        "text": "Watch Episode 16",
+        "url": "https://youtu.be/UZb4zC5_g7A"
+      },
+      "closingMessage": "[Watch Episode 16 of the NTA Growth Show](https://youtu.be/UZb4zC5_g7A)\n\nExplore more practical lessons in the [NTA Knowledge Library](https://newtechadvertising.com/knowledge)."
+    },
+    {
       "issueNumber": 15,
       "title": "Can AI Understand Your Business?",
       "subtitle": "What GEO means, why your experience matters, and one useful place to start.",

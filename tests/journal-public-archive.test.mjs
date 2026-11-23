@@ -18,18 +18,20 @@ const restricted = Object.keys(schema.properties).filter(key => schema.propertie
 const publicRecord = issue => Object.fromEntries(Object.entries(issue).filter(([key]) => !restricted.includes(key)));
 const publicIssues = seeds.map(publicRecord);
 
-test('all 15 weekly issues remain visible without any admin-only email fields', () => {
+test('all 17 weekly issues remain visible without any admin-only email fields', () => {
   const archive = getPublicJournalArchive(publicIssues);
-  assert.deepEqual(archive.map(issue => issue.issue_number), Array.from({ length: 15 }, (_, i) => 15 - i));
-  assert.equal(archive[0].slug, 'issue-15-can-ai-understand-your-business');
-  assert.equal(archive[0].related_video_url, 'https://youtu.be/8PQyPhqT_LE');
+  assert.deepEqual(archive.map(issue => issue.issue_number), Array.from({ length: 17 }, (_, i) => 17 - i));
+  assert.equal(archive[0].slug, 'issue-17-the-person-behind-the-ai-matters');
+  assert.equal(archive[0].date, '2026-11-23');
+  assert.equal(archive[0].related_video_url, 'https://www.youtube.com/watch?v=0WvTalkYedk');
+  assert.equal(archive.find(issue => issue.issue_number === 15).related_video_url, 'https://youtu.be/8PQyPhqT_LE');
   assert.ok(archive.every(issue => restricted.every(key => !(key in issue))));
   assert.equal(archive.find(issue => issue.issue_number === 1).slug, 'issue-1-the-system-behind-the-work');
   assert.equal(archive.find(issue => issue.issue_number === 2).slug, 'issue-2-what-i-learned-while-rebuilding-nta');
 });
 
 test('drafts, archived records, legacy articles, follow-ups and duplicates stay out of the weekly archive', () => {
-  const issue = publicIssues.find(item => item.issue_number === 15);
+  const issue = publicIssues.find(item => item.issue_number === 17);
   const before = JSON.stringify(publicIssues);
   const records = [
     ...publicIssues,
@@ -41,7 +43,7 @@ test('drafts, archived records, legacy articles, follow-ups and duplicates stay 
     { ...issue, slug: 'older-alias' },
   ];
   const archive = getPublicJournalArchive(records);
-  assert.equal(archive.length, 15);
+  assert.equal(archive.length, 17);
   assert.equal(archive[0].slug, issue.slug);
   assert.equal(JSON.stringify(publicIssues), before);
   assert.deepEqual(getPublicJournalArchive(), []);
@@ -52,10 +54,35 @@ test('public saved editions replace snapshots without depending on newsletter_su
   const issue = publicIssues.find(item => item.issue_number === 15);
   const saved = { ...issue, id: 'saved-public', title: 'Saved published title' };
   const archive = getPublicJournalArchive(mergePublicJournalIssues([saved], seeds));
-  assert.equal(archive[0].id, 'saved-public');
-  assert.equal(archive[0].title, saved.title);
-  assert.equal(archive.length, 15);
+  const mergedIssue = archive.find(item => item.issue_number === 15);
+  assert.equal(mergedIssue.id, 'saved-public');
+  assert.equal(mergedIssue.title, saved.title);
+  assert.equal(archive[0].issue_number, 17);
+  assert.equal(archive.length, 17);
 });
+test('Issues 16 and 17 preserve their approved teaching in the static archive source', () => {
+  const data = JSON.parse(readFileSync(new URL('../public/ai-sitemap.json', import.meta.url), 'utf8'));
+  const fields = ['from_ricks_desk', 'what_we_built', 'what_we_learned', 'what_it_means_for_your_business', 'this_weeks_challenge'];
+  for (const number of [16, 17]) {
+    const issue = publicIssues.find(item => item.issue_number === number);
+    const matches = data.journalIssues.filter(item => item.issueNumber === number);
+    assert.equal(matches.length, 1);
+    const entry = matches[0];
+    assert.equal(entry.canonicalUrl, 'https://newtechadvertising.com/journal/' + issue.slug);
+    assert.equal(entry.datePublished, issue.date);
+    assert.equal(entry.publicStatus, 'published');
+    assert.deepEqual(entry.sections.map(section => section.body), fields.map(field => issue[field]));
+    assert.equal(entry.featuredVideo.url, issue.related_video_url);
+    assert.equal(entry.closingMessage, issue.closing_message);
+  }
+  const issue = publicIssues.find(item => item.issue_number === 17);
+  assert.equal(issue.id, '6b02ee5d06134954a6025290');
+  assert.equal(getJournalLessonPath(issue), '/knowledge/ai-foundations/the-person-behind-the-ai-matters');
+  assert.match(issue.closing_message, /https:\/\/newtechadvertising\.com\/growth-show\/the-person-behind-the-ai-matters/);
+  const native = readFileSync(new URL('../src/pages/journal/' + issue.slug + '.jsx', import.meta.url), 'utf8');
+  assert.ok(native.includes('issueSlug="' + issue.slug + '"'));
+});
+
 
 test('public lesson links accept NTA absolute and relative URLs and reject other destinations', () => {
   const path = '/knowledge/ai-foundations/what-is-geo-getting-your-business-ready-for-ai-search';

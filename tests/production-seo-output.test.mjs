@@ -49,24 +49,25 @@ function listRenderedHtml(directory = distDir) {
   return files;
 }
 
-test('Journal archive initial HTML links to all 15 weekly editions with the newest first', () => {
+test('Journal archive initial HTML links to all 17 weekly editions with the newest first', () => {
   const html = readOutputForRoute('/journal');
   const data = JSON.parse(fs.readFileSync(path.join(root, 'public', 'ai-sitemap.json'), 'utf8'));
   const weekly = data.journalIssues.filter(issue =>
     issue.publicStatus === 'published' && !issue.canonicalUrl.endsWith('-follow-up')
   );
-  assert.equal(weekly.length, 15);
+  assert.equal(weekly.length, 17);
   assert.match(html, /data-static-journal-archive="true"/);
-  assert.match(html, /15 published issues/);
+  assert.match(html, /17 published issues/);
   for (const issue of weekly) {
     const route = new URL(issue.canonicalUrl).pathname;
     assert.ok(html.includes('href="' + route + '"'), route);
     assert.ok(fs.existsSync(path.join(distDir, route.slice(1), 'index.html')), route);
   }
   const links = [...html.matchAll(/href="(\/journal\/[^"]+)"/g)].map(match => match[1]);
-  assert.equal(links.length, 15);
-  assert.equal(new Set(links).size, 15);
-  assert.equal(links[0], '/journal/issue-15-can-ai-understand-your-business');
+  assert.equal(links.length, 17);
+  assert.equal(new Set(links).size, 17);
+  assert.equal(links[0], '/journal/issue-17-the-person-behind-the-ai-matters');
+  assert.equal(links[1], '/journal/issue-16-i-build-with-ai');
   assert.doesNotMatch(html, /First Issue Coming Soon|launches with Issue #1|video-follow-up/);
 });
 
@@ -83,6 +84,51 @@ test('Issue 15 has indexable standalone HTML with its approved lesson and video'
   assert.doesNotMatch(html, /<meta name="robots" content="noindex/);
   const sitemap = fs.readFileSync(path.join(root, 'public', 'sitemap.xml'), 'utf8');
   assert.ok(sitemap.includes('<loc>https://newtechadvertising.com' + route + '</loc>'));
+});
+
+test('Issue 17 initial HTML preserves every teaching paragraph and its lesson, video and episode links', () => {
+  const route = '/journal/issue-17-the-person-behind-the-ai-matters';
+  const data = JSON.parse(fs.readFileSync(path.join(root, 'public', 'ai-sitemap.json'), 'utf8'));
+  const issue = data.journalIssues.find(item => item.issueNumber === 17);
+  assert.ok(issue);
+  assert.equal(issue.sections.length, 5);
+  const decode = value => value
+    .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+  const normalize = value => value.replace(/\s+/g, ' ').trim();
+  for (const outputPath of [
+    path.join(distDir, route.slice(1) + '.html'),
+    path.join(distDir, route.slice(1), 'index.html'),
+  ]) {
+    const html = fs.readFileSync(outputPath, 'utf8');
+    assert.match(html, /data-static-journal="true"/);
+    assert.match(html, /<h1>The Person Behind the AI Matters<\/h1>/);
+    assert.match(html, /2026-11-23/);
+    assert.ok(html.includes('<link rel="canonical" href="https://newtechadvertising.com' + route + '"'));
+    assert.doesNotMatch(html, /<meta name="robots" content="noindex/);
+    const text = normalize(decode(html
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<\/(?:p|li|h[1-6]|section|div)>/g, ' ')
+      .replace(/<[^>]*>/g, '')));
+    let previous = -1;
+    for (const section of issue.sections) {
+      for (const paragraph of section.body.split(/\n{2,}/)) {
+        const expected = normalize(paragraph
+          .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+          .replace(/^\d+\.\s+/gm, ''));
+        const at = text.indexOf(expected, previous + 1);
+        assert.ok(at > previous, section.heading + ': ' + expected);
+        previous = at;
+      }
+    }
+    for (const url of [
+      'https://www.youtube.com/watch?v=0WvTalkYedk',
+      'https://newtechadvertising.com/knowledge/ai-foundations/the-person-behind-the-ai-matters',
+      'https://newtechadvertising.com/growth-show/the-person-behind-the-ai-matters',
+    ]) assert.ok(html.includes('href="' + url + '"'), url);
+  }
+  const sitemap = fs.readFileSync(path.join(root, 'public', 'sitemap.xml'), 'utf8');
+  assert.equal(sitemap.split('<loc>https://newtechadvertising.com' + route + '</loc>').length - 1, 1);
 });
 
 test('question-first knowledge resources are in every intentional discovery surface', () => {

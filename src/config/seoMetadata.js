@@ -622,6 +622,7 @@ const PRIVATE_PREFIXES = [
 // their first segment resembles a public content family.
 const PUBLISHED_JOURNAL_PATHS = [
   "/journal/issue-17-the-person-behind-the-ai-matters",
+  "/journal/issue-16-i-build-with-ai",
   "/journal/issue-15-can-ai-understand-your-business",
   "/journal/issue-14-i-asked-ai-to-seo-my-website-why-wasnt-that-enough",
   "/journal/issue-14-ai-seo-growth-show-video-follow-up",
