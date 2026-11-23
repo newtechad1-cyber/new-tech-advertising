@@ -225,6 +225,29 @@ function bookSignupPayload([key, title, fileId] = configuredBooks[0]) {
   };
 }
 
+test('AI Curious page: form metadata is accepted by the signup handler', async () => {
+  const pageSource = readFileSync(path.join(root, 'src/pages/AICurious.jsx'), 'utf8');
+  const formProp = (name) => {
+    const value = pageSource.match(new RegExp('\\b' + name + '="([^"]+)"'))?.[1];
+    assert.ok(value, 'Missing ' + name + ' on the AI Curious page');
+    return value;
+  };
+  const payload = {
+    ...bookSignupPayload(),
+    publication_tag: formProp('publicationTag'),
+    publication_title: formProp('publicationTitle'),
+    delivery_url: formProp('downloadUrl'),
+  };
+  assert.equal(payload.publication_tag, 'ai-curious');
+  assert.equal(payload.publication_title, 'AI Curious?');
+  const fixture = setup('publicationSignup');
+  const response = await fixture.request(payload);
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).success, true);
+  const delivery = fixture.stats.entityCreates.find(item => item.entity === 'PublicationDeliveryRequest').value;
+  assert.equal(delivery.delivery_url, payload.delivery_url);
+});
+
 for (const book of configuredBooks) {
   test('publicationSignup: ' + book[0] + ' uses configured delivery and publication-only consent', async () => {
     const fixture = setup('publicationSignup');
