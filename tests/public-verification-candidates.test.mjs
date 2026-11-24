@@ -208,15 +208,15 @@ test('publicationSignup: server requires explicit publication consent', async ()
 });
 
 const configuredBooks = [
-  ['ai-curious', 'AI Curious?', '1yDbAw76zJlNM0uLpfKnt6T_7YaQi7d_7'],
-  ['better-business-book', 'The Better Business Building Book', '1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9'],
-  ['practical-ai-for-small-business', 'Practical AI for Small Business', '11nq430-bcstci_fuOP8Fm9g2xTk2n0yl'],
+  ['ai-curious', 'AI Curious?', 'https://media.base44.com/files/public/691f41a18de4a7f498c8f884/15cf65799ba4e51e72e96bca7e607761_AI_Curious_Rick_Hesse_Reader_Edition.pdf'],
+  ['better-business-book', 'The Better Business Building Book', 'https://drive.usercontent.google.com/download?id=1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9&export=download'],
+  ['practical-ai-for-small-business', 'Practical AI for Small Business', 'https://drive.usercontent.google.com/download?id=11nq430-bcstci_fuOP8Fm9g2xTk2n0yl&export=download'],
 ];
-function bookSignupPayload([key, title, fileId] = configuredBooks[0]) {
+function bookSignupPayload([key, title, deliveryUrl] = configuredBooks[0]) {
   return {
     name: 'Test Reader', email: 'book-regression@example.invalid',
     publication_tag: key, publication_title: title,
-    delivery_url: 'https://drive.usercontent.google.com/download?id=' + fileId + '&export=download',
+    delivery_url: deliveryUrl,
     create_delivery_request: true, consent: true,
     verification_token: 'isolated-book-proof',
     source: 'ai_curious_free_download',
@@ -240,6 +240,8 @@ test('AI Curious page: form metadata is accepted by the signup handler', async (
   };
   assert.equal(payload.publication_tag, 'ai-curious');
   assert.equal(payload.publication_title, 'AI Curious?');
+  assert.equal(payload.delivery_url, configuredBooks[0][2]);
+  assert.equal(formProp('viewerUrl'), payload.delivery_url);
   const fixture = setup('publicationSignup');
   const response = await fixture.request(payload);
   assert.equal(response.status, 200);
