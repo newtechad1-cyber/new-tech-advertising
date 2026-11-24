@@ -1,5 +1,19 @@
 // Verified audio metadata keyed by existing episode identity.
 export const GROWTH_SHOW_AUDIO = {
+  "0WvTalkYedk": {
+    "audio_status": "Ready",
+    "audio_url": "https://newtechadvertising.com/audio/growth-show/0WvTalkYedk.mp3",
+    "audio_content_type": "audio/mpeg",
+    "audio_byte_length": 4907180,
+    "audio_duration_seconds": 306.672,
+    "audio_source_url": "https://www.youtube.com/watch?v=0WvTalkYedk",
+    "audio_verified_at": "2026-11-24T14:20:00Z",
+    "audio_complete": true,
+    "audio_sound_checked": true,
+    "audio_seek_checked": true,
+    "audio_verification_method": "Complete 306.661-second final YouTube program downloaded and converted to MP3 without regenerated narration. MP3 duration 306.672 seconds; full FFmpeg decode passed; first and last 12 seconds contain non-silent signal; local byte-range delivery verified in the production preview. Human whole-program listening is not claimed.",
+    "audio_sha256": "dbf4b9c4feb0d5eb5bd9133886cabd36d4ff7786627aaccd9c02a612bc36909a"
+  },
   "uKf9f_JFju8": {
     "audio_status": "Ready",
     "audio_url": "https://newtechadvertising.com/audio/growth-show/uKf9f_JFju8.mp3",
