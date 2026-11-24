@@ -123,7 +123,7 @@ const PUBLICATIONS = Object.freeze({
   'ai-curious': {
     title: 'AI Curious?',
     tags: ['free-book-download'],
-    delivery_url: 'https://drive.usercontent.google.com/download?id=1yDbAw76zJlNM0uLpfKnt6T_7YaQi7d_7&export=download',
+    delivery_url: 'https://media.base44.com/files/public/691f41a18de4a7f498c8f884/15cf65799ba4e51e72e96bca7e607761_AI_Curious_Rick_Hesse_Reader_Edition.pdf',
   },
   'better-business-book': {
     title: 'The Better Business Building Book',
