@@ -7,7 +7,7 @@ export const GROWTH_SHOW_AUDIO = {
     "audio_byte_length": 4907180,
     "audio_duration_seconds": 306.672,
     "audio_source_url": "https://www.youtube.com/watch?v=0WvTalkYedk",
-    "audio_verified_at": "2026-11-24T14:20:00Z",
+    "audio_verified_at": "2026-11-24T14:16:39Z",
     "audio_complete": true,
     "audio_sound_checked": true,
     "audio_seek_checked": true,
