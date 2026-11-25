@@ -15,7 +15,7 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit -p ./jsconfig.json",
     "preview": "vite preview",
-    "test:backend-auth": "node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs",
+    "test:backend-auth": "node --test tests/backend-auth-boundaries.test.mjs tests/public-verification-candidates.test.mjs tests/public-verification-client.test.mjs tests/publication-email-delivery.test.mjs",
     "test:tracking": "node --test tests/public-tracking.test.mjs tests/public-verification-client.test.mjs",
     "test:analytics-reporting": "node --test tests/analytics-reporting.test.mjs",
     "check:release": "npm run check:ci",
