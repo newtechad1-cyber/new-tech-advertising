@@ -109,7 +109,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Invalid tracking request.' }, { status: 400 });
     }
 
-    if (!['better-business-book', 'practical-ai-for-small-business'].includes(payload.book_key)
+    if (!['ai-curious', 'better-business-book', 'practical-ai-for-small-business'].includes(payload.book_key)
       || !['access_request', 'download_click', 'read_online_click'].includes(payload.event_type)) {
       return Response.json({ error: 'Invalid book event.' }, { status: 400 });
     }

@@ -35,7 +35,7 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
   });
   assert.equal((output.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
   let handler;
-  const stats = { effects: 0, provider: 0, serviceCalls: [], crossAppCalls: [], errorLogs: [] };
+  const stats = { effects: 0, provider: 0, serviceCalls: [], crossAppCalls: [], errorLogs: [], entityCreates: [] };
   const used = new Set();
   let discovery = {};
   let categories = [];
@@ -60,12 +60,12 @@ function setup(name, { env = settings, user = null, result = {}, networkError = 
       DiscoveryAuditEvent: { create: counted({ id: 'test-event' }) },
       TrialAccount: { create: counted({ id: 'test-trial' }), update: counted({ id: 'test-trial' }) },
       BusinessProfile: { create: counted({ id: 'test-profile' }) },
-      Subscriber: { filter: counted([]), create: counted({ id: 'test-subscriber' }) },
-      PublicationDeliveryRequest: { create: counted({ id: 'test-delivery' }) },
+      Subscriber: { filter: counted([]), async create(value) { stats.effects++; stats.entityCreates.push({ entity: 'Subscriber', value }); return { id: 'test-subscriber' }; } },
+      PublicationDeliveryRequest: { async create(value) { stats.effects++; stats.entityCreates.push({ entity: 'PublicationDeliveryRequest', value }); return { id: 'test-delivery' }; } },
     },
   };
   vm.runInNewContext(output.outputText, {
-    exports: {}, Request, Response, Headers, URL, AbortSignal, TextEncoder, TextDecoder, crypto: webcrypto,
+    exports: {}, Request, Response, Headers, URL, AbortSignal, TextEncoder, TextDecoder, btoa, atob, crypto: webcrypto,
     console: { log() {}, warn() {}, error(...args) { stats.errorLogs.push(args.map(String).join(' ')); } },
     Deno: { serve(fn) { handler = fn; }, env: { get(key) { return env[key]; } } },
     createClientFromRequest() { return { auth: { async me() { if (authError) throw new Error('Invalid caller session'); return user; } }, asServiceRole: service }; },
@@ -205,6 +205,122 @@ test('publicationSignup: server requires explicit publication consent', async ()
   const response = await fixture.request({ ...validPayloads.publicationSignup, consent: false, verification_token: 'valid-proof' });
   assert.equal(response.status, 400);
   assert.equal(fixture.stats.effects, 0);
+});
+
+const configuredBooks = [
+  ['ai-curious', 'AI Curious?', 'https://media.base44.com/files/public/691f41a18de4a7f498c8f884/15cf65799ba4e51e72e96bca7e607761_AI_Curious_Rick_Hesse_Reader_Edition.pdf'],
+  ['better-business-book', 'The Better Business Building Book', 'https://drive.usercontent.google.com/download?id=1SSpBnObRHrt0SGtVmHhOAdzazmLql-M9&export=download'],
+  ['practical-ai-for-small-business', 'Practical AI for Small Business', 'https://drive.usercontent.google.com/download?id=11nq430-bcstci_fuOP8Fm9g2xTk2n0yl&export=download'],
+];
+function bookSignupPayload([key, title, deliveryUrl] = configuredBooks[0]) {
+  return {
+    name: 'Test Reader', email: 'book-regression@example.invalid',
+    publication_tag: key, publication_title: title,
+    delivery_url: deliveryUrl,
+    create_delivery_request: true, consent: true,
+    verification_token: 'isolated-book-proof',
+    source: 'ai_curious_free_download',
+    source_url: 'https://newtechadvertising.com/ai-curious?utm_source=facebook&utm_campaign=rick_books_202612',
+    extra_tags: ['not-authorized', 'nta-journal'],
+  };
+}
+
+test('AI Curious page: form metadata is accepted by the signup handler', async () => {
+  const pageSource = readFileSync(path.join(root, 'src/pages/AICurious.jsx'), 'utf8');
+  const formProp = (name) => {
+    const value = pageSource.match(new RegExp('\\b' + name + '="([^"]+)"'))?.[1];
+    assert.ok(value, 'Missing ' + name + ' on the AI Curious page');
+    return value;
+  };
+  const payload = {
+    ...bookSignupPayload(),
+    publication_tag: formProp('publicationTag'),
+    publication_title: formProp('publicationTitle'),
+    delivery_url: formProp('downloadUrl'),
+  };
+  assert.equal(payload.publication_tag, 'ai-curious');
+  assert.equal(payload.publication_title, 'AI Curious?');
+  assert.equal(payload.delivery_url, configuredBooks[0][2]);
+  assert.equal(formProp('viewerUrl'), payload.delivery_url);
+  const fixture = setup('publicationSignup');
+  const response = await fixture.request(payload);
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).success, true);
+  const delivery = fixture.stats.entityCreates.find(item => item.entity === 'PublicationDeliveryRequest').value;
+  assert.equal(delivery.delivery_url, payload.delivery_url);
+});
+
+for (const book of configuredBooks) {
+  test('publicationSignup: ' + book[0] + ' uses configured delivery and publication-only consent', async () => {
+    const fixture = setup('publicationSignup');
+    const payload = bookSignupPayload(book);
+    const response = await fixture.request(payload);
+    assert.equal(response.status, 200);
+    const body = await response.json();
+    assert.equal(body.success, true);
+    assert.equal(body.subscriber_id, 'test-subscriber');
+    assert.equal(body.delivery_request_id, 'test-delivery');
+    assert.equal(typeof body.book_tracking_token, 'string');
+    assert.equal(body.book_tracking_token.split('.').length, 2);
+    assert.equal(body.journal_sync_status, null);
+    const subscriber = fixture.stats.entityCreates.find(item => item.entity === 'Subscriber').value;
+    assert.equal(subscriber.consent_scope, 'publication');
+    assert.equal(subscriber.consent_status, 'confirmed');
+    assert.equal(subscriber.journal_consent_status, 'none');
+    assert.deepEqual([...subscriber.tags], ['nta-publications', book[0], 'free-book-download']);
+    assert.equal(subscriber.first_source_url, payload.source_url);
+    assert.equal(subscriber.most_recent_source_url, payload.source_url);
+    const delivery = fixture.stats.entityCreates.find(item => item.entity === 'PublicationDeliveryRequest').value;
+    assert.equal(delivery.publication_title, book[1]);
+    assert.equal(delivery.delivery_url, payload.delivery_url);
+    assert.equal(delivery.status, 'pending');
+    assert.equal(delivery.subscriber_id, 'test-subscriber');
+    assert.equal(fixture.stats.serviceCalls.some(call => call.name === 'syncJournalSubscriber'), false);
+    assert.deepEqual(JSON.parse(JSON.stringify(fixture.stats.crossAppCalls)), [{
+      appId: '6a7215451eb90dc843a94546', name: 'trackBookEvent',
+      payload: { book_key: book[0], event_type: 'access_request' },
+    }]);
+  });
+}
+
+for (const [label, changes] of [
+  ['unknown publication', { publication_tag: 'unknown-book' }],
+  ['mismatched title', { publication_title: 'Unrecognized title' }],
+  ['substituted delivery URL', { delivery_url: 'https://example.invalid/unapproved.pdf' }],
+  ['missing consent', { consent: undefined }],
+  ['false consent', { consent: false }],
+]) {
+  test('publicationSignup: AI Curious ' + label + ' is rejected before writes', async () => {
+    const fixture = setup('publicationSignup');
+    const response = await fixture.request({ ...bookSignupPayload(), ...changes });
+    assert.equal(response.status, 400);
+    assert.equal(fixture.stats.effects, 0);
+    assert.equal(fixture.stats.entityCreates.length, 0);
+  });
+}
+
+test('AI Curious: signup token permits only its authorized public click events', async () => {
+  const signup = setup('publicationSignup');
+  const response = await signup.request(bookSignupPayload());
+  assert.equal(response.status, 200);
+  const { book_tracking_token: token } = await response.json();
+  for (const event_type of ['download_click', 'read_online_click']) {
+    const tracker = setup('trackBookEvent');
+    const tracked = await tracker.request({ book_key: 'ai-curious', event_type, tracking_token: token });
+    assert.equal(tracked.status, 200);
+    assert.equal(tracker.stats.crossAppCalls.length, 1);
+    assert.equal(tracker.stats.crossAppCalls[0].payload.book_key, 'ai-curious');
+    assert.equal(tracker.stats.crossAppCalls[0].payload.event_type, event_type);
+  }
+  for (const payload of [
+    { book_key: 'ai-curious', event_type: 'download_click' },
+    { book_key: 'better-business-book', event_type: 'download_click', tracking_token: token },
+    { book_key: 'ai-curious', event_type: 'access_request', tracking_token: token },
+  ]) {
+    const tracker = setup('trackBookEvent');
+    assert.equal((await tracker.request(payload)).status, 403);
+    assert.equal(tracker.stats.effects, 0);
+  }
 });
 
 test('ntaUnifiedIntake: verified proof forwards only the normalized public intake', async () => {
