@@ -357,6 +357,27 @@ Deno.serve(async (req) => {
         })
       : null;
 
+    // Dispatch only this server-created request with the configured book URL.
+    // The helper checks service identity and subscriber consent. Its success
+    // means provider acceptance, not confirmed arrival in the reader's inbox.
+    let emailDeliveryStatus = null;
+    if (deliveryRequest) {
+      try {
+        const delivery = await base44.asServiceRole.functions.invoke('sendPublicationDeliveryEmail', {
+          request_id: deliveryRequest.id,
+          delivery_url: publication.delivery_url,
+        });
+        emailDeliveryStatus = delivery?.data?.status === 'success' ? 'accepted' : 'needs_attention';
+      } catch {
+        emailDeliveryStatus = 'needs_attention';
+      }
+      if (emailDeliveryStatus === 'needs_attention') {
+        // Keep immediate book access and the remaining handoffs available.
+        // Never expose provider errors or invite a duplicate signup/send.
+        console.warn('[publicationSignup] Publication saved; email delivery needs attention.');
+      }
+    }
+
     let journalSyncStatus = null;
     if (publicationTag === 'nta-journal') {
       try {
@@ -416,7 +437,7 @@ Deno.serve(async (req) => {
     }
 
     const book_tracking_token = publicationTag === 'nta-journal' ? null : await createBookTrackingToken(publicationTag);
-    return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null, journal_sync_status: journalSyncStatus, intake_status: intakeStatus, book_tracking_token });
+    return Response.json({ success: true, subscriber_id: subscriber.id, delivery_request_id: deliveryRequest?.id || null, email_delivery_status: emailDeliveryStatus, journal_sync_status: journalSyncStatus, intake_status: intakeStatus, book_tracking_token });
   } catch (error) {
     console.error('[publicationSignup]', error);
     return Response.json({ error: 'Unable to save the publication request.' }, { status: 500 });
