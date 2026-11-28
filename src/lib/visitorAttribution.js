@@ -9,6 +9,59 @@ export function isPublicTrackingHost() {
   return PUBLIC_HOSTS.has(globalThis.location?.hostname);
 }
 
+export const PUBLIC_GA_MEASUREMENT_ID = 'G-147H1M41PT';
+const INTERNAL_TEST_KEY = 'nta_internal_measurement_test';
+const GA_DISABLE_KEY = 'ga-disable-' + PUBLIC_GA_MEASUREMENT_ID;
+let internalMeasurementTest = false;
+let publicMeasurementEligible = false;
+let measurementPath = '';
+
+// An explicit QA flag lasts only for this tab/session. It affects measurement,
+// not form verification, saved requests, or newsletter consent.
+export function isInternalMeasurementTest() {
+  try {
+    const flag = new URL(globalThis.location?.href || 'https://newtechadvertising.com').searchParams.get('nta_internal_test');
+    if (flag === '1' || flag === '0') {
+      internalMeasurementTest = flag === '1';
+      try {
+        if (internalMeasurementTest) globalThis.sessionStorage?.setItem(INTERNAL_TEST_KEY, '1');
+        else globalThis.sessionStorage?.removeItem(INTERNAL_TEST_KEY);
+      } catch { /* Keep the in-memory choice if storage is restricted. */ }
+    } else {
+      try {
+        if (globalThis.sessionStorage?.getItem(INTERNAL_TEST_KEY) === '1') internalMeasurementTest = true;
+      } catch { /* Keep the in-memory choice. */ }
+    }
+  } catch { /* A malformed URL must not interrupt the visitor. */ }
+  return internalMeasurementTest;
+}
+
+function currentMeasurementPath() {
+  try { return new URL(globalThis.location?.href || '').pathname; } catch { return ''; }
+}
+
+export function setPublicMeasurementEligibility(eligible) {
+  const allowed = eligible === true && isPublicTrackingHost() && !isInternalMeasurementTest();
+  if (!allowed) {
+    publicMeasurementEligible = false;
+    measurementPath = '';
+    // Never turn a true opt-out false: a provider/user may set it while this
+    // route is excluded. Collection resumes only in a fresh eligible document.
+    if (globalThis[GA_DISABLE_KEY] !== true) {
+      try { globalThis[GA_DISABLE_KEY] = true; } catch { /* Keep custom events disabled if the flag is read-only. */ }
+    }
+    return false;
+  }
+  publicMeasurementEligible = globalThis[GA_DISABLE_KEY] !== true;
+  measurementPath = currentMeasurementPath();
+  return publicMeasurementEligible;
+}
+
+export function isPublicMeasurementEnabled() {
+  return publicMeasurementEligible && measurementPath === currentMeasurementPath() &&
+    isPublicTrackingHost() && !isInternalMeasurementTest() && globalThis[GA_DISABLE_KEY] !== true;
+}
+
 // Campaign names are labels, never email addresses, phone numbers, URLs or free text.
 export function safeCampaignValue(value) {
   const label = typeof value === 'string' ? value.trim() : '';

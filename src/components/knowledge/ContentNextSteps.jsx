@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, MessageCircle, Play } from 'lucide-react';
 import { useGrowthShow } from '@/hooks/useGrowthShow';
-import { contentContext, followUpPath, learningLinks, relatedEpisodeLinks } from '@/lib/contentJourney';
+import { contentContext, followUpPath, followUpFunnel, learningLinks, relatedEpisodeLinks } from '@/lib/contentJourney';
 import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 import { videosForReading } from '@/data/videoLearningConnections';
 
@@ -14,6 +14,12 @@ export function ContentNextSteps({ title, path, resources = [] }) {
     window.dispatchEvent(new CustomEvent('nta:open-growth-guide', {
       detail: { ...context, question: context?.title, source: 'content_next_step' },
     }));
+  };
+
+  const openFollowUp = () => {
+    trackJourneyEvent('content_follow_up_opened', { route: context?.path, source: 'content_next_step' });
+    const funnel = followUpFunnel(context);
+    if (funnel) trackJourneyEvent(funnel.openedEvent, { route: context.path, source: 'content_next_step' });
   };
 
   return (
@@ -39,7 +45,7 @@ export function ContentNextSteps({ title, path, resources = [] }) {
         <button type="button" onClick={openGuide} className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">
           <MessageCircle className="h-5 w-5 shrink-0" aria-hidden="true" /> Ask about this topic
         </button>
-        <Link to={followUpPath(context)} onClick={() => trackJourneyEvent('content_follow_up_opened', { route: context?.path, source: 'content_next_step' })} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-blue-400">
+        <Link to={followUpPath(context)} onClick={openFollowUp} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 px-5 py-3 font-bold text-white hover:border-blue-400">
           Ask Rick to follow up <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
         </Link>
       </div>

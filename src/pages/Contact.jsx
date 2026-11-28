@@ -1,7 +1,8 @@
 import { invokeVerifiedPublicFunction } from '@/lib/publicVerification';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { contextFromSearch, followUpDetails } from '@/lib/contentJourney';
+import { contextFromSearch, followUpDetails, followUpFunnel } from '@/lib/contentJourney';
+import { trackJourneyEvent } from '@/lib/journeyAnalytics';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -28,6 +29,21 @@ export default function Contact() {
   const formStartedAt = useRef(Date.now());
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const followUpHeading = useRef(null);
+  const followUpStarted = useRef(false);
+
+  useEffect(() => {
+    if (location.hash !== '#follow-up-request') return;
+    followUpHeading.current?.focus({ preventScroll: true });
+    followUpHeading.current?.scrollIntoView({ block: 'start' });
+  }, [location.key, location.hash]);
+
+  const markFollowUpStarted = () => {
+    const funnel = followUpFunnel(context);
+    if (!funnel || followUpStarted.current) return;
+    followUpStarted.current = true;
+    trackJourneyEvent(funnel.startedEvent, { route: context.path, source: 'contact_form' });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -185,8 +201,8 @@ export default function Contact() {
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-3">Ask Rick to follow up</h2>
+              <form onSubmit={handleSubmit} onChangeCapture={markFollowUpStarted} className="space-y-6">
+                <h2 id="follow-up-request" ref={followUpHeading} tabIndex={-1} className="scroll-mt-28 text-2xl font-bold text-slate-900 mb-3">Ask Rick to follow up</h2>
                 <p className="text-slate-600">Share the question you want help with. Rick will use the information you provide to reply to this request.</p>
                 {location.state?.nta_follow_up_question && <p className="text-sm leading-6 text-slate-600">Your question from the Guide is filled in below. Review or edit it before sending.</p>}
                 {context && (

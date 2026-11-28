@@ -1,13 +1,45 @@
 import { base44 } from '@/api/base44Client';
-import { captureVisitorAttribution, isPublicTrackingHost, publicMeasurementContext, safePublicPageUrl, safeReferrerOrigin, setPublicMeasurementReferrer } from '@/lib/visitorAttribution';
+import { captureVisitorAttribution, isPublicMeasurementEnabled, setPublicMeasurementEligibility, PUBLIC_GA_MEASUREMENT_ID, publicMeasurementContext, safePublicPageUrl, safeReferrerOrigin, setPublicMeasurementReferrer } from '@/lib/visitorAttribution';
 
 let lastNavigationKey = null;
 let previousPageUrl = '';
 const BOOKING_URL = 'https://calendar.app.google/p6ieYanvwhixXxZ67';
 
+let googleInitialized = false;
+
+// Keep the existing dataLayer/consent queue intact. No consent grant is added.
+// Initializing on an eligible public route prevents automatic GA sessions from
+// direct legacy/admin/preview landings that never produce a public page_view.
+function initializePublicGoogleAnalytics() {
+  if (!isPublicMeasurementEnabled()) return false;
+  if (googleInitialized) return true;
+  try {
+    const doc = globalThis.document;
+    if (!doc?.createElement || !doc.head?.appendChild) return false;
+    globalThis.dataLayer = globalThis.dataLayer || [];
+    if (typeof globalThis.gtag !== 'function') {
+      globalThis.gtag = function () { globalThis.dataLayer.push(arguments); };
+    }
+    globalThis.gtag('js', new Date());
+    globalThis.gtag('config', PUBLIC_GA_MEASUREMENT_ID, {
+      send_page_view: false,
+      ...publicMeasurementContext(),
+    });
+    const script = doc.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + PUBLIC_GA_MEASUREMENT_ID;
+    script.setAttribute('data-nta-public-analytics', 'true');
+    doc.head.appendChild(script);
+    googleInitialized = true;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function googleEvent(eventName, properties) {
   try {
-    if (typeof globalThis.gtag !== 'function') return false;
+    if (!isPublicMeasurementEnabled() || typeof globalThis.gtag !== 'function') return false;
     Promise.resolve(globalThis.gtag('event', eventName, properties)).catch(() => {});
     return true;
   } catch {
@@ -19,7 +51,7 @@ function googleEvent(eventName, properties) {
 // The GA4 stream's enhanced history-pageview setting must also be off.
 export function trackPublicPageView({ navigationKey, pathname, title, noIndex = false }) {
   captureVisitorAttribution();
-  if (noIndex || !isPublicTrackingHost()) {
+  if (!setPublicMeasurementEligibility(!noIndex)) {
     lastNavigationKey = null;
     return false;
   }
@@ -27,6 +59,7 @@ export function trackPublicPageView({ navigationKey, pathname, title, noIndex = 
   const key = navigationKey || pageUrl;
   if (!pageUrl || key === lastNavigationKey) return false;
   setPublicMeasurementReferrer(previousPageUrl || safeReferrerOrigin(globalThis.document?.referrer));
+  if (!initializePublicGoogleAnalytics()) return false;
   const tracked = googleEvent('page_view', {
     ...publicMeasurementContext(),
     page_title: title,
@@ -59,7 +92,7 @@ export function contactIntentFromHref(href) {
 export function installPublicIntentTracking(doc = globalThis.document) {
   if (!doc?.addEventListener) return () => {};
   const onClick = event => {
-    if (!isPublicTrackingHost() || event.defaultPrevented || event.isTrusted === false ||
+    if (!isPublicMeasurementEnabled() || event.defaultPrevented || event.isTrusted === false ||
         (event.button != null && ![0, 1].includes(event.button))) return;
     const target = event.target?.closest ? event.target : event.target?.parentElement;
     const link = target?.closest?.('a[href]');

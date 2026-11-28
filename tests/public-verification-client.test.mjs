@@ -45,7 +45,7 @@ function setup(mode = 'success', options = {}) {
   if (options.attributionRecord) stored.set('nta_public_attribution_v1', JSON.stringify(options.attributionRecord));
   const context = vm.createContext({
     exports: {}, URL, URLSearchParams, document, window: { turnstile, setTimeout, clearTimeout },
-    sessionStorage: { getItem: key => stored.get(key) || null, setItem: (key, value) => stored.set(key, value) },
+    sessionStorage: { getItem: key => stored.get(key) || null, setItem: (key, value) => stored.set(key, value), removeItem: key => stored.delete(key) },
     location: { hostname: options.hostname || 'newtechadvertising.com', href: options.href || 'https://newtechadvertising.com/contact' },
     gtag: (...args) => { google.push(args); if (options.googleThrows) throw new Error('Unavailable'); },
     base44: { analytics: { track(event) {
@@ -68,9 +68,16 @@ function setup(mode = 'success', options = {}) {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
   }).outputText;
   vm.runInContext(compile(readFileSync('src/lib/visitorAttribution.js', 'utf8')), context);
+  context.setPublicMeasurementEligibility(options.measurementEligible !== false);
+  context.exports = {};
+  vm.runInContext(compile(readFileSync('src/lib/contentJourney.js', 'utf8')), context);
   context.exports = exports;
   vm.runInContext(compile(source), context);
-  return { invoke: exports.invokeVerifiedPublicFunction, requests, dialogs, widgets, analytics, google };
+  return { invoke: exports.invokeVerifiedPublicFunction, requests, dialogs, widgets, analytics, google,
+    captureAttribution: () => context.captureVisitorAttribution(),
+    followUpDetails: value => context.followUpDetails(value),
+    go(href) { const next = new URL(href); context.location.href = next.href; context.location.hostname = next.hostname; context.setPublicMeasurementEligibility(true); },
+  };
 }
 
 test('public client attaches distinct fresh tokens to concurrent submissions', async () => {
@@ -556,4 +563,66 @@ test('rebuild form still rejects an incomplete request before sending', async ()
   assert.equal(fixture.notices.length, 1);
   assert.match(fixture.notices[0], /required fields/);
   assertRebuildVisitorNotLogged(fixture);
+});
+
+
+test('Facebook question attribution and fixed funnel identity survive Contact through a confirmed Core save', async () => {
+  const path = '/knowledge/questions/why-isnt-my-website-generating-leads';
+  const campaign = 'nta_website_leads_first_conversation';
+  const fixture = setup('success', {
+    href: 'https://newtechadvertising.com' + path + '?utm_source=facebook&utm_medium=organic_social&utm_campaign=' + campaign + '&utm_content=contact_clarity_image_01',
+    referrer: 'https://www.facebook.com/?private=hidden',
+    result: { success: true, submission_id: 'saved-source-path' },
+  });
+  fixture.captureAttribution();
+  const followUp = fixture.followUpDetails({
+    context: { path, title: 'Why isn’t my website generating leads?' },
+    preference: 'text', message: 'Private question for Rick.',
+  });
+  fixture.go('https://newtechadvertising.com/contact?from=' + encodeURIComponent(path) + '&topic=private-topic#follow-up-request');
+  const payload = { submission_type: 'contact', phone: '5551234567', notes: followUp.notes, raw_payload: followUp.metadata };
+  await fixture.invoke('ntaUnifiedIntake', payload);
+  await fixture.invoke('ntaUnifiedIntake', payload);
+  const sent = fixture.requests.find(request => !request.payload.verification_config).payload;
+  assert.equal(sent.source_campaign, campaign);
+  assert.equal(sent.raw_payload.utm_source, 'facebook');
+  assert.equal(sent.raw_payload.utm_medium, 'organic_social');
+  assert.equal(sent.raw_payload.utm_content, 'contact_clarity_image_01');
+  assert.equal(sent.raw_payload.landing_page, 'https://newtechadvertising.com' + path);
+  assert.equal(sent.raw_payload.content_context.path, path);
+  assert.equal(sent.raw_payload.lead_path, 'website_leads_question');
+  assert.equal(sent.raw_payload.preferred_contact, 'text');
+  assert.match(sent.raw_payload.consent_scope, /newsletter subscription is separate/);
+  assert.equal(sent.source_url, 'https://newtechadvertising.com/contact');
+  assert.equal(fixture.google.filter(event => event[1] === 'inquiry_saved').length, 1);
+  assert.equal(fixture.google.filter(event => event[1] === 'website_leads_follow_up_saved').length, 1);
+  assert.doesNotMatch(JSON.stringify(fixture.google), /saved-source-path|5551234567|Private|private-topic|topic=|content_context|consent_scope/);
+});
+
+test('partial, rejected, preview and internal QA saves never produce a confirmed funnel event', async () => {
+  const payload = { submission_type: 'contact', raw_payload: { content_context: { path: '/knowledge/questions/why-isnt-my-website-generating-leads', title: 'Question' } } };
+  for (const options of [
+    { result: { success: false, submission_id: 'partially-written', error: 'Unable to complete request.' } },
+    { result: { success: true, accepted: false, submission_id: 'rejected' } },
+    { result: { success: true } },
+    { hostname: 'preview.base44.app', result: { success: true, submission_id: 'preview' } },
+    { href: 'https://newtechadvertising.com/contact?nta_internal_test=1', result: { success: true, submission_id: 'internal-test' } },
+    { measurementEligible: false, result: { success: true, submission_id: 'excluded-route' } },
+  ]) {
+    const fixture = setup('success', options);
+    await fixture.invoke('ntaUnifiedIntake', payload).catch(() => {});
+    assert.equal(fixture.requests.filter(request => !request.payload.verification_config).length, 1, 'Never retry an uncertain write automatically');
+    assert.equal(fixture.google.length, 0);
+    assert.equal(fixture.analytics.length, 0);
+  }
+});
+
+test('a caller cannot manufacture a funnel event from an arbitrary identifier or free text', async () => {
+  const fixture = setup('success', { result: { success: true, submission_id: 'other-content' } });
+  await fixture.invoke('ntaUnifiedIntake', {
+    submission_type: 'contact',
+    raw_payload: { lead_path: 'website_leads_question', content_context: { path: '/knowledge/questions/private-example', title: 'private@example.invalid' } },
+  });
+  assert.deepEqual(fixture.google.map(event => event[1]), ['inquiry_saved']);
+  assert.doesNotMatch(JSON.stringify(fixture.google), /private@example|lead_path/);
 });

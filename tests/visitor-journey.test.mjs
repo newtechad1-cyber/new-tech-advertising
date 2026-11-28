@@ -38,6 +38,7 @@ test('visitor measurement cannot reach a privileged function or interrupt a jour
       gtag(...args) { events.push(args); },
     };
     vm.runInNewContext(ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, context);
+    context.exports.setPublicMeasurementEligibility(true);
     assert.doesNotThrow(() => context.exports.trackJourneyEvent('page_view'));
     assert.equal(events.filter(Array.isArray).length, 0, 'Journey records must not duplicate RouteMeta GA4 page views');
     assert.doesNotThrow(() => context.exports.trackJourneyEvent('question_path_opened', { source: 'homepage' }));
