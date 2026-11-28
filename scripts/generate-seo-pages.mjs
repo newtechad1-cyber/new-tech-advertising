@@ -1541,6 +1541,7 @@ function approvedLessonMarkup(markdown) {
 
 function approvedLessonStaticBody(pathname) {
   const approvedPaths = {
+    "/knowledge/what-a-lifetime-in-business-taught-me/i-still-have-to-remind-myself-to-ask-first": ["what-a-lifetime-in-business-taught-me", "i-still-have-to-remind-myself-to-ask-first"],
     "/knowledge/ai-foundations/the-person-behind-the-ai-matters": ["ai-foundations", "the-person-behind-the-ai-matters"],
     "/knowledge/ai-foundations/from-ideas-to-finished-work": ["ai-foundations", "from-ideas-to-finished-work"],
     "/knowledge/ai-foundations/is-using-ai-cheating": ["ai-foundations", "is-using-ai-cheating"],

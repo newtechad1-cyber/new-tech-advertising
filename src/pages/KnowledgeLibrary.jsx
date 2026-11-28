@@ -9,9 +9,9 @@ import { masterCurriculumMap, collectionsOrder } from '@/data/masterCurriculum';
 import { flagshipArticleToolsVsSystem, flagshipArticleDIYToDFY } from '@/data/flagshipArticles';
 import { getJourneyMemory, resetJourneyMemory } from '@/lib/journeyMemory';
 import ReadWatchLearning from '@/components/knowledge/ReadWatchLearning';
-import { lesson22 as personBehindAiLesson } from '@/data/aiFoundationsLesson22';
+import { lifetimeBusinessLesson7 as latestLesson } from '@/data/lifetimeBusinessLesson7';
 
-const personBehindAiPath = '/knowledge/ai-foundations/' + personBehindAiLesson.slug;
+const latestLessonPath = '/knowledge/what-a-lifetime-in-business-taught-me/' + latestLesson.slug;
 
 export default function KnowledgeLibrary() {
   const memory = getJourneyMemory();
@@ -76,7 +76,7 @@ export default function KnowledgeLibrary() {
             <LearningFormatNav />
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link 
-                to={personBehindAiPath}
+                to={latestLessonPath}
                 className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2"
               >
                 <BookMarked className="w-5 h-5" /> Read the Latest Lesson
@@ -109,12 +109,12 @@ export default function KnowledgeLibrary() {
           </div>
         </section>
 
-        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="person-behind-ai-heading">
+        <section className="border-b border-slate-800 px-6 py-10" aria-labelledby="latest-lesson-heading">
           <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-500/30 bg-cyan-950/15 p-7 md:p-9">
             <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">Latest lesson — NTA Point of View</p>
-            <h2 id="person-behind-ai-heading" className="mt-3 text-3xl font-black leading-tight text-white">{personBehindAiLesson.title}</h2>
-            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">{personBehindAiLesson.description}</p>
-            <Link to={personBehindAiPath} className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">
+            <h2 id="latest-lesson-heading" className="mt-3 text-3xl font-black leading-tight text-white">{latestLesson.title}</h2>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">{latestLesson.description}</p>
+            <Link to={latestLessonPath} className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-bold text-white hover:bg-blue-500">
               Read the lesson <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>

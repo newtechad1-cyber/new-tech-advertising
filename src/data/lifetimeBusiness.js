@@ -4,6 +4,7 @@ import { lifetimeBusinessLesson3 } from './lifetimeBusinessLesson3';
 import { lifetimeBusinessLesson4 } from './lifetimeBusinessLesson4';
 import { lifetimeBusinessLesson5 } from './lifetimeBusinessLesson5';
 import { lifetimeBusinessLesson6 } from './lifetimeBusinessLesson6';
+import { lifetimeBusinessLesson7 } from './lifetimeBusinessLesson7';
 
 export const lifetimeBusinessLessons = [
   { id: 901, slug: 'i-learned-business-by-watching-people', title: 'I Learned Business by Watching People', description: 'How decades of watching customers, owners, employees and myself taught me to listen before trying to sell or build.', readingTime: '5 min read', level: 'All levels', takeaway: 'Before you try to sell somebody something, understand the person sitting across from you.', content: lifetimeBusinessLesson1 },
@@ -11,5 +12,6 @@ export const lifetimeBusinessLessons = [
   { id: 903, slug: 'the-gold-is-in-the-niche-the-business-is-in-the-connections', title: 'The Gold Is in the Niche. The Business Is in the Connections.', description: 'Why specialists and tools matter, but the business only works when the pieces connect.', readingTime: '8 min read', level: 'All levels', takeaway: 'The gold may be in the niche. The business is in the connections.', content: lifetimeBusinessLesson3 },
   { id: 904, slug: 'free-is-free', title: 'Free Is Free', description: 'What building with limited resources taught me about free tools, value, technology and spending where it matters.', readingTime: '9 min read', level: 'All levels', takeaway: "The goal isn't free. The goal is value.", content: lifetimeBusinessLesson4 },
   { id: 905, slug: 'ai-didnt-give-me-my-experience', title: "AI Didn't Give Me My Experience", description: 'How AI helped me connect a lifetime of experience without replacing the judgment and knowledge that came first.', readingTime: '10 min read', level: 'All levels', takeaway: "AI didn't give me my experience. It helped me finally put that experience to work.", content: lifetimeBusinessLesson5 },
-  { id: 906, slug: 'i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it', title: 'I Was Afraid AI Would Take My Voice. It Helped Me Find It.', description: 'How conversation, correction and reflection with AI helped me hear my own voice more clearly rather than hand it away.', readingTime: '9 min read', level: 'All levels', takeaway: "AI doesn't have to replace your voice. It can help you discover it.", content: lifetimeBusinessLesson6 }
+  { id: 906, slug: 'i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it', title: 'I Was Afraid AI Would Take My Voice. It Helped Me Find It.', description: 'How conversation, correction and reflection with AI helped me hear my own voice more clearly rather than hand it away.', readingTime: '9 min read', level: 'All levels', takeaway: "AI doesn't have to replace your voice. It can help you discover it.", content: lifetimeBusinessLesson6 },
+  lifetimeBusinessLesson7
 ];
