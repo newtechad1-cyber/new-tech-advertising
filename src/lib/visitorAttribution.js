@@ -15,7 +15,6 @@ const GA_DISABLE_KEY = 'ga-disable-' + PUBLIC_GA_MEASUREMENT_ID;
 let internalMeasurementTest = false;
 let publicMeasurementEligible = false;
 let measurementPath = '';
-let routeOwnsGoogleDisable = false;
 
 // An explicit QA flag lasts only for this tab/session. It affects measurement,
 // not form verification, saved requests, or newsletter consent.
@@ -46,17 +45,12 @@ export function setPublicMeasurementEligibility(eligible) {
   if (!allowed) {
     publicMeasurementEligible = false;
     measurementPath = '';
-    // Preserve a pre-existing user/provider opt-out. Only restore a disable
-    // flag that this route guard set itself.
+    // Never turn a true opt-out false: a provider/user may set it while this
+    // route is excluded. Collection resumes only in a fresh eligible document.
     if (globalThis[GA_DISABLE_KEY] !== true) {
-      globalThis[GA_DISABLE_KEY] = true;
-      routeOwnsGoogleDisable = true;
+      try { globalThis[GA_DISABLE_KEY] = true; } catch { /* Keep custom events disabled if the flag is read-only. */ }
     }
     return false;
-  }
-  if (routeOwnsGoogleDisable) {
-    globalThis[GA_DISABLE_KEY] = false;
-    routeOwnsGoogleDisable = false;
   }
   publicMeasurementEligible = globalThis[GA_DISABLE_KEY] !== true;
   measurementPath = currentMeasurementPath();
