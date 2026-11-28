@@ -1023,10 +1023,10 @@
       "title": "What a Lifetime in Business Taught Me",
       "canonicalUrl": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me",
       "contentType": "LearningCollection",
-      "description": "Six NTA Point of View lessons drawn from decades of working, selling, trying businesses, watching people, learning from successes and failures, and now using AI to bring those experiences together.",
+      "description": "Seven NTA Point of View lessons drawn from decades of working, selling, trying businesses, watching people, learning from successes and failures, and now using AI to bring those experiences together.",
       "author": "Rick Hesse",
       "publisher": "New Tech Advertising",
-      "lastModified": "2026-09-19",
+      "lastModified": "2026-11-28",
       "lessons": [
         {
           "title": "I Learned Business by Watching People",
@@ -1087,6 +1087,16 @@
           "publisher": "New Tech Advertising",
           "publicStatus": "published",
           "lastModified": "2026-09-19"
+        },
+        {
+          "title": "I Still Have to Remind Myself to Ask First",
+          "canonicalUrl": "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-still-have-to-remind-myself-to-ask-first",
+          "contentType": "LearningResource",
+          "description": "Rick Hesse reflects on listening before selling, letting a client's answers shape the recommendation, and agreeing together on the next useful step.",
+          "author": "Rick Hesse",
+          "publisher": "New Tech Advertising",
+          "publicStatus": "published",
+          "lastModified": "2026-11-28"
         }
       ]
     },
