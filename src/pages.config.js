@@ -16,6 +16,7 @@ import WhatIsGeoLesson from './pages/knowledge/ai-foundations/what-is-geo-gettin
 import AskedAiToSeoLesson from './pages/knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough';
 import AiBubbleLesson from './pages/knowledge/ai-foundations/the-ai-bubble-isnt-what-you-think';
 import PersonBehindAiLesson from './pages/knowledge/ai-foundations/the-person-behind-the-ai-matters';
+import AskFirstLesson from './pages/knowledge/what-a-lifetime-in-business-taught-me/i-still-have-to-remind-myself-to-ask-first';
 import JournalIssue13 from './pages/journal/issue-13-from-ideas-to-finished-work';
 import NativeGrowthEpisode11 from './pages/growth-show/show-me-before-you-sell-me';
 import NativeGrowthEpisode12 from './pages/growth-show/representation-or-deception';
@@ -286,6 +287,7 @@ const PAGES = {
   'knowledge/ai-foundations/i-asked-ai-to-seo-my-website-why-wasnt-that-enough': AskedAiToSeoLesson,
   'knowledge/ai-foundations/the-ai-bubble-isnt-what-you-think': AiBubbleLesson,
   'knowledge/ai-foundations/the-person-behind-the-ai-matters': PersonBehindAiLesson,
+  'knowledge/what-a-lifetime-in-business-taught-me/i-still-have-to-remind-myself-to-ask-first': AskFirstLesson,
   'journal/issue-13-from-ideas-to-finished-work': JournalIssue13,
   'growth-show/show-me-before-you-sell-me': NativeGrowthEpisode11,
   'growth-show/representation-or-deception': NativeGrowthEpisode12,
