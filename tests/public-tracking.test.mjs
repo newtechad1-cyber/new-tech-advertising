@@ -39,6 +39,7 @@ function fixture(options = {}) {
     return context.exports;
   }
   const attribution = load('src/lib/visitorAttribution.js');
+  context.PUBLIC_GA_MEASUREMENT_ID = attribution.PUBLIC_GA_MEASUREMENT_ID;
   if (options.initializeEligibility !== false) attribution.setPublicMeasurementEligibility(true);
   const tracking = load('src/lib/publicTracking.js');
   const journey = load('src/lib/journeyAnalytics.js');

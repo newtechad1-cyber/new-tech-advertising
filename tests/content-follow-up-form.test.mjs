@@ -147,7 +147,7 @@ test('question follow-up targets the form heading and starts measurement only af
   const form = find(tree, node => node.type === 'form');
   form.props.onChangeCapture();
   form.props.onChangeCapture();
-  assert.deepEqual(h.events, [{ name: 'website_leads_follow_up_started', details: { route: path, source: 'contact_form' } }]);
+  assert.deepEqual(JSON.parse(JSON.stringify(h.events)), [{ name: 'website_leads_follow_up_started', details: { route: path, source: 'contact_form' } }]);
 });
 
 test('other content paths retain the existing follow-up behavior without manufacturing the measured funnel', () => {
