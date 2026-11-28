@@ -360,7 +360,7 @@ const collectionDefinitions = [
     id: 9,
     slug: 'what-a-lifetime-in-business-taught-me',
     title: 'What a Lifetime in Business Taught Me',
-    description: 'Six NTA Point of View lessons drawn from decades of working, selling, trying businesses, watching people, learning from successes and failures, and now using AI to bring those experiences together.',
+    description: 'Seven NTA Point of View lessons drawn from decades of working, selling, trying businesses, watching people, learning from successes and failures, and now using AI to bring those experiences together.',
     lessons: lifetimeBusinessLessons,
     nextCollectionSlug: 'truth-about-business-growth',
     previousCollectionSlug: 'business-foundations'
