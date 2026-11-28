@@ -1,5 +1,5 @@
 import { base44 } from '@/api/base44Client';
-import { isPublicTrackingHost, publicMeasurementContext, safeCampaignValue } from '@/lib/visitorAttribution';
+import { isPublicMeasurementEnabled, publicMeasurementContext, safeCampaignValue } from '@/lib/visitorAttribution';
 
 function getJourneySessionId() {
   try {
@@ -15,6 +15,7 @@ function getJourneySessionId() {
 }
 
 export function trackJourneyEvent(eventName, details = {}) {
+  if (!isPublicMeasurementEnabled()) return;
   const payload = {
     event_name: eventName,
     route: details.route || globalThis.location?.pathname || '',
@@ -33,7 +34,7 @@ export function trackJourneyEvent(eventName, details = {}) {
 
   // RouteMeta is the sole GA4 page_view owner. Keep these internal journey
   // records without counting the homepage and recruiting route a second time.
-  if (eventName !== 'page_view' && isPublicTrackingHost() && typeof globalThis.gtag === 'function') {
+  if (eventName !== 'page_view' && isPublicMeasurementEnabled() && typeof globalThis.gtag === 'function') {
     try {
       Promise.resolve(globalThis.gtag('event', eventName, {
         ...publicMeasurementContext(),
