@@ -156,3 +156,31 @@ test('other content paths retain the existing follow-up behavior without manufac
   find(tree, node => node.type === 'form').props.onChangeCapture();
   assert.equal(h.events.length, 0);
 });
+
+
+test('the actual question CTA keeps its context, targets the form, and emits only the fixed opened stage', () => {
+  const source = ts.transpileModule(readFileSync('src/components/knowledge/ContentNextSteps.jsx', 'utf8'), {
+    compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+  }).outputText;
+  const events = [];
+  const context = {
+    exports: {},
+    require(name) {
+      if (name === 'react/jsx-runtime') return require(name);
+      if (name === 'react-router-dom') return { Link: 'a' };
+      if (name === '@/lib/contentJourney') return journey;
+      if (name === '@/lib/journeyAnalytics') return { trackJourneyEvent(name, details) { events.push({ name, details }); } };
+      return new Proxy({}, { get: (_, key) => String(key) });
+    },
+  };
+  vm.runInNewContext(source, context);
+  const path = '/knowledge/questions/why-isnt-my-website-generating-leads';
+  const tree = context.exports.ContentNextSteps({ title: 'Why isn’t my website generating leads?', path });
+  const link = find(tree, node => typeof node.props?.to === 'string' && node.props.to.startsWith('/contact?'));
+  assert.ok(link.props.to.endsWith('#follow-up-request'));
+  assert.equal(events.length, 0, 'Rendering the question does not manufacture an opened stage');
+  link.props.onClick();
+  assert.deepEqual(events.map(event => event.name), ['content_follow_up_opened', 'website_leads_follow_up_opened']);
+  assert.equal(events[1].details.route, path);
+  assert.doesNotMatch(JSON.stringify(events), /Why isn|topic=/);
+});
