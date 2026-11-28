@@ -11,7 +11,9 @@ const code = ts.transpileModule(readFileSync('src/pages/Contact.jsx', 'utf8'), {
   compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
 }).outputText;
 
-function harness(invoke, draftQuestion = '') {
+function harness(invoke, draftQuestion = '', options = {}) {
+  const events = [];
+  const effects = [];
   const slots = [];
   let cursor = 0;
   const state = initial => {
@@ -21,13 +23,15 @@ function harness(invoke, draftQuestion = '') {
   };
   const react = {
     useState: state,
+    useEffect(effect) { effects.push(effect); },
     useRef(initial) {
       const index = cursor++;
       if (!(index in slots)) slots[index] = { current: initial };
       return slots[index];
     },
   };
-  const search = '?from=%2Fcanon%2Fworking-with-ai&topic=Working+with+AI';
+  const search = options.search || '?from=%2Fcanon%2Fworking-with-ai&topic=Working+with+AI';
+  const hash = options.hash || '';
   const context = {
     exports: {},
     URLSearchParams, Date,
@@ -37,15 +41,16 @@ function harness(invoke, draftQuestion = '') {
     require(name) {
       if (name === 'react') return react;
       if (name === 'react/jsx-runtime') return require(name);
-      if (name === 'react-router-dom') return { Link: 'a', useLocation: () => ({ search, pathname: '/contact', state: { nta_follow_up_question: draftQuestion } }) };
+      if (name === 'react-router-dom') return { Link: 'a', useLocation: () => ({ search, hash, key: 'contact-1', pathname: '/contact', state: { nta_follow_up_question: draftQuestion } }) };
       if (name === '@/lib/contentJourney') return journey;
+      if (name === '@/lib/journeyAnalytics') return { trackJourneyEvent(name, details) { events.push({ name, details }); } };
       if (name === '@/lib/publicVerification') return { invokeVerifiedPublicFunction: invoke };
       return new Proxy({}, { get: (_, key) => String(key) });
     },
   };
   vm.runInNewContext(code, context);
   const render = () => { cursor = 0; return context.exports.default(); };
-  return { render };
+  return { render, events, effects };
 }
 
 function nodes(node) {

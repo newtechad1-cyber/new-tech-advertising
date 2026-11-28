@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { contentPath, contentContext, followUpPath, contextFromSearch, guideQuestion, learningLinks, relatedEpisodeLinks, followUpDetails } from '../src/lib/contentJourney.js';
+import { contentPath, contentContext, followUpPath, contextFromSearch, guideQuestion, learningLinks, relatedEpisodeLinks, followUpDetails, followUpFunnel } from '../src/lib/contentJourney.js';
 
 const context = { path: '/knowledge/ai-foundations/working-with-ai', title: 'AI & your everyday work?' };
 

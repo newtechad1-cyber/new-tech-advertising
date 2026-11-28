@@ -45,7 +45,7 @@ function setup(mode = 'success', options = {}) {
   if (options.attributionRecord) stored.set('nta_public_attribution_v1', JSON.stringify(options.attributionRecord));
   const context = vm.createContext({
     exports: {}, URL, URLSearchParams, document, window: { turnstile, setTimeout, clearTimeout },
-    sessionStorage: { getItem: key => stored.get(key) || null, setItem: (key, value) => stored.set(key, value) },
+    sessionStorage: { getItem: key => stored.get(key) || null, setItem: (key, value) => stored.set(key, value), removeItem: key => stored.delete(key) },
     location: { hostname: options.hostname || 'newtechadvertising.com', href: options.href || 'https://newtechadvertising.com/contact' },
     gtag: (...args) => { google.push(args); if (options.googleThrows) throw new Error('Unavailable'); },
     base44: { analytics: { track(event) {
@@ -68,9 +68,16 @@ function setup(mode = 'success', options = {}) {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
   }).outputText;
   vm.runInContext(compile(readFileSync('src/lib/visitorAttribution.js', 'utf8')), context);
+  context.setPublicMeasurementEligibility(options.measurementEligible !== false);
+  context.exports = {};
+  vm.runInContext(compile(readFileSync('src/lib/contentJourney.js', 'utf8')), context);
   context.exports = exports;
   vm.runInContext(compile(source), context);
-  return { invoke: exports.invokeVerifiedPublicFunction, requests, dialogs, widgets, analytics, google };
+  return { invoke: exports.invokeVerifiedPublicFunction, requests, dialogs, widgets, analytics, google,
+    captureAttribution: () => context.captureVisitorAttribution(),
+    followUpDetails: value => context.followUpDetails(value),
+    go(href) { const next = new URL(href); context.location.href = next.href; context.location.hostname = next.hostname; context.setPublicMeasurementEligibility(true); },
+  };
 }
 
 test('public client attaches distinct fresh tokens to concurrent submissions', async () => {

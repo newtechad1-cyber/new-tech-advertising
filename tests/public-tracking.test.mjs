@@ -6,6 +6,8 @@ import ts from 'typescript';
 
 function fixture(options = {}) {
   const google = [];
+  const commands = [];
+  const scripts = [];
   const base = [];
   const values = new Map();
   const listeners = new Map();
@@ -15,15 +17,20 @@ function fixture(options = {}) {
     location: { hostname: url.hostname, href: url.href, pathname: url.pathname },
     document: {
       referrer: options.referrer ?? 'https://www.facebook.com/?private=hidden',
+      head: { appendChild(element) { scripts.push(element); } },
+      createElement(tag) { return { tag, setAttribute(name, value) { this[name] = value; } }; },
       addEventListener(name, handler) { listeners.set(name, handler); },
       removeEventListener(name, handler) { if (listeners.get(name) === handler) listeners.delete(name); },
     },
     sessionStorage: {
       getItem(key) { if (options.storageBlocked) throw new Error('Storage disabled'); return values.get(key) || null; },
       setItem(key, value) { if (options.storageBlocked) throw new Error('Storage disabled'); values.set(key, value); },
+      removeItem(key) { if (options.storageBlocked) throw new Error('Storage disabled'); values.delete(key); },
     },
     base44: { analytics: { track(value) { base.push(value); if (options.baseThrows) throw new Error('Unavailable'); } } },
-    gtag(...args) { google.push(args); if (options.googleThrows) throw new Error('Unavailable'); },
+    dataLayer: options.dataLayer || [],
+    ['ga-disable-G-147H1M41PT']: options.preExistingOptOut === true,
+    gtag(...args) { commands.push(args); if (args[0] === 'event') google.push(args); if (options.googleThrows) throw new Error('Unavailable'); },
   });
   function load(path) {
     context.exports = {};
@@ -32,10 +39,11 @@ function fixture(options = {}) {
     return context.exports;
   }
   const attribution = load('src/lib/visitorAttribution.js');
+  if (options.initializeEligibility !== false) attribution.setPublicMeasurementEligibility(true);
   const tracking = load('src/lib/publicTracking.js');
   const journey = load('src/lib/journeyAnalytics.js');
   return {
-    attribution, tracking, journey, google, base, values, listeners, context,
+    attribution, tracking, journey, google, commands, scripts, base, values, listeners, context,
     go(href) { const next = new URL(href); context.location.href = next.href; context.location.pathname = next.pathname; context.location.hostname = next.hostname; },
   };
 }
