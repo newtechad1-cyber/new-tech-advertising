@@ -129,3 +129,30 @@ test('a question from the Guide is an editable draft, never an automatic submiss
   assert.equal(find(tree, node => node.props?.id === 'contact-message').props.value, 'Here is my revised question.');
   assert.equal(submissions, 0);
 });
+
+
+test('question follow-up targets the form heading and starts measurement only after a visitor changes the form', () => {
+  const path = '/knowledge/questions/why-isnt-my-website-generating-leads';
+  const link = new URL(journey.followUpPath({ path, title: 'Why isn’t my website generating leads?' }), 'https://newtechadvertising.com');
+  const h = harness(() => { throw new Error('No submission expected'); }, '', { search: link.search, hash: link.hash });
+  const tree = h.render();
+  const heading = find(tree, node => node.props?.id === 'follow-up-request');
+  assert.equal(link.hash, '#follow-up-request');
+  assert.equal(heading.props.tabIndex, -1);
+  const focused = [];
+  heading.ref.current = { focus(options) { focused.push(['focus', options]); }, scrollIntoView(options) { focused.push(['scroll', options]); } };
+  h.effects.forEach(effect => effect());
+  assert.equal(focused.length, 2);
+  assert.equal(h.events.length, 0, 'Loading/focusing the form is not a form start');
+  const form = find(tree, node => node.type === 'form');
+  form.props.onChangeCapture();
+  form.props.onChangeCapture();
+  assert.deepEqual(h.events, [{ name: 'website_leads_follow_up_started', details: { route: path, source: 'contact_form' } }]);
+});
+
+test('other content paths retain the existing follow-up behavior without manufacturing the measured funnel', () => {
+  const h = harness(() => { throw new Error('No submission expected'); });
+  const tree = h.render();
+  find(tree, node => node.type === 'form').props.onChangeCapture();
+  assert.equal(h.events.length, 0);
+});

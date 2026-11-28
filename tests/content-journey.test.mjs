@@ -47,3 +47,22 @@ test('follow-up preserves the chosen reply channel, source and question for Core
   assert.match(detail.metadata.consent_scope, /newsletter subscription is separate/);
   assert.ok(followUpDetails({ context, message: 'x'.repeat(9000) }).notes.length < 4000);
 });
+
+
+test('the selected question has a fixed reportable funnel and the Core handoff preserves its identity', () => {
+  const value = { path: '/knowledge/questions/why-isnt-my-website-generating-leads', title: 'Why isn’t my website generating leads?' };
+  assert.deepEqual(followUpFunnel(value), {
+    key: 'website_leads_question',
+    openedEvent: 'website_leads_follow_up_opened',
+    startedEvent: 'website_leads_follow_up_started',
+    savedEvent: 'website_leads_follow_up_saved',
+  });
+  const link = new URL(followUpPath(value), 'https://newtechadvertising.com');
+  assert.equal(link.pathname, '/contact');
+  assert.equal(link.hash, '#follow-up-request');
+  assert.deepEqual(contextFromSearch(link.search), value);
+  assert.equal(followUpDetails({ context: value, message: 'A question' }).metadata.lead_path, 'website_leads_question');
+  for (const path of ['/knowledge/questions/not-approved', 'https://evil.example/knowledge/questions/why-isnt-my-website-generating-leads', '/contact?lead_path=website_leads_question']) {
+    assert.equal(followUpFunnel({ path }), null);
+  }
+});

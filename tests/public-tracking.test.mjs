@@ -216,3 +216,77 @@ test('direct first visits keep an empty referrer and path normalization never ch
   assert.equal(f.attribution.safePublicPageUrl(''), '');
   assert.equal(f.attribution.safePublicPageUrl('https://newtechadvertising.com//example.com/path'), 'https://newtechadvertising.com//example.com/path');
 });
+
+
+test('GA bootstrap is absent from HTML and begins once only for an eligible public route', () => {
+  const html = readFileSync('index.html', 'utf8');
+  assert.doesNotMatch(html, /googletagmanager\.com\/gtag\/js|gtag\('config'/);
+  for (const options of [
+    { href: 'https://newtechadvertising.com/AdminAccess', noIndex: true },
+    { href: 'https://newtechadvertising.com/admin/ai-workforce', noIndex: true },
+    { href: 'https://preview.base44.app/knowledge/questions/why-isnt-my-website-generating-leads' },
+    { href: 'https://newtechadvertising.com/contact?nta_internal_test=1' },
+  ]) {
+    const f = fixture({ ...options, initializeEligibility: false });
+    f.tracking.trackPublicPageView({ navigationKey: 'excluded', pathname: new URL(options.href).pathname, title: 'Excluded', noIndex: options.noIndex });
+    f.journey.trackJourneyEvent('question_path_opened');
+    assert.equal(f.scripts.length, 0);
+    assert.equal(f.commands.length, 0);
+    assert.equal(f.base.length, 0);
+  }
+  const f = fixture({ initializeEligibility: false });
+  f.journey.trackJourneyEvent('question_path_opened');
+  assert.equal(f.commands.length, 0, 'No custom events before route eligibility');
+  const page = { navigationKey: 'public', pathname: '/', title: 'NTA' };
+  f.tracking.trackPublicPageView(page);
+  f.tracking.trackPublicPageView(page);
+  assert.equal(f.scripts.length, 1);
+  assert.equal(f.commands.filter(command => command[0] === 'config').length, 1);
+  assert.equal(f.commands.find(command => command[0] === 'config')[2].send_page_view, false);
+  assert.equal(f.google.filter(event => event[1] === 'page_view').length, 1);
+});
+
+test('route suppression restores only its own flag and preserves pre-existing opt-out and consent queue', () => {
+  const queue = [['consent', 'default', { analytics_storage: 'denied' }]];
+  const optedOut = fixture({ preExistingOptOut: true, dataLayer: queue });
+  optedOut.tracking.trackPublicPageView({ navigationKey: 'a', pathname: '/', title: 'NTA' });
+  optedOut.go('https://newtechadvertising.com/AdminAccess');
+  optedOut.tracking.trackPublicPageView({ navigationKey: 'b', pathname: '/AdminAccess', title: 'Excluded', noIndex: true });
+  optedOut.go('https://newtechadvertising.com/contact');
+  optedOut.tracking.trackPublicPageView({ navigationKey: 'c', pathname: '/contact', title: 'Contact' });
+  assert.equal(optedOut.context['ga-disable-G-147H1M41PT'], true);
+  assert.equal(optedOut.scripts.length, 0);
+  assert.equal(optedOut.context.dataLayer, queue);
+  assert.deepEqual(queue, [['consent', 'default', { analytics_storage: 'denied' }]]);
+
+  const f = fixture({ dataLayer: queue });
+  f.tracking.trackPublicPageView({ navigationKey: 'a', pathname: '/', title: 'NTA' });
+  f.go('https://newtechadvertising.com/AdminAccess');
+  f.journey.trackJourneyEvent('question_path_opened');
+  assert.equal(f.google.length, 1, 'A changed route cannot reuse the previous route eligibility');
+  f.tracking.trackPublicPageView({ navigationKey: 'b', pathname: '/AdminAccess', title: 'Excluded', noIndex: true });
+  assert.equal(f.context['ga-disable-G-147H1M41PT'], true);
+  f.go('https://newtechadvertising.com/contact');
+  f.tracking.trackPublicPageView({ navigationKey: 'c', pathname: '/contact', title: 'Contact' });
+  assert.equal(f.context['ga-disable-G-147H1M41PT'], false);
+  assert.equal(f.scripts.length, 1);
+  assert.equal(f.google.length, 2);
+  assert.equal(f.context.dataLayer, queue);
+  assert.equal(f.commands.some(command => command[0] === 'consent'), false, 'No consent grant or replacement');
+});
+
+test('internal QA measurement exclusion survives navigation and can be cleared explicitly', () => {
+  for (const storageBlocked of [false, true]) {
+    const f = fixture({ href: 'https://newtechadvertising.com/knowledge?nta_internal_test=1', storageBlocked });
+    f.tracking.trackPublicPageView({ navigationKey: 'a', pathname: '/knowledge', title: 'Library' });
+    f.go('https://newtechadvertising.com/contact');
+    f.tracking.trackPublicPageView({ navigationKey: 'b', pathname: '/contact', title: 'Contact' });
+    f.journey.trackJourneyEvent('website_leads_follow_up_started');
+    assert.equal(f.commands.length, 0);
+    assert.equal(f.base.length, 0);
+    f.go('https://newtechadvertising.com/contact?nta_internal_test=0');
+    f.tracking.trackPublicPageView({ navigationKey: 'c', pathname: '/contact', title: 'Contact' });
+    assert.equal(f.google.length, 1);
+    assert.equal(f.google[0][2].page_location, 'https://newtechadvertising.com/contact');
+  }
+});
