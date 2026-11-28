@@ -11,7 +11,9 @@ const code = ts.transpileModule(readFileSync('src/pages/Contact.jsx', 'utf8'), {
   compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
 }).outputText;
 
-function harness(invoke, draftQuestion = '') {
+function harness(invoke, draftQuestion = '', options = {}) {
+  const events = [];
+  const effects = [];
   const slots = [];
   let cursor = 0;
   const state = initial => {
@@ -21,13 +23,15 @@ function harness(invoke, draftQuestion = '') {
   };
   const react = {
     useState: state,
+    useEffect(effect) { effects.push(effect); },
     useRef(initial) {
       const index = cursor++;
       if (!(index in slots)) slots[index] = { current: initial };
       return slots[index];
     },
   };
-  const search = '?from=%2Fcanon%2Fworking-with-ai&topic=Working+with+AI';
+  const search = options.search || '?from=%2Fcanon%2Fworking-with-ai&topic=Working+with+AI';
+  const hash = options.hash || '';
   const context = {
     exports: {},
     URLSearchParams, Date,
@@ -37,15 +41,16 @@ function harness(invoke, draftQuestion = '') {
     require(name) {
       if (name === 'react') return react;
       if (name === 'react/jsx-runtime') return require(name);
-      if (name === 'react-router-dom') return { Link: 'a', useLocation: () => ({ search, pathname: '/contact', state: { nta_follow_up_question: draftQuestion } }) };
+      if (name === 'react-router-dom') return { Link: 'a', useLocation: () => ({ search, hash, key: 'contact-1', pathname: '/contact', state: { nta_follow_up_question: draftQuestion } }) };
       if (name === '@/lib/contentJourney') return journey;
+      if (name === '@/lib/journeyAnalytics') return { trackJourneyEvent(name, details) { events.push({ name, details }); } };
       if (name === '@/lib/publicVerification') return { invokeVerifiedPublicFunction: invoke };
       return new Proxy({}, { get: (_, key) => String(key) });
     },
   };
   vm.runInNewContext(code, context);
   const render = () => { cursor = 0; return context.exports.default(); };
-  return { render };
+  return { render, events, effects };
 }
 
 function nodes(node) {
@@ -123,4 +128,59 @@ test('a question from the Guide is an editable draft, never an automatic submiss
   tree = h.render();
   assert.equal(find(tree, node => node.props?.id === 'contact-message').props.value, 'Here is my revised question.');
   assert.equal(submissions, 0);
+});
+
+
+test('question follow-up targets the form heading and starts measurement only after a visitor changes the form', () => {
+  const path = '/knowledge/questions/why-isnt-my-website-generating-leads';
+  const link = new URL(journey.followUpPath({ path, title: 'Why isn’t my website generating leads?' }), 'https://newtechadvertising.com');
+  const h = harness(() => { throw new Error('No submission expected'); }, '', { search: link.search, hash: link.hash });
+  const tree = h.render();
+  const heading = find(tree, node => node.props?.id === 'follow-up-request');
+  assert.equal(link.hash, '#follow-up-request');
+  assert.equal(heading.props.tabIndex, -1);
+  const focused = [];
+  heading.ref.current = { focus(options) { focused.push(['focus', options]); }, scrollIntoView(options) { focused.push(['scroll', options]); } };
+  h.effects.forEach(effect => effect());
+  assert.equal(focused.length, 2);
+  assert.equal(h.events.length, 0, 'Loading/focusing the form is not a form start');
+  const form = find(tree, node => node.type === 'form');
+  form.props.onChangeCapture();
+  form.props.onChangeCapture();
+  assert.deepEqual(JSON.parse(JSON.stringify(h.events)), [{ name: 'website_leads_follow_up_started', details: { route: path, source: 'contact_form' } }]);
+});
+
+test('other content paths retain the existing follow-up behavior without manufacturing the measured funnel', () => {
+  const h = harness(() => { throw new Error('No submission expected'); });
+  const tree = h.render();
+  find(tree, node => node.type === 'form').props.onChangeCapture();
+  assert.equal(h.events.length, 0);
+});
+
+
+test('the actual question CTA keeps its context, targets the form, and emits only the fixed opened stage', () => {
+  const source = ts.transpileModule(readFileSync('src/components/knowledge/ContentNextSteps.jsx', 'utf8'), {
+    compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+  }).outputText;
+  const events = [];
+  const context = {
+    exports: {},
+    require(name) {
+      if (name === 'react/jsx-runtime') return require(name);
+      if (name === 'react-router-dom') return { Link: 'a' };
+      if (name === '@/lib/contentJourney') return journey;
+      if (name === '@/lib/journeyAnalytics') return { trackJourneyEvent(name, details) { events.push({ name, details }); } };
+      return new Proxy({}, { get: (_, key) => String(key) });
+    },
+  };
+  vm.runInNewContext(source, context);
+  const path = '/knowledge/questions/why-isnt-my-website-generating-leads';
+  const tree = context.exports.ContentNextSteps({ title: 'Why isn’t my website generating leads?', path });
+  const link = find(tree, node => typeof node.props?.to === 'string' && node.props.to.startsWith('/contact?'));
+  assert.ok(link.props.to.endsWith('#follow-up-request'));
+  assert.equal(events.length, 0, 'Rendering the question does not manufacture an opened stage');
+  link.props.onClick();
+  assert.deepEqual(events.map(event => event.name), ['content_follow_up_opened', 'website_leads_follow_up_opened']);
+  assert.equal(events[1].details.route, path);
+  assert.doesNotMatch(JSON.stringify(events), /Why isn|topic=/);
 });

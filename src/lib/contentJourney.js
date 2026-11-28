@@ -19,14 +19,29 @@ export function contentContext(value) {
   return path && title ? { path, title } : null;
 }
 
+
+const WEBSITE_LEADS_FUNNEL = Object.freeze({
+  key: 'website_leads_question',
+  openedEvent: 'website_leads_follow_up_opened',
+  startedEvent: 'website_leads_follow_up_started',
+  savedEvent: 'website_leads_follow_up_saved',
+});
+
+// Fixed event names are reportable through GA4 eventName without registering
+// a custom dimension. Arbitrary topic text and query values never become events.
+export function followUpFunnel(value) {
+  return contentPath(value?.path || value) === '/knowledge/questions/why-isnt-my-website-generating-leads'
+    ? WEBSITE_LEADS_FUNNEL : null;
+}
+
 export function followUpPath(value) {
   const context = contentContext(value);
   if (!context) return '/contact';
-  return '/contact?' + new URLSearchParams({ from: context.path, topic: context.title }).toString();
+  return '/contact?' + new URLSearchParams({ from: context.path, topic: context.title }).toString() + '#follow-up-request';
 }
 
 export function contextFromSearch(search) {
-  const params = new URLSearchParams(search || '');
+  const params = new URLSearchParams(String(search || '').split('#', 1)[0]);
   return contentContext({ path: params.get('from'), title: params.get('topic') });
 }
 
@@ -92,6 +107,7 @@ export function followUpDetails({ message, context: value, preference = 'email' 
       requested_follow_up: true,
       preferred_contact: channel,
       ...(context ? { content_context: context } : {}),
+      ...(followUpFunnel(context) ? { lead_path: followUpFunnel(context).key } : {}),
       consent_scope: 'Reply to this request; newsletter subscription is separate.',
     },
   };

@@ -1,5 +1,6 @@
 import { base44 } from '@/api/base44Client';
-import { publicMeasurementContext, withVisitorAttribution } from '@/lib/visitorAttribution';
+import { isPublicMeasurementEnabled, publicMeasurementContext, withVisitorAttribution } from '@/lib/visitorAttribution';
+import { followUpFunnel } from '@/lib/contentJourney';
 
 const ACTIONS = {
   growthGuideChat: 'growth_guide_chat',
@@ -29,7 +30,7 @@ function trackConfirmedInquiry(name, payload, result) {
   if (name !== 'ntaUnifiedIntake' || result?.success !== true ||
       result?.accepted === false || typeof result?.submission_id !== 'string' ||
       !result.submission_id.trim() ||
-      !['newtechadvertising.com', 'www.newtechadvertising.com'].includes(globalThis.location?.hostname)) return;
+      !isPublicMeasurementEnabled()) return;
   if (trackedInquiryIds.has(result.submission_id)) return;
   trackedInquiryIds.add(result.submission_id);
   const properties = {
@@ -45,6 +46,20 @@ function trackConfirmedInquiry(name, payload, result) {
       Promise.resolve(globalThis.gtag('event', 'inquiry_saved', { ...publicMeasurementContext(), ...properties })).catch(() => {});
     }
   } catch { /* Analytics is optional. */ }
+  // This supplemental stage is not registered as a key event. The overall
+  // inquiry_saved event above remains the single inquiry conversion signal.
+  const funnel = payload?.submission_type === 'contact'
+    ? followUpFunnel(payload?.raw_payload?.content_context) : null;
+  if (funnel) {
+    try {
+      Promise.resolve(base44.analytics.track({ eventName: funnel.savedEvent, properties })).catch(() => {});
+    } catch { /* The request is already saved. */ }
+    try {
+      if (typeof globalThis.gtag === 'function') {
+        Promise.resolve(globalThis.gtag('event', funnel.savedEvent, { ...publicMeasurementContext(), ...properties })).catch(() => {});
+      }
+    } catch { /* The request is already saved. */ }
+  }
 }
 
 
@@ -54,7 +69,7 @@ function trackConfirmedJournalSubscription(name, payload, result) {
   if (name !== 'publicationSignup' || payload?.publication_tag !== 'nta-journal' ||
       result?.success !== true || result?.accepted === false ||
       typeof result?.subscriber_id !== 'string' || !result.subscriber_id.trim() ||
-      !['newtechadvertising.com', 'www.newtechadvertising.com'].includes(globalThis.location?.hostname)) return;
+      !isPublicMeasurementEnabled()) return;
   if (trackedJournalSubscriberIds.has(result.subscriber_id)) return;
   if (trackedJournalSubscriberIds.size >= 500) trackedJournalSubscriberIds.clear();
   trackedJournalSubscriberIds.add(result.subscriber_id);
