@@ -21,7 +21,7 @@ const READING_TIME = "9 min read";
 const LEVEL = "All levels";
 const AUTHOR_LABEL = "NTA Point of View";
 const PREVIOUS_LABEL = "Previous Lesson: AI Didn't Give Me My Experience";
-const NEXT_LABEL = "Continue Learning";
+const NEXT_LABEL = "Next Lesson";
 const PUBLISHED_DATE = null;
 const MODIFIED_DATE = null;
 const READER_RESPONSE = null;
@@ -32,7 +32,7 @@ const SEO_TITLE = "I Was Afraid AI Would Take My Voice. It Helped Me Find It. | 
 const CANONICAL = "https://newtechadvertising.com/knowledge/what-a-lifetime-in-business-taught-me/i-was-afraid-ai-would-take-my-voice-it-helped-me-find-it";
 const LESSON_ID = 906;
 const PREVIOUS_PATH = "/knowledge/what-a-lifetime-in-business-taught-me/ai-didnt-give-me-my-experience";
-const NEXT_PATH = "/knowledge/turning-what-a-business-knows-into-an-asset";
+const NEXT_PATH = "/knowledge/what-a-lifetime-in-business-taught-me/i-still-have-to-remind-myself-to-ask-first";
 const RELATED_LESSONS = [
   {
     "title": "Why AI Sometimes Gives You the Wrong Answer",
